@@ -1,13 +1,15 @@
-# Source for http://jakevdp.github.io
+# Source for http://pybonacci.github.io
 
-This repository contains the source for http://jakevdp.github.io/.
+This repository contains the source for http://pybonacci.github.io/.
+
+_Based on the wonderful job by Jake Vanderplas https://github.com/jakevdp/jakevdp.github.io-source (MIT License)_
 
 ## Building the Blog
 
 Clone the repository & make sure submodules are included
 
 ```
-$ git clone https://github.com/jakevdp/jakevdp.github.io-source.git
+$ git clone https://github.com/Juanlu001/pybonacci.github.io-source.git
 $ git submodule update --init --recursive
 ```
 
@@ -32,3 +34,4 @@ Deploy to github pages
 ```
 $ make publish-to-github
 ```
+

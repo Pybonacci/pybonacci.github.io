@@ -1,14 +1,12 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
 
-AUTHOR = 'Jake VanderPlas'
-SITENAME = 'Pythonic Perambulations'
-SITESUBTITLE = u'Musings and ramblings through the world of Python and beyond'
+AUTHOR = 'Pybonacci'
+SITENAME = 'Pybonacci'
+SITESUBTITLE = u'Blog sobre Python científico en español'
 SITEURL = ''
 PATH = 'content'
-TIMEZONE = 'America/Los_Angeles'
-DEFAULT_LANG = 'en'
+TIMEZONE = 'Europe/Madrid'
+DEFAULT_LANG = 'es'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -50,11 +48,8 @@ NOTEBOOK_DIR = 'downloads/notebooks'
 THEME = './theme/'
 
 ABOUT_PAGE = '/pages/about.html'
-TWITTER_USERNAME = 'jakevdp'
-GITHUB_USERNAME = 'jakevdp'
-STACKOVERFLOW_ADDRESS = 'http://stackoverflow.com/users/2937831/jakevdp'
-AUTHOR_WEBSITE = 'http://vanderplas.com'
-AUTHOR_CV = "http://staff.washington.edu/jakevdp/media/pdfs/CV.pdf"
+TWITTER_USERNAME = 'Pybonacci'
+GITHUB_USERNAME = 'Pybonacci'
 SHOW_ARCHIVES = True
 SHOW_FEED = False  # Need to address large feeds
 
@@ -64,5 +59,5 @@ STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico']
 
 # Footer info
 
-LICENSE_URL = "https://github.com/jakevdp/jakevdp.github.io-source/blob/master/LICENSE"
+LICENSE_URL = "https://github.com/Juanlu001/pybonacci.github.io-source/blob/master/LICENSE"
 LICENSE = "MIT"
