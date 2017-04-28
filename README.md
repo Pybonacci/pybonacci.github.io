@@ -16,9 +16,8 @@ $ git submodule update --init --recursive
 Install the required packages:
 
 ```
-$ conda create -n pelican-blog python=3.5 jupyter notebook
-$ source activate pelican-blog
-$ pip install pelican Markdown ghp-import
+$ conda env create [ -f environment.yml ]
+$ source activate pybonacci35
 ```
 
 Build the html and serve locally:
