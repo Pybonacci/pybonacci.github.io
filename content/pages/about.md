@@ -1,5 +1,5 @@
-title: About
-slug: about
+title: Acerca de Pybonacci
+slug: acerca-de-pybonacci
 Template: about
 
 ¡Hola a todos! Somos unos apasionados de Python que nos hemos decidido a rellenar el que pensamos que es un hueco importante en la blogosfera hispana: el uso de Python para aplicaciones científicas.

@@ -7,6 +7,7 @@ SITEURL = ''
 PATH = 'content'
 TIMEZONE = 'Europe/Madrid'
 DEFAULT_LANG = 'es'
+LOCALE = 'es_ES.UTF-8'
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
@@ -16,8 +17,8 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Set the article URL
-ARTICLE_URL = 'blog/{date:%Y}/{date:%m}/{date:%d}/{slug}/'
-ARTICLE_SAVE_AS = 'blog/{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
+ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}/'
+ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}/index.html'
 
 DEFAULT_PAGINATION = 10
 

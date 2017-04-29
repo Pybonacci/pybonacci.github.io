@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Archives{% endblock %}
+{% block title %}Archivos{% endblock %}
 {% block headerimg %}{{ DEFAUT_HEADER_BG }}{% endblock %}
 
 {% block content %}
 <div class="container list">
     <article>
-        <h1 style="margin-bottom: 30px;">Archives and tags</h1>
+        <h1 style="margin-bottom: 30px;">Archivos y etiquetas</h1>
 
         <div class="meta" style="margin-bottom: 30px;">
             {% for tag, articles in tags %}
@@ -18,7 +18,7 @@
             <li>
                 <a href='/{{ article.url }}'>
                     <h2>{{ article.title }}</h2>
-                    <span>{{ article.date.strftime('%d.%m.%Y') }}</span>
+                    <span>{{ article.date.strftime('%Y-%m-%d') }}</span>
                 </a>
             </li>
         {% endfor %}

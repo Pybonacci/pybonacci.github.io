@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Inicio{% endblock %}
 {% block headerimg %}{{ DEFAULT_HEADER_BG }}{% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
 
     <div class="meta">
       <div>
-        <a href="{{ SITEURL }}/{{ article.url }}" class="read_more">Read more &#8594;</a>
+        <a href="{{ SITEURL }}/{{ article.url }}" class="read_more">Seguir leyendo &#8594;</a>
       </div>
 
       <div>
@@ -36,12 +36,12 @@
   <nav class="pagination row">
     <div class="col-xs-6 left">
       {% if articles_page.has_next() %}
-        <a class="prev" href="{{ SITEURL }}/{{ articles_next_page.url }}">&#8592; Past</a>
+        <a class="prev" href="{{ SITEURL }}/{{ articles_next_page.url }}">&#8592; Más antiguas</a>
       {% endif %}
     </div>
     <div class="col-xs-6 right">
       {% if articles_page.has_previous() %}
-        <a class="next" href="{{ SITEURL }}/{{ articles_previous_page.url }}">Future &#8594;</a>
+        <a class="next" href="{{ SITEURL }}/{{ articles_previous_page.url }}">Más recientes &#8594;</a>
       {% endif %}
     </div>
   </nav>
