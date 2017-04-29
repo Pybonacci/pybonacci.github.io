@@ -48,7 +48,7 @@ NOTEBOOK_DIR = 'downloads/notebooks'
 # THEME SETTINGS
 THEME = './theme/'
 
-ABOUT_PAGE = '/pages/about.html'
+ABOUT_PAGE = '/pages/acerca-de-pybonacci.html'
 TWITTER_USERNAME = 'Pybonacci'
 GITHUB_USERNAME = 'Pybonacci'
 SHOW_ARCHIVES = True
