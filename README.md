@@ -18,20 +18,26 @@ Install the required packages:
 ```
 $ conda env create [ -f environment.yml ]
 $ source activate pybonacci36
-$ npm install -g less
+(pybonacci36) $ npm install -g less
+```
+
+To generate the main CSS:
+
+```
+(pybonacci36) $ lessc main.less > main.css
 ```
 
 Build the html and serve locally:
 
 ```
-$ make html
-$ make serve
-$ open http://localhost:8000
+(pybonacci36) $ make html
+(pybonacci36) $ make serve
+(pybonacci36) $ open http://localhost:8000
 ```
 
 Deploy to github pages
 
 ```
-$ make publish-to-github
+(pybonacci36) $ make publish-to-github
 ```
 

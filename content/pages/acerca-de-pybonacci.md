@@ -15,7 +15,6 @@ Vuestra colaboración es muy importante: estaremos deseando que nos indiquéis e
 Podéis contactar con nosotros de las siguientes formas:
 
   * A través de Twitter en [@Pybonacci](http://twitter.com/Pybonacci).
-  * A través de nuestro [formulario de contacto](http://pybonacci.org/contacto/).
   * A través de nuestro email <contacto@pybonacci.org>.
 
 ¡Un saludo, y nos vemos en Pybonacci!
