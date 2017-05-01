@@ -54,6 +54,8 @@ GITHUB_USERNAME = 'Pybonacci'
 SHOW_ARCHIVES = True
 SHOW_FEED = False  # Need to address large feeds
 
+ISSO_HOST = 'localhost:1234'
+
 ENABLE_MATHJAX = True
 
 STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico']
