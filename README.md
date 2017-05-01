@@ -17,7 +17,7 @@ Install the required packages:
 
 ```
 $ conda env create [ -f environment.yml ]
-$ source activate pybonacci35
+$ source activate pybonacci36
 ```
 
 Build the html and serve locally:
