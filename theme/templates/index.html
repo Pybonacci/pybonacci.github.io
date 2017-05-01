@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="container index">
+  {% block content_title %}{% endblock %}
 
   {% for article in articles_page.object_list %}
   <article>
