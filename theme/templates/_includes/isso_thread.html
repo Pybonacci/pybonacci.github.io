@@ -1,0 +1,7 @@
+{% if ISSO_HOST and SITEURL and article.status != "draft" %}
+<script data-isso="//{{ ISSO_HOST }}"
+        src="//{{ ISSO_HOST }}/js/embed.min.js"></script>
+<section id="isso-thread">
+<h3>Comentarios</h3>
+</section>
+{% endif %}
