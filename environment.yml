@@ -14,6 +14,7 @@ dependencies:
 - pytz
 - werkzeug
 - itsdangerous
+- nodejs
 - pip:
   - pelican
   - ghp-import

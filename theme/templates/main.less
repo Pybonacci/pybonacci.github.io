@@ -2,6 +2,7 @@
 
 @text-color: #222;
 @link-color: #007EE5;
+@read-more-color: #007AA3;
 
 body {
     margin: 0;
@@ -42,6 +43,11 @@ header.main-header {
     }
 }
 
+header.navbar-default {
+    border-bottom: none;
+    background-color: #EFEFEF;
+}
+
 article {
     margin: 0;
 
@@ -62,13 +68,13 @@ article {
 
         time {
             color: #9E9E9E;
-            font-size: 0.85em;
+            font-size: 1.2em;
             float: right;
         }
 
         time.left {
             color: #9E9E9E;
-            font-size: 0.85em;
+            font-size: 1.2em;
             float: left;
         }
     }
@@ -149,13 +155,13 @@ article {
 
     .meta {
         font-size: 11px;
+        margin-top: 35px;
 
         a:hover {
             text-decoration: none;
         }
 
         div {
-            margin-bottom: 20px;
             display: block;
         }
 
@@ -176,14 +182,14 @@ article {
             font-size: 14px;
             font-weight: 800;
             padding: 10px 20px;
-            color: #205F29;
+            color: @read-more-color;
             background: #FFF;
-            border: 1px solid #205F29;
+            border: 1px solid @read-more-color;
         }
 
         a.read_more:hover, a.comments_btn:hover {
             color: #FFF;
-            background: #5C881C;
+            background: @read-more-color;
         }
     }
 }
@@ -199,7 +205,7 @@ article {
                 font-weight: 700;
 
                 a {
-                    color: #000;
+                    color: #333;
                 }
                 a:hover {
                     color: @link-color;

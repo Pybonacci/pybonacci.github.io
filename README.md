@@ -18,6 +18,7 @@ Install the required packages:
 ```
 $ conda env create [ -f environment.yml ]
 $ source activate pybonacci36
+$ npm install -g less
 ```
 
 Build the html and serve locally:
