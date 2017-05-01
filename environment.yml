@@ -1,12 +1,20 @@
-name: pybonacci35
+name: pybonacci36
 channels:
 - conda-forge
 - defaults
 dependencies:
-- python>=3.5
+- python>=3.6
 - jupyter
 - notebook
+- docutils
+- markdown
+- sqlite
+- unidecode
+- blinker
+- pytz
+- werkzeug
+- itsdangerous
 - pip:
   - pelican
-  - Markdown
   - ghp-import
+  - isso
