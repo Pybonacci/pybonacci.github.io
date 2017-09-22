@@ -6,4 +6,4 @@ slug: ecuaciones-de-lotka-volterra-modelo-presa-depredador
 tags: ecuaciones diferenciales, EDOs, matplotlib.pyplot, python 3
 
 
-{% notebook downloads/notebooks/Lotka-Volterra.ipynb cells[0:] %}
+{% notebook downloads/notebooks/Lotka-Volterra.ipynb cells[:] %}
