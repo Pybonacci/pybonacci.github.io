@@ -119,9 +119,9 @@ twitterStream.filter(locations=murcia)
   </p>
 </div>
 
-<img class="aligncenter" src="http://i.imgur.com/MaHKGc8.jpg" alt="" width="1014" height="1306" />
+<img src="http://i.imgur.com/MaHKGc8.jpg" alt=""/>
   
-<img class="aligncenter" src="http://i.imgur.com/I7N3RA9.jpg" alt="" width="1015" height="1307" />
+<img src="http://i.imgur.com/I7N3RA9.jpg" alt=""/>
 
 **Bonito, ¿verdad?**
 

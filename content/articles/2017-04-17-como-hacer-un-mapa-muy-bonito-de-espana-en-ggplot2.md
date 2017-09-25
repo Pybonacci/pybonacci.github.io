@@ -17,7 +17,7 @@ Antes que nada, aquí está el mapa.
 
 El código empleado para hacer el mapa lo podeis descargar en <a href="https://github.com/manugarri/spain_census_map" target="_blank">github</a>. He compartido varias versiones del mapa para que se pueda observar como los diferentes cambios en las escalas afectan a la visualización.
 
-## Código.
+#Código.
 
 Para empezar, importamos las librerías necesarias:
 
@@ -213,7 +213,7 @@ Este código está diseñado muy cuidadosamente para exportar una imagen con un 
 
 Dado que las islas Canarias estan muy alejadas de la península, una práctica común es desplazar las islas más cerca de España, esto lo he hecho en Gimp.
 
-## Notas.
+#Notas.
 
 - Yo sabía que España tenía un problema poblacional, pero ¡madre mía! El noroeste del pais parece un gran asilo. El mapa original de Suiza tenia una escala de edad en el rango 40-52 años, pero he tenido que expandirlo a 40-56 debido al envejecimiento poblacional español.
 

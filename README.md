@@ -24,7 +24,7 @@ $ source activate pybonacci36
 To generate the main CSS:
 
 ```
-(pybonacci36) $ lessc main.less > main.css
+(pybonacci36) $lessc theme/templates/main.less > theme/templates/main.css
 ```
 
 Build the html and serve locally:

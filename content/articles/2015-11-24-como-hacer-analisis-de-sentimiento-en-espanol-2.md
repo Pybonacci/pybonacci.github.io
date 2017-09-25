@@ -58,7 +58,7 @@ Si analizamos el dataset, nos damos cuenta de que hay tweets en múltiples idiom
 
 Lo que significa que tenemos que asignar el lenguaje a cada tweet, y entonces filtrar sólo aquellos que son en español.
 
-### Detección de Lenguaje
+#Detección de Lenguaje
 
 Para asignar el lenguaje de cada tweet, he usado 3 paquetes diferentes, [langdetect](https://pypi.python.org/pypi/langdetect/1.0.1), [langid](http://github.com/saffsd/langid.py) y [Textblob](https://textblob.readthedocs.org), y solo mantuve los tweets en los que al menos un paquete decidiera que el tweet era en español.
 
@@ -95,13 +95,13 @@ tweets.to_csv('tweets_parsed2.csv', encoding='utf-8')
 tweets = tweets.query("lang_langdetect == 'es' or lang_langid == 'es' or lang_langtextblob=='es' ")
 </code></pre>
 
-# Tras filtar los archivos por lenguaje nos queda un archivo de 77,550 tweets en español.
+Tras filtar los archivos por lenguaje nos queda un archivo de 77,550 tweets en español.
 
 Como he mencionado más arriba, el corpus contiene múltiples niveles de polaridad. No obstante, hay diferencias entre diferentes archivos, por ejemplo algunos archivos sólo tienen los niveles _Positivo, Negativo y Neutral_
 
 Por lo tanto para poder trabajar con todos los archivos conjuntamente, vamos a convertir la polaridad en una variable dicotómica (binaria) con los valores _(Positivo=1, Negativo=0)_.
 
-### Procesamiento de texto
+#Procesamiento de texto
 
 Para poder analyzar los tweets, tenemos que extraer y estructurar la información contenida en el texto. Para ello, usaremos la clase [sklearn.feature_extraction.CountVectorizer](http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html).
 
@@ -261,7 +261,7 @@ vectorizer = CountVectorizer(
                 stop_words = spanish_stopwords)
 </code></pre>
 
-### Evaluación del modelo
+#Evaluación del modelo
 
 En este apartado es donde probamos múltiples algoritmos y medimos su eficacia. Herramientas como [SciKit-Learn Laboratory (SKLL)](https://github.com/EducationalTestingService/skll) ayudan mucho en este proceso.
 
