@@ -31,6 +31,12 @@ tags: lista de tags separadas por comas (por ejemplo,  "tag1, ecuaciones diferen
 
 [Aquí](https://github.com/Pybonacci/pybonacci.github.io-source/pull/9/files) se puede ver un ejemplo de Pull Request.
 
+## Sobre la aceptación de artículos.
+
+En Pybonacci creemos que cualquier persona que tenga ganas de compartir su conocimiento y que haga el (a veces gran) esfuerzo de escribir un artículo merece ser publicada.
+No obstante, también debemos garantizar una cierta calidad en el blog. Por ello, una vez se ha creado una Pull Request para enviar un artículo dicho artículo deberá ser validado por al menos 2 editores.
+
+
 ## Mejorar el blog
 
 La versión actual del proyecto usa Pelican para generar el contenido estatico. Quieres mejorar el css, añadir plugins que creas que nos podrian ayudar? Se admiten Pull Requests!
@@ -48,3 +54,7 @@ Por ejemplo, para que en un artículo se renderice un bloque de código de pytho
     import this
     print("Hello World")
 ```
+
+## ¿Quieres ser editor?
+
+¡Genial! Cuantos más seamos mejor. La manera de convertirse en editor es publicar al menos 3 artículos.
