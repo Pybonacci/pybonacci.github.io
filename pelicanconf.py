@@ -41,9 +41,9 @@ PLUGINS = [
     'liquid_tags.video',  # embedding videos
     'liquid_tags.include_code',  # including code blocks
     'liquid_tags.literal',
+    #'footer_insert',  # https://github.com/getpelican/pelican-plugins/tree/master/footer_insert
     #'headerid',  # https://github.com/getpelican/pelican-plugins/tree/master/headerid
     #'gravatar',  # https://github.com/getpelican/pelican-plugins/tree/master/gravatar
-    #'footer_insert',  # https://github.com/getpelican/pelican-plugins/tree/master/footer_insert
     #'autopages',  # https://github.com/getpelican/pelican-plugins/tree/master/autopages
     #'simple_footnotes', # https://github.com/getpelican/pelican-plugins/tree/master/simple_footnotes
     #'show_source',  # https://github.com/getpelican/pelican-plugins/tree/master/show_source
@@ -72,6 +72,5 @@ ENABLE_MATHJAX = True
 STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico']
 
 # Footer info
-
-LICENSE_URL = "https://github.com/Juanlu001/pybonacci.github.io-source/blob/master/LICENSE"
-LICENSE = "MIT"
+LICENSE_URL = "https://github.com/Pybonacci/pybonacci.github.io-source/blob/master/LICENSE.md"
+LICENSE_NAME = "CC BY-SA 4.0 + MIT"
