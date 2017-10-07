@@ -1,33 +1,35 @@
-# Source for http://pybonacci.github.io
+# Código fuente de http://pybonacci.github.io
 
-This repository contains the source for http://pybonacci.github.io/.
+Éste repositorio contiene el código fuente de  http://pybonacci.github.io/.
 
-_Based on the wonderful job by Jake Vanderplas https://github.com/jakevdp/jakevdp.github.io-source (MIT License)_
+_Estructura basada en el maravilloso trabajo de Jake Vanderplas en https://github.com/jakevdp/jakevdp.github.io-source (Licencia MIT)_
+ 
+## Cómo generar el contenido del Blog
 
-## Building the Blog
+Para crear el contenido estático del blog se necesita tener instalado [conda](https://www.anaconda.com/download) y [npm](https://www.npmjs.com/)
 
-Clone the repository & make sure submodules are included
+1. Clona el repositorio y asegurate de que los submódulos están incluidos
 
 ```
-$ git clone https://github.com/Juanlu001/pybonacci.github.io-source.git
+$ git clone https://github.com/Pybonacci/pybonacci.github.io-source.git
 $ git submodule update --init --recursive
 ```
 
-Install the required packages:
+2. Instala los paquetes requeridos:
 
 ```
-$ conda env create [ -f environment.yml ]
+$ conda env create -f environment.yml
 $ source activate pybonacci36
 (pybonacci36) $ npm install -g less
 ```
 
-To generate the main CSS:
+3. Genera el archivo `main.css`:
 
 ```
 (pybonacci36) $lessc theme/templates/main.less > theme/templates/main.css
 ```
 
-Build the html and serve locally:
+4. Genera el html estático y sirvelo localmente con `Pelican`:
 
 ```
 (pybonacci36) $ make html
@@ -35,7 +37,7 @@ Build the html and serve locally:
 (pybonacci36) $ open http://localhost:8000
 ```
 
-Deploy to github pages
+5. Despliega a Github Pages (requiere permisos de administrador).
 
 ```
 (pybonacci36) $ make publish-to-github
