@@ -78,15 +78,15 @@
         {% block content %}{% endblock %}
         </div>
 
-        <div class="container-fluid">
-          <footer class="disclaimer">
+        <footer class="disclaimer">
+          <div class="container-fluid">
             <p>
               © 2012-2017 {{ AUTHOR  }}, licencia <a href="{{ LICENSE_URL }}"> {{ LICENSE_NAME }}</a>
               salvo otra indicación.
               <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
             </p>
-          </footer>
-        </div>
+          </div>
+        </footer>
 
         {% include '_includes/analytics.html' %}
     </body>
