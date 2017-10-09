@@ -29,8 +29,12 @@
                 {% endfor %}
             </div>
         </div>
-    </article>
 
+        {% for author in article.authors %}
+          {% include author.url  ignore missing %}
+        {% endfor %}
+
+    </article>
   {% include '_includes/isso_thread.html' %}
 
 </div>
