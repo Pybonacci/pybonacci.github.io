@@ -17,3 +17,8 @@ install: true
 
 script:
   - make publish-to-github-force
+
+addons:
+  apt:
+    packages:
+    - node-less
