@@ -4,7 +4,7 @@
 
 Pybonacci es un esfuerzo colaborativo entre personas de diversas industrias y ámbitos. Esto quiere decir que si crees que tienes algo interesante que aportar, seguro que podemos aprender de ti y nos encantará añadir tu artículo al blog.
 
-Los artículos se añaden al blog mediante Pull Request al repositorio con el tag `[ARTICULO]`. Los artículos pueden estar en dos formatos:
+Los artículos se añaden al blog mediante Pull Request al repositorio (a la rama `sources`, es la rama por defecto) con el tag `[ARTICULO]`. Los artículos pueden estar en dos formatos:
 
 **Formato 1. Markdown**
 Pelican soporta el formato Markdown, que es un formato que amplía el texto plano con diversas capacidades. [Aquí](https://markdown.es/) hay una guía muy buena sobre como escribir en Markdown.
@@ -48,3 +48,12 @@ Por ejemplo, para que en un artículo se renderice un bloque de código de pytho
     import this
     print("Hello World")
 ```
+
+## Sobre la aceptación de artículos.
+
+En Pybonacci creemos que cualquier persona que tenga ganas de compartir su conocimiento y que haga el (a veces gran) esfuerzo de escribir un artículo merece ser publicada.
+No obstante, también debemos garantizar una cierta calidad en el blog. Por ello, una vez se ha creado una Pull Request para enviar un artículo dicho artículo deberá ser validado por al menos 2 editores.
+
+## ¿Quieres ser editor?
+
+¡Genial! Cuantos más seamos mejor. La manera de convertirse en editor es publicar al menos 3 artículos.
