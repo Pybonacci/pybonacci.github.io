@@ -17,8 +17,6 @@ install: true
 
 script:
   - make publish
-
-after_success:
   - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then make publish-to-github-force; fi
 
 addons:
