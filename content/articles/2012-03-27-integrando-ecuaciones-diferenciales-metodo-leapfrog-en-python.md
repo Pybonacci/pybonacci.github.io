@@ -126,7 +126,7 @@ Y ya, para dar el toque de gracia, representemos gráficamente la solución con 
 <pre><code class="language-python">plt.plot(t, x)
 plt.show()</code></pre>
 
-[<img class="aligncenter size-medium wp-image-108" title="Solución numérica" src="http://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png?w=300" alt="" width="300" height="225" srcset="https://pybonacci.es/wp-content/uploads/2012/03/sol_numerica.png 800w, https://pybonacci.es/wp-content/uploads/2012/03/sol_numerica-300x225.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png)
+[<img class="aligncenter size-medium wp-image-108" title="Solución numérica" src="http://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png?w=300" alt="" width="300" height="225" srcset="https://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png 800w, https://pybonacci.org/wp-content/uploads/2012/03/sol_numerica-300x225.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png)
 
 ¿Esperabas que fuese más difícil? 😀
 

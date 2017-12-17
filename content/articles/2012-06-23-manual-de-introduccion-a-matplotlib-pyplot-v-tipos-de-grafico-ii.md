@@ -38,7 +38,7 @@ plt.hist(x, bins = 20)  # Dibuja un histograma dividiendo el vector x en 20 inte
 
 El resultado sería el siguiente, donde se representa el cálculo que haría la función [np.histogram](http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html) gráficamente y en un solo paso:
 
-[<img class="aligncenter size-full wp-image-611" title="histograma" src="http://pybonacci.org/wp-content/uploads/2012/06/histograma.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/06/histograma.png 652w, https://pybonacci.es/wp-content/uploads/2012/06/histograma-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/histograma.png)
+[<img class="aligncenter size-full wp-image-611" title="histograma" src="http://pybonacci.org/wp-content/uploads/2012/06/histograma.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/06/histograma.png 652w, https://pybonacci.org/wp-content/uploads/2012/06/histograma-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/histograma.png)
 
 Podéis jugar también con [np.histogram2d](http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram2d.html#numpy.histogram2d), [np.histogramdd](http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogramdd.html#numpy.histogramdd) y [np. bincount](http://docs.scipy.org/doc/numpy/reference/generated/numpy.bincount.html#numpy.bincount)
 
@@ -55,7 +55,7 @@ plt.xticks(np.arange(5), fechas, rotation = 45)  # Colocamos las etiquetas del e
 
 Obtendríamos un resultado como este:
 
-[<img class="aligncenter size-full wp-image-612" title="prima" src="http://pybonacci.org/wp-content/uploads/2012/06/prima.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/06/prima.png 652w, https://pybonacci.es/wp-content/uploads/2012/06/prima-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/prima.png)
+[<img class="aligncenter size-full wp-image-612" title="prima" src="http://pybonacci.org/wp-content/uploads/2012/06/prima.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/06/prima.png 652w, https://pybonacci.org/wp-content/uploads/2012/06/prima-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/prima.png)
 
 Si las barras las queréis dibujar en dirección horizontal en lugar de vertical podéis echarle un ojo a matplotlib.pyplot.barh. Siguiendo con los gráficos de barras vamos a ver un caso un poco más especial haciendo uso de matplotlib.pyplot.broken_barh. Queremos representar el tipo de nubosidad que ha habido en un día concreto para saber cuando juanlu ha podido mirar las estrellas con su telescopio. El tipo de nubosidad lo vamos a desglosar en nubes bajas, medias y altas.
 
@@ -70,7 +70,7 @@ plt.xlabel('t(h)')  # Y finalmente ponemos un título al eje x, el eje de tiempo
 
 Además de poder ver que juanlu no ha podido usar su telescopio más que para mirar a la piscina de los vecinos porque el cielo estaba tapado, obtendríamos un resultado como este:
 
-[<img class="aligncenter size-full wp-image-614" title="nubes" src="http://pybonacci.org/wp-content/uploads/2012/06/nubes1.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/06/nubes1.png 652w, https://pybonacci.es/wp-content/uploads/2012/06/nubes1-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/nubes1.png)
+[<img class="aligncenter size-full wp-image-614" title="nubes" src="http://pybonacci.org/wp-content/uploads/2012/06/nubes1.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/06/nubes1.png 652w, https://pybonacci.org/wp-content/uploads/2012/06/nubes1-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/nubes1.png)
 
 En plt.broken_barh se define primero los valores de x donde irá una barra y la longitud de esta barra y luego se pone el rango de valores de y para todas las barras definidas en x (además de poder cambiar colores y demás de las barras):
 
@@ -86,6 +86,6 @@ plt.xlim(0,11)</code></pre>
 
 El where sirve para situar el centro de la escalera (trastead con ello, que es gratis). El resultado sería:
 
-[<img class="aligncenter size-full wp-image-618" title="step" src="http://pybonacci.org/wp-content/uploads/2012/06/step.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/06/step.png 652w, https://pybonacci.es/wp-content/uploads/2012/06/step-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/step.png)
+[<img class="aligncenter size-full wp-image-618" title="step" src="http://pybonacci.org/wp-content/uploads/2012/06/step.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/06/step.png 652w, https://pybonacci.org/wp-content/uploads/2012/06/step-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/step.png)
 
 Y, de momento, hemos acabado por hoy. El próximo día veremos más tipos de gráfico que podemos hacer con matplotlib.pyplot. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega tendrás que esperar que encontremos un ratico para poder hacerla.

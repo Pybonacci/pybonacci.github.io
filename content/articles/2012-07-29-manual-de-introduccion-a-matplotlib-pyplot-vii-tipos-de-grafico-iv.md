@@ -59,11 +59,11 @@ m.barbs(x,y,u[0,:,:],v[0,:,:],length=5,barbcolor='w',flagcolor='w',linewidth=0.5
 
 El resultado quedaría de la siguiente forma:
 
-[<img class="aligncenter size-full wp-image-717" title="barbs" alt="" src="http://pybonacci.org/wp-content/uploads/2012/07/barbs.png" width="700" height="587" srcset="https://pybonacci.es/wp-content/uploads/2012/07/barbs.png 999w, https://pybonacci.es/wp-content/uploads/2012/07/barbs-300x251.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/07/barbs.png)
+[<img class="aligncenter size-full wp-image-717" title="barbs" alt="" src="http://pybonacci.org/wp-content/uploads/2012/07/barbs.png" width="700" height="587" srcset="https://pybonacci.org/wp-content/uploads/2012/07/barbs.png 999w, https://pybonacci.org/wp-content/uploads/2012/07/barbs-300x251.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/07/barbs.png)
 
 Y un detalle de la parte sur:
 
-[<img class="aligncenter size-full wp-image-718" title="barbs_detalle" alt="" src="http://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle.png" width="700" height="587" srcset="https://pybonacci.es/wp-content/uploads/2012/07/barbs_detalle.png 999w, https://pybonacci.es/wp-content/uploads/2012/07/barbs_detalle-300x251.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle.png)
+[<img class="aligncenter size-full wp-image-718" title="barbs_detalle" alt="" src="http://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle.png" width="700" height="587" srcset="https://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle.png 999w, https://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle-300x251.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/07/barbs_detalle.png)
 
 El código completo del ejemplo:
 

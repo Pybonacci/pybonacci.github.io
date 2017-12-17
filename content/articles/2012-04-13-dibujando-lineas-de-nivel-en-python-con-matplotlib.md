@@ -127,7 +127,7 @@ Out[12]:
 In [13]: plt.show()</code></pre>
 
 <p style="text-align:center">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png"><img class="aligncenter  wp-image-164" title="Curvas de nivel" src="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png" alt="Curvas de nivel" width="448" height="336" srcset="https://pybonacci.es/wp-content/uploads/2012/04/rare_contour.png 800w, https://pybonacci.es/wp-content/uploads/2012/04/rare_contour-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
+  <a href="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png"><img class="aligncenter  wp-image-164" title="Curvas de nivel" src="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png" alt="Curvas de nivel" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
 </p>
 
 E voilà! Sencillo como siempre 🙂 Incluso podemos rizar más el rizo:
@@ -137,7 +137,7 @@ In [15]: cs2 = plt.contour(X, Y, Z, cs1.levels, colors='k')  # Añadimos bordes 
 In [16]: plt.show()</code></pre>
 
 <p style="text-align:center">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png"><img class="aligncenter  wp-image-165" title="Curvas de nivel con relleno" src="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png" alt="Curvas de nivel con relleno" width="448" height="336" srcset="https://pybonacci.es/wp-content/uploads/2012/04/rare_contour_f.png 800w, https://pybonacci.es/wp-content/uploads/2012/04/rare_contour_f-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
+  <a href="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png"><img class="aligncenter  wp-image-165" title="Curvas de nivel con relleno" src="http://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png" alt="Curvas de nivel con relleno" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
 </p>
 
 La biblioteca matplotlib es enorme y da docenas de opciones para configurar la apariencia: colores, ejes... es cuestión de bucear en la documentación y experimentar.

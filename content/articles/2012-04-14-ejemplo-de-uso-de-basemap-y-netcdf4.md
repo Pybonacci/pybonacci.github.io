@@ -133,7 +133,7 @@ plt.show()</code></pre>
 
 Este último código mostrará la siguiente figura:
 
-[<img class="aligncenter size-full wp-image-173" title="Ejemplo_BlueMarble" src="http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble.png" alt="" width="700" height="500" srcset="https://pybonacci.es/wp-content/uploads/2012/04/ejemplo_bluemarble.png 800w, https://pybonacci.es/wp-content/uploads/2012/04/ejemplo_bluemarble-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble.png)
+[<img class="aligncenter size-full wp-image-173" title="Ejemplo_BlueMarble" src="http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble.png" alt="" width="700" height="500" srcset="https://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_bluemarble.png)
 
 En el anterior mapa hemos mostrado las líneas de nivel de la presión, hemos dibujado meridianos y paralelos y lo hemos representado con una proyección cilíndrica de Miller usando como fondo los datos [Blue Marble de la NASA](http://en.wikipedia.org/wiki/The_Blue_Marble).
 
@@ -151,7 +151,7 @@ plt.show()</code></pre>
 
 Y obtenemos el siguiente resultado:
 
-[<img class="aligncenter size-full wp-image-176" title="Ejemplo_P_y_T" src="http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t.png" alt="" width="700" height="500" srcset="https://pybonacci.es/wp-content/uploads/2012/04/ejemplo_p_y_t.png 800w, https://pybonacci.es/wp-content/uploads/2012/04/ejemplo_p_y_t-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t.png)
+[<img class="aligncenter size-full wp-image-176" title="Ejemplo_P_y_T" src="http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t.png" alt="" width="700" height="500" srcset="https://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/04/ejemplo_p_y_t.png)
 
 Donde hemos representado la presión al nivel del mar (isolíneas en color negro), las temperaturas en superficie (contornos de color rellenos), las líneas de costa (líneas continuas grises), paralelos y meridianos.
 

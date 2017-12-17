@@ -66,7 +66,7 @@ En este pequeño documento están recogidas las estructuras básicas que usaremo
 
 Se genera algo muy similar a esto:<figure id="attachment_808" style="width: 560px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-808 " title="Archivo HTML generado por Docutils" alt="" src="http://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png" width="560" height="526" srcset="https://pybonacci.es/wp-content/uploads/2012/09/intro_rest.png 774w, https://pybonacci.es/wp-content/uploads/2012/09/intro_rest-300x282.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png)<figcaption class="wp-caption-text">Archivo HTML generado a partir del fichero reST por Docutils</figcaption></figure> 
+[<img class=" wp-image-808 " title="Archivo HTML generado por Docutils" alt="" src="http://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png" width="560" height="526" srcset="https://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png 774w, https://pybonacci.org/wp-content/uploads/2012/09/intro_rest-300x282.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png)<figcaption class="wp-caption-text">Archivo HTML generado a partir del fichero reST por Docutils</figcaption></figure> 
 
 Y si queremos generar un PDF y tenemos instalado LaTeX, no hay más que ejecutar
 

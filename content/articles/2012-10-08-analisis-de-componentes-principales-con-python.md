@@ -92,7 +92,7 @@ plt.show()</code></pre>
 
 La siguiente imagen muestra el resultado con 100 componentes principales:
 
-[<img class="aligncenter size-full wp-image-967" title="king-100pcs" src="http://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/10/king-100pcs.png 652w, https://pybonacci.es/wp-content/uploads/2012/10/king-100pcs-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png)
+[<img class="aligncenter size-full wp-image-967" title="king-100pcs" src="http://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/king-100pcs-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png)
 
 Tampoco está tan mal comparado con la imagen original de más arriba.
 
@@ -108,7 +108,7 @@ plt.show()</code></pre>
 
 Para obtener el siguiente gráfico:<figure id="attachment_980" style="width: 652px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-980" title="varianza explicada y acumulada por las componentes principales" src="http://pybonacci.org/wp-content/uploads/2012/10/varianza.png" alt="varianza explicada y acumulada por las componentes principales" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/10/varianza.png 652w, https://pybonacci.es/wp-content/uploads/2012/10/varianza-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/varianza.png)<figcaption class="wp-caption-text">varianza explicada y acumulada por las componentes principales</figcaption></figure> 
+[<img class="size-full wp-image-980" title="varianza explicada y acumulada por las componentes principales" src="http://pybonacci.org/wp-content/uploads/2012/10/varianza.png" alt="varianza explicada y acumulada por las componentes principales" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/10/varianza.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/varianza-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/varianza.png)<figcaption class="wp-caption-text">varianza explicada y acumulada por las componentes principales</figcaption></figure> 
 
 Con unas 30, 35 componentes principales se tendría una varianza acumulada en torno al 90% mientras que el 99% se superaría con menos de 180 componentes principales.
 

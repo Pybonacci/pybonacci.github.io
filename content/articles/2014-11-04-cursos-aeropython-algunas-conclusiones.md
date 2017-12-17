@@ -8,7 +8,7 @@ tags: #aeropython, etsiae, python
 La semana pasada clausuramos nuestro [segundo curso de Python para aeronáuticos](http://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/ "Curso de Python en la ETSIAE: 2ª edición") con unas más que exitosas PyCañas (¡lamentablemente sin testimonio gráfico!) y fue incluso más emocionante que la [primera edición](http://pybonacci.org/2014/01/23/curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid/ "Curso de Python en la ETSI Aeronáutica y del Espacio de Madrid"). Hemos pulido el material, hemos progresado como profesores y como programadores y nuestros alumnos han acabado muy contentos. Me gustaría compartir un par de reflexiones por vosotros.
 
 <p style="text-align: center">
-  <a href="http://pybonacci.org/wp-content/uploads/2014/10/aeropython.jpg"><img src="http://pybonacci.org/wp-content/uploads/2014/10/aeropython-300x198.jpg" alt="AeroPython" width="300" height="198" class="aligncenter size-medium wp-image-2754" srcset="https://pybonacci.es/wp-content/uploads/2014/10/aeropython-300x198.jpg 300w, https://pybonacci.es/wp-content/uploads/2014/10/aeropython.jpg 800w" sizes="(max-width: 300px) 100vw, 300px" /></a>
+  <a href="http://pybonacci.org/wp-content/uploads/2014/10/aeropython.jpg"><img src="http://pybonacci.org/wp-content/uploads/2014/10/aeropython-300x198.jpg" alt="AeroPython" width="300" height="198" class="aligncenter size-medium wp-image-2754" srcset="https://pybonacci.org/wp-content/uploads/2014/10/aeropython-300x198.jpg 300w, https://pybonacci.org/wp-content/uploads/2014/10/aeropython.jpg 800w" sizes="(max-width: 300px) 100vw, 300px" /></a>
 </p>
 
 Por un lado, ciñéndonos solamente a los resultados de la encuesta de satisfacción, hemos mejorado en todos los aspectos:

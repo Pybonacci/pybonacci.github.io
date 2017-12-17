@@ -18,7 +18,7 @@ El curso durará 10 horas, <ins datetime="2015-09-19T06:36:06+00:00">será gratu
 
 **El horario será de 13:00 a 15:00 los días 5 a 9 de octubre y las clases tendrán lugar en el aula 7.0.J03**.
 
-[<img src="http://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png" alt="Cartel Curso Python UC3M" width="207" height="300" class="aligncenter size-medium wp-image-3448" srcset="https://pybonacci.es/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png 207w, https://pybonacci.es/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015.png 540w" sizes="(max-width: 207px) 100vw, 207px" />](http://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015.png)
+[<img src="http://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png" alt="Cartel Curso Python UC3M" width="207" height="300" class="aligncenter size-medium wp-image-3448" srcset="https://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png 207w, https://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015.png 540w" sizes="(max-width: 207px) 100vw, 207px" />](http://pybonacci.org/wp-content/uploads/2015/09/cartel_curso_Python_uc3m_oct-2015.png)
 
 <!--more-->
 

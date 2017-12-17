@@ -143,7 +143,7 @@ for j in range(3):
     ax[j].get_xaxis().tick_bottom()
     ax[j].get_yaxis().tick_left()</code></pre>
 
-[<img class="aligncenter wp-image-2383 size-full" src="http://pybonacci.files.wordpress.com/2014/07/velocidades.png" alt="velocidades" width="621" height="383" srcset="https://pybonacci.es/wp-content/uploads/2014/07/velocidades.png 621w, https://pybonacci.es/wp-content/uploads/2014/07/velocidades-300x185.png 300w" sizes="(max-width: 621px) 100vw, 621px" />](https://plot.ly/~pfsq/138)
+[<img class="aligncenter wp-image-2383 size-full" src="http://pybonacci.files.wordpress.com/2014/07/velocidades.png" alt="velocidades" width="621" height="383" srcset="https://pybonacci.org/wp-content/uploads/2014/07/velocidades.png 621w, https://pybonacci.org/wp-content/uploads/2014/07/velocidades-300x185.png 300w" sizes="(max-width: 621px) 100vw, 621px" />](https://plot.ly/~pfsq/138)
 
 Lo que vemos en la gráfica de arriba son tres subgráficas que comparten el mismo eje _x_. De ese modo podemos ver la relación entre los diversos parámetros.
 
@@ -167,7 +167,7 @@ ax1.spines["right"].set_visible(False)
 ax1.get_xaxis().tick_bottom()
 ax1.get_yaxis().tick_left()</code></pre>
 
-[<img class="aligncenter wp-image-2390 size-full" src="http://pybonacci.files.wordpress.com/2014/07/rpm.png" alt="rpm" width="624" height="383" srcset="https://pybonacci.es/wp-content/uploads/2014/07/rpm.png 624w, https://pybonacci.es/wp-content/uploads/2014/07/rpm-300x184.png 300w" sizes="(max-width: 624px) 100vw, 624px" />](https://plot.ly/~pfsq/139)
+[<img class="aligncenter wp-image-2390 size-full" src="http://pybonacci.files.wordpress.com/2014/07/rpm.png" alt="rpm" width="624" height="383" srcset="https://pybonacci.org/wp-content/uploads/2014/07/rpm.png 624w, https://pybonacci.org/wp-content/uploads/2014/07/rpm-300x184.png 300w" sizes="(max-width: 624px) 100vw, 624px" />](https://plot.ly/~pfsq/139)
 
 #### Histograma del acelerador
 
@@ -186,7 +186,7 @@ ax2.spines["right"].set_visible(False)
 ax2.get_xaxis().tick_bottom()
 ax2.get_yaxis().tick_left()</code></pre>
 
-[<img class="aligncenter wp-image-2393 size-full" src="http://pybonacci.files.wordpress.com/2014/07/acelerador.png" alt="acelerador" width="623" height="383" srcset="https://pybonacci.es/wp-content/uploads/2014/07/acelerador.png 623w, https://pybonacci.es/wp-content/uploads/2014/07/acelerador-300x184.png 300w" sizes="(max-width: 623px) 100vw, 623px" />](https://plot.ly/~pfsq/140)
+[<img class="aligncenter wp-image-2393 size-full" src="http://pybonacci.files.wordpress.com/2014/07/acelerador.png" alt="acelerador" width="623" height="383" srcset="https://pybonacci.org/wp-content/uploads/2014/07/acelerador.png 623w, https://pybonacci.org/wp-content/uploads/2014/07/acelerador-300x184.png 300w" sizes="(max-width: 623px) 100vw, 623px" />](https://plot.ly/~pfsq/140)
 
 La mayor parte del tiempo, el piloto la pasa con el pedal a fondo.
 

@@ -25,7 +25,7 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * Abre otra pestaña (para poder seguir leyendo esta) haciendo Ctrl+clic en la [página de descargas de Python](http://python.org/download/) o en la imagen.
 
 <p style="text-align:center;">
-  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="http://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.es/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.es/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
+  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="http://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
 </p>
 
   * El primer párrafo habla sobre implementaciones alternativas de Python. Ignóralo: vamos a instalar la «tradicional».
@@ -53,7 +53,7 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * Si ves un mensaje de error que dice: "SyntaxError: invalid syntax" entonces te has olvidado de las comillas. <ins datetime="2013-12-23T10:39:18+00:00">En versiones antiguas de Python (Python 2.x) no hacían falta paréntesis. Te recomendamos que aprendas Python 3, pero si quieres puedes instalar también Python 2.7 porque no todas las bibliotecas están disponibles en las nuevas versiones.</ins>
 
 <div>
-  <span style="font-size:11px;"><img class="aligncenter size-full wp-image-2065" alt="Python 3 en Windows" src="http://pybonacci.org/wp-content/uploads/2013/12/python3.png" width="690" height="240" srcset="https://pybonacci.es/wp-content/uploads/2013/12/python3.png 690w, https://pybonacci.es/wp-content/uploads/2013/12/python3-300x104.png 300w" sizes="(max-width: 690px) 100vw, 690px" /></span>
+  <span style="font-size:11px;"><img class="aligncenter size-full wp-image-2065" alt="Python 3 en Windows" src="http://pybonacci.org/wp-content/uploads/2013/12/python3.png" width="690" height="240" srcset="https://pybonacci.org/wp-content/uploads/2013/12/python3.png 690w, https://pybonacci.org/wp-content/uploads/2013/12/python3-300x104.png 300w" sizes="(max-width: 690px) 100vw, 690px" /></span>
 </div>
 
 Estás dentro de la ventana del IDE (Integrated Development Environment) IDLE. Deja el intérprete de Python abierto, listo y esperando recibir tus comandos. ¡Ahora sólo tienes que aprender Python! Para eso, tienes varios recursos. Algunos los hemos sacado de la [página de lengua española de la wiki oficial de Python](http://wiki.python.org/moin/SpanishLanguage), y otros del sitio de P&R [Python Majibu](http://python.majibu.org/preguntas/154/libros-recomendados-de-programacion-en-python).
