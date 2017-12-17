@@ -42,7 +42,7 @@ plt.title(u'Porcentaje de visitas por país')</code></pre>
 
 El resultado se puede ver en el gráfico siguiente. Como habréis adivinado, explode sirve para separar quesitos del centro de la tarta. En este caso hemos separado los quesitos de USA e Islandia para destacar los países no hispanohablantes:
 
-[<img class="aligncenter size-full wp-image-667" title="quesitos" src="http://pybonacci.org/wp-content/uploads/2012/06/quesitos.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/06/quesitos.png 652w, https://pybonacci.es/wp-content/uploads/2012/06/quesitos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/quesitos.png)
+[<img class="aligncenter size-full wp-image-667" title="quesitos" src="http://pybonacci.org/wp-content/uploads/2012/06/quesitos.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/06/quesitos.png 652w, https://pybonacci.org/wp-content/uploads/2012/06/quesitos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/06/quesitos.png)
 
 <!--more-->
 
@@ -58,7 +58,7 @@ plt.scatter(x, y)  # Pintamos la posición de las estaciones de medida.</code></
 
 El resultado se puede ver en la siguiente figura. Se ha usado plt.scatter para representar la posición de las estaciones de medida:
 
-[<img class="aligncenter  wp-image-672" title="tricontornos" src="http://pybonacci.org/wp-content/uploads/2012/07/tricontornos.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/07/tricontornos.png 652w, https://pybonacci.es/wp-content/uploads/2012/07/tricontornos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/07/tricontornos.png)
+[<img class="aligncenter  wp-image-672" title="tricontornos" src="http://pybonacci.org/wp-content/uploads/2012/07/tricontornos.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/tricontornos.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/tricontornos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/07/tricontornos.png)
 
 Por defecto usa una [triangulación de Delaunay](http://es.wikipedia.org/wiki/Triangulaci%C3%B3n_de_Delaunay) pero se puede definir la triangulación que queramos haciendo uso de matplotlib.tri.triangulation.
 
@@ -77,7 +77,7 @@ plt.contour(np.arange(25), np.arange(25), mat, 10, colors = 'k')  # Colocamos l�
 El resultado lo podemos ver en el siguiente ejemplo. En la imagen de la izquierda vemos que las líneas de contorno, en este caso, quedan mal en los bordes y la representación solo usando matshow (imagen de la derecha) sería más adecuada (repito, todos los ejemplos no tienen más sentido que el de explicar el uso de matplotlib.pyplot).
 
 <p style="text-align:center;">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/07/matcont.png"><img class=" wp-image-676 alignnone" title="matcont" src="http://pybonacci.org/wp-content/uploads/2012/07/matcont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.es/wp-content/uploads/2012/07/matcont.png 492w, https://pybonacci.es/wp-content/uploads/2012/07/matcont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a><a href="http://pybonacci.org/wp-content/uploads/2012/07/matnocont.png"><img class="size-medium wp-image-677 alignnone" title="matnocont" src="http://pybonacci.org/wp-content/uploads/2012/07/matnocont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.es/wp-content/uploads/2012/07/matnocont.png 492w, https://pybonacci.es/wp-content/uploads/2012/07/matnocont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a>
+  <a href="http://pybonacci.org/wp-content/uploads/2012/07/matcont.png"><img class=" wp-image-676 alignnone" title="matcont" src="http://pybonacci.org/wp-content/uploads/2012/07/matcont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.org/wp-content/uploads/2012/07/matcont.png 492w, https://pybonacci.org/wp-content/uploads/2012/07/matcont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a><a href="http://pybonacci.org/wp-content/uploads/2012/07/matnocont.png"><img class="size-medium wp-image-677 alignnone" title="matnocont" src="http://pybonacci.org/wp-content/uploads/2012/07/matnocont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.org/wp-content/uploads/2012/07/matnocont.png 492w, https://pybonacci.org/wp-content/uploads/2012/07/matnocont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a>
 </p>
 
 <p style="text-align:left;">
@@ -99,7 +99,7 @@ plt.colorbar()  # Colocamos una barra de colores para saber a qué valor corresp
 </p>
 
 <p style="text-align:left;">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/07/hexbin.png"><img class="aligncenter size-full wp-image-684" title="hexbin" src="http://pybonacci.org/wp-content/uploads/2012/07/hexbin.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/07/hexbin.png 652w, https://pybonacci.es/wp-content/uploads/2012/07/hexbin-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" /></a>
+  <a href="http://pybonacci.org/wp-content/uploads/2012/07/hexbin.png"><img class="aligncenter size-full wp-image-684" title="hexbin" src="http://pybonacci.org/wp-content/uploads/2012/07/hexbin.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/hexbin.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/hexbin-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" /></a>
 </p>
 
 <p style="text-align:left;">
@@ -120,7 +120,7 @@ plt.quiver(lon, lat, u, v, color = colores)  # Dibujamos las flechas 'locas'</co
 
 El resultado es el siguiente:
 
-[<img class="aligncenter size-full wp-image-685" title="quiver" src="http://pybonacci.org/wp-content/uploads/2012/07/quiver.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/07/quiver.png 652w, https://pybonacci.es/wp-content/uploads/2012/07/quiver-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/07/quiver.png)
+[<img class="aligncenter size-full wp-image-685" title="quiver" src="http://pybonacci.org/wp-content/uploads/2012/07/quiver.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/quiver.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/quiver-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/07/quiver.png)
 
 Los colores los hemos colocado de forma aleatoria solo definiendo ocho colores.
 

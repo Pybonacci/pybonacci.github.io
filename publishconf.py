@@ -17,4 +17,4 @@ FEED_USE_SUMMARY = True  # from the feed_summary plugin
 
 DELETE_OUTPUT_DIRECTORY = True
 
-ISSO_HOST = 'https://comments.pybonacci.es'
+ISSO_HOST = 'https://comments.pybonacci.org'

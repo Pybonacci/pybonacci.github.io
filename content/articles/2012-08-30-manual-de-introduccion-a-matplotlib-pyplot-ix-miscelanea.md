@@ -41,7 +41,7 @@ plt.imshow(background, alpha = 0.25)  # Creamos el fondo con una transparencia d
 
 El resultado es el siguiente:
 
-[<img class="aligncenter size-full wp-image-783" title="imagenconfondo" src="http://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo.png" alt="" width="652" height="553" srcset="https://pybonacci.es/wp-content/uploads/2012/08/imagenconfondo.png 652w, https://pybonacci.es/wp-content/uploads/2012/08/imagenconfondo-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo.png)
+[<img class="aligncenter size-full wp-image-783" title="imagenconfondo" src="http://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo.png 652w, https://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/08/imagenconfondo.png)
 
 Con [plt.imread](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imread) lo que hacemos es leer una imagen y convertirla en un numpy array que más tarde podemos utilizar como queramos (en este caso, como fondo para la imagen). Con [plt.imshow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imshow) lo que hemos hecho es mostrar la imagen en pantalla. Por último, que sepáis que también existe [plt.imsave](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imsave), que permite guardar un numpy array como una imagen.
 

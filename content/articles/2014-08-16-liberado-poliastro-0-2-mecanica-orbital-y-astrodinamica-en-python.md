@@ -27,7 +27,7 @@ plot(molniya)
 
 </code></pre>
 
-[<img src="http://pybonacci.org/wp-content/uploads/2014/08/molniya.png" alt="Órbita Molniya" width="432" height="320" class="aligncenter size-full wp-image-2624" srcset="https://pybonacci.es/wp-content/uploads/2014/08/molniya.png 432w, https://pybonacci.es/wp-content/uploads/2014/08/molniya-300x222.png 300w" sizes="(max-width: 432px) 100vw, 432px" />](http://pybonacci.org/wp-content/uploads/2014/08/molniya.png)
+[<img src="http://pybonacci.org/wp-content/uploads/2014/08/molniya.png" alt="Órbita Molniya" width="432" height="320" class="aligncenter size-full wp-image-2624" srcset="https://pybonacci.org/wp-content/uploads/2014/08/molniya.png 432w, https://pybonacci.org/wp-content/uploads/2014/08/molniya-300x222.png 300w" sizes="(max-width: 432px) 100vw, 432px" />](http://pybonacci.org/wp-content/uploads/2014/08/molniya.png)
 
 La piedra angular del paquete son los objetos `State`, que representan el estado de un objeto (un planeta, un satélite artificial) con respecto a un atractor principal (el Sol, la Tierra). Podemos acceder a sus vectores posición y velocidad, sus elementos keplerianos o pintar su órbita osculatriz.
 
@@ -46,7 +46,7 @@ ss = State.from_vectors(Earth, r, v)
 
 Así mismo, podemos definir maniobras (`Maneuver`) que alteran estas órbitas. Una forma es definir directamente los incrementos de velocidad que queremos aplicar, y otra es utilizar las funciones de poliastro para calcular maniobras comunes como las transferencias de Hohmann.
 
-[<img src="http://pybonacci.org/wp-content/uploads/2014/08/hohmann.png" alt="Transferencia de Hohmann" width="432" height="432" class="aligncenter size-full wp-image-2625" srcset="https://pybonacci.es/wp-content/uploads/2014/08/hohmann.png 432w, https://pybonacci.es/wp-content/uploads/2014/08/hohmann-150x150.png 150w, https://pybonacci.es/wp-content/uploads/2014/08/hohmann-300x300.png 300w" sizes="(max-width: 432px) 100vw, 432px" />](http://pybonacci.org/wp-content/uploads/2014/08/hohmann.png)
+[<img src="http://pybonacci.org/wp-content/uploads/2014/08/hohmann.png" alt="Transferencia de Hohmann" width="432" height="432" class="aligncenter size-full wp-image-2625" srcset="https://pybonacci.org/wp-content/uploads/2014/08/hohmann.png 432w, https://pybonacci.org/wp-content/uploads/2014/08/hohmann-150x150.png 150w, https://pybonacci.org/wp-content/uploads/2014/08/hohmann-300x300.png 300w" sizes="(max-width: 432px) 100vw, 432px" />](http://pybonacci.org/wp-content/uploads/2014/08/hohmann.png)
 
 Podéis leer la documentación completa en inglés en la web de poliastro, y el código fuente está disponible en GitHub. Os animo a que le echéis un vistazo y me hagáis llegar todas las sugerencias que se os ocurran: he dedicado mucho tiempo a organizar el código de forma que fuese fácil de usar y me gustaría conocer vuestra opinión al respecto.
 

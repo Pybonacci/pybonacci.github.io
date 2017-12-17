@@ -25,7 +25,7 @@ _**En esta entrada se han usado python 3.3.2, numpy 1.8.0, scipy 0.13.0 y matplo
 Si recordamos el modelo de nuestro coche, teníamos un sistema con una entrada (la fuerza de tracción que genera el motor) y una salida o variable a controlar (la velocidad del coche). Este tipo de sistemas se denominan **en lazo abierto** y se pueden esquematizar con un diagrama de bloques de este estilo:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1943" alt="Lazo abierto" src="http://pybonacci.org/wp-content/uploads/2013/11/open_loop.png" width="341" height="127" srcset="https://pybonacci.es/wp-content/uploads/2013/11/open_loop.png 568w, https://pybonacci.es/wp-content/uploads/2013/11/open_loop-300x111.png 300w" sizes="(max-width: 341px) 100vw, 341px" />
+  <img class="aligncenter  wp-image-1943" alt="Lazo abierto" src="http://pybonacci.org/wp-content/uploads/2013/11/open_loop.png" width="341" height="127" srcset="https://pybonacci.org/wp-content/uploads/2013/11/open_loop.png 568w, https://pybonacci.org/wp-content/uploads/2013/11/open_loop-300x111.png 300w" sizes="(max-width: 341px) 100vw, 341px" />
 </p>
 
 En este caso la **planta** sería el motor y el **controlador** un sistema que consiguiese esa tracción constante que consideramos en la primera parte. Este tipo de sistemas son poco útiles porque no podemos disponer de la información de la salida para controlar la entrada. No les prestaremos más atención.
@@ -33,7 +33,7 @@ En este caso la **planta** sería el motor y el **controlador** un sistema que c
 Si queremos tener en cuenta las posibles perturbaciones de la salida deberíamos medirla continuamente para comprobar que cumple con nuestros requisitos. A esto se le denomina **control en lazo cerrado** y se puede esquematizar de la siguiente manera:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1947" alt="Lazo cerrado" src="http://pybonacci.org/wp-content/uploads/2013/11/closed_loop1.png" width="420" height="187" srcset="https://pybonacci.es/wp-content/uploads/2013/11/closed_loop1.png 720w, https://pybonacci.es/wp-content/uploads/2013/11/closed_loop1-300x133.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
+  <img class="aligncenter  wp-image-1947" alt="Lazo cerrado" src="http://pybonacci.org/wp-content/uploads/2013/11/closed_loop1.png" width="420" height="187" srcset="https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1.png 720w, https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1-300x133.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
 </p>
 
 Ya vemos que se van complicando un poco las cosas. En este caso, la entrada de la planta la proporciona el **actuador**, y la entrada del actuador es **la diferencia entre la señal de referencia y la salida**. Esta diferencia se denomina señal **error** por razones obvias. Con este cambio de esquema y de filosofía tenemos en cada instante información sobre la salida del sistema y podemos por tanto ajustar el control del mismo. Veamos un método para llevar a cabo este control.
@@ -64,7 +64,7 @@ Cada uno de estos términos contribuye de una forma distinta al sistema de contr
 
 Lo primero que se nos puede ocurrir es hacer que la señal de control $u(t)$ (la salida del actuador y la entrada de la planta) sea **proporcional** al error entre la salida y el valor de referencia. Recuperando la función de transferencia de nuestro control de crucero, tendríamos un esquema como el siguiente:<figure id="attachment_1951" style="width: 372px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1951 " alt="Sistema de control proporcional" src="http://pybonacci.org/wp-content/uploads/2013/11/proportional.png" width="372" height="120" srcset="https://pybonacci.es/wp-content/uploads/2013/11/proportional.png 620w, https://pybonacci.es/wp-content/uploads/2013/11/proportional-300x96.png 300w" sizes="(max-width: 372px) 100vw, 372px" />](http://pybonacci.org/wp-content/uploads/2013/11/proportional.png)<figcaption class="wp-caption-text">Sistema de control proporcional</figcaption></figure> 
+[<img class=" wp-image-1951 " alt="Sistema de control proporcional" src="http://pybonacci.org/wp-content/uploads/2013/11/proportional.png" width="372" height="120" srcset="https://pybonacci.org/wp-content/uploads/2013/11/proportional.png 620w, https://pybonacci.org/wp-content/uploads/2013/11/proportional-300x96.png 300w" sizes="(max-width: 372px) 100vw, 372px" />](http://pybonacci.org/wp-content/uploads/2013/11/proportional.png)<figcaption class="wp-caption-text">Sistema de control proporcional</figcaption></figure> 
 
 Nótese que la naturaleza de nuestro sistema ha cambiado completamente: antes controlábamos directamente la fuerza del motor, ahora indicamos una velocidad de referencia y el sistema ajusta dicha fuerza. La nueva función de transferencia será:
 
@@ -113,7 +113,7 @@ plt.plot(t, y)
 plt.plot([0, t[-1]], [1] * 2, 'k--')</code></pre>
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1953" alt="k200" src="http://pybonacci.org/wp-content/uploads/2013/11/k200.png" width="315" height="226" srcset="https://pybonacci.es/wp-content/uploads/2013/11/k200.png 394w, https://pybonacci.es/wp-content/uploads/2013/11/k200-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1953" alt="k200" src="http://pybonacci.org/wp-content/uploads/2013/11/k200.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k200.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k200-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 De acuerdo, ahora el tiempo de subida es de unos 20 segundos (en vez del minuto de antes) pero ¡la salida **no llega al nivel que queremos**! Esto es así porque los controladores proporcionales introducen un cierto **error en estado estacionario** $e_{ss}$. Para nuestro sistema, el valor de este error será:
@@ -123,7 +123,7 @@ $\displaystyle e\_{ss} = \lim\_{t \rightarrow \infty} e(t) = \frac{1}{1 + K / b}
 Parece lógico pensar que entonces debemos aumentar la $K$ para reducir el error. Si hacemos esto, tendríamos la siguiente respuesta:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1954" alt="k2000" src="http://pybonacci.org/wp-content/uploads/2013/11/k2000.png" width="315" height="226" srcset="https://pybonacci.es/wp-content/uploads/2013/11/k2000.png 394w, https://pybonacci.es/wp-content/uploads/2013/11/k2000-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1954" alt="k2000" src="http://pybonacci.org/wp-content/uploads/2013/11/k2000.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k2000.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k2000-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 Ahora el tiempo de subida es de menos de 5 segundos y el error de estado estacionario es $e_{ss} \simeq 3.6 %$. ¿Hemos conseguido ya lo que queríamos? Sobre el papel sí, pero ¿te has fijado en la pendiente de la curva en el punto inicial? **No podemos** aumentar indefinidamente la ganancia proporcional porque eso implica **aumentar indefinidamente la fuerza** del motor. Tenemos que buscar otros métodos.
@@ -132,7 +132,7 @@ Ahora el tiempo de subida es de menos de 5 segundos y el error de estado estacio
 
 La desventaja del control proporcional es que, si la señal de error tiende a cero, la señal de control también. Con el término integral podemos añadir una contribución que depende del área encerrada bajo la curva de la señal error, y por tanto **eliminamos el error en estado estacionario**. Ahora nuestro esquema quedaría de la siguiente forma:<figure id="attachment_1957" style="width: 372px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1957" title="Control PI" alt="" src="http://pybonacci.org/wp-content/uploads/2013/11/pi.png" width="372" height="120" srcset="https://pybonacci.es/wp-content/uploads/2013/11/pi.png 620w, https://pybonacci.es/wp-content/uploads/2013/11/pi-300x96.png 300w" sizes="(max-width: 372px) 100vw, 372px" />](http://pybonacci.org/wp-content/uploads/2013/11/pi.png)<figcaption class="wp-caption-text">Sistema de control proporcional-integral (PI)</figcaption></figure> 
+[<img class=" wp-image-1957" title="Control PI" alt="" src="http://pybonacci.org/wp-content/uploads/2013/11/pi.png" width="372" height="120" srcset="https://pybonacci.org/wp-content/uploads/2013/11/pi.png 620w, https://pybonacci.org/wp-content/uploads/2013/11/pi-300x96.png 300w" sizes="(max-width: 372px) 100vw, 372px" />](http://pybonacci.org/wp-content/uploads/2013/11/pi.png)<figcaption class="wp-caption-text">Sistema de control proporcional-integral (PI)</figcaption></figure> 
 
 Y la función de transferencia será:
 
@@ -153,7 +153,7 @@ plt.plot(t, y)
 plt.plot([0, t[-1]], [1] * 2, 'k--')</code></pre>
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1958" alt="Control PI" src="http://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png" width="315" height="226" srcset="https://pybonacci.es/wp-content/uploads/2013/11/kp200ki50.png 394w, https://pybonacci.es/wp-content/uploads/2013/11/kp200ki50-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1958" alt="Control PI" src="http://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 Tenemos un tiempo de subida menor a 10 segundos, pero por contra **hemos introducido una oscilación en el sistema**. En algunos problemas puede ser inadmisible, pero en este caso nos lo podemos permitir. Lo único que tenemos que hacer es controlar la oscilación; para ello tenemos otras dos magnitudes interesantes:
@@ -219,7 +219,7 @@ print("Máxima sobreelongación: {:.1f} %".format(Ms(y) * 100))
 # Tiempo de subida: 4.22 s
 # Máxima sobreelongación: 6.3 %</code></pre>
 
-<img class="aligncenter size-full wp-image-1960" alt="Parámetros finales de control PI" src="http://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png" width="394" height="283" srcset="https://pybonacci.es/wp-content/uploads/2013/11/kp700ki100.png 394w, https://pybonacci.es/wp-content/uploads/2013/11/kp700ki100-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />
+<img class="aligncenter size-full wp-image-1960" alt="Parámetros finales de control PI" src="http://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png" width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />
 
 ¡Genial!
 
