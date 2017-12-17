@@ -16,7 +16,10 @@ before_install:
 install: true
 
 script:
-  - make publish-to-github-force
+  - make publish
+
+after_success:
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then make publish-to-github-force; fi
 
 addons:
   apt:
