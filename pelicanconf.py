@@ -69,7 +69,8 @@ ISSO_HOST = 'localhost:1234'
 
 ENABLE_MATHJAX = True
 
-STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico']
+STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 # Footer info
 LICENSE_URL = "https://github.com/Pybonacci/pybonacci.github.io-source/blob/master/LICENSE.md"
