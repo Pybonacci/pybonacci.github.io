@@ -9,7 +9,11 @@ Ya se ha celebrado la PyCon US de este año con una gran presencia de videos rel
 
 Todos los videos de las charlas, tutoriales, sesión de posters,..., los podéis encontrar en:
 
+<<<<<<< HEAD
 [http://pyvideo.org/events/pycon-us-2012.html](http://pyvideo.org/events/pycon-us-2012.html)
+=======
+http://pyvideo.org/events/pycon-us-2012.html
+>>>>>>> 36229a701afe3d4e648026613a79952f7b7bc375
 
 Viendo la gran presencia que ha tenido la ciencia este año en la PyCon US podría decirse que el presente y futuro de python en este campo parece muy prometedor.
 
