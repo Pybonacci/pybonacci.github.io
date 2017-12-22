@@ -6,12 +6,13 @@ _Estructura basada en el maravilloso trabajo de Jake Vanderplas en https://githu
  
 ## Cómo generar el contenido del Blog
 
-Para crear el contenido estático del blog se necesita tener instalado [conda](https://www.anaconda.com/download) y [npm](https://www.npmjs.com/)
+Para crear el contenido estático del blog se necesita tener instalado [conda](https://www.anaconda.com/download) y nodejs (que instalará el gestor de paquetes [npm](https://www.npmjs.com/))
 
 1. Clona el repositorio y asegurate de que los submódulos están incluidos
 
 ```
 $ git clone https://github.com/Pybonacci/pybonacci.github.io-source.git
+$ cd pybonacci.github.io-source.git
 $ git submodule update --init --recursive
 ```
 
