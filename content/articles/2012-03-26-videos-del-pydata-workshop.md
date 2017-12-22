@@ -9,6 +9,6 @@ Hace unas pocas semanas se celebró el [taller PyData en las oficinas de Google 
 
 Aquí os dejamos uno de los videos: _Python in Big Data with an overview of NumPy & SciPy_ (Python en [Big Data](http://www.enriquedans.com/2011/10/big-data-una-pequena-introduccion.html) con un vistazo a Numpy y Scipy) por Travis Oliphant (creador de Numpy)
 
-[youtube=http://www.youtube.com/watch?v=i0FCn889ucs]
+{% youtube i0FCn889ucs %}
 
 Espero que os resulte interesante.

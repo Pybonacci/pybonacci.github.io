@@ -39,6 +39,7 @@ PLUGINS = [
     'ipynb.liquid',  # for embedding notebooks
     'liquid_tags.img',  # embedding images
     'liquid_tags.video',  # embedding videos
+    'liquid_tags.youtube',  # embedding youtube videos
     'liquid_tags.include_code',  # including code blocks
     'liquid_tags.literal',
     #'footer_insert',  # https://github.com/getpelican/pelican-plugins/tree/master/footer_insert
