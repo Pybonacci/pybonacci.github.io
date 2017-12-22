@@ -33,13 +33,13 @@ tags: lista de tags separadas por comas (por ejemplo,  "tag1, ecuaciones diferen
 
 ## Mejorar el blog
 
-La versión actual del proyecto usa Pelican para generar el contenido estatico. Quieres mejorar el css, añadir plugins que creas que nos podrian ayudar? Se admiten Pull Requests!
+La versión actual del proyecto usa Pelican para generar el contenido estatico. ¿Quieres mejorar el css, añadir plugins que creas que nos podrian ayudar? ¡Se admiten Pull Requests!
 
 
 # Notas sobre estilo
 
 **Renderizado de codigo en artículos Markdown**
-Pelican soporta syntax highlight enn Markdown. Para ello hay que indentar los bloques de código con 4 espacios. Ademas, podemos indicar el lenguaje del código añadiendo `:::lenguaje` al inicio del bloque.
+Pelican soporta *syntax highlight* en Markdown. Para ello hay que indentar los bloques de código con 4 espacios. Además, podemos indicar el lenguaje del código añadiendo `:::lenguaje` al inicio del bloque.
 
 Por ejemplo, para que en un artículo se renderice un bloque de código de python se haría de la forma:
 
