@@ -21,17 +21,13 @@ from mpl_toolkits import basemap as bm</code></pre>
 
 Los ficheros netCDF de presión al nivel del mar y de Temperatura del aire de la superficie los podéis descargar de [aquí](http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fslp.1948.nc+slp.%25y4.nc+93912&variable=slp&DB_vid=30&DB_tid=33529&units=Pascals&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=25N&lat-end=80.00N&lon-begin=20.00W&lon-end=60E&dim0=time&year_begin=2012&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data) y [aquí](http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+93912&variable=air&DB_vid=20&DB_tid=33529&units=degK&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=25N&lat-end=80.00N&lon-begin=20.00W&lon-end=60E&dim0=time&year_begin=2012&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data), respectivamente. Veréis un enlace que pone 'FTP a copy of the file', lo pincháis y guardáis en el mismo sitio donde tengáis el script que estamos haciendo en la presente entrada.
 
-****Una vez que tenemos los ficheros los podemos abrir usando la librería netCDF4-python:
+Una vez que tenemos los ficheros los podemos abrir usando la librería netCDF4-python:
 
 <pre><code class="language-python">## Abrimos los ficheros de datos,
 ## el nombre de los ficheros lo tendréis que cambiar
 ## con el nombre de los ficheros que os habéis descargado
 slp = nc.Dataset('X83.34.8.250.104.4.18.19.nc') #slp por 'sea level pressure'
 tsfc = nc.Dataset('X83.34.8.250.104.4.15.31.nc') #tsfc 'por temperature at surface'</code></pre>
-
-<!--more-->
-
-<pre></pre>
 
 Para saber las variables que tenemos en cada fichero netCDF podemos escribir lo siguiente:
 

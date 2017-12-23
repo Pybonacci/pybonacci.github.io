@@ -17,7 +17,7 @@ La EuroScipy de 2012 se celebrará los días 23 y 24 de agosto en Bruselas (Bél
 
 [Better numerics with SciPy](http://www.euroscipy.org/talk/6617)
 
-[Statistics with Panda](http://www.euroscipy.org/talk/6629)
+[Statistics with Pandas](http://www.euroscipy.org/talk/6629)
 
 Sin, por supuesto, despreciar al resto de charlas, que también serán realmente interesantes.
 
