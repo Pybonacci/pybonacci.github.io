@@ -74,5 +74,5 @@ STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico', 'extr
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 # Footer info
-LICENSE_URL = "https://github.com/Pybonacci/pybonacci.github.io-source/blob/master/LICENSE.md"
+LICENSE_URL = "https://github.com/Pybonacci/pybonacci.github.io-source/blob/sources/LICENSE.md"
 LICENSE_NAME = "CC BY-SA 4.0 + MIT"
