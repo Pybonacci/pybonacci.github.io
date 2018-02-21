@@ -106,7 +106,7 @@ Obteniendo el siguiente gráfico:
 
 [<img class="aligncenter size-full wp-image-433" title="subplot12" src="http://pybonacci.org/wp-content/uploads/2012/05/subplot12.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/05/subplot12.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/subplot12-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/05/subplot12.png)
 
-Os dejo como ejercicio ver como podéis conseguir la siguiente gráfica (si no sabéis como dejad un comentario) y con ello creo que habréis entendido perfectamente el uso de plt.subplot():
+Os dejo como ejercicio ver cómo podéis conseguir la siguiente gráfica (si no sabéis como dejad un comentario) y con ello creo que habréis entendido perfectamente el uso de plt.subplot():
 
 [<img class="aligncenter size-full wp-image-434" title="subplot22" src="http://pybonacci.org/wp-content/uploads/2012/05/subplot22.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/05/subplot22.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/subplot22-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/05/subplot22.png)
 
@@ -128,4 +128,4 @@ plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda</co
 
 Después de usar plt.rc() para modificar un parámetro esa modificación será para toda la sesión a no ser que lo volvamos a modificar explícitamente o a no ser que usemos plt.rcdefaults(), que devolverá todos los parámetros a los valores por defecto.
 
-Si no has visto el primer capítulo de esta serie [échale un ojo ahora](http://wp.me/p2hEpj-3i) o, si prefieres, puedes pasar a la [siguiente parte](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/).
+Si no has visto el primer capítulo de esta serie [échale un ojo ahora](http://www.pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/) o, si prefieres, puedes pasar a la [siguiente parte](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/).
