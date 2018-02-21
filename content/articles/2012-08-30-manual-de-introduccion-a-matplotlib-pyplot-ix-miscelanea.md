@@ -31,7 +31,7 @@ plt.ion()</code></pre>
 
 Después de dar un repaso por toda la librería, obviando algunas funciones estadísticas y eventos, vamos a acabar este tutorial viendo algunas funciones que sirven para leer y guardar imágenes.
 
-Imaginad que queréis usar una imagen de fondo, por ejemplo vuestro nombre, o las siglas de creative commons o una foto,..., en vuestros gráficos. Para el ejemplo que vamos a ver a continuación vamos a usar la imagen que está en [el siguiente enlace](http://images3.wikia.nocookie.net/__cb57524/es/images/1/13/Cc.large.png) como fondo (guardadala en local para poder leerla).
+Imaginad que queréis usar una imagen de fondo, por ejemplo vuestro nombre, o las siglas de creative commons o una foto,..., en vuestros gráficos. Para el ejemplo que vamos a ver a continuación vamos a usar la imagen que está en [el siguiente enlace](https://upload.wikimedia.org/wikipedia/commons/9/94/Cc_large.png) como fondo (guárdala en local para poder leerla).
 
 <pre><code class="language-python">background = plt.imread('Cc.large.png')  # Leemos la imagen que queremos usar de fondo, lo que escribáis entre comillas es la ruta a la imagen
 x = np.arange(background.shape[1])  # Definimos valores de x
@@ -47,7 +47,7 @@ Con [plt.imread](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotli
 
 <!--more-->
 
-Por último, pero no por ello menos importante, quedaría el uso [plt.savefig](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.savefig), que nos permite guardar cualquiera de las figuras que hemos ido creando a lo largo de todo el tutorial. Para el anterior caso, solo tenemos que añadir lo siguiente al código de más arriba:
+Por último, pero no por ello menos importante, quedaría el uso de [plt.savefig](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.savefig), que nos permite guardar cualquiera de las figuras que hemos ido creando a lo largo de todo el tutorial. Para el anterior caso, solo tenemos que añadir lo siguiente al código de más arriba:
 
 <pre><code class="language-python">plt.savefig('imagen_con_fondo_cc.png')</code></pre>
 
