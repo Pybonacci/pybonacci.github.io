@@ -98,6 +98,6 @@ Cuyo resultado será algo parecido a lo siguiente:
 
 [<img class="aligncenter size-full wp-image-452" title="textobasico" alt="" src="http://pybonacci.org/wp-content/uploads/2012/05/textobasico.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/05/textobasico.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/textobasico-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/05/textobasico.png)
 
-Y con esto hemos visto, más o menos, la forma básica de configurar los elementos del gráfico. Si no los habéis visto aún, podéis leer el [capítulo 1](http://wp.me/p2hEpj-3i) y el [capítulo 2](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/) de esta serie.
+Y con esto hemos visto, más o menos, la forma básica de configurar los elementos del gráfico. Si no los habéis visto aún, podéis leer el [capítulo 1](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/) y el [capítulo 2](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/) de esta serie.
 
 Si quieres puedes pasar a [la siguiente parte](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)").
