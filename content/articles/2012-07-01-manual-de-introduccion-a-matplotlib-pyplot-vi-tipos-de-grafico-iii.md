@@ -30,7 +30,7 @@ import numpy as np</code></pre>
 
 Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en otros gráficos que, quizá, sean menos usados que los vistos hasta ahora. Algunos ya los hemos visto en otras entradas, como [gráficos polares](http://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/), gráficos de contornos [[1]](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/) [[2]](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/),...
 
-Vamos a empezar por ver un gráfico tipo tarta de quesitos o tipo tarta o como lo queráis traducir (en inglés se llama pie chart). Estos sos los típicos gráficos que ponen en los periódicos con los resultados de elecciones o cosas así. En este caso vamos a ver un ejemplo real a partir de los datos de las visitas por países a este humilde blog:
+Vamos a empezar por ver un gráfico tipo tarta de quesitos o tipo tarta o como lo queráis traducir (en inglés se llama pie chart). Estos son los típicos gráficos que ponen en los periódicos con los resultados de elecciones o cosas así. En este caso vamos a ver un ejemplo real a partir de los datos de las visitas por países a este humilde blog:
 
 <pre><code class="language-python">plt.ion()  # Ponemos el modo interactivo
 visitas = [43.97, 9.70, 7.42, 6.68, 3.91, 3.85, 3.62, 3.43, 3.16, 3.04] # Definimos un vector con el % de visitas del top ten de países
