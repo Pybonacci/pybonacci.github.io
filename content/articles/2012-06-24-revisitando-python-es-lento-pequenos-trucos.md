@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: revisitando-python-es-lento-pequenos-trucos
 tags: numexpr, numpy, performance, python, rendimiento
 
-Hace un tiempo [David os habló sobre acelerar vuestros cálculos hechos con python (si no los has leído aún a qué esperas :-)).](http://wp.me/p2hEpj-5C) Hoy vamos a revisitar sus textos enfocándonos en pequeñas cositas que podemos hacer sin tener que usar algo que no sea programar en python.
+Hace un tiempo [David os habló sobre acelerar vuestros cálculos hechos con python (si no los has leído aún a qué esperas :-)).](https://www.pybonacci.org/2012/05/01/python-es-lento/) Hoy vamos a revisitar sus textos enfocándonos en pequeñas cositas que podemos hacer sin tener que usar algo que no sea programar en python.
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y numexpr 1.4.2]**
 
@@ -59,7 +59,7 @@ timeit y = x * x * x * x  # 100 loops, best of 3: 4.32 ms per loop</code></pre>
 
 ¿Y esto por qué sucede así?. En el primer caso (_y = x**4_) numpy usa la función numpy.power para hacer el cálculo. Esta es una función trascendente y no puede ser evaluada en un solo ciclo de procesador. Si vais a la explicación en la wikipedia en versión inglesa entenderéis mejor lo que es una [función trascendente](http://en.wikipedia.org/wiki/Transcendental_function). Además de la explicación de la wikipedia os recomiendo que le echéis un ojo a este [video](http://www.youtube.com/watch?v=J3-oN_TulTg) donde uno de los desarrolladores de numexpr y creador de PyTables, Francesc Alted, habla sobre el tema.
 
-Si repetimos el cálculo anterior usando numexpr, que además permite, en ciertos casos, optmizar el uso de memoria, obtenemos lo siguiente:
+Si repetimos el cálculo anterior usando numexpr, que además permite, en ciertos casos, optimizar el uso de memoria, obtenemos lo siguiente:
 
 <pre><code class="language-python">x = np.random.randn(1000000)
 ne.set_num_threads(1)  # Hacemos que solo use un thread para poder comparar iguales con respecto a lo anterior
@@ -102,7 +102,7 @@ Ejemplo, queremos buscar los índices donde se encuentra el máximo de nuestro n
 timeit np.where(x == x.max())  # 100 loops, best of 3: 8 ms per loop
 timeit divmod(x.argmax(), x.shape[1])  # 1000 loops, best of 3: 638 us per loop</code></pre>
 
-Este es un ejemplo donde python puede ser más rápido que numpy. Este ejemplo lo he sacado de [esta página](http://www.scipy.org/PerformanceTips) donde he cambiado el ejemplo del mínimo por la localización del máximo para que no me acusen de plagio :-). En esa página/enlace tenéis más ejemplos de como optimizar un poco vuestro código.
+Este es un ejemplo donde python puede ser más rápido que numpy. Este ejemplo lo he sacado de [esta página](https://scipy.github.io/old-wiki/pages/PerformanceTips.html) donde he cambiado el ejemplo del mínimo por la localización del máximo para que no me acusen de plagio :-). En esa página/enlace tenéis más ejemplos de como optimizar un poco vuestro código.
 
 Imaginad ahora que queréis hacer operaciones sobre una serie de valores del array que cumplen unas ciertas condiciones. Esto se puede hacer de forma más eficiente y legible sin usar numpy.where de la siguiente forma:
 
