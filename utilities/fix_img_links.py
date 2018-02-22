@@ -5,8 +5,8 @@ _path = Path("..", "content", "articles")
 
 pathfiles = list(_path.glob("*.md"))
 
-old = "://pybonacci.org/wp-content/uploads/"
-new = "://new.pybonacci.org/images/"
+old = "://new.pybonacci.org/images/"
+new = "://pybonacci.org/images/"
 
 for f in pathfiles:
     shutil.copy(str(f), str(f) + ".bak")
