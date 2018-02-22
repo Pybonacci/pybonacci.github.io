@@ -107,7 +107,7 @@ for lugar in lugares:
     # Las unidades para latitude y longitude son grados, para altitude
     # y range son metros y para tilt son grados desde la vertical.
     # En el gráfico de este enlace se verá mejor:
-    # https://developers.google.com/kml/documentation/images/lookAt.gif
+    # https://developers.google.com/kml/documentation/http://new.pybonacci.org/images/lookAt.gif
     fich_kml.Document[gxns+"Tour"].Playlist.append(
       GX.FlyTo(
         GX.duration(1),

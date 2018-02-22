@@ -387,7 +387,7 @@ Y ahora vamos a crear simplemente la figura, que es donde pintaremos todo lo que
 <pre class="language-python"><code class="language-python" data-language="python">%%brython -S base -h HTML
 fig = Figure('cnvs01', facecolor = "black")</code></pre>
 
-[<img class="alignnone size-full wp-image-2869" src="http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01.png" alt="BRYPLOT01" width="500" height="433" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01.png)
+[<img class="alignnone size-full wp-image-2869" src="http://new.pybonacci.org/images/2014/11/BRYPLOT01.png" alt="BRYPLOT01" width="500" height="433" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT01-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://new.pybonacci.org/images/2014/11/BRYPLOT01.png)
 
 Ahora vamos a dar un pequeño paso más y vamos a dibujar un triángulo usando la clase `Polygon`. A esta clase le hemos de pasar el contexto del canvas que, dicho de forma muy simplificada, es lo que nos permite realmente dibujar en el canvas. Además, le hemos de pasar los puntos que delimitan el polígono y luego podemos pasarle diferentes valores opcionales.
 
@@ -410,15 +410,15 @@ p3 = [width / 2, 0]
 
 triangle(ctx, p1, p2, p3)</code></pre>
 
-[<img class="alignnone size-full wp-image-2868" src="http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02.png" alt="BRYPLOT02" width="500" height="433" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02.png)
+[<img class="alignnone size-full wp-image-2868" src="http://new.pybonacci.org/images/2014/11/BRYPLOT02.png" alt="BRYPLOT02" width="500" height="433" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT02-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://new.pybonacci.org/images/2014/11/BRYPLOT02.png)
 
 Como he comentado anteriormente, tenéis más clases y con un poco de maña podéis crear vuestras propias figuras como las que tenéis en el [README del repo](https://bitbucket.org/kikocorreoso/brython-bryplot/src/2de8de16b41b241a295bcd2759ff0c008597dc13/README.md?at=default).
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/images/pie.png)
+![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://new.pybonacci.org/images/pie.png)
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/images/rose.png)
+![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://new.pybonacci.org/images/rose.png)
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/images/radar.png)
+![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://new.pybonacci.org/images/radar.png)
 
 Por último, vamos a dibujar un fractal usando recursión. No voy a explicar el ejemplo y si os hace falta alguna explicación podéis preguntar en los comentarios del blog puesto que este notebook se convertirá en post.
 
@@ -456,7 +456,7 @@ p2 = [width, 0]
 p3 = [width / 2, height]
 sierpinski(ctx, p1, p2, p3, 6)</code></pre>
 
-[<img src="http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03.png" alt="BRYPLOT03" width="500" height="433" class="alignnone size-full wp-image-2867" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03.png)
+[<img src="http://new.pybonacci.org/images/2014/11/BRYPLOT03.png" alt="BRYPLOT03" width="500" height="433" class="alignnone size-full wp-image-2867" srcset="https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03.png 500w, https://pybonacci.org/wp-content/uploads/2014/11/BRYPLOT03-300x259.png 300w" sizes="(max-width: 500px) 100vw, 500px" />](http://new.pybonacci.org/images/2014/11/BRYPLOT03.png)
 
 Y eso es todo por hoy.
 

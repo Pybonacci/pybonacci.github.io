@@ -16,7 +16,7 @@ En esta primera parte vamos a hacer una breve introducción matemática para cen
 
 Cuando uno piensa en estudiar sistemas dinámicos con un ordenador, automáticamente se le viene a la cabeza **MATLAB**, y no sin motivo. Este programa tiene unas capacidades extraordinarias en este campo, y aunque nos duela decirlo _Python no está al mismo nivel_. Sin embargo, queremos mostrar en este artículo que Python tiene el potencial de ser una alternativa real a MATLAB, enseñando los fundamentos del análisis de sistemas dinámicos utilizando el paquete `scipy.signal`. Yo mismo he trabajado un poco en este paquete en los últimos meses, así que he tenido la oportunidad de ver cómo funciona y también de conocer sus carencias; algunas de mis contribuciones han visto la luz en la recién liberada versión 0.13 de SciPy, pero aún queda mucho por mejorar.<figure id="attachment_1904" style="width: 418px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1904 " src="http://pybonacci.org/wp-content/uploads/2013/10/lti_laplace.png" alt="Equivalencia entre los dominios del tiempo y de la frecuencia a través de la transformada de Laplace" width="418" height="296" srcset="https://pybonacci.org/wp-content/uploads/2013/10/lti_laplace.png 696w, https://pybonacci.org/wp-content/uploads/2013/10/lti_laplace-300x212.png 300w" sizes="(max-width: 418px) 100vw, 418px" />](http://pybonacci.org/wp-content/uploads/2013/10/lti_laplace.png)<figcaption class="wp-caption-text">Equivalencia entre los dominios del tiempo y de la frecuencia a través de la transformada de Laplace</figcaption></figure> 
+[<img class=" wp-image-1904 " src="http://new.pybonacci.org/images/2013/10/lti_laplace.png" alt="Equivalencia entre los dominios del tiempo y de la frecuencia a través de la transformada de Laplace" width="418" height="296" srcset="https://pybonacci.org/wp-content/uploads/2013/10/lti_laplace.png 696w, https://pybonacci.org/wp-content/uploads/2013/10/lti_laplace-300x212.png 300w" sizes="(max-width: 418px) 100vw, 418px" />](http://new.pybonacci.org/images/2013/10/lti_laplace.png)<figcaption class="wp-caption-text">Equivalencia entre los dominios del tiempo y de la frecuencia a través de la transformada de Laplace</figcaption></figure> 
 
 Los ejemplos para este artículo los he sacado de [Sedra y Smith, 2004], un excelente libro de electrónica, y de [Messner et al. 2011], unos tutoriales para MATLAB y Simulink. Para la teoría, recomiendo el excelente [Gil y Rubio 2009], un libro editado por la Universidad de Navarra y disponible para visualización, impresión y copia para uso personal sin fines de lucro (¡gracias @Alex__S12!).
 
@@ -67,7 +67,7 @@ fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))
 ax1.semilogx(w, mag) # Eje x logarítmico
 ax2.semilogx(w, phase) # Eje x logarítmico</code></pre><figure id="attachment_1914" style="width: 341px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1914 " src="http://pybonacci.org/wp-content/uploads/2013/10/bode_lp1.png" alt="Diagrama de Bode de un filtro pasabajos." width="341" height="351" srcset="https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1.png 426w, https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1-291x300.png 291w" sizes="(max-width: 341px) 100vw, 341px" />](http://pybonacci.org/wp-content/uploads/2013/10/bode_lp1.png)<figcaption class="wp-caption-text">Diagrama de Bode de un filtro pasabajos.</figcaption></figure> 
+[<img class=" wp-image-1914 " src="http://new.pybonacci.org/images/2013/10/bode_lp1.png" alt="Diagrama de Bode de un filtro pasabajos." width="341" height="351" srcset="https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1.png 426w, https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1-291x300.png 291w" sizes="(max-width: 341px) 100vw, 341px" />](http://new.pybonacci.org/images/2013/10/bode_lp1.png)<figcaption class="wp-caption-text">Diagrama de Bode de un filtro pasabajos.</figcaption></figure> 
 
 ¿Qué sucede si queremos acceder a las otras representaciones de nuestro sistema? Tenemos los atributos (`zeros`, `poles`, `gain`) y (`A`, `B`, `C`, `D`):
 
@@ -84,7 +84,7 @@ ax1.plot(H.real, -H.imag)
 ax2.plot(sys2.zeros.real, sys2.zeros.imag, 'o')
 ax2.plot(sys2.poles.real, sys2.poles.imag, 'x')</code></pre><figure id="attachment_1923" style="width: 513px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1923" src="http://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1.png" alt="Diagrama de Nyquist y mapa de polos-ceros." width="513" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1.png 513w, https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1-300x165.png 300w" sizes="(max-width: 513px) 100vw, 513px" />](http://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1.png)<figcaption class="wp-caption-text">Diagrama de Nyquist y mapa de polos-ceros.</figcaption></figure> 
+[<img class="size-full wp-image-1923" src="http://new.pybonacci.org/images/2013/10/nyquist_pzmap1.png" alt="Diagrama de Nyquist y mapa de polos-ceros." width="513" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1.png 513w, https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1-300x165.png 300w" sizes="(max-width: 513px) 100vw, 513px" />](http://new.pybonacci.org/images/2013/10/nyquist_pzmap1.png)<figcaption class="wp-caption-text">Diagrama de Nyquist y mapa de polos-ceros.</figcaption></figure> 
 
 ### Respuesta temporal
 
@@ -94,7 +94,7 @@ $\displaystyle m \frac{d^2 x}{d t^2} = F - b v \Rightarrow m \dot{v} + b v = F$
 
 siendo $m$ la masa del vehículo.<figure id="attachment_1911" style="width: 435px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1911 " src="http://pybonacci.org/wp-content/uploads/2013/10/lti_cruise.png" alt="Diagrama de fuerzas sobre nuestro coche" width="435" height="140" srcset="https://pybonacci.org/wp-content/uploads/2013/10/lti_cruise.png 622w, https://pybonacci.org/wp-content/uploads/2013/10/lti_cruise-300x96.png 300w" sizes="(max-width: 435px) 100vw, 435px" />](http://pybonacci.org/wp-content/uploads/2013/10/lti_cruise.png)<figcaption class="wp-caption-text">Diagrama de fuerzas sobre nuestro coche</figcaption></figure> 
+[<img class=" wp-image-1911 " src="http://new.pybonacci.org/images/2013/10/lti_cruise.png" alt="Diagrama de fuerzas sobre nuestro coche" width="435" height="140" srcset="https://pybonacci.org/wp-content/uploads/2013/10/lti_cruise.png 622w, https://pybonacci.org/wp-content/uploads/2013/10/lti_cruise-300x96.png 300w" sizes="(max-width: 435px) 100vw, 435px" />](http://new.pybonacci.org/images/2013/10/lti_cruise.png)<figcaption class="wp-caption-text">Diagrama de fuerzas sobre nuestro coche</figcaption></figure> 
 
 La **entrada** de nuestro sistema será la **fuerza de tracción** aplicada, y la **salida** o variable que queremos controlar será la **velocidad**. La función de transferencia será:
 
@@ -115,7 +115,7 @@ Esta función **calcula la respuesta a una entrada escalón unidad**. Como el si
 <pre><code class="language-python">t, y = signal.step2(sys_car) # Respuesta a escalón unitario
 plt.plot(t, 2250 * y) # Equivalente a una entrada de altura 2250</code></pre><figure id="attachment_1916" style="width: 394px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1916" src="http://pybonacci.org/wp-content/uploads/2013/10/cruise_step.png" alt="Respuesta del sistema a una entrada escalón." width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/cruise_step.png 394w, https://pybonacci.org/wp-content/uploads/2013/10/cruise_step-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />](http://pybonacci.org/wp-content/uploads/2013/10/cruise_step.png)<figcaption class="wp-caption-text">Respuesta del sistema a una entrada escalón.</figcaption></figure> 
+[<img class="size-full wp-image-1916" src="http://new.pybonacci.org/images/2013/10/cruise_step.png" alt="Respuesta del sistema a una entrada escalón." width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/cruise_step.png 394w, https://pybonacci.org/wp-content/uploads/2013/10/cruise_step-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />](http://new.pybonacci.org/images/2013/10/cruise_step.png)<figcaption class="wp-caption-text">Respuesta del sistema a una entrada escalón.</figcaption></figure> 
 
 Vemos que la velocidad va aumentando, al principio rápidamente y luego más despacio (producto de las fuerzas de resistencia), hasta llegar a un valor límite, que es 30 m/s como habíamos dicho al principio. En la gráfica hemos incluido también:
 

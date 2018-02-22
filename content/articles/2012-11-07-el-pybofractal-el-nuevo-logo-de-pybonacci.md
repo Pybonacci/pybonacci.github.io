@@ -37,7 +37,7 @@ Ayer vi en los borradores del blog que había vuelto a rescatar el tema, y dije:
 
 Os presentamos al **Pybofractal**, **el nuevo logo de Pybonacci**:<figure id="attachment_1205" style="width: 440px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1205 " title="Pybofractal" alt="" src="http://pybonacci.org/wp-content/uploads/2012/11/pybofractal1.png" height="440" width="440" srcset="https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1.png 550w, https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1-150x150.png 150w, https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1-300x300.png 300w" sizes="(max-width: 440px) 100vw, 440px" />](http://pybonacci.org/wp-content/uploads/2012/11/pybofractal1.png)<figcaption class="wp-caption-text">El Pybofractal, el nuevo logo de Pybonacci</figcaption></figure> 
+[<img class=" wp-image-1205 " title="Pybofractal" alt="" src="http://new.pybonacci.org/images/2012/11/pybofractal1.png" height="440" width="440" srcset="https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1.png 550w, https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1-150x150.png 150w, https://pybonacci.org/wp-content/uploads/2012/11/pybofractal1-300x300.png 300w" sizes="(max-width: 440px) 100vw, 440px" />](http://new.pybonacci.org/images/2012/11/pybofractal1.png)<figcaption class="wp-caption-text">El Pybofractal, el nuevo logo de Pybonacci</figcaption></figure> 
 
 <!--more-->
 

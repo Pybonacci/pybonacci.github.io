@@ -30,7 +30,7 @@ plt.plot([1,2,3,4,3,2,1])</code></pre>
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://pybonacci.org/wp-content/uploads/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
+![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
 
 <pre><code class="language-python">## Ejemplo de celda que muestra un video de youtube
 from IPython.display import YouTubeVideo
@@ -42,11 +42,11 @@ La salida del anterior código mostrará lo siguiente
 
 <pre><code class="language-python">## Ejemplo de celda que muestra una imagen enlazada como output
 from IPython.display import Image
-Image("http://pybonacci.org/wp-content/uploads/2012/11/pybofractal1.png")</code></pre>
+Image("http://new.pybonacci.org/images/2012/11/pybofractal1.png")</code></pre>
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://pybonacci.org/wp-content/uploads/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
+![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
 
 <pre><code class="language-python">## Ejemplo de celda que muestra un frame html como output
 from IPython.display import HTML

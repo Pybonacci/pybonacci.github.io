@@ -37,7 +37,7 @@ plt.scatter(xarray, yarray)</code></pre>
 
 El resultado final debería ser una imagen como la siguiente:
 
-[<img class="aligncenter size-full wp-image-1683" alt="(Imagen PNG, 382 × 253 píxeles)" src="http://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles.png" width="382" height="253" srcset="https://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles.png 382w, https://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles-300x198.png 300w" sizes="(max-width: 382px) 100vw, 382px" />](http://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles.png)
+[<img class="aligncenter size-full wp-image-1683" alt="(Imagen PNG, 382 × 253 píxeles)" src="http://new.pybonacci.org/images/2013/06/imagen-png-382-c397-253-pc3adxeles.png" width="382" height="253" srcset="https://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles.png 382w, https://pybonacci.org/wp-content/uploads/2013/06/imagen-png-382-c397-253-pc3adxeles-300x198.png 300w" sizes="(max-width: 382px) 100vw, 382px" />](http://new.pybonacci.org/images/2013/06/imagen-png-382-c397-253-pc3adxeles.png)
 
 Quizá lo más complicado de entender sea la línea 8 de la anterior porción de código, si no entiendes algo puedes preguntar en los comentarios.
 

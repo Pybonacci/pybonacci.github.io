@@ -818,7 +818,7 @@ tags: cran, EVA, EVT, extremes, extremos, ipython, R, rpy2
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R1.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R1.png"
  />
         </div>
       </div>
@@ -1538,7 +1538,7 @@ R(self, line, cell=None, local_ns=None)
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R2.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R2.png"
  />
         </div>
       </div>
@@ -1701,7 +1701,7 @@ método de ajuste:  MLE
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R3.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R3.png"
  />
         </div>
       </div>
@@ -1723,7 +1723,7 @@ método de ajuste:  GMLE
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R4.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R4.png"
  />
         </div>
       </div>
@@ -1745,7 +1745,7 @@ método de ajuste:  MLE
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R5.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R5.png"
  />
         </div>
       </div>
@@ -1767,7 +1767,7 @@ método de ajuste:  GMLE
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/06/wpid-Trabajando_con_Python_y_R6.png"
+          <img src="http://new.pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R6.png"
  />
         </div>
       </div>

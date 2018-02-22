@@ -168,7 +168,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Un esquema, grosso modo, de lo que hemos hecho:<figure id="attachment_3836" style="width: 723px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-3836" src="http://pybonacci.org/wp-content/uploads/2016/05/Esquema.gif" alt="Esquema Cython - CFFI" width="723" height="542" />](http://pybonacci.org/wp-content/uploads/2016/05/Esquema.gif)<figcaption class="wp-caption-text">Esquema Cython - CFFI</figcaption></figure> 
+[<img class="size-full wp-image-3836" src="http://new.pybonacci.org/images/2016/05/Esquema.gif" alt="Esquema Cython - CFFI" width="723" height="542" />](http://new.pybonacci.org/images/2016/05/Esquema.gif)<figcaption class="wp-caption-text">Esquema Cython - CFFI</figcaption></figure> 
 
 Pros y contras de cada una de las aproximaciones:
 

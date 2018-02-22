@@ -43,7 +43,7 @@ tags: labels, Legend, matplotlib, MicroEntradas
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2016/06/wpid-Microentradas_Evitar_ciertas_etiquetas_en_la_leyenda_en_Matplotlib-ipynb1.png" alt="" />
+          <img src="http://new.pybonacci.org/images/2016/06/wpid-Microentradas_Evitar_ciertas_etiquetas_en_la_leyenda_en_Matplotlib-ipynb1.png" alt="" />
         </div>
       </div>
     </div>
@@ -98,7 +98,7 @@ tags: labels, Legend, matplotlib, MicroEntradas
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2016/06/wpid-Microentradas_Evitar_ciertas_etiquetas_en_la_leyenda_en_Matplotlib-ipynb2.png" alt="" />
+          <img src="http://new.pybonacci.org/images/2016/06/wpid-Microentradas_Evitar_ciertas_etiquetas_en_la_leyenda_en_Matplotlib-ipynb2.png" alt="" />
         </div>
       </div>
     </div>

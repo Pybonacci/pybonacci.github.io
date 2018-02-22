@@ -44,7 +44,7 @@ ax.set_zlim(0,50)</code></pre>
 
 La salida del anterior código mostrará:
   
-![](http://pybonacci.org/wp-content/uploads/2012/12/wpid-creando_una_animacic3b3n_con_matplotlib_y_ffmpeg0.png)
+![](http://new.pybonacci.org/images/2012/12/wpid-creando_una_animacic3b3n_con_matplotlib_y_ffmpeg0.png)
 
 El cálculo de los parámetros del atractor de Lorenz los realiza la función _`integra`_ que podéis ver a continuación:
 

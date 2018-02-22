@@ -15,7 +15,7 @@ Una persona normal pensaría, me compro una guía lonely planet, busco en la wik
 
 [Para esta entrada usamos numpy 1.6, matplotlib 1.1 y  shapely 1.2 en python 2.7]
 
-Shapely permite manejar polígonos, líneas, puntos,..., y permite hacer operaciones con ellos. Primero de todo vamos a descargar la línea de costa de la isla de Mallorca desde <http://www.ngdc.noaa.gov/mgg/coast/>. He usado datos del World Data Bank II a escala 1:2000000 y los he pasado a coordenadas UTM [WGS84](http://es.wikipedia.org/wiki/WGS84) y [subido aquí](http://pybonacci.org/wp-content/uploads/2012/09/mallorcautm_wgs84.xls) para que los podáis descargar y reproducir los ejemplos de esta entrada). El fichero a descargar tiene extensión xls pero en realidad es un fichero csv (restricciones de wordpress.com, disculpen las molestias). Las unidades de los datos son metros.
+Shapely permite manejar polígonos, líneas, puntos,..., y permite hacer operaciones con ellos. Primero de todo vamos a descargar la línea de costa de la isla de Mallorca desde <http://www.ngdc.noaa.gov/mgg/coast/>. He usado datos del World Data Bank II a escala 1:2000000 y los he pasado a coordenadas UTM [WGS84](http://es.wikipedia.org/wiki/WGS84) y [subido aquí](http://new.pybonacci.org/images/2012/09/mallorcautm_wgs84.xls) para que los podáis descargar y reproducir los ejemplos de esta entrada). El fichero a descargar tiene extensión xls pero en realidad es un fichero csv (restricciones de wordpress.com, disculpen las molestias). Las unidades de los datos son metros.
 
 Una vez que tenemos los datos vamos a comenzar los cálculos. Leemos los datos del fichero recién descargados:
 
@@ -65,6 +65,6 @@ plt.plot(intersecciones.xy[0][1], intersecciones.xy[1][1], 'ys')</code></pre>
 
 Con este resultado:
 
-[<img class="aligncenter size-full wp-image-879" title="ejemplo_shapely" src="http://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely.png" alt="" width="700" height="500" srcset="https://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely.png 800w, https://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely.png)Perfecto, ya conozco mi destino para las próximas vacaciones, sé donde está la playa de mis sueños, sé que la isla tiene un área considerable y sé que mi vuelta en bici alrededor de la isla la deberé hacer en varias etapas puesto que hay distancia suficiente para ello. Y todo ello gracias a python y a shapely!!!
+[<img class="aligncenter size-full wp-image-879" title="ejemplo_shapely" src="http://new.pybonacci.org/images/2012/09/ejemplo_shapely.png" alt="" width="700" height="500" srcset="https://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely.png 800w, https://pybonacci.org/wp-content/uploads/2012/09/ejemplo_shapely-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" />](http://new.pybonacci.org/images/2012/09/ejemplo_shapely.png)Perfecto, ya conozco mi destino para las próximas vacaciones, sé donde está la playa de mis sueños, sé que la isla tiene un área considerable y sé que mi vuelta en bici alrededor de la isla la deberé hacer en varias etapas puesto que hay distancia suficiente para ello. Y todo ello gracias a python y a shapely!!!
 
 Hasta la próxima.

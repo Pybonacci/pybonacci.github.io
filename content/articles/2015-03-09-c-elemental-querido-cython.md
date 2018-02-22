@@ -3318,7 +3318,7 @@ print(sum(t) / 100.)
                                 </div>
                                 
                                 <div>
-                                  <img src="http://pybonacci.org/wp-content/uploads/2015/03/wpid-C_elemental_querido_Cython1.png"
+                                  <img src="http://new.pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython1.png"
  />
                                 </div>
                               </div>
@@ -3425,7 +3425,7 @@ The slowest run took 4.77 times longer than the fastest. This could mean that an
                                 </div>
                                 
                                 <div>
-                                  <img src="http://pybonacci.org/wp-content/uploads/2015/03/wpid-C_elemental_querido_Cython2.png"
+                                  <img src="http://new.pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython2.png"
  />
                                 </div>
                               </div>
@@ -3463,7 +3463,7 @@ The slowest run took 4.77 times longer than the fastest. This could mean that an
                                 </div>
                                 
                                 <div>
-                                  <img src="http://pybonacci.org/wp-content/uploads/2015/03/wpid-C_elemental_querido_Cython3.png"
+                                  <img src="http://new.pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython3.png"
  />
                                 </div>
                               </div>

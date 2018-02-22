@@ -70,7 +70,7 @@ plt.show()</code></pre></p>
 </div>
 
 <div style="margin-bottom:5px;text-align:left;">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="http://pybonacci.org/wp-content/uploads/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a>Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:
+  <a href="http://new.pybonacci.org/images/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="http://new.pybonacci.org/images/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a>Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:
 </div>
 
 <div style="margin-bottom:5px;text-align:left;">
@@ -89,7 +89,7 @@ plt.show()</code></pre></p>
 </div>
 
 <div style="margin-bottom:5px;text-align:left;">
-  <a href="http://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png"><img class="aligncenter size-full wp-image-1268" title="dendrograma" alt="" src="http://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
+  <a href="http://new.pybonacci.org/images/2012/11/dendrograma.png"><img class="aligncenter size-full wp-image-1268" title="dendrograma" alt="" src="http://new.pybonacci.org/images/2012/11/dendrograma.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
 </div>
 
 <div style="margin-bottom:5px;text-align:left;">
@@ -117,7 +117,7 @@ plt.show()</code></pre></p>
   </div>
   
   <p>
-    Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="http://pybonacci.org/wp-content/uploads/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="http://pybonacci.org/wp-content/uploads/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
+    Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="http://new.pybonacci.org/images/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="http://new.pybonacci.org/images/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
   </p>
   
   <p>

@@ -46,7 +46,7 @@ Optimization terminated successfully.
 
 Y la siguiente gráfica aparecerá en la pantalla:
 
-![Uso de la función fmin en scipy.optimize](http://pybonacci.org/wp-content/uploads/2012/03/uso_de_fmin.png)
+![Uso de la función fmin en scipy.optimize](http://new.pybonacci.org/images/2012/03/uso_de_fmin.png)
 
 El punto azul es el mínimo encontrado empezando a partir del diamante azul (x=-5) y el punto rojo es el mínimo encontrado a partir del diamante rojo (x=-4). En este caso, cuando empezamos a partir de x=-5 **fmin** se 'atasca' en un mínimo local mientras que si empezamos a partir de x=-4 **fmin** alcanza el mínimo global.
 

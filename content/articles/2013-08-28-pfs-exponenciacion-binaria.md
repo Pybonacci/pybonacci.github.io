@@ -26,7 +26,7 @@ plt.plot(n,t)
 plt.xlabel('valor del exponente n')
 plt.ylabel('t en microsegundos')</code></pre>
 
-[<img class="aligncenter size-full wp-image-1866" alt="pow_bruto" src="http://pybonacci.org/wp-content/uploads/2013/08/pow_bruto.png" width="396" height="278" srcset="https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto.png 396w, https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto-300x210.png 300w" sizes="(max-width: 396px) 100vw, 396px" />](http://pybonacci.org/wp-content/uploads/2013/08/pow_bruto.png)
+[<img class="aligncenter size-full wp-image-1866" alt="pow_bruto" src="http://new.pybonacci.org/images/2013/08/pow_bruto.png" width="396" height="278" srcset="https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto.png 396w, https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto-300x210.png 300w" sizes="(max-width: 396px) 100vw, 396px" />](http://new.pybonacci.org/images/2013/08/pow_bruto.png)
 
 [Nota: la escala de los ejes en la anterior figura es logarítmica]
 
@@ -111,7 +111,7 @@ plt.legend()
 plt.xlabel('valor del exponente n')
 plt.ylabel('t en microsegundos')</code></pre>
 
-[<img class="aligncenter size-full wp-image-1867" alt="pow_bruto_bin" src="http://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin.png" width="429" height="268" srcset="https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin.png 429w, https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin-300x187.png 300w" sizes="(max-width: 429px) 100vw, 429px" />](http://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin.png)
+[<img class="aligncenter size-full wp-image-1867" alt="pow_bruto_bin" src="http://new.pybonacci.org/images/2013/08/pow_bruto_bin.png" width="429" height="268" srcset="https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin.png 429w, https://pybonacci.org/wp-content/uploads/2013/08/pow_bruto_bin-300x187.png 300w" sizes="(max-width: 429px) 100vw, 429px" />](http://new.pybonacci.org/images/2013/08/pow_bruto_bin.png)
 
 [Nota: Ahora, las escalas de los ejes son lineales]
 

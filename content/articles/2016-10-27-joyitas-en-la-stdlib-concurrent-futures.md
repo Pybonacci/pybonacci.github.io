@@ -50,7 +50,7 @@ print()</code></pre>
 
 Si ejecutáis el anterior código en una terminal, yo lo he llamado _temp.py_, podéis ver el efecto que andaba buscando:
 
-[<img class="aligncenter size-full wp-image-3925" src="http://pybonacci.org/wp-content/uploads/2016/10/futures.gif" alt="futures" width="845" height="334" />](http://pybonacci.org/wp-content/uploads/2016/10/futures.gif)
+[<img class="aligncenter size-full wp-image-3925" src="http://new.pybonacci.org/images/2016/10/futures.gif" alt="futures" width="845" height="334" />](http://new.pybonacci.org/images/2016/10/futures.gif)
 
 Vamos a comentar la función `tareas` un poco más en detalle.
 

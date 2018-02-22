@@ -349,7 +349,7 @@ new_allocated = (newsize &gt;&gt; 3) + (newsize &lt; 9 ? 3 : 6);
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython1.png" alt="" />
+          <img src="http://new.pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython1.png" alt="" />
         </div>
       </div>
     </div>
@@ -418,7 +418,7 @@ new_allocated = (newsize &gt;&gt; 3) + (newsize &lt; 9 ? 3 : 6);
         </div>
         
         <div>
-          <img src="http://pybonacci.org/wp-content/uploads/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython2.png" alt="" />
+          <img src="http://new.pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython2.png" alt="" />
         </div>
       </div>
     </div>

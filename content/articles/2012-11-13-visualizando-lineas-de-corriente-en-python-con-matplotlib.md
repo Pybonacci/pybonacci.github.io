@@ -110,7 +110,7 @@ cb = fig.colorbar(cs, ticks=(-3 + np.arange(5)))</code></pre>
 
 El código completo lo puedes ver [a través de nbviewer](http://nbviewer.ipython.org/4046447/) y este es el resultado:<figure id="attachment_1219" style="width: 560px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-1219 " title="Líneas de corriente" alt="" src="http://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1.png" height="373" width="560" srcset="https://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1.png 900w, https://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1-300x200.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1.png)<figcaption class="wp-caption-text">Flujo potencial alrededor de un cilindro circular</figcaption></figure> 
+[<img class=" wp-image-1219 " title="Líneas de corriente" alt="" src="http://new.pybonacci.org/images/2012/11/lineas-corriente1.png" height="373" width="560" srcset="https://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1.png 900w, https://pybonacci.org/wp-content/uploads/2012/11/lineas-corriente1-300x200.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://new.pybonacci.org/images/2012/11/lineas-corriente1.png)<figcaption class="wp-caption-text">Flujo potencial alrededor de un cilindro circular</figcaption></figure> 
 
 Como ves, la única diferencia que hay en el código respecto a lo que habríamos escrito en Python 2.x es que no hace falta especificar que las cadenas contienen Unicode, [porque este es ya el tipo por defecto](http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit).
 

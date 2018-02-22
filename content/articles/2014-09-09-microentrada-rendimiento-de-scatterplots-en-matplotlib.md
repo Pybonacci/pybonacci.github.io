@@ -29,7 +29,7 @@ Veamos lo que tarda un scatter plot
 
     1 loops, best of 3: 598 ms per loop
 
-![](http://pybonacci.org/wp-content/uploads/2014/09/wpid-Microentrada_Rendimiento_de_scatterplots_en_matplotlib1.png)
+![](http://new.pybonacci.org/images/2014/09/wpid-Microentrada_Rendimiento_de_scatterplots_en_matplotlib1.png)
 
 Y ahora lo mismo pero con un plot normal
 
@@ -38,7 +38,7 @@ Y ahora lo mismo pero con un plot normal
 
     100 loops, best of 3: 9.09 ms per loop
 
-![](http://pybonacci.org/wp-content/uploads/2014/09/wpid-Microentrada_Rendimiento_de_scatterplots_en_matplotlib2.png)
+![](http://new.pybonacci.org/images/2014/09/wpid-Microentrada_Rendimiento_de_scatterplots_en_matplotlib2.png)
 
 La diferencia entre ambas opciones es:
 

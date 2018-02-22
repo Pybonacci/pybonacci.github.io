@@ -12,7 +12,7 @@ Empezamos con Alberto, que me comenta:
 > ¿Cómo puedo «borrar» lo que tengo por encima de una línea en matplotlib? He intentado con `fill_between` entre la línea de estabilidad funcional (línea roja) pero solo rellena con color, no sobreescribe que es lo que pretendo. ¿Se te ocurre alguna forma?
 > 
 > <p style="text-align:center;">
->   <img class="aligncenter  wp-image-2107" alt="Mapa compresor - Primera versión" src="http://pybonacci.org/wp-content/uploads/2014/01/compmap_nozorder.png" width="420" height="316" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_nozorder.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_nozorder-300x226.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
+>   <img class="aligncenter  wp-image-2107" alt="Mapa compresor - Primera versión" src="http://new.pybonacci.org/images/2014/01/compmap_nozorder.png" width="420" height="316" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_nozorder.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_nozorder-300x226.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
 > </p>
 
 Alberto está escribiendo un programa para dibujar [mapas de actuaciones de turbomáquinas](http://en.wikipedia.org/wiki/Compressor_map) en Python, similares a los que producen programas privativos como GSP ([ejemplos](http://www.gspteam.com/GSPsupport/OnlineHelp/index.html?compressor_map.htm)) o GasTurb ([ejemplos](http://www.gasturb.de/check-the-map.html)). En esos mapas aparece la _línea de estabilidad funcional_ (_surge line_ o _stall line_) por encima de la cual la turbomáquina no puede funcionar. Es preciso, por tanto, borrar todo lo que quede por encima de ella para suprimir información innecesaria del gráfico. El código es un poco complicado, así que voy a comentar solo los conceptos fundamentales.
@@ -20,7 +20,7 @@ Alberto está escribiendo un programa para dibujar [mapas de actuaciones de turb
 Lo primero que hice (después de admitir que no tenía ni idea) fue intentar trabajar sobre lo que ya había intentado. Efectivamente, si usas la función `fill_between` el relleno se queda «por debajo» de las líneas que ya había, en lugar de taparlas. Consultando la [documentación de `fill_between`](http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.fill_between) vi que admitía un parámetro zorder, que controla la visibilidad de los elementos de la gráfica: por defecto vale 0, y cuanto mayor es más arriba aparece el elemento. Usando un valor lo suficientemente alto se llega a este resultado:
 
 <div>
-  <img class="aligncenter  wp-image-2109" alt="Mapa compresor - Segunda versión" src="http://pybonacci.org/wp-content/uploads/2014/01/compmap_zorder.png" width="420" height="316" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_zorder.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_zorder-300x226.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
+  <img class="aligncenter  wp-image-2109" alt="Mapa compresor - Segunda versión" src="http://new.pybonacci.org/images/2014/01/compmap_zorder.png" width="420" height="316" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_zorder.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_zorder-300x226.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
 </div>
 
 Que es más o menos lo que se pretendía... pero en mi ordenador se vio el detalle fatal: **el color de fondo y la rejilla quedan tapados**. Esta solución no es suficiente.
@@ -62,7 +62,7 @@ ll.set_clip_path(mask)</code></pre>
 Y este sería el resultado:
 
 <p style="text-align:center;">
-  <a href="http://pybonacci.org/wp-content/uploads/2014/01/compmap_final.png"><img class="aligncenter  wp-image-2111" alt="Mapa compresor - Final" src="http://pybonacci.org/wp-content/uploads/2014/01/compmap_final.png" width="560" height="422" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_final.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_final-300x226.png 300w" sizes="(max-width: 560px) 100vw, 560px" /></a>
+  <a href="http://new.pybonacci.org/images/2014/01/compmap_final.png"><img class="aligncenter  wp-image-2111" alt="Mapa compresor - Final" src="http://new.pybonacci.org/images/2014/01/compmap_final.png" width="560" height="422" srcset="https://pybonacci.org/wp-content/uploads/2014/01/compmap_final.png 812w, https://pybonacci.org/wp-content/uploads/2014/01/compmap_final-300x226.png 300w" sizes="(max-width: 560px) 100vw, 560px" /></a>
 </p>
 
 ¡Ahora sí! 🙂

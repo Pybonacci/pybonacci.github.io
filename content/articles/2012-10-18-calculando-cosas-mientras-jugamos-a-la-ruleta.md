@@ -28,7 +28,7 @@ plt.ylim(-1,11)
 plt.plot(poligono_externo.boundary.xy[0], poligono_externo.boundary.xy[1])
 plt.plot(poligono_interno.boundary.xy[0], poligono_interno.boundary.xy[1])</code></pre>
 
-[<img class="aligncenter size-full wp-image-1064" title="poligonos" alt="" src="http://pybonacci.org/wp-content/uploads/2012/10/poligonos.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/poligonos.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/poligonos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/poligonos.png)
+[<img class="aligncenter size-full wp-image-1064" title="poligonos" alt="" src="http://new.pybonacci.org/images/2012/10/poligonos.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/poligonos.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/poligonos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/poligonos.png)
 
 Ahora creamos una función que será la que se encarga de hacer el cálculo:
 
@@ -62,7 +62,7 @@ plt.plot(poligono_externo.boundary.xy[0], poligono_externo.boundary.xy[1])
 plt.plot(poligono_interno.boundary.xy[0], poligono_interno.boundary.xy[1])
 plt.plot(xvect, yvect, 'r.')</code></pre>
 
-[<img class="aligncenter size-full wp-image-1065" title="poligono_puntos" alt="" src="http://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos.png)
+[<img class="aligncenter size-full wp-image-1065" title="poligono_puntos" alt="" src="http://new.pybonacci.org/images/2012/10/poligono_puntos.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/poligono_puntos-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/poligono_puntos.png)
 
 El número de puntos dentro del polígono interno sería _cont_ en la función que hemos definido anteriormente mientras que el número de puntos dentro del polígono externo serían todos los puntos usados, es decir, _num_pruebas._
 
@@ -77,7 +77,7 @@ plt.show()</code></pre>
 
 El resultado sería el siguiente:
 
-[<img class="aligncenter size-full wp-image-990" title="Montecarlo" alt="" src="http://pybonacci.org/wp-content/uploads/2012/10/montecarlo.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/montecarlo.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/montecarlo-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://pybonacci.org/wp-content/uploads/2012/10/montecarlo.png)
+[<img class="aligncenter size-full wp-image-990" title="Montecarlo" alt="" src="http://new.pybonacci.org/images/2012/10/montecarlo.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/10/montecarlo.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/montecarlo-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/montecarlo.png)
 
 Vemos que los valores obtenidos están en torno a 15 y pico y que hay menos dispersión a medida que aumentamos el número de puntos usados en la simulación. Si ahora usamos la propiedad **area** de la clase Polygon podemos ver el área que tiene el polígono interno:
 

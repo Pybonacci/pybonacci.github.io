@@ -54,7 +54,7 @@ plt.show()</code></pre>
 
 Definimos el tipo de gráfico y el área que ocupará. definimos colores de las barras, anchos de las líneas, transparencia de las barras,..., colocamos el nombre de la dirección en cada sector definido (en este caso hemos usado 8 sectores), ponemos un título a nuestro gráfico y hemos acabado.
 
-![Rosa de frecuencias de las nubes durante mis últimas vacaciones](http://pybonacci.org/wp-content/uploads/2012/03/rosafrecuencias.png)
+![Rosa de frecuencias de las nubes durante mis últimas vacaciones](http://new.pybonacci.org/images/2012/03/rosafrecuencias.png)
 
 Vuestra gráfica no tiene porque ser igual a esta, recordad que los datos los obtenemos de una muestra aleatoria.
 

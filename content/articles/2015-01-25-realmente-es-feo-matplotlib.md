@@ -232,7 +232,7 @@ tags: estilos, matplotlib.pyplot, styles
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://pybonacci.org/wp-content/uploads/2015/01/wpid-¿Realmente_es_feo_matplotlib1.png" />
+          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib1.png" />
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@ Vamos a usar el estilo  ggplot
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://pybonacci.org/wp-content/uploads/2015/01/wpid-¿Realmente_es_feo_matplotlib2.png" />
+          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib2.png" />
         </div>
       </div>
     </div>
@@ -543,7 +543,7 @@ Vamos a usar el estilo  ggplot
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://pybonacci.org/wp-content/uploads/2015/01/wpid-¿Realmente_es_feo_matplotlib3.png" />
+          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib3.png" />
         </div>
       </div>
     </div>

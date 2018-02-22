@@ -29,7 +29,7 @@ El curso se desarrollará en las aulas de informática de la ETSI Aeronáutica y
 
 Desde este momento [está abierta la inscripción en este formulario](http://goo.gl/forms/0TeouPSwHU). **La inscripción se cerrará <del datetime="2014-10-06T20:08:04+00:00">el miércoles 8 de octubre a las 00:00 horas</del> <ins datetime="2014-10-06T20:08:04+00:00">el jueves 9 de octubre a las 12:00</ins> y se realizará un sorteo entre los inscritos**. ¡Estad atentos vuestro email institucional estos días!
 
-[<img src="http://pybonacci.org/wp-content/uploads/2014/10/aeropython.jpg" alt="AeroPython" width="600" height="528" class="aligncenter size-medium wp-image-2754" />](http://pybonacci.org/wp-content/uploads/2014/10/aeropython.jpg)
+[<img src="http://new.pybonacci.org/images/2014/10/aeropython.jpg" alt="AeroPython" width="600" height="528" class="aligncenter size-medium wp-image-2754" />](http://new.pybonacci.org/images/2014/10/aeropython.jpg)
 
 Lo impartiremos Juan Luis Cano ([@Pybonacci](http://twitter.com/Pybonacci)) y mi compañero Álex Sáez ([@Alex__S12](http://twitter.com/Alex__S12)), con la ayuda de Alberto Lorenzo ([@newlawrence](http://twitter.com/newlawrence)) y tal vez algún ex-alumno más. Estará pensado para que sea un curso eminentemente práctico, con ejemplos extraídos de asignaturas de la carrera. Con los conocimientos básicos de programación que se imparten en la carrera es suficiente: no vamos a explicar qué es un bucle y un condicional, pero con haber escrito alguno en Fortran o MATLAB es suficiente 😉
 

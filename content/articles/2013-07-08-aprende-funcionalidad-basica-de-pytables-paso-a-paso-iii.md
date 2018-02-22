@@ -52,7 +52,7 @@ tab.flush()</code></pre>
 
 En la siguiente imagen se muestra un ejemplo de lo que acabamos de hacer:
 
-[<img class="aligncenter  wp-image-1711" alt="hdfview_nuevos valores añadidos" src="http://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos.png" width="335" height="128" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos.png 419w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos-300x114.png 300w" sizes="(max-width: 335px) 100vw, 335px" />](http://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos.png)
+[<img class="aligncenter  wp-image-1711" alt="hdfview_nuevos valores añadidos" src="http://new.pybonacci.org/images/2013/07/hdfview_nuevos-valores-ac3b1adidos.png" width="335" height="128" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos.png 419w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_nuevos-valores-ac3b1adidos-300x114.png 300w" sizes="(max-width: 335px) 100vw, 335px" />](http://new.pybonacci.org/images/2013/07/hdfview_nuevos-valores-ac3b1adidos.png)
 
 ¿Qué pasa si ahora queremos modificar un valor de una columna? Eso lo podemos hacer usando la clase \`Cols\`. Imaginad que los primeros diez elementos de la columna \`x\` son erróneos y los queremos representar con 'NaNs'. Lo podemos hacer así:
 
@@ -61,7 +61,7 @@ tab.flush()</code></pre>
 
 Si ahora inspeccionamos la tabla veremos que los diez primeros elementos de la columna 'x' han cambiado al valor NaN:
 
-[<img class="aligncenter size-full wp-image-1712" alt="hdfview_reemplazar valores" src="http://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores.png" width="403" height="284" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores.png 403w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores-300x211.png 300w" sizes="(max-width: 403px) 100vw, 403px" />](http://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores.png)
+[<img class="aligncenter size-full wp-image-1712" alt="hdfview_reemplazar valores" src="http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-valores.png" width="403" height="284" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores.png 403w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-valores-300x211.png 300w" sizes="(max-width: 403px) 100vw, 403px" />](http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-valores.png)
 
 ¿Y si queremos cambiar una columna entera de datos? Pues siguiendo el mismo procedimiento podemos hacer lo siguiente para modificar la columna 'z':
 
@@ -70,7 +70,7 @@ tab.flush()</code></pre>
 
 Con lo que la tabla quedaría con la última columna (columna 'z') con todos sus elementos con valor '-999.99'
 
-[<img class="aligncenter size-full wp-image-1715" alt="hdfview_reemplazar columna" src="http://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna.png" width="453" height="529" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna.png 453w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna-256x300.png 256w" sizes="(max-width: 453px) 100vw, 453px" />](http://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna.png)
+[<img class="aligncenter size-full wp-image-1715" alt="hdfview_reemplazar columna" src="http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-columna.png" width="453" height="529" srcset="https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna.png 453w, https://pybonacci.org/wp-content/uploads/2013/07/hdfview_reemplazar-columna-256x300.png 256w" sizes="(max-width: 453px) 100vw, 453px" />](http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-columna.png)
 
 Finalmente, para terminar este capítulo, cerramos la tabla creada como vimos en anteiores capítulos.
 
