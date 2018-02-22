@@ -24,7 +24,7 @@ print('La suma de x e y es: {}'.format(suma(x, y)))</code></pre>
 
 Este programa imprimiría por pantalla
 
-    $ pyton suma.py
+    $ python suma.py
     La suma de x e y es: 3.3
 
 y funciona tanto con Python 2.7 como con Python 3.2. Ya hablaremos de qué es lo que hace exactamente y de esto de las versiones más adelante.
