@@ -7,7 +7,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'http://pybonacci.github.io'
+SITEURL = 'http://mmngreco.github.io'
 RELATIVE_URLS = False
 
 SHOW_FEED = True
@@ -17,4 +17,4 @@ FEED_USE_SUMMARY = True  # from the feed_summary plugin
 
 DELETE_OUTPUT_DIRECTORY = True
 
-ISSO_HOST = 'https://comments.pybonacci.org'
+ISSO_HOST = 'https://comments.mmngreco.org'

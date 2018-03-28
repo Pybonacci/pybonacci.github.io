@@ -7,7 +7,7 @@ El código incluido en este proyecto está sujeto a la licencia MIT. Aquí se in
 La licencia MIT
 
 Copyright (c) 2012-2017 Jake VanderPlas
-Copyright (c) 2017 Juan Luis Cano, Kiko Correoso y el resto del equipo de Pybonacci.
+Copyright (c) 2017 Juan Luis Cano, Kiko Correoso y el resto del equipo de mmngreco.
 
 Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software y de los archivos de documentación asociados (el "Software"), para utilizar el Software sin restricción, incluyendo sin limitación los derechos a usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar, y/o vender copias del Software, y a permitir a las personas a las que se les proporcione el Software a hacer lo mismo, sujeto a las siguientes condiciones:
 
@@ -20,7 +20,7 @@ EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O 
 The MIT License (MIT)
 
 Copyright (c) 2012-2017 Jake VanderPlas.
-Copyright (c) 2017 Juan Luis Cano, Kiko Correoso and rest of Pybonacci team.
+Copyright (c) 2017 Juan Luis Cano, Kiko Correoso and rest of mmngreco team.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

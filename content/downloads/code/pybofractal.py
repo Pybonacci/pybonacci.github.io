@@ -17,7 +17,7 @@ def cambio_coord(p, p0, i):
 
 
 def pybofractal(pto, lado, iteraciones, ax):
-    """Genera el Pybofractal, el logo de Pybonacci.
+    """Genera el Pybofractal, el logo de mmngreco.
     """
     colors = ['#39719e', '#3d79aa', '#4385bb', '#5390c1',
             '#70a4cb', '#ffe771', '#ffd333', '#ffcf23']

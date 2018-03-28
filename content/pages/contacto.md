@@ -11,8 +11,8 @@ Si quieres enviarnos tus sugerencias, preguntas, quejas o felicitaciones, puedes
 Recuerda que también puedes contactarnos:
 
   * A través de los comentarios en las diferentes entradas.
-  * A través de Twitter en [@Pybonacci](http://twitter.com/Pybonacci).
-  * A través de nuestra página de Facebook en [fb.me/Pybonacci](http://fb.me/Pybonacci).
+  * A través de Twitter en [@mmngreco](http://twitter.com/mmngreco).
+  * A través de nuestra página de Facebook en [fb.me/mmngreco](http://fb.me/mmngreco).
   * A través de nuestro formulario de contacto:
 
 <div role="form" class="wpcf7" id="wpcf7-f4036-o1" lang="en-US" dir="ltr">
