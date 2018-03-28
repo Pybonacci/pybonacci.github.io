@@ -13,3 +13,5 @@ __pycache__
 
 # OSX files
 .DS_Store
+
+.idea
