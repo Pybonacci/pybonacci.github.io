@@ -1,4 +1,4 @@
-name: pybonacci36
+name: mmngreco36
 channels:
 - conda-forge
 - defaults

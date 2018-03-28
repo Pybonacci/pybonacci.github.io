@@ -25,7 +25,7 @@ CLOUDFILES_CONTAINER=my_cloudfiles_container
 
 DROPBOX_DIR=~/Dropbox/Public/
 
-GITHUB_PAGES_REMOTE=https://${GH_TOKEN}@github.com/Pybonacci/pybonacci.github.io.git
+GITHUB_PAGES_REMOTE=https://${GH_TOKEN}@github.com/mmngreco/mmngreco.github.io.git
 GITHUB_PAGES_BRANCH=master
 
 GIT_COMMIT_HASH = $(shell git rev-parse HEAD)

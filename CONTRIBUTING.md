@@ -1,8 +1,8 @@
-# Como contribuir a Pybonacci
+# Como contribuir a mmngreco
 
 ## Escribir un articulo.
 
-Pybonacci es un esfuerzo colaborativo entre personas de diversas industrias y ámbitos. Esto quiere decir que si crees que tienes algo interesante que aportar, seguro que podemos aprender de ti y nos encantará añadir tu artículo al blog.
+mmngreco es un esfuerzo colaborativo entre personas de diversas industrias y ámbitos. Esto quiere decir que si crees que tienes algo interesante que aportar, seguro que podemos aprender de ti y nos encantará añadir tu artículo al blog.
 
 Los artículos se añaden al blog mediante Pull Request al repositorio (a la rama `sources`, es la rama por defecto) con el tag `[ARTICULO]`. Los artículos pueden estar en dos formatos:
 
@@ -29,7 +29,7 @@ tags: lista de tags separadas por comas (por ejemplo,  "tag1, ecuaciones diferen
 {% notebook downloads/notebooks/nombre_del_archivo_ipynb.ipynb cells[:] %}
 ```
 
-[Aquí](https://github.com/Pybonacci/pybonacci.github.io-source/pull/9/files) se puede ver un ejemplo de Pull Request.
+[Aquí](https://github.com/mmngreco/mmngreco.github.io-source/pull/9/files) se puede ver un ejemplo de Pull Request.
 
 ## Mejorar el blog
 
@@ -51,7 +51,7 @@ Por ejemplo, para que en un artículo se renderice un bloque de código de pytho
 
 ## Sobre la aceptación de artículos.
 
-En Pybonacci creemos que cualquier persona que tenga ganas de compartir su conocimiento y que haga el (a veces gran) esfuerzo de escribir un artículo merece ser publicada.
+En mmngreco creemos que cualquier persona que tenga ganas de compartir su conocimiento y que haga el (a veces gran) esfuerzo de escribir un artículo merece ser publicada.
 No obstante, también debemos garantizar una cierta calidad en el blog. Por ello, una vez se ha creado una Pull Request para enviar un artículo dicho artículo deberá ser validado por al menos 2 editores.
 
 ## ¿Quieres ser editor?

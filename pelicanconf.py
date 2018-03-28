@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-AUTHOR = 'Pybonacci'
-SITENAME = 'Pybonacci'
-SITESUBTITLE = u'Blog sobre Python científico en español'
+AUTHOR = 'mmngreco'
+SITENAME = 'mmngreco'
+SITESUBTITLE = u'Blog personal sobre sobre economía y python.'
 SITEURL = ''
 PATH = 'content'
 TIMEZONE = 'Europe/Madrid'
@@ -60,9 +60,9 @@ NOTEBOOK_DIR = 'downloads/notebooks'
 # THEME SETTINGS
 THEME = './theme/'
 
-ABOUT_PAGE = '/pages/acerca-de-pybonacci.html'
-TWITTER_USERNAME = 'Pybonacci'
-GITHUB_USERNAME = 'Pybonacci'
+ABOUT_PAGE = '/pages/acerca-de-mmngreco.html'
+TWITTER_USERNAME = 'mmngreco'
+GITHUB_USERNAME = 'mmngreco'
 SHOW_ARCHIVES = True
 SHOW_FEED = False  # Need to address large feeds
 
@@ -74,5 +74,5 @@ STATIC_PATHS = ['images', 'figures', 'videos', 'downloads', 'favicon.ico', 'extr
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 # Footer info
-LICENSE_URL = "https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"
+LICENSE_URL = "https://github.com/mmngreco/mmngreco.github.io/blob/sources/LICENSE.md"
 LICENSE_NAME = "CC BY-SA 4.0 + MIT"
