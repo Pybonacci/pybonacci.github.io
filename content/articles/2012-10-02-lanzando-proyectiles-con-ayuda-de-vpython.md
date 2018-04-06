@@ -82,7 +82,7 @@ Voy a explicar brevemente lo que hace el código:
 
 El resultado que os debería salir debería ser algo parecido a lo que se puede ver en el siguiente vídeo.
 
-[youtube=http://www.youtube.com/watch?v=Il5wYLQEllI]
+{% youtube Il5wYLQEllI %}
 
 Espero que os haya gustado. Si alguno se anima a hacer algún ejemplo (científico) similar nos encantaría que lo compartiera en los comentarios. Por otro lado, siempre estamos abiertos a críticas, sugerencias y colaboraciones.
 
