@@ -22,7 +22,7 @@ Su actual versión es la 4 y permite leer los ficheros creados con versiones ant
 
 [Además es compatible con un subconjunto de HDF5](http://www.unidata.ucar.edu/software/netcdf/docs/interoperability_hdf5.html) (del que hablaremos otro día, Francesc, ¿te animas como firma invitada?) pudiendo leer gran cantidad de ficheros en formato HDF5 pero no todos. HDF5 es capaz de abrir cualquier fichero creado con netCDF-4 (que es el modelo mejorado de datos que veremos a continuación). Es decir, un fichero netCDF-4 es un fichero HDF5 pero no a la inversa.
 
-Es además un estándar para varias [instituciones](http://www.unidata.ucar.edu/software/netcdf/docs/standards.html) como la [Open Geospatial Consortium](http://www.opengeospatial.org/standards/netcdf).
+Es, además, un estándar para varias [instituciones](http://www.unidata.ucar.edu/software/netcdf/docs/standards.html) como la [Open Geospatial Consortium](http://www.opengeospatial.org/standards/netcdf).
 
 **¿Cuál es el formato de un fichero netCDF?**
 
@@ -44,7 +44,7 @@ En python, como siempre, disponemos de múltiples opciones. Si solo queréis lee
 
 **¿Vamos a ver un poquito de python?**
 
-Pues hoy no que tengo otros quehaceres :-), pero voy a enlazar a artículos donde ya se ha visto como acceder a estos datos y a la documentación de netcdf4-python:
+Pues hoy no, que tengo otros quehaceres :-), pero voy a enlazar a artículos donde ya se ha visto como acceder a estos datos y a la documentación de netcdf4-python:
 
   * [Documentación de netcdf4-python en inglés](http://netcdf4-python.googlecode.com/svn/trunk/docs/netCDF4-module.html)
   * En pybonacci: [[1]](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/), [[2]](http://pybonacci.org/2012/11/19/analisis-cluster-ii-clasificacion-no-supervisada-mediante-clasificacion-jerarquica-aglomerativa/). En español, por desgracia, no hay mucha cosa,...
