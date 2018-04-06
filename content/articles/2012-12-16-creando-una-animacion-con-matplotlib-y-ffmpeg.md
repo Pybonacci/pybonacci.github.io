@@ -101,7 +101,7 @@ YouTubeVideo('bFfCG-N8R8E')</code></pre>
 
 La salida del anterior código mostrará:
   
-[youtube=http://www.youtube.com/watch?v=bFfCG-N8R8E]
+{% youtube bFfCG-N8R8E %}
 
 Enlaces interesantes y referencias usadas para hacer esta entrada:
 
