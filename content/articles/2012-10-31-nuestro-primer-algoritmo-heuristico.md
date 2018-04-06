@@ -31,18 +31,22 @@ class Busqueda:
         self.ngenes = ngenes
         self.lim_sup = lim_sup
         self.lim_inf = lim_inf
+
     def padre(self):
         self.individuo0 = np.random.rand(self.ngenes) *
                           (self.lim_sup - self.lim_inf) + self.lim_inf
         return self.individuo0
+
     def fitness(self, individuo):
         funcion = individuo * individuo
         return np.sum(funcion)
+
     def hijo(self, individuo):
         nindividuo = individuo + np.random.normal(0,1, self.ngenes)
         nindividuo[nindividuo &lt; self.lim_inf] = self.lim_inf
         nindividuo[nindividuo &gt; self.lim_sup] = self.lim_sup
         return nindividuo
+
     def calculos(self):
         fit_acum = []
         individuo = self.individuo0
@@ -55,6 +59,7 @@ class Busqueda:
             fit_acum = np.append(fit_acum, self.fitness(individuo))
             poblacion = np.append(poblacion, individuo)
         return poblacion.reshape(self.ngeneraciones, self.ngenes), fit_acum
+
     def representa_proceso(self, poblacion, fitness_acumulado):
         plt.subplot(311)
         plt.xlim(self.lim_inf, self.lim_sup)
