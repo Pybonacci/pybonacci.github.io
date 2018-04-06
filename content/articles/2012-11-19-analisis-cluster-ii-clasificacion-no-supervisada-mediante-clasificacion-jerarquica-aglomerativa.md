@@ -15,49 +15,27 @@ Si os acordáis, en el [primer capítulo de esta mini-serie](http://pybonacci.or
 
 <!--more-->
 
-Una vez que hemos calculado todas las medidas de asociación entre las _m_ observaciones hemos de establecer un método para las uniones de las observaciones para así ir creando los clusters. Nuevamente, scipy acude al rescate para poder establecer esto mediante el módulo [scipy.cluster](http://docs.scipy.org/doc/scipy/reference/cluster.html) y la función [scipy.cluster.hierarchy.linkage](http://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage). El 'linkage', enlazado o amalgamiento se puede realizar mediante diferentes métodos. En la función anterior podemos elegir entre algunos de ellos como el método simple, completo, promedio, pesado, de Ward,... ¿Dónde los podéis ver [explicados de forma detallada y excelente](http://www.ugr.es/~gallardo/pdf/cluster-3.pdf)? Pues sí, en [los apuntes del profesor José Ángel Gallardo San Salvador, de la escuela de estadística de la Universidad de Granada](http://www.ugr.es/~gallardo/pdf/cluster-3.pdf) (perded 10 minutos en leer el enlace anterior y lo que sigue a continuación tendrá más sentido). El enlazado se realiza en el momento inicial, cuando se dispone de las _m_ observaciones, y después de hacer un nuevo grupo o cluster usando el método de enlazado (o linkage o amalgamiento) que se haya seleccionado. En las siguientes transparencias se intenta detallar un ejemplo, paso a paso, de un enlazado simple para una distancia mínima:
+Una vez que hemos calculado todas las medidas de asociación entre las _m_ observaciones hemos de establecer un método para las uniones de las observaciones para así ir creando los clusters. Nuevamente, scipy acude al rescate para poder establecer esto mediante el módulo [scipy.cluster](http://docs.scipy.org/doc/scipy/reference/cluster.html) y la función [scipy.cluster.hierarchy.linkage](http://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage). El 'linkage', enlazado o amalgamiento se puede realizar mediante diferentes métodos. En la función anterior podemos elegir entre algunos de ellos como el método simple, completo, promedio, pesado, de Ward,... ¿Dónde los podéis ver [explicados de forma detallada y excelente](http://www.ugr.es/~gallardo/pdf/cluster-3.pdf)? Pues sí, en [los apuntes del profesor José Ángel Gallardo San Salvador, de la escuela de estadística de la Universidad de Granada](http://www.ugr.es/~gallardo/pdf/cluster-3.pdf) (perded 10 minutos en leer el enlace anterior y lo que sigue a continuación tendrá más sentido). El enlazado se realiza en el momento inicial, cuando se dispone de las _m_ observaciones, y después de hacer un nuevo grupo o cluster usando el método de enlazado (o linkage o amalgamiento) que se haya seleccionado. En las [siguientes transparencias](https://www.slideshare.net/pybonacci/linkage-15253227) se intenta detallar un ejemplo, paso a paso, de un enlazado simple para una distancia mínima.
 
-<p style="text-align:center;">
-  [slideshare id=15253227&w=427&h=356&sc=no]
-</p>
+Bueno, bueno,..., mucha palabrería, mucho enlace a apuntes,... Falta una cosa, ¡¡!SHOW ME THE CODE!! A eso vamos. Para ello vamos a hacer uso de unos datos de temperatura que descargaremos de la <a href="http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+94788&variable=air&DB_vid=20&DB_tid=35711&units=degK&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=60S&lat-end=15N&lon-begin=84W&lon-end=30W&dim0=time&year_begin=2009&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data">siguiente url (pinchad sobre 'FTP a copy of the file')</a>. Una vez que tengáis el fichero descargado vamos a importar todo lo que vamos a necesitar:
 
-<div style="margin-bottom:5px;text-align:center;">
-  <strong> <a title="Linkage" href="http://www.slideshare.net/pybonacci/linkage-15253227" target="_blank">Linkage</a> </strong> from <strong><a href="http://www.slideshare.net/pybonacci" target="_blank">pybonacci</a></strong>
-</div>
-
-<div style="margin-bottom:5px;text-align:left;">
-  Bueno, bueno,..., mucha palabrería, mucho enlace a apuntes,... Falta una cosa, ¡¡!SHOW ME THE CODE!! A eso vamos. Para ello vamos a hacer uso de unos datos de temperatura que descargaremos de la <a href="http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+94788&variable=air&DB_vid=20&DB_tid=35711&units=degK&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=60S&lat-end=15N&lon-begin=84W&lon-end=30W&dim0=time&year_begin=2009&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data">siguiente url (pinchad sobre 'FTP a copy of the file')</a>. Una vez que tengáis el fichero descargado vamos a importar todo lo que vamos a necesitar:
-</div>
-
-<div style="margin-bottom:5px;text-align:left;">
-  <pre><code class="language-python">from scipy import cluster
+<pre><code class="language-python">from scipy import cluster
 import numpy as np
 from matplotlib import pyplot as plt
 import netCDF4 as nc
-from mpl_toolkits import basemap as bm</code></pre></p>
-</div>
+from mpl_toolkits import basemap as bm</code></pre>
 
-<div style="margin-bottom:5px;text-align:left;">
-  Ahora vamos a preparar los datos:
-</div>
+Ahora vamos a preparar los datos:
 
-<div style="margin-bottom:5px;text-align:left;">
-  <div>
-    <pre><code class="language-python">print('leyendo datos nc')
+<pre><code class="language-python">print('leyendo datos nc')
 tsfc = nc.Dataset('X83.42.0.38.323.14.41.15.nc') #tsfc 'por temperature at surface'
 lat = tsfc.variables['lat'][:]
 lon = tsfc.variables['lon'][:]
-tmp = tsfc.variables['air'][:]</code></pre></p>
-  </div>
+tmp = tsfc.variables['air'][:]</code></pre>
   
-  <p>
-    Tenemos las series de temperatura (tmp) y su posición (lon, lat). Vamos a ver los nodos (series) que tenemos sobre un mapa.
-  </p>
-</div>
+Tenemos las series de temperatura (tmp) y su posición (lon, lat). Vamos a ver los nodos (series) que tenemos sobre un mapa.
 
-<div style="margin-bottom:5px;text-align:left;">
-  <div>
-    <pre><code class="language-python">m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
+<pre><code class="language-python">m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
                urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
 projection = 'mill')
 lon, lat = np.meshgrid(lon, lat)
@@ -65,40 +43,26 @@ x, y = m(lon, lat)
 m.scatter(x, y, color= 'y')
 m.drawcountries()
 m.drawlsmask(land_color = 'g', ocean_color = 'c')
-plt.show()</code></pre></p>
-  </div>
-</div>
+plt.show()</code></pre>
 
-<div style="margin-bottom:5px;text-align:left;">
-  <a href="http://new.pybonacci.org/images/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="http://new.pybonacci.org/images/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a>Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:
-</div>
+<a href="http://new.pybonacci.org/images/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="http://new.pybonacci.org/images/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a>
 
-<div style="margin-bottom:5px;text-align:left;">
-  <div>
-    <pre><code class="language-python">tmp = tmp.reshape(tmp.shape[0], tmp.shape[1] * tmp.shape[2])
+Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:
+
+<pre><code class="language-python">tmp = tmp.reshape(tmp.shape[0], tmp.shape[1] * tmp.shape[2])
 print('calculando grupos')
 enlaces = cluster.hierarchy.linkage(tmp.T, method = 'single', metric = 'correlation')
 print('dibujando dendrograma')
 cluster.hierarchy.dendrogram(enlaces, color_threshold=0)
-plt.show()</code></pre></p>
-  </div>
-  
-  <p>
-    Y veremos algo como lo siguiente, que se conoce como dendrograma:
-  </p>
-</div>
+plt.show()</code></pre>  
 
-<div style="margin-bottom:5px;text-align:left;">
-  <a href="http://new.pybonacci.org/images/2012/11/dendrograma.png"><img class="aligncenter size-full wp-image-1268" title="dendrograma" alt="" src="http://new.pybonacci.org/images/2012/11/dendrograma.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
-</div>
+Y veremos algo como lo siguiente, que se conoce como dendrograma:
 
-<div style="margin-bottom:5px;text-align:left;">
-  Desgraciadamente no se ve muy bien puesto que son muchas observaciones (682), lo dicho, toquetead para hacerlo con menos series y, si queréis, cambiando el método de 'linkage' y de distancias (en el ejemplo se usa el método simple y la correlación, respectivamente). Vemos que en el eje <em>y</em> hay unos valores, Pues bien, si cortamos el dendrograma horizontalmente por un valor nos quedaremos con tantos grupos como 'barritas verticales' o ramas cortemos. Vamos a hacer una prueba usando el valor 0.15 como valor de corte y vamos a representar a qué grupo pertenece cada una de las observaciones:
-</div>
+<a href="http://new.pybonacci.org/images/2012/11/dendrograma.png"><img class="aligncenter size-full wp-image-1268" title="dendrograma" alt="" src="http://new.pybonacci.org/images/2012/11/dendrograma.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
 
-<div style="margin-bottom:5px;text-align:left;">
-  <div>
-    <pre><code class="language-python">clusters = cluster.hierarchy.fcluster(enlaces, 0.15, criterion = 'distance')
+Desgraciadamente no se ve muy bien puesto que son muchas observaciones (682), lo dicho, toquetead para hacerlo con menos series y, si queréis, cambiando el método de 'linkage' y de distancias (en el ejemplo se usa el método simple y la correlación, respectivamente). Vemos que en el eje <em>y</em> hay unos valores, Pues bien, si cortamos el dendrograma horizontalmente por un valor nos quedaremos con tantos grupos como 'barritas verticales' o ramas cortemos. Vamos a hacer una prueba usando el valor 0.15 como valor de corte y vamos a representar a qué grupo pertenece cada una de las observaciones:
+
+<pre><code class="language-python">clusters = cluster.hierarchy.fcluster(enlaces, 0.15, criterion = 'distance')
 clusters = clusters.reshape(lat.shape)
 m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
                urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
@@ -113,22 +77,12 @@ for j in range(clusters.shape[0]):
 plt.title(u'Número de grupos: %03d' % np.max(clusters))
 m.drawcountries()
 m.drawlsmask(land_color = 'g', ocean_color = 'c')
-plt.show()</code></pre></p>
-  </div>
+plt.show()</code></pre>
+
+Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="http://new.pybonacci.org/images/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="http://new.pybonacci.org/images/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
   
-  <p>
-    Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="http://new.pybonacci.org/images/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="http://new.pybonacci.org/images/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
-  </p>
-  
-  <p>
-    Y ahora es donde vendría el trabajo del experto para interpretar el resultado, para conocer si con 19 grupos es suficiente, es demasiado,... Haciendo una interpretación (no os creáis nada de lo que viene a continuación) de estos resultados podríamos decir que hay una clara separación entre temperaturas en el ecuador y el Caribe (grupo 11) y temperaturas por debajo del subtrópico (grupo 8), parece que hay varios grupos (17, 18, 6, 5, 12) que podrían estar diciendo que parece que estamos identificando un fenómeno de ¿<a href="http://es.wikipedia.org/wiki/El_Ni%C3%B1o">El Niño</a>?,...
-  </p>
-  
-  <p>
-    He intentado sintetizar excesivamente y no sé si habréis entendido algo, pero bueno, si queréis profundizar en el tema, tenéis enlaces para leer información más en profundidad, hemos localizado bibliotecas python que nos ayudan a hacer este tipo de análisis y tenéis los comentarios para corregir, discutir, criticar, preguntar..., lo que consideréis oportuno.
-  </p>
-  
-  <p>
-    Hasta la próxima!!
-  </p>
-</div>
+Y ahora es donde vendría el trabajo del experto para interpretar el resultado, para conocer si con 19 grupos es suficiente, es demasiado,... Haciendo una interpretación (no os creáis nada de lo que viene a continuación) de estos resultados podríamos decir que hay una clara separación entre temperaturas en el ecuador y el Caribe (grupo 11) y temperaturas por debajo del subtrópico (grupo 8), parece que hay varios grupos (17, 18, 6, 5, 12) que podrían estar diciendo que parece que estamos identificando un fenómeno de ¿<a href="http://es.wikipedia.org/wiki/El_Ni%C3%B1o">El Niño</a>?,...
+
+He intentado sintetizar excesivamente y no sé si habréis entendido algo, pero bueno, si queréis profundizar en el tema, tenéis enlaces para leer información más en profundidad, hemos localizado bibliotecas python que nos ayudan a hacer este tipo de análisis y tenéis los comentarios para corregir, discutir, criticar, preguntar..., lo que consideréis oportuno.
+
+Hasta la próxima!!
