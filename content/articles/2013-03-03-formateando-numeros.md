@@ -44,7 +44,7 @@ La salida del anterior código mostrará:
 161
 181</code></pre>
 
-Ahora hemos conseguido lo mismo que al principio solo que ahora tenemos libertad para formatear mejor la salida. ¿Si tengo más de una variable como sabría qué variable hay que usar para cada par de llaves? Para resolver esto podemos usar números dentro de las llaves, lo que hemos llamado anteriormente _campo de reemplazo_, así el 0 corresponderá a la primera variable, el 1 corresponderá a la segunda,...
+Ahora hemos conseguido lo mismo que al principio solo que ahora tenemos libertad para formatear mejor la salida. ¿Si tengo más de una variable cómo sabría qué variable hay que usar para cada par de llaves? Para resolver esto podemos usar números dentro de las llaves, lo que hemos llamado anteriormente _campo de reemplazo_, así el 0 corresponderá a la primera variable, el 1 corresponderá a la segunda,...
 
 <pre><code class="language-python">for i, dato in enumerate(datos): print('{0} {1}'.format(i, dato))</code></pre>
 
@@ -61,7 +61,7 @@ La salida del anterior código mostrará:
 8 161
 9 181</code></pre>
 
-Lo anterior es equivalente a usar un nombres para las variables donde el nombre será el _campo de reemplazo_ y será reemplazado por su valor, de esta forma no tenemos que conocer el orden en que se colocan las variables en el format como en el ejemplo anterior:
+Lo anterior es equivalente a usar un nombre para las variables donde el nombre será el _campo de reemplazo_ y será reemplazado por su valor, de esta forma no tenemos que conocer el orden en que se colocan las variables en el format como en el ejemplo anterior:
 
 <pre><code class="language-python">for i, dato in enumerate(datos): print('{contador} {valor}'.format(contador = i, valor = dato))</code></pre>
 
@@ -168,7 +168,7 @@ La salida del anterior código mostrará:
 181              +181 +      181    181
 ========== ========== ========== ==========</code></pre>
 
-Esto ya empieza a ser un poco más excitante (que frizazo que soy). Si quisiéramos que en el espacio que dejamos a cada número no hubiera espacios vacios y se rellenaran con '0' haríamos lo siguiente:
+Esto ya empieza a ser un poco más excitante (que frikazo que soy). Si quisiéramos que en el espacio que dejamos a cada número no hubiera espacios vacios y se rellenaran con '0' haríamos lo siguiente:
 
 <pre><code class="language-python">print('{0} {0}'.format('='*10))
 for i, dato in enumerate(datos): print('{0:^10} {1:&gt;010}'.format(i, dato))
@@ -210,7 +210,7 @@ La salida del anterior código mostrará:
     9          181.00
 ========== ==========</code></pre>
 
-¿Y si usamos notación exponencial? Pues lo mismo lo que usando ahora el tipo 'e' o el tipo 'E'.
+¿Y si usamos notación exponencial? Pues lo mismo pero usando ahora el tipo 'e' o el tipo 'E'.
 
 <pre><code class="language-python">print('{0} {0}'.format('='*10))
 for i, dato in enumerate(datos): print('{0:^10} {1:&gt;10.3e}'.format(i, dato))
@@ -252,7 +252,7 @@ La salida del anterior código mostrará:
     9        18100.000000%
 ========== ===============</code></pre>
 
-Como resumen, entre las claves podéis poner el campo a reeemplazar, como se formateará el texto, que ancho (en caracteres) se usará el para el campo a reemplazar, qué tipo de dato se escribirá (decimal, entero, string, caracter,...).
+Como resumen, entre las claves podéis poner el campo a reemplazar, cómo se formateará el texto, qué ancho (en caracteres) se usará el para el campo a reemplazar, qué tipo de dato se escribirá (decimal, entero, string, caracter,...).
 
 Si queréis ampliar vuestros conocimientos en el uso del método format o en como formatear texto con python podéis echarle un ojo a:
 
