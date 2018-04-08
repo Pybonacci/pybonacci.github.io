@@ -64,15 +64,13 @@ N&lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.
 
 Imaginad que nuestro problema es que queremos saber cuantas direcciones de correo diferentes aparecen en toda la cadena de correos anterior (almacenada en la variable 'texto'. Para la cadena anterior sería sencillo hacerlo a mano, pero imaginad que hay miles de correos.
 
-Una forma sería usar el siguiente patrón: `'S+@S+'`
+Una forma sería usar el siguiente patrón: `'S+@S+'` donde:
 
-donde
+* `'S'` encuentra cualquier caracter que no sea un espacio en blanco (en las direcciones de correo no está permitido usar espacios en blanco). Sería equivalente a usar `r'[^ tnrfv]'` (mirad [aquí](http://docs.python.org/3.3/library/re.html#regular-expression-syntax) para ver qué es esto último entre corchetes)
 
-`'S'` encuentra cualquier caracter que no sea un espacio en blanco (en las direcciones de correo no está permitido usar espacios en blanco). Sería equivalente a usar r'[^ tnrfv]' (mirad [aquí](http://docs.python.org/3.3/library/re.html#regular-expression-syntax) para ver qué es esto último entre corchetes)
+* `'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
 
-`'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
-
-`'@'` indica la arroba 🙂
+* `'@'` indica la arroba 🙂
 
 No voy a hablar de ninguna de las funciones del módulo [_re_](http://docs.python.org/3.3/library/re.html) ya que para eso tenéis la documentación oficial de python. Empezaré usando la función [_findall_](http://docs.python.org/3.3/library/re.html#re.findall) para los primeros ejemplos.
 
@@ -84,15 +82,13 @@ La salida del anterior código mostrará:
 
 Vaya, entre los resultados se nos han colado cosas que no serían direcciones de correo (los tres últimos elementos de la lista). Vamos a intentar solucionarlo usando un patrón un poco más complejo.
 
-El patrón propuesto ahora sería algo como lo siguiente: `'w+@w+'`
+El patrón propuesto ahora sería algo como lo siguiente: `'w+@w+'` donde:
 
-donde
+* `'w'` encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo `'_'`). Esto sería equivalente a usar `r'[a-zA-Z0-9_]'`
 
-`'w'` encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo `'_'`). Esto sería equivalente a usar `r'[a-zA-Z0-9_]'`
+* `'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
 
-`'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
-
-`'@'` indica la arroba
+* `'@'` indica la arroba
 
 <pre><code class="language-python">print(re.findall('w+@w+',texto))</code></pre>
 
@@ -102,17 +98,15 @@ La salida del anterior código mostrará:
 
 Ups, vaya, como hemos usado 'w' se han perdido las terminaciones de las direcciones de correo a continuación del símbolo '.' ('.net', '.com', '.co.uk') ya que no está incluido en la búsqueda. También vemos que hemos extraído incorrectamente una de las direcciones de correo que usa '.' antes de la '@' ('Monete.que.no.habla@lostresmonetes.net')
 
-Vamos a volver a probar con un patrón diferente: `r'w+[.]*@w+[.]*w+'`
+Vamos a volver a probar con un patrón diferente: `r'w+[.]*@w+[.]*w+'` donde:
 
-donde:
+* `'w'` encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo `'_'`). Esto sería equivalente a usar `[a-zA-Z0-9]`
 
-`'w'` encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo `'_'`). Esto sería equivalente a usar [a-zA-Z0-9]
+* `'[.]'` incluye el símbolo `'.'` dentro del patrón a buscar. Sería equivalente a usar `r'[a-zA-Z0-9_.]'`
 
-`'[.]'` incluye el símbolo `'.'` dentro del patrón a buscar. Sería equivalente a usar `r'[a-zA-Z0-9_.]'`
+* `'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
 
-`'+'` indica que hay que encontrar al menos un caracter que no sea un espacio en blanco
-
-`'@'` indica la arroba
+* `'@'` indica la arroba
 
 <pre><code class="language-python">print(re.findall(r'w+[.]*@w+[.]*w+', texto))</code></pre>
 
@@ -120,15 +114,13 @@ La salida del anterior código mostrará:
 
 <pre><code class="language-python">['monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'torpedo@submarino.com', 'monete_que_no_ve@lostresmonetes.net', 'monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'torpedo@submarino.com', 'monete_que_no_ve@lostresmonetes.net', 'monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'habla@lostresmonetes.net', 'w@pa', 'Monete_que_no_escucha@lostresmonetes.co']</code></pre>
 
-Vaya. Hemos recuperados las terminaciones del _host_ ('.net', '.com') pero no hemos recuperado correctamente la dirección de correo errónea ni la dirección del correo con terminación '.co.uk'... ¿Qué podemos hacer? Pues probar con otro patrón que haga lo que necesitamos.
+Vaya. Hemos recuperado las terminaciones del _host_ ('.net', '.com') pero no hemos recuperado correctamente la dirección de correo errónea ni la dirección del correo con terminación '.co.uk'... ¿Qué podemos hacer? Pues probar con otro patrón que haga lo que necesitamos.
 
-El patrón propuesto ahora sería: `r'[w.]*@[w.]*'`
+El patrón propuesto ahora sería: `r'[w.]*@[w.]*'` donde:
 
-donde
+* '[w.]*' busca cualquier cosa que contenga una letra (desde la _a_ la _z_ en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`
 
-'[w.]*' busca cualquier cosa que contenga una letra (desde la _a_ la _z_ en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`
-
-`'@'` indica la arroba
+* `'@'` indica la arroba
 
 <pre><code class="language-python">print(re.findall(r'[w.]*@[w.]*', texto))</code></pre>
 
@@ -138,15 +130,13 @@ La salida del anterior código mostrará:
 
 Maldición, se nos ha seguido colando una cosa que no es una dirección de correo. Podría eliminarla pidiéndo que después de la arroba deba figurar al menos un símbolo `'.'`.
 
-Nuevo patrón: `r'[w.]*@w*.[w.]*'`
+Nuevo patrón: `r'[w.]*@w*.[w.]*'` donde:
 
-donde
+* `'[w.]*'` busca cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`
 
-`'[w.]*'` busca cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`
+* `'@'` indica la arroba
 
-`'@'` indica la arroba
-
-`'w+.[w.]*'` primero busca cualquier cosa que contenga al menos una letra (desde la a la z en mayúsculas o minúsculas), un número y/o el símbolo `'_'`, segundo, exige que haya un punto y, por último, vuelve a buscar cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`. Es decir, este último subpatrón encontraría cosas como por ejemplo 'hola.com', 'hola.co.uk', 'hola\_.com', 'hola.co\_m',..., que no tienen que ser correctas como dominio o 'host' pero que permiten filtrar a 'w@pa'
+* `'w+.[w.]*'` primero busca cualquier cosa que contenga al menos una letra (desde la a la z en mayúsculas o minúsculas), un número y/o el símbolo `'_'`, segundo, exige que haya un punto y, por último, vuelve a buscar cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo `'_'` y/o el símbolo `'.'`. Es decir, este último subpatrón encontraría cosas como por ejemplo 'hola.com', 'hola.co.uk', 'hola\_.com', 'hola.co\_m',..., que no tienen que ser correctas como dominio o 'host' pero que permiten filtrar a 'w@pa'
 
 <pre><code class="language-python">print(re.findall(r'[w.]*@w+.[w.]*', texto))</code></pre>
 
@@ -154,7 +144,7 @@ La salida del anterior código mostrará:
 
 <pre><code class="language-python">['monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'torpedo@submarino.com', 'monete_que_no_ve@lostresmonetes.net', 'monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'torpedo@submarino.com', 'monete_que_no_ve@lostresmonetes.net', 'monete_que_no_ve@lostresmonetes.net', 'torpedo@submarino.com', 'Monete.que.no.habla@lostresmonetes.net', 'Monete_que_no_escucha@lostresmonetes.co.uk']</code></pre>
 
-Qué pasa si, por la razón que sea, queremos obtener el usuario del correo y el dominio por separado para ¡lo que sea que se te ocurra! Ha llegado el momento de introducir los grupos. Los grupos son patrones o subpatrones encerrados entre paréntesis.
+¿Qué pasa si, por la razón que sea, queremos obtener el usuario del correo y el dominio por separado para ¡lo que sea que se te ocurra!? Ha llegado el momento de introducir los grupos. Los grupos son patrones o subpatrones encerrados entre paréntesis.
 
 Podemos proponer el siguiente patrón y ver qué pasa: `r'([w.]*)@(w+.[w.]*)'`
 
@@ -189,11 +179,9 @@ El iterador devuelve un [objeto Match](http://docs.python.org/3.3/library/re.htm
 
 En este caso solo se usan dos grupos en el patrón pero podría darse el caso de que el patrón se volviese más complejo y nos interesase incluir más grupos. Para evitar liarnos podríamos usar nombres para los grupos de la siguiente manera:
 
-Patrón: `r'(?P<users>[w.]*)@(?P<hosts>w+.[w.]*)'`
+Patrón: `r'(?P<users>[w.]*)@(?P<hosts>w+.[w.]*)'` donde:
 
-donde
-
-`'?P<nombre_del_grupo>'` es la forma de identificar el grupo con `nombre_del_grupo` siendo el valor que quieras usar para nombrar a ese determinado grupo.
+* `'?P<nombre_del_grupo>'` es la forma de identificar el grupo con `nombre_del_grupo` siendo el valor que quieras usar para nombrar a ese determinado grupo.
 
 En la pieza de código siguiente deberéis reemplazar en la primera línea `patron` por `r'(?P<users>[w.]*)@(?P<hosts>w+.[w.]*)'`. Disculpad las molestias pero wordpress.com 'escapa' algunas cosas del código.
 
