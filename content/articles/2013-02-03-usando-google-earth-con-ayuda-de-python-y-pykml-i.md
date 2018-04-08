@@ -18,11 +18,11 @@ Vamos a ver varios ejemplos. En el primero daremos una vuelta por el mundo visit
 <pre><code class="language-python">import os
 from lxml import etree</code></pre>
 
-En un documento kml podemos tener 'carpetas' para organizar jerárquicamente nuestra información. Dentro de las 'carpetas' podemos meter 'marcas de posición', 'capas', otras 'carpetas', geometrías,... Aquí no voy a explicar mucho más puesto que nos desviamos de python. Si queréis algo concreto usad los comentarios o podéis ver toda la referencia de kml \[aquí\](https://developers.google.com/kml/documentation/kmlreference?hl=es).
+En un documento kml podemos tener 'carpetas' para organizar jerárquicamente nuestra información. Dentro de las 'carpetas' podemos meter 'marcas de posición', 'capas', otras 'carpetas', geometrías,... Aquí no voy a explicar mucho más puesto que nos desviamos de python. Si queréis algo concreto usad los comentarios o podéis ver toda la referencia de kml [aquí](https://developers.google.com/kml/documentation/kmlreference?hl=es).
 
-También podemos hacer cosas muy potentes como mostrar líneas de tiempo y reproducir fenómenos de forma que podemos ver su evolución en el tiempo, mostrar modelos 3D,... Al final del segundo capítulo enlazaré una forma creativa de usar también google earth [1] pero no nos adelantemos.
+También podemos hacer cosas muy potentes como mostrar líneas de tiempo y reproducir fenómenos de forma que podemos ver su evolución en el tiempo, mostrar modelos 3D,... Al final del segundo capítulo enlazaré una forma creativa de usar también google earth [1](https://new.pybonacci.org/2013/02/04/usando-google-earth-con-ayuda-de-python-y-pykml-ii/) pero no nos adelantemos.
 
-Como he comentado, íbamos a ver dos ejemplos, Empecemos por el primero. Este primer ejemplo es un plagio remozado de un \[ejemplo de la documentación\](http://packages.python.org/pykml/examples/tour_examples.html) de pykml.
+Como he comentado, íbamos a ver dos ejemplos, Empecemos por el primero. Este primer ejemplo es un plagio remozado de un [ejemplo de la documentación](http://packages.python.org/pykml/examples/tour_examples.html) de pykml.
 
 Primero importamos todo lo necesario de pykml para este ejemplo:
 
@@ -72,7 +72,7 @@ lugares = [
      'range':15000, 'range2':10000.0, 'vis':1,},
 ]</code></pre>
 
-En la anterior porción de código solo hemos detallado una serie de características de lugares que vamos a visitar. Ahora vamos a crear el esqueleto del documento que contendrá una carpeta (folder) donde se guardará información de los lugares que vamos a visitar (posición, descripción, nombre) y un elemento gx:Tour que hace uso de las extensiones de Google:
+En la anterior porción de código solo hemos detallado una serie de características de lugares que vamos a visitar. Ahora vamos a crear el esqueleto del documento que contendrá una carpeta (folder) donde se guardará información de los lugares que vamos a visitar (posición, descripción, nombre) y un elemento `gx:Tour` que hace uso de las extensiones de Google:
 
 <pre><code class="language-python"># start with a base KML tour and playlist
 fich_kml = KML.kml(
@@ -266,11 +266,11 @@ os.system('googleearth {0}'.format(rutafich))</code></pre>
 
 A la izquierda de la pantalla de google earth, en mis 'lugares', dentro de 'lugares temporales' podréis ver 'VolandoVoy.kml'. Si lo desplegáis veréis 'Reprodúceme'. Si hacéis doble click sobre 'Reprodúceme' podréis ver algo parecido a lo siguiente:
 
-[youtube=http://www.youtube.com/watch?v=P-0mn_9ixjk]
+{% youtube P-0mn_9ixjk %}
 
 No es un maravilla de vídeo pero solo es para que veáis un ejemplo en vivo del resultado.
 
-AVISO: el otro día estuve probando todo el código anterior en un windows XP y me daba un error extraño. Cuando introducía la etiqueta \`description\` en el kml se escribía en mayúscula y google earth no entendía bien el kml y no me mostraba la información de la descripción... Estuve una hora larga con ello intentando adivinar qué es lo que estaba mal ya que el fichero kml se creaba sin problemas y google earth lo abría sin errores (pero no mostraba correctamente la descripción). Si a alguno le pasa, antes de guardar el fichero puede hacer _salida = salida.replace('<Description>', '<description>')_.
+AVISO: el otro día estuve probando todo el código anterior en un windows XP y me daba un error extraño. Cuando introducía la etiqueta `description` en el kml se escribía en mayúscula y google earth no entendía bien el kml y no me mostraba la información de la descripción... Estuve una hora larga con ello intentando adivinar qué es lo que estaba mal ya que el fichero kml se creaba sin problemas y google earth lo abría sin errores (pero no mostraba correctamente la descripción). Si a alguno le pasa, antes de guardar el fichero puede hacer `salida = salida.replace('<Description>', '<description>')`.
 
 Y esto es todo por hoy, en 24h tendréis la segunda parte disponible.
 
