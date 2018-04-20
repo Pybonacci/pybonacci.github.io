@@ -37,7 +37,7 @@ Si queremos calcular los deciles del 1 al 9 podemos hacerlo mediante las funcion
 <pre><code class="language-python">deciles = np.arange(1, 10) * 10
 deciles_dist = [np.percentile(alturas, dec) for dec in deciles]</code></pre>
 
-El primer decil dejaría el 10% de los datos de la distribución a la izquierda, el segundo decil el 20% y así hasta el 9 decil que dejaría el 90% de datos a la derecha. Si dibujamos estos datos sobre la distribución anterior obtendríamos la siguiente imagen:
+El primer decil dejaría el 10% de los datos de la distribución a la izquierda, el segundo decil el 20% y así hasta el 9 decil que dejaría el 90% de datos a la izquierda. Si dibujamos estos datos sobre la distribución anterior obtendríamos la siguiente imagen:
 
 <pre><code class="language-python">plt.hist(alturas, 50)
 y = np.repeat(100,9)  # http://docs.scipy.org/doc/numpy/reference/generated/numpy.repeat.html

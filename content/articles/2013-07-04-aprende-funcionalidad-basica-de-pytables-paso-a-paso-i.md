@@ -7,19 +7,21 @@ tags: bases de datos, bbdd, hdf5, pytables, tutorial pytables básico 3.0
 
 ## HDF5
 
-El HDF5 (hierarchical dataset format, <a href="http://www.hdfgroup.org/HDF5/" target="_blank">http://www.hdfgroup.org/HDF5/</a>) es un formato que permite almacenar eficientemente grandes volúmenes de datos. Los datos se pueden almacenar de forma jerarquizada conjuntamente con metadatos. Es un formato portable que prácticamente no tiene límite en el tamaño de los datos.
+El HDF5 (hierarchical dataset format, <a href="http://www.hdfgroup.org/HDF5/" target="_blank">http://www.hdfgroup.org/HDF5/</a>) es un formato que permite almacenar eficientemente grandes volúmenes de datos. Los datos se pueden almacenar de forma jerarquizada conjuntamente con metadatos. Es un formato portable que, prácticamente, no tiene límite en el tamaño de los datos.
 
 ## PyTables
 
 Pytables está programado sobre el formato hdf5 con ayuda de Python y Numpy. La creación, modificación y búsquedas sobre grandes conjuntos de datos es relativamente sencilla. La utilización de memoria RAM y compresión de datos están optimizados en segundo plano por la biblioteca. El espacio de disco utilizado es mucho más pequeño y el acceso a los datos suele ser más rápido comparado con bases de datos relacionales.
 
-La versión actual es la 3.0 y es compatible con python 2.7 y 3.1 o superiores.
+La versión actual es la 3.0 y es compatible con python 2.7 y 3.1 y superiores.
 
 Para instalarlo en un linux basado en Debian podéis hacer lo siguiente (asumo que tenéis pip y numpy instalado en vuestro virtualenv científico):
 
-`sudo apt-get install libhdf5-serial-dev<br />
-pip install numexpr cython<br />
-pip install tables`
+`sudo apt-get install libhdf5-serial-dev`
+
+`pip install numexpr cython`
+
+`pip install tables`
 
 Para instalarlo en Windows podéis hacerlo usando un [ejecutable](http://www.lfd.uci.edu/~gohlke/pythonlibs/#pytables) ya preparado por el gran [Christoph Gohlke](http://www.lfd.uci.edu/%7Egohlke/).
 

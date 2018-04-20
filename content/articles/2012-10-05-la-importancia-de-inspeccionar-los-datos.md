@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: la-importancia-de-inspeccionar-los-datos
 tags: Charlas Ted, Estadística, Francis Anscombe, Hans Rosling, representación, Ted, Ted talks, video, visualización
 
-Muchas veces, cuando analizo datos, se me cuelan datos erróneos que me llevan a dolores de cabeza posteriores. Para evitar o minimizar esto, una buena práctica consiste en realizar una representación previa de esos datos para ver si los resultados posteriores son coherentes. Un buen ejercicio para entender la importancia de esto es echarle un ojo al [cuartero de Anscombe](http://es.wikipedia.org/wiki/Cuarteto_de_Anscombe). En el siguiente script se representa el cuarteto de Anscombe y sus principales estadísticos:
+Muchas veces, cuando analizo datos, se me cuelan datos erróneos que me llevan a dolores de cabeza posteriores. Para evitar o minimizar esto, una buena práctica consiste en realizar una representación previa de esos datos para ver si los resultados posteriores son coherentes. Un buen ejercicio para entender la importancia de esto es echarle un ojo al [cuarteto de Anscombe](http://es.wikipedia.org/wiki/Cuarteto_de_Anscombe). En el siguiente script se representa el cuarteto de Anscombe y sus principales estadísticos:
 
 <pre><code class="language-python">import numpy as np
 import matplotlib.pyplot as plt
@@ -58,7 +58,7 @@ Gracias a este plagio que acabo de hacer del artículo de la Wikipedia (traducid
 
 Finalmente os dejo un delirante vídeo de una charla TED de Hans Rosling donde se muestra la necesidad de mostrar de forma creativa los datos para poder llegar a un mejor entendimiento del universo que nos rodea.
 
-[ted id=92 lang=es width=560 height=315]
+{% youtube hVimVzgtD6w %}
 
 P.D.: Sirva esta entrada para volver a homenajear a [John Hunter](http://numfocus.org/johnhunter/) y darle las gracias por permitirnos, mediante matplotlib, separarnos de los árboles para poder ver el bosque.
 

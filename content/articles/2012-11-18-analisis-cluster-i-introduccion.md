@@ -53,6 +53,6 @@ Y hasta aquí esta mini-introducción al problema que ni pretende ser exhaustiva
 
 Os he dicho que no íbamos a ver python, os he mentido, vamos a ver un poco de (monty) python:
 
-[youtube http://www.youtube.com/watch?v=i3v-nEy1Fzk]
+{% youtube i3v-nEy1Fzk %}
 
 Hasta el siguiente capítulo de la mini-serie.

@@ -29,7 +29,7 @@ Ahora importamos todo lo necesario de pykml para este ejemplo:
 from pykml.factory import KML_ElementMaker as KML
 from pykml.factory import GX_ElementMaker as GX</code></pre>
 
-Ahora vamos a detallar la trayectoria del huracán con su posición, fecha y a en qué categoría se encontraba en cada fecha. La categoría del huracán puede ser de 1 a 5 siendo el 5 el más extremo, según la <a href="http://www.nhc.noaa.gov/aboutsshws.php" target="_blank">escala Saffir-Simpson</a>. En la categoría del huracán también vamos a detallar también los momentos en que no es huracán como tal sino que es tormenta tropical o depresión tropical.
+Ahora vamos a detallar la trayectoria del huracán con su posición, fecha y en qué categoría se encontraba en cada fecha. La categoría del huracán puede ser de 1 a 5 siendo el 5 el más extremo, según la <a href="http://www.nhc.noaa.gov/aboutsshws.php" target="_blank">escala Saffir-Simpson</a>. En la categoría del huracán también vamos a detallar también los momentos en que no es huracán como tal sino que es tormenta tropical o depresión tropical.
 
 <pre><code class="language-python"># Desde la versión 5.0, google ha añadido una serie de extensiones
 # a kml que lo hacen más potente e interactivo
@@ -326,12 +326,10 @@ os.system('googleearth {0}'.format(rutafich))</code></pre>
 
 A la izquierda de la pantalla de google earth, en mis 'lugares', dentro de 'lugares temporales' podréis ver 'HuracanIvan.kmz'. Si lo desplegáis veréis 'Reprodúceme'. Si hacéis doble click sobre 'Reprodúceme' podréis ver algo parecido a lo siguiente:
 
-[youtube=http://www.youtube.com/watch?v=TPKZo4ez1V0]
+{% youtube TPKZo4ez1V0 %}
 
 El resultado tampoco es maravilloso pero la idea no era el resultado, la idea era mostrar el uso de pykml e introducir un poco de kml/kmz a los que les pueda resultar útil.
 
-Por último, como comenté en el anterior capítulo, os dejo un enlace con un uso creativo de google earth [1].
-
-[1] - http://www.fosslc.org/drupal/content/pykml-python-kml-library
+Por último, como comenté en el anterior capítulo, os dejo un enlace con un uso creativo de google earth [1](http://www.fosslc.org/drupal/content/pykml-python-kml-library).
 
 P.D.: Como puede que wordpress me haya 'estropeado' algo al hacer copy&paste os dejo el enlace al [ipython notebook](https://gist.github.com/4708735) o lo podéis visualizar directamente en [nbviewer](http://nbviewer.ipython.org/4708735/).

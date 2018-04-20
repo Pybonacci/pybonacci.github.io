@@ -38,7 +38,7 @@ YouTubeVideo("9sEI1AUFJKw")</code></pre>
 
 La salida del anterior código mostrará lo siguiente
   
-[youtube=http://www.youtube.com/watch?v=9sEI1AUFJKw]
+{% youtube 9sEI1AUFJKw%}
 
 <pre><code class="language-python">## Ejemplo de celda que muestra una imagen enlazada como output
 from IPython.display import Image

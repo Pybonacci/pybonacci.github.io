@@ -13,7 +13,7 @@ Está bien, Houston, tenemos un problema. Vamos a ver una serie de conceptos bá
 
 **Conceptos básicos**
 
-La tierra no es esférica (ni plana, como algunos creen aun), ya lo sabemos (algunos). Tampoco tiene una forma regular por lo que no existe una única definición de la forma de la tierra. Dependiendo de la zona del mundo en que nos encontremos deberemos aproximar la forma de la tierra mediante un modelo que tenga los menores errores posibles en nuestra área de interés. El geoide sería la forma que tendría la Tierra si se midiera sobre el nivel del mar. Esto es, una superficie ondulada que varía unos 100 m arriba y debajo de una elipsoide bien ajustada. Las elevaciones y las líneas de contorno de la tierra están refereridas al geoide y no al elipsoide, mientras que la latitud y la longitud están refereridas al elipsoide. ¿Por qué es ondulada la forma del geoide? Debido a irregularidades en el campo gravitatorio.
+La tierra no es esférica (ni plana, como algunos creen aun), ya lo sabemos (algunos). Tampoco tiene una forma regular por lo que no existe una única definición de la forma de la tierra. Dependiendo de la zona del mundo en que nos encontremos deberemos aproximar la forma de la tierra mediante un modelo que tenga los menores errores posibles en nuestra área de interés. El geoide sería la forma que tendría la Tierra si se midiera sobre el nivel del mar. Esto es, una superficie ondulada que varía unos 100 m arriba y debajo de una elipsoide bien ajustada. Las elevaciones y las líneas de contorno de la tierra están referidas al geoide y no al elipsoide, mientras que la latitud y la longitud están refereridas al elipsoide. ¿Por qué es ondulada la forma del geoide? Debido a irregularidades en el campo gravitatorio.
 
 [<img class="aligncenter" alt="" src="http://kartoweb.itc.nl/geometrics/Bitmaps/refsurface%203.12f.gif" width="619" height="152" />](http://kartoweb.itc.nl/geometrics/reference%20surfaces/body.htm)
 
@@ -21,7 +21,7 @@ Por otra parte, normalmente, no llevamos un globo terráqueo con nosotros ya que
 
 Jo, siento que lo he explicado fatal pero es que el tema no es sencillo de explicar en dos párrafos. Un esquema de lo que he querido decir en los anteriores párrafos sería el siguiente:
 
-[<img class="aligncenter" alt="" src="http://mapref.org/NotesImages/Zweig16NotesImage5.gif" width="600" height="443" />](http://mapref.org/AveryshortintroductiontoCoordinateRefere.html#Zweig16)
+[<img class="aligncenter" alt="" src="http://mapref.org/NotesImages/Zweig16NotesImage5.gif" width="600" height="443" />](http://mapref.org/NotesImages/Zweig17NotesImage5.gif)
 
 **Problema**
 
@@ -31,13 +31,7 @@ Bueno, veamos el problema a ver si se entiende mejor lo que quiero mostrar:
 
 **Solución**
 
-Imaginad que me encuentro en el punto con longitud y latitud (-3.368620º, 37.054883º) en WGS84:
-
-<p style="text-align:center;">
-  [googlemaps https://maps.google.com/maps?q=37.054883,+-3.368620&hl=en&sll=-3.36862,37.054883&sspn=0.016023,0.01929&t=h&ie=UTF8&ll=37.054835,-3.368597&spn=0.005994,0.00912&z=16&output=embed&w=425&h=350]
-</p>
-
-Vamos a transformar esas coordenadas con [pyproj.](http://code.google.com/p/pyproj/) Pyproj es una pequeña biblioteca que permite acceder a la biblioteca de proyecciones cartográficas [proj.4](https://trac.osgeo.org/proj/) escrita en C. Pyproj permite hacer transformaciones de coordenadas y calcular [círculos máximos](http://es.wikipedia.org/wiki/Gran_c%C3%ADrculo). Vamos a usarla para hacer una transformación de coordenadas (ya llegamos al código python):
+Imaginad que me encuentro en el punto con longitud y latitud (-3.368620º, 37.054883º) en WGS84. Vamos a transformar esas coordenadas con [pyproj.](http://code.google.com/p/pyproj/) Pyproj es una pequeña biblioteca que permite acceder a la biblioteca de proyecciones cartográficas [proj.4](https://trac.osgeo.org/proj/) escrita en C. Pyproj permite hacer transformaciones de coordenadas y calcular [círculos máximos](http://es.wikipedia.org/wiki/Gran_c%C3%ADrculo). Vamos a usarla para hacer una transformación de coordenadas (ya llegamos al código python):
 
 <pre><code class="language-python">import pyproj
 ## http://pyproj.googlecode.com/svn/trunk/docs/pyproj.Proj-class.html

@@ -11,21 +11,19 @@ Esta entrada también se podría haber llamado:
 
 'Comprimiendo imágenes usando análisis de componentes principales y python'
 
-_**Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, matplotlib 1.1.0 y sklearn 0.10
-  
-**_ 
+**Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, matplotlib 1.1.0 y sklearn 0.10** 
 
 El análisis de componentes principales (PCA, por sus siglas en inglés, Principal Component Analysis) es una técnica que trata de reducir el número de dimensiones (número de variables) de un conjunto de datos intentando, a su vez, conservar la mayor cantidad de información. Es una técnica extremadamente útil como análisis exploratorio de datos (exploratory data analysis, pongo algunos términos en inglés porque a veces pueden resultar extraños en castellano), cuando se tiene demasiada información (muchas dimensiones, variables) y no se puede analizar correctamente la información. [Se ha usado de forma exitosa para encontrar patrones, determinar 'outliers', compresión de imágenes,...](http://www.amazon.com/Principal-Component-Analysis-Statistics-ebook/dp/B003YFJ6U8) Más adelante se explicará brevemente el proceso matemático que hay detrás.
 
 Para el presente artículo vamos a usar el PCA para obtener imágenes comprimidas. Vamos a trabajar con una imagen monocromática extraída de la galería de [AdeRussell en flickr](http://www.flickr.com/photos/aderussell/). (con [licencia cc 2.0](http://creativecommons.org/licenses/by-nc-sa/2.0/deed.es)) La imagen en cuestión es la siguiente:<figure style="width: 640px" class="wp-caption aligncenter">
 
-[<img class="  " title="King" src="http://farm9.staticflickr.com/8312/8059125132_bed732fcc8_z.jpg" alt="Martin Luther King Memorial and the Washington Monument por AdeRussell" width="640" height="425" />](http://www.flickr.com/photos/aderussell/)<figcaption class="wp-caption-text">Martin Luther King Memorial and the Washington Monument por AdeRussell</figcaption></figure> 
+[<img class="aligncenter size-full" title="King" src="http://new.pybonacci.org/images/2012/10/MartinLutherKing.jpg" alt="Martin Luther King Memorial por AdeRussell" width="640" height="425" />](http://new.pybonacci.org/images/2012/10/MartinLutherKing.jpg)
 
 Primero la guardaremos en nuestro equipo usando la biblioteca urllib2 disponible en la biblioteca estándar de vuestra instalación de python:
 
 <pre><code class="language-python">import urllib2
 ## Leemos la imagen desde la url
-url = 'http://farm9.staticflickr.com/8312/8059125132_bed732fcc8_z.jpg'
+url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
 kk = urllib2.urlopen(url).read()
 ## Guardamos la imagen en el directorio donde nos encontremos
 ## con el nombre 'king.jpg'
@@ -119,7 +117,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 ## Leemos la imagen desde la url
-url = 'http://farm9.staticflickr.com/8312/8059125132_bed732fcc8_z.jpg'
+url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
 kk = urllib2.urlopen(url).read()
 ## Guardamos la imagen en el directorio donde nos encontremos
 ## con el nombre 'king.jpg'
