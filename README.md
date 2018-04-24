@@ -11,8 +11,8 @@ Para crear el contenido estático del blog se necesita tener instalado [conda](h
 1. Clona el repositorio y asegurate de que los submódulos están incluidos
 
 ```
-$ git clone https://github.com/Pybonacci/pybonacci.github.io-source.git
-$ cd pybonacci.github.io-source.git
+$ git clone https://github.com/Pybonacci/pybonacci.github.io.git
+$ cd pybonacci.github.io/
 $ git submodule update --init --recursive
 ```
 
@@ -27,7 +27,7 @@ $ source activate pybonacci36
 3. Genera el archivo `main.css`:
 
 ```
-(pybonacci36) $lessc theme/templates/main.less > theme/templates/main.css
+(pybonacci36) $ lessc theme/templates/main.less > theme/templates/main.css
 ```
 
 4. Genera el html estático y sirvelo localmente con `Pelican`:
