@@ -22,25 +22,25 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         {% if ENABLE_MATHJAX %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?..." type="text/javascript"></script>
-        <script type="text/javascript">
-        init_mathjax = function() {
-            if (window.MathJax) {
-                // MathJax loaded
-                MathJax.Hub.Config({
-                    tex2jax: {
-                        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                        displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
-                    },
-                    displayAlign: 'left', // Change this to 'center' to center equations.
-                    "HTML-CSS": {
-                        styles: {'.MathJax_Display': {"margin": 0}}
-                    }
-                });
-                MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
             }
-        }
-        init_mathjax();
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
         </script>
     	{% endif %}
 
