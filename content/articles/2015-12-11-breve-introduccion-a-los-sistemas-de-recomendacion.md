@@ -12,7 +12,7 @@ Es posible que no sepas que son, sin embargo interactúas constantemente con ell
 
 Cada vez que Amazon te sugiere productos relacionados...
 
-![netflix](http://core0.staticworld.net/http://new.pybonacci.org/images/article/2015/03/netflixpregodmode-100574324-orig.png)
+![netflix](/images/2015/12/netflixpregodmode-100574324-orig.png)
 
 O cuando Netflix o Youtube te recomiendan contenido que te puede interesar...
 
