@@ -21,33 +21,32 @@ Supongamos que queremos construir un script genial, donde la funcionalidad princ
 
 # Implementación 1
 
-<pre class=" language-python"><code class=" language-python">
-#!/usr/bin/env python
+    :::python
+    #!/usr/bin/env python
 
-"""
-Super awesome script
-Asks the user for a number:
- - If the number is less or equal to 100, it returns the 1st tetration of the number (power of itself)
- - else, it returns the number squared
-"""
+    """
+    Super awesome script
+    Asks the user for a number:
+     - If the number is less or equal to 100, it returns the 1st tetration of the number (power of itself)
+     - else, it returns the number squared
+    """
 
-__version__ = '0.1'
+    __version__ = '0.1'
 
-if __name__ == '__main__':
+    if __name__ == '__main__':
 
-    while 1:
-        user_number = input('Choose a number:\n') #raw_input() in python2
-        if user_number.isdigit():
-            user_number = int(user_number)
-            break
+        while 1:
+            user_number = input('Choose a number:\n') #raw_input() in python2
+            if user_number.isdigit():
+                user_number = int(user_number)
+                break
+            else:
+                print('{} is not a valid number'.format(user_number))
+
+        if user_number &gt; 100:
+            print(user_number**2)
         else:
-            print('{} is not a valid number'.format(user_number))
-
-    if user_number &gt; 100:
-        print(user_number**2)
-    else:
-        print(user_number**user_number)
-</code></pre>
+            print(user_number**user_number)
 
 Ésta suele ser la implementación de alquien que lleva poco tiempo en python. Funciona, pregunta al usuario por el input, realiza la operación, e imprime en pantalla el resultado.
 
@@ -61,33 +60,32 @@ Para la siguiente implementación, usaremos el módulo mas simple de la libreria
 
 # Implementación 2
 
-<pre class=" language-python"><code class=" language-python">
-#!/usr/bin/env python
+    :::python
+    #!/usr/bin/env python
 
-"""
-Super awesome script
-Asks the user for a number:
- - If the number is less or equal to 100, it returns it to the power of itself
- - else, it returns the number squared
-"""
+    """
+    Super awesome script
+    Asks the user for a number:
+     - If the number is less or equal to 100, it returns it to the power of itself
+     - else, it returns the number squared
+    """
 
-import argparse
+    import argparse
 
-__version__ = '0.2'
+    __version__ = '0.2'
 
 
-if __name__ == '__main__':
+    if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--number', required=True, type=int,
-                        help='number to perform calculation')
-    values = parser.parse_args()
-    user_number = values.number
-    if user_number &gt; 100:
-        print(user_number**2)
-    else:
-        print(user_number**user_number)
-</code></pre>
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--number', required=True, type=int,
+                            help='number to perform calculation')
+        values = parser.parse_args()
+        user_number = values.number
+        if user_number &gt; 100:
+            print(user_number**2)
+        else:
+            print(user_number**user_number)
 
 En esta implementación hemos eliminado el problema #2 de la implementación anterior. En esta ocasión usamos `argparse`, de esta forma dejamos que la libreria estándar se encargue de la validación del input. Esta implementación no funciona a menos que el input sea válido.
 
@@ -97,43 +95,41 @@ En la siguiente implementación vemos como podemos arreglar esto.
 
 # Implementación 3
 
-<pre class=" language-python"><code class=" language-python">
-#!/usr/bin/env python
+    #!/usr/bin/env python
+    :::python
+    """
+    Super awesome script
+    Asks the user for a number:
+     - If the number is less or equal to 100, it returns it to the power of itself
+     - else, it returns the number squared
+    """
 
-"""
-Super awesome script
-Asks the user for a number:
- - If the number is less or equal to 100, it returns it to the power of itself
- - else, it returns the number squared
-"""
+    import argparse
 
-import argparse
-
-__version__ = '0.3'
-
+    __version__ = '0.3'
 
 
-def calculation(number):
-    """Performs awesome calculation"""
-    if number &gt; 100:
-        return number**2
-    else:
-        return number**number
 
-if __name__ == '__main__':
+    def calculation(number):
+        """Performs awesome calculation"""
+        if number &gt; 100:
+            return number**2
+        else:
+            return number**number
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--number', required=True, type=int,
-                        help='number to perform calculation')
-    values = parser.parse_args()
-    user_number = values.number
-    calculation_result = calculation(user_number)
-    print(calculation_result)
-</code></pre>
+    if __name__ == '__main__':
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--number', required=True, type=int,
+                            help='number to perform calculation')
+        values = parser.parse_args()
+        user_number = values.number
+        calculation_result = calculation(user_number)
+        print(calculation_result)
 
 En esta implementación, hemos hecho dos cosas:
 
-1. Hemos puesto la carga de la validación en un módulo bien mantenida como es `argparse`.
+1. Hemos puesto la carga de la validación en un módulo bien mantenido (de la libreria estándar) como es `argparse`.
   
 2. Hemos separado la lógica del input del usuario de la lógica del input de cálculo.
 
@@ -145,43 +141,42 @@ En esta implementación, hemos hecho dos cosas:
 
 En las implementacines #1 y #2, la única manera de usar el script era haciendo:
 
-`python calculation_script.py --number INTEGER<br />
-` 
+`python calculation_script.py --number INTEGER` 
   
 Ahora, en la implementación #3, tenemos una manera **mucho mas útil** de usar la lógica mas importante (la del cálculo). Si yo tengo otro script en el que quiero usar la funcion de cálculo, puedo usarla de la forma:
 
-<pre class=" language-python"><code class=" language-python">
-from calculation_script import calculation
+    :::python
+    from calculation_script import calculation
 
-number = 10
-calculation_result = calculation(number)
-</code></pre>
+    number = 10
+    calculation_result = calculation(number)
 
 **¿Increíble, no?** Simplemente haciendo una pequeña modificación a la estructura del proyecto, ahora cualquier persona se puede beneficiar del mismo.
 
-- **Ventaja 3:** Supongamos que este simple proyecto empieza a crecer, más desarrolladores se interesan y empiezan a colaborar. El código empieza a crecer y alguien comenta que tendría sentido empezar a trabajar en el suite de testing. (si no sabes lo que es el testing, te recomiendo [este artículo](http://docs.python-guide.org/en/latest/writing/tests/ "este artículo").)
+- **Ventaja 3:** Supongamos que este simple proyecto empieza a crecer, más desarrolladores se interesan y empiezan a colaborar. El código empieza a crecer y alguien comenta que tendría sentido empezar a trabajar en el suite de testing . (si no sabes lo que es el testing, te recomiendo [este artículo](http://docs.python-guide.org/en/latest/writing/tests/). 
+
+- **** 
 
 Con la implementación #3, testear la funcionalidad de `calculation` es super fácil (gracias a [/u/choffee](https://www.reddit.com/r/Python/comments/4hzam0/how_to_make_your_script_better/d2ydzn7 "/u/choffee") en reddit por el apunte):
 
-<pre class=" language-python"><code class=" language-python">
-import pytest
-from calculation_script import calculation
+    :::python
+    import pytest
+    from calculation_script import calculation
 
-class TestCalculation:
-    """Calculation function does funky things to number
-    More above 100 than below
-    """
-    def test_zero():
-        x = 0
-        assert calculation(x) == 0
+    class TestCalculation:
+        """Calculation function does funky things to number
+        More above 100 than below
+        """
+        def test_zero():
+            x = 0
+            assert calculation(x) == 0
 
-    def test_border():
-        x = 100
-        assert calculation(x) == 10000
+        def test_border():
+            x = 100
+            assert calculation(x) == 10000
 
-    def test_one():
-        x = 1
-        assert calculation(x) == 1
-</code></pre>
+        def test_one():
+            x = 1
+            assert calculation(x) == 1
 
 Piensa en ello la próxima vez, no cuesta nada y hace que tu script sea mejor 🙂

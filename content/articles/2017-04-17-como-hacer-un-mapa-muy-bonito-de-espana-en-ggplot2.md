@@ -17,62 +17,61 @@ Antes que nada, aquí está el mapa.
 
 El código empleado para hacer el mapa lo podeis descargar en <a href="https://github.com/manugarri/spain_census_map" target="_blank">github</a>. He compartido varias versiones del mapa para que se pueda observar como los diferentes cambios en las escalas afectan a la visualización.
 
-#Código.
+# Código.
 
 Para empezar, importamos las librerías necesarias:
 
-<pre class=" language-r"><code class=" language-r">
-setwd("/DIRECTORIO_DE_TRABAJO/")
+    :::R
+    setwd("/DIRECTORIO_DE_TRABAJO/")
 
-if (!require(rgdal)) {
-install.packages("rgdal", repos = "http://cran.us.r-project.org")
-require(rgdal)
-}
+    if (!require(rgdal)) {
+    install.packages("rgdal", repos = "http://cran.us.r-project.org")
+    require(rgdal)
+    }
 
-if (!require(rgeos)) {
-install.packages("rgeos", repos = "http://cran.us.r-project.org")
-require(rgeos)
-}
-if (!require(rgdal)) {
-install.packages("rgdal", repos = "http://cran.us.r-project.org")
-require(rgdal)
-}
-if (!require(raster)) {
-install.packages("raster", repos = "http://cran.us.r-project.org")
-require(raster)
-}
-if(!require(ggplot2)) {
-install.packages("ggplot2", repos="http://cloud.r-project.org")
-require(ggplot2)
-}
-if(!require(viridis)) {
-install.packages("viridis", repos="http://cloud.r-project.org")
-require(viridis)
-}
-if(!require(dplyr)) {
-install.packages("dplyr", repos = "https://cloud.r-project.org/")
-require(dplyr)
-}
-if(!require(gtable)) {
-install.packages("gtable", repos = "https://cloud.r-project.org/")
-require(gtable)
-}
-if(!require(grid)) {
-install.packages("grid", repos = "https://cloud.r-project.org/")
-require(grid)
-}
-if(!require(tidyr)) {
-install.packages("tidyr", repos = "https://cloud.r-project.org/")
-require(tidyr)
-}
-}
- </code></pre>
+    if (!require(rgeos)) {
+    install.packages("rgeos", repos = "http://cran.us.r-project.org")
+    require(rgeos)
+    }
+    if (!require(rgdal)) {
+    install.packages("rgdal", repos = "http://cran.us.r-project.org")
+    require(rgdal)
+    }
+    if (!require(raster)) {
+    install.packages("raster", repos = "http://cran.us.r-project.org")
+    require(raster)
+    }
+    if(!require(ggplot2)) {
+    install.packages("ggplot2", repos="http://cloud.r-project.org")
+    require(ggplot2)
+    }
+    if(!require(viridis)) {
+    install.packages("viridis", repos="http://cloud.r-project.org")
+    require(viridis)
+    }
+    if(!require(dplyr)) {
+    install.packages("dplyr", repos = "https://cloud.r-project.org/")
+    require(dplyr)
+    }
+    if(!require(gtable)) {
+    install.packages("gtable", repos = "https://cloud.r-project.org/")
+    require(gtable)
+    }
+    if(!require(grid)) {
+    install.packages("grid", repos = "https://cloud.r-project.org/")
+    require(grid)
+    }
+    if(!require(tidyr)) {
+    install.packages("tidyr", repos = "https://cloud.r-project.org/")
+    require(tidyr)
+    }
+    }
 
 El siguiente paso es importar los datos. Tras mucho buscar, encontré un archivo shapefile con los municipios españoles en <a href="http://www.arcgis.com/home/item.html?id=2e47bb12686d4b4b9d4c179c75d4eb78" target="_blank">ArcGis</a>, sin ninguna atribución que pudiera encontrar.
 
 Para obtener los datos del censo español, hice uso de la \*fantástica\* herramienta de <a href="http://www.ine.es/censos2011_datos/cen11_datos_detallados.htm" target="_blank">extracción de datos</a> proporcionada por el Instituto Nacional de Estadística. La herramienta es una pesadilla en términos de usabilidad, así que si queréis simplemente hacer el mapa he compartido los datos en el repositorio.
 
-    :::r
+    :::R
     data_spain <- read.csv("Censuses2011_2.csv", stringsAsFactors = F)  
     data_spain$municipality_code <- as.numeric(separate(data_spain, Municipality.of.residence, "municipality_code", " ")$municipality_code)  
     data_spain$People <- as.numeric(data_spain$People)  
@@ -90,7 +89,7 @@ Para obtener los datos del censo español, hice uso de la \*fantástica\* herram
 
 Finalmente, el código para hacer el mapa en sí. Hay muchísima lógica en dicho código orientada a hacer el mapa más bonito, os recomiendo mirar el artículo original para ver la evolución de los parámetros del gráfico, en particular todo lo relativo a la escala de colores.
 
-    :::r
+    :::R
     # Aquí hacemos que los saltos de la escala de edades sean más bonitos e informativos visualmente
     pretty_breaks <- c(40,44,48,52,56)
     
@@ -247,7 +246,7 @@ Este código está diseñado muy cuidadosamente para exportar una imagen con un 
 
 Dado que las islas Canarias estan muy alejadas de la península, una práctica común es desplazar las islas más cerca de España, esto lo he hecho en Gimp.
 
-#Notas.
+# Notas.
 
 - Yo sabía que España tenía un problema poblacional, pero ¡madre mía! El noroeste del pais parece un gran asilo. El mapa original de Suiza tenia una escala de edad en el rango 40-52 años, pero he tenido que expandirlo a 40-56 debido al envejecimiento poblacional español.
 
