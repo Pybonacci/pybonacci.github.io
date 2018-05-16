@@ -4,7 +4,7 @@ date: 2018-05-09T18:00:00+00:00
 author: Daniel Rodriguez
 slug: manejar-dependencias-python
 
-aka. pip, conda, pipenv, pyenv, y mas! ¿Quéå uso?
+a.k.a. pip, conda, pipenv, pyenv, y mas! ¿Qué uso?
 
 Paquetes de Python, los hay para todos los gustos, muchas industrias (web, ciencia, datos y más), con buen soporte tanto de la comunidad como por empresas grandes en cada sector y en general te permiten resolver muchos problemas rápidamente y moverte al siguiente.
 
@@ -45,10 +45,9 @@ Esta es una pregunta muy frecuente y la respuesta requiere un poco de historia y
 ¿Que problemas eran esos que pip no podía resolver en su momento? En general se resume en que la mayoría de paquetes de la comunidad científica de Python están escritos en C, C++ o Fortran con bindings a Python. Estos paquetes necesitan ser compilados para poder ser usados y compilar las librerías base como lo son Numpy, Scipy y Pandas es un proceso largo, complicado y depende de la plataforma en que se estén ejecutando.
 
 En su momento Continuum Analytics (ahora Anaconda, la empresa) decidió resolver estos problemas y creó la distribution de Anaconda y conda. Y resolvió estos problemas tan bien que gran parte de la comunidad de datos en Python adoptó conda y Anaconda como la forma de manejar paquetes por defecto. Este es el motivo por el cual se ve mucho conda en la comunidad científica pero no tanto fuera de ella, paquetes de la comunidad web como Flask y Django no se ven tan beneficiados por conda como Numpy y Pandas.
-
 Un artículo con mas información lo puedes [encontrar acá].(https://jakevdp.github.io/blog/2016/08/25/conda-myths-and-misconceptions/#Myth-#4:-Creating-conda-in-the-first-place-was-irresponsible-&-divisive).
 
-**Estos problemas aun existen?**
+**¿Estos problemas aún existen?**
 
 Desde que se creó conda y Anaconda han habido muchos progresos en la forma en que se manejan paquetes en Python, uno que ayudó bastante fue la introducción de wheels. Básicamente esto permitió agregar paquetes compilados a PyPI en una forma similar a lo que provee un paquete de conda. Dado que el estándar de wheels y su adopción ha tomado mucho tiempo conda ganó gran popularidad y se convirtió en una especie de estándar.
 
@@ -85,7 +84,7 @@ Puedes encontrar una excelente guía para pipenv en ingles aca: [https://realpyt
 
 De la misma forma que existen virtual environment en Python también existen en conda como conda environments. En este caso no tienes que instalar nada ya que vienen incluidos en conda y puedes crear una ejecutando: `conda create -n ENV` o `conda create -p PATH_TO_ENV` donde `ENV` es el nombre del environment y `PATH_TO_ENV` es un directorio, igual que en virtualenv. Para una guia completa mira la [documentación](https://conda.io/docs/using/envs.html).
 
-## Que me recomiendas?
+## ¿Qué me recomiendas?
 
 Si eres un usuario completamente nuevo en Python recomiendo [Anaconda](https://www.anaconda.com/download/), simplemente descárgalo y empieza a aprender Python. Anaconda tiene muchas librerías incluidas y puedes instalar más de los repositorios oficiales. Si necesitas más paquetes recomiendo utilizar el repositorio de [conda-forge](https://github.com/conda-forge/) en donde la comunidad ha creado más de 3000 paquetes de Python y otros lenguajes.
 
@@ -95,7 +94,7 @@ Si ya eres un usuario más avanzado, que busca tener los últimos paquetes el di
 
 En caso de que te preguntes qué uso como trabajo: yo utilizo los dos, tanto conda como pip.
 
-Utilizó Anaconda como mi versión de Python y uso conda para manejar los entornos virtuales dado que me parecen superiores a los creados por virtualenv. En general también utilizó paquetes de conda pero a veces sucede que debo instalar paquetes usando de pip. En otras ocasiones puede que tenga un conda environment con solo Python y después instale todos los paquetes de ese entorno virtual usando pip. Por ejemplo, me sucede esto con tensorflow.
+Utilizo Anaconda como mi versión de Python y uso conda para manejar los entornos virtuales dado que me parecen superiores a los creados por virtualenv. En general también utilizo paquetes de conda pero a veces sucede que debo instalar paquetes usando de pip. En otras ocasiones puede que tenga un conda environment con solo Python y después instalé todos los paquetes de ese entorno virtual usando pip. Por ejemplo, me sucede esto con tensorflow.
 
 ## Referencias
 
@@ -103,5 +102,8 @@ Utilizó Anaconda como mi versión de Python y uso conda para manejar los entorn
 1. https://www.reddit.com/r/learnpython/comments/4hsudz/pyvenv_vs_virtualenv/
 1. https://docs.python.org/3/library/venv.html
 
+## Bio
 
-
+Daniel Rodríguez trabaja para Anaconda Inc (también conocida como Continuum Analytics) como product manager.
+Ha estado involucrado en Python por mas de 7 años tanto en la comunidad científica como web.
+Twitter [@danielfrg](https://twitter.com/danielfrg/). Sitio web: [danielfrg.com](http://danielfrg.com).
