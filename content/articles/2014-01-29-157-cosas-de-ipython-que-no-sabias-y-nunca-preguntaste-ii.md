@@ -9,111 +9,152 @@ En la [primera entrega](http://pybonacci.org/2014/01/24/157-cosas-de-ipython-que
 
 En esta segunda entrega vamos a hablar del uso de la historia dentro de IPython.
 
-[Inciso: Os recomiendo que veáis lo que viene a continuación en el [notebook](https://github.com/Pybonacci/notebooks) o en [nbviewer](http://nbviewer.ipython.org/). WordPress.com cada vez me parece más limitado para mostrar el contenido que mostramos en este blog]
+[Inciso: Os recomiendo que veáis lo que viene a continuación en el [notebook](https://github.com/Pybonacci/notebooks) o en 
+[nbviewer](http://nbviewer.ipython.org/).]
 
-IPython guarda la historia de los comandos que se usan en cada línea/celda de cada sesión bajo un determinado perfil. Esta información se guarda en una base de datos sqlite. Por defecto, se guardan el inicio y fin de sesión, los comandos usados en cada sesión y algunos metadatos más. IPython también se puede configurar para que almacene los outputs.
+IPython guarda la historia de los comandos que se usan en cada línea/celda 
+de cada sesión bajo un determinado perfil. Esta información se guarda en 
+una base de datos sqlite. Por defecto, se guardan el inicio y fin de 
+sesión, los comandos usados en cada sesión y algunos metadatos más. 
+IPython también se puede configurar para que almacene los outputs.
 
 # Historia
 
 La base de datos con la historia se guarda en la carpeta que obtenéis haciendo lo siguiente:
 
-<pre><code class="language-python">from IPython.utils import path
-path.locate_profile()</code></pre>
+```python
+from IPython.utils import path
+path.locate_profile()
+```
 
-
-  
-
-
-<pre><code class="language-python">'/home/kiko/.config/ipython/profile_default'</code></pre></p> 
+```bash
+'/home/kiko/.config/ipython/profile_default'
+```
 
 Y la base de datos se guardará en esa carpeta con el nombre history.sqlite.
 
-Una forma alternativa de obtener la ruta a la historia bajo el perfil actual es usando lo siguiente:
+Una forma alternativa de obtener la ruta a la historia bajo el perfil 
+actual es usando lo siguiente:
 
-<pre><code class="language-python">get_ipython().history_manager.hist_file</code></pre>
+```python
+get_ipython().history_manager.hist_file
+```
 
-
-  
-
-
-<pre><code class="language-python">'/home/kiko/.config/ipython/profile_default/history.sqlite'</code></pre></p> 
+```bash
+'/home/kiko/.config/ipython/profile_default/history.sqlite'
+```
 
 # Acceso a determinadas celdas de la historia
 
-Para reusar comandos ya usados podemos hacer uso de la **historia** que guarda IPython en cada sesión.
+Para reusar comandos ya usados podemos hacer uso de la **historia** que 
+guarda IPython en cada sesión.
 
   * Podemos usar las teclas de cursor hacia arriba o hacia abajo para recorrer los últimos comandos usados (esto no funciona en el notebook pero sí en la consola de IPython).
   * Si escribimos algo en la línea de comandos y pulsamos el cursor hacia arriba nos mostrará solo lo que comience por lo ya escrito en la línea de comandos (nuevamente, esto no funciona en el notebook pero sí en la consola de IPython).
   * En las sesiones interactivas, el _input_ y el _output_ se guarda en las variables **In** y **Out**. Poniendo el índice de la línea usada nos volverá a ejecutar esa línea, en el caso de que usemos la variable **In** o nos mostrará el _output_ en caso de que usemos la variable **Out**. **In** es una lista mientras que **Out** es un diccionario. En el caso de que no haya _output_ para un número de línea nos dará un **KeyError**. Por ejemplo, veamos las siguientes celdas de código:
 
-<pre><code class="language-python">In?</code></pre>
+```python
+In?
+```
 
-Nos mostrará en pantalla lo siguiente (esto puede variar en función de lo que hayáis escrito previamente en la consola o el notebook, lo siguiente solo sirve como ejemplo):
+Nos mostrará en pantalla lo siguiente (esto puede variar en función de 
+lo que hayáis escrito previamente en la consola o el notebook, lo 
+siguiente solo sirve como ejemplo):
 
-<pre><code class="language-python">Type:       list
+```python
+Type:       list
 String Form:['', "get_ipython().magic('pinfo In')", "get_ipython().magic('pinfo In')"]
  Length:     3
  Docstring:
-list() -&gt; new empty list
-list(iterable) -&gt; new list initialized from iterable's items</code></pre>
+list() -> new empty list
+list(iterable) -> new list initialized from iterable's items
+```
 
-Mientras que si hacemos lo mismo para **Out** obtendremos la siguiente info (esto puede variar en función de lo que hayáis escrito previamente en la consola o el notebook, lo siguiente solo sirve como ejemplo):
+Mientras que si hacemos lo mismo para **Out** obtendremos la siguiente 
+info (esto puede variar en función de lo que hayáis escrito previamente 
+en la consola o el notebook, lo siguiente solo sirve como ejemplo):
 
-<pre><code class="language-python">Type:       dict
+```python
+Type:       dict
 String Form:{}
 Length:     0
 Docstring:
-dict() -&gt; new empty dictionary
-dict(mapping) -&gt; new dictionary initialized from a mapping object's
+dict() -> new empty dictionary
+dict(mapping) -> new dictionary initialized from a mapping object's
     (key, value) pairs
-dict(iterable) -&gt; new dictionary initialized as if via:
+dict(iterable) -> new dictionary initialized as if via:
 d = {}
 for k, v in iterable:
     d[k] = v
-dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
-    in the keyword argument list.  For example:  dict(one=1, two=2)</code></pre>
+dict(**kwargs) -> new dictionary initialized with the name=value pairs
+    in the keyword argument list.  For example:  dict(one=1, two=2)
+```
 
 Si ahora hacemos lo siguiente:
 
-<pre><code class="language-python">a = 2
-print(a)</code></pre>
+```python
+a = 2
+print(a)
+```
 
-Nos mostrará un **2** en pantalla pero no lo guarda en el _Output_ puesto que solo es visualización. Por tanto, lo siguiente:
+Nos mostrará un **2** en pantalla pero no lo guarda en el _Output_ 
+puesto que solo es visualización. Por tanto, lo siguiente:
 
-<pre><code class="language-python">Out</code></pre>
+```python
+Out
+```
 
-Nos mostrará (esto puede variar en función de lo que hayáis escrito previamente en la consola o el notebook, lo siguiente solo sirve como ejemplo):
+Nos mostrará (esto puede variar en función de lo que hayáis escrito 
+previamente en la consola o el notebook, lo siguiente solo sirve como ejemplo):
 
-<pre><code class="language-python">{1: '/home/kiko/.config/ipython/profile_default',
- 2: '/home/kiko/.config/ipython/profile_default'}</code></pre>
+```python
+{1: '/home/kiko/.config/ipython/profile_default',
+ 2: '/home/kiko/.config/ipython/profile_default'}
+```
 
-Vemos que en **Out** se encuentra lo que hemos obtenido en las primeras celdas de código. Si ahora queremos ver otro _output_ podemos hacer lo siguiente:
+Vemos que en **Out** se encuentra lo que hemos obtenido en las primeras 
+celdas de código. Si ahora queremos ver otro _output_ podemos hacer lo siguiente:
 
-<pre><code class="language-python">a</code></pre>
+```python
+a
+```
 
-Y, como no lo hemos mostrado con un print, se añade al _Output_.
+Y, como no lo hemos mostrado con un `print`, se añade al _Output_.
 
-<pre><code class="language-python">Out</code></pre>
+```python
+Out
+```
 
-<pre><code class="language-python">{1: '/home/kiko/.config/ipython/profile_default',
+```python
+{1: '/home/kiko/.config/ipython/profile_default',
  2: '/home/kiko/.config/ipython/profile_default/history.sqlite',
- 7: 2}</code></pre>
+ 7: 2}
+```
 
-Vemos que ya tenemos algún valor para el **Out** y ya podremos acceder a ese valor por si lo quisiéramos usar en alguna otra celda. Por ejemplo, de la siguiente forma:
+Vemos que ya tenemos algún valor para el **Out** y ya podremos acceder 
+a ese valor por si lo quisiéramos usar en alguna otra celda. Por 
+ejemplo, de la siguiente forma:
 
-<pre><code class="language-python">b = Out[7]
-print(b)</code></pre>
+```python
+b = Out[7]
+print(b)
+```
 
 Nos mostraría **2** en pantalla.
 
-Como el **In** siempre lo tendremos, en lugar de ser un diccionario es una lista y podemos acceder al valor de la celda usando el índice de la misma. Por ejemplo:
+Como el **In** siempre lo tendremos, en lugar de ser un diccionario es 
+una lista y podemos acceder al valor de la celda usando el índice de la 
+misma. Por ejemplo:
 
-<pre><code class="language-python">for celda in In:
-    print(celda)</code></pre>
+```python
+for celda in In:
+    print(celda)
+```
 
 Nos mostraría lo siguiente (o algo aproximado a lo siguiente):
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 get_ipython().magic('pinfo In')
@@ -125,28 +166,40 @@ Out
 b = Out[7]
 print(b)
 for celda in In:
-    print(celda)</code></pre>
+    print(celda)
+```
 
-También podemos acceder a los tres últimos _outputs_ de las tres últimas celdas usando \_, \\_\_, \_\__, que nos mostrará el _output_ de la última, penúltima o antepenúltima celdas usadas, respectivamente.
+También podemos acceder a los tres últimos _outputs_ de las tres últimas 
+celdas usando \_, \\_\_, \_\__, que nos mostrará el _output_ de la 
+última, penúltima o antepenúltima celdas usadas, respectivamente.
 
-<pre><code class="language-python">print('antepenúltima:n', ___, 'nn')
+```python
+print('antepenúltima:n', ___, 'nn')
 print('penúltima:n', __, 'nn')
-print('última:n', _, 'nn')</code></pre>
+print('última:n', _, 'nn')
+```
 
-<pre><code class="language-python">antepenúltima:
+```python
+antepenúltima:
  /home/kiko/.config/ipython/profile_default 
 penúltima:
  /home/kiko/.config/ipython/profile_default/history.sqlite 
 última:
- 2</code></pre>
+ 2
+ ```
 
-Si queremos acceder a los _inputs_ de las últimas celdas podemos usar algo parecido pero de la siguiente forma, \_i, \_ii o _iii para la última, penúltima o antepenúltima celda de _input_:
+Si queremos acceder a los _inputs_ de las últimas celdas podemos usar 
+algo parecido pero de la siguiente forma, \_i, \_ii o _iii para la 
+última, penúltima o antepenúltima celda de _input_:
 
-<pre><code class="language-python">print('antepenúltima:n', _iii, 'nn')
+```python
+print('antepenúltima:n', _iii, 'nn')
 print('penúltima:n', _ii, 'nn')
-print('última:n', _i, 'nn')</code></pre>
+print('última:n', _i, 'nn')
+```
 
-<pre><code class="language-python">antepenúltima:
+```python
+antepenúltima:
  print(b) 
 penúltima:
  for celda in In:
@@ -154,56 +207,84 @@ penúltima:
 última:
 print('antepenúltima:n', ___, 'nn')
 print('penúltima:n', __, 'nn')
-print('última:n', _, 'nn')</code></pre>
+print('última:n', _, 'nn')
+```
 
-Análogamente a lo visto anteriormente, podemos usar __n_ o _i_n_ para mostrar, respectivamente, el _output_ o el _input_ de la celda _n_. Por ejemplo, para ver el _input_ y el _output_ de la celda anterior (en este caso sería la 11) podemos hacer lo siguiente:
+Análogamente a lo visto anteriormente, podemos usar __n_ o _i_n_ 
+para mostrar, respectivamente, el _output_ o el _input_ de la celda _n_. 
+Por ejemplo, para ver el _input_ y el _output_ de la celda anterior (en 
+este caso sería la 11) podemos hacer lo siguiente:
 
-<pre><code class="language-python">print('El input de la celda 11 es:')
-print(_i11)</code></pre>
+```python
+print('El input de la celda 11 es:')
+print(_i11)
+```
 
 Que nos mostrará:
 
-<pre><code class="language-python">El input de la celda 11 es:
+```python
+El input de la celda 11 es:
 for celda in In:
-    print(celda)</code></pre>
+    print(celda)
+```
 
 Y para el _output_:
 
-<pre><code class="language-python">print('Te he engañado. No existe output para la celda 11')
+```python
+print('Te he engañado. No existe output para la celda 11')
 print('Si intentas acceder al valor _11 obtendrás un NameError ya que no existe la variable')
 print('pero te puedo enseñar el de la celda 7:')
-print(_7)</code></pre>
+print(_7)
+```
 
-<pre><code class="language-python">Te he engañado. No existe output para la celda 11
+```python
+Te he engañado. No existe output para la celda 11
 Si intentas acceder al valor _11 obtendrás un NameError ya que no existe la variable
 pero te puedo enseñar el de la celda 7:
-2</code></pre>
+2
+```
 
-Lo anterior es equivalente a usar **In[n]** o **Out[n]**. Una tercera alternativa, además, sería usar **_ih[n]** para los _inputs_ y **_oh[n]** para los _outputs_.
+Lo anterior es equivalente a usar **In[n]** o **Out[n]**. Una tercera 
+alternativa, además, sería usar **_ih[n]** para los _inputs_ y 
+**_oh[n]** para los _outputs_.
 
-<pre><code class="language-python">In[11]</code></pre>
+```python
+In[11]
+```
 
 Mostrará:
 
-<pre><code class="language-python">'for celda in In:n    print(celda)'</code></pre>
+```python
+'for celda in In:n    print(celda)'
+```
 
 Mientras que:
 
-<pre><code class="language-python">_ih[11]</code></pre>
+```python
+_ih[11]
+```
 
 Nos mostrará lo mismo:
 
-<pre><code class="language-python">'for celda in In:n    print(celda)'</code></pre>
+```python
+'for celda in In:n    print(celda)'
+```
 
 # Acceso a bloques de historia
 
-Para acceder a toda la historia de la sesión actual podemos usar las funciones mágicas **%history** o **%hist**, que es un alias.
+Para acceder a toda la historia de la sesión actual podemos usar las 
+funciones mágicas **%history** o **%hist**, que es un alias.
 
-Podemos obtener toda la historia o solo una porción. Por ejemplo, el siguiente comando nos mostrará la historia desde la celda 1 a la 10 en la sesión actual:
+Podemos obtener toda la historia o solo una porción. Por ejemplo, el 
+siguiente comando nos mostrará la historia desde la celda 1 a la 10 en 
+la sesión actual:
 
-<pre><code class="language-python">%hist 1-10</code></pre>
+```python
+%hist 1-10
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 In?
@@ -213,13 +294,19 @@ Out
 a
 Out
 b = Out[7]
-print(b)</code></pre>
+print(b)
+```
 
-Si, además de acceder a las celdas 1 a 10, queremos acceder a celdas sueltas podemos usar la siguiente notación para acceder a las celdas 12 y 14 (además de a las 10 primeras).
+Si, además de acceder a las celdas 1 a 10, queremos acceder a celdas 
+sueltas podemos usar la siguiente notación para acceder a las celdas 
+12 y 14 (además de a las 10 primeras).
 
-<pre><code class="language-python">%hist 1-10 12 14</code></pre>
+```python
+%hist 1-10 12 14
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 In?
@@ -234,13 +321,20 @@ print('antepenúltima:n', ___, 'nn')
 print('penúltima:n', __, 'nn')
 print('última:n', _, 'nn')
 print('El input de la celda 11 es:')
-print(_i11)</code></pre>
+print(_i11)
+```
 
-Si ahora queremos acceder a todas las celdas donde hayamos usado, por ejemplo, un comando que incluya 'a = 1' podemos hacer uso de la opción **-g** (similar a grep) de la siguiente forma (la salida dependerá de vuestra historia):
+Si ahora queremos acceder a todas las celdas donde hayamos usado, por 
+ejemplo, un comando que incluya 'a = 1' podemos hacer uso de la opción 
+**-g** (similar a grep) de la siguiente forma (la salida dependerá de 
+vuestra historia):
 
-<pre><code class="language-python">%hist -g a = 1</code></pre>
+```python
+%hist -g a = 1
+```
 
-<pre><code class="language-python">29/129: a = 1
+```python
+29/129: a = 1
 29/133: a = 1
 29/136: a = 1.1
 29/138: a = 1
@@ -583,21 +677,31 @@ help(A)
 a = 1
 print(a)
 214/20: %hist -g a = 1
-  20: %hist -g a = 1</code></pre>
+  20: %hist -g a = 1
+```
 
 [Gracias a la historia sé que escribo demasiado código estúpido... :-(]
 
-Pero esta busqueda no se restringe a la historia de la sesión actual sino que buscará en toda la historia almacenada por IPython bajo el perfil que estemos usando. El anterior _output_ indica la sesión, el número de línea/celda de esa sesión y el código usado en esa línea/celda con la siguiente notación:
+Pero esta busqueda no se restringe a la historia de la sesión actual 
+sino que buscará en toda la historia almacenada por IPython bajo el perfil 
+que estemos usando. El anterior _output_ indica la sesión, el número de 
+línea/celda de esa sesión y el código usado en esa línea/celda con la 
+siguiente notación:
 
 _Sesión/celda: Código\_introducido\_en\_la\_celda_
 
-En este caso, podéis ver que en la última línea no se indica el número de sesión puesto que se refiere a la sesión actual:
+En este caso, podéis ver que en la última línea no se indica el número 
+de sesión puesto que se refiere a la sesión actual:
 
-Si usamos la opción **-o** también obtendremos la historia con el _output_ incluido. Podéis ver el siguiente ejemplo para ver como funciona:
+Si usamos la opción **-o** también obtendremos la historia con el 
+_output_ incluido. Podéis ver el siguiente ejemplo para ver como funciona:
 
-<pre><code class="language-python">%hist -o</code></pre>
+```python
+%hist -o
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 '/home/kiko/.config/ipython/profile_default'
 get_ipython().history_manager.hist_file
@@ -637,46 +741,61 @@ _ih[11]
 %hist 1-10
 %hist 1-10 12 14
 %hist -g a = 1
-%hist -o</code></pre>
+%hist -o
+```
 
-Otra cosa interesante es la opción **-p**, que coloca un _prompt_ delante de cada línea de la historia que se muestra. Esto puede ser útil para, por ejemplo, escribir _doctests_.
+Otra cosa interesante es la opción **-p**, que coloca un _prompt_ 
+delante de cada línea de la historia que se muestra. Esto puede ser 
+útil para, por ejemplo, escribir _doctests_.
 
 En el siguiente ejemplo vamos a usar la opción _-p_ junto con la opción _-o_:
 
-<pre><code class="language-python">%hist -po 1-10</code></pre>
+```python
+%hist -po 1-10
+```
 
-<pre><code class="language-python">&gt;&gt;&gt; from IPython.utils import path
+```python
+>>> from IPython.utils import path
 ... path.locate_profile()
 ...
 '/home/kiko/.config/ipython/profile_default'
-&gt;&gt;&gt; get_ipython().history_manager.hist_file
+>>> get_ipython().history_manager.hist_file
 '/home/kiko/.config/ipython/profile_default/history.sqlite'
-&gt;&gt;&gt; In?
-&gt;&gt;&gt; a = 2
-&gt;&gt;&gt; print(a)
-&gt;&gt;&gt; Out
+>>> In?
+>>> a = 2
+>>> print(a)
+>>> Out
 {1: '/home/kiko/.config/ipython/profile_default',
  2: '/home/kiko/.config/ipython/profile_default/history.sqlite'}
-&gt;&gt;&gt; a
+>>> a
 2
-&gt;&gt;&gt; Out
+>>> Out
 {1: '/home/kiko/.config/ipython/profile_default',
  2: '/home/kiko/.config/ipython/profile_default/history.sqlite',
  7: 2}
-&gt;&gt;&gt; b = Out[7]
-&gt;&gt;&gt; print(b)</code></pre>
+>>> b = Out[7]
+>>> print(b)
+```
 
-Si queremos guardar la historia o parte de la historia en un fichero para, por ejemplo, los _doctests_, podemos usar la opción **-f**.
+Si queremos guardar la historia o parte de la historia en un fichero 
+para, por ejemplo, los _doctests_, podemos usar la opción **-f**.
 
-Con la siguiente línea de código vamos a guardar el _input_, el _output_ y vamos a colocar la línea del _prompt_ de las 10 primeras celdas en un fichero llamado **kk.txt**:
+Con la siguiente línea de código vamos a guardar el _input_, el 
+_output_ y vamos a colocar la línea del _prompt_ de las 10 primeras 
+celdas en un fichero llamado **kk.txt**:
 
-<pre><code class="language-python">%hist 1-10 -pof kk.txt</code></pre>
+```python
+%hist 1-10 -pof kk.txt
+```
 
 Si queremos acceder a la historia de una sesión anterior podemos usar lo siguiente:
 
-<pre><code class="language-python">%hist ~1/1-10</code></pre>
+```python
+%hist ~1/1-10
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 In?
@@ -686,13 +805,18 @@ Out
 a
 Out
 b = Out[7]
-print(b)</code></pre>
+print(b)
+```
 
-De esta forma accederemos a las 10 primeras líneas de la sesión anterior. Si queremos acceder a las 10 primeras líneas de la penúltima sesión podemos hacer:
+De esta forma accederemos a las 10 primeras líneas de la sesión anterior. 
+Si queremos acceder a las 10 primeras líneas de la penúltima sesión podemos hacer:
 
-<pre><code class="language-python">%hist ~2/1-10</code></pre>
+```python
+%hist ~2/1-10
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 In?
@@ -701,13 +825,17 @@ print(a)
 Out
 a
 Out
-b = Out[9]</code></pre>
+b = Out[9]
+```
 
 Si, además, queréis numerar las celdas usadas podéis usar la opción **-n**:
 
-<pre><code class="language-python">%hist ~2/1-10 -n</code></pre>
+```python
+%hist ~2/1-10 -n
+```
 
-<pre><code class="language-python">213/1:
+```python
+213/1:
 from IPython.utils import path
 path.locate_profile()
 213/2: get_ipython().history_manager.hist_file
@@ -717,13 +845,20 @@ path.locate_profile()
 213/6: Out
 213/7: a
 213/8: Out
-213/9: b = Out[9]</code></pre>
+213/9: b = Out[9]
+```
 
-Algunos de los comandos usados no son aceptados por un intérprete Python cualquiera, como por ejemplo los comandos mágicos que empiezan por **%**. Por ello, podemos obtener los comandos ya traducidos a código Python ejecutable usando la opción **-t** de la historia:
+Algunos de los comandos usados no son aceptados por un intérprete 
+Python cualquiera, como por ejemplo los comandos mágicos que empiezan 
+por **%**. Por ello, podemos obtener los comandos ya traducidos a código 
+Python ejecutable usando la opción **-t** de la historia:
 
-<pre><code class="language-python">%hist 1-10 -t</code></pre>
+```python
+%hist 1-10 -t
+```
 
-<pre><code class="language-python">from IPython.utils import path
+```python
+from IPython.utils import path
 path.locate_profile()
 get_ipython().history_manager.hist_file
 get_ipython().magic('pinfo In')
@@ -733,55 +868,88 @@ Out
 a
 Out
 b = Out[7]
-print(b)</code></pre>
+print(b)
+```
 
-En la tercera línea podéis ver que en lugar de escribir **%pinfo In** ha escrito **get_ipython().magic('pinfo In')**.
+En la tercera línea podéis ver que en lugar de escribir **%pinfo In** 
+ha escrito **get_ipython().magic('pinfo In')**.
 
 # Acceso a la historia de los directorios usados
 
-**_dh** (también podemos usar **%dhist**) nos da información de los directorios recorridos. Por ejemplo, voy a recorrer varios directorios y después veremos la historia de los directorios recorridos:
+**_dh** (también podemos usar **%dhist**) nos da información de los 
+directorios recorridos. Por ejemplo, voy a recorrer varios directorios y 
+después veremos la historia de los directorios recorridos:
 
-<pre><code class="language-python">cd /home/kiko/pyprojs</code></pre>
+```python
+cd /home/kiko/pyprojs
+```
 
-<pre><code class="language-python">/home/kiko/pyprojs</code></pre>
+```python
+/home/kiko/pyprojs
+```
 
-<pre><code class="language-python">pwd</code></pre>
+```python
+pwd
+```
 
-<pre><code class="language-python">'/home/kiko/pyprojs'</code></pre>
+```python
+'/home/kiko/pyprojs'
+```
 
-<pre><code class="language-python">cd /home/kiko/pyprojs/ipython-master/nb/</code></pre>
+```python
+cd /home/kiko/pyprojs/ipython-master/nb/
+```
 
-<pre><code class="language-python">/home/kiko/pyprojs/ipython-master/nb</code></pre>
+```python
+/home/kiko/pyprojs/ipython-master/nb
+```
 
 Si ahora escribimos:
 
-<pre><code class="language-python">%dhist</code></pre>
+```python
+%dhist
+```
 
-<pre><code class="language-python">Directory history (kept in _dh)
+```python
+Directory history (kept in _dh)
 0: /home/kiko/pyprojs/ipython-master/nb
 1: /home/kiko/pyprojs
-2: /home/kiko/pyprojs/ipython-master/nb</code></pre>
+2: /home/kiko/pyprojs/ipython-master/nb
+```
 
 O algo, más o menos, equivalente:
 
-<pre><code class="language-python">_dh</code></pre>
+```python
+_dh
+```
 
 En este caso nos devuelve una lista:
 
-<pre><code class="language-python">['/home/kiko/pyprojs/ipython-master/nb',
+```python
+['/home/kiko/pyprojs/ipython-master/nb',
  '/home/kiko/pyprojs',
- '/home/kiko/pyprojs/ipython-master/nb']</code></pre>
+ '/home/kiko/pyprojs/ipython-master/nb']
+```
 
-Si solo quiero saber el directorio del que partí en la sesión de IPython en la que me encuentro puedo hacer lo siguiente:
+Si solo quiero saber el directorio del que partí en la sesión de 
+IPython en la que me encuentro puedo hacer lo siguiente:
 
-<pre><code class="language-python">_dh[0]</code></pre>
+```python
+_dh[0]
+```
 
 Y obtengo:
 
-<pre><code class="language-python">'/home/kiko/pyprojs/ipython-master/nb'</code></pre>
+```python
+'/home/kiko/pyprojs/ipython-master/nb'
+```
 
-Y esto es todo de momento. Podéis combinar muchas cosas de las vistas aquí con cosas como %macro, %edit, %pastebin,... Si da tiempo, algo muy caro últimamente, hablaremos sobre algunas cosas que se me ocurren en próximas entregas.
+Y esto es todo de momento. Podéis combinar muchas cosas de las vistas 
+aquí con cosas como %macro, %edit, %pastebin,... Si da tiempo, algo muy 
+caro últimamente, hablaremos sobre algunas cosas que se me ocurren en 
+próximas entregas.
 
 Saludos y hasta la próxima entrega.
 
-P.D.: Si veis alguna errata podéis usar los comentarios o mandar algún commit [al repositorio de los notebooks](https://github.com/Pybonacci/notebooks).
+P.D.: Si veis alguna errata podéis usar los comentarios o mandar algún 
+commit [al repositorio de los notebooks](https://github.com/Pybonacci/notebooks).
