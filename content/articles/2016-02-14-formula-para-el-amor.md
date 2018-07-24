@@ -19,15 +19,16 @@ $y_{2} = \sqrt{x^2} - \sqrt{1 - x^2}$
 
 En código Python usando Numpy y Matplotlib tendremos lo siguiente:
 
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-%matplotlib inline
-x = np.linspace(-1,1,50)
-y1 = np.sqrt(x * x) + np.sqrt(1 - x * x)
-y2 = np.sqrt(x * x) - np.sqrt(1 - x * x)
-plt.plot(x, y1, c='r', lw = 3)
-plt.plot(x, y2, c='r', lw = 3)
-plt.show()</code></pre>
+    :::python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    %matplotlib inline
+    x = np.linspace(-1,1,50)
+    y1 = np.sqrt(x * x) + np.sqrt(1 - x * x)
+    y2 = np.sqrt(x * x) - np.sqrt(1 - x * x)
+    plt.plot(x, y1, c='r', lw = 3)
+    plt.plot(x, y2, c='r', lw = 3)
+    plt.show()
 
 Felicidades a quien corresponda.
 

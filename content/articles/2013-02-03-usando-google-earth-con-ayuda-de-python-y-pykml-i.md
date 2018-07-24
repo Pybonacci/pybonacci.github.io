@@ -15,8 +15,9 @@ Vamos a ver varios ejemplos. En el primero daremos una vuelta por el mundo visit
 
 **[Para esta entrada se ha usado pykml 0.1.0, lxml 2.3.2 (es un prerrequisito de pykml) en el notebook de IPython 0.13 corriendo todo sobre python 2.7.3]**
 
-<pre><code class="language-python">import os
-from lxml import etree</code></pre>
+    :::python
+    import os
+    from lxml import etree
 
 En un documento kml podemos tener 'carpetas' para organizar jerárquicamente nuestra información. Dentro de las 'carpetas' podemos meter 'marcas de posición', 'capas', otras 'carpetas', geometrías,... Aquí no voy a explicar mucho más puesto que nos desviamos de python. Si queréis algo concreto usad los comentarios o podéis ver toda la referencia de kml [aquí](https://developers.google.com/kml/documentation/kmlreference?hl=es).
 
@@ -26,243 +27,249 @@ Como he comentado, íbamos a ver dos ejemplos, Empecemos por el primero. Este pr
 
 Primero importamos todo lo necesario de pykml para este ejemplo:
 
-<pre><code class="language-python">from pykml.factory import nsmap
-from pykml.factory import KML_ElementMaker as KML
-from pykml.factory import GX_ElementMaker as GX</code></pre>
+    :::python
+    from pykml.factory import nsmap
+    from pykml.factory import KML_ElementMaker as KML
+    from pykml.factory import GX_ElementMaker as GX
 
 Y ahora, con la ayuda de python, vamos a empezar a ir creando cosas en el documento kml y a explicarlas poco a poco:
 
-<pre><code class="language-python"># Desde la versión 5.0, google ha añadido una serie de extensiones
-# a kml que lo hacen más potente e interactivo
-# https://developers.google.com/kml/documentation/kmlreference?hl=es#kmlextensions
-# Definimos una variable para el espacio de nombres de las
-# extensiones de google que vamos a usar.
-gxns = '{' + nsmap['gx'] + '}'
-# Ponemos un listado de sitios que vamos a visitar
-desc = """&lt;![CDATA[
-PyCon Spain 2013
-&lt;H3&gt;Visitanos!!!&lt;/h3&gt;
-&lt;img src="http://www.python.org/community/logos/python-logo-master-v3-TM.png"/&gt;
-]]&gt;
-"""
-lugares = [
-    {'name':"LHC",
-     'desc':'En algun lugar ahi abajo esta el Gran Colisionador de Hadrones',
-     'lon':6.053295,'lat':46.235339, 'tilt':45,
-     'range':300, 'range2':10000000.0, 'vis':0,},
-    {'name':"VLT",
-     'desc':'ESO Very Large Telescope - VLT',
-     'lon':-70.4042,'lat':-24.6275, 'tilt':45,
-     'range':300, 'range2':10000000.0, 'vis':0,},
-    {'name':"Rapa Nui",
-     'desc':'Ahu Akivi',
-     'lon':-109.395,'lat':-27.115, 'tilt':45,
-     'range':50, 'range2':10000000.0, 'vis':0,},
-    {'name':"Osaka Science Museum",
-     'desc':'Museo de ciencia de Osaka',
-     'lon':135.4915, 'lat':34.6912, 'tilt':45,
-     'range':300, 'range2':10000000.0, 'vis':0,},
-    {'name':"IMAX",
-     'desc':'Cine IMAX de Glasgow',
-     'lon':-4.2939, 'lat':55.8581, 'tilt':45,
-     'range':300, 'range2':10000000.0, 'vis':0,},
-    {'name':"PyConES",
-     'desc':desc,
-     'lon':-3.7, 'lat':40.4165, 'tilt':0,
-     'range':15000, 'range2':10000.0, 'vis':1,},
-]</code></pre>
+    :::python
+    # Desde la versión 5.0, google ha añadido una serie de extensiones
+    # a kml que lo hacen más potente e interactivo
+    # https://developers.google.com/kml/documentation/kmlreference?hl=es#kmlextensions
+    # Definimos una variable para el espacio de nombres de las
+    # extensiones de google que vamos a usar.
+    gxns = '{' + nsmap['gx'] + '}'
+    # Ponemos un listado de sitios que vamos a visitar
+    desc = """&lt;![CDATA[
+    PyCon Spain 2013
+    &lt;H3&gt;Visitanos!!!&lt;/h3&gt;
+    &lt;img src="http://www.python.org/community/logos/python-logo-master-v3-TM.png"/&gt;
+    ]]&gt;
+    """
+    lugares = [
+        {'name':"LHC",
+         'desc':'En algun lugar ahi abajo esta el Gran Colisionador de Hadrones',
+         'lon':6.053295,'lat':46.235339, 'tilt':45,
+         'range':300, 'range2':10000000.0, 'vis':0,},
+        {'name':"VLT",
+         'desc':'ESO Very Large Telescope - VLT',
+         'lon':-70.4042,'lat':-24.6275, 'tilt':45,
+         'range':300, 'range2':10000000.0, 'vis':0,},
+        {'name':"Rapa Nui",
+         'desc':'Ahu Akivi',
+         'lon':-109.395,'lat':-27.115, 'tilt':45,
+         'range':50, 'range2':10000000.0, 'vis':0,},
+        {'name':"Osaka Science Museum",
+         'desc':'Museo de ciencia de Osaka',
+         'lon':135.4915, 'lat':34.6912, 'tilt':45,
+         'range':300, 'range2':10000000.0, 'vis':0,},
+        {'name':"IMAX",
+         'desc':'Cine IMAX de Glasgow',
+         'lon':-4.2939, 'lat':55.8581, 'tilt':45,
+         'range':300, 'range2':10000000.0, 'vis':0,},
+        {'name':"PyConES",
+         'desc':desc,
+         'lon':-3.7, 'lat':40.4165, 'tilt':0,
+         'range':15000, 'range2':10000.0, 'vis':1,},
+    ]
 
 En la anterior porción de código solo hemos detallado una serie de características de lugares que vamos a visitar. Ahora vamos a crear el esqueleto del documento que contendrá una carpeta (folder) donde se guardará información de los lugares que vamos a visitar (posición, descripción, nombre) y un elemento `gx:Tour` que hace uso de las extensiones de Google:
 
-<pre><code class="language-python"># start with a base KML tour and playlist
-fich_kml = KML.kml(
-    KML.Document(
-      GX.Tour(
-        KML.name(u"¡Reprodúceme!"),
-        GX.Playlist(),
-      ),
-      KML.Folder(
-        KML.name('Lugares visitados'),
-        id='lugares',
-      ),
+    :::python
+    # start with a base KML tour and playlist
+    fich_kml = KML.kml(
+        KML.Document(
+          GX.Tour(
+            KML.name(u"¡Reprodúceme!"),
+            GX.Playlist(),
+          ),
+          KML.Folder(
+            KML.name('Lugares visitados'),
+            id='lugares',
+          ),
+        )
     )
-)</code></pre>
 
 Y ahora vamos a hacer un bucle donde se van a ir añadiendo cosas tanto a la carpeta (folder) como al Tour. Voy explicándo lo que hace cada cosa mediante comentarios en el código:
 
-<pre><code class="language-python"># Hacemos un bucle para recorrer todos los lugares definidos en
-# el bloque de código anterior
-for lugar in lugares:
-    # Primero volamos hasta cada lugar (transición entre lugares)
-    # y nos quedamos observándolo desde el espacio.
-    # Para ello usamos FlyTo donde especificamos
-    # La duración en segundos, si queremos que vaya más rápido o más
-    # lento, el modo de vuelo, que puede ser más suave (smooth) o
-    # más rápido (bounce) y la posición.
-    # La posición la determinan longitude, latitude y altitude,
-    # tilt es el ángulo desde la vertical (en este caso lo vemos
-    # verticalmente (0º)) y range es la distancia desde la posición
-    # determinada por longitude, latitude y altitude, teniendo en
-    # cuenta el ángulo tilt (en este caso hemos puesto 10.000 km)
-    # Las unidades para latitude y longitude son grados, para altitude
-    # y range son metros y para tilt son grados desde la vertical.
-    # En el gráfico de este enlace se verá mejor:
-    # https://developers.google.com/kml/documentation/http://new.pybonacci.org/images/lookAt.gif
-    fich_kml.Document[gxns+"Tour"].Playlist.append(
-      GX.FlyTo(
-        GX.duration(1),
-        GX.flyToMode("bounce"),
-        KML.LookAt(
-          KML.longitude(lugar['lon']),
-          KML.latitude(lugar['lat']),
-          KML.altitude(0),
-          KML.heading(0),
-          KML.tilt(45),
-          KML.range(10000000.0),
-          KML.altitudeMode("relativeToGround"),
-        )
-      ),
-    )
-    # Volamos desde el punto anterior (que estaba a 10.000 km
-    # de altura) hasta el punto de vista desde donde queremos
-    # visualizar cada lugar. Vamos a ver todos los lugares con un
-    # ángulo (tilt) de 45º y a una altura de unos 300m de altura
-    # Altura relativa al suelo, no al nivel del mar), excepto para
-    # el caso de Rapa Nui, que bajaremos un poco más para que se vea mejor.
-    fich_kml.Document[gxns+"Tour"].Playlist.append(
-      GX.FlyTo(
-        GX.duration(1),
-        GX.flyToMode("bounce"),
-        KML.LookAt(
-          KML.longitude(lugar['lon']),
-          KML.latitude(lugar['lat']),
-          KML.altitude(0),
-          KML.heading(0),
-          KML.tilt(lugar['tilt']),
-          KML.range(lugar['range']),
-          KML.altitudeMode("relativeToGround"),
-        )
-      ),
-    )
-    # Damos una pequeña vuelta alrededor del lugar
-    # en el que nos encontremos, para ello usamos
-    # heading, que indica la dirección (azimut) de la
-    # cámara
-    for aspect in range(0,360,15):
+    :::python
+    # Hacemos un bucle para recorrer todos los lugares definidos en
+    # el bloque de código anterior
+    for lugar in lugares:
+        # Primero volamos hasta cada lugar (transición entre lugares)
+        # y nos quedamos observándolo desde el espacio.
+        # Para ello usamos FlyTo donde especificamos
+        # La duración en segundos, si queremos que vaya más rápido o más
+        # lento, el modo de vuelo, que puede ser más suave (smooth) o
+        # más rápido (bounce) y la posición.
+        # La posición la determinan longitude, latitude y altitude,
+        # tilt es el ángulo desde la vertical (en este caso lo vemos
+        # verticalmente (0º)) y range es la distancia desde la posición
+        # determinada por longitude, latitude y altitude, teniendo en
+        # cuenta el ángulo tilt (en este caso hemos puesto 10.000 km)
+        # Las unidades para latitude y longitude son grados, para altitude
+        # y range son metros y para tilt son grados desde la vertical.
+        # En el gráfico de este enlace se verá mejor:
+        # https://developers.google.com/kml/documentation/http://new.pybonacci.org/images/lookAt.gif
         fich_kml.Document[gxns+"Tour"].Playlist.append(
           GX.FlyTo(
-            GX.duration(0.1),
+            GX.duration(1),
             GX.flyToMode("bounce"),
             KML.LookAt(
               KML.longitude(lugar['lon']),
               KML.latitude(lugar['lat']),
               KML.altitude(0),
-              KML.heading(aspect),
+              KML.heading(0),
+              KML.tilt(45),
+              KML.range(10000000.0),
+              KML.altitudeMode("relativeToGround"),
+            )
+          ),
+        )
+        # Volamos desde el punto anterior (que estaba a 10.000 km
+        # de altura) hasta el punto de vista desde donde queremos
+        # visualizar cada lugar. Vamos a ver todos los lugares con un
+        # ángulo (tilt) de 45º y a una altura de unos 300m de altura
+        # Altura relativa al suelo, no al nivel del mar), excepto para
+        # el caso de Rapa Nui, que bajaremos un poco más para que se vea mejor.
+        fich_kml.Document[gxns+"Tour"].Playlist.append(
+          GX.FlyTo(
+            GX.duration(1),
+            GX.flyToMode("bounce"),
+            KML.LookAt(
+              KML.longitude(lugar['lon']),
+              KML.latitude(lugar['lat']),
+              KML.altitude(0),
+              KML.heading(0),
               KML.tilt(lugar['tilt']),
               KML.range(lugar['range']),
               KML.altitudeMode("relativeToGround"),
             )
-          )
+          ),
         )
-    fich_kml.Document[gxns+"Tour"].Playlist.append(GX.Wait(GX.duration(0.1)))
-    # Añadimos información de cada lugar en la carpeta
-    # como 'placemarks' o marcas de posición. En el nombre y en la descripción
-    # del placemark se puede meter HTML y CSS, por si queréis ser un poco más
-    # creativos y dejar la información de una forma visible y bonita.
-    # extrude == 1 indica que el nombre del lugar se hará visible. Si queremos
-    # hacerlo visible solo cuando lo seleccionemos pues le ponemos el valor 0
-    fich_kml.Document.Folder.append(
-      KML.Placemark(
-        KML.name(lugar['name']),
-        KML.description(
-            "{name}&lt;br/&gt;{desc}".format(
-                    name=lugar['name'],
-                    desc=lugar['desc'],
-            )
-        ),
-        KML.Point(
-          KML.extrude(1),
-          KML.altitudeMode("relativeToGround"),
-          KML.coordinates("{lon},{lat},{alt}".format(
-                  lon=lugar['lon'],
-                  lat=lugar['lat'],
-                  alt=0,
-              )
-          )
-        ),
-        id=lugar['name'].replace(' ','_')
-      )
-    )
-    # Aquí le indicamos a la reproducción que en el
-    # momento que haya dado la vuelta al lugar nos
-    # muestre el 'globo' o 'viñeta' con la información del sitio,
-    # nombre y descripción. Visibility a 1 para
-    # hacerlo visible.
-    fich_kml.Document[gxns+"Tour"].Playlist.append(
-        GX.AnimatedUpdate(
-          GX.duration(2.0),
-          KML.Update(
-            KML.targetHref(),
-            KML.Change(
-              KML.Placemark(
-                KML.visibility(1),
-                GX.balloonVisibility(1),
-                targetId=lugar['name'].replace(' ','_')
+        # Damos una pequeña vuelta alrededor del lugar
+        # en el que nos encontremos, para ello usamos
+        # heading, que indica la dirección (azimut) de la
+        # cámara
+        for aspect in range(0,360,15):
+            fich_kml.Document[gxns+"Tour"].Playlist.append(
+              GX.FlyTo(
+                GX.duration(0.1),
+                GX.flyToMode("bounce"),
+                KML.LookAt(
+                  KML.longitude(lugar['lon']),
+                  KML.latitude(lugar['lat']),
+                  KML.altitude(0),
+                  KML.heading(aspect),
+                  KML.tilt(lugar['tilt']),
+                  KML.range(lugar['range']),
+                  KML.altitudeMode("relativeToGround"),
+                )
               )
             )
+        fich_kml.Document[gxns+"Tour"].Playlist.append(GX.Wait(GX.duration(0.1)))
+        # Añadimos información de cada lugar en la carpeta
+        # como 'placemarks' o marcas de posición. En el nombre y en la descripción
+        # del placemark se puede meter HTML y CSS, por si queréis ser un poco más
+        # creativos y dejar la información de una forma visible y bonita.
+        # extrude == 1 indica que el nombre del lugar se hará visible. Si queremos
+        # hacerlo visible solo cuando lo seleccionemos pues le ponemos el valor 0
+        fich_kml.Document.Folder.append(
+          KML.Placemark(
+            KML.name(lugar['name']),
+            KML.description(
+                "{name}&lt;br/&gt;{desc}".format(
+                        name=lugar['name'],
+                        desc=lugar['desc'],
+                )
+            ),
+            KML.Point(
+              KML.extrude(1),
+              KML.altitudeMode("relativeToGround"),
+              KML.coordinates("{lon},{lat},{alt}".format(
+                      lon=lugar['lon'],
+                      lat=lugar['lat'],
+                      alt=0,
+                  )
+              )
+            ),
+            id=lugar['name'].replace(' ','_')
           )
         )
-    )
-    fich_kml.Document[gxns+"Tour"].Playlist.append(GX.Wait(GX.duration(1.0)))
-    # Esta parte de código hará que desaparezca el 'globo'
-    # con la información así no tendremos el 'globo'
-    fich_kml.Document[gxns+"Tour"].Playlist.append(
-        GX.AnimatedUpdate(
-          GX.duration(2.0),
-          KML.Update(
-            KML.targetHref(),
-            KML.Change(
-              KML.Placemark(
-                GX.balloonVisibility(lugar['vis']),
-                targetId=lugar['name'].replace(' ','_')
+        # Aquí le indicamos a la reproducción que en el
+        # momento que haya dado la vuelta al lugar nos
+        # muestre el 'globo' o 'viñeta' con la información del sitio,
+        # nombre y descripción. Visibility a 1 para
+        # hacerlo visible.
+        fich_kml.Document[gxns+"Tour"].Playlist.append(
+            GX.AnimatedUpdate(
+              GX.duration(2.0),
+              KML.Update(
+                KML.targetHref(),
+                KML.Change(
+                  KML.Placemark(
+                    KML.visibility(1),
+                    GX.balloonVisibility(1),
+                    targetId=lugar['name'].replace(' ','_')
+                  )
+                )
               )
             )
-          )
         )
-    )
-    # Finalmente, esta parte nos separa de la tierra
-    # para que tengamos una vista privilegiada del
-    # planeta azul a 10.000 km de altura
-    fich_kml.Document[gxns+"Tour"].Playlist.append(
-      GX.FlyTo(
-        GX.duration(5),
-        GX.flyToMode("bounce"),
-        KML.LookAt(
-          KML.longitude(lugar['lon']),
-          KML.latitude(lugar['lat']),
-          KML.altitude(0),
-          KML.heading(0),
-          KML.tilt(0),
-          KML.range(lugar['range2']),
-          KML.altitudeMode("relativeToGround"),
+        fich_kml.Document[gxns+"Tour"].Playlist.append(GX.Wait(GX.duration(1.0)))
+        # Esta parte de código hará que desaparezca el 'globo'
+        # con la información así no tendremos el 'globo'
+        fich_kml.Document[gxns+"Tour"].Playlist.append(
+            GX.AnimatedUpdate(
+              GX.duration(2.0),
+              KML.Update(
+                KML.targetHref(),
+                KML.Change(
+                  KML.Placemark(
+                    GX.balloonVisibility(lugar['vis']),
+                    targetId=lugar['name'].replace(' ','_')
+                  )
+                )
+              )
+            )
         )
-      ),
-    )</code></pre>
+        # Finalmente, esta parte nos separa de la tierra
+        # para que tengamos una vista privilegiada del
+        # planeta azul a 10.000 km de altura
+        fich_kml.Document[gxns+"Tour"].Playlist.append(
+          GX.FlyTo(
+            GX.duration(5),
+            GX.flyToMode("bounce"),
+            KML.LookAt(
+              KML.longitude(lugar['lon']),
+              KML.latitude(lugar['lat']),
+              KML.altitude(0),
+              KML.heading(0),
+              KML.tilt(0),
+              KML.range(lugar['range2']),
+              KML.altitudeMode("relativeToGround"),
+            )
+          ),
+        )
 
 En el siguiente código lo que hacemos es guardar el fichero kml final. Si os acordáis, en algún momento hemos puesto algunas etiquetas HTML. Algunos símbolos especiales se han transformado por lo que los volvemos a dejar como estaban ya que si no google earth no entenderá ese kml correctamente.
 
-<pre><code class="language-python"># output a KML file (named based on the Python script)
-outfile = file('VolandoVoy.kml','w')
-salida = etree.tostring(fich_kml, pretty_print=True)
-salida = salida.replace('&lt;', '&lt;') salida = salida.replace('&gt;', '&gt;')
-outfile.write(salida)
-outfile.close()</code></pre>
+    :::python
+    # output a KML file (named based on the Python script)
+    outfile = file('VolandoVoy.kml','w')
+    salida = etree.tostring(fich_kml, pretty_print=True)
+    salida = salida.replace('&lt;', '&lt;') salida = salida.replace('&gt;', '&gt;')
+    outfile.write(salida)
+    outfile.close()
 
 Por último, lanzamos google earth con el fichero que acabamos de crear. Las siguientes tres líneas funcionan en linux. Ahora mismo no tengo un windows cerca pero creo que deberéis cambiar \`googleearth\` por \`googleearth.exe\` y tener en cuenta los '' en lugar de '/' en la ruta al fichero.
 
-<pre><code class="language-python">ruta = os.getcwd()
-rutafich = ruta + '/VolandoVoy.kml'
-os.system('googleearth {0}'.format(rutafich))</code></pre>
+    :::python
+    ruta = os.getcwd()
+    rutafich = ruta + '/VolandoVoy.kml'
+    os.system('googleearth {0}'.format(rutafich))
 
 A la izquierda de la pantalla de google earth, en mis 'lugares', dentro de 'lugares temporales' podréis ver 'VolandoVoy.kml'. Si lo desplegáis veréis 'Reprodúceme'. Si hacéis doble click sobre 'Reprodúceme' podréis ver algo parecido a lo siguiente:
 

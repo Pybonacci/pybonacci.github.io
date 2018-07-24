@@ -88,27 +88,30 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                   Una vez qué tenemos claro qué vamos a hacer, el primer paso es escribir una prueba para expresar el resultado esperado del código que vamos a escribir. Empezamos generando el nombre adecuado de un fichero y, para ello, escribiremos una prueba que exponga cómo lo queremos obtener.
                 </p>
                 
-                <pre><code class="language-python">class TestTweetsEnFichero(unittest.TestCase):
-	def testCreaNombreFichero(self):
-		tef = TweetsEnFichero()
-		esperado = "2013-03-30 PyConEs.txt"
-		self.assertEquals(esperado, tef.crearNombreFichero("PyConEs"))</code></pre>
+                    :::python
+    class TestTweetsEnFichero(unittest.TestCase):
+    	def testCreaNombreFichero(self):
+    		tef = TweetsEnFichero()
+    		esperado = "2013-03-30 PyConEs.txt"
+    		self.assertEquals(esperado, tef.crearNombreFichero("PyConEs"))
                 
                 <p>
                   Para que esta prueba pase, creamos una nueva clase, <em>TweetsEnFichero</em>, que contendrá todo lo necesario para almacenar el contenido de los tweets en un fichero. Suponemos que escribimos y ejecutamos esta prueba el 30/03/2013. La implementación más sencilla para que esta prueba pase es:
                 </p>
                 
-                <pre><code class="language-python">class TweetsEnFichero:
-	def crearNombreFichero(self, tag):
-		return  "2013-03-30 PyConEs.txt"</code></pre>
+                    :::python
+    class TweetsEnFichero:
+    	def crearNombreFichero(self, tag):
+    		return  "2013-03-30 PyConEs.txt"
                 
                 <p>
                   Con esta implementación tenemos el código más sencillo que hace que la prueba pase con éxito. Ahora que ya tenemos algo que funciona y que nos muestra cómo trabajar vamos a mejorarlo. Podemos hacer algunas refactorizaciones al código anterior. Por ejemplo, ya que tenemos el hashtag, podemos utilizarlo y comprobar que la prueba sigue funcionando.
                 </p>
                 
-                <pre><code class="language-python">class TweetsEnFichero:
-	def crearNombreFichero(self, tag):
-		return  "2013-03-30 “+tag+”.txt"</code></pre>
+                    :::python
+    class TweetsEnFichero:
+    	def crearNombreFichero(self, tag):
+    		return  "2013-03-30 “+tag+”.txt"
                 
                 <p>
                   Veamos a continuación cómo podemos independizarnos de la fecha actual.
@@ -122,26 +125,29 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                   Comenzamos separando la responsabilidad de obtener la fecha darle el formato adecuado del resto del código. Para ello vamos a escribir un nuevo método y nuestro primer paso, lógicamente, será escribir primero la prueba que nos defina qué debe hacer el código que vamos a escribir.
                 </p>
                 
-                <pre><code class="language-python">def testGetFechaActual(self):
-		tef = TweetsEnFichero()
-		esperado = "2013-03-30"
-		self.assertEquals(esperado, tef.getFechaActual())</code></pre>
+                    :::python
+    def testGetFechaActual(self):
+    		tef = TweetsEnFichero()
+    		esperado = "2013-03-30"
+    		self.assertEquals(esperado, tef.getFechaActual())
                 
                 <p>
                   Una vez que la prueba falla pasamos a la implementación. Veamos el código.
                 </p>
                 
-                <pre><code class="language-python">def getFechaActual(self):
-		now = datetime.now()
-		return str(now.year) + "-" + str(now.month) + "-" + str(now.day)</code></pre>
+                    :::python
+    def getFechaActual(self):
+    		now = datetime.now()
+    		return str(now.year) + "-" + str(now.month) + "-" + str(now.day)
                 
                 <p>
                   Sin embargo con la implementación anterior la prueba falla porque el mes es 3 en vez de 03. Esto también pasará cuando el día sea menor de 10. Como esta prueba no pasa con éxito no podemos dar por terminada la implementación. La solución más rápida es añadir el “0” que falta, como se muestra en el siguiente código.
                 </p>
                 
-                <pre><code class="language-python">def getFechaActual(self):
-		now = datetime.now()
-		return str(now.year) + "-" + “0” + str(now.month) + "-" + str(now.day)</code></pre>
+                    :::python
+    def getFechaActual(self):
+    		now = datetime.now()
+    		return str(now.year) + "-" + “0” + str(now.month) + "-" + str(now.day)
                 
                 <p>
                   Ahora la prueba pasa con éxito. Además, hemos descubierto una nueva tarea que necesitamos para que el nombre se genere correctamente, y que añadimos a nuestro diario (tarea 3.4).
@@ -177,23 +183,25 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           Este es un buen momento para refactorizar. Vamos a refactorizar las pruebas para evitar código duplicado. En concreto sacamos la creación del objeto bajo prueba al método <i>setUp</i> tal y como se muestra a continuación.
                         </p>
                         
-                        <pre><code class="language-python">class TestTweetsEnFichero(unittest.TestCase):
-	def setUp(self):
-		self.tef = TweetsEnFichero()
-	def testCreaNombreFichero(self):
-		esperado = "2013-03-30 PyConEs.txt"
-		self.assertEquals(esperado, self.tef.crearNombreFichero("PyConEs"))
-	def testGetFechaActual(self):
-		esperado = "2013-03-30"
-		self.assertEquals(esperado, self.tef.getFechaActual())</code></pre>
+                            :::python
+    class TestTweetsEnFichero(unittest.TestCase):
+    	def setUp(self):
+    		self.tef = TweetsEnFichero()
+    	def testCreaNombreFichero(self):
+    		esperado = "2013-03-30 PyConEs.txt"
+    		self.assertEquals(esperado, self.tef.crearNombreFichero("PyConEs"))
+    	def testGetFechaActual(self):
+    		esperado = "2013-03-30"
+    		self.assertEquals(esperado, self.tef.getFechaActual())
                         
                         <p>
                           También refactorizamos el código de la aplicación para que utilice el método <i>getFechaActual</i> en vez de la fecha incrustada como cadena de texto y el parámetro <em>hashtag</em>.
                         </p>
                         
-                        <pre><code class="language-python">class TweetsEnFichero:
-	def crearNombreFichero(self, hashtag):
-		return self.getFechaActual() +" "+ hashtag + ".txt"</code></pre>
+                            :::python
+    class TweetsEnFichero:
+    	def crearNombreFichero(self, hashtag):
+    		return self.getFechaActual() +" "+ hashtag + ".txt"
                         
                         <p>
                           Podríamos continuar escribiendo pruebas para que el código añada un cero delante del mes y del día cuando haga falta, pero nuestro código aún depende de la fecha actual del sistema (llamada a <i>datetime::now</i>) lo que aumenta la dificultad de implementar esta funcionalidad. Por ello, nuestro siguiente paso será independizarnos de la fecha del sistema.
@@ -211,20 +219,22 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           El primer paso es refactorizar para proporcionar el <i>datetime</i> a utilizar desde el exterior. El código resultante se muestra a continuación.
                         </p>
                         
-                        <pre><code class="language-python">class TweetsEnFichero:
-	def __init__(self, timeProvider):
-		self.timeProvider = timeProvider
-	def getFechaActual(self):
-		now = self.timeProvider.now()
-		return str(now.year) + "-" + str(now.month) + "-" + str(now.day)</code></pre>
+                            :::python
+    class TweetsEnFichero:
+    	def __init__(self, timeProvider):
+    		self.timeProvider = timeProvider
+    	def getFechaActual(self):
+    		now = self.timeProvider.now()
+    		return str(now.year) + "-" + str(now.month) + "-" + str(now.day)
                         
                         <p>
                           Después, modificamos las pruebas que tenemos que usen <i>datetime</i> y todo sigue funcionando. Como al final de la sección anterior refactorizamos el código para evitar el código duplicado, solo hemos tenido que modificar una única línea. Si no hubiéramos refactorizado tendríamos que cambiar todas las pruebas. Recuerda, evitar el código duplicado hace tu código más sencillo de cambiar y mejorar.
                         </p>
                         
-                        <pre><code class="language-python">class TestTweetsEnFichero(unittest.TestCase):
-	def setUp(self):
-		self.tef = TweetsEnFichero(datetime)</code></pre>
+                            :::python
+    class TestTweetsEnFichero(unittest.TestCase):
+    	def setUp(self):
+    		self.tef = TweetsEnFichero(datetime)
                         
                         <p>
                           ;
@@ -234,20 +244,22 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           Vamos a continuar modificando las pruebas. Como podemos indicar desde el exterior el encargado de devolver la fecha, podemos crear un “doble” que devuelva siempre la misma fecha. Así podremos saber cuál serán los resultados esperados de la pruebas. Nuestro doble de pruebas se llama <i>DatetimeStub</i> y su misión es reemplazar al <i>Datetime</i> del sistema para devolver siempre la misma fecha. Así, podemos predecir los resultados esperados de la prueba y hacer que no cambien de un día para otro.
                         </p>
                         
-                        <pre><code class="language-python">class DatetimeStub ():
-	def now(self):
-		self.year = 2013
-		self.month = 3
-		self.day = 29
-		return self</code></pre>
+                            :::python
+    class DatetimeStub ():
+    	def now(self):
+    		self.year = 2013
+    		self.month = 3
+    		self.day = 29
+    		return self
                         
                         <p>
                           Los dobles de prueba son un elemento muy poderoso a la hora de escribir pruebas. Al final de este artículo tienes más información sobre dobles. Vamos a modificar la prueba que hemos escrito para utilizar nuestro doble.
                         </p>
                         
-                        <pre><code class="language-python">class TestTweetsEnFichero(unittest.TestCase):
-	def setUp(self):
-		self.tef = TweetsEnFichero(DatetimeStub ())</code></pre>
+                            :::python
+    class TestTweetsEnFichero(unittest.TestCase):
+    	def setUp(self):
+    		self.tef = TweetsEnFichero(DatetimeStub ())
                         
                         <p>
                           Todas las pruebas siguen funcionando correctamente. Ya estamos independizados de la fecha y hora.
@@ -261,20 +273,22 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           Por comodidad, podemos hacer que, si no se indica ningún <i>datetime</i> concreto, se utilice el <i>datetime</i> del sistema. Vamos a escribir una prueba que lo ponga de manifiesto:
                         </p>
                         
-                        <pre><code class="language-python">def testGetFechaActual_DatetimePorDefecto(self):
-		self.tef = TweetsEnFichero()
-		self.assertEquals(datetime, self.tef.timeProvider)</code></pre>
+                            :::python
+    def testGetFechaActual_DatetimePorDefecto(self):
+    		self.tef = TweetsEnFichero()
+    		self.assertEquals(datetime, self.tef.timeProvider)
                         
                         <p>
                           Y ahora implementamos el <em>datetime</em> del sistema por defecto en el constructor  lo utilizamos en el método <i>getFechaActual</i>.
                         </p>
                         
-                        <pre><code class="language-python">class TweetsEnFichero:
-	def __init__(self, timeProvider = datetime):
-		self.timeProvider = timeProvider
-	def getFechaActual(self):
-		now = self.timeProvider.now()
-		return str(now.year) + "-" + "0" + str(now.month) + "-" + str(now.day)</code></pre>
+                            :::python
+    class TweetsEnFichero:
+    	def __init__(self, timeProvider = datetime):
+    		self.timeProvider = timeProvider
+    	def getFechaActual(self):
+    		now = self.timeProvider.now()
+    		return str(now.year) + "-" + "0" + str(now.month) + "-" + str(now.day)
                         
                         <p>
                           Una vez que todo funciona, continuamos con la siguiente funcionalidad.
@@ -288,23 +302,25 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           Tenemos pendiente en nuestro diario de diseño añadir un “0” cuando el mes y día sean menores de 10. Vamos a escribir nuevas pruebas que nos empujen a implementar esta funcionalidad, por ejemplo la siguiente:
                         </p>
                         
-                        <pre><code class="language-python">def testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero(self):
-		self.tef = TweetsEnFichero(DatetimeStub("12-10-2013"))
-		esperado = "2013-10-12"
-		self.assertEquals(esperado, self.tef.getFechaActual())</code></pre>
+                            :::python
+    def testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero(self):
+    		self.tef = TweetsEnFichero(DatetimeStub("12-10-2013"))
+    		esperado = "2013-10-12"
+    		self.assertEquals(esperado, self.tef.getFechaActual())
                         
                         <p>
                           Como se ve en la prueba anterior, necesitamos usar otras fechas distintas que la incluida en nuestro doble de pruebas (clase <i>DatetimeStub</i>). Vamos a modificarlo para que pueda aceptar cualquier fecha como se muestra a continuación.
                         </p>
                         
-                        <pre><code class="language-python">class DatetimeStub():
-	def __init__(self, date = "30-3-2013"):
-		fields = date.split("-")
-		self.year = int(fields[2])
-		self.month = int(fields[1])
-		self.day = int(fields[0])
-	def now(self):
-		return self</code></pre>
+                            :::python
+    class DatetimeStub():
+    	def __init__(self, date = "30-3-2013"):
+    		fields = date.split("-")
+    		self.year = int(fields[2])
+    		self.month = int(fields[1])
+    		self.day = int(fields[0])
+    	def now(self):
+    		return self
                         
                         <p>
                           Recuerda que el código de prueba (casos de prueba, dobles, etc.) debe ser lo más sencillo posible por dos motivos. El primero es que no escribimos pruebas para verificar pruebas (ni dobles) por lo que tienen que ser simples y de pocas líneas para evitar fallos. El segundo es que, cuando haya un error en el código, una o varias pruebas fallarán. Queremos entender rápidamente qué hace la prueba para que nos dirijan hacia el error en el código.
@@ -318,38 +334,41 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                           Vamos a escribir una segunda prueba que ponga un 0 delante del día. Esta prueba se muestra a continuación.
                         </p>
                         
-                        <pre><code class="language-python">def testGetFechaActual_ConDiaMenorQue10SeIncluyeUnCero(self):
-		self.tef = TweetsEnFichero(DatetimeStub("7-10-2013"))
-		esperado = "2013-10-07"
-		self.assertEquals(esperado, self.tef.getFechaActual())</code></pre>
+                            :::python
+    def testGetFechaActual_ConDiaMenorQue10SeIncluyeUnCero(self):
+    		self.tef = TweetsEnFichero(DatetimeStub("7-10-2013"))
+    		esperado = "2013-10-07"
+    		self.assertEquals(esperado, self.tef.getFechaActual())
                         
                         <p>
                           La prueba falla así que podemos añadir más código. Añadimos otro if para controlar si le ponemos el 0 al día y, con eso, todas las pruebas funcionan ya. El método <i>getFechaActual</i> (con el cambio de añadir un 0 al mes y al día) ha quedado así.
                         </p>
                         
-                        <pre><code class="language-python">def getFechaActual(self):
-		now = self.timeProvider.now()
-		month = str(now.month)
-		if now.month &lt; 10:
-			month = "0" + month
-		day = str(now.day)
-		if now.day &lt; 10:
-			day = "0" + day
-		return str(now.year) + "-" + month  + "-" + day</code></pre>
+                            :::python
+    def getFechaActual(self):
+    		now = self.timeProvider.now()
+    		month = str(now.month)
+    		if now.month &lt; 10:
+    			month = "0" + month
+    		day = str(now.day)
+    		if now.day &lt; 10:
+    			day = "0" + day
+    		return str(now.year) + "-" + month  + "-" + day
                         
                         <p>
                           Toca refactorizar. Vemos que el código para añadir un 0 es el mismo y que solo cambia el valor (mes o día). Para evitar duplicar el código extraemos un método auxiliar, al que llamamos <i>cadenaDosDigitos</i>, tal y como se muestra a continuación.
                         </p>
                         
-                        <pre><code class="language-python">def cadenaDosDigitos(self, num):
-		if num &lt; 10:
-			return "0" + str(num)
-		return  str(num)
-	def getFechaActual(self):
-		now = self.timeProvider.now()
-		return str(now.year)
-			   + "-" + self.cadenaDosDigitos(now.month)
-			   + "-" + self.cadenaDosDigitos(now.day)</code></pre>
+                            :::python
+    def cadenaDosDigitos(self, num):
+    		if num &lt; 10:
+    			return "0" + str(num)
+    		return  str(num)
+    	def getFechaActual(self):
+    		now = self.timeProvider.now()
+    		return str(now.year)
+    			   + "-" + self.cadenaDosDigitos(now.month)
+    			   + "-" + self.cadenaDosDigitos(now.day)
                         
                         <p>
                           Todas las pruebas funcionan por lo que damos por cerrada esta funcionalidad. Repasemos el diario de diseño.
@@ -413,21 +432,22 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                                   En esta segunda entrega nos hemos encontrado el problema de depender de una característica del sistema que no podíamos controlar, la fecha, y cómo hemos evolucionado nuestro diseño. El código resultante que hemos creado en esta entrada se muestra a continuación
                                 </p>
                                 
-                                <pre><code class="language-python">class TweetsEnFichero:
-	def __init__(self, timeProvider = datetime):
-		self.timeProvider = timeProvider
-	def _getFechaActual(self):
-		now = self.timeProvider.now()
-		return str(now.year)
-			+ "-" + self._cadenaDosDigitos(now.month)
-			+ "-" + self._cadenaDosDigitos(now.day)
-	def _cadenaDosDigitos(self, num):
-		pre = ""
-		if num &lt; 10:
-			pre = "0"
-		return  pre+ str(num)
-	def crearNombreFichero(self, hashtag):
-		return self._getFechaActual() +" "+ hashtag + ".txt"</code></pre>
+                                    :::python
+    class TweetsEnFichero:
+    	def __init__(self, timeProvider = datetime):
+    		self.timeProvider = timeProvider
+    	def _getFechaActual(self):
+    		now = self.timeProvider.now()
+    		return str(now.year)
+    			+ "-" + self._cadenaDosDigitos(now.month)
+    			+ "-" + self._cadenaDosDigitos(now.day)
+    	def _cadenaDosDigitos(self, num):
+    		pre = ""
+    		if num &lt; 10:
+    			pre = "0"
+    		return  pre+ str(num)
+    	def crearNombreFichero(self, hashtag):
+    		return self._getFechaActual() +" "+ hashtag + ".txt"
                                 
                                 <p>
                                   Test-Driven Development nos ha ayudado a llegar hasta un mejor diseño al detectar la necesidad de extraer la dependencia del <i>datetime</i> del sistema para poder escribir pruebas. Nos vemos en la próxima entrada.
@@ -441,15 +461,16 @@ Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en q
                                   En este ejemplo hemos creado nuestros propios dobles de prueba, pero existen varias librerías que automatizan este trabajo por nosotros. En Python, a partir de la versión 3.3, incorpora una librería de mocks llamada MagicMocks y que también se puede utilizar de manera independiente. Utilizando esta librería, nuestro ejemplo quedaría de la siguiente manera.
                                 </p>
                                 
-                                <pre><code class="language-python">def testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero(self):
-        datetimeStub = Mock()
-        datetimeStub.year = 2013
-        datetimeStub.month = 3
-        datetimeStub.day = 30
-        datetimeStub.now = Mock(return_value=datetimeStub)
-        tef = TweetsEnFichero(datetimeStub)
-           esperado = "2013-03-30"
-        self.assertEquals(esperado, tef.getFechaActual())</code></pre>
+                                    :::python
+    def testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero(self):
+            datetimeStub = Mock()
+            datetimeStub.year = 2013
+            datetimeStub.month = 3
+            datetimeStub.day = 30
+            datetimeStub.now = Mock(return_value=datetimeStub)
+            tef = TweetsEnFichero(datetimeStub)
+               esperado = "2013-03-30"
+            self.assertEquals(esperado, tef.getFechaActual())
                                 
                                 <p>
                                   Y ya no es necesario crear la clase DatetimeStub. Puedes leer más sobre dobles de prueba y Python en el blog del autor: <a title="Un ejemplo de Mocks en Python (con Mockito y MagicMock)" href="http://iwt2-javierj.tumblr.com/post/36695988608/mocks-en-python-previa-python-tdd">Un ejemplo de Mocks en Python (con Mockito y MagicMock)</a>.  También puedes encontrar más teoría (muy resumida y con ejemplos en Java) sobre el mundo de los dobles de prueba en el libro inconcluso <a title="Desarrollo Dirigido por Pruebas Práctico" href="http://www.iwt2.org/web/opencms/IWT2/comunidad/LibroTDD/?locale=es">Desarrollo Dirigido por Pruebas Práctico</a>. Por último, tienes otro ejemplo de cómo aislarte de la dependencia de la fecha del sistema en Python aquí: <a title="Cómo aislarnos de las dependencias del sistema. Un caso práctico con Python, MagicMock y TDD" href="http://iwt2-javierj.tumblr.com/post/67646801575/como-aislarnos-de-las-dependencias-del-sistema-un-caso">Cómo aislarnos de las dependencias del sistema. Un caso práctico con Python, MagicMock y TDD<br /> </a>

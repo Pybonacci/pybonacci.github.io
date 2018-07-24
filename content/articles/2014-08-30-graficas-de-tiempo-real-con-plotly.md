@@ -33,37 +33,40 @@ Para monitorizar la tarjeta gráfica he tomado el módulo `gpuwatch.py`, de <a h
 
   * `getString`
   
-    <pre><code class="language-python">import subprocess as sub
-def getString():
-    test_file = "nvidia-smi -q --gpu=0"
-    try:
-        p = sub.Popen(test_file, stdout=sub.PIPE, stderr=sub.PIPE)
-        out, err = p.communicate()
-        return out
-    except IOError:
-        return "Error"</code></pre> que nos devuelve la salida del 
+        :::python
+    import subprocess as sub
+    def getString():
+        test_file = "nvidia-smi -q --gpu=0"
+        try:
+            p = sub.Popen(test_file, stdout=sub.PIPE, stderr=sub.PIPE)
+            out, err = p.communicate()
+            return out
+        except IOError:
+            return "Error" que nos devuelve la salida del 
     
     _query_ a `nvidia-smi`;
   * `readl`
   
-    <pre><code class="language-python">def readl(key):
-    output=str(getString(), encoding='utf8')
-    splittedoutput=output.split('\n')
-    for line in splittedoutput:
-        line=line.strip()
-        if line.startswith(key):
-            line=line.split(':')[1].strip()
-            if key=='GPU Current Temp':
-                return line.split('C')[0].strip()
-            elif key=='Fan Speed':
-                return line.split('%')[0].strip()
-            else:
-                return line[:-1]</code></pre> que leerá cada línea de texto hasta encontrar lo que buscamos; y
+        :::python
+    def readl(key):
+        output=str(getString(), encoding='utf8')
+        splittedoutput=output.split('\n')
+        for line in splittedoutput:
+            line=line.strip()
+            if line.startswith(key):
+                line=line.split(':')[1].strip()
+                if key=='GPU Current Temp':
+                    return line.split('C')[0].strip()
+                elif key=='Fan Speed':
+                    return line.split('%')[0].strip()
+                else:
+                    return line[:-1] que leerá cada línea de texto hasta encontrar lo que buscamos; y
 
   * `Gpu_Temp`
   
-    <pre><code class="language-python">def Gpu_Temp():
-    return int(readl('GPU Current Temp'))</code></pre> que nos devuelve el valor de la temperatura actual de la tarjeta gráfica.
+        :::python
+    def Gpu_Temp():
+        return int(readl('GPU Current Temp')) que nos devuelve el valor de la temperatura actual de la tarjeta gráfica.
 
 ## Streaming API de Plotly
 
@@ -84,12 +87,13 @@ El primer paso, como es costumbre, es importar los paquetes:
   * `gpuwatch`, para las funciones que leen los valores de la gráfica.
   * Plotly, para generar las gráficas
   
-    <pre><code class="language-python"># (*) Para comunicarse con los servidores y loguearse
-import plotly.plotly as py  
-# (*) Herramientas útiles
-import plotly.tools as tls   
-# (*) Objetos para componer gráficas
-from plotly.graph_objs import *</code></pre>
+        :::python
+    # (*) Para comunicarse con los servidores y loguearse
+    import plotly.plotly as py  
+    # (*) Herramientas útiles
+    import plotly.tools as tls   
+    # (*) Objetos para componer gráficas
+    from plotly.graph_objs import *
 
   * `datetime`, para crear las marcas temporales.
   * `time.sleep`, para pausar la ejecución un intervalo de tiempo.
@@ -104,7 +108,8 @@ Para ello, una vez nos hemos logueado en plot.ly, nos dirigimos a _Settings_, en
 
 En nuestro caso vamos a necesitar dos _stream tokens_, uno para la temperatura y otro para la velocidad del ventilador.
 
-<pre><code class="language-python">stream_ids = ["lj8k5sz7sx", "upxpfny8c1"]</code></pre>
+    :::python
+    stream_ids = ["lj8k5sz7sx", "upxpfny8c1"]
 
 ¡Ya podemos empezar!
 
@@ -114,19 +119,20 @@ La metodología a seguir es la misma que hemos empleado en tutorial <a href="htt
 
 Inicializamos las líneas a representar. Para ello, el objeto `Scatter` tomará arrays vacíos para las variables `x` e `y`. La temperatura la representaremos como líneas y puntos (`'lines+markers'`) de color verde lima y con un ajuste de tipo spline. Por su parte, la velocidad del ventilador, de color cyan y líneas verticales y horizontales (`'vh'`) utilizará el segundo eje _y_ `'y2'`.
 
-<pre><code class="language-python">trace1 = Scatter(x=[],
-                 y=[],
-                 mode='lines+markers',
-                 line=Line(shape='spline', color='lime'),
-                 marker=Marker(color='black', line=Line(color='lime', width=2)),
-                 stream=Stream(token=stream_ids[0], maxpoints=60))
-trace2 = Scatter(x=[],
-                 y=[],
-                 yaxis='y2',
-                 mode='lines',
-                 line=Line(shape='vh', color='cyan'),
-                 stream=Stream(token=stream_ids[1], maxpoints=60))
-data = Data([trace1, trace2])</code></pre>
+    :::python
+    trace1 = Scatter(x=[],
+                     y=[],
+                     mode='lines+markers',
+                     line=Line(shape='spline', color='lime'),
+                     marker=Marker(color='black', line=Line(color='lime', width=2)),
+                     stream=Stream(token=stream_ids[0], maxpoints=60))
+    trace2 = Scatter(x=[],
+                     y=[],
+                     yaxis='y2',
+                     mode='lines',
+                     line=Line(shape='vh', color='cyan'),
+                     stream=Stream(token=stream_ids[1], maxpoints=60))
+    data = Data([trace1, trace2])
 
 La única novedad que introducimos en éste punto es el objeto `Stream` con el que identificamos cada trazo con su _token_. Éste objeto también nos permite limitar el número de punto a representar en la gráfica definiendo `maxpoints`.
 
@@ -140,62 +146,68 @@ Le damos un color verde oscuro a la rejilla con `gridcolor` y ajustamos nuestros
 
 El color de fondo de la gráfica y el margen serán negros. Ello lo logramos con `plot_bgcolor` y `paper_bgcolor` respectivamente.
 
-<pre><code class="language-python">layout = Layout(title='GeForce GTX460 GPU real-time monitor',
-                font=Font(color='white'),
-                showlegend=False,
-                xaxis=XAxis(gridcolor='darkgreen'),
-                yaxis=YAxis(title='Temperature (C)',
-                            titlefont=Font(color='lime'),
-                            tickfont=Font(color='lime'),
-                            gridcolor='darkgreen'),
-                yaxis2=YAxis(title='Fan speed (%)',
-                             overlaying='y',
-                             side='right',
-                             titlefont=Font(color='cyan'),
-                             tickfont=Font(color='cyan'),
-                             gridcolor='darkgreen'),
-                paper_bgcolor='black',
-                plot_bgcolor='black')</code></pre>
+    :::python
+    layout = Layout(title='GeForce GTX460 GPU real-time monitor',
+                    font=Font(color='white'),
+                    showlegend=False,
+                    xaxis=XAxis(gridcolor='darkgreen'),
+                    yaxis=YAxis(title='Temperature (C)',
+                                titlefont=Font(color='lime'),
+                                tickfont=Font(color='lime'),
+                                gridcolor='darkgreen'),
+                    yaxis2=YAxis(title='Fan speed (%)',
+                                 overlaying='y',
+                                 side='right',
+                                 titlefont=Font(color='cyan'),
+                                 tickfont=Font(color='cyan'),
+                                 gridcolor='darkgreen'),
+                    paper_bgcolor='black',
+                    plot_bgcolor='black')
 
 ### Plot
 
 Ya tenemos listos los datos y el layout para crear nuestra figura.
 
-<pre><code class="language-python">fig = Figure(data=data, layout=layout)</code></pre>
+    :::python
+    fig = Figure(data=data, layout=layout)
 
 y enviarla a Plotly:
 
-<pre><code class="language-python">unique_url = py.plot(fig, filename='streaming/gpu-monitor')</code></pre>
+    :::python
+    unique_url = py.plot(fig, filename='streaming/gpu-monitor')
 
 ### Stream
 
 Para actualizar la gráfica creamos un objeto Stream por cada trazo a representar. Identificamos cada stream con el _stream token_ correspondiente,
 
-<pre><code class="language-python"># Make 1st instance of the stream link object
-s1 = py.Stream(stream_ids[0])
-# Make 2nd instance of the stream link object
-s2 = py.Stream(stream_ids[1])</code></pre>
+    :::python
+    # Make 1st instance of the stream link object
+    s1 = py.Stream(stream_ids[0])
+    # Make 2nd instance of the stream link object
+    s2 = py.Stream(stream_ids[1])
 
 y los abrimos,
 
-<pre><code class="language-python"># Open both streams
-s1.open()
-s2.open()</code></pre>
+    :::python
+    # Open both streams
+    s1.open()
+    s2.open()
 
 Ya podemos entrar al <a href="http://es.wikipedia.org/wiki/Bucle_infinito" target="_blank">bucle infinito</a>. Claro que en este caso es intencionado, y no un error de programación.
 
 Asignamos al eje _x_ la hora actual y para los ejes _y_ empleamos dos funciones de las funciones que tenemos en `gpuwatch.py` que toman los valores proporcionados por el System Management Interface de NVIDIA. Por último escribimos cada uno de estos valores en el Stream de Plotly.
 
-<pre><code class="language-python">while True:
-    # Hora actual en eje x, temperatura GPU en eje y, velocidad ventilador en eje y2
-    x = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
-    y1 = gpuwatch.Gpu_Temp()
-    y2 = gpuwatch.Fan_Speed()
-    # Escribe al stream de Plotly
-    s1.write(dict(x=x, y=y1))
-    s2.write(dict(x=x, y=y2))
-    # Esperar intervalo en segundos
-    sleep(10)</code></pre>
+    :::python
+    while True:
+        # Hora actual en eje x, temperatura GPU en eje y, velocidad ventilador en eje y2
+        x = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+        y1 = gpuwatch.Gpu_Temp()
+        y2 = gpuwatch.Fan_Speed()
+        # Escribe al stream de Plotly
+        s1.write(dict(x=x, y=y1))
+        s2.write(dict(x=x, y=y2))
+        # Esperar intervalo en segundos
+        sleep(10)
 
 **Muy importante**: hay que esperar un intervalo entre bucle y bucle. En éste caso he optado por 10 segundos. Por varios motivos: Plotly trabaja como mucho a 20 actualizaciones por segundo, pero si no esperamos un intervalo razonable, el gasto de CPU se nos irá al 100 % y nos petará la máquina. Y eso, con el agravante de utilizar un bucle infinito, sería una catástrofe. Pero nada que no se solucione matando el proceso.
 

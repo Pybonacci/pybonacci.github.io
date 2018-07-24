@@ -28,22 +28,23 @@ El comportamiento por defecto de `loadtxt` será:
 
 Veamos algunos ejemplos sencillos:
 
-<pre><code class="language-python">In [1]: !cat matriz_a.dat # Evidentemente, tengo el archivo creado de antes... ¿magia?
-1.0000e+00 2.0000e+00
--1.0000e+00 0.0000e+00
-In [2]: np.loadtxt('matriz_a.dat')
-Out[2]:
-array([[ 1.,  2.],
-[-1.,  0.]])
-In [3]: !cat matriz_b.dat # Nótese la primera línea
-# Datos del experimento
-1.0000e+00 2.0000e+00
--1.0000e+00 0.0000e+00
-In [17]: B = np.loadtxt('matriz_b.dat') # NumPy la ignora sin más
-In [18]: B
-Out[18]:
-array([[ 1., 2.],
-[-1., 0.]])</code></pre>
+    :::python
+    In [1]: !cat matriz_a.dat # Evidentemente, tengo el archivo creado de antes... ¿magia?
+    1.0000e+00 2.0000e+00
+    -1.0000e+00 0.0000e+00
+    In [2]: np.loadtxt('matriz_a.dat')
+    Out[2]:
+    array([[ 1.,  2.],
+    [-1.,  0.]])
+    In [3]: !cat matriz_b.dat # Nótese la primera línea
+    # Datos del experimento
+    1.0000e+00 2.0000e+00
+    -1.0000e+00 0.0000e+00
+    In [17]: B = np.loadtxt('matriz_b.dat') # NumPy la ignora sin más
+    In [18]: B
+    Out[18]:
+    array([[ 1., 2.],
+    [-1., 0.]])
 
 Otras funciones que también sirven para leer datos son:
 
@@ -57,14 +58,15 @@ Ya que hemos visto cómo leer archivos con NumPy, es lógico que aprendamos tamb
 
 Para guardar nuestro array en un archivo, simplemente tendremos que hacer:
 
-<pre><code class="language-python">In [3]: A = np.array([[1, 2], [-1, 0]])
-In [4]: A
-Out[4]:
-array([[ 1,  2],
-       [-1,  0]])
-In [5]: np.savetxt('matriz_a.dat', A, fmt='%.4e')
-In [6]: !cat matriz_a.dat
-1.0000e+00 2.0000e+00
--1.0000e+00 0.0000e+00</code></pre>
+    :::python
+    In [3]: A = np.array([[1, 2], [-1, 0]])
+    In [4]: A
+    Out[4]:
+    array([[ 1,  2],
+           [-1,  0]])
+    In [5]: np.savetxt('matriz_a.dat', A, fmt='%.4e')
+    In [6]: !cat matriz_a.dat
+    1.0000e+00 2.0000e+00
+    -1.0000e+00 0.0000e+00
 
 ¡Y esto es todo por hoy! No dudes en dejarnos tus comentarios [en el blog](#respond), [en Twitter](https://twitter.com/Pybonacci) o [en Facebook](https://www.facebook.com/Pybonacci). ¡Un saludo!

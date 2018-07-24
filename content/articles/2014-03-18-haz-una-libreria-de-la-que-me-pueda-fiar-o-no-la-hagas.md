@@ -21,13 +21,14 @@ Algunas de estas funciones no aceptan números negativos,  ¿tenemos que compro
 
 Si un parámetro negativo producirá una excepción más adelante, ¿para qué esperar?. Una buena alternativa es comprobar el parámetro justo al comienzo de la llama al método o función y lanzar una excepción. Por ejemplo, imagina esta implementación básica de la función de Fibonacci.
 
-<pre><code class="language-python">def fib(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fib(n-1) + fib(n-2)</code></pre>
+    :::python
+    def fib(n):
+        if n == 0:
+            return 0
+        elif n == 1:
+            return 1
+        else:
+            return fib(n-1) + fib(n-2)
 
 ¿Cuál es la diferencia entre verificar el valor del parámetro o dejar que el código falle dónde tenga que fallar? Compruébalo tú mismo viendo cuál de los dos siguientes errores es más claro.
 

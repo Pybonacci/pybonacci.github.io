@@ -72,45 +72,47 @@ $\displaystyle \frac{Y(s)}{R(s)} = \frac{Y(s)}{Y(s) + E(s)} = \dots = \frac{K}{m
 
 SciPy no proporciona un modo directo de operar con bloques, de modo que vamos a escribir nuestras propias funciones a tal efecto. Para ello, operaremos las funciones de transferencia de los sistemas como fracciones, extrayendo por separado el numerador y el denominador y utilizando las funciones de NumPy [`np.polymul`](http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.polymul.html) y [`np.polyadd`](http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.polyadd.html). Este será el código:
 
-<pre><code class="language-python">def series(sys1, sys2):
-    """Series connection of two systems.
-    """
-    if not isinstance(sys1, signal.lti):
-        sys1 = signal.lti(*sys1)
-    if not isinstance(sys2, signal.lti):
-        sys2 = signal.lti(*sys2)
-    num = np.polymul(sys1.num, sys2.num)
-    den = np.polymul(sys1.den, sys2.den)
-    sys = signal.lti(num, den)
-    return sys
-def feedback(plant, sensor=None):
-    """Negative feedback connection of plant and sensor.
-    If sensor is None, then it is assumed to be 1.
-    """
-    if not isinstance(plant, signal.lti):
-        plant = signal.lti(*plant)
-    if sensor is None:
-        sensor = signal.lti([1], [1])
-    elif not isinstance(sensor, signal.lti):
-        sensor = signal.lti(*sensor)
-    num = np.polymul(plant.num, sensor.den)
-    den = np.polyadd(np.polymul(plant.den, sensor.den),
-                     np.polymul(plant.num, sensor.num))
-    sys = signal.lti(num, den)
-    return sys</code></pre>
+    :::python
+    def series(sys1, sys2):
+        """Series connection of two systems.
+        """
+        if not isinstance(sys1, signal.lti):
+            sys1 = signal.lti(*sys1)
+        if not isinstance(sys2, signal.lti):
+            sys2 = signal.lti(*sys2)
+        num = np.polymul(sys1.num, sys2.num)
+        den = np.polymul(sys1.den, sys2.den)
+        sys = signal.lti(num, den)
+        return sys
+    def feedback(plant, sensor=None):
+        """Negative feedback connection of plant and sensor.
+        If sensor is None, then it is assumed to be 1.
+        """
+        if not isinstance(plant, signal.lti):
+            plant = signal.lti(*plant)
+        if sensor is None:
+            sensor = signal.lti([1], [1])
+        elif not isinstance(sensor, signal.lti):
+            sensor = signal.lti(*sensor)
+        num = np.polymul(plant.num, sensor.den)
+        den = np.polyadd(np.polymul(plant.den, sensor.den),
+                         np.polymul(plant.num, sensor.num))
+        sys = signal.lti(num, den)
+        return sys
 
 Echemos ahora un vistazo a la respuesta unitaria del sistema, seleccionando por ejemplo un valor de 200 para la ganancia, y veremos que tenemos ciertos problemas:
 
-<pre><code class="language-python">K = 200
-# Sistema controlador-planta
-sys_pc = series(([K], [1]), sys_car)
-# Sistema realimentado
-sys_prop = feedback(sys_pc)
-# Respuesta a entrada escalón
-t = np.linspace(0, 60, num=200)
-t, y = signal.step2(sys_prop, T=t)
-plt.plot(t, y)
-plt.plot([0, t[-1]], [1] * 2, 'k--')</code></pre>
+    :::python
+    K = 200
+    # Sistema controlador-planta
+    sys_pc = series(([K], [1]), sys_car)
+    # Sistema realimentado
+    sys_prop = feedback(sys_pc)
+    # Respuesta a entrada escalón
+    t = np.linspace(0, 60, num=200)
+    t, y = signal.step2(sys_prop, T=t)
+    plt.plot(t, y)
+    plt.plot([0, t[-1]], [1] * 2, 'k--')
 
 <p style="text-align:center">
   <img class="aligncenter  wp-image-1953" alt="k200" src="http://new.pybonacci.org/images/2013/11/k200.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k200.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k200-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
@@ -140,17 +142,18 @@ $\displaystyle \frac{Y(s)}{R(s)} = \frac{K\_p s + K\_i}{m s^2 + (b + K\_p) s + K
 
 Exacto: hemos convertido el sistema **en uno de segundo orden**. Esto tendrá algunos efectos nuevos, como se puede ver en la gráfica de la respuesta a escalón unitario del sistema para $K\_p = 200$ y $K\_i = 50$:
 
-<pre><code class="language-python">K_p = 200.0
-K_i = 50.0
-# Sistema controlador-planta
-sys_pc = series(([K_p, K_i], [1, 0]), sys_car)
-# Sistema realimentado
-sys_prop = feedback(sys_pc)
-# Respuesta a entrada escalón
-t = np.linspace(0, 60, num=200)
-t, y = signal.step2(sys_prop, T=t)
-plt.plot(t, y)
-plt.plot([0, t[-1]], [1] * 2, 'k--')</code></pre>
+    :::python
+    K_p = 200.0
+    K_i = 50.0
+    # Sistema controlador-planta
+    sys_pc = series(([K_p, K_i], [1, 0]), sys_car)
+    # Sistema realimentado
+    sys_prop = feedback(sys_pc)
+    # Respuesta a entrada escalón
+    t = np.linspace(0, 60, num=200)
+    t, y = signal.step2(sys_prop, T=t)
+    plt.plot(t, y)
+    plt.plot([0, t[-1]], [1] * 2, 'k--')
 
 <p style="text-align:center">
   <img class="aligncenter  wp-image-1958" alt="Control PI" src="http://new.pybonacci.org/images/2013/11/kp200ki50.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
@@ -177,47 +180,49 @@ Podemos marcar unos requisitos para nuestro caso concreto:
 
 Vamos a escribir un par de pequeñas funciones que nos calculen estas magnitudes:
 
-<pre><code class="language-python">def tr(t, y, ys=None, margins=(0.0, 1.0)):
-    """Rise time.
-    Other possible margins: (0.05, 0.95), (0.1, 0.9). If no ys is given,
-    then last value of y is assumed as stationary.
-    """
-    if ys is None:
-        ys = y[-1]
-    # Values between margins[0] * ys and margins[1] * ys
-    mask = (y &gt; margins[0] * ys) & (y &lt; margins[1] * ys)
-    # If response oscillates, only interested in limits of first region
-    idx_change = np.nonzero(np.diff(mask))[0]
-    # Initial and final indexes
-    idx = idx_change[0], idx_change[1]
-    # Time difference
-    return t[idx[1]] - t[idx[0]]
-def Ms(y, ys=None):
-    """Maximum overshoot.
-    Other possible margins: (0.05, 0.95), (0.1, 0.9). If no ys is given,
-    then last value of y is assumed as stationary.
-    """
-    if ys is None:
-        ys = y[-1]
-    ymax = np.max(y)
-    Ms = (ymax - ys) / ys
-    return Ms</code></pre>
+    :::python
+    def tr(t, y, ys=None, margins=(0.0, 1.0)):
+        """Rise time.
+        Other possible margins: (0.05, 0.95), (0.1, 0.9). If no ys is given,
+        then last value of y is assumed as stationary.
+        """
+        if ys is None:
+            ys = y[-1]
+        # Values between margins[0] * ys and margins[1] * ys
+        mask = (y &gt; margins[0] * ys) & (y &lt; margins[1] * ys)
+        # If response oscillates, only interested in limits of first region
+        idx_change = np.nonzero(np.diff(mask))[0]
+        # Initial and final indexes
+        idx = idx_change[0], idx_change[1]
+        # Time difference
+        return t[idx[1]] - t[idx[0]]
+    def Ms(y, ys=None):
+        """Maximum overshoot.
+        Other possible margins: (0.05, 0.95), (0.1, 0.9). If no ys is given,
+        then last value of y is assumed as stationary.
+        """
+        if ys is None:
+            ys = y[-1]
+        ymax = np.max(y)
+        Ms = (ymax - ys) / ys
+        return Ms
 
 Se comprueba que para $K\_p = 700$ y $K\_i = 100$ cumplimos:
 
-<pre><code class="language-python">K_p = 700.0
-K_i = 100.0
-# Sistema controlador-planta
-sys_pc = series(([K_p, K_i], [1, 0]), sys_car)
-# Sistema realimentado
-sys_prop = feedback(sys_pc)
-# Respuesta a entrada escalón
-t = np.linspace(0, 60, num=200)
-t, y = signal.step2(sys_prop, T=t)
-print("Tiempo de subida: {:.2f} s".format(tr(t, y)))
-print("Máxima sobreelongación: {:.1f} %".format(Ms(y) * 100))
-# Tiempo de subida: 4.22 s
-# Máxima sobreelongación: 6.3 %</code></pre>
+    :::python
+    K_p = 700.0
+    K_i = 100.0
+    # Sistema controlador-planta
+    sys_pc = series(([K_p, K_i], [1, 0]), sys_car)
+    # Sistema realimentado
+    sys_prop = feedback(sys_pc)
+    # Respuesta a entrada escalón
+    t = np.linspace(0, 60, num=200)
+    t, y = signal.step2(sys_prop, T=t)
+    print("Tiempo de subida: {:.2f} s".format(tr(t, y)))
+    print("Máxima sobreelongación: {:.1f} %".format(Ms(y) * 100))
+    # Tiempo de subida: 4.22 s
+    # Máxima sobreelongación: 6.3 %
 
 <img class="aligncenter size-full wp-image-1960" alt="Parámetros finales de control PI" src="http://new.pybonacci.org/images/2013/11/kp700ki100.png" width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />
 

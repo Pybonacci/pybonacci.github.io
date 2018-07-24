@@ -39,25 +39,26 @@ Si queremos además incluir etiquetas para las curvas de nivel, podemos definir 
 
 El código quedaría así:
 
-<pre><code class="language-python">from matplotlib.patches import PathPatch
-# Relleno desde la línea hacia abajo
-fillb = plt.fill_between(surge_line_x, surge_line_y, color='none')
-# Extraemos el Path
-path, = fillb.get_paths()
-# Lo convertimos en un Patch
-mask = PathPatch(path, fc='none')
-# Y lo añadimos a la figura
-plt.gca().add_patch(mask)
-# Lo aplicamos a las curvas de nivel
-cs = plt.contour(cx, cy, cz, colors="black")
-for contour in cs.collections:
-    cs.set_clip_path(mask)
-# Posicionamos las etiquetas
-labels_xy = [(10.8, 2.0), (12.4, 2.7), (12.4, 3.3)]
-plt.clabel(cs, fmt='%1.2f', manual=labels_xy)
-# Y aplicamos la máscara a las líneas normales
-ll, = plt.plot(lx, ly, color="blue")
-ll.set_clip_path(mask)</code></pre>
+    :::python
+    from matplotlib.patches import PathPatch
+    # Relleno desde la línea hacia abajo
+    fillb = plt.fill_between(surge_line_x, surge_line_y, color='none')
+    # Extraemos el Path
+    path, = fillb.get_paths()
+    # Lo convertimos en un Patch
+    mask = PathPatch(path, fc='none')
+    # Y lo añadimos a la figura
+    plt.gca().add_patch(mask)
+    # Lo aplicamos a las curvas de nivel
+    cs = plt.contour(cx, cy, cz, colors="black")
+    for contour in cs.collections:
+        cs.set_clip_path(mask)
+    # Posicionamos las etiquetas
+    labels_xy = [(10.8, 2.0), (12.4, 2.7), (12.4, 3.3)]
+    plt.clabel(cs, fmt='%1.2f', manual=labels_xy)
+    # Y aplicamos la máscara a las líneas normales
+    ll, = plt.plot(lx, ly, color="blue")
+    ll.set_clip_path(mask)
 
 Y este sería el resultado:
 

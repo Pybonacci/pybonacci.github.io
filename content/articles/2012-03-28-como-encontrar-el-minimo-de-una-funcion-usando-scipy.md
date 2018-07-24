@@ -11,27 +11,28 @@ _**Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, scipy 0.9.0 
 
 En este ejemplo veremos como usar la función **fmin** para minimizar una función. La función **fmin** se encuentra en el módulo optimize de la librería scipy. La función **fmin** usa el algoritmo _downhill simplex_ para encontrar el mínimo de la función objetivo empezando por un punto inicial dado por el usuario. En el ejemplo emezaremos a partir de dos puntos iniciales diferentes para comparar los resultados.
 
-<pre><code class="language-python">import numpy
-import matplotlib.pyplot as plt
-from scipy.optimize import fmin
-# Función objetivo
-rsinc = lambda x: -1 * numpy.sin(x)/x
-# Empezamos a partir de x = -5
-x0 = -5
-xmin0 = fmin(rsinc,x0)
-# Empezamos a partir de x = -4
-x1 = -4
-xmin1 = fmin(rsinc,x1)
-# Dibujamos la función
-x = numpy.linspace(-15,15,100)
-y = rsinc(x)
-plt.plot(x,y)
-# Dibujo de x0 y el mínimo encontrado empezando en x0
-plt.plot(x0,rsinc(x0),'bd',xmin0,rsinc(xmin0),'bo')
-# Dibujo de x1 y el mínimo encontrado empezando en x1
-plt.plot(x1,rsinc(x1),'rd',xmin1,rsinc(xmin1),'ro')
-plt.axis([-15,15,-1.3,0.3])
-plt.show()</code></pre>
+    :::python
+    import numpy
+    import matplotlib.pyplot as plt
+    from scipy.optimize import fmin
+    # Función objetivo
+    rsinc = lambda x: -1 * numpy.sin(x)/x
+    # Empezamos a partir de x = -5
+    x0 = -5
+    xmin0 = fmin(rsinc,x0)
+    # Empezamos a partir de x = -4
+    x1 = -4
+    xmin1 = fmin(rsinc,x1)
+    # Dibujamos la función
+    x = numpy.linspace(-15,15,100)
+    y = rsinc(x)
+    plt.plot(x,y)
+    # Dibujo de x0 y el mínimo encontrado empezando en x0
+    plt.plot(x0,rsinc(x0),'bd',xmin0,rsinc(xmin0),'bo')
+    # Dibujo de x1 y el mínimo encontrado empezando en x1
+    plt.plot(x1,rsinc(x1),'rd',xmin1,rsinc(xmin1),'ro')
+    plt.axis([-15,15,-1.3,0.3])
+    plt.show()
 
 La función **fmin** escribirá algunos detalles sobre el proceso iterativo llevado a cabo (dejamos la salida en inglés, que es lo que encontraréis cuando corráis el ejemplo):
 

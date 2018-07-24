@@ -26,14 +26,15 @@ El uso puede ser algo tan simple como lo siguiente:
 
 Una solución sencilla usando `np.digitize` podría ser la siguiente:
 
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-xarray = np.random.rand(100)
-intervalos = [0, 0.25, 0.7, 1]
-indices = np.digitize(xarray, intervalos, right=True)
-funcs = [lambda x: x, lambda x: 2*x, lambda x: 3*x]
-yarray = [funcs[indice-1](x) for x, indice in zip(xarray, indices)]
-plt.scatter(xarray, yarray)</code></pre>
+    :::python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    xarray = np.random.rand(100)
+    intervalos = [0, 0.25, 0.7, 1]
+    indices = np.digitize(xarray, intervalos, right=True)
+    funcs = [lambda x: x, lambda x: 2*x, lambda x: 3*x]
+    yarray = [funcs[indice-1](x) for x, indice in zip(xarray, indices)]
+    plt.scatter(xarray, yarray)
 
 El resultado final debería ser una imagen como la siguiente:
 

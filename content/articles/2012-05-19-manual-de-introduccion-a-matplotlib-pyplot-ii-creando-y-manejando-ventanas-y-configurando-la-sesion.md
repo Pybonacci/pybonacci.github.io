@@ -25,8 +25,9 @@ Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El 
 
 En todo momento supondremos que se ha iniciado la sesión y se ha hecho
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
 
 Como ya comentamos anteriormente, el módulo pyplot de matplotlib se suele usar para hacer pruebas rápidas desde la línea de comandos, programitas cortos o programas donde los gráficos serán, en general, sencillos.
 
@@ -34,21 +35,25 @@ Normalmente, cuando iniciamos la sesión, esta no está puesta en modo interacti
 
 Si acabamos de iniciar sesión deberíamos estar en modo no interactivo. Para comprobarlo hacemos lo siguiente:
 
-<pre><code class="language-python">plt.isinteractive()
-False</code></pre>
+    :::python
+    plt.isinteractive()
+    False
 
 Si el resultado es _False_ significa que estamos en modo no interactivo. Esto significa que si hacemos lo siguiente:
 
-<pre><code class="language-python">plt.plot([1,2,3,4,5])</code></pre>
+    :::python
+    plt.plot([1,2,3,4,5])
 
 No lanzará una ventana hasta que lo pidamos explícitamente mediante:
 
-<pre><code class="language-python">plt.show()</code></pre>
+    :::python
+    plt.show()
 
 Podemos conmutar a modo interactivo o no usando plt.ion() y plt.ioff(), que lo que hacen es poner el modo interactivo en 'on' o en 'off', respectivamente. Como está en off (recordad que plt.isinteractive() nos ha dado _False_, lo que significa que está en 'off'), si ahora  hacemos lo siguiente (cerrad antes cualquier ventana de gráficos que tengáis abierta):
 
-<pre><code class="language-python">plt.ion()
-plt.plot([1,2,3,4])</code></pre>
+    :::python
+    plt.ion()
+    plt.plot([1,2,3,4])
 
 Vemos que directamente se abre una ventana nueva sin necesidad de llamar a plt.show(). Yo suelo usar ipython así para ir probando cosas y cuando ya acierto con como quiero que me salgan los gráficos voy a spyder, donde tengo el programa que esté haciendo, y ya escribo el código que necesito con la interfaz orientada a objetos.
 
@@ -58,14 +63,16 @@ Jugad un poco con plt.isinteractive(), plt.ion(), plt.ioff(), plt.show() y plt.d
 
 Lo siguiente que veremos es plt.hold() y plt.ishold(). plt.hold es un conmutador para decir si queremos que los gráficos se sobreescriban, que en el mismo gráfico tengamos diferentes gráficas representadas, o para que el gráfico se limpie y se dibuje la nueva gráfica cada vez. Si usamos plt.ishold() nos 'responderá' _True_ o _False_. Si acabáis de iniciar sesión, normalmente estará en _True_.
 
-<pre><code class="language-python">plt.ishold()
-True</code></pre>
+    :::python
+    plt.ishold()
+    True
 
 Como está en _True_, si hacemos lo siguiente:
 
-<pre><code class="language-python">plt.plot(np.random.rand(10))
-plt.plot(np.random.rand(10))
-plt.show()</code></pre>
+    :::python
+    plt.plot(np.random.rand(10))
+    plt.plot(np.random.rand(10))
+    plt.show()
 
 Obtendremos lo siguiente:
   
@@ -79,14 +86,15 @@ Si seguimos en modo interactivo (plt.ion()) y queremos cerrar la ventana podemos
 
 Imaginaos que ahora queréis trabajar con varias ventanas de gráficos simultáneamente donde en una dibujáis unos datos y en la otra otro tipo de datos y los queréis ver simultáneamente. Podemos hacer esto dándole nombre (o número) a las ventanas con las que vamos a trabajar. Veamos un ejemplo:
 
-<pre><code class="language-python">plt.figure('scatter') # Crea una ventana titulada 'scatter'
-plt.figure('plot')    # Crea una ventana titulada 'plot'
-a = np.random.rand(100) # Generamos un vector de valores aleatorios
-b = np.random.rand(100) # Generamos otro vector de valores aleatorios
-plt.figure('scatter') # Le decimos que la ventana activa en la que vamos a dibujar es la ventana 'scatter'
-plt.scatter(a,b)  # Dibujamos un scatterplot en la ventana 'scatter'
-plt.figure('plot') # Ahora cambiamos a la ventana 'plot'
-plt.plot(a,b)</code></pre>
+    :::python
+    plt.figure('scatter') # Crea una ventana titulada 'scatter'
+    plt.figure('plot')    # Crea una ventana titulada 'plot'
+    a = np.random.rand(100) # Generamos un vector de valores aleatorios
+    b = np.random.rand(100) # Generamos otro vector de valores aleatorios
+    plt.figure('scatter') # Le decimos que la ventana activa en la que vamos a dibujar es la ventana 'scatter'
+    plt.scatter(a,b)  # Dibujamos un scatterplot en la ventana 'scatter'
+    plt.figure('plot') # Ahora cambiamos a la ventana 'plot'
+    plt.plot(a,b)
 
 Y os quedaría algo como lo siguiente:
   
@@ -96,11 +104,12 @@ Es decir, podemos ir dibujando en varias ventanas a la vez. Podéis probar a cer
 
 Pero yo no quiero dibujar los gráficos en dos ventanas, yo quiero tener varios gráficos en la misma. Perfecto, también podemos hacer eso sin problemas con la ayuda de plt.subplot(). Con plt.subplot() podemos indicar el número de filas y columnas que corresponderán a como dividimos la ventana. En el siguiente ejemplo se puede ver dos áreas de gráfico en la misma ventana:
 
-<pre><code class="language-python">plt.ion()  # Nos ponemos en modo interactivo
-plt.subplot(1,2,1)  # Dividimos la ventana en una fila y dos columnas y dibujamos el primer gráfico
-plt.plot((1,2,3,4,5))
-plt.subplot(1,2,2)  # Dividimos la ventana en una fila y dos columnas y dibujamos el segundo gráfico
-plt.plot((5,4,3,2,1))</code></pre>
+    :::python
+    plt.ion()  # Nos ponemos en modo interactivo
+    plt.subplot(1,2,1)  # Dividimos la ventana en una fila y dos columnas y dibujamos el primer gráfico
+    plt.plot((1,2,3,4,5))
+    plt.subplot(1,2,2)  # Dividimos la ventana en una fila y dos columnas y dibujamos el segundo gráfico
+    plt.plot((5,4,3,2,1))
 
 Obteniendo el siguiente gráfico:
 
@@ -112,17 +121,18 @@ Os dejo como ejercicio ver cómo podéis conseguir la siguiente gráfica (si no 
 
 Por último, vamos a ver como configurar la sesión para ahorrarnos escribir código de más. Por ejemplo, imaginaos que queréis que todas las líneas sean más gruesas por defecto porque os gustan más así, que queréis usar otro tipo de fuente sin escribirlo explícitamente cada vez que hacéis un gráfico, que los gráficos se guarden siempre con una resolución superior a la que viene por defecto,... Para ello podéis usar plt.rc(), plt.rcParams, plt.rcdefaults(). En este caso vamos a usar plt.rc(), podréis encontrar más información sobre como configurar matplotlib [en este enlace](http://matplotlib.sourceforge.net/users/customizing.html). Veamos un ejemplo para ver como funciona todo esto:
 
-<pre><code class="language-python">plt.ion()  # Nos ponemos en modo interactivo
-plt.figure('valores por defecto')  # Creamos una ventana donde dibujamos el gráfico con la configuración por defecto
-plt.suptitle('Titulo valores por defecto')  # Esto sirve para poner título dentro de la ventana
-plt.plot((1,2,3,4,5), label = 'por defecto')  # Hacemos el plot
-plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda
-plt.rc('lines', linewidth = 2)  # A partir de aquí todas las líneas que dibujemos irán con ancho doble
-plt.rc('font', size = 18)  # A partir de aquí las fuentes que aparezcan en cualquier gráfico en la misma sesión tendrán mayor tamaño
-plt.figure('valores modificados')  # Creamos una ventana donde dibujamos el gráfico con la configuración por defecto
-plt.suptitle('Titulo valores modificados')  # Esto sirve para poner título dentro de la ventana
-plt.plot((1,2,3,4,5), label = u'linea más ancha y letra más grande')  # Hacemos el plot
-plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda</code></pre>
+    :::python
+    plt.ion()  # Nos ponemos en modo interactivo
+    plt.figure('valores por defecto')  # Creamos una ventana donde dibujamos el gráfico con la configuración por defecto
+    plt.suptitle('Titulo valores por defecto')  # Esto sirve para poner título dentro de la ventana
+    plt.plot((1,2,3,4,5), label = 'por defecto')  # Hacemos el plot
+    plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda
+    plt.rc('lines', linewidth = 2)  # A partir de aquí todas las líneas que dibujemos irán con ancho doble
+    plt.rc('font', size = 18)  # A partir de aquí las fuentes que aparezcan en cualquier gráfico en la misma sesión tendrán mayor tamaño
+    plt.figure('valores modificados')  # Creamos una ventana donde dibujamos el gráfico con la configuración por defecto
+    plt.suptitle('Titulo valores modificados')  # Esto sirve para poner título dentro de la ventana
+    plt.plot((1,2,3,4,5), label = u'linea más ancha y letra más grande')  # Hacemos el plot
+    plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda
 
 [<img class="alignnone size-medium wp-image-426" title="plot-defecto" src="http://new.pybonacci.org/images/2012/05/plot-defecto.png?w=300" alt="" width="300" height="270" srcset="https://pybonacci.org/wp-content/uploads/2012/05/plot-defecto.png 614w, https://pybonacci.org/wp-content/uploads/2012/05/plot-defecto-300x270.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/05/plot-defecto.png)[<img class="alignnone  wp-image-427" title="plot-defectomodificado" src="http://new.pybonacci.org/images/2012/05/plot-defectomodificado1.png?w=300" alt="" width="323" height="270" />](http://new.pybonacci.org/images/2012/05/plot-defectomodificado1.png)
 

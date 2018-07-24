@@ -1380,7 +1380,8 @@ R(self, line, cell=None, local_ns=None)
              [-b BG] [--noisolation] [-u {px,in,cm,mm}] [-r RES]
              
 
-<pre><code></code></pre>]
+    :::[]
+    ]
     
     Execute code in R, optionally returning results to the Python runtime.
     

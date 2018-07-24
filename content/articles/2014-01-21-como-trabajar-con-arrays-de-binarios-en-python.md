@@ -21,25 +21,29 @@ Para que los arrays funcionen como bitset, **tienen que tener el `dtype bool`**.
 
   * Creando el array a partir de una lista de valores True y False:
 
-<pre><code class="language-python">&gt;&gt;&gt; np.array([True, False, True])
-array([ True, False,  True], dtype=bool</code></pre>
+    :::python
+    &gt;&gt;&gt; np.array([True, False, True])
+    array([ True, False,  True], dtype=bool
 
   * Utilizando el argumento dtype=bool para hacer una conversión explícita:
 
-<pre><code class="language-python">&gt;&gt;&gt; np.array([1, 0, -2.5], dtype=bool)
-array([ True, False,  True], dtype=bool)</code></pre>
+    :::python
+    &gt;&gt;&gt; np.array([1, 0, -2.5], dtype=bool)
+    array([ True, False,  True], dtype=bool)
 
   * Utilizando el método astype:
 
-<pre><code class="language-python">&gt;&gt;&gt; np.arange(-3, 3).astype(bool)
-array([ True,  True,  True, False,  True,  True], dtype=bool)</code></pre>
+    :::python
+    &gt;&gt;&gt; np.arange(-3, 3).astype(bool)
+    array([ True,  True,  True, False,  True,  True], dtype=bool)
 
   * Utilizando las funciones lógicas de NumPy:
 
-<pre><code class="language-python">&gt;&gt;&gt; np.arange(-3, 3) &lt; 0
-array([ True,  True,  True, False, False, False], dtype=bool)
-&gt;&gt;&gt; np.isinf(np.arange(-2, 2) / 0)
-array([ True,  True, False,  True], dtype=bool)</code></pre>
+    :::python
+    &gt;&gt;&gt; np.arange(-3, 3) &lt; 0
+    array([ True,  True,  True, False, False, False], dtype=bool)
+    &gt;&gt;&gt; np.isinf(np.arange(-2, 2) / 0)
+    array([ True,  True, False,  True], dtype=bool)
 
 (Puedes consultar un listado en <http://docs.scipy.org/doc/numpy/reference/routines.logic.html>)
 
