@@ -66,14 +66,14 @@ En este pequeño documento están recogidas las estructuras básicas que usaremo
 
 Se genera algo muy similar a esto:<figure id="attachment_808" style="width: 560px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-808 " title="Archivo HTML generado por Docutils" alt="" src="http://new.pybonacci.org/images/2012/09/intro_rest.png" width="560" height="526" srcset="https://pybonacci.org/wp-content/uploads/2012/09/intro_rest.png 774w, https://pybonacci.org/wp-content/uploads/2012/09/intro_rest-300x282.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://new.pybonacci.org/images/2012/09/intro_rest.png)<figcaption class="wp-caption-text">Archivo HTML generado a partir del fichero reST por Docutils</figcaption></figure> 
+![Archivo HTML generado por Docutils](http://pybonacci.org/images/2012/09/intro_rest.png)
 
 Y si queremos generar un PDF y tenemos instalado LaTeX, no hay más que ejecutar
 
     $ rst2latex intro_rest.rst intro_rest.tex
     $ pdflatex intro_rest.tex
 
-Y se obtiene [este archivo PDF](http://new.pybonacci.org/images/2012/09/intro_rest.pdf).
+Y se obtiene [este archivo PDF](http://pybonacci.org/images/2012/09/intro_rest.pdf).
 
 ¿No es una maravilla? 🙂 Vamos a analizar con un poco más de detalle las estructuras que hemos usado. No pretendo dar una referencia completa del lenguaje reST, si quieres puedes consultar la [referencia oficial](http://docutils.sourceforge.net/docs/user/rst/quickref.html).
 

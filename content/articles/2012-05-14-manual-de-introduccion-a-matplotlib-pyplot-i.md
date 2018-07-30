@@ -48,11 +48,11 @@ Para que quede claro desde un principio, las dos zonas principales donde se dibu
 
   * figure, que es una instancia de [matplotlib.figure.Figure](http://matplotlib.sourceforge.net/api/figure_api.html#matplotlib.figure.Figure). Y es la ventana donde irá el o los gráficos en sí:
 
-[<img class="aligncenter size-full wp-image-255" title="Figure" src="http://new.pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213736.png" alt="" width="652" height="554" srcset="https://pybonacci.org/wp-content/uploads/2012/04/pantallazo-del-2012-04-23-213736.png 652w, https://pybonacci.org/wp-content/uploads/2012/04/pantallazo-del-2012-04-23-213736-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213736.png)
+![Figure](http://pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213736.png)
 
   * axes, que es una instancia de [matplotlib.axes.Axes](http://matplotlib.sourceforge.net/api/axes_api.html#matplotlib.axes.Axes), que es el gráfico en sí donde se dibujará todo lo que le digamos y está localizada dentro de una figure.
 
-[<img class="aligncenter size-full wp-image-256" title="Axes" src="http://new.pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213814.png" alt="" width="652" height="554" srcset="https://pybonacci.org/wp-content/uploads/2012/04/pantallazo-del-2012-04-23-213814.png 652w, https://pybonacci.org/wp-content/uploads/2012/04/pantallazo-del-2012-04-23-213814-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213814.png)
+![Axes](http://pybonacci.org/images/2012/04/pantallazo-del-2012-04-23-213814.png)
 
 Para lo primero (figure) usaremos la palabra 'ventana' mientras que para lo segundo (axes) usaremos la palabra 'gráfico'.
 

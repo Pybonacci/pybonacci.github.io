@@ -23,7 +23,7 @@ plt.show()</code></pre>
 
 Obtendríamos la siguiente distribución que tiene, aproximadamente, la media y desviación estándar que hemos comentado anteriormente.
 
-[<img class="aligncenter size-full wp-image-832" title="histograma" src="http://new.pybonacci.org/images/2012/09/histograma.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/09/histograma.png 652w, https://pybonacci.org/wp-content/uploads/2012/09/histograma-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/09/histograma.png)
+![histograma](http://pybonacci.org/images/2012/09/histograma.png)
 
 Vamos ahora al lío que nos ha traído aquí, vamos a calcular un percentil de esa distribución para saber cuanto mide el chaval que está en el percentil 75. Para hacer ese cálculo podemos acudir tanto a [numpy](http://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html) como a la librería [stats de scipy](http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.scoreatpercentile.html). Vamos a usar ambas para ver el resultado:
 
@@ -46,7 +46,7 @@ plt.show()</code></pre>
 
 Cuya representación sería:
 
-[<img class="aligncenter size-full wp-image-834" title="Hist_con_deciles" src="http://new.pybonacci.org/images/2012/09/hist_con_deciles.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/09/hist_con_deciles.png 652w, https://pybonacci.org/wp-content/uploads/2012/09/hist_con_deciles-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/09/hist_con_deciles.png)
+![Hist_con_deciles](http://pybonacci.org/images/2012/09/hist_con_deciles.png)
 
 Espero que os resulte útil el descubrimiento de np.percentile o de scipy.stats.scoreatpercentile para vuestros cálculos.
 

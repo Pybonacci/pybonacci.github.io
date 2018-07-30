@@ -45,7 +45,7 @@ plt.text(np.argmax(a), np.max(a) + 0.1, u'Máximo', fontsize = 10, horizontalali
 
 El resultado es el siguiente:
 
-[<img class="aligncenter size-full wp-image-762" title="texto" alt="" src="http://new.pybonacci.org/images/2012/08/texto.png" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/08/texto.png 652w, https://pybonacci.org/wp-content/uploads/2012/08/texto-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/08/texto.png)
+![texto](http://pybonacci.org/images/2012/08/texto.png)
 
 Lo que hemos hecho en [plt. text](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.text) es definir la posición del texto con un valor para la x y un valor para la y (en el sistema de referencia de los datos), la cadena de texto a mostrar, como queremos que sea la fuente, donde queremos que vaya colocado, si la queremos rotar, si la queremos en negrita,...
 
@@ -60,7 +60,7 @@ plt.arrow(np.argmin(a), np.min(a) - 0.3, 0, 0.3, length_includes_head = "True", 
 
 El resultado obtenido es el siguiente:
 
-[<img class="aligncenter size-full wp-image-763" title="texto y flecha" alt="" src="http://new.pybonacci.org/images/2012/08/texto-y-flecha.png" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/08/texto-y-flecha.png 652w, https://pybonacci.org/wp-content/uploads/2012/08/texto-y-flecha-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/08/texto-y-flecha.png)
+![texto y flecha](http://pybonacci.org/images/2012/08/texto-y-flecha.png)
 
 En [plt.arrow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.arrow) hemos de definir el origen de la flecha, la distancia desde ese origen hasta el otro extremo de la flecha, si queremos que tenga cabecera, si queremos que la cabecera esté en el origen, el color de la flecha,...
 
@@ -73,7 +73,7 @@ plt.annotate(u'Mínimo', xy = (np.argmin(a), np.min(a)), xycoords = 'data', xyte
 
 Siendo el resultado el siguiente:
 
-[<img class="aligncenter size-full wp-image-765" title="annotate" alt="" src="http://new.pybonacci.org/images/2012/08/annotate.png" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/08/annotate.png 652w, https://pybonacci.org/wp-content/uploads/2012/08/annotate-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/08/annotate.png)
+![annotate](http://pybonacci.org/images/2012/08/annotate.png)
 
 En [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate) introducimos la cadena de caracteres a mostrar, indicamos hacia donde apuntará esa cadena de caracteres (xy, en este caso estamos usando el sistema de referencia de los datos, 'data', pero podemos usar píxeles, puntos,...), la posición del texto (xytext), y como se representará la flecha. Con [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate) podemos tener anotaciones elegantes de forma sencilla como puedes ver en estos enlaces [[1]](http://matplotlib.sourceforge.net/mpl_examples/pylab_examples/annotation_demo2_00.png), [[2].](http://matplotlib.sourceforge.net/mpl_examples/pylab_examples/annotation_demo2_01.png)
 
@@ -87,7 +87,7 @@ plt.table(cellText=valores, rowLabels=etiquetas_fil, colLabels = etiquetas_col, 
 
 Cuyo resultado es el siguiente:
 
-[<img class="aligncenter size-full wp-image-766" title="table" alt="" src="http://new.pybonacci.org/images/2012/08/table.png" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/08/table.png 652w, https://pybonacci.org/wp-content/uploads/2012/08/table-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/08/table.png)
+![table](http://pybonacci.org/images/2012/08/table.png)
 
 Donde hemos definido los valores de las celdas internas (cellText), Las etiquetas de filas y columnas (rowLabels y colLabels), el ancho de las celdas y la localización de la tabla.
 

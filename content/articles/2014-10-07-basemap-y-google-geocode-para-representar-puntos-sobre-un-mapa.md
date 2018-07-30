@@ -343,7 +343,7 @@ for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['
 ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (0, 0))
 f.savefig('f1-circuits.png', dpi=72, transparent=False, bbox_inches='tight')</code></pre>
 
-[<img src="http://new.pybonacci.org/images/2014/10/f1-circuits.png" alt="f1-circuits" width="907" height="492" class="aligncenter size-full wp-image-2772" srcset="https://pybonacci.org/wp-content/uploads/2014/10/f1-circuits.png 907w, https://pybonacci.org/wp-content/uploads/2014/10/f1-circuits-300x162.png 300w" sizes="(max-width: 907px) 100vw, 907px" />](http://new.pybonacci.org/images/2014/10/f1-circuits.png)
+![](http://pybonacci.org/images/2014/10/f1-circuits.png)
 
 Podemos ver una gran concentración de Grandes Premios en Europa, continente que vio nacer a la Fórmula 1 y base de operaciones de la mayoría de equipos que compiten en ella. Si centramos la imagen sobre europa, a la cual hemos añadido un [fondo](http://matplotlib.org/basemap/users/geography.html), podremos ver con mayor claridad la distribución de las que han sido sedes de algún Gran Premio por el viejo continente.
 
@@ -357,4 +357,4 @@ for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['
 ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (100000, 100000))
 f.savefig('f1-circuits-europe.png', dpi=72, transparent=False, bbox_inches='tight')</code></pre>
 
-[<img src="http://new.pybonacci.org/images/2014/10/f1-circuits-europe.png" alt="f1-circuits-europe" width="460" height="490" class="aligncenter size-full wp-image-2771" srcset="https://pybonacci.org/wp-content/uploads/2014/10/f1-circuits-europe.png 460w, https://pybonacci.org/wp-content/uploads/2014/10/f1-circuits-europe-281x300.png 281w" sizes="(max-width: 460px) 100vw, 460px" />](http://new.pybonacci.org/images/2014/10/f1-circuits-europe.png)
+![](http://pybonacci.org/images/2014/10/f1-circuits-europe.png)

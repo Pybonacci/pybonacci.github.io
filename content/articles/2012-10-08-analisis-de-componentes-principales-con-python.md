@@ -17,7 +17,7 @@ El análisis de componentes principales (PCA, por sus siglas en inglés, Princip
 
 Para el presente artículo vamos a usar el PCA para obtener imágenes comprimidas. Vamos a trabajar con una imagen monocromática extraída de la galería de [AdeRussell en flickr](http://www.flickr.com/photos/aderussell/). (con [licencia cc 2.0](http://creativecommons.org/licenses/by-nc-sa/2.0/deed.es)) La imagen en cuestión es la siguiente:<figure style="width: 640px" class="wp-caption aligncenter">
 
-[<img class="aligncenter size-full" title="King" src="http://new.pybonacci.org/images/2012/10/MartinLutherKing.jpg" alt="Martin Luther King Memorial por AdeRussell" width="640" height="425" />](http://new.pybonacci.org/images/2012/10/MartinLutherKing.jpg)
+![King](http://pybonacci.org/images/2012/10/MartinLutherKing.jpg)
 
 Primero la guardaremos en nuestro equipo usando la biblioteca urllib2 disponible en la biblioteca estándar de vuestra instalación de python:
 
@@ -90,7 +90,7 @@ plt.show()</code></pre>
 
 La siguiente imagen muestra el resultado con 100 componentes principales:
 
-[<img class="aligncenter size-full wp-image-967" title="king-100pcs" src="http://new.pybonacci.org/images/2012/10/king-100pcs.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/10/king-100pcs.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/king-100pcs-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/king-100pcs.png)
+![king-100pcs](http://pybonacci.org/images/2012/10/king-100pcs.png)
 
 Tampoco está tan mal comparado con la imagen original de más arriba.
 
@@ -106,7 +106,7 @@ plt.show()</code></pre>
 
 Para obtener el siguiente gráfico:<figure id="attachment_980" style="width: 652px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-980" title="varianza explicada y acumulada por las componentes principales" src="http://new.pybonacci.org/images/2012/10/varianza.png" alt="varianza explicada y acumulada por las componentes principales" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/10/varianza.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/varianza-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/varianza.png)<figcaption class="wp-caption-text">varianza explicada y acumulada por las componentes principales</figcaption></figure> 
+![varianza explicada y acumulada por las componentes principales](http://pybonacci.org/images/2012/10/varianza.png)
 
 Con unas 30, 35 componentes principales se tendría una varianza acumulada en torno al 90% mientras que el 99% se superaría con menos de 180 componentes principales.
 

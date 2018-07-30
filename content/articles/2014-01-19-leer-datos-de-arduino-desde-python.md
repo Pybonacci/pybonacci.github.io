@@ -9,7 +9,7 @@ tags: arduino, datos, numpy, python
 
 En este artículo vamos a ver **cómo leer datos procedentes de una plataforma Arduino con Python.** Para quienes no lo conozcáis, [Arduino](http://www.arduino.cc/) es una plataforma de _hardware libre_ concebida para crear prototipos de manera rápida y fácil usando componentes electrónicos. Gracias a Arduino vamos a alejarnos un poco de lo que solemos ver en este blog, que es solo software, y vamos a poder interactuar con el mundo real de una manera más directa.
 
-<img src="http://new.pybonacci.org/images/2014/01/arduino_uno_-_r3.jpg" alt="Arduino Uno" width="560" height="400" class="aligncenter size-full wp-image-2165" srcset="https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3.jpg 560w, https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3-300x214.jpg 300w" sizes="(max-width: 560px) 100vw, 560px" />
+<img src="http://pybonacci.org/images/2014/01/arduino_uno_-_r3.jpg" alt="Arduino Uno" width="560" height="400" class="aligncenter size-full wp-image-2165" srcset="https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3.jpg 560w, https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3-300x214.jpg 300w" sizes="(max-width: 560px) 100vw, 560px" />
 
 Este artículo nace gracias a mi reciente incorporación a [Aerobot](http://aerobot.org.es/), el club de robótica de mi escuela, donde iré explorando las posibilidades de Arduino y Python 🙂
 
@@ -230,7 +230,7 @@ with arduino:
 
 Y este es el resultado:<figure id="attachment_2157" style="width: 560px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-2157 " alt="Datos Arduino en tiempo real" src="http://new.pybonacci.org/images/2014/01/2014-01-19-200435_1366x768_scrot.png" width="560" height="408" srcset="https://pybonacci.org/wp-content/uploads/2014/01/2014-01-19-200435_1366x768_scrot.png 894w, https://pybonacci.org/wp-content/uploads/2014/01/2014-01-19-200435_1366x768_scrot-300x218.png 300w" sizes="(max-width: 560px) 100vw, 560px" />](http://new.pybonacci.org/images/2014/01/2014-01-19-200435_1366x768_scrot.png)<figcaption class="wp-caption-text">Datos Arduino en tiempo real</figcaption></figure> 
+![](http://pybonacci.org/images/2014/01/2014-01-19-200435_1366x768_scrot.png)
 
 Aunque mejor que lo ejecutes en tu ordenador 😉
 

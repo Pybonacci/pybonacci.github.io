@@ -14,7 +14,7 @@ tags: #aeropython, curso, etsiae, python
   5. Análisis numérico con **SciPy**
   6. Cálculo simbólico con **SymPy**
 
-[<img src="http://new.pybonacci.org/images/2015/10/cartel-213x300.png" alt="Curso AeroPython" width="213" height="300" class="aligncenter size-medium wp-image-3516" srcset="https://pybonacci.org/wp-content/uploads/2015/10/cartel-213x300.png 213w, https://pybonacci.org/wp-content/uploads/2015/10/cartel-730x1024.png 730w, https://pybonacci.org/wp-content/uploads/2015/10/cartel.png 1125w" sizes="(max-width: 213px) 100vw, 213px" />](http://new.pybonacci.org/images/2015/10/cartel.png)
+![](http://pybonacci.org/images/2015/10/cartel-213x300.png)
 
 El curso se desarrollará en la **sala II del centro de cálculo de la ETSI Aeronáutica y del Espacio** de <del datetime="2015-10-25T22:05:45+00:00">17:30</del><ins datetime="2015-10-25T22:05:45+00:00">18:00</ins> a 20:00 a lo largo de **dos semanas**, los días 3, 4, 5, 10, 11 y 12.
 

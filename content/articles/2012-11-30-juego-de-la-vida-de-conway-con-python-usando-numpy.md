@@ -94,7 +94,7 @@ Y el tablero en el nuevo paso será el resultado de la función anterior.
 
 Y esto ya está, casi la parte más complicada del código es conseguir crear una animación a partir de aquí. Como llevo un rato frustrado, y aunque podría arreglar esto de manera limpia leyendo un rato más el [tutorial de Jake Vanderplas sobre `matplotlib.animation`](http://jakevdp.github.com/blog/2012/08/18/matplotlib-animation-tutorial/), voy a hacer algo de lo que no me siento orgulloso y nunca, [nunca](http://xkcd.com/292/) tienes que intentar hacer en tu casa: usar una variable global. Si el gran KvdP lo hizo, yo también puedo 😛<figure id="attachment_1291" style="width: 400px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1291" alt="Animación del juego de la vida de Conway" src="http://new.pybonacci.org/images/2012/11/juego_vida1.gif" width="400" height="400" />](http://new.pybonacci.org/images/2012/11/juego_vida1.gif)<figcaption class="wp-caption-text">Animación del juego de la vida de Conway</figcaption></figure> 
+![](http://pybonacci.org/images/2012/11/juego_vida1.gif)
 
 Y este es el código:
 

@@ -33,11 +33,11 @@ Si un parámetro negativo producirá una excepción más adelante, ¿para qué e
 
 _Sin comprobar valores de entrada._
 
-[<img class="size-medium wp-image-2266" alt="Error en función de Fibonacci sin comprobar parámetros" src="http://new.pybonacci.org/images/2014/03/res01.jpg?w=300" width="300" height="295" srcset="https://pybonacci.org/wp-content/uploads/2014/03/res01.jpg 621w, https://pybonacci.org/wp-content/uploads/2014/03/res01-300x295.jpg 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2014/03/res01.jpg)
+![](http://pybonacci.org/images/2014/03/res01.jpg?w=300)
 
 _Comprobando valores de entrada._
 
-[<img class="alignnone size-medium wp-image-2267" alt="res02" src="http://new.pybonacci.org/images/2014/03/res02.jpg?w=300" width="300" height="83" srcset="https://pybonacci.org/wp-content/uploads/2014/03/res02.jpg 621w, https://pybonacci.org/wp-content/uploads/2014/03/res02-300x83.jpg 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2014/03/res02.jpg)
+![](http://pybonacci.org/images/2014/03/res02.jpg?w=300)
 
 Si comprobamos todos los parámetros de entrada, estaremos escribiendo una librería sólida que ayuda a sus usuarios a escribir buen código. Pero también podemos estar repitiendo muchas veces el código de comprobación y repetir código siempre es malo.
 
@@ -70,6 +70,6 @@ Existe una técnica de diseño 7 programación conocida como diseño por contrat
 
 Esta técnica alcanzó popularidad a finales de los 90 por el [desastre el cohete Ariane 5](http://www.around.com/ariane.html "Ariane 5 crashes"), el cual se podría haber evitado especificando los contratos de las operaciones.<figure id="attachment_2268" style="width: 300px" class="wp-caption alignnone">
 
-[<img class="size-medium wp-image-2268" alt="Ariadne 5, o lo que queda." src="http://new.pybonacci.org/images/2014/03/ariane_5_self-destruction.jpg?w=300" width="300" height="197" srcset="https://pybonacci.org/wp-content/uploads/2014/03/ariane_5_self-destruction.jpg 400w, https://pybonacci.org/wp-content/uploads/2014/03/ariane_5_self-destruction-300x197.jpg 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2014/03/ariane_5_self-destruction.jpg)<figcaption class="wp-caption-text">Ariane 5, o lo que queda.</figcaption></figure> 
+![](http://pybonacci.org/images/2014/03/ariane_5_self-destruction.jpg?w=300)
 
 Si os manejáis por el mundo Java, podéis ver esta técnica en aplicación por ejemplo en java.collection, aunque luego no implementéis todas las precondiciones, poscondiciones e invariante sí es una buena idea pensar en los contratos de vuestras librerías. Además, también sirve de ayuda para diseñar casos de prueba.

@@ -124,7 +124,7 @@ In [10]: plt.show()</code></pre>
 
 El segundo argumento de `plt.contour` es para especificar los niveles que queremos pintar (normalmente sólo nos interesará hasta el 1.0). Podemos obtener resultados similares a estos:<figure id="attachment_327" style="width: 350px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-327" title="Adams-Bashfort 3" src="http://new.pybonacci.org/images/2012/04/ab3.png" alt="" width="350" height="420" srcset="https://pybonacci.org/wp-content/uploads/2012/04/ab3.png 500w, https://pybonacci.org/wp-content/uploads/2012/04/ab3-250x300.png 250w" sizes="(max-width: 350px) 100vw, 350px" />](http://new.pybonacci.org/images/2012/04/ab3.png)<figcaption class="wp-caption-text">Región de estabilidad absoluta de un método Adams-Bashforth 3</figcaption></figure> <figure id="attachment_328" style="width: 350px" class="wp-caption aligncenter">[<img class=" wp-image-328" title="Runge-Kutta 4" src="http://new.pybonacci.org/images/2012/04/rk42.png" alt="" width="350" height="420" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rk42.png 500w, https://pybonacci.org/wp-content/uploads/2012/04/rk42-250x300.png 250w" sizes="(max-width: 350px) 100vw, 350px" />](http://new.pybonacci.org/images/2012/04/rk42.png)<figcaption class="wp-caption-text">Región de estabilidad absoluta de un método Runge-Kutta 4</figcaption></figure> 
+![Adams-Bashfort 3](http://pybonacci.org/images/2012/04/ab3.png)
 
 <p style="text-align:left">
   Y hasta aquí llega el artículo de hoy. Espero que os haya resultado interesante y útil, no olvidéis difundir y comentar 🙂

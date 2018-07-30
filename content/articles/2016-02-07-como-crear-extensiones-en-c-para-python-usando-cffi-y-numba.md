@@ -41,7 +41,7 @@ Como decíamos CFFI y numba, aunque tienen que ver con hacer nuestros programas 
 
 Aquí la pregunta clave es: ¿qué es esto de acelerar con numba algo escrito en C? La cuestión es que si quiero usar numba _en modo estricto_ (es decir: aprovechando el modo `nopython`) todas las funciones que se utilicen tienen que estar compiladas en modo `nopython` también. Un meme vale más que mil palabras.
 
-[<img src="http://new.pybonacci.org/images/2016/02/nopython-300x300.jpg" alt="nopython" width="300" height="300" class="aligncenter size-medium wp-image-3671" srcset="https://pybonacci.org/wp-content/uploads/2016/02/nopython-300x300.jpg 300w, https://pybonacci.org/wp-content/uploads/2016/02/nopython-150x150.jpg 150w, https://pybonacci.org/wp-content/uploads/2016/02/nopython.jpg 392w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2016/02/nopython.jpg)
+![](http://pybonacci.org/images/2016/02/nopython-300x300.jpg)
 
 En definitiva: una de las ventajas sustanciales que tendríamos con esto es que **podríamos reutilizar código legado con código nuevo acelerado con numba**. ¿Lo intentamos? ¡Vamos allá!
 
@@ -188,7 +188,7 @@ En el fondo los ingenieros no dejamos de ser gente primaria y visceral, y aunque
 
 Llegados a este punto sin embargo merece la pena hacer un microbenchmark y un pequeño comentario entre la función que acabamos de incorporar con CFFI y numba y su equivalente en SciPy. Para ello utilizaremos [pytest-benchmark](https://github.com/ionelmc/pytest-benchmark), que acabo de usar por primera vez hace cinco minutos y que me ha dejado boquiabierto (tanto por la buena presentación de los resultados como por los números en sí).
 
-[<img src="http://new.pybonacci.org/images/2016/02/benchmark-300x76.png" alt="Benchmark" width="300" height="76" class="aligncenter size-medium wp-image-3677" srcset="https://pybonacci.org/wp-content/uploads/2016/02/benchmark-300x76.png 300w, https://pybonacci.org/wp-content/uploads/2016/02/benchmark-1024x259.png 1024w, https://pybonacci.org/wp-content/uploads/2016/02/benchmark-1200x304.png 1200w, https://pybonacci.org/wp-content/uploads/2016/02/benchmark.png 1380w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2016/02/benchmark.png)
+![](http://pybonacci.org/images/2016/02/benchmark-300x76.png)
 
 Habéis leído bien: **nuestra función con CFFI + numba es, en media, 5 veces más rápida que la versión de SciPy**. Hay que puntualizar una cosa importante, y es que la función de SciPy tiene interfaz de ufunc: esto puede suponer una sobrecarga considerable (si bien ["de utilidad cuestionable"](https://github.com/scipy/scipy/blob/maintenance/0.17.x/scipy/special/README)). Aun así, me parece que los resultados son excelentes y que podría plantearse incluso aprovechar esta estrategia de forma más generalizada en el futuro.
 
