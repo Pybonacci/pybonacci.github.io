@@ -14,9 +14,10 @@ En un [artículo anterior](http://pybonacci.org/2014/08/05/de-matplotlib-a-la-we
 
 Importamos los paquetes de la manera habitual en cada caso.
 
-<pre><code class="language-python">import pandas as pd
-import plotly.plotly as py
-from plotly.graph_objs import *</code></pre>
+    :::python
+    import pandas as pd
+    import plotly.plotly as py
+    from plotly.graph_objs import *
 
 En el caso de Plotly hemos importado además unos objetos `graph_objs` que nos serán de ayuda a la hora de crear las gráficas. Trabajar con la API de Plotly en Python se resume en trabajar con _listas y diccionarios_ de Python. Los `graph_objs` de Plotly nos ayudarán a trabajar con estas listas y diccionarios proporcionando ayuda y validando los datos y parámetros introducidos.
 
@@ -28,7 +29,8 @@ Entre los objetos que importamos tenemos los bloques principales de trabajo:
 
 <!--more Sigue leyendo-->
 
-<pre><code class="language-python">help(Figure)</code></pre>
+    :::python
+    help(Figure)
 
     Help on class Figure in module plotly.graph_objs.graph_objs:
     class Figure(PlotlyDict)
@@ -67,7 +69,8 @@ Entre los objetos que importamos tenemos los bloques principales de trabajo:
      |
     [...]
 
-<pre><code class="language-python">help(Data)</code></pre>
+    :::python
+    help(Data)
 
     Help on class Data in module plotly.graph_objs.graph_objs:
     class Data(PlotlyList)
@@ -82,7 +85,8 @@ Entre los objetos que importamos tenemos los bloques principales de trabajo:
      |
     [...]
 
-<pre><code class="language-python">help(Layout)</code></pre>
+    :::python
+    help(Layout)
 
     Help on class Layout in module plotly.graph_objs.graph_objs:
     class Layout(PlotlyDict)
@@ -110,7 +114,8 @@ Como vemos, `Figure` y `Layout` son objetos de tipo diccionario y `Data` es un o
 
 En Plotly cada tipo de gráfica tiene su propio objeto (_trace graph object_) como son `Scatter`, `Bar` o `Histogram`.
 
-<pre><code class="language-python">help(Scatter)</code></pre>
+    :::python
+    help(Scatter)
 
     Help on class Scatter in module plotly.graph_objs.graph_objs:
     class Scatter(PlotlyTrace)
@@ -143,11 +148,12 @@ Hecha la presentación de Plotly pasamos a un ejemplo práctico de uso de la her
 
 Los datos son proporcionados en un fichero Excel que podemos importar con Pandas.
 
-<pre><code class="language-python">pasajeros = pd.io.excel.read_excel('07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls',
-                                   sheetname=0, # tomamos la primera hoja del archivo
-                                   header=2, # la cebecera empieza en la fila 3
-                                   index_col=0) # empleamos las fechas como indices
-pasajeros.head(5)</code></pre>
+    :::python
+    pasajeros = pd.io.excel.read_excel('07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls',
+                                       sheetname=0, # tomamos la primera hoja del archivo
+                                       header=2, # la cebecera empieza en la fila 3
+                                       index_col=0) # empleamos las fechas como indices
+    pasajeros.head(5)
 
 <div class="output_wrapper">
   <div class="output">
@@ -362,11 +368,12 @@ pasajeros.head(5)</code></pre>
   </div>
 </div>
 
-<pre><code class="language-python">mercancias = pd.io.excel.read_excel('07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls',
-                                    sheetname=5, # tomamos la sexta hoja del archivo
-                                    header=2, # la cebecera empieza en la fila 3
-                                    index_col=0) # empleamos las fechas como indices
-mercancias.head(5)</code></pre>
+    :::python
+    mercancias = pd.io.excel.read_excel('07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls',
+                                        sheetname=5, # tomamos la sexta hoja del archivo
+                                        header=2, # la cebecera empieza en la fila 3
+                                        index_col=0) # empleamos las fechas como indices
+    mercancias.head(5)
 
 <div class="output_wrapper">
   <div class="output">
@@ -583,7 +590,8 @@ mercancias.head(5)</code></pre>
 
 Como podemos ver, se trata de una serie temporal. Y puesto que los datos se proporcionan mes a mes, podríamos deshacernos del día del mes indicandole a Pandas que se trata de un periodo de frecuencia mensual con `to_period`. Pero no es necesario, pues como veremos más adelante, Plotly es capaz de _intuir_ que queremos representar los datos mes a mes.
 
-<pre><code class="language-python">pasajeros.to_period('M').head(2)</code></pre>
+    :::python
+    pasajeros.to_period('M').head(2)
 
 <div class="output_wrapper">
   <div class="output">
@@ -712,11 +720,13 @@ Como podemos ver, se trata de una serie temporal. Y puesto que los datos se prop
 
 Si ya hemos guardado nuestras credenciales de Plotly en el ordenador, al importar el paquete como
 
-<pre><code class="language-python">import plotly.plotly as py</code></pre>
+    :::python
+    import plotly.plotly as py
 
 ya nos _logueamos_ automáticamente en el servidor sin tener que acceder mediante
 
-<pre><code class="language-python">py.sign_in('username', 'api_key')</code></pre>
+    :::python
+    py.sign_in('username', 'api_key')
 
 Una figura (`Figure`) Plotly se compone de los datos a representar (`Data`) y de un formato (`Layout`), y estos a su vez no son más que un conjunto de listas y diccionarios que Plotly se encargará de convertir a un formato [JSON](http://en.wikipedia.org/wiki/Json). Como hemos mencionado arriba, Plotly proporciona una serie de `graph_objs` que nos facilitarán la tarea de componer gráficas interactivas y que veremos a continuación.
 
@@ -738,49 +748,56 @@ Para representar estos datos nos valdremos de la herramienta `Data` que, como he
 
 Puesto que se trata de una lista con cuatro líneas a representar, haremos uso de las [list comprehensions](https://docs.python.org/3.4/tutorial/datastructures.html#list-comprehensions) de Python.
 
-<pre><code class="language-python">p_data = Data([Scatter(name=col,
-                       x=pasajeros.index,
-                       y=pasajeros[col],
-                       mode='lines') for col in pasajeros.columns.values[:4]])</code></pre>
+    :::python
+    p_data = Data([Scatter(name=col,
+                           x=pasajeros.index,
+                           y=pasajeros[col],
+                           mode='lines') for col in pasajeros.columns.values[:4]])
 
 #### Layout {#layout}
 
 Ya con los datos a representar definidos, ahora podemos pasar a retocar el _layout_ de la figura. Para ello vamos a añadir un título a la gráfica y a los ejes _x_ e _y_. Otra cosa que haremos también es encuadrar la gráfica con
 
-<pre><code class="language-python">showline=True, mirror='ticks', linewidth=2</code></pre>
+    :::python
+    showline=True, mirror='ticks', linewidth=2
 
 y reducir los margenes derecho `r` y superior `t` para aprovechar mejor el espacio.
 
-<pre><code class="language-python">p_layout = Layout(title='Tráfico mensual de pasajeros en aeropuertos del grupo Heathrow',
-                  xaxis=XAxis(title='Mes', showgrid=False, showline=True, mirror='ticks', linewidth=2),
-                  yaxis=YAxis(title='Pasajeros', zeroline=False, showline=True, mirror='ticks', linewidth=2),
-                  margin=Margin(r=20, t=80))</code></pre>
+    :::python
+    p_layout = Layout(title='Tráfico mensual de pasajeros en aeropuertos del grupo Heathrow',
+                      xaxis=XAxis(title='Mes', showgrid=False, showline=True, mirror='ticks', linewidth=2),
+                      yaxis=YAxis(title='Pasajeros', zeroline=False, showline=True, mirror='ticks', linewidth=2),
+                      margin=Margin(r=20, t=80))
 
 #### Figure {#figure}
 
 Una vez ya tenemos los datos y el _layout_ podemos pasar a componer la figura y subirla al servidor.
 
-<pre><code class="language-python">p_fig = Figure(data=p_data, layout=p_layout)
-p_plot = py.iplot(p_fig, filename='pybonacci/heathrow-pasajeros')</code></pre>
+    :::python
+    p_fig = Figure(data=p_data, layout=p_layout)
+    p_plot = py.iplot(p_fig, filename='pybonacci/heathrow-pasajeros')
 
 ### Diccionarios y listas {#diccionarios-y-listas}
 
 Tanto `Figure` como `Layout`, `XAxis`, `YAxis` y `Margin` se podrían substituir por la expresión `dict()` pues, como ya hemos mencionados, Plotly trabaja con diccionarios y listas de Python. Sin embargo, el utilizar estas herramientas de `plotly.graph_objs` nos da acceso a la ayuda, y nos permite validar los parámetros introducidos.
 
-<pre><code class="language-python">m_data = Data([Scatter(name=col,
-                       x=mercancias.index,
-                       y=mercancias[col],
-                       mode='lines') for col in pasajeros.columns.values[:4]])</code></pre>
+    :::python
+    m_data = Data([Scatter(name=col,
+                           x=mercancias.index,
+                           y=mercancias[col],
+                           mode='lines') for col in pasajeros.columns.values[:4]])
 
 Podemos hacer lo mismo con `dict()`, pero cualquier error pasará desapercibido hasta el final.
 
-<pre><code class="language-python">m_layout = dict(title='Tráfico mensual de mercancías en aeropuertos del grupo Heathrow',
-                xaxis=dict(title='Mes', showgrid=False, showline=True, mirror='ticks', linewidth=2),
-                yaxis=dict(title='Mercancías (t)', zeroline=False, showline=True, mirror='ticks', linewidth=2),
-                margin=dict(r=20, t=80))</code></pre>
+    :::python
+    m_layout = dict(title='Tráfico mensual de mercancías en aeropuertos del grupo Heathrow',
+                    xaxis=dict(title='Mes', showgrid=False, showline=True, mirror='ticks', linewidth=2),
+                    yaxis=dict(title='Mercancías (t)', zeroline=False, showline=True, mirror='ticks', linewidth=2),
+                    margin=dict(r=20, t=80))
 
-<pre><code class="language-python">m_fig = Figure(data=m_data, layout=m_layout)
-m_plot = py.iplot(m_fig, filename='pybonacci/heathrow-mercancias')</code></pre>
+    :::python
+    m_fig = Figure(data=m_data, layout=m_layout)
+    m_plot = py.iplot(m_fig, filename='pybonacci/heathrow-mercancias')
 
 ### Interpretación de los datos {#interpretación-de-los-datos}
 
@@ -792,32 +809,37 @@ Vemos claramente que en los meses de verano hay un aumento del número de pasaje
 
 Para ello vamos a utilizar el paquete `calendar` que nos permitirá crear una lista con los nombres de los meses; y Numpy para crear una lista con los años.
 
-<pre><code class="language-python">import calendar
-import numpy as np</code></pre>
+    :::python
+    import calendar
+    import numpy as np
 
 Para representar el `Heatmap` necesitaremos agrupar los datos por años o meses, en función del eje _y_ que tomemos. En este caso hemos decido representar los meses en el eje de ordenadas, por lo tanto agruparemos los datos por meses. Para ello nos valdremos de una [función anónima](https://docs.python.org/3.4/reference/expressions.html#lambda).
 
-<pre><code class="language-python">gb = lambda x: x.month</code></pre>
+    :::python
+    gb = lambda x: x.month
 
-<pre><code class="language-python">data = Data([Heatmap(x=np.arange(2005,2015),
-                     y=calendar.month_abbr[1:],
-                     z=[grp['Heathrow'] for key, grp in pasajeros.groupby(gb)],
-                     colorscale='Portland')])</code></pre>
+    :::python
+    data = Data([Heatmap(x=np.arange(2005,2015),
+                         y=calendar.month_abbr[1:],
+                         z=[grp['Heathrow'] for key, grp in pasajeros.groupby(gb)],
+                         colorscale='Portland')])
 
 En el eje _x_ hemos colocado los años, en el eje _y_ los meses, y la intensidad del color viene determinada por el número de pasajeros.
 
 Con `Layout` añadimos el título de la gráfica y los nombres de los ejes, y también podemos especificar el tamaño de la gráfica deshabilitando el `autosize` y definiendo nuestro propio ancho y alto.
 
-<pre><code class="language-python">layout = Layout(title='Tráfico de pasajeros en el aeropuerto de Heathrow',
-                autosize=False,
-                width=550,
-                height=550,
-                xaxis=XAxis(title='Año', showgrid=False),
-                yaxis=YAxis(title='Mes', showgrid=False))</code></pre>
+    :::python
+    layout = Layout(title='Tráfico de pasajeros en el aeropuerto de Heathrow',
+                    autosize=False,
+                    width=550,
+                    height=550,
+                    xaxis=XAxis(title='Año', showgrid=False),
+                    yaxis=YAxis(title='Mes', showgrid=False))
 
 Ya podemos publicar nuestra gráfica de la manera habitual.
 
-<pre><code class="language-python">heatmap_plot = py.iplot(Figure(data=data,layout=layout), filename='pybonacci/heathrow-heatmap')</code></pre>
+    :::python
+    heatmap_plot = py.iplot(Figure(data=data,layout=layout), filename='pybonacci/heathrow-heatmap')
 
 #### Mercancías {#mercancías}
 
@@ -825,17 +847,20 @@ Si en el transporte de pasajeros hay un patrón claro, el transporte de mercanc�
 
 Aprovecharemos nuevamente la agrupación por meses que hemos empleado para el `Heatmap` de pasajeros. Nuevamente hacemos uso de las list comprehensions de Python para crear una lista de bloques, cada uno correspondiente a un mes. Lo mismo podríamos conseguirlo sin crear una lista y sin necesidad de agrupar si en vez de asignar un `name` asignamos un único array `x` con el valor del mes correspondiente a cada `y`. Con `boxpoints='all'` lo que hacemos es mostrar los puntos de la muestra al lado de cada bloque.
 
-<pre><code class="language-python">data = Data([Box(name=calendar.month_abbr[key],
-                 y=grp['Heathrow'].values,
-                 boxpoints='all') for key, grp in mercancias.groupby(gb)])</code></pre>
+    :::python
+    data = Data([Box(name=calendar.month_abbr[key],
+                     y=grp['Heathrow'].values,
+                     boxpoints='all') for key, grp in mercancias.groupby(gb)])
 
 Añadimos, como es costumbre, un título a la gráfica y aprovechamos para ocultar la leyenda y ajustar los margenes.
 
-<pre><code class="language-python">layout = Layout(title='Tráfico de mercancías en el aeropuerto de Heathrow (2005-2014)',
-                showlegend=False,
-                margin=Margin(r=20, t=90))</code></pre>
+    :::python
+    layout = Layout(title='Tráfico de mercancías en el aeropuerto de Heathrow (2005-2014)',
+                    showlegend=False,
+                    margin=Margin(r=20, t=90))
 
-<pre><code class="language-python">box_plot = py.iplot(Figure(data=data, layout=layout), filename='pybonacci/heathrow-box')</code></pre>
+    :::python
+    box_plot = py.iplot(Figure(data=data, layout=layout), filename='pybonacci/heathrow-box')
 
 #### Pasajeros vs mercancías {#pasajeros-vs-mercancías}
 
@@ -843,52 +868,59 @@ Hasta ahora hemos visto por separado los datos de pasajeros y mercancías. Compa
 
 Los pasajeros los representaremos mediante líneas y puntos `'lines+markers'` y le asignamos el segundo eje _y_ `'y2'`, pues vamos a querer que nos lo represente por encima de las barras de tráfico de mercancías. El orden en Plotly es importante. Vamos a representar las lineas de color dorado primero como horizontales y luego verticales de un valor a otro con `shape='hv'`. Los puntos serán de un color dorado más claro con el borde también dorado.
 
-<pre><code class="language-python">pas = Scatter(name='Pasajeros',
-              x=pasajeros.index,
-              y=pasajeros['Glasgow'],
-              yaxis='y2',
-              mode='lines+markers',
-              line=Line(shape='hv', color='darkgoldenrod'),
-              marker=Marker(color='goldenrod',
-                            line=Line(color='darkgoldenrod', width=2)))</code></pre>
+    :::python
+    pas = Scatter(name='Pasajeros',
+                  x=pasajeros.index,
+                  y=pasajeros['Glasgow'],
+                  yaxis='y2',
+                  mode='lines+markers',
+                  line=Line(shape='hv', color='darkgoldenrod'),
+                  marker=Marker(color='goldenrod',
+                                line=Line(color='darkgoldenrod', width=2)))
 
 Por su parte, el tráfico de mercancías lo representaremos como barras verticales de color gris claro. Por defecto se le asigna el primer eje _y_.
 
-<pre><code class="language-python">mer = Bar(name='Mercancías',
-          x=pasajeros.index,
-          y=mercancias['Glasgow'],
-          marker=Marker(color='lightgray'))</code></pre>
+    :::python
+    mer = Bar(name='Mercancías',
+              x=pasajeros.index,
+              y=mercancias['Glasgow'],
+              marker=Marker(color='lightgray'))
 
 Creamos la lista con los elementos a representar.
 
-<pre><code class="language-python">data = Data([mer, pas])</code></pre>
+    :::python
+    data = Data([mer, pas])
 
 Por último configuramos el _layout_ añadiendo un título a la gráfica y configurando los ejes.
 
-<pre><code class="language-python">layout = Layout(title='Tráfico de pasajeros y mercancías en el aeropuerto de Glasgow',
-                showlegend=False,
-                xaxis=XAxis(title='Mes'),
-                yaxis=YAxis(title='Mercancías (t)',
-                            showgrid=False),
-                yaxis2=YAxis(title='Pasajeros',
-                             showgrid=False,
-                             overlaying='y',
-                             side='right'))</code></pre>
+    :::python
+    layout = Layout(title='Tráfico de pasajeros y mercancías en el aeropuerto de Glasgow',
+                    showlegend=False,
+                    xaxis=XAxis(title='Mes'),
+                    yaxis=YAxis(title='Mercancías (t)',
+                                showgrid=False),
+                    yaxis2=YAxis(title='Pasajeros',
+                                 showgrid=False,
+                                 overlaying='y',
+                                 side='right'))
 
 Incluimos también una nota de texto indicando la fuente de los datos. Plotly nos permite untilizar un subconjunto de etiquetas HTML para dar formato a los textos para por ejemplo incluir nuevas líneas (`<br>`) o añadir hipervínculos (`<a href='...'></a>`) que podremos utilizar en cualquier texto de la gráfica (títulos y anotaciones).
 
-<pre><code class="language-python">fuente = Annotation(text="Fuente: LHR Airports Limited",
-                    xref='paper', # empleamos coordenadas 'paper', con ello la nota no se moverá al mover los ejes.
-                    yref='paper',
-                    x=0,
-                    y=-0.15,
-                    showarrow=False)</code></pre>
+    :::python
+    fuente = Annotation(text="Fuente: LHR Airports Limited",
+                        xref='paper', # empleamos coordenadas 'paper', con ello la nota no se moverá al mover los ejes.
+                        yref='paper',
+                        x=0,
+                        y=-0.15,
+                        showarrow=False)
 
 Actualizamos el diccionario de _layout_ de la gráfica.
 
-<pre><code class="language-python">layout.update(annotations=Annotations([fuente]))</code></pre>
+    :::python
+    layout.update(annotations=Annotations([fuente]))
 
-<pre><code class="language-python">ma_plot = py.iplot(Figure(data=data, layout=layout), filename='pybonacci/heathrow-multipleaxis')</code></pre>
+    :::python
+    ma_plot = py.iplot(Figure(data=data, layout=layout), filename='pybonacci/heathrow-multipleaxis')
 
 ## Mucho más {#mucho-más}
 

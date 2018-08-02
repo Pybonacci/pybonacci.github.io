@@ -45,48 +45,49 @@ que no depende del problema que estamos integrando. Si se cumple que el mayor de
 
 Vamos a incluir el código en un módulo para poder acceder a esta funcionalidad más fácilmente. El código completo, añadiendo documentación y ejemplos con el [estándar de documentación de NumPy/SciPy](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt), quedaría así:
 
-<pre><code class="language-python"># -*- coding: utf-8 -*-
-#
-# Región de estabilidad absoluta
-# Juan Luis Cano Rodríguez
-import numpy as np
-def region_estabilidad(p, X, Y):
-    """Región de estabilidad absoluta
-    Computa la región de estabilidad absoluta de un método numérico, dados
-    los coeficientes de su polinomio característico de estabilidad.
-    Argumentos
-    ----------
-    p : function
-        Acepta un argumento w y devuelve una lista de coeficientes
-    X, Y : numpy.ndarray
-        Rejilla en la que evaluar el polinomio de estabilidad generada por
-        numpy.meshgrid
-    Devuelve
-    --------
-    Z : numpy.ndarray
-        Para cada punto de la malla, máximo de los valores absolutos de las
-        raíces del polinomio de estabilidad
-    Ejemplos
-    --------
-    &gt;&gt;&gt; import numpy as np
-    &gt;&gt;&gt; x = np.linspace(-3.0, 1.5)
-    &gt;&gt;&gt; y = np.linspace(-3.0, 3.0)
-    &gt;&gt;&gt; X, Y = np.meshgrid(x, y)
-    &gt;&gt;&gt; Z = region_estabilidad(lambda w: [1,
-    ... -1 - w - w ** 2 / 2 - w ** 3 / 6 - w ** 4 / 24], X, Y)  # RK4
-    &gt;&gt;&gt; import matplotlib.pyplot as plt
-    &gt;&gt;&gt; cs = plt.contour(X, Y, Z, np.linspace(0.05, 1.0, 9))
-    &gt;&gt;&gt; plt.clabel(cs, inline=1, fontsize=10)  # Para etiquetar los contornos
-    &gt;&gt;&gt; plt.show()
-    """
-    Z = np.zeros_like(X)
-    w = X + Y * 1j
-   
-    for j in range(len(X)):
-        for i in range(len(Y)):
-            r = np.roots(p(w[i, j]))
-            Z[i, j] = np.max(abs(r if np.any(r) else 0))
-    return Z</code></pre>
+    :::python
+    # -*- coding: utf-8 -*-
+    #
+    # Región de estabilidad absoluta
+    # Juan Luis Cano Rodríguez
+    import numpy as np
+    def region_estabilidad(p, X, Y):
+        """Región de estabilidad absoluta
+        Computa la región de estabilidad absoluta de un método numérico, dados
+        los coeficientes de su polinomio característico de estabilidad.
+        Argumentos
+        ----------
+        p : function
+            Acepta un argumento w y devuelve una lista de coeficientes
+        X, Y : numpy.ndarray
+            Rejilla en la que evaluar el polinomio de estabilidad generada por
+            numpy.meshgrid
+        Devuelve
+        --------
+        Z : numpy.ndarray
+            Para cada punto de la malla, máximo de los valores absolutos de las
+            raíces del polinomio de estabilidad
+        Ejemplos
+        --------
+        &gt;&gt;&gt; import numpy as np
+        &gt;&gt;&gt; x = np.linspace(-3.0, 1.5)
+        &gt;&gt;&gt; y = np.linspace(-3.0, 3.0)
+        &gt;&gt;&gt; X, Y = np.meshgrid(x, y)
+        &gt;&gt;&gt; Z = region_estabilidad(lambda w: [1,
+        ... -1 - w - w ** 2 / 2 - w ** 3 / 6 - w ** 4 / 24], X, Y)  # RK4
+        &gt;&gt;&gt; import matplotlib.pyplot as plt
+        &gt;&gt;&gt; cs = plt.contour(X, Y, Z, np.linspace(0.05, 1.0, 9))
+        &gt;&gt;&gt; plt.clabel(cs, inline=1, fontsize=10)  # Para etiquetar los contornos
+        &gt;&gt;&gt; plt.show()
+        """
+        Z = np.zeros_like(X)
+        w = X + Y * 1j
+       
+        for j in range(len(X)):
+            for i in range(len(Y)):
+                r = np.roots(p(w[i, j]))
+                Z[i, j] = np.max(abs(r if np.any(r) else 0))
+        return Z
 
 Como sucede casi siempre en Python, el código es casi una traducción literal del algoritmo. Vamos a explicar un poco el código:
 
@@ -94,10 +95,11 @@ Como sucede casi siempre en Python, el código es casi una traducción literal d
   2. Calculamos las raíces de dicho polinomio con [`np.roots`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.roots.html), que acepta un array de rango 1 o equivalente (por esto no se puede vectorizar el bucle) y devuelve un array con las raíces del polinomio.
   3. La expresión `r if np.any(r) else 0` es un [condicional ternario](http://docs.python.org/reference/expressions.html#conditional-expressions), y tiene la misión de devolver un 0 si el polinomio no tiene raíces (porque todos los coeficientes se han hecho nulos, por ejemplo) para que la función `np.max` no reciba un array vacío. Es equivalente a
   
-    <pre><code class="language-python">if np.any(r):
-    return r
-else:
-    return 0</code></pre>
+        :::python
+    if np.any(r):
+        return r
+    else:
+        return 0
 
   4. Calculamos el valor absoluto de estas raíces.
   5. Con la función [`np.max`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.amax.html#numpy.amax) calculamos el mayor de estos valores.
@@ -107,20 +109,21 @@ else:
 
 Una vez tenemos esto en un archivo `region_estabilidad.py`, si abrimos un intérprete de IPython en el mismo directorio será tan sencillo como
 
-<pre><code class="language-python">In [1]: import numpy as np
-In [2]: x = np.linspace(-3.0, 1.5)
-In [3]: y = np.linspace(-3.0, 3.0)
-In [4]: X, Y = np.meshgrid(x, y)
-In [5]: def p(w):
-   ...:     """Polinomio de estabilidad del método RK4."""
-   ...:     return [1, -1 - w - w ** 2 / 2 - w ** 3 / 6 - w ** 4 / 24]
-   ...:
-In [6]: from region_estabilidad import region_estabilidad
-In [7]: Z = region_estabilidad(p, X, Y)
-In [8]: import matplotlib.pyplot as plt
-In [9]: plt.contour(X, Y, Z, np.linspace(0.0, 1.0, 9))
-Out[9]:
-In [10]: plt.show()</code></pre>
+    :::python
+    In [1]: import numpy as np
+    In [2]: x = np.linspace(-3.0, 1.5)
+    In [3]: y = np.linspace(-3.0, 3.0)
+    In [4]: X, Y = np.meshgrid(x, y)
+    In [5]: def p(w):
+       ...:     """Polinomio de estabilidad del método RK4."""
+       ...:     return [1, -1 - w - w ** 2 / 2 - w ** 3 / 6 - w ** 4 / 24]
+       ...:
+    In [6]: from region_estabilidad import region_estabilidad
+    In [7]: Z = region_estabilidad(p, X, Y)
+    In [8]: import matplotlib.pyplot as plt
+    In [9]: plt.contour(X, Y, Z, np.linspace(0.0, 1.0, 9))
+    Out[9]:
+    In [10]: plt.show()
 
 El segundo argumento de `plt.contour` es para especificar los niveles que queremos pintar (normalmente sólo nos interesará hasta el 1.0). Podemos obtener resultados similares a estos:<figure id="attachment_327" style="width: 350px" class="wp-caption aligncenter">
 

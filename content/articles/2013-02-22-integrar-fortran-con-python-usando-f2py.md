@@ -67,28 +67,29 @@ De esta manera, tenemos una única subrutina que devuelve la cadena `'¡Hola, mu
 
 Con el argumento `-`c indicamos qué fichero queremos compilar, y con `-m` el nombre del módulo resultante. Esto creó un archivo llamado `hola_mundo_sub.so`. Si ahora abrimos un intérprete de IPython:
 
-<pre><code class="language-python">In [1]: !ls
-hola_mundo.f90	hola_mundo_sub.f90  hola_mundo_submodule.c  hola_mundo_sub.so
-In [2]: import hola_mundo_sub
-In [3]: hola_mundo_sub?  # Documentación automática del módulo
-Type:       module
-String Form:&lt;module 'hola_mundo_sub' from 'hola_mundo_sub.so'&gt;
-File:       /home/juanlu/Development/Python/fortran/f2py_pybonacci/basico/hola_mundo_sub.so
-Docstring:
-This module 'hola_mundo_sub' is auto-generated with f2py (version:2).
-Functions:
-msg = hola_mundo()
-.
-In [4]: hola_mundo_sub.hola_mundo?  # Documentación automática de la subrutina
-Type:       fortran
-String Form:
-Docstring:
-hola_mundo - Function signature:
-msg = hola_mundo()
-Return objects:
-msg : string(len=12)
-In [5]: hola_mundo_sub.hola_mundo()  # ¡Funciona!
-Out[5]: 'Hola, mundo!'</code></pre>
+    :::python
+    In [1]: !ls
+    hola_mundo.f90	hola_mundo_sub.f90  hola_mundo_submodule.c  hola_mundo_sub.so
+    In [2]: import hola_mundo_sub
+    In [3]: hola_mundo_sub?  # Documentación automática del módulo
+    Type:       module
+    String Form:&lt;module 'hola_mundo_sub' from 'hola_mundo_sub.so'&gt;
+    File:       /home/juanlu/Development/Python/fortran/f2py_pybonacci/basico/hola_mundo_sub.so
+    Docstring:
+    This module 'hola_mundo_sub' is auto-generated with f2py (version:2).
+    Functions:
+    msg = hola_mundo()
+    .
+    In [4]: hola_mundo_sub.hola_mundo?  # Documentación automática de la subrutina
+    Type:       fortran
+    String Form:
+    Docstring:
+    hola_mundo - Function signature:
+    msg = hola_mundo()
+    Return objects:
+    msg : string(len=12)
+    In [5]: hola_mundo_sub.hola_mundo()  # ¡Funciona!
+    Out[5]: 'Hola, mundo!'
 
 ¡Funcionó! Y además ha sucedido una cosa interesante: **F2PY ha transformado los argumentos de la función**. En Fortran declaramos una subrutina con el argumento `msg` solo de salida con `intent(out)`, y F2PY lo ha transformado en un valor de retorno de la función en Python. Genial, ¿no?
 
@@ -102,35 +103,36 @@ Ahora no tenemos más que compilarlo como hemos hecho antes:
 
 y ya podemos utilizarlo desde Python:
 
-<pre><code class="language-python">In [1]: !ls
-hola_mundo.f90	    hola_mundo_submodule.c  vectores.f90  vectores.so
-hola_mundo_sub.f90  vectores2.pyf	    vectores.pyf
-In [2]: from vectores import *  # Importamos el módulo
-In [3]: import numpy as np
-In [4]: u = np.array([1, 2, 3])
-In [5]: v = np.array([1, 0, -1])
-In [6]: vectores.producto_escalar(u, v)
-Out[6]: -2.0
-In [7]: vectores.producto_vectorial(u, v)
-Out[7]: array([-2.,  4., -2.])
-In [8]: w = _
-In [9]: type(w)  # El tipo devuelto es un array de NumPy
-Out[9]: numpy.ndarray
-In [10]: w.dtype  # Y los datos son float de 64 bits
-Out[10]: dtype('float64')
-In [11]: vectores.producto_escalar?
-Type:       fortran
-String Form:
-Docstring:
-producto_escalar - Function signature:
-  p = producto_escalar(u,v,[n])
-Required arguments:
-  u : input rank-1 array('d') with bounds (n)
-  v : input rank-1 array('d') with bounds (n)
-Optional arguments:
-  n := len(u) input int
-Return objects:
-  p : float</code></pre>
+    :::python
+    In [1]: !ls
+    hola_mundo.f90	    hola_mundo_submodule.c  vectores.f90  vectores.so
+    hola_mundo_sub.f90  vectores2.pyf	    vectores.pyf
+    In [2]: from vectores import *  # Importamos el módulo
+    In [3]: import numpy as np
+    In [4]: u = np.array([1, 2, 3])
+    In [5]: v = np.array([1, 0, -1])
+    In [6]: vectores.producto_escalar(u, v)
+    Out[6]: -2.0
+    In [7]: vectores.producto_vectorial(u, v)
+    Out[7]: array([-2.,  4., -2.])
+    In [8]: w = _
+    In [9]: type(w)  # El tipo devuelto es un array de NumPy
+    Out[9]: numpy.ndarray
+    In [10]: w.dtype  # Y los datos son float de 64 bits
+    Out[10]: dtype('float64')
+    In [11]: vectores.producto_escalar?
+    Type:       fortran
+    String Form:
+    Docstring:
+    producto_escalar - Function signature:
+      p = producto_escalar(u,v,[n])
+    Required arguments:
+      u : input rank-1 array('d') with bounds (n)
+      v : input rank-1 array('d') with bounds (n)
+    Optional arguments:
+      n := len(u) input int
+    Return objects:
+      p : float
 
 Fíjate en el último bloque. F2PY ha interpretado correctamente que el argumento `n` es el tamaño de los arrays, y lo ha convertido en un parámetro opcional. Cuando manejamos arrays de esta manera se dice que se dan los arrays «en forma explícita»; existe otra manera, denominada «en forma asumida», que da más problemas con F2PY y que no vamos a utilizar.
 
@@ -180,17 +182,18 @@ Simplemente hemos añadido la palabra hide después de in separada por una coma.
 
 Y si ahora probamos el módulo:
 
-<pre><code class="language-python">In [2]: vectores.producto_escalar?
-Type:       fortran
-String Form:&lt;fortran object&gt;
-Docstring:
-producto_escalar - Function signature:
-  p = producto_escalar(u,v)
-Required arguments:
-  u : input rank-1 array('d') with bounds (n)
-  v : input rank-1 array('d') with bounds (n)
-Return objects:
-  p : float</code></pre>
+    :::python
+    In [2]: vectores.producto_escalar?
+    Type:       fortran
+    String Form:&lt;fortran object&gt;
+    Docstring:
+    producto_escalar - Function signature:
+      p = producto_escalar(u,v)
+    Required arguments:
+      u : input rank-1 array('d') with bounds (n)
+      v : input rank-1 array('d') with bounds (n)
+    Return objects:
+      p : float
 
 ¡El argumento n ha desaparecido! Nos queda una interfaz completamente pythonica 🙂
 

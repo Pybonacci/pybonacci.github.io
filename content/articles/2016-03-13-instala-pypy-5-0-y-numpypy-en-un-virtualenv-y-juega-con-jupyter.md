@@ -17,52 +17,63 @@ Necesitaremos tener instalada una versión reciente de virtualenv y git.
 
 Todos los comandos que vienen a continuación los tenéis que meter en un terminal. Primero creamos un directorio que se llamará **pypy50** en vuestro **$HOME**
 
-<pre><code class="language-bash">mkdir $HOME/pypy50</code></pre>
+    :::bash
+    mkdir $HOME/pypy50
 
 Ahora nos vamos al directorio recién creado y nos descargamos el fichero comprimido que contiene el pypy portable de 64 bits
 
-<pre><code class="language-bash">cd $HOME/pypy50
-wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-5.0-linux_x86_64-portable.tar.bz2</code></pre>
+    :::bash
+    cd $HOME/pypy50
+    wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-5.0-linux_x86_64-portable.tar.bz2
 
 Lo desempaquetamos:
 
-<pre><code class="language-bash">tar xvfj pypy-5.0-linux_x86_64-portable.tar.bz2</code></pre>
+    :::bash
+    tar xvfj pypy-5.0-linux_x86_64-portable.tar.bz2
 
 Ahora creamos un directorio **bin** en nuestro **$HOME**. Si ya existe te puedes saltar este paso:
 
-<pre><code class="language-bash">mkdir $HOME/bin</code></pre>
+    :::bash
+    mkdir $HOME/bin
 
 Creamos un enlace simbólico al ejecutable del pypy portable que hemos descargado que se encontrará en la carpeta **bin** del directorio **$HOME**:
 
-<pre><code class="language-bash">ln -s $HOME/pypy50/pypy-5.0-linux_x86_64-portable/bin/pypy $HOME/bin</code></pre>
+    :::bash
+    ln -s $HOME/pypy50/pypy-5.0-linux_x86_64-portable/bin/pypy $HOME/bin
 
 Cambiamos los permisos al ejecutable para darle permisos de ejecución:
 
-<pre><code class="language-bash">chmod +x $HOME/pypy50/pypy-5.0-linux_x86_64-portable/bin/pypy</code></pre>
+    :::bash
+    chmod +x $HOME/pypy50/pypy-5.0-linux_x86_64-portable/bin/pypy
 
 Al final de nuestro **.bashrc** vamos a añadir unas pocas líneas para que se añada el directorio **bin** de nuestro **$HOME** al **$PATH**:
 
-<pre><code class="language-bash">echo "" &gt;&gt; $HOME/.bashrc
-echo "# Added path to include pypy by $USER" &gt;&gt; $HOME/.bashrc
-echo "export PATH=$PATH:$HOME/bin" &gt;&gt; $HOME/.bashrc
-source $HOME/.bashrc</code></pre>
+    :::bash
+    echo "" &gt;&gt; $HOME/.bashrc
+    echo "# Added path to include pypy by $USER" &gt;&gt; $HOME/.bashrc
+    echo "export PATH=$PATH:$HOME/bin" &gt;&gt; $HOME/.bashrc
+    source $HOME/.bashrc
 
 Creamos el virtualenv con pypy (en este paso necesitaréis tener virtualenv instalado). El virtualenv se creará en la carpeta **bin** de nuestro **$HOME** y se llamará **pypyvenv**:
 
-<pre><code class="language-bash">virtualenv -p pypy $HOME/bin/pypyvenv</code></pre>
+    :::bash
+    virtualenv -p pypy $HOME/bin/pypyvenv
 
 Instalamos numpypy (numpy para pypy) en el nuevo virtualenv creado (aquí necesitarás tener git instalado). Para ello usamos el pip del entorno virtual.
 
-<pre><code class="language-bash">$HOME/bin/pypyvenv/bin/pip install git+https://bitbucket.org/pypy/numpy.git</code></pre>
+    :::bash
+    $HOME/bin/pypyvenv/bin/pip install git+https://bitbucket.org/pypy/numpy.git
 
 Instalamos Jupyter haciendo algo parecido a lo anterior (aunque esta vez lo instalamos desde [pypi](https://pypi.python.org/pypi), no confundir con pypy):
 
-<pre><code class="language-bash">$HOME/bin/pypyvenv/bin/pip install jupyter
-</code></pre>
+    :::bash
+    $HOME/bin/pypyvenv/bin/pip install jupyter
+    
 
 Y, por último, hacemos un poco de limpieza eliminando el fichero comprimido del pypy portable que hemos descargado anteriormente:
 
-<pre><code class="language-bash">rm $HOME/pypy50/pypy*.tar.bz2</code></pre>
+    :::bash
+    rm $HOME/pypy50/pypy*.tar.bz2
 
 ¡¡¡Listo!!!
 
@@ -70,17 +81,20 @@ Y, por último, hacemos un poco de limpieza eliminando el fichero comprimido del
 
 Para usar pypy (sin numpy) puedes lanzar una consola con pypy 5.0 (compatible con CPython 2.7) escribiendo en el terminal:
 
-<pre><code class="language-bash">pypy</code></pre>
+    :::bash
+    pypy
 
 ## Usando pypy con numpy en un notebook de jupyter
 
 Activamos el entorno virtual recien creado. Desde el terminal escribimos:
 
-<pre><code class="language-bash">. ~/bin/pypyvenv/bin/activate</code></pre>
+    :::bash
+    . ~/bin/pypyvenv/bin/activate
 
 Y arrancamos jupyter:
 
-<pre><code class="language-bash">jupyter notebook</code></pre>
+    :::bash
+    jupyter notebook
 
 Y después venís aquí y me contáis vuestras experiencias con pypy y numpypy o, si habéis encontrado fallos o queréis añadir mejoras, os vais a [github](https://github.com/kikocorreoso/test_pypy_numpypy) y abrís un issue o mandáis un Pull Request y salimos ganando todos.
 

@@ -27,27 +27,28 @@ _**En esta entrada se ha usado python 3.3.2.**_
 
 Vamos a utilizar este programa extraído del libro «Dive into Python 3»:
 
-<pre><code class="language-python">SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-            1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}
-def approximate_size(size, a_kilobyte_is_1024_bytes=True):
-    '''Convert a file size to human-readable form.
-    Keyword arguments:
-    size -- file size in bytes
-    a_kilobyte_is_1024_bytes -- if True (default), use multiples of 1024
-                                if False, use multiples of 1000
-    Returns: string
-    '''
-    if size &lt; 0:
-        raise ValueError('number must be non-negative')
-    multiple = 1024 if a_kilobyte_is_1024_bytes else 1000
-    for suffix in SUFFIXES[multiple]:
-        size /= multiple
-        if size &lt; multiple:
-            return '{0:.1f} {1}'.format(size, suffix)
-    raise ValueError('number too large')
-if __name__ == '__main__':
-    print(approximate_size(1000000000000, False))
-    print(approximate_size(1000000000000))</code></pre>
+    :::python
+    SUFFIXES = {1000: ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                1024: ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']}
+    def approximate_size(size, a_kilobyte_is_1024_bytes=True):
+        '''Convert a file size to human-readable form.
+        Keyword arguments:
+        size -- file size in bytes
+        a_kilobyte_is_1024_bytes -- if True (default), use multiples of 1024
+                                    if False, use multiples of 1000
+        Returns: string
+        '''
+        if size &lt; 0:
+            raise ValueError('number must be non-negative')
+        multiple = 1024 if a_kilobyte_is_1024_bytes else 1000
+        for suffix in SUFFIXES[multiple]:
+            size /= multiple
+            if size &lt; multiple:
+                return '{0:.1f} {1}'.format(size, suffix)
+        raise ValueError('number too large')
+    if __name__ == '__main__':
+        print(approximate_size(1000000000000, False))
+        print(approximate_size(1000000000000))
 
 Que simplemente produce la siguiente salida:
 
@@ -272,11 +273,12 @@ Hemos establecido un punto de ruptura en la línea 21 del programa, y a continua
 
 Otra forma de establecer un punto de ruptura en tu programa es incluir la siguiente línea:
 
-<pre><code class="language-python">multiple = 1024 if a_kilobyte_is_1024_bytes else 1000
-    for suffix in SUFFIXES[multiple]:
-        import pdb; pdb.set_trace()
-        size /= multiple
-        if size &lt; multiple:</code></pre>
+    :::python
+    multiple = 1024 if a_kilobyte_is_1024_bytes else 1000
+        for suffix in SUFFIXES[multiple]:
+            import pdb; pdb.set_trace()
+            size /= multiple
+            if size &lt; multiple:
 
 De este modo, al ejecutarlo saltará el depurador directamente:
 

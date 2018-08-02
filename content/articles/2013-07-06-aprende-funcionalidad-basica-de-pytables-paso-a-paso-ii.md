@@ -11,74 +11,85 @@ En el [anterior capítulo](http://pybonacci.org/2013/07/04/aprende-funcionalidad
 
 Ahora es tiempo de rellenar la tabla con datos sin sentido (datos aleatorios) y fechas. `numpy` y `datetime` nos facilitarán la tarea por lo que vamos a importarlos antes).
 
-<pre><code class="language-python">import numpy as np
-import datetime as dt</code></pre>
+    :::python
+    import numpy as np
+    import datetime as dt
 
 Abrimos de nuevo el fichero h5 que creamos en el anterior capítulo, pero en lugar de abrirlo en modo "write" lo abriremos en modo "append".
 
-<pre><code class="language-python">h5file = tb.openFile("tabla_test.h5", mode = "a")</code></pre>
+    :::python
+    h5file = tb.openFile("tabla_test.h5", mode = "a")
 
 Recuperamos la tabla que queremos llenar (indicando la ruta en la estructura del fichero hdf5) y usando la función `getNode`:
 
-<pre><code class="language-python">tab = h5file.getNode("/carpeta1/datos_carpeta1_tabla1")</code></pre>
+    :::python
+    tab = h5file.getNode("/carpeta1/datos_carpeta1_tabla1")
 
 Para rellenar la tabla creamos un puntero (o constructor de líneas propio a la tabla) `row`.
 
-<pre><code class="language-python">mis_datos = tab.row</code></pre>
+    :::python
+    mis_datos = tab.row
 
 Creamos los datos que usaremos para rellenar la tabla:
 
-<pre><code class="language-python">fechas = np.array([int((dt.date(2000, 1, 1) +
-                        dt.timedelta(days = 1) * i).strftime("%Y%m%d"))
-                        for i in range(10000)],
-                        dtype = np.int32)
-x = np.random.randn(10000)
-y = np.random.randn(10000)
-z = np.random.randn(10000)</code></pre>
+    :::python
+    fechas = np.array([int((dt.date(2000, 1, 1) +
+                            dt.timedelta(days = 1) * i).strftime("%Y%m%d"))
+                            for i in range(10000)],
+                            dtype = np.int32)
+    x = np.random.randn(10000)
+    y = np.random.randn(10000)
+    z = np.random.randn(10000)
 
 Llenamos la tabla de manera recursiva con el constructor de líneas `mis_datos` y el método `append`:
 
-<pre><code class="language-python">for i in range(10000):
-    mis_datos['fecha'] = fechas[i]
-    mis_datos['x'] = x[i]
-    mis_datos['y'] = y[i]
-    mis_datos['z'] = z[i]
-    mis_datos.append()</code></pre>
+    :::python
+    for i in range(10000):
+        mis_datos['fecha'] = fechas[i]
+        mis_datos['x'] = x[i]
+        mis_datos['y'] = y[i]
+        mis_datos['z'] = z[i]
+        mis_datos.append()
 
 Se llama al método `flush` sobre la tabla para volcar y registrar efectivamente los datos en la tabla.
 
-<pre><code class="language-python">tab.flush()</code></pre>
+    :::python
+    tab.flush()
 
 Si queremos, podemos añadir meta-información a la tabla:
 
-<pre><code class="language-python">tab.attrs.nombre_sensor="medidas de un escaterómetro"
-tab.attrs.numero_columnas = 3</code></pre>
+    :::python
+    tab.attrs.nombre_sensor="medidas de un escaterómetro"
+    tab.attrs.numero_columnas = 3
 
 Además de la meta-información que hemos añadido, el objeto tabla contenía ya un cierto número de atributos que podemos ver escribiendo lo siguiente en IPython
 
-<pre><code class="language-python">tab.attrs</code></pre>
+    :::python
+    tab.attrs
 
 que nos mostrará lo siguiente:
 
-<pre><code class="language-python">/carpeta1/datos_carpeta1_tabla1._v_attrs (AttributeSet), 14 attributes:
-   [CLASS := 'TABLE',
-    FIELD_0_FILL := 0,
-    FIELD_0_NAME := 'fecha',
-    FIELD_1_FILL := 0.0,
-    FIELD_1_NAME := 'x',
-    FIELD_2_FILL := 0.0,
-    FIELD_2_NAME := 'y',
-    FIELD_3_FILL := 0.0,
-    FIELD_3_NAME := 'z',
-    NROWS := 0,
-    TITLE := 'ejemplo de tabla',
-    VERSION := '2.7',
-    nombre_sensor := 'medidas de un escaterómetro',
-    numero_columnas := 3]</code></pre>
+    :::python
+    /carpeta1/datos_carpeta1_tabla1._v_attrs (AttributeSet), 14 attributes:
+       [CLASS := 'TABLE',
+        FIELD_0_FILL := 0,
+        FIELD_0_NAME := 'fecha',
+        FIELD_1_FILL := 0.0,
+        FIELD_1_NAME := 'x',
+        FIELD_2_FILL := 0.0,
+        FIELD_2_NAME := 'y',
+        FIELD_3_FILL := 0.0,
+        FIELD_3_NAME := 'z',
+        NROWS := 0,
+        TITLE := 'ejemplo de tabla',
+        VERSION := '2.7',
+        nombre_sensor := 'medidas de un escaterómetro',
+        numero_columnas := 3]
 
 Finalmente, cerramos la tabla creada como vimos en el primer capítulo.
 
-<pre><code class="language-python">h5file.close()</code></pre>
+    :::python
+    h5file.close()
 
 Si queréis usar una aplicación gráfica para ver el alrchivo que hemos creado podéis usar hdfview (`sudo apt-get install hdfview`) o vitables. En este caso os muestro un ejemplo con hdfview ya que vitables posiblemente lo veamos en uno de los próximos capítulos.
 

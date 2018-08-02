@@ -31,16 +31,17 @@ Este es un problema de aprendizaje supervisado o clasificación. Puesto que el c
 
 Nuestro primer modelo de clasificación se basará precisamente en esa primera agrupación visual que hemos realizado. Es decir, si la longitud del pétalo es inferior a 2, entonces se trata de Iris Setosa, si no, puede ser Iris Versicolor o Iris Virginica.
 
-<pre><code class="language-python">from pandas import read_csv
-# leemos el dataset
-iris = read_csv('iris.csv')
-# Separamos Iris Setosa de las otras dos especies en función de la longitud
-# del pétalo.
-for value in iris.PetalLength.values:
-    if value &lt; 2:
-        print('Iris setosa')
-    else:
-        print('Iris virginica o Iris versicolor')</code></pre>
+    :::python
+    from pandas import read_csv
+    # leemos el dataset
+    iris = read_csv('iris.csv')
+    # Separamos Iris Setosa de las otras dos especies en función de la longitud
+    # del pétalo.
+    for value in iris.PetalLength.values:
+        if value &lt; 2:
+            print('Iris setosa')
+        else:
+            print('Iris virginica o Iris versicolor')
 
 Lo que hemos creado es un simple umbral en una de las dimensiones. Lo hemos hecho de manera visual; el aprendizaje automático tiene lugar cuando escribimos código que realiza esto mismo por nosotros.
 
@@ -48,26 +49,27 @@ Distinguir Iris Setosa de las otras dos especies fue sencillo. Sin embargo, no t
 
 En el siguiente fragmento de código vamos a buscar, de entre las cuatro características medidas —longitud y ancho de sépalo y pétalo—, el valor de umbral que mejor clasifica la familia de Iris.
 
-<pre><code class="language-python">from pandas import read_csv
-# leemos el dataset
-iris = read_csv('iris.csv')
-# descartamos la familia setosa que ya tenemos clasificada
-iris = iris[iris.Name != 'Iris-setosa']
-virginica = iris.Name=='Iris-virginica'
-# obtenemos un array con los nombres de las características que medimos
-features = iris.columns[:4]
-# inicializamos en valor de precisión
-best_acc = 0.0
-for fi in features:                    # Por cada parámetro o característica de la que tenemos valores
-    thresh = iris[fi].copy()           # obtenemos una lista de valores para el umbral
-    thresh.sort(inplace=True)          # que ordenamos de menor a mayor.
-    for t in thresh:                   # Por cada posible valor de umbral
-        pred = (iris[fi] &gt; t)       # determinamos los elementos de la tabla que están por encima
-        acc = (pred==virginica).mean() # y calculamos que porcentaje de la familia virginica está recogida.
-        if acc &gt; best_acc:          # Si mejoramos la detección, actualizamos los parámetro de la colección.
-            best_acc = acc             # Mejor precisión obtenida.
-            best_fi = fi               # Mejor característica para clasificar las familias.
-            best_t = t                 # Valor óptimo de umbral.</code></pre>
+    :::python
+    from pandas import read_csv
+    # leemos el dataset
+    iris = read_csv('iris.csv')
+    # descartamos la familia setosa que ya tenemos clasificada
+    iris = iris[iris.Name != 'Iris-setosa']
+    virginica = iris.Name=='Iris-virginica'
+    # obtenemos un array con los nombres de las características que medimos
+    features = iris.columns[:4]
+    # inicializamos en valor de precisión
+    best_acc = 0.0
+    for fi in features:                    # Por cada parámetro o característica de la que tenemos valores
+        thresh = iris[fi].copy()           # obtenemos una lista de valores para el umbral
+        thresh.sort(inplace=True)          # que ordenamos de menor a mayor.
+        for t in thresh:                   # Por cada posible valor de umbral
+            pred = (iris[fi] &gt; t)       # determinamos los elementos de la tabla que están por encima
+            acc = (pred==virginica).mean() # y calculamos que porcentaje de la familia virginica está recogida.
+            if acc &gt; best_acc:          # Si mejoramos la detección, actualizamos los parámetro de la colección.
+                best_acc = acc             # Mejor precisión obtenida.
+                best_fi = fi               # Mejor característica para clasificar las familias.
+                best_t = t                 # Valor óptimo de umbral.
 
 Según el algoritmo que hemos implementado, el valor óptimo de umbral es de 1.6 cm de ancho de pétalo. Con ese valor, clasificamos correctamente el 94% de las plantas como Virginica. En este tipo de modelos de umbral, la frontera de decisión será siempre paralela a uno de los ejes.
 
@@ -85,26 +87,29 @@ Un paso más hacia lo que sería _machine learning_ es el método <a href="http:
 
 Si bien podemos <a href="http://machinelearningmastery.com/tutorial-to-implement-k-nearest-neighbors-in-python-from-scratch/" target="_blank">implementar el algoritmo a mano en Python</a> —nunca está de más saber cómo funcionan las cosas—, scikit-learn incluye la herramienta <a href="http://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html" target="_blank">KNeighborsClassifier</a> que ya realiza todo el trabajo pesado por nosotros. Aquí voy a adaptar ligeramente el <a href="http://scikit-learn.org/stable/auto_examples/neighbors/plot_classification.html#example-neighbors-plot-classification-py" target="_blank">ejemplo</a> que proporciona scikit-learn para utilizarlo con pandas y generar unos gráficos diferentes que nos permitan compararlo con el modelo anterior.
 
-<pre><code class="language-python">import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-from sklearn.neighbors import KNeighborsClassifier</code></pre>
+    :::python
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import ListedColormap
+    from sklearn.neighbors import KNeighborsClassifier
 
 Aunque scikit-learn incluye su propio dataset de Iris, vamos a importar el mismo que hemos empleado en los casos anteriores.
 
-<pre><code class="language-python">iris = pd.read_csv('iris.csv')          # Importamos el dataset.
-X = iris[['PetalLenght', 'PetalWidth']] # Tomamos el ancho y longitud del pétalo.
-y = iris['Name'].astype('category')     # Para crear luego los gráficos vamos a necesitar categorizar los nombres
-y.cat.categories = [0, 1, 2]            # y asignarles un número a cada variedad de planta; en este caso tres.</code></pre>
+    :::python
+    iris = pd.read_csv('iris.csv')          # Importamos el dataset.
+    X = iris[['PetalLenght', 'PetalWidth']] # Tomamos el ancho y longitud del pétalo.
+    y = iris['Name'].astype('category')     # Para crear luego los gráficos vamos a necesitar categorizar los nombres
+    y.cat.categories = [0, 1, 2]            # y asignarles un número a cada variedad de planta; en este caso tres.
 
 Tomaremos un número de vecinos relativamente grande, _k_ = 15. El valor de _k_ depende mucho de los datos de que dispongamos, pero en general, un valor alto mitiga el ruido a costa de diferenciar menos zonas. Definimos también el espesor de la malla y los _colormaps_ del gráfico.
 
-<pre><code class="language-python">n_neighbors = 15
-h = .02          # step size de la malla
-# Creamos los colormap
-cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
-cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])</code></pre>
+    :::python
+    n_neighbors = 15
+    h = .02          # step size de la malla
+    # Creamos los colormap
+    cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
+    cmap_bold = ListedColormap(['#FF0000', '#00FF00', '#0000FF'])
 
 Por último, nos metemos de lleno al modelo. Éste, en común a la mayoría de modelos en scikit-learn, dispone de una serie de funciones que se ejecutan paso a paso.
 
@@ -114,35 +119,36 @@ Por último, nos metemos de lleno al modelo. Éste, en común a la mayoría de m
 
 Con la función `fit()` entrenamos el modelo para obtener los parámetros que utilizaremos sobre los datos de test con la función `predict()`. Finalmente, con `score()` podremos obtener una estimación de la capacidad de acierto de nuestro modelo sobre los datos de trabajo.
 
-<pre><code class="language-python">for weights in ['uniform', 'distance']:
-    # Creamos una instancia de Neighbors Classifier y hacemos un fit a partir de los
-    # datos.
-    # Los pesos (weights) determinarán en qué proporción participa cada punto en la
-    # asignación del espacio. De manera uniforme o proporcional a la distancia.
-    clf = KNeighborsClassifier(n_neighbors, weights=weights)
-    clf.fit(X, y)
-    # Creamos una gráfica con las zonas asignadas a cada categoría según el modelo
-    # k-nearest neighborgs. Para ello empleamos el meshgrid de Numpy.
-    # A cada punto del grid o malla le asignamos una categoría según el modelo knn.
-    # La función c_() de Numpy, concatena columnas.
-    x_min, x_max = X.iloc[:, 0].min() - 1, X.iloc[:, 0].max() + 1
-    y_min, y_max = X.iloc[:, 1].min() - 1, X.iloc[:, 1].max() + 1
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                         np.arange(y_min, y_max, h))
-    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
-    # Ponemos el resultado en un gráfico.
-    Z = Z.reshape(xx.shape)
-    plt.figure()
-    plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
-    # Representamos también los datos de entrenamiento.
-    plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y, cmap=cmap_bold)
-    plt.xlim(xx.min(), xx.max())
-    plt.ylim(yy.min(), yy.max())
-    plt.title("3-Class classification (k = %i, weights = '%s')"
-              % (n_neighbors, weights))
-    plt.xlabel('Petal Width')
-    plt.ylabel('Petal Length')
-    plt.savefig('iris-knn-{}'.format(weights))</code></pre>
+    :::python
+    for weights in ['uniform', 'distance']:
+        # Creamos una instancia de Neighbors Classifier y hacemos un fit a partir de los
+        # datos.
+        # Los pesos (weights) determinarán en qué proporción participa cada punto en la
+        # asignación del espacio. De manera uniforme o proporcional a la distancia.
+        clf = KNeighborsClassifier(n_neighbors, weights=weights)
+        clf.fit(X, y)
+        # Creamos una gráfica con las zonas asignadas a cada categoría según el modelo
+        # k-nearest neighborgs. Para ello empleamos el meshgrid de Numpy.
+        # A cada punto del grid o malla le asignamos una categoría según el modelo knn.
+        # La función c_() de Numpy, concatena columnas.
+        x_min, x_max = X.iloc[:, 0].min() - 1, X.iloc[:, 0].max() + 1
+        y_min, y_max = X.iloc[:, 1].min() - 1, X.iloc[:, 1].max() + 1
+        xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                             np.arange(y_min, y_max, h))
+        Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+        # Ponemos el resultado en un gráfico.
+        Z = Z.reshape(xx.shape)
+        plt.figure()
+        plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
+        # Representamos también los datos de entrenamiento.
+        plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y, cmap=cmap_bold)
+        plt.xlim(xx.min(), xx.max())
+        plt.ylim(yy.min(), yy.max())
+        plt.title("3-Class classification (k = %i, weights = '%s')"
+                  % (n_neighbors, weights))
+        plt.xlabel('Petal Width')
+        plt.ylabel('Petal Length')
+        plt.savefig('iris-knn-{}'.format(weights))
 
 Las figuras que obtenemos son las siguientes.
 

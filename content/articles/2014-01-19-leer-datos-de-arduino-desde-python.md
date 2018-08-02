@@ -46,8 +46,9 @@ _**En esta entrada se han usado python 3.3.3, pyserial 2.7.**_
 
 Para comunicarnos con nuestra placa Arduino por puerto serie utilizaremos la biblioteca [pySerial](http://pyserial.sourceforge.net/), disponible también en PyPI. Una vez que tenemos nuestra placa enchufada, lo único que necesitamos para acceder a ella es esto:
 
-<pre><code class="language-python">import serial
-arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)</code></pre>
+    :::python
+    import serial
+    arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
 
 La clase Serial puede recibir muchos parámetros, pero los fundamentales son estos:
 
@@ -59,9 +60,10 @@ La clase Serial puede recibir muchos parámetros, pero los fundamentales son est
 
 A partir de este momento podemos leer de la variable `arduino` como si fuera un fichero normal (de hecho los objetos `Serial` heredan de [`RawIOBase`](http://docs.python.org/3.3/library/io.html#io.RawIOBase)). Supongamos que en nuestra placa Arduino hemos cargado el [ejemplo AnalogInOutSerial](http://arduino.cc/en/Tutorial/AnalogInOutSerial), y que por tanto nuestra placa está escribiendo datos al puerto serie:
 
-<pre><code class="language-python">while True:
-    line = arduino.readline()
-    print(line)</code></pre>
+    :::python
+    while True:
+        line = arduino.readline()
+        print(line)
 
 Y la salida será algo así:
 
@@ -107,15 +109,16 @@ Esto afecta también a la hora de almacenar los datos recibidos, como veremos en
 
 Por otro lado, hay otro asunto que hay que tener en cuenta: [la placa Arduino se reinicia automáticamente al abrir una conexión por puerto serie](http://arduino.cc/en/Guide/Environment#uploading), y al probar este código en Linux estaba dándome problemas. En los primeros segundos, entre el inicio de la conexión y el reinicio de la placa recibía datos erróneos. Por eso pregunté en Stack Overflow [cómo reiniciar manualmente la placa usando pySerial](http://stackoverflow.com/questions/21073086/wait-on-arduino-auto-reset-using-pyserial) y me dieron la solución:
 
-<pre><code class="language-python">import serial
-import time
-arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
-# Provocamos un reseteo manual de la placa para leer desde
-# el principio, ver http://stackoverflow.com/a/21082531/554319
-arduino.setDTR(False)
-time.sleep(1)
-arduino.flushInput()
-arduino.setDTR(True)</code></pre>
+    :::python
+    import serial
+    import time
+    arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
+    # Provocamos un reseteo manual de la placa para leer desde
+    # el principio, ver http://stackoverflow.com/a/21082531/554319
+    arduino.setDTR(False)
+    time.sleep(1)
+    arduino.flushInput()
+    arduino.setDTR(True)
 
 De este modo, si empezamos a leer justo después deja de haber problemas. Dejo esta solución aquí en caso de que otros hayan experimentado este problema; en Windows, por ejemplo, no es necesario.
 
@@ -135,30 +138,31 @@ El caso más sencillo es leer un número predeterminado de líneas desde la plac
 
 Este sería el código Python:
 
-<pre><code class="language-python">import time
-import serial
-import numpy as np
-N = 10
-data = np.zeros((N, 2))
-# Abrimos la conexión con Arduino
-arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
-with arduino:
-    ii = 0
-    while ii &lt; N:
-        try:
-            line = arduino.readline()
-            if not line:
-                # HACK: Descartamos líneas vacías porque fromstring produce
-                # resultados erróneos, ver
-                # https://github.com/numpy/numpy/issues/1714
-                continue
-            data[ii] = np.fromstring(line.decode('ascii', errors='replace'),
-                                     sep=' ')
-            ii += 1
-        except KeyboardInterrupt:
-            print("Exiting")
-            break
-print(data)</code></pre>
+    :::python
+    import time
+    import serial
+    import numpy as np
+    N = 10
+    data = np.zeros((N, 2))
+    # Abrimos la conexión con Arduino
+    arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
+    with arduino:
+        ii = 0
+        while ii &lt; N:
+            try:
+                line = arduino.readline()
+                if not line:
+                    # HACK: Descartamos líneas vacías porque fromstring produce
+                    # resultados erróneos, ver
+                    # https://github.com/numpy/numpy/issues/1714
+                    continue
+                data[ii] = np.fromstring(line.decode('ascii', errors='replace'),
+                                         sep=' ')
+                ii += 1
+            except KeyboardInterrupt:
+                print("Exiting")
+                break
+    print(data)
 
 ¿Por qué usamos un contador con un bucle while en este caso, que parece que no queda muy pythonico? El motivo es que en algunos casos tendremos que descartar líneas (como se ha visto en el código por culpa de un fallo de NumPy) y esta estructura es más adecuada.
 
@@ -168,20 +172,22 @@ Otra cosa que podemos necesitar es almacenar los datos en una cola e ir procesá
 
 Si quisiéramos usar una deque, el código sería este:
 
-<pre><code class="language-python">N = 10
-data = deque(maxlen=N)  # deque con longitud máxima N
-while True:
-    # ...
-    data.append(dd)  # Añadimos elementos al final de la cola</code></pre>
+    :::python
+    N = 10
+    data = deque(maxlen=N)  # deque con longitud máxima N
+    while True:
+        # ...
+        data.append(dd)  # Añadimos elementos al final de la cola
 
 Y para usar arrays de NumPy, podemos usar un truco para ir recorriendo cíclicamente sus elementos:
 
-<pre><code class="language-python">N = 10
-data = np.zeros(N)  # deque con longitud máxima N
-ii = 0
-while True:
-    data[ii % N] = dd  # Recorremos cíclicamente el array
-    ii += 1</code></pre>
+    :::python
+    N = 10
+    data = np.zeros(N)  # deque con longitud máxima N
+    ii = 0
+    while True:
+        data[ii % N] = dd  # Recorremos cíclicamente el array
+        ii += 1
 
 Puedo tener dos efectos diferentes: con buff[i % N] tengo «efecto barrido», que sería similar a como representa los datos un osciloscopio, y con deque tengo «efecto pasada», que podríamos comparar con una ventana que se va desplazando.
 
@@ -189,44 +195,45 @@ Puedo tener dos efectos diferentes: con buff[i % N] tengo «efecto barrido», qu
 
 Ahora no tenemos más que integrar todo lo que hemos visto arriba, y ya podremos **representar en tiempo real datos procedentes de una placa Arduino con Python**.
 
-<pre><code class="language-python">import time
-import warnings
-from collections import deque
-import serial
-import numpy as np
-import matplotlib.pyplot as plt
-N = 200
-data = deque([0] * N, maxlen=N)  # deque con longitud máxima N
-#Creamos la figura
-plt.ion()
-fig, ax = plt.subplots()
-ll, = ax.plot(data)
-# Abrimos la conexión con Arduino
-arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
-arduino.setDTR(False)
-time.sleep(1)
-arduino.flushInput()
-arduino.setDTR(True)
-with arduino:
-    while True:
-        try:
-            line = arduino.readline()
-            if not line:
-                # HACK: Descartamos líneas vacías porque fromstring produce
-                # resultados erróneos, ver
-                # https://github.com/numpy/numpy/issues/1714
-                continue
-            xx, yy = np.fromstring(line.decode('ascii', errors='replace'),
-                                   sep=' ')
-            data.append(yy)
-            ll.set_ydata(data)
-            ax.set_ylim(min(data) - 10, max(data) + 10)
-            plt.pause(0.001)
-        except ValueError:
-            warnings.warn("Line {} didn't parse, skipping".format(line))
-        except KeyboardInterrupt:
-            print("Exiting")
-            break</code></pre>
+    :::python
+    import time
+    import warnings
+    from collections import deque
+    import serial
+    import numpy as np
+    import matplotlib.pyplot as plt
+    N = 200
+    data = deque([0] * N, maxlen=N)  # deque con longitud máxima N
+    #Creamos la figura
+    plt.ion()
+    fig, ax = plt.subplots()
+    ll, = ax.plot(data)
+    # Abrimos la conexión con Arduino
+    arduino = serial.Serial('/dev/ttyACM0', baudrate=9600, timeout=1.0)
+    arduino.setDTR(False)
+    time.sleep(1)
+    arduino.flushInput()
+    arduino.setDTR(True)
+    with arduino:
+        while True:
+            try:
+                line = arduino.readline()
+                if not line:
+                    # HACK: Descartamos líneas vacías porque fromstring produce
+                    # resultados erróneos, ver
+                    # https://github.com/numpy/numpy/issues/1714
+                    continue
+                xx, yy = np.fromstring(line.decode('ascii', errors='replace'),
+                                       sep=' ')
+                data.append(yy)
+                ll.set_ydata(data)
+                ax.set_ylim(min(data) - 10, max(data) + 10)
+                plt.pause(0.001)
+            except ValueError:
+                warnings.warn("Line {} didn't parse, skipping".format(line))
+            except KeyboardInterrupt:
+                print("Exiting")
+                break
 
 Y este es el resultado:<figure id="attachment_2157" style="width: 560px" class="wp-caption aligncenter">
 

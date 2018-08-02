@@ -65,61 +65,62 @@ y el sistema queda de la siguiente manera:
 
 Este es el código del programa. Se explica por sí solo:
 
-<pre><code class="language-python">import numpy as np
-from scipy.integrate import odeint
-from aerocalc import std_atm
-def f(y, t0, rho, m, C_D, A):
-    """Función del sistema.
-    Procede de reducir de orden la ecuación
-    $m frac{d^2 y}{d t^2} = -m g - frac{1}{2} rho v^2 C_D A$
-    suponiendo gravedad constante igual a $g = 9.81 m s^{-2}$ y densidad
-    función de la altitud $rho = rho(y)$.
-    Parámetros
-    ----------
-    y : array_like
-        Vector de variables $(y, dot{y})$.
-    t0 : array_like
-        Vector de valores temporales.
-    rho : callable(y)
-        Densidad en función de la altitud.
-    m : float
-        Masa del cuerpo.
-    C_D : float
-        Coeficiente de rozamiento.
-    A : float
-        Área de referencia
-    """
-    g = 9.8  # m
-    return np.array([
-        y[1],
-        -g + rho(y[0]) * y[1] ** 2 * C_D * A / (2 * m)
-    ])
-# Datos iniciales
-h0 = 39000.0  # m
-C_D = 0.4
-A = 1.0  # m^2
-m = 80  # kg
-def alt2dens(y):
-    """Devuelve la densidad en función de la altitud con unidades de
-    Sistema Internacional.
-    """
-    return std_atm.alt2density(y, alt_units='m', density_units='kg/m**3')
-import matplotlib.pyplot as plt
-t = np.linspace(0, 4 * 60)  # Cuatro minutos de caída libre
-y0 = np.array([h0, 0])
-sol = odeint(f, y0, t, args=(alt2dens, m, C_D, A))
-y = sol[:, 0]
-v = sol[:, 1]
-fig = plt.figure()
-fig.suptitle(u"Caída libre")
-ax1 = fig.add_subplot(211)
-ax1.plot(t, y)
-ax1.set_ylabel('y (m)')
-ax1.set_xlabel('t (s)')
-ax2 = fig.add_subplot(212)
-ax2.plot(t, -v * 3.6)  # km/h
-ax2.set_ylabel('v (km / h)')
-ax2.set_xlabel('t (s)')</code></pre><figure id="attachment_1037" style="width: 407px" class="wp-caption aligncenter">
+    :::python
+    import numpy as np
+    from scipy.integrate import odeint
+    from aerocalc import std_atm
+    def f(y, t0, rho, m, C_D, A):
+        """Función del sistema.
+        Procede de reducir de orden la ecuación
+        $m frac{d^2 y}{d t^2} = -m g - frac{1}{2} rho v^2 C_D A$
+        suponiendo gravedad constante igual a $g = 9.81 m s^{-2}$ y densidad
+        función de la altitud $rho = rho(y)$.
+        Parámetros
+        ----------
+        y : array_like
+            Vector de variables $(y, dot{y})$.
+        t0 : array_like
+            Vector de valores temporales.
+        rho : callable(y)
+            Densidad en función de la altitud.
+        m : float
+            Masa del cuerpo.
+        C_D : float
+            Coeficiente de rozamiento.
+        A : float
+            Área de referencia
+        """
+        g = 9.8  # m
+        return np.array([
+            y[1],
+            -g + rho(y[0]) * y[1] ** 2 * C_D * A / (2 * m)
+        ])
+    # Datos iniciales
+    h0 = 39000.0  # m
+    C_D = 0.4
+    A = 1.0  # m^2
+    m = 80  # kg
+    def alt2dens(y):
+        """Devuelve la densidad en función de la altitud con unidades de
+        Sistema Internacional.
+        """
+        return std_atm.alt2density(y, alt_units='m', density_units='kg/m**3')
+    import matplotlib.pyplot as plt
+    t = np.linspace(0, 4 * 60)  # Cuatro minutos de caída libre
+    y0 = np.array([h0, 0])
+    sol = odeint(f, y0, t, args=(alt2dens, m, C_D, A))
+    y = sol[:, 0]
+    v = sol[:, 1]
+    fig = plt.figure()
+    fig.suptitle(u"Caída libre")
+    ax1 = fig.add_subplot(211)
+    ax1.plot(t, y)
+    ax1.set_ylabel('y (m)')
+    ax1.set_xlabel('t (s)')
+    ax2 = fig.add_subplot(212)
+    ax2.plot(t, -v * 3.6)  # km/h
+    ax2.set_ylabel('v (km / h)')
+    ax2.set_xlabel('t (s)')<figure id="attachment_1037" style="width: 407px" class="wp-caption aligncenter">
 
 [<img class="size-full wp-image-1037" title="Caída libre" alt="" src="http://new.pybonacci.org/images/2012/10/caida_libre2.png" height="410" width="407" srcset="https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2.png 407w, https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2-150x150.png 150w, https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2-297x300.png 297w" sizes="(max-width: 407px) 100vw, 407px" />](http://new.pybonacci.org/images/2012/10/caida_libre2.png)<figcaption class="wp-caption-text">Altitud y velocidad de caída en función del tiempo</figcaption></figure> 
 
@@ -133,16 +134,17 @@ $\displaystyle M = \frac{u}{c}$
 
 siendo $u$ la velocidad, $c = \sqrt{\gamma R T}$ la velocidad del sonido en el aire, $\gamma$ y $R$ dos parámetros de valores conocidos (la razón de calores específicos y la constante específica del aire) y $T$ la temperatura, que conocemos gracias al modelo de la Atmósfera Estándar Internacional. Veamos:
 
-<pre><code class="language-python">gamma = 1.4
-R = 287.0  # [SI]
-c = np.empty_like(v)
-for i in range(len(v)):
-    c[i] = np.sqrt(gamma * R * std_atm.alt2temp(y[i], alt_units='m', temp_units='K'))
-M = -v / c
-plt.plot(t, M)
-plt.plot(t, np.ones_like(t), 'k--')
-plt.ylabel('M')
-plt.xlabel('t (s)')</code></pre><figure id="attachment_1038" style="width: 389px" class="wp-caption aligncenter">
+    :::python
+    gamma = 1.4
+    R = 287.0  # [SI]
+    c = np.empty_like(v)
+    for i in range(len(v)):
+        c[i] = np.sqrt(gamma * R * std_atm.alt2temp(y[i], alt_units='m', temp_units='K'))
+    M = -v / c
+    plt.plot(t, M)
+    plt.plot(t, np.ones_like(t), 'k--')
+    plt.ylabel('M')
+    plt.xlabel('t (s)')<figure id="attachment_1038" style="width: 389px" class="wp-caption aligncenter">
 
 [<img class="size-full wp-image-1038" title="Número de Mach" alt="" src="http://new.pybonacci.org/images/2012/10/mach_number.png" height="268" width="389" srcset="https://pybonacci.org/wp-content/uploads/2012/10/mach_number.png 389w, https://pybonacci.org/wp-content/uploads/2012/10/mach_number-300x206.png 300w" sizes="(max-width: 389px) 100vw, 389px" />](http://new.pybonacci.org/images/2012/10/mach_number.png)<figcaption class="wp-caption-text">Número de Mach en función del tiempo</figcaption></figure> 
 

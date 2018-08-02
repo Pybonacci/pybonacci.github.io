@@ -39,13 +39,14 @@ Debido al gran número de dependencias de FEniCS, instalarlo puede resultar un d
 
 Estas vacaciones invernales he puesto mi granito de arena y **he creado unos paquetes y [recetas conda](https://github.com/juanlu001/fenics-recipes) para que se pueda instalar FEniCS junto a la distribución Anaconda**. Si tienes suerte, es posible que puedas instalarlo en tres comandos:
 
-<pre><code class="language-bash">
-$ conda create -n fenics27 python=2.7  # Creamos un entorno apropiado
-$ source activate fenics27  # Lo activamos
-(fenics27) $ conda install fenics mkl --channel juanlu001  # Instalamos FEniCS y MKL
-(fenics27) $ python ~/.miniconda3/envs/fenics27/share/dolfin/demo/documented/poisson/python/demo_poisson.py  # ¡Cruza los dedos!
-
-</code></pre>
+    :::bash
+    
+    $ conda create -n fenics27 python=2.7  # Creamos un entorno apropiado
+    $ source activate fenics27  # Lo activamos
+    (fenics27) $ conda install fenics mkl --channel juanlu001  # Instalamos FEniCS y MKL
+    (fenics27) $ python ~/.miniconda3/envs/fenics27/share/dolfin/demo/documented/poisson/python/demo_poisson.py  # ¡Cruza los dedos!
+    
+    
 
 Los he compilado con la extensión MKL que proporciona Continuum, así que necesitarás una licencia académica gratuita.
 
@@ -63,17 +64,18 @@ De las condiciones de contorno hablaremos en seguida. Lo primero y más importan
 
 Vamos a ir escribiendo el programa paso a paso: después de importar todo FEniCS (sí, está hecho así en todas las demos, ¡no hay que alarmarse!), creamos el dominio correspondiente utilizando [`UnitSquareMesh`](http://fenicsproject.org/documentation/dolfin/1.5.0/python/programmers-reference/cpp/mesh/UnitSquareMesh.html):
 
-<pre><code class="language-python">
-# coding: utf-8
-"""Ecuación de Poisson.
-
-"""
-from dolfin import *
-
-# Tenemos que especificar el número de elementos
-mesh = UnitSquareMesh(10, 10)
-
-</code></pre>
+    :::python
+    
+    # coding: utf-8
+    """Ecuación de Poisson.
+    
+    """
+    from dolfin import *
+    
+    # Tenemos que especificar el número de elementos
+    mesh = UnitSquareMesh(10, 10)
+    
+    
 
 ### Espacios de funciones
 
@@ -83,13 +85,14 @@ El tema tiene bastante enjundia, así que solo mencionaré que los espacios que 
 
 Veamos cómo se traduce esto a código Python:
 
-<pre><code class="language-python">
-V = FunctionSpace(mesh, 'Lagrange', 1) # Polinomios de orden 1
-
-u = TrialFunction(V)
-v = TestFunction(V)
-
-</code></pre>
+    :::python
+    
+    V = FunctionSpace(mesh, 'Lagrange', 1) # Polinomios de orden 1
+    
+    u = TrialFunction(V)
+    v = TestFunction(V)
+    
+    
 
 Hemos definido un espacio de funciones $V = H^1(\Omega)$ sobre el dominio con [`FunctionSpace`](http://fenicsproject.org/documentation/dolfin/1.5.0/python/programmers-reference/functions/functionspace/FunctionSpace.html#dolfin.functions.functionspace.FunctionSpace), y hemos creado ya nuestra función incógnita y nuestra función. ¡Seguimos!
 
@@ -119,19 +122,20 @@ Esta distinción es importante porque se reflejará de manera clara en el códig
 
 Para este caso vamos a imponer condiciones de contorno Dirichlet (esenciales): $u = 1 + x^2 + 2 y^2$ en $\partial\Omega$ utilizando [`DirichletBC`](http://fenicsproject.org/documentation/dolfin/1.5.0/python/programmers-reference/cpp/fem/DirichletBC.html). Necesitamos trasladar esta expresión al programa (mediante la clase [`Expression`](http://fenicsproject.org/documentation/dolfin/1.5.0/python/programmers-reference/functions/expression/Expression.html) y una función que defina en qué parte del contorno se aplican. El código será el siguiente:
 
-<pre><code class="language-python">
-def boundary(x, on_boundary):
-    """El parámetro on_boundary es verdadero si el punto está
-    sobre el contorno. Podríamos hacer otro tipo de comprobaciones,
-    pero en este caso basta con devolver este mismo valor.
-
-    """
-    return on_boundary
-
-u0 = Expression('1 + x[0] * x[0] + 2 * x[1] * x[1]')
-bc = DirichletBC(V, u0, boundary)
-
-</code></pre>
+    :::python
+    
+    def boundary(x, on_boundary):
+        """El parámetro on_boundary es verdadero si el punto está
+        sobre el contorno. Podríamos hacer otro tipo de comprobaciones,
+        pero en este caso basta con devolver este mismo valor.
+    
+        """
+        return on_boundary
+    
+    u0 = Expression('1 + x[0] * x[0] + 2 * x[1] * x[1]')
+    bc = DirichletBC(V, u0, boundary)
+    
+    
 
 En FEniCS la forma variacional se expresa con un lenguaje simbólico de la siguiente manera:
 
@@ -139,12 +143,13 @@ $\displaystyle a(u, v) = L(v)$
 
 Nuestro término fuente será $f(x, y) = -6$. Al haber aplicado condiciones de contorno esenciales, la última integral será nula. El código es:
 
-<pre><code class="language-python">
-f = Constant(-6.0)  # Término fuente
-a = inner(nabla_grad(u), nabla_grad(v)) * dx  # Miembro izquierdo
-L = f * v * dx  # Miembro derecho
-
-</code></pre>
+    :::python
+    
+    f = Constant(-6.0)  # Término fuente
+    a = inner(nabla_grad(u), nabla_grad(v)) * dx  # Miembro izquierdo
+    L = f * v * dx  # Miembro derecho
+    
+    
 
 Ya estamos a punto de sacar una bonita gráfica 😉
 
@@ -152,20 +157,22 @@ Ya estamos a punto de sacar una bonita gráfica 😉
 
 La forma más directa de resolver el sistema es utilizando la función [`solve`](fenicsproject.org/documentation/dolfin/1.5.0/python/programmers-reference/fem/solving/solve.html). Vamos a reutilizar la variable `u` para la solución, de esta forma:
 
-<pre><code class="language-python">
-u = Function(V)
-solve(a == L, u, bc)
-
-print max(abs(u.vector().array()))  # Array de valores numéricos
-</code></pre>
+    :::python
+    
+    u = Function(V)
+    solve(a == L, u, bc)
+    
+    print max(abs(u.vector().array()))  # Array de valores numéricos
+    
 
 Y para terminar, la gráfica correspondiente:
 
-<pre><code class="language-python">
-plot(u)
-interactive()
-
-</code></pre>
+    :::python
+    
+    plot(u)
+    interactive()
+    
+    
 
 ¡Y este es el resultado!
 

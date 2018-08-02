@@ -25,16 +25,18 @@ Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El 
 
 En todo momento supondremos que se ha iniciado la sesión y se ha hecho
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
 
 Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en los gráficos de barras.
 
 Para dibujar un [histograma](http://es.wikipedia.org/wiki/Histograma) podemos hacer uso de plt.hist. Un histograma suele ser un gráfico de barras donde se representa la ocurrencia de datos (frecuencia) en intervalos definidos. Lo que hace plt.hist es dibujar el histograma de un vector en función del número de intervalos (bins) que definamos. Como siempre, vamos a ver esto con un ejemplo:
 
-<pre><code class="language-python">plt.ion()  # Ponemos el modo interactivo
-x = np.random.randn(10000)  # Definimos un vector de números aleatorios de una distribución normal
-plt.hist(x, bins = 20)  # Dibuja un histograma dividiendo el vector x en 20 intervalos del mismo ancho</code></pre>
+    :::python
+    plt.ion()  # Ponemos el modo interactivo
+    x = np.random.randn(10000)  # Definimos un vector de números aleatorios de una distribución normal
+    plt.hist(x, bins = 20)  # Dibuja un histograma dividiendo el vector x en 20 intervalos del mismo ancho
 
 El resultado sería el siguiente, donde se representa el cálculo que haría la función [np.histogram](http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html) gráficamente y en un solo paso:
 
@@ -44,14 +46,15 @@ Podéis jugar también con [np.histogram2d](http://docs.scipy.org/doc/numpy/refe
 
 Si en lugar de dibujar histogramas queremos dibujar gráficos de barras para representar, que se yo, la evolución de la prima de riesgo en los últimos días podemos usar plt.bar<!--more-->
 
-<pre><code class="language-python">import datetime as dt  # Importamos el módulo datetime
-prima = 600 + np.random.randn(5) * 10  # Valores inventados para la prima de riesgo
-fechas = (dt.date.today() - dt.timedelta(5)) + dt.timedelta(1) * np.arange(5) # generamos las fechas de los últimos cinco días
-plt.axes((0.1, 0.3, 0.8, 0.6))  # Definimos la posición de los ejes
-plt.bar(np.arange(5), prima)  # Dibujamos el gráfico de barras
-plt.ylim(550,650)  # Limitamos los valores del eje y al range definido [450, 550]
-plt.title('prima de riesgo')  # Colocamos el título
-plt.xticks(np.arange(5), fechas, rotation = 45)  # Colocamos las etiquetas del eje x, en este caso, las fechas</code></pre>
+    :::python
+    import datetime as dt  # Importamos el módulo datetime
+    prima = 600 + np.random.randn(5) * 10  # Valores inventados para la prima de riesgo
+    fechas = (dt.date.today() - dt.timedelta(5)) + dt.timedelta(1) * np.arange(5) # generamos las fechas de los últimos cinco días
+    plt.axes((0.1, 0.3, 0.8, 0.6))  # Definimos la posición de los ejes
+    plt.bar(np.arange(5), prima)  # Dibujamos el gráfico de barras
+    plt.ylim(550,650)  # Limitamos los valores del eje y al range definido [450, 550]
+    plt.title('prima de riesgo')  # Colocamos el título
+    plt.xticks(np.arange(5), fechas, rotation = 45)  # Colocamos las etiquetas del eje x, en este caso, las fechas
 
 Obtendríamos un resultado como este:
 
@@ -59,14 +62,15 @@ Obtendríamos un resultado como este:
 
 Si las barras las queréis dibujar en dirección horizontal en lugar de vertical podéis echarle un ojo a matplotlib.pyplot.barh. Siguiendo con los gráficos de barras vamos a ver un caso un poco más especial haciendo uso de matplotlib.pyplot.broken_barh. Queremos representar el tipo de nubosidad que ha habido en un día concreto para saber cuando juanlu ha podido mirar las estrellas con su telescopio. El tipo de nubosidad lo vamos a desglosar en nubes bajas, medias y altas.
 
-<pre><code class="language-python">plt.axes((0.2,0.1,0.7,0.8))  # Creamos los ejes en la posición que queremos
-plt.title(u'Evolución para hoy de los tipos de nubosidad')  # Ponemos un título al gráfico
-plt.broken_barh([(0,1),(3,3), (10,5), (21,3)], (9500, 1000))  # Dibujamos los momentos en que ha habido nubes altas
-plt.broken_barh([(0,24)], (4500, 1000))  # Dibujamos los momentos en que ha habido nubes medias
-plt.broken_barh([(0,9), (12,5), (20,2)], (1500, 1000))  # Dibujamos los momentos en que ha habido nubes bajas
-plt.xlim(-1,25)  # Limitamos el rango de valores del eje x
-plt.yticks([2000, 5000, 10000], ['nubes bajas', 'nubes medias','nubes altas'])  # Colocamos etiquetas en el eje y
-plt.xlabel('t(h)')  # Y finalmente ponemos un título al eje x, el eje de tiempos</code></pre>
+    :::python
+    plt.axes((0.2,0.1,0.7,0.8))  # Creamos los ejes en la posición que queremos
+    plt.title(u'Evolución para hoy de los tipos de nubosidad')  # Ponemos un título al gráfico
+    plt.broken_barh([(0,1),(3,3), (10,5), (21,3)], (9500, 1000))  # Dibujamos los momentos en que ha habido nubes altas
+    plt.broken_barh([(0,24)], (4500, 1000))  # Dibujamos los momentos en que ha habido nubes medias
+    plt.broken_barh([(0,9), (12,5), (20,2)], (1500, 1000))  # Dibujamos los momentos en que ha habido nubes bajas
+    plt.xlim(-1,25)  # Limitamos el rango de valores del eje x
+    plt.yticks([2000, 5000, 10000], ['nubes bajas', 'nubes medias','nubes altas'])  # Colocamos etiquetas en el eje y
+    plt.xlabel('t(h)')  # Y finalmente ponemos un título al eje x, el eje de tiempos
 
 Además de poder ver que juanlu no ha podido usar su telescopio más que para mirar a la piscina de los vecinos porque el cielo estaba tapado, obtendríamos un resultado como este:
 
@@ -78,11 +82,12 @@ _plt.broken_barh([(x0+longitud para la barra que empieza en x0), (x1+ longitud p
 
 Por último para hoy y siguiendo con los gráficos de barras vamos a ver [plt.step](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.step). Esta función nos permite dibujar un gráfico de 'escaleras'. Viendo esto en acción entenderéis mejor a lo que me refiero:
 
-<pre><code class="language-python">x = np.arange(10) + 1
-y = np.random.rand(10)
-plt.step(x, y, where = 'mid', color = 'r', linewidth = 3)
-plt.title(u"Gráfico ejemplo de 'escaleras'")
-plt.xlim(0,11)</code></pre>
+    :::python
+    x = np.arange(10) + 1
+    y = np.random.rand(10)
+    plt.step(x, y, where = 'mid', color = 'r', linewidth = 3)
+    plt.title(u"Gráfico ejemplo de 'escaleras'")
+    plt.xlim(0,11)
 
 El where sirve para situar el centro de la escalera (trastead con ello, que es gratis). El resultado sería:
 

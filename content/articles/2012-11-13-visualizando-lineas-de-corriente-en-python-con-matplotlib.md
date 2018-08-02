@@ -68,45 +68,49 @@ La función [`streamplot`](http://matplotlib.org/api/axes_api.html#matplotlib.ax
 
 Como vemos, `streamplot` asume que vamos a dar el campo de velocidades en coordenadas rectangulares, así que tenemos que trabajar un poco. En primer lugar generamos el dominio plano utilizando la función `meshgrid`, que ya vimos en nuestro [artículo sobre líneas de nivel en Python](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"):
 
-<pre><code class="language-python">x = np.linspace(-3, 3, 151)
-y = np.linspace(-3, 3, 151)
-xx, yy = np.meshgrid(x, y)</code></pre>
+    :::python
+    x = np.linspace(-3, 3, 151)
+    y = np.linspace(-3, 3, 151)
+    xx, yy = np.meshgrid(x, y)
 
 Ahora lo tenemos que transformar a coordenadas polares, y vamos a tener la precacución de enmascarar la parte central del dominio para evitar singularidades. Ya empleamos los arrays enmascarados en nuestro [artículo sobre estadística en Python con SciPy](http://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/ "Estadística en Python con SciPy (I)"):
 
-<pre><code class="language-python">rr = np.sqrt(xx ** 2 + yy ** 2)
-tt = np.arctan2(yy, xx)
-# Enmascaramos el centro para evitar singularidades
-rr = ma.masked_less_equal(rr, R * 0.9)</code></pre>
+    :::python
+    rr = np.sqrt(xx ** 2 + yy ** 2)
+    tt = np.arctan2(yy, xx)
+    # Enmascaramos el centro para evitar singularidades
+    rr = ma.masked_less_equal(rr, R * 0.9)
 
 Ahora ya podemos calcular nuestras funciones potencial y de corriente, nuestro coeficiente de presiones y nuestras velocidades:
 
-<pre><code class="language-python"># Función potencial
-phi = U * (rr + R ** 2 / rr) * np.cos(tt)
-# Función de corriente
-psi = U * (rr - R ** 2 / rr) * np.sin(tt)
-# Coeficiente de presiones
-c_p = 2 * R ** 2 / rr ** 2 * np.cos(2 * tt) - R ** 4 / rr ** 4
-# Velocidad (polares)
-v_r = U * (1 - R ** 2 / rr ** 2) * np.cos(tt)
-v_theta = -U * (1 + R ** 2 / rr ** 2) * np.sin(tt)
-# Velocidad (rectangulares)
-v_x = v_r * np.cos(tt) - v_theta * np.sin(tt)
-v_y = v_r * np.sin(tt) + v_theta * np.cos(tt)</code></pre>
+    :::python
+    # Función potencial
+    phi = U * (rr + R ** 2 / rr) * np.cos(tt)
+    # Función de corriente
+    psi = U * (rr - R ** 2 / rr) * np.sin(tt)
+    # Coeficiente de presiones
+    c_p = 2 * R ** 2 / rr ** 2 * np.cos(2 * tt) - R ** 4 / rr ** 4
+    # Velocidad (polares)
+    v_r = U * (1 - R ** 2 / rr ** 2) * np.cos(tt)
+    v_theta = -U * (1 + R ** 2 / rr ** 2) * np.sin(tt)
+    # Velocidad (rectangulares)
+    v_x = v_r * np.cos(tt) - v_theta * np.sin(tt)
+    v_y = v_r * np.sin(tt) + v_theta * np.cos(tt)
 
 Para la gráfica vamos a combinar la función `streamplot` para representar las líneas de corriente con la función `contourf`, que también mencionamos en nuestro artículo sobre [líneas de nivel](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"), para representar el coeficiente de presiones en nuestro dominio:
 
-<pre><code class="language-python"># Creamos la figura
-fig = plt.figure()
-ax = fig.add_subplot(111)
-# Cilindro
-c = Circle((0, 0), R, color='#bbbbbb', linewidth=0, zorder=10)
-ax.add_patch(c)
-# Líneas de corriente
-ax.streamplot(xx, yy, v_x, v_y, linewidth=0.8, color='k')
-# Representación del coeficiente de presiones
-cs = ax.contourf(xx, yy, c_p, np.linspace(-3, 1, 1000), cmap=cm.GnBu)
-cb = fig.colorbar(cs, ticks=(-3 + np.arange(5)))</code></pre>
+    :::python
+    # Creamos la figura
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    # Cilindro
+    c = Circle((0, 0), R, color='#bbbbbb', linewidth=0, zorder=10)
+    ax.add_patch(c)
+    # Líneas de corriente
+    ax.streamplot(xx, yy, v_x, v_y, linewidth=0.8, color='k')
+    # Representación del coeficiente de presiones
+    cs = ax.contourf(xx, yy, c_p, np.linspace(-3, 1, 1000), cmap=cm.GnBu)
+    cb = fig.colorbar(cs, ticks=(-3 + np.arange(5)))
 
 El código completo lo puedes ver [a través de nbviewer](http://nbviewer.ipython.org/4046447/) y este es el resultado:<figure id="attachment_1219" style="width: 560px" class="wp-caption aligncenter">
 

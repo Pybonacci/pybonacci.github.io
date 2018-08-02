@@ -13,8 +13,9 @@ Hoy interrumpimos un poco el flujo de artículos sobre Python para presentar [La
 
 La guía (llamada también «Lo que todo programador debería saber sobre aritmética de punto flotante») ofrece un punto de entrada para aquellas personas que están haciendo operaciones matemáticas con el ordenador y de repente se encuentran con un resultado que no cuadra. En Python:
 
-<pre><code class="language-python">&gt;&gt;&gt; 0.1 + 0.2
-0.30000000000000004</code></pre>
+    :::python
+    &gt;&gt;&gt; 0.1 + 0.2
+    0.30000000000000004
 
 Y se preguntan [«¿qué está haciendo mal Python?»](https://twitter.com/pOverlord/status/281374749110710272), cuando resulta que es un «problema» generalizado.
 

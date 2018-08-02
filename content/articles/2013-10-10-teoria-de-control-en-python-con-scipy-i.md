@@ -57,32 +57,35 @@ $\displaystyle H(s) = \frac{K}{(s / omega_0) + 1}$
 
 usando el diagrama de Bode. Este es el código:
 
-<pre><code class="language-python">from scipy import signal
-import matplotlib.pyplot as plt
-K = 1
-w0 = 1e3 # rad / s
-sys1 = signal.lti([K], [1 / w0, 1]) # Creamos el sistema
-w, mag, phase = signal.bode(sys1) # Diagrama de bode: frecuencias, magnitud y fase
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))
-ax1.semilogx(w, mag) # Eje x logarítmico
-ax2.semilogx(w, phase) # Eje x logarítmico</code></pre><figure id="attachment_1914" style="width: 341px" class="wp-caption aligncenter">
+    :::python
+    from scipy import signal
+    import matplotlib.pyplot as plt
+    K = 1
+    w0 = 1e3 # rad / s
+    sys1 = signal.lti([K], [1 / w0, 1]) # Creamos el sistema
+    w, mag, phase = signal.bode(sys1) # Diagrama de bode: frecuencias, magnitud y fase
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 6))
+    ax1.semilogx(w, mag) # Eje x logarítmico
+    ax2.semilogx(w, phase) # Eje x logarítmico<figure id="attachment_1914" style="width: 341px" class="wp-caption aligncenter">
 
 [<img class=" wp-image-1914 " src="http://new.pybonacci.org/images/2013/10/bode_lp1.png" alt="Diagrama de Bode de un filtro pasabajos." width="341" height="351" srcset="https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1.png 426w, https://pybonacci.org/wp-content/uploads/2013/10/bode_lp1-291x300.png 291w" sizes="(max-width: 341px) 100vw, 341px" />](http://new.pybonacci.org/images/2013/10/bode_lp1.png)<figcaption class="wp-caption-text">Diagrama de Bode de un filtro pasabajos.</figcaption></figure> 
 
 ¿Qué sucede si queremos acceder a las otras representaciones de nuestro sistema? Tenemos los atributos (`zeros`, `poles`, `gain`) y (`A`, `B`, `C`, `D`):
 
-<pre><code class="language-python">print(sys1.zeros, sys1.poles, sys1.gain) # [] [-1000.] 1000.0
-print(sys1.A, sys1.B, sys1.C, sys1.D) # [[-1000.]] [[ 1.]] [[ 1000.]] [ 0.]</code></pre>
+    :::python
+    print(sys1.zeros, sys1.poles, sys1.gain) # [] [-1000.] 1000.0
+    print(sys1.A, sys1.B, sys1.C, sys1.D) # [[-1000.]] [[ 1.]] [[ 1000.]] [ 0.]
 
 Otras dos herramientas que nos pueden ser útiles para analizar un sistema LTI son su **diagrama de Nyquist** y su **mapa de ceros-polos**. Para el primero podemos valernos de la función [`signal.freqresp`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.freqresp.html), que devuelve la respuesta compleja en frecuencia de un sistema, y representar la parte imaginaria respecto a la parte real. Para el segundo, lo que hemos visto en el párrafo anterior:
 
-<pre><code class="language-python">sys2 = signal.lti([1, 2], [1, 6, 25]) # H(s) = (s + 2) / (s ** 2 + 6 * s + 25)
-w, H = signal.freqresp(sys2)
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4))
-ax1.plot(H.real, H.imag)
-ax1.plot(H.real, -H.imag)
-ax2.plot(sys2.zeros.real, sys2.zeros.imag, 'o')
-ax2.plot(sys2.poles.real, sys2.poles.imag, 'x')</code></pre><figure id="attachment_1923" style="width: 513px" class="wp-caption aligncenter">
+    :::python
+    sys2 = signal.lti([1, 2], [1, 6, 25]) # H(s) = (s + 2) / (s ** 2 + 6 * s + 25)
+    w, H = signal.freqresp(sys2)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4))
+    ax1.plot(H.real, H.imag)
+    ax1.plot(H.real, -H.imag)
+    ax2.plot(sys2.zeros.real, sys2.zeros.imag, 'o')
+    ax2.plot(sys2.poles.real, sys2.poles.imag, 'x')<figure id="attachment_1923" style="width: 513px" class="wp-caption aligncenter">
 
 [<img class="size-full wp-image-1923" src="http://new.pybonacci.org/images/2013/10/nyquist_pzmap1.png" alt="Diagrama de Nyquist y mapa de polos-ceros." width="513" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1.png 513w, https://pybonacci.org/wp-content/uploads/2013/10/nyquist_pzmap1-300x165.png 300w" sizes="(max-width: 513px) 100vw, 513px" />](http://new.pybonacci.org/images/2013/10/nyquist_pzmap1.png)<figcaption class="wp-caption-text">Diagrama de Nyquist y mapa de polos-ceros.</figcaption></figure> 
 
@@ -102,9 +105,10 @@ $\displaystyle H(s) = frac{V(s)}{F(s)} = \frac{1}{m s + b}$
 
 Ya podemos definir el sistema:
 
-<pre><code class="language-python">m = 1200  # kg
-b = 75  # Ns / m
-sys_car = signal.lti(1, [m, b])</code></pre>
+    :::python
+    m = 1200  # kg
+    b = 75  # Ns / m
+    sys_car = signal.lti(1, [m, b])
 
 Con estos datos, necesitaría una fuerza de 2250 N para conseguir una velocidad de 30 m/s. Podemos ver cómo será la respuesta del sistema utilizando la función [`signal.step2`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html).
 
@@ -112,8 +116,9 @@ _**Nota**_: La función <del><code>signal.step</code></del> [tiene](https://gith
 
 Esta función **calcula la respuesta a una entrada escalón unidad**. Como el sistema es lineal, podemos multiplicar la salida por el valor de la fuerza y este resultado será igual a la respuesta a un escalón de altura ese valor:
 
-<pre><code class="language-python">t, y = signal.step2(sys_car) # Respuesta a escalón unitario
-plt.plot(t, 2250 * y) # Equivalente a una entrada de altura 2250</code></pre><figure id="attachment_1916" style="width: 394px" class="wp-caption aligncenter">
+    :::python
+    t, y = signal.step2(sys_car) # Respuesta a escalón unitario
+    plt.plot(t, 2250 * y) # Equivalente a una entrada de altura 2250<figure id="attachment_1916" style="width: 394px" class="wp-caption aligncenter">
 
 [<img class="size-full wp-image-1916" src="http://new.pybonacci.org/images/2013/10/cruise_step.png" alt="Respuesta del sistema a una entrada escalón." width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/10/cruise_step.png 394w, https://pybonacci.org/wp-content/uploads/2013/10/cruise_step-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />](http://new.pybonacci.org/images/2013/10/cruise_step.png)<figcaption class="wp-caption-text">Respuesta del sistema a una entrada escalón.</figcaption></figure> 
 

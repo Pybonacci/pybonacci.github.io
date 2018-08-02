@@ -112,23 +112,24 @@ tags: directorios, ficheros, path, pathlib, rutas, stdlib
         Nos debería quedar una estructura parecida a lo siguiente:
       </p>
       
-      <pre><code>pybonacci_probando_pathlib/
-├── KZWe
-│   ├── CrUZoLgubb.txt
-│   ├── IayRnBUbHo.txt
-│   ├── WCEPyYng.txt
-│   └── yBMWX.py
-├── WCFJ
-│   ├── GBGQmtsLFG.html
-│   ├── PglOUshVv.py
-│   └── RoWDsb.py
-└── zLcE
-    ├── AQlxJSXR.html
-    ├── fCQGgXk.html
-    └── xFUbEctT.html
-
-
-</code></pre>
+          :::[]
+    pybonacci_probando_pathlib/
+    ├── KZWe
+    │   ├── CrUZoLgubb.txt
+    │   ├── IayRnBUbHo.txt
+    │   ├── WCEPyYng.txt
+    │   └── yBMWX.py
+    ├── WCFJ
+    │   ├── GBGQmtsLFG.html
+    │   ├── PglOUshVv.py
+    │   └── RoWDsb.py
+    └── zLcE
+        ├── AQlxJSXR.html
+        ├── fCQGgXk.html
+        └── xFUbEctT.html
+    
+    
+    
       
       <h2 id="Ejemplo-usando-lo-disponible-hasta-hace-poco">
         Ejemplo usando lo disponible hasta hace poco<a class="anchor-link" href="#Ejemplo-usando-lo-disponible-hasta-hace-poco">¶</a>
@@ -183,23 +184,24 @@ tags: directorios, ficheros, path, pathlib, rutas, stdlib
         Nuestra nueva estructura de ficheros debería ser la siguiente:
       </p>
       
-      <pre><code>pybonacci_probando_pathlib/
-├── KZWe
-│   ├── CrUZoLgubb.txt
-│   ├── IayRnBUbHo.txt
-│   └── WCEPyYng.txt
-├── python
-│   ├── PglOUshVv.py
-│   ├── RoWDsb.py
-│   └── yBMWX.py
-├── WCFJ
-│   └── GBGQmtsLFG.html
-└── zLcE
-    ├── AQlxJSXR.html
-    ├── fCQGgXk.html
-    └── xFUbEctT.html
-
-</code></pre>
+          :::[]
+    pybonacci_probando_pathlib/
+    ├── KZWe
+    │   ├── CrUZoLgubb.txt
+    │   ├── IayRnBUbHo.txt
+    │   └── WCEPyYng.txt
+    ├── python
+    │   ├── PglOUshVv.py
+    │   ├── RoWDsb.py
+    │   └── yBMWX.py
+    ├── WCFJ
+    │   └── GBGQmtsLFG.html
+    └── zLcE
+        ├── AQlxJSXR.html
+        ├── fCQGgXk.html
+        └── xFUbEctT.html
+    
+    
       
       <p>
         En el anterior ejemplo hemos tenido que usar las bibliotecas <code>glob</code>, <code>os</code> y <code>shutil</code> para poder realizar una operación relativamente sencilla. Esto no es del todo deseable porque he de conocer tres librerías diferentes y mi cabeza no da para tanto.
@@ -359,23 +361,24 @@ tags: directorios, ficheros, path, pathlib, rutas, stdlib
         Nuevamente, nuestra estructura de ficheros debería ser la misma que antes:
       </p>
       
-      <pre><code>pybonacci_probando_pathlib/
-├── KZWe
-│   ├── CrUZoLgubb.txt
-│   ├── IayRnBUbHo.txt
-│   └── WCEPyYng.txt
-├── python
-│   ├── PglOUshVv.py
-│   ├── RoWDsb.py
-│   └── yBMWX.py
-├── WCFJ
-│   └── GBGQmtsLFG.html
-└── zLcE
-    ├── AQlxJSXR.html
-    ├── fCQGgXk.html
-    └── xFUbEctT.html
-
-</code></pre>
+          :::[]
+    pybonacci_probando_pathlib/
+    ├── KZWe
+    │   ├── CrUZoLgubb.txt
+    │   ├── IayRnBUbHo.txt
+    │   └── WCEPyYng.txt
+    ├── python
+    │   ├── PglOUshVv.py
+    │   ├── RoWDsb.py
+    │   └── yBMWX.py
+    ├── WCFJ
+    │   └── GBGQmtsLFG.html
+    └── zLcE
+        ├── AQlxJSXR.html
+        ├── fCQGgXk.html
+        └── xFUbEctT.html
+    
+    
       
       <p>
         Repasemos el código anterior:<br /> Hemos creado un objeto ruta <code>p</code> tal como habíamos visto antes en la función <code>borra_directorio_pathlib</code>. Este objeto ahora dispone de un método <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob"><code>glob</code></a> que nos devuelve un iterador con lo que le pidamos, en este caso, todos los ficheros con extensión <em>.py</em>. En la línea <code>(p / 'python').mkdir(mode = 0o777, exist_ok = True)</code> podemos ver el uso de <code>/</code> como operador para instancias de <code>Path</code>. El primer paréntesis nos devuelve una nueva instancia de <code>Path</code> que dispone del método <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir"><code>mkdir</code></a> que hace lo que todos esperáis. Como <code>ficheros_py</code> era un iterador podemos usarlo en el bucle obteniendo nuevas instancias de <code>Path</code> con las rutas de los ficheros python que queremos mover. en la línea donde se define <code>target</code> hacemos uso del atributo <a href="https://docs.python.org/3/library/pathlib.html#pathlib.PurePath.name"><code>name</code></a>,que nos devuelve la última parte de la ruta. Por último, el fichero con extensión <em>.py</em> definido en el <code>Path</code> <code>f</code> lo renombramos a una nueva ruta, definida en <code>target</code>.

@@ -29,79 +29,89 @@ Si todo está correcto podemos empezar con el tutorial. Primero importamos la bi
 
 ### Creación de ficheros h5
 
-<pre><code class="language-python">import tables as tb</code></pre>
+    :::python
+    import tables as tb
 
 Ahora vamos a definir la estructura de una tabla creando una clase que deriva de la clase `IsDescription` (igual os suena a algo parecido a los modelos de Django). Nuestra tabla contará con una columna de fechas y tres columnas de datos 'float':
 
-<pre><code class="language-python">class EstructuraTabla(tb.IsDescription):
-    fecha = tb.Int64Col(pos = 0)
-    x = tb.Float32Col(pos = 1)
-    y = tb.Float32Col(pos = 2)
-    z = tb.Float32Col(pos = 3)</code></pre>
+    :::python
+    class EstructuraTabla(tb.IsDescription):
+        fecha = tb.Int64Col(pos = 0)
+        x = tb.Float32Col(pos = 1)
+        y = tb.Float32Col(pos = 2)
+        z = tb.Float32Col(pos = 3)
 
 Esta clase es un constructor de tabla. Se dan nombre predefinidos a las columnas, el tipo de datos que contendrán y su posición.
 
 Ahora creamos un nuevo fichero `h5` en modo de escritura.
 
-<pre><code class="language-python"># Donde pone "tabla_test.h5" y "Ejemplo pybonaccico"
-# puedes poner la ruta y nombre de fichero que quieras
-h5file = tb.openFile("tabla_test.h5",
-                     mode = "w",
-                     title = "Ejemplo pybonaccico")</code></pre>
+    :::python
+    # Donde pone "tabla_test.h5" y "Ejemplo pybonaccico"
+    # puedes poner la ruta y nombre de fichero que quieras
+    h5file = tb.openFile("tabla_test.h5",
+                         mode = "w",
+                         title = "Ejemplo pybonaccico")
 
 En este caso, en el título hemos puesto algo muy estúpido pero en ese campo se puede poner algo más serio como 'Datos aportados por Google, fecha: 2012/01/01 14.23h, proyecto PRISM ;-P'
 
 Creamos un "grupo" en la raiz del `h5` (parecido a una carpeta en un sistema de ficheros):
 
-<pre><code class="language-python">grupo1 = h5file.createGroup("/",
-                            'carpeta1',
-                            'carpeta para un primer grupo de datos')</code></pre>
+    :::python
+    grupo1 = h5file.createGroup("/",
+                                'carpeta1',
+                                'carpeta para un primer grupo de datos')
 
 `carpeta1` será el nombre del grupo dentro del fichero `h5` y `carpeta para un primer grupo de datos` serán los metadatos descriptivos que podemos asociar al grupo `carpeta1`.
 
 Y ahora, dentro del grupo que acabamos de crear, creamos una tabla (que sería como un fichero en un sistema de ficheros) con la estructura de tabla que hemos definido anteriormente (clase `EstructuraTabla`):
 
-<pre><code class="language-python">tab = h5file.createTable(grupo1,
-                         "datos_carpeta1_tabla1",
-                         EstructuraTabla,
-                         "ejemplo de tabla")</code></pre>
+    :::python
+    tab = h5file.createTable(grupo1,
+                             "datos_carpeta1_tabla1",
+                             EstructuraTabla,
+                             "ejemplo de tabla")
 
 Aquí, `datos_carpeta1_tabla1` sería como el nombre del fichero (tabla) dentro de un sistema de archivos (dentro del fichero `h5`), `EstructuraTabla` es la estructura de los datos de la tabla que acabamos de definir y `ejemplo de tabla` es la información que asociamos a esta tabla.
 
 En cualquier momento podemos inspeccionar la estructura que va tomando nuestro fichero `h5` haciendo un `print` del fichero `h5`.
 
-<pre><code class="language-python">print(h5file)</code></pre>
+    :::python
+    print(h5file)
 
 Lo anterior nos debería de mostrar algo parecido a:
 
-<pre><code class="language-python">tabla_test.h5 (File) 'Ejemplo pybonaccico'
-Last modif.: 'Thu Jul  4 21:51:41 2013'
-Object Tree:
-/ (RootGroup) 'Ejemplo pybonaccico'
-/carpeta1 (Group) 'carpeta para un primer grupo de datos'
-/carpeta1/datos_carpeta1_tabla1 (Table(0,)) 'ejemplo de tabla'</code></pre>
+    :::python
+    tabla_test.h5 (File) 'Ejemplo pybonaccico'
+    Last modif.: 'Thu Jul  4 21:51:41 2013'
+    Object Tree:
+    / (RootGroup) 'Ejemplo pybonaccico'
+    /carpeta1 (Group) 'carpeta para un primer grupo de datos'
+    /carpeta1/datos_carpeta1_tabla1 (Table(0,)) 'ejemplo de tabla'
 
 Si queremos obtener más información podemos escribir simplemente en IPython:
 
-<pre><code class="language-python">h5file</code></pre>
+    :::python
+    h5file
 
 que nos mostrará lo siguiente:
 
-<pre><code class="language-python">File(filename=tabla_test.h5, title='Ejemplo pybonaccico', mode='w', root_uep='/', filters=Filters(complevel=0, shuffle=False, fletcher32=False))
-/ (RootGroup) 'Ejemplo pybonaccico'
-/carpeta1 (Group) 'carpeta para un primer grupo de datos'
-/carpeta1/datos_carpeta1_tabla1 (Table(0,)) 'ejemplo de tabla'
-  description := {
-  "fecha": Int64Col(shape=(), dflt=0, pos=0),
-  "x": Float32Col(shape=(), dflt=0.0, pos=1),
-  "y": Float32Col(shape=(), dflt=0.0, pos=2),
-  "z": Float32Col(shape=(), dflt=0.0, pos=3)}
-  byteorder := 'little'
-  chunkshape := (3276,)</code></pre>
+    :::python
+    File(filename=tabla_test.h5, title='Ejemplo pybonaccico', mode='w', root_uep='/', filters=Filters(complevel=0, shuffle=False, fletcher32=False))
+    / (RootGroup) 'Ejemplo pybonaccico'
+    /carpeta1 (Group) 'carpeta para un primer grupo de datos'
+    /carpeta1/datos_carpeta1_tabla1 (Table(0,)) 'ejemplo de tabla'
+      description := {
+      "fecha": Int64Col(shape=(), dflt=0, pos=0),
+      "x": Float32Col(shape=(), dflt=0.0, pos=1),
+      "y": Float32Col(shape=(), dflt=0.0, pos=2),
+      "z": Float32Col(shape=(), dflt=0.0, pos=3)}
+      byteorder := 'little'
+      chunkshape := (3276,)
 
 Finalmente, cerramos la tabla creada de la siguiente forma.
 
-<pre><code class="language-python">h5file.close()</code></pre>
+    :::python
+    h5file.close()
 
 Y ya es suficiente por hoy, el próximo día veremos como rellenar tablas con datos ya que, de momento, solo hemos creado una estructura básica.
 

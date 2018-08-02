@@ -35,19 +35,22 @@ Como decía al principio, conocer el lenguaje es importante a la hora de escribi
 
 Otro de los pozos de tiempo son los bucles. La mayoría de las veces son inevitables, pero a veces hay opciones más rápidas. Imagina que queremos construir una lista resultado de aplicar una función a todos los elementos de una lista. Una forma obvia de hacerlo es:
 
-<pre><code class="language-python">lis2=[]
-for element in lis:
-   lis2.append(f(element))</code></pre>
+    :::python
+    lis2=[]
+    for element in lis:
+       lis2.append(f(element))
 
 Pero la opción idiomática, usando list comprehensions, es:
 
-<pre><code class="language-python"># Una list comprehension básica:
-lis2=[f(element) for element in lis]</code></pre>
+    :::python
+    # Una list comprehension básica:
+    lis2=[f(element) for element in lis]
 
 O incluso, restringiendo el dominio:
 
-<pre><code class="language-python"># Sólo a los elementos positivos.
-lis2=[f(element) for element in lis if element&gt;0]</code></pre>
+    :::python
+    # Sólo a los elementos positivos.
+    lis2=[f(element) for element in lis if element&gt;0]
 
 Que es substancialmente más rápido.
 
@@ -73,8 +76,9 @@ Que es substancialmente más rápido.
 
 El uso no podría ser más sencillo. Símplemente añade al principio de tu programa:
 
-<pre><code class="language-python">import psyco
-psyco.full()</code></pre>
+    :::python
+    import psyco
+    psyco.full()
 
 Y obtiene una aceleración de un factor 2-3, que puede llegar hasta un factor 10 para el cálculo numérico puro. La gran ventaja de Psyco es que no requiere hacer modificaciones específicas en el código: añádelo y funciona. En casi todas partes. Y ya.
 
@@ -88,19 +92,21 @@ Espera, ¿he dicho NumPy? ¿qué es NumPy?
 
 [La Biblia](http://scipy.org/) cuando hablamos de cálculo numérico en Python. Su mayor contribución es una nueva estructura de datos: el array. Una lista (multidimensional) homogénea, en la que todos sus elementos han de ser del mismo tipo: entero, decimal en precisión arbitraria, complejo... y sobre la que se puede aplicar una gran cantidad de funciones. Veamos un ejemplo: ¿cuál es la suma de las raíces cuadradas de los diez primeros números y los senos de esos mismos números?
 
-<pre><code class="language-python"># Implementación estándar
-import psyco
-psyco.full()
-import math
-numbers=range(10)
-result=[math.sqrt(num)+math.sin(num) for num in numbers]</code></pre>
+    :::python
+    # Implementación estándar
+    import psyco
+    psyco.full()
+    import math
+    numbers=range(10)
+    result=[math.sqrt(num)+math.sin(num) for num in numbers]
 
 &nbsp;
 
-<pre><code class="language-python"># Implementación con NumPy
-import numpy as np
-numbers=np.range(10)
-result=np.sqrt(numbers)+np.sin(numbers)</code></pre>
+    :::python
+    # Implementación con NumPy
+    import numpy as np
+    numbers=np.range(10)
+    result=np.sqrt(numbers)+np.sin(numbers)
 
 Como vemos, ya no hace falta ir elemento a elemento, sino que le podemos dar la lista completa, y él solo hace la iteración. Esto no es sólo una cuestión de conveniencia, sino que también permite incrementar la velocidad de ejecución. En algunas operaciones, como las matriciales, esto es incluso más interesante, ya que de forma completamente transparente y automática, ejecuta el código en paralelo, mandando cada número a un núcleo del procesador, ahorrando mucho tiempo.
 
@@ -118,11 +124,12 @@ Otras veces no tenemos tanta suerte y sólo podemos paralelizar algunas partes d
 
 No obstante, no está todo perdido. Si queremos aplicar funciones básicas sobre grandes conjuntos de números y NumPy se nos queda corto, podemos usar [Numexpr](https://code.google.com/p/numexpr/). Nuestro viejo código quedaría:
 
-<pre><code class="language-python"># Implementación con NumPy y Numexpr
-import numpy as np
-import numexpr as ne
-numbers=np.range(10)
-result=ne.evaluate('sqrt(numbers)+sin(numbers)') # Nótese que va como texto</code></pre>
+    :::python
+    # Implementación con NumPy y Numexpr
+    import numpy as np
+    import numexpr as ne
+    numbers=np.range(10)
+    result=ne.evaluate('sqrt(numbers)+sin(numbers)') # Nótese que va como texto
 
 Numexpr tiene varias estrategias para acelerar el código. En primer lugar, cuando NumPy ejecuta el código, primero calcula las raíces y las guarda en memoria, después los senos y los guarda en memoria, y por último, los suma ambos y guarda el resultado final en memoria. Esto supone triplicar la memoria necesaria, y por tanto, el tráfico de datos entre la CPU y la RAM.
 

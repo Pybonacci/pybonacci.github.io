@@ -63,67 +63,71 @@ Empezando por una función extremadamente sencilla (pero que tenga las mismas ca
 
 El orden de llamada de estas funciones es irrelevante. Este sería nuestro código:
 
-<pre><code class="language-python">
-from cffi import FFI
-ffi = FFI()
-
-ffi.cdef(
+    :::python
+    
+    from cffi import FFI
+    ffi = FFI()
+    
+    ffi.cdef(
+        """
+    double hyp2f1x ( double a, double b, double c, double x );
     """
-double hyp2f1x ( double a, double b, double c, double x );
-"""
-)
-ffi.set_source(
-    "_hyper",  # Nombre del módulo
+    )
+    ffi.set_source(
+        "_hyper",  # Nombre del módulo
+        """
+    double hyp2f1x ( a, b, c, x )
+    double a, b, c, x;
+    {
+        return 1.0;  // De hipergeométrico, poco
+    }
     """
-double hyp2f1x ( a, b, c, x )
-double a, b, c, x;
-{
-    return 1.0;  // De hipergeométrico, poco
-}
-"""
-)
-
-
-if __name__ == '__main__':
-    ffi.compile()
-
-</code></pre>
+    )
+    
+    
+    if __name__ == '__main__':
+        ffi.compile()
+    
+    
 
 Peeeeero para usarlo desde Python nos falta un paso importante... ¡escribir un `setup.py` y ejecutarlo! Sí, sé que lo odiáis. Yo también, pero en esta ocasión (olvidándonos de algunos casos muy particulares, que de todas formas explica Donald Stufft) es bastante sencillo:
 
-<pre><code class="language-python">
-from setuptools import setup, find_packages
-
-setup(
-    name="hyper",
-    version="0.1.dev0",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    setup_requires=["cffi&gt;=1.0.0"],
-    install_requires=["cffi&gt;=1.0.0"],
-    cffi_modules=["src/_cffi_src/build_hyper.py:ffi"],
-)
-</code></pre>
+    :::python
+    
+    from setuptools import setup, find_packages
+    
+    setup(
+        name="hyper",
+        version="0.1.dev0",
+        packages=find_packages("src"),
+        package_dir={"": "src"},
+        setup_requires=["cffi&gt;=1.0.0"],
+        install_requires=["cffi&gt;=1.0.0"],
+        cffi_modules=["src/_cffi_src/build_hyper.py:ffi"],
+    )
+    
 
 Una vez hecho esto, podemos instalar nuestro recién creado paquete y usarlo. Primero creamos el "wrapper":
 
-<pre><code class="language-python">
-from _hyper.lib import hyp2f1x as _hyp2f1
-
-def hyp2f1(a, b, c, x):
-    return _hyp2f1(a, b, c, x)
-</code></pre>
+    :::python
+    
+    from _hyper.lib import hyp2f1x as _hyp2f1
+    
+    def hyp2f1(a, b, c, x):
+        return _hyp2f1(a, b, c, x)
+    
 
 Y ahora lo instalamos y lo usamos:
 
-<pre><code class="language-bash">
-$ pip install -e .  # Sí. No preguntéis. https://twitter.com/Pybonacci/status/681189810057383936
-[...]
-$ python
-&gt;&gt;&gt; from hyper import hyper          
-&gt;&gt;&gt; hyper._hyp2f1(3, 1, 5/2, 0.1)
-1.0
-</code></pre>
+    :::bash
+    
+    $ pip install -e .  # Sí. No preguntéis. https://twitter.com/Pybonacci/status/681189810057383936
+    [...]
+    $ python
+    &gt;&gt;&gt; from hyper import hyper          
+    &gt;&gt;&gt; hyper._hyp2f1(3, 1, 5/2, 0.1)
+    1.0
+    
 
 ¡Perfecto! Ya hemos conseguido un ejemplo trivial. Para tener algo que funcione necesito hacer un "wrapper" _de verdad_ para CEPHES, para seguir me gustaría que diese el mismo resultado que [scipy.special.hyp2f1](http://docs.scipy.org/doc/scipy/reference/generated/scipy.special.hyp2f1.html) y para terminar me gustaría poder acelerar el resultado con numba. ¡Seguimos!
 
@@ -138,23 +142,25 @@ La segunda opción tenía mucha menos incertidumbre para mí, porque a pesar de 
 
 Los que me conocéis ya sabéis que soy un <del datetime="2016-02-07T20:02:58+00:00">fanático</del> <ins datetime="2016-02-07T20:02:58+00:00">gran admirador</ins> del trabajo de Continuum en general, y de numba y conda en particular. En este caso, conda me venía perfecto porque podría crear un paquete a mi medida (conda sirve para cualquier lenguaje) y luego instalarlo en un entorno conda apropiado para que CFFI encontrase la biblioteca a la primera sin tener que hacer manipulaciones con el `PATH`. La [receta para el paquete conda de CEPHES](https://github.com/Pybonacci/cffi_test/tree/548196c/buildscripts/condarecipes/cephes) también está en GitHub, y las explicaciones me las reservo para otro artículo 😉
 
-<pre><code class="language-bash">
-$ source activate hyper35
-(hyper35) $ conda build cephes
-(hyper35) $ conda install cephes --use-local
-</code></pre>
+    :::bash
+    
+    $ source activate hyper35
+    (hyper35) $ conda build cephes
+    (hyper35) $ conda install cephes --use-local
+    
 
 Una vez que tengo CEPHES instalado y accesible, no tengo más que hacer referencia a ello a la hora de crear el módulo CFFI:
 
-<pre><code class="language-python">
-ffi.set_source(
-    "_hyper",
-    """
-double hyp2f1 ( double a, double b, double c, double x );
-""",
-    libraries=["md"],  # libmd.a
-)
-</code></pre>
+    :::python
+    
+    ffi.set_source(
+        "_hyper",
+        """
+    double hyp2f1 ( double a, double b, double c, double x );
+    """,
+        libraries=["md"],  # libmd.a
+    )
+    
 
 Y reconstruir el "wrapper" haciendo `pip install -e .` de nuevo.
 
@@ -164,19 +170,20 @@ Y reconstruir el "wrapper" haciendo `pip install -e .` de nuevo.
 
 numba trae soporte para módulos CFFI "out-of-line" desde la versión 0.22. Esto quiere decir que podremos utilizar funciones de módulos CFFI desde funciones aceleradas con numba, sin más que "registrar" el módulo en primer lugar usando la función `cffi_support.register_module`. Nuestro "wrapper" Python quedaría así ahora:
 
-<pre><code class="language-python">
-from numba import njit, cffi_support
-
-import _hyper
-cffi_support.register_module(_hyper)  # Registramos el módulo
-
-_hyp2f1 = _hyper.lib.hyp2f1x  # Ver más abajo
-
-
-@njit
-def hyp2f1(a, b, c, x):
-    return _hyp2f1(a, b, c, x)
-</code></pre>
+    :::python
+    
+    from numba import njit, cffi_support
+    
+    import _hyper
+    cffi_support.register_module(_hyper)  # Registramos el módulo
+    
+    _hyp2f1 = _hyper.lib.hyp2f1x  # Ver más abajo
+    
+    
+    @njit
+    def hyp2f1(a, b, c, x):
+        return _hyp2f1(a, b, c, x)
+    
 
 Aquí ya hay que empezar a tener cuidado, porque noté que [no se puede escribir `_hyper.lib.hyp2f1x` directamente dentro de la función de numba](https://github.com/numba/numba/issues/1688). Con esta precaución, ¡el código funciona sin problemas!
 
@@ -196,37 +203,39 @@ Habéis leído bien: **nuestra función con CFFI + numba es, en media, 5 veces m
 
 Aún nos falta una cosa más y es saber cómo se pueden pasar arrays a estas funciones CFFI. Aquí numba y CFFI nos ayudan porque proveen una función, `ffi.from_buffer`, precisamente para esta tarea. Supongamos que creamos una función a nivel de C que en vez de tomar un escalar toma un array de valores sobre los que evaluarse:
 
-<pre><code class="language-python">
-ffi.set_source(
-    "_hyper",
-    """
-double hyp2f1 ( double a, double b, double c, double x );
-
-// Función nueva, vectorizada para arrays de doble precisión
-double vd_hyp2f1 ( int n, double a, double b, double c, double* x, double* res) {
-    int i;
-    for (i=0; i&lt;n; i++)
-        res[i] = hyp2f1(a, b, c, x[i]);
-}
-""",
-    libraries=["md"],
-)
-</code></pre>
+    :::python
+    
+    ffi.set_source(
+        "_hyper",
+        """
+    double hyp2f1 ( double a, double b, double c, double x );
+    
+    // Función nueva, vectorizada para arrays de doble precisión
+    double vd_hyp2f1 ( int n, double a, double b, double c, double* x, double* res) {
+        int i;
+        for (i=0; i&lt;n; i++)
+            res[i] = hyp2f1(a, b, c, x[i]);
+    }
+    """,
+        libraries=["md"],
+    )
+    
 
 Tendríamos que llamarla desde Python de esta manera:
 
-<pre><code class="language-python">
-@njit
-def vd_hyp2f1(a, b, c, x):
-    res = np.empty_like(x)
-    _vd_hyp2f1(
-            len(x), a, b, c,
-            ffi.from_buffer(x), ffi.from_buffer(res)  # ¡Nótese!
-    )
-
-    res[x == 1.0] = np.inf
-    return res
-</code></pre>
+    :::python
+    
+    @njit
+    def vd_hyp2f1(a, b, c, x):
+        res = np.empty_like(x)
+        _vd_hyp2f1(
+                len(x), a, b, c,
+                ffi.from_buffer(x), ffi.from_buffer(res)  # ¡Nótese!
+        )
+    
+        res[x == 1.0] = np.inf
+        return res
+    
 
 ¡Y de nuevo vuelve a funcionar! ¿Se nota mi entusiasmo?
 
