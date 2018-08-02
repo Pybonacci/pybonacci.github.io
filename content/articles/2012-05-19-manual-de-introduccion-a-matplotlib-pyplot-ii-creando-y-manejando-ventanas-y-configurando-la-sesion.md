@@ -76,7 +76,7 @@ Como está en _True_, si hacemos lo siguiente:
 
 Obtendremos lo siguiente:
   
-[<img class="aligncenter size-full wp-image-407" title="plt.ishold" src="http://new.pybonacci.org/images/2012/05/captura-de-pantalla-de-2012-05-12-164745.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/05/captura-de-pantalla-de-2012-05-12-164745.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/captura-de-pantalla-de-2012-05-12-164745-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/captura-de-pantalla-de-2012-05-12-164745.png)
+![plt.ishold](http://pybonacci.org/images/2012/05/captura-de-pantalla-de-2012-05-12-164745.png)
   
 Si el modo 'hold' estuviera en _False_, solo se habría conservado el último plot y solo veríamos una línea de las dos (probadlo usando plt.hold() y plt.ishold()).
 
@@ -98,7 +98,7 @@ Imaginaos que ahora queréis trabajar con varias ventanas de gráficos simultán
 
 Y os quedaría algo como lo siguiente:
   
-[<img class="size-medium wp-image-409 alignnone" title="figure-scatter" src="http://new.pybonacci.org/images/2012/05/figure-scatter.png?w=300" alt="" width="300" height="254" srcset="https://pybonacci.org/wp-content/uploads/2012/05/figure-scatter.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/figure-scatter-300x254.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/05/figure-scatter.png)[<img class=" wp-image-408 alignnone" title="figure-plot" src="http://new.pybonacci.org/images/2012/05/figure-plot.png?w=300" alt="" width="305" height="255" srcset="https://pybonacci.org/wp-content/uploads/2012/05/figure-plot.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/figure-plot-300x251.png 300w" sizes="(max-width: 305px) 100vw, 305px" />](http://new.pybonacci.org/images/2012/05/figure-plot.png)
+![figure-scatter](http://pybonacci.org/images/2012/05/figure-scatter.png?w=300)
 
 Es decir, podemos ir dibujando en varias ventanas a la vez. Podéis probar a cerrar una de las dos ventanas, limpiar la otra, crear una nueva,... Haciendo una llamada a plt.figure() también podemos definir la resolución del gráfico, el tamaño de la figura,...
 
@@ -113,11 +113,11 @@ Pero yo no quiero dibujar los gráficos en dos ventanas, yo quiero tener varios 
 
 Obteniendo el siguiente gráfico:
 
-[<img class="aligncenter size-full wp-image-433" title="subplot12" src="http://new.pybonacci.org/images/2012/05/subplot12.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/05/subplot12.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/subplot12-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/subplot12.png)
+![subplot12](http://pybonacci.org/images/2012/05/subplot12.png)
 
 Os dejo como ejercicio ver cómo podéis conseguir la siguiente gráfica (si no sabéis como dejad un comentario) y con ello creo que habréis entendido perfectamente el uso de plt.subplot():
 
-[<img class="aligncenter size-full wp-image-434" title="subplot22" src="http://new.pybonacci.org/images/2012/05/subplot22.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/05/subplot22.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/subplot22-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/subplot22.png)
+![subplot22](http://pybonacci.org/images/2012/05/subplot22.png)
 
 Por último, vamos a ver como configurar la sesión para ahorrarnos escribir código de más. Por ejemplo, imaginaos que queréis que todas las líneas sean más gruesas por defecto porque os gustan más así, que queréis usar otro tipo de fuente sin escribirlo explícitamente cada vez que hacéis un gráfico, que los gráficos se guarden siempre con una resolución superior a la que viene por defecto,... Para ello podéis usar plt.rc(), plt.rcParams, plt.rcdefaults(). En este caso vamos a usar plt.rc(), podréis encontrar más información sobre como configurar matplotlib [en este enlace](http://matplotlib.sourceforge.net/users/customizing.html). Veamos un ejemplo para ver como funciona todo esto:
 
@@ -134,7 +134,7 @@ Por último, vamos a ver como configurar la sesión para ahorrarnos escribir có
     plt.plot((1,2,3,4,5), label = u'linea más ancha y letra más grande')  # Hacemos el plot
     plt.legend(loc = 2)  # Colocamos la leyenda en la esquina superior izquierda
 
-[<img class="alignnone size-medium wp-image-426" title="plot-defecto" src="http://new.pybonacci.org/images/2012/05/plot-defecto.png?w=300" alt="" width="300" height="270" srcset="https://pybonacci.org/wp-content/uploads/2012/05/plot-defecto.png 614w, https://pybonacci.org/wp-content/uploads/2012/05/plot-defecto-300x270.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/05/plot-defecto.png)[<img class="alignnone  wp-image-427" title="plot-defectomodificado" src="http://new.pybonacci.org/images/2012/05/plot-defectomodificado1.png?w=300" alt="" width="323" height="270" />](http://new.pybonacci.org/images/2012/05/plot-defectomodificado1.png)
+![plot-defecto](http://pybonacci.org/images/2012/05/plot-defecto.png?w=300)
 
 Después de usar plt.rc() para modificar un parámetro esa modificación será para toda la sesión a no ser que lo volvamos a modificar explícitamente o a no ser que usemos plt.rcdefaults(), que devolverá todos los parámetros a los valores por defecto.
 

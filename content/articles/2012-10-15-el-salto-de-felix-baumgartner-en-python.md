@@ -122,7 +122,7 @@ Este es el código del programa. Se explica por sí solo:
     ax2.set_ylabel('v (km / h)')
     ax2.set_xlabel('t (s)')<figure id="attachment_1037" style="width: 407px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1037" title="Caída libre" alt="" src="http://new.pybonacci.org/images/2012/10/caida_libre2.png" height="410" width="407" srcset="https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2.png 407w, https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2-150x150.png 150w, https://pybonacci.org/wp-content/uploads/2012/10/caida_libre2-297x300.png 297w" sizes="(max-width: 407px) 100vw, 407px" />](http://new.pybonacci.org/images/2012/10/caida_libre2.png)<figcaption class="wp-caption-text">Altitud y velocidad de caída en función del tiempo</figcaption></figure> 
+![Caída libre](http://pybonacci.org/images/2012/10/caida_libre2.png)
 
 Ajá, ¿no os creíais que cada vez caía más despacio? 😛 Esto evidentemente tenía cierto truco, pero ¡ya se ven los resultados en las gráficas!
 
@@ -146,6 +146,6 @@ siendo $u$ la velocidad, $c = \sqrt{\gamma R T}$ la velocidad del sonido en el a
     plt.ylabel('M')
     plt.xlabel('t (s)')<figure id="attachment_1038" style="width: 389px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1038" title="Número de Mach" alt="" src="http://new.pybonacci.org/images/2012/10/mach_number.png" height="268" width="389" srcset="https://pybonacci.org/wp-content/uploads/2012/10/mach_number.png 389w, https://pybonacci.org/wp-content/uploads/2012/10/mach_number-300x206.png 300w" sizes="(max-width: 389px) 100vw, 389px" />](http://new.pybonacci.org/images/2012/10/mach_number.png)<figcaption class="wp-caption-text">Número de Mach en función del tiempo</figcaption></figure> 
+![Número de Mach](http://pybonacci.org/images/2012/10/mach_number.png)
 
 Así que sí, _¡Felix Baumgartner superó la barrera del sonido!_ Según Pybonacci, por supuesto 😉

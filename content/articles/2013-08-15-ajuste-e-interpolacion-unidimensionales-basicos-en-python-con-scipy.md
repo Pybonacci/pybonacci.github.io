@@ -51,7 +51,7 @@ El código será este:
 
 Y este es el resultado:<figure id="attachment_1754" style="width: 380px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1754  " alt="Fenómeno de Runge" src="http://new.pybonacci.org/images/2013/08/fenomeno_runge.png" width="380" height="258" srcset="https://pybonacci.org/wp-content/uploads/2013/08/fenomeno_runge.png 380w, https://pybonacci.org/wp-content/uploads/2013/08/fenomeno_runge-300x203.png 300w" sizes="(max-width: 380px) 100vw, 380px" />](http://new.pybonacci.org/images/2013/08/fenomeno_runge.png)<figcaption class="wp-caption-text">Con 11 nodos equiespaciados en este ejemplo dado por Runge el polinomio interpolante diverge en los extremos.</figcaption></figure> 
+![](http://pybonacci.org/images/2013/08/fenomeno_runge.png)
 
 Y no os quiero contar nada si escogemos 20 o 100 puntos.
 
@@ -66,7 +66,7 @@ Existe una forma de mitigar este problema, que es, como ya hemos dicho, «escogi
 
 Utilizando estos puntos, la cosa no queda tan mal:<figure id="attachment_1759" style="width: 603px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1759" alt="Comparación" src="http://new.pybonacci.org/images/2013/08/chebyshev1.png" width="603" height="268" srcset="https://pybonacci.org/wp-content/uploads/2013/08/chebyshev1.png 603w, https://pybonacci.org/wp-content/uploads/2013/08/chebyshev1-300x133.png 300w" sizes="(max-width: 603px) 100vw, 603px" />](http://new.pybonacci.org/images/2013/08/chebyshev1.png)<figcaption class="wp-caption-text">Usando nodos de Chebyshev la interpolación es mucho mejor.</figcaption></figure> 
+![](http://pybonacci.org/images/2013/08/chebyshev1.png)
 
 Aun así, aún tenemos varios problemas:
 
@@ -98,7 +98,7 @@ El trazador más elemental, el lineal (grado 1), se puede construir rápidamente
 
 Y si representamos el resultado obtenemos esto:<figure id="attachment_1767" style="width: 375px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1767" alt="Trazadores lineal y cúbico." src="http://new.pybonacci.org/images/2013/08/trazadores.png" width="375" height="258" srcset="https://pybonacci.org/wp-content/uploads/2013/08/trazadores.png 375w, https://pybonacci.org/wp-content/uploads/2013/08/trazadores-300x206.png 300w" sizes="(max-width: 375px) 100vw, 375px" />](http://new.pybonacci.org/images/2013/08/trazadores.png)<figcaption class="wp-caption-text">Trazadores lineal y cúbico.</figcaption></figure> 
+![](http://pybonacci.org/images/2013/08/trazadores.png)
 
 **¿Alguien se anima a enviarnos una gráfica de cómo quedaría la interpolación si usásemos un polinomio de grado 20? 😉**
 
@@ -158,7 +158,7 @@ El código es simplemente:
 
 Y este es el resultado que obtenemos:<figure id="attachment_1776" style="width: 407px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1776" alt="Polar parabólica y datos reales." src="http://new.pybonacci.org/images/2013/08/polar.png" width="407" height="288" srcset="https://pybonacci.org/wp-content/uploads/2013/08/polar.png 407w, https://pybonacci.org/wp-content/uploads/2013/08/polar-300x212.png 300w" sizes="(max-width: 407px) 100vw, 407px" />](http://new.pybonacci.org/images/2013/08/polar.png)<figcaption class="wp-caption-text">Polar parabólica y datos reales.</figcaption></figure> 
+![](http://pybonacci.org/images/2013/08/polar.png)
 
 En la figura se aprecia perfectamente cómo he descartado los puntos más allá del máximo y cómo la parábola, aun no pasando por todos los puntos (tal vez no pase por ninguno) aproxima bastante bien los datos que tenemos. ¡Bien!
 
@@ -193,7 +193,7 @@ Así realizamos el ajuste:
 
 Y el resultado queda así:<figure id="attachment_1779" style="width: 372px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1779" alt="Hemos especificado nuestro modelo, y este es el ajuste." src="http://new.pybonacci.org/images/2013/08/curve_fit.png" width="372" height="258" srcset="https://pybonacci.org/wp-content/uploads/2013/08/curve_fit.png 372w, https://pybonacci.org/wp-content/uploads/2013/08/curve_fit-300x208.png 300w" sizes="(max-width: 372px) 100vw, 372px" />](http://new.pybonacci.org/images/2013/08/curve_fit.png)<figcaption class="wp-caption-text">Hemos especificado nuestro modelo, y este es el ajuste.</figcaption></figure> 
+![](http://pybonacci.org/images/2013/08/curve_fit.png)
 
 Fácil, ¿no?
 

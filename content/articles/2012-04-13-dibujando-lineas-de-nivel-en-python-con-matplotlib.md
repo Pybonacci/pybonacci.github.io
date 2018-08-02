@@ -9,7 +9,7 @@ tags: gráficos, matplotlib, numpy, python, vectorización
 
 En este artículo vamos a ver cómo representar en Python un mapa de _curvas de nivel_ o de _isolíneas_, esto es, curvas que conectan los puntos en los que una función tiene un mismo valor constante, utilizando NumPy y matplotlib. Los mapas de curvas de nivel («contour lines» en inglés) son muy útiles, porque ayudan a ver la información de una manera mucho más cómoda que las representaciones de superficies en tres dimensiones, por muy espectaculares que estas últimas puedan quedar. Un ejemplo muy cotidiano es el mapa de isobaras que nos dan en la predicción del tiempo como el que se ve en la imagen: los puntos que están sobre la misma línea están todos a la misma presión.<figure id="attachment_156" style="width: 448px" class="wp-caption aligncenter">
 
-[<img class=" wp-image-156  " title="Mapa de isobaras" src="http://new.pybonacci.org/images/2012/04/2012041300006_ww_i1x0w006.gif" alt="Mapa de isobaras" width="448" height="263" />](http://new.pybonacci.org/images/2012/04/2012041300006_ww_i1x0w006.gif)<figcaption class="wp-caption-text">Mapa HIRLAM-AEMET 0.16° de Superficie (Presión). Válido para el viernes, 13 abril 2012 a las 08:00. © Agencia Estatal de Meteorología.</figcaption></figure> 
+![Mapa de isobaras](http://pybonacci.org/images/2012/04/2012041300006_ww_i1x0w006.gif)
 
 <!--more-->
 
@@ -133,7 +133,7 @@ Para crear la figura bastan dos líneas:
     In [13]: plt.show()
 
 <p style="text-align:center">
-  <a href="http://new.pybonacci.org/images/2012/04/rare_contour.png"><img class="aligncenter  wp-image-164" title="Curvas de nivel" src="http://new.pybonacci.org/images/2012/04/rare_contour.png" alt="Curvas de nivel" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
+  <a href="http://pybonacci.org/images/2012/04/rare_contour.png"><img class="aligncenter  wp-image-164" title="Curvas de nivel" src="http://pybonacci.org/images/2012/04/rare_contour.png" alt="Curvas de nivel" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
 </p>
 
 E voilà! Sencillo como siempre 🙂 Incluso podemos rizar más el rizo:
@@ -144,7 +144,7 @@ E voilà! Sencillo como siempre 🙂 Incluso podemos rizar más el rizo:
     In [16]: plt.show()
 
 <p style="text-align:center">
-  <a href="http://new.pybonacci.org/images/2012/04/rare_contour_f.png"><img class="aligncenter  wp-image-165" title="Curvas de nivel con relleno" src="http://new.pybonacci.org/images/2012/04/rare_contour_f.png" alt="Curvas de nivel con relleno" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
+  <a href="http://pybonacci.org/images/2012/04/rare_contour_f.png"><img class="aligncenter  wp-image-165" title="Curvas de nivel con relleno" src="http://pybonacci.org/images/2012/04/rare_contour_f.png" alt="Curvas de nivel con relleno" width="448" height="336" srcset="https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f.png 800w, https://pybonacci.org/wp-content/uploads/2012/04/rare_contour_f-300x225.png 300w" sizes="(max-width: 448px) 100vw, 448px" /></a>
 </p>
 
 La biblioteca matplotlib es enorme y da docenas de opciones para configurar la apariencia: colores, ejes... es cuestión de bucear en la documentación y experimentar.

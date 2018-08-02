@@ -40,11 +40,11 @@ Hasta ahora hemos visto como podemos configurar la ventana y la sesión, en esta
 
 El resultado es el siguiente:
 
-[<img class="aligncenter size-full wp-image-441" title="axesmultiples" alt="" src="http://new.pybonacci.org/images/2012/05/axesmultiples.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/05/axesmultiples.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/axesmultiples-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/axesmultiples.png)
+![axesmultiples](http://pybonacci.org/images/2012/05/axesmultiples.png)
 
 Como podéis imaginar, podemos usar plt.axes() como sustituto de plt.subplot() si queremos dibujar gráficos que no tengan que tener una forma 'regular' dentro de la ventana. Si ahora queremos borrar el área del gráfico podemos usar plt.delaxes(), si queremos borrar el contenido que hay en el área del gráfico podemos usar plt.cla() y si queremos que no aparezca la 'caja' donde se dibuja el gráfico podemos usar plt.box() (si no hay 'caja' y queremos que aparezca podemos llamar a plt.box() y volverá a aparecer la 'caja').
 
-[<img class="alignnone size-medium wp-image-443" title="concaja" alt="" src="http://new.pybonacci.org/images/2012/05/concaja.png?w=300" height="254" width="300" srcset="https://pybonacci.org/wp-content/uploads/2012/05/concaja.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/concaja-300x254.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/05/concaja.png)[<img class="alignnone size-medium wp-image-444" title="sincaja" alt="" src="http://new.pybonacci.org/images/2012/05/sincaja.png?w=300" height="254" width="300" srcset="https://pybonacci.org/wp-content/uploads/2012/05/sincaja.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/sincaja-300x254.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/05/sincaja.png)
+![concaja](http://pybonacci.org/images/2012/05/concaja.png?w=300)
 
 El área del gráfico puede ser un área rectangular o un área para [un gráfico polar (ver ejemplo)](http://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/).
 
@@ -64,7 +64,7 @@ Si os habéis fijado, matplotlib dibuja los ejes de forma que se ajusten al grá
     plt.ylabel(u'Línea verde')  # Ponemos etiqueta al segundo eje y
     plt.xlim(-10,110)  # Limitamos los valores del eje x para que vayan desde -10 a 110
 
-[<img class="aligncenter size-full wp-image-445" title="ejesydemas" alt="" src="http://new.pybonacci.org/images/2012/05/ejesydemas.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/05/ejesydemas.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/ejesydemas-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/ejesydemas.png)
+![ejesydemas](http://pybonacci.org/images/2012/05/ejesydemas.png)
 
 Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿Y para qué sirven estas 'cosas'? Pensad que, por ejemplo, queréis resaltar una zona de vuestro gráfico para focalizar la atención en esa área. Eso lo podríamos hacer usando lo anterio. plt.axvline() y plt.axhline() dibujan líneas verticales y horizontales en la x o en la y que le digamos mientras que plt.axvspan y plt.axhspan dibujan recuadros entre las coordenadas x o y que queramos, respectivamente.
 
@@ -78,7 +78,7 @@ Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿
     plt.axvspan(-0.5,0.5, alpha = 0.25)  #  Dibujamos un recuadro azul vertical entre x[-0.5,0.5] con transparencia 0.25
     plt.axhspan(-0.5,0.5, alpha = 0.25)  #  Dibujamos un recuadro azul horizontal entre x[-0.5,0.5] con transparencia 0.25
 
-[<img class="aligncenter size-full wp-image-451" title="vhlinevhspan" alt="" src="http://new.pybonacci.org/images/2012/05/vhlinevhspan.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/05/vhlinevhspan.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/vhlinevhspan-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/vhlinevhspan.png)
+![vhlinevhspan](http://pybonacci.org/images/2012/05/vhlinevhspan.png)
 
 ¿Y como podemos controlar el texto básico sobre el gráfico? Hay muchas formas de meter texto y controlar las etiquetas de forma básica y sencilla. En algunos momentos hemos visto plt.legend(), también existe plt.figlegend(). Yo siempre uso plt.legend() el 100% de las veces. Para usos avanzados podéis mirar [este enlace](http://stackoverflow.com/a/4701285) y [este otro enlace](http://matplotlib.sourceforge.net/users/legend_guide.html). Si queremos poner un título al gráfico podemos usar plt.title() y plt.suptitle(). Si queremos poner título a los ejes podemos usar plt.xlabel() y plt.ylabel() para los ejes x e y, respectivamente. Por último, para controlar los valores de las etiquetas que se ponen sobre los ejes dispones de plt.locator\_params(), plt.minorticks\_on(), plt.minorticks\_off(), plt.tick\_params(), plt.tick\_label\_format(), plt.xticks() y plt.yticks(). Vamos a manejar la mayor parte de estas funciones mediante un ejemplo para que se vea más claro su uso. Imaginemos que queremos representar el valor medio diario de una variable durante un año, en el eje x queremos que aparezca solo los meses en el día del año en que empieza el mes
 
@@ -101,7 +101,7 @@ Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿
 
 Cuyo resultado será algo parecido a lo siguiente:
 
-[<img class="aligncenter size-full wp-image-452" title="textobasico" alt="" src="http://new.pybonacci.org/images/2012/05/textobasico.png" height="553" width="652" srcset="https://pybonacci.org/wp-content/uploads/2012/05/textobasico.png 652w, https://pybonacci.org/wp-content/uploads/2012/05/textobasico-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/05/textobasico.png)
+![textobasico](http://pybonacci.org/images/2012/05/textobasico.png)
 
 Y con esto hemos visto, más o menos, la forma básica de configurar los elementos del gráfico. Si no los habéis visto aún, podéis leer el [capítulo 1](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/) y el [capítulo 2](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/) de esta serie.
 

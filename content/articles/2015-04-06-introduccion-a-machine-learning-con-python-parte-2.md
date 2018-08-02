@@ -112,7 +112,7 @@ Con esto ya tendríamos una pequeña idea de cuales son los factores que más co
 
 
   
-[<img src="http://new.pybonacci.org/images/2015/04/age.png" alt="age" width="388" height="271" class="aligncenter size-full wp-image-3325" srcset="https://pybonacci.org/wp-content/uploads/2015/04/age.png 388w, https://pybonacci.org/wp-content/uploads/2015/04/age-300x209.png 300w" sizes="(max-width: 388px) 100vw, 388px" />](http://new.pybonacci.org/images/2015/04/age.png)
+![](http://pybonacci.org/images/2015/04/age.png)
 
 En este caso hemos representado el precio medio la vivienda frente a la proporción de viviendas anteriores a 1940 que hay en la zona. Y como poder ver cláramente, emplear sólo un parámetro (AGE) para determinar el precio de la vivienda mediante una línea recta no parece lo ideal. Pero si tomamos en cuenta todas las variables las predicciones posiblemente mejoren.
 
@@ -126,7 +126,7 @@ Por tanto vamos a utilizar el modelo ya entrenado para predecir los precios de l
     ax.text(0.95, 0.90, 'Media de residuales: {:.3e}'.format(np.mean(boston.target - predictions)),
             transform=ax.transAxes, verticalalignment='top', horizontalalignment='right')
 
-[<img src="http://new.pybonacci.org/images/2015/04/hist.png" alt="hist" width="370" height="266" class="aligncenter size-full wp-image-3327" srcset="https://pybonacci.org/wp-content/uploads/2015/04/hist.png 370w, https://pybonacci.org/wp-content/uploads/2015/04/hist-300x215.png 300w" sizes="(max-width: 370px) 100vw, 370px" />](http://new.pybonacci.org/images/2015/04/hist.png)
+![](http://pybonacci.org/images/2015/04/hist.png)
 
 Podemos ver que el error medio es despreciable y que la mayoría de los valores se concentran entorno al 0. Pero, ¿cómo hemos llegado a esos valores?
 
@@ -184,7 +184,7 @@ A la hora de crear el objeto le vamos a indicar los valores de $\alpha$ a evalua
     ax.text(0.05, 0.90, 'alpha que minimiza el error: {:.3f}'.format(rcv.alpha_),
             transform=ax.transAxes)
 
-[<img src="http://new.pybonacci.org/images/2015/04/ridgecv.png" alt="ridgecv" width="381" height="251" class="aligncenter size-full wp-image-3339" srcset="https://pybonacci.org/wp-content/uploads/2015/04/ridgecv.png 381w, https://pybonacci.org/wp-content/uploads/2015/04/ridgecv-300x197.png 300w" sizes="(max-width: 381px) 100vw, 381px" />](http://new.pybonacci.org/images/2015/04/ridgecv.png)
+![](http://pybonacci.org/images/2015/04/ridgecv.png)
 
 Con `rcv.alpha_` obtenemos el valor de $\alpha$ que nuestro método `RidgeCV` ha considerado minimiza el error, lo cual también acabamos de comprobar gráficamente.
 
@@ -219,7 +219,7 @@ En este caso vamos a tomar la función _seno_ entre 0 y 2$\pi$ a la que añadire
     ax.scatter(xr, yr, label='con ruido')
     ax.legend()
 
-[<img src="http://new.pybonacci.org/images/2015/04/seno.png" alt="seno" width="378" height="256" class="aligncenter size-full wp-image-3340" srcset="https://pybonacci.org/wp-content/uploads/2015/04/seno.png 378w, https://pybonacci.org/wp-content/uploads/2015/04/seno-300x203.png 300w" sizes="(max-width: 378px) 100vw, 378px" />](http://new.pybonacci.org/images/2015/04/seno.png)
+![](http://pybonacci.org/images/2015/04/seno.png)
 
     :::python
     from sklearn.linear_model import Ridge
@@ -245,7 +245,7 @@ El resultado de esa transformación se la pasamos a nuestro modelo `Ridge`. Para
         ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
     ax.legend()
 
-[<img src="http://new.pybonacci.org/images/2015/04/senoridge.png" alt="senoridge" width="378" height="256" class="aligncenter size-full wp-image-3342" srcset="https://pybonacci.org/wp-content/uploads/2015/04/senoridge.png 378w, https://pybonacci.org/wp-content/uploads/2015/04/senoridge-300x203.png 300w" sizes="(max-width: 378px) 100vw, 378px" />](http://new.pybonacci.org/images/2015/04/senoridge.png)
+![](http://pybonacci.org/images/2015/04/senoridge.png)
 
 Acabamos de utilizar un modelo `Ridge` que implementa regularización, pero sin optimizar. ¿Qué pasaría si optimizamos el parámetro de regularización $alpha \alpha$ con `RidgeCV`?
 
@@ -297,7 +297,7 @@ Con la función `make_classification` de scikit-learn, creamos un conjunto de da
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-[<img src="http://new.pybonacci.org/images/2015/04/class.png" alt="class" width="392" height="271" class="aligncenter size-full wp-image-3353" srcset="https://pybonacci.org/wp-content/uploads/2015/04/class.png 392w, https://pybonacci.org/wp-content/uploads/2015/04/class-300x207.png 300w" sizes="(max-width: 392px) 100vw, 392px" />](http://new.pybonacci.org/images/2015/04/class.png)
+![](http://pybonacci.org/images/2015/04/class.png)
 
 En regresión logística los que vamos a hacer es calcular las probabilidades $p(C_k|x)$. La función logística o [sigmoide](http://es.wikipedia.org/wiki/Función_sigmoide) nos va a permitir definir esas probabilidades y viene definida como
 
@@ -322,7 +322,7 @@ Lo que nos devuelve la función `predict_proba()` es un array de dimensiones (n 
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-[<img src="http://new.pybonacci.org/images/2015/04/sigmoide.png" alt="sigmoide" width="392" height="271" class="aligncenter size-full wp-image-3347" srcset="https://pybonacci.org/wp-content/uploads/2015/04/sigmoide.png 392w, https://pybonacci.org/wp-content/uploads/2015/04/sigmoide-300x207.png 300w" sizes="(max-width: 392px) 100vw, 392px" />](http://new.pybonacci.org/images/2015/04/sigmoide.png)
+![](http://pybonacci.org/images/2015/04/sigmoide.png)
 
 Se aprecia claramente la curva en forma de _S_ de la función logística que es lo que estábamos buscando. Esto nos dice que un punto con $x=0$ tiene aproximadamente un 50 % de probabilidades de pertenecer a cualquiera de las dos categorías.
 
@@ -335,7 +335,7 @@ Si a partir de las probabilidades quisiesemos hacer una clasificación por categ
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-[<img src="http://new.pybonacci.org/images/2015/04/sigmoideumbral.png" alt="sigmoideumbral" width="392" height="271" class="aligncenter size-full wp-image-3349" srcset="https://pybonacci.org/wp-content/uploads/2015/04/sigmoideumbral.png 392w, https://pybonacci.org/wp-content/uploads/2015/04/sigmoideumbral-300x207.png 300w" sizes="(max-width: 392px) 100vw, 392px" />](http://new.pybonacci.org/images/2015/04/sigmoideumbral.png)
+![](http://pybonacci.org/images/2015/04/sigmoideumbral.png)
 
 ## Conclusión
 
@@ -343,7 +343,7 @@ Los métodos que hemos visto en ésta segunda parte son de los más sencillos qu
 
 En la tercera entrega de ésta serie seguiremos viendo métodos de aprendizaje supervisado pero con un enfoque ya más práctico. También veremos cómo competir en Kaggle a través de sus tutoriales; y una vez hayamos adquirido algo de confianza, pasar a las competiciones. La dinámica es la misma, lo que cambia es el premio.
 
-[<img src="http://new.pybonacci.org/images/2015/04/mnist.png" alt="mnist" width="684" height="125" class="aligncenter size-full wp-image-3351" srcset="https://pybonacci.org/wp-content/uploads/2015/04/mnist.png 684w, https://pybonacci.org/wp-content/uploads/2015/04/mnist-300x54.png 300w" sizes="(max-width: 684px) 100vw, 684px" />](http://new.pybonacci.org/images/2015/04/mnist.png)
+![](http://pybonacci.org/images/2015/04/mnist.png)
 
 Espero que os haya gustado. Cualquier comentario o sugerencia es bienvenido.
 

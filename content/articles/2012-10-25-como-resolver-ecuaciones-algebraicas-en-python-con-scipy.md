@@ -29,7 +29,7 @@ En el caso en que conozcamos un valor próximo a la solución, seguiremos utiliz
     x = np.linspace(0, 9, 100)
     plt.plot(x, exp(x / 3) * cos(x) + 10 * sin(3 * x), x, x ** 2 / 4)
 
-[<img class="aligncenter size-full wp-image-1086" title="Ecuación 1" alt="" src="http://new.pybonacci.org/images/2012/10/ecuacion1.png" height="253" width="374" srcset="https://pybonacci.org/wp-content/uploads/2012/10/ecuacion1.png 374w, https://pybonacci.org/wp-content/uploads/2012/10/ecuacion1-300x202.png 300w" sizes="(max-width: 374px) 100vw, 374px" />](http://new.pybonacci.org/images/2012/10/ecuacion1.png)
+![Ecuación 1](http://pybonacci.org/images/2012/10/ecuacion1.png)
 
 Antes que nada debemos definir la función que va a representar la ecuación. Todas las subrutinas de búsqueda de raíces en realidad buscan ceros de funciones, así que debemos escribir
 
@@ -59,7 +59,7 @@ Sencillo, ¿no? Ahora si queremos buscar la solución que está cerca de 2, pode
 
 Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_1088" style="width: 374px" class="wp-caption aligncenter">
 
-[<img class="size-full wp-image-1088" title="Soluciones de la ecuación 1" alt="" src="http://new.pybonacci.org/images/2012/10/ecuacion1_soluciones.png" height="253" width="374" srcset="https://pybonacci.org/wp-content/uploads/2012/10/ecuacion1_soluciones.png 374w, https://pybonacci.org/wp-content/uploads/2012/10/ecuacion1_soluciones-300x202.png 300w" sizes="(max-width: 374px) 100vw, 374px" />](http://new.pybonacci.org/images/2012/10/ecuacion1_soluciones.png)<figcaption class="wp-caption-text">Soluciones de la ecuación</figcaption></figure> 
+![Soluciones de la ecuación 1](http://pybonacci.org/images/2012/10/ecuacion1_soluciones.png)
 
 <p style="text-align:center">
   <h2>
@@ -98,7 +98,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     y que tiene esta pinta:
   </p>
   
-    <pre><code class="language-python">
+    :::python
     x = np.linspace(0, 3, 151)
     def A(x):
         """Área transversal de la tobera.
@@ -117,11 +117,9 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.title("Tobera")
     plt.xlabel("x (m)")
     plt.ylabel("Radio (dm)")
-    </code>
-    </pre>
 
     <p>
-        <a href="http://new.pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://new.pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
+        <a href="http://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
       </p>
       
       <p>
@@ -140,7 +138,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
         donde $A^*$ es el área crítica y $\gamma = 1.4$ para el caso del aire. Date cuenta de que es imposible despejar $x$ en función de $M$ o viceversa, de tal forma que tenemos que resolver la relación implícita que existe entre estas variables. Este es el código:
     </p>
 
-    <pre><code class="language-python">
+    :::python
     from scipy.optimize import brentq, newton
     def rel(M, gamma=1.4):
         """Parte derecha de la relación entre el número de Mach $M$
@@ -168,10 +166,9 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.ylabel("M")
     plt.xlabel("x (m)")
     plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))
-    </code></pre>
 
   <p>
-    <a href="http://new.pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="http://new.pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
+    <a href="http://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="http://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
   </p>
   
   <p>
@@ -210,7 +207,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     El código en Python será:
   </p>
   
-    <pre><code class="language-python">
+    :::python
     from scipy.optimize import root
     def f(x):
         """Sistema de dos ecuaciones con dos incógnitas.
@@ -221,7 +218,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
         ]
     sol = root(f, [1, 1], jac=False)  # Devuelve objecto Result
     print sol.x  # Result.x contiene la solución
-    </code></pre>
+
   <p>
     Y esto ha sido todo, no olvides hacernos llegar tus sugerencias y comentarios. ¡Un saludo!
   </p>

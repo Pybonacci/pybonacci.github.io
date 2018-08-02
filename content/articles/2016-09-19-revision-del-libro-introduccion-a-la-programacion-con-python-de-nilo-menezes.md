@@ -21,7 +21,7 @@ Algunas generalidades del libro:
   * Si vas a la PyConES podrás hablar con el autor en persona y pedirle que te ¡¡firme un ejemplar!!
   * No está disponible en formato electrónico.<figure id="attachment_3909" style="width: 608px" class="wp-caption aligncenter">
 
-[<img class="wp-image-3909 " src="http://new.pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg" alt="Introducción a la programación con Python" width="608" height="451" srcset="https://pybonacci.org/wp-content/uploads/2016/09/2016-09-08_12.43.151-1024x759.jpg 1024w, https://pybonacci.org/wp-content/uploads/2016/09/2016-09-08_12.43.151-300x222.jpg 300w, https://pybonacci.org/wp-content/uploads/2016/09/2016-09-08_12.43.151-1200x889.jpg 1200w" sizes="(max-width: 608px) 100vw, 608px" />](https://librodepython.com/)<figcaption class="wp-caption-text">Introducción a la programación con Python</figcaption></figure> 
+![](http://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg)
 
 Vamos a repasar un poco la estructura del libro capítulo a capítulo:
 

@@ -51,7 +51,7 @@ Muchas veces, cuando analizo datos, se me cuelan datos erróneos que me llevan a
 
 Cuyo resultado sería el siguiente:
 
-[<img class="aligncenter size-full wp-image-957" title="Anscombe" src="http://new.pybonacci.org/images/2012/10/anscombe.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/10/anscombe.png 652w, https://pybonacci.org/wp-content/uploads/2012/10/anscombe-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" />](http://new.pybonacci.org/images/2012/10/anscombe.png)
+![Anscombe](http://pybonacci.org/images/2012/10/anscombe.png)
 
 Se observa que los estadísticos representados son similares. Mismo ajuste lineal, coeficiente de correlación, media de los valores de x, media de los valores de y, varianza de los valores de x y varianza de los valores de y. Sin embargo, viendo los datos representados vemos que en el segundo no deberíamos usar un ajuste lineal para relacionar los valores de x y de y, en el tercer y cuarto grupos vemos que tenemos un dato que podría representar un dato erróneo (una mala medida, por ejemplo) y que en el tercer caso, al no haberlo filtrado correctamente, obtenemos un ajuste que nos llevaría a errores apreciables en el ajuste de los datos y en el cuarto caso nos llevaría a errores muy grandes en el ajuste de los datos mostrando una relación lineal que no parece existir.
 

@@ -69,7 +69,7 @@ donde $2 \pi f = \omega$. Nótese que, por lo que hemos visto en el apartado ant
     plt.xlabel('Tiempo (s)')
     plt.ylabel('$y(t)$')
 
-[<img class="aligncenter size-full wp-image-891" title="Señal 1" src="http://new.pybonacci.org/images/2012/09/sec3b1al1.png" alt="" width="410" height="268" srcset="https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al1.png 410w, https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al1-300x196.png 300w" sizes="(max-width: 410px) 100vw, 410px" />](http://new.pybonacci.org/images/2012/09/sec3b1al1.png)
+![Señal 1](http://pybonacci.org/images/2012/09/sec3b1al1.png)
 
 Esta es la señal que vamos a transformar. Fijáos en el último punto representado. Como el intervalo va desde 0 hasta `n - 1`, los trozos «empalman» perfectamente. Ahora vamos a hallar la DFT de la señal `y`. Para ello necesitamos dos funciones, que se importan del paquete scipy.fftpack:
 
@@ -91,7 +91,7 @@ Como en este caso solo hay dos frecuencias fundamentales, vamos a representarlas
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y$)')
 
-[<img class="aligncenter size-full wp-image-894" title="Transformada 1" src="http://new.pybonacci.org/images/2012/09/transformada1.png" alt="" width="406" height="268" srcset="https://pybonacci.org/wp-content/uploads/2012/09/transformada1.png 406w, https://pybonacci.org/wp-content/uploads/2012/09/transformada1-300x198.png 300w" sizes="(max-width: 406px) 100vw, 406px" />](http://new.pybonacci.org/images/2012/09/transformada1.png)
+![Transformada 1](http://pybonacci.org/images/2012/09/transformada1.png)
 
 **Nota**: Si quieres leer más sobre añadir texto y anotaciones a una gráfica en matplotlib, puedes leer la parte VIII del nuestro [magnífico tutorial de matplotlib](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones") por Kiko 🙂
 
@@ -118,7 +118,7 @@ Vamos a analizar el ejemplo anterior, pero en esta ocasión vamos a poner menos 
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y_2$)')
 
-[<img class="aligncenter size-full wp-image-896" title="Señal 2" src="http://new.pybonacci.org/images/2012/09/sec3b1al2.png" alt="" width="410" height="491" srcset="https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al2.png 410w, https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al2-250x300.png 250w" sizes="(max-width: 410px) 100vw, 410px" />](http://new.pybonacci.org/images/2012/09/sec3b1al2.png)
+![Señal 2](http://pybonacci.org/images/2012/09/sec3b1al2.png)
 
 Como se puede ver, el fenómeno no es extremadamente importante pero han aparecido otras rayas espectrales que no esperábamos. Esto se conoce como «leaking» (y yo lo voy a traducir por fuga) y es debido a que, en este caso, los trozos «no empalman exactamente». Recuerda que la DFT, y por extensión la FFT asume que estamos transformando un período de una señal periódica. Si utilizamos más puntos y extendemos la señal con ceros (esto se conoce como «zero-padding») la DFT da más resolución en frecuencia pero la fuga se magnifica:
 
@@ -137,11 +137,11 @@ Como se puede ver, el fenómeno no es extremadamente importante pero han apareci
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y_3$)')
 
-[<img class="aligncenter size-full wp-image-897" title="Señal 3" src="http://new.pybonacci.org/images/2012/09/sec3b1al3.png" alt="" width="415" height="491" srcset="https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al3.png 415w, https://pybonacci.org/wp-content/uploads/2012/09/sec3b1al3-253x300.png 253w" sizes="(max-width: 415px) 100vw, 415px" />](http://new.pybonacci.org/images/2012/09/sec3b1al3.png)
+![Señal 3](http://pybonacci.org/images/2012/09/sec3b1al3.png)
 
 Existe una manera de reducir la fuga y es mediante el uso de **funciones ventana**. Las funciones ventana no son más que funciones que valen cero fuera de un cierto intervalo, y que en procesamiento de señales digitales se utilizan para «suavizar» o filtrar una determinada señal. NumPy trae [unas cuantas funciones ventana](http://docs.scipy.org/doc/numpy/reference/routines.window.html) por defecto; por ejemplo, la ventana de Blackman tiene este aspecto:
 
-[<img class="aligncenter size-full wp-image-898" title="Ventana de Blackman" src="http://new.pybonacci.org/images/2012/09/blackman.png" alt="" width="381" height="253" srcset="https://pybonacci.org/wp-content/uploads/2012/09/blackman.png 381w, https://pybonacci.org/wp-content/uploads/2012/09/blackman-300x199.png 300w" sizes="(max-width: 381px) 100vw, 381px" />](http://new.pybonacci.org/images/2012/09/blackman.png)
+![Ventana de Blackman](http://pybonacci.org/images/2012/09/blackman.png)
 
 Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana reciben un único argumento que es el número de puntos. Si multiplicamos la ventana por la señal, obtenemos una nueva señal que vale cero en los extremos. Comprobemos el resultado, representando ahora el espectro de amplitud y comparando cómo es el resultado si aplicamos o no la ventana de Blackman:
 
@@ -175,7 +175,7 @@ Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana 
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Abs($Y_5$)')
 
-[<img class="aligncenter size-full wp-image-899" title="Aplicación de la ventana de Blackman" src="http://new.pybonacci.org/images/2012/09/windowing.png" alt="" width="412" height="491" srcset="https://pybonacci.org/wp-content/uploads/2012/09/windowing.png 412w, https://pybonacci.org/wp-content/uploads/2012/09/windowing-251x300.png 251w" sizes="(max-width: 412px) 100vw, 412px" />](http://new.pybonacci.org/images/2012/09/windowing.png)
+![Aplicación de la ventana de Blackman](http://pybonacci.org/images/2012/09/windowing.png)
 
 Esto ya ha sido más interesante, ¿no? 🙂
 
@@ -200,7 +200,7 @@ Al tratarse de un archivo OGG, vamos a utilizar el [SciKit audiolab](http://scik
     plt.xlabel(u'Tiempo (s)')
     plt.ylabel(u'Frecuencia (Hz)')
 
-[<img class="aligncenter size-full wp-image-900" title="Espectrograma" src="http://new.pybonacci.org/images/2012/09/specgram.png" alt="" width="404" height="264" srcset="https://pybonacci.org/wp-content/uploads/2012/09/specgram.png 404w, https://pybonacci.org/wp-content/uploads/2012/09/specgram-300x196.png 300w" sizes="(max-width: 404px) 100vw, 404px" />](http://new.pybonacci.org/images/2012/09/specgram.png)
+![Espectrograma](http://pybonacci.org/images/2012/09/specgram.png)
 
 Se puede apreciar cómo va cambiando la frecuencia fundamental (barras horizontales inferiores) y los armónicos (todas las que están encima, cada vez más débiles) a medida que el intérprete toca una nota distinta. En definitiva, una preciosidad 😛
 

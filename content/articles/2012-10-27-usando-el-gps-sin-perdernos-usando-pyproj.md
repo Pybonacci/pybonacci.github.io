@@ -15,13 +15,13 @@ Está bien, Houston, tenemos un problema. Vamos a ver una serie de conceptos bá
 
 La tierra no es esférica (ni plana, como algunos creen aun), ya lo sabemos (algunos). Tampoco tiene una forma regular por lo que no existe una única definición de la forma de la tierra. Dependiendo de la zona del mundo en que nos encontremos deberemos aproximar la forma de la tierra mediante un modelo que tenga los menores errores posibles en nuestra área de interés. El geoide sería la forma que tendría la Tierra si se midiera sobre el nivel del mar. Esto es, una superficie ondulada que varía unos 100 m arriba y debajo de una elipsoide bien ajustada. Las elevaciones y las líneas de contorno de la tierra están referidas al geoide y no al elipsoide, mientras que la latitud y la longitud están refereridas al elipsoide. ¿Por qué es ondulada la forma del geoide? Debido a irregularidades en el campo gravitatorio.
 
-[<img class="aligncenter" alt="" src="http://kartoweb.itc.nl/geometrics/Bitmaps/refsurface%203.12f.gif" width="619" height="152" />](http://kartoweb.itc.nl/geometrics/reference%20surfaces/body.htm)
+![](http://kartoweb.itc.nl/geometrics/Bitmaps/refsurface%203.12f.gif)
 
 Por otra parte, normalmente, no llevamos un globo terráqueo con nosotros ya que no nos cabe en un bolsillo, llevamos mapas, que son más cómodos de transportar para irnos de excursión al monte. ¿Dónde quiero llegar con esto? Para el que no se haya dado cuenta, acabamos de convertir un objeto tridimensional en un objeto bidimensional y esto provoca que haya distorsiones. Es imposible que al pasar de 3D a 2D seamos capaces de mantener las mismas distancias, direcciones, formas y áreas. Al menos uno de estos parámetros cambiará (se distorsionará) al plasmarlo en un mapa 2D. Y llegamos al punto en el que entran en juego las proyecciones geográficas. [Proyecciones geográficas hay muchas, algunas conservan áreas, otras distancias](http://www.progonos.com/furuti/MapProj/Normal/ProjTbl/projTbl.html),...
 
 Jo, siento que lo he explicado fatal pero es que el tema no es sencillo de explicar en dos párrafos. Un esquema de lo que he querido decir en los anteriores párrafos sería el siguiente:
 
-[<img class="aligncenter" alt="" src="http://mapref.org/NotesImages/Zweig16NotesImage5.gif" width="600" height="443" />](http://mapref.org/NotesImages/Zweig17NotesImage5.gif)
+![](http://mapref.org/NotesImages/Zweig16NotesImage5.gif)
 
 **Problema**
 

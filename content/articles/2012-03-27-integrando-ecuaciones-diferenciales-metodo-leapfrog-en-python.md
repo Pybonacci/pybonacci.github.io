@@ -133,7 +133,7 @@ Y ya, para dar el toque de gracia, representemos gráficamente la solución con 
     plt.plot(t, x)
     plt.show()
 
-[<img class="aligncenter size-medium wp-image-108" title="Solución numérica" src="http://new.pybonacci.org/images/2012/03/sol_numerica.png?w=300" alt="" width="300" height="225" srcset="https://pybonacci.org/wp-content/uploads/2012/03/sol_numerica.png 800w, https://pybonacci.org/wp-content/uploads/2012/03/sol_numerica-300x225.png 300w" sizes="(max-width: 300px) 100vw, 300px" />](http://new.pybonacci.org/images/2012/03/sol_numerica.png)
+![Solución numérica](http://pybonacci.org/images/2012/03/sol_numerica.png?w=300)
 
 ¿Esperabas que fuese más difícil? 😀
 
