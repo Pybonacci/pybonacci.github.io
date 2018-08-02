@@ -23,10 +23,11 @@ En el caso en que conozcamos un valor próximo a la solución, seguiremos utiliz
   $\displaystyle e^{x / 3} \cos{x} + 10 \sin{3 x} = x^2 / 4$
 </p>
 
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-x = np.linspace(0, 9, 100)
-plt.plot(x, exp(x / 3) * cos(x) + 10 * sin(3 * x), x, x ** 2 / 4)</code></pre>
+    :::python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    x = np.linspace(0, 9, 100)
+    plt.plot(x, exp(x / 3) * cos(x) + 10 * sin(3 * x), x, x ** 2 / 4)
 
 ![Ecuación 1](http://pybonacci.org/images/2012/10/ecuacion1.png)
 
@@ -34,24 +35,27 @@ Antes que nada debemos definir la función que va a representar la ecuación. To
 
 $f(x) \equiv \displaystyle e^{x / 3} \cos{x} + 10 \sin{3 x} - x^2 / 4 = 0$
 
-<pre><code class="language-python">def f(x):
-    """Ecuación no lineal.
-    Asume que se ha importado NumPy de la forma
-      import numpy as np
-    """
-    return np.exp(x / 3.0) * np.cos(x) + 10 * np.sin(3 * x) - x ** 2 / 4</code></pre>
+    :::python
+    def f(x):
+        """Ecuación no lineal.
+        Asume que se ha importado NumPy de la forma
+          import numpy as np
+        """
+        return np.exp(x / 3.0) * np.cos(x) + 10 * np.sin(3 * x) - x ** 2 / 4
 
 Vamos a buscar primero la solución que vemos que está entre 4 y 5. Para ello, utilizamos el método de Brent:
 
-<pre><code class="language-python">from scipy.optimize import brentq
-sol1 = brentq(f, 4.0, 5.0)
-print sol1  # 4.40989799172</code></pre>
+    :::python
+    from scipy.optimize import brentq
+    sol1 = brentq(f, 4.0, 5.0)
+    print sol1  # 4.40989799172
 
 Sencillo, ¿no? Ahora si queremos buscar la solución que está cerca de 2, podemos probar el método de la secante:
 
-<pre><code class="language-python">from scipy.optimize import newton
-sol2 = newton(f, 2.0)
-print sol2  # 2.17349784856</code></pre>
+    :::python
+    from scipy.optimize import newton
+    sol2 = newton(f, 2.0)
+    print sol2  # 2.17349784856
 
 Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_1088" style="width: 374px" class="wp-caption aligncenter">
 
@@ -94,76 +98,78 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     y que tiene esta pinta:
   </p>
   
-  <pre><code class="language-python">
-x = np.linspace(0, 3, 151)
-def A(x):
-    """Área transversal de la tobera.
+    <pre><code class="language-python">
+    x = np.linspace(0, 3, 151)
+    def A(x):
+        """Área transversal de la tobera.
+    
+        """
+        def A1(x):
+            return 2.0 * x ** 3 - 3.0 * x ** 2 + 2.0
+    
+        def A2(x):
+            return -3.0 * x ** 3 / 8.0 + 9.0 * x ** 2 / 4.0 - 27.0 * x / 8.0 + 5.0 / 2.0
+    
+        return np.piecewise(x, [(0.0 &lt;= x) & (x &lt; 1.0), (1.0 &lt;= x) & (x &lt;= 3.0)], [A1, A2])
+    
+    plt.fill_between(x, np.sqrt(A(x) / np.pi), -np.sqrt(A(x) / np.pi), facecolor="#eebb22")
+    plt.xlim((0, 3))
+    plt.title("Tobera")
+    plt.xlabel("x (m)")
+    plt.ylabel("Radio (dm)")
+    </code>
+    </pre>
 
-    """
-    def A1(x):
-        return 2.0 * x ** 3 - 3.0 * x ** 2 + 2.0
+    <p>
+        <a href="http://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
+      </p>
+      
+      <p>
+        <strong>Nota</strong>: Recuerda que puedes leer en Pybonacci <a href="http://pybonacci.org/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/">cómo definir funciones definidas a trozos en NumPy</a>.
+      </p>
+      
+      <p>
+        Y quiero conocer la distribución del número de Mach $M$ a lo largo de la misma, utilizando la ecuación
+      </p>
+      
+      <p>
+        $\displaystyle \frac{A(x)}{A^*} = \frac{1}{M(x)} \left( \frac{2}{1 + \gamma} \left( 1 + \frac{\gamma - 1}{2} M(x)^2 \right) \right)^{\frac{\gamma + 1}{2 (\gamma - 1)}}$
+      </p>
+      
+      <p>
+        donde $A^*$ es el área crítica y $\gamma = 1.4$ para el caso del aire. Date cuenta de que es imposible despejar $x$ en función de $M$ o viceversa, de tal forma que tenemos que resolver la relación implícita que existe entre estas variables. Este es el código:
+    </p>
 
-    def A2(x):
-        return -3.0 * x ** 3 / 8.0 + 9.0 * x ** 2 / 4.0 - 27.0 * x / 8.0 + 5.0 / 2.0
+    <pre><code class="language-python">
+    from scipy.optimize import brentq, newton
+    def rel(M, gamma=1.4):
+        """Parte derecha de la relación entre el número de Mach $M$
+        y la relación de áreas $A / A^*$.
+        """
+        return (2 * (1 + (gamma - 1) * M ** 2 / 2) / (gamma + 1)) ** ((gamma + 1) / 2 / (gamma - 1)) / M
+    def eq(M, A):
+        """Función implícita entre el número de Mach y la relación
+        de áreas.
+        """
+        return rel(M) - A
+    # Para cada valor de x resolvemos la ecuación en M
+    M = np.empty_like(x)
+    # El primer paso lo damos con el método de Brent
+    M[0] = brentq(eq, 0.001, 1, args=(A(x[0:1]),))
+    # Comenzamos a iterar
+    for i in xrange(1, len(x)):
+        # El valor inicial para el método de Newton es la solución del
+        # paso anterior
+        M[i] = newton(eq, M[i - 1], args=(A(x[i - 1:i]),))
+    # Representamos la solución
+    plt.plot(x, M)
+    plt.plot(x, np.ones_like(x), 'k--')
+    plt.title(u"Distribución de $M$ a lo largo del eje de la tobera")
+    plt.ylabel("M")
+    plt.xlabel("x (m)")
+    plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))
+    </code></pre>
 
-    return np.piecewise(x, [(0.0 &lt;= x) & (x &lt; 1.0), (1.0 &lt;= x) & (x &lt;= 3.0)], [A1, A2])
-
-plt.fill_between(x, np.sqrt(A(x) / np.pi), -np.sqrt(A(x) / np.pi), facecolor="#eebb22")
-plt.xlim((0, 3))
-plt.title("Tobera")
-plt.xlabel("x (m)")
-plt.ylabel("Radio (dm)")
-</code>
-</pre>
-  
-  <p>
-    <a href="http://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
-  </p>
-  
-  <p>
-    <strong>Nota</strong>: Recuerda que puedes leer en Pybonacci <a href="http://pybonacci.org/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/">cómo definir funciones definidas a trozos en NumPy</a>.
-  </p>
-  
-  <p>
-    Y quiero conocer la distribución del número de Mach $M$ a lo largo de la misma, utilizando la ecuación
-  </p>
-  
-  <p>
-    $\displaystyle \frac{A(x)}{A^*} = \frac{1}{M(x)} \left( \frac{2}{1 + \gamma} \left( 1 + \frac{\gamma - 1}{2} M(x)^2 \right) \right)^{\frac{\gamma + 1}{2 (\gamma - 1)}}$
-  </p>
-  
-  <p>
-    donde $A^*$ es el área crítica y $\gamma = 1.4$ para el caso del aire. Date cuenta de que es imposible despejar $x$ en función de $M$ o viceversa, de tal forma que tenemos que resolver la relación implícita que existe entre estas variables. Este es el código:
-  </p>
-  
-  <pre><code class="language-python">from scipy.optimize import brentq, newton
-def rel(M, gamma=1.4):
-    """Parte derecha de la relación entre el número de Mach $M$
-    y la relación de áreas $A / A^*$.
-    """
-    return (2 * (1 + (gamma - 1) * M ** 2 / 2) / (gamma + 1)) ** ((gamma + 1) / 2 / (gamma - 1)) / M
-def eq(M, A):
-    """Función implícita entre el número de Mach y la relación
-    de áreas.
-    """
-    return rel(M) - A
-# Para cada valor de x resolvemos la ecuación en M
-M = np.empty_like(x)
-# El primer paso lo damos con el método de Brent
-M[0] = brentq(eq, 0.001, 1, args=(A(x[0:1]),))
-# Comenzamos a iterar
-for i in xrange(1, len(x)):
-    # El valor inicial para el método de Newton es la solución del
-    # paso anterior
-    M[i] = newton(eq, M[i - 1], args=(A(x[i - 1:i]),))
-# Representamos la solución
-plt.plot(x, M)
-plt.plot(x, np.ones_like(x), 'k--')
-plt.title(u"Distribución de $M$ a lo largo del eje de la tobera")
-plt.ylabel("M")
-plt.xlabel("x (m)")
-plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))</code></pre>
-  
   <p>
     <a href="http://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="http://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
   </p>
@@ -204,17 +210,18 @@ plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(ar
     El código en Python será:
   </p>
   
-  <pre><code class="language-python">from scipy.optimize import root
-def f(x):
-    """Sistema de dos ecuaciones con dos incógnitas.
-    """
-    return [
-        x[0] * np.cos(x[1]) - 4,
-        x[1]*x[0] - x[1] - 5
-    ]
-sol = root(f, [1, 1], jac=False)  # Devuelve objecto Result
-print sol.x  # Result.x contiene la solución</code></pre>
-  
+    <pre><code class="language-python">
+    from scipy.optimize import root
+    def f(x):
+        """Sistema de dos ecuaciones con dos incógnitas.
+        """
+        return [
+            x[0] * np.cos(x[1]) - 4,
+            x[1]*x[0] - x[1] - 5
+        ]
+    sol = root(f, [1, 1], jac=False)  # Devuelve objecto Result
+    print sol.x  # Result.x contiene la solución
+    </code></pre>
   <p>
     Y esto ha sido todo, no olvides hacernos llegar tus sugerencias y comentarios. ¡Un saludo!
   </p>

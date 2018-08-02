@@ -37,16 +37,17 @@ veamos qué sucede si la interpolamos en nodos equiespaciados. Para ello vamos a
 
 El código será este:
 
-<pre><code class="language-python">import numpy as np
-from scipy.interpolate import barycentric_interpolate
-def runge(x):
-    """Función de Runge."""
-    return 1 / (1 + x ** 2)
-N = 11  # Nodos de interpolación
-xp = np.arange(11) - 5  # -5, -4, -3, ..., 3, 4, 5
-fp = runge(xp)
-x = np.linspace(-5, 5)
-y = barycentric_interpolate(xp, fp, x)</code></pre>
+    :::python
+    import numpy as np
+    from scipy.interpolate import barycentric_interpolate
+    def runge(x):
+        """Función de Runge."""
+        return 1 / (1 + x ** 2)
+    N = 11  # Nodos de interpolación
+    xp = np.arange(11) - 5  # -5, -4, -3, ..., 3, 4, 5
+    fp = runge(xp)
+    x = np.linspace(-5, 5)
+    y = barycentric_interpolate(xp, fp, x)
 
 Y este es el resultado:<figure id="attachment_1754" style="width: 380px" class="wp-caption aligncenter">
 
@@ -56,11 +57,12 @@ Y no os quiero contar nada si escogemos 20 o 100 puntos.
 
 Existe una forma de mitigar este problema, que es, como ya hemos dicho, «escogiendo los puntos cuidadosamente». Una de las formas es elegir las raíces de los [polinomios de Chebyshev](http://es.wikipedia.org/wiki/Polinomios_de_Chebyshev), que podemos construir en NumPy usando el módulo [`polynomial.chebyshev`](http://docs.scipy.org/doc/numpy/reference/routines.polynomials.chebyshev.html). Por ejemplo, si queremos como antes 11 nodos tendremos que escoger el polinomio de Chebyshev de grado 11:
 
-<pre><code class="language-python">from numpy.polynomial import chebyshev
-coeffs_cheb = [0] * 11 + [1]  # Solo queremos el elemento 11 de la serie
-T11 = chebyshev.Chebyshev(coeffs_cheb, [-5, 5])
-xp_ch = T11.roots()
-# -4.949, -4.548, -3.779, -2.703, ..., 4.548, 4.949</code></pre>
+    :::python
+    from numpy.polynomial import chebyshev
+    coeffs_cheb = [0] * 11 + [1]  # Solo queremos el elemento 11 de la serie
+    T11 = chebyshev.Chebyshev(coeffs_cheb, [-5, 5])
+    xp_ch = T11.roots()
+    # -4.949, -4.548, -3.779, -2.703, ..., 4.548, 4.949
 
 Utilizando estos puntos, la cosa no queda tan mal:<figure id="attachment_1759" style="width: 603px" class="wp-caption aligncenter">
 
@@ -79,17 +81,18 @@ Los [trazadores](http://es.wikipedia.org/wiki/Spline) o _splines_ no son más qu
 
 El trazador más elemental, el lineal (grado 1), se puede construir rápidamente en NumPy usando [`np.interp`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.interp.html). El más común, el trazador cúbico (grado 3) se puede construir con la clase [`scipy.interpolate.InterpolatedUnivariateSpline`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.InterpolatedUnivariateSpline.html). Si pasamos a esta clase un argumento `k` podemos especificar el grado del trazador (entre 1 y 5). Como ejemplo vamos a tomar los datos de la silueta del pato de Villafuerte [III].
 
-<pre><code class="language-python">from scipy.interpolate import InterpolatedUnivariateSpline
-# Pato
-P = [(0.9, 1.3), (1.3, 1.5), (1.9, 1.8), (2.1,2.1), (2.6, 2.6), (3.0, 2.7),
-     (3.9, 2.3), (4.4, 2.1), (4.8, 2.0), (5.0, 2.1), (6, 2.2), (7, 2.3),
-     (8, 2.2), (9.1, 1.9), (10.5, 1.4), (11.2, 0.9), (11.6, 0.8), (12, 0.6),
-     (12.6, 0.5), (13, 0.4), (13.2, 0.2)]
-xi, yi = zip(*P)  # 21 puntos de interpolación
-x = np.linspace(min(xi), max(xi), num=1001)  # Dominio
-y1d = np.interp(x, xi, yi)
-#y1d = InterpolatedUnivariateSpline(xi, yi, k=1)(x)  # Mismo resultado
-ysp = InterpolatedUnivariateSpline(xi, yi)(x)  # Llamamos a la clase con x</code></pre>
+    :::python
+    from scipy.interpolate import InterpolatedUnivariateSpline
+    # Pato
+    P = [(0.9, 1.3), (1.3, 1.5), (1.9, 1.8), (2.1,2.1), (2.6, 2.6), (3.0, 2.7),
+         (3.9, 2.3), (4.4, 2.1), (4.8, 2.0), (5.0, 2.1), (6, 2.2), (7, 2.3),
+         (8, 2.2), (9.1, 1.9), (10.5, 1.4), (11.2, 0.9), (11.6, 0.8), (12, 0.6),
+         (12.6, 0.5), (13, 0.4), (13.2, 0.2)]
+    xi, yi = zip(*P)  # 21 puntos de interpolación
+    x = np.linspace(min(xi), max(xi), num=1001)  # Dominio
+    y1d = np.interp(x, xi, yi)
+    #y1d = InterpolatedUnivariateSpline(xi, yi, k=1)(x)  # Mismo resultado
+    ysp = InterpolatedUnivariateSpline(xi, yi)(x)  # Llamamos a la clase con x
 
 **_Nota_**: ¿[Quieres saber el truco de `zip(*P)`](http://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/#comment-509)? 😉
 
@@ -129,17 +132,18 @@ $\displaystyle y = y_0 + k x$
 
 con lo que podemos realizar un ajuste lineal. Por otro lado, tengo que descartar los puntos que están más allá de la condición de entrada en pérdida (después del máximo del coeficiente de sustentación), porque esos no cuadran con el modelo teórico. Este es el código:
 
-<pre><code class="language-python">import numpy.polynomial as P
-# Cargamos los datos
-data = np.loadtxt("polar.dat")
-_, C_L, C_D = data
-# Descarto los datos que no me sirven
-stall_idx = np.argmax(C_L)
-y = C_D[:stall_idx + 1]
-x = C_L[:stall_idx + 1] ** 2
-# Ajuste lineal, devuelve los coeficientes en orden creciente
-C_D0, k = P.polynomial.polyfit(x, y, deg=1)
-print(C_D0, k)</code></pre>
+    :::python
+    import numpy.polynomial as P
+    # Cargamos los datos
+    data = np.loadtxt("polar.dat")
+    _, C_L, C_D = data
+    # Descarto los datos que no me sirven
+    stall_idx = np.argmax(C_L)
+    y = C_D[:stall_idx + 1]
+    x = C_L[:stall_idx + 1] ** 2
+    # Ajuste lineal, devuelve los coeficientes en orden creciente
+    C_D0, k = P.polynomial.polyfit(x, y, deg=1)
+    print(C_D0, k)
 
 Una vez hemos obtenido los dos coeficientes, no hay más que evaluar el polinomio en un cierto dominio usando la función [`polynomial.polyval`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyval.html), que acepta como argumentos
 
@@ -148,8 +152,9 @@ Una vez hemos obtenido los dos coeficientes, no hay más que evaluar el polinomi
 
 El código es simplemente:
 
-<pre><code class="language-python">C_L_dom = np.linspace(C_L[0], C_L[stall_idx], num=1001)
-C_D_int = P.polynomial.polyval(C_L_dom ** 2, (C_D0, k))</code></pre>
+    :::python
+    C_L_dom = np.linspace(C_L[0], C_L[stall_idx], num=1001)
+    C_D_int = P.polynomial.polyval(C_L_dom ** 2, (C_D0, k))
 
 Y este es el resultado que obtenemos:<figure id="attachment_1776" style="width: 407px" class="wp-caption aligncenter">
 
@@ -165,9 +170,10 @@ $\displaystyle A e^{-B x^2} + C$
 
 en Python nuestro modelo será una función que recibirá como primer argumento x y el resto serán los parámetros del mismo:
 
-<pre><code class="language-python">def func(x, A, B, C):
-    """Modelo para nuestros datos."""
-    return A * np.exp(-B * x ** 2) + C</code></pre>
+    :::python
+    def func(x, A, B, C):
+        """Modelo para nuestros datos."""
+        return A * np.exp(-B * x ** 2) + C
 
 Ahora solo necesitamos algunos datos (añadiremos un poco de ruido gaussiano para que tenga más gracia) y podemos probar el ajuste. La función `scipy.optimize.curve_fit` recibe como argumentos:
 
@@ -177,12 +183,13 @@ Ahora solo necesitamos algunos datos (añadiremos un poco de ruido gaussiano par
 
 Así realizamos el ajuste:
 
-<pre><code class="language-python">from scipy.optimize import curve_fit
-Adat, Bdat, Cdat = 2.5, 1.3, 0.5
-xdat = np.linspace(-2, 4, 12)
-ydat = func(xdat, Adat, Bdat, Cdat) + 0.2 * np.random.normal(size=len(xdat))
-(A, B, C), _ = curve_fit(func, xdat, ydat)
-print(A, B, C)</code></pre>
+    :::python
+    from scipy.optimize import curve_fit
+    Adat, Bdat, Cdat = 2.5, 1.3, 0.5
+    xdat = np.linspace(-2, 4, 12)
+    ydat = func(xdat, Adat, Bdat, Cdat) + 0.2 * np.random.normal(size=len(xdat))
+    (A, B, C), _ = curve_fit(func, xdat, ydat)
+    print(A, B, C)
 
 Y el resultado queda así:<figure id="attachment_1779" style="width: 372px" class="wp-caption aligncenter">
 

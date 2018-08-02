@@ -19,30 +19,32 @@ Gracias al módulo `astropy.units` es sencillo utilizar **cantidades con unidade
 
 Solo hacen falta tres líneas para empezar a probar el potencial de poliastro:
 
-<pre><code class="language-python">
-from poliastro.examples import molniya
-from poliastro.plotting import plot
-
-plot(molniya)
-
-</code></pre>
+    :::python
+    
+    from poliastro.examples import molniya
+    from poliastro.plotting import plot
+    
+    plot(molniya)
+    
+    
 
 ![](http://pybonacci.org/images/2014/08/molniya.png)
 
 La piedra angular del paquete son los objetos `State`, que representan el estado de un objeto (un planeta, un satélite artificial) con respecto a un atractor principal (el Sol, la Tierra). Podemos acceder a sus vectores posición y velocidad, sus elementos keplerianos o pintar su órbita osculatriz.
 
-<pre><code class="language-python">
-from astropy import units as u
-from poliastro.bodies import Earth
-from poliastro.twobody import State
-
-# Data from Curtis, example 4.3
-r = [-6045, -3490, 2500] * u.km
-v = [-3.457, 6.618, 2.533] * u.km / u.s
-
-ss = State.from_vectors(Earth, r, v)
-
-</code></pre>
+    :::python
+    
+    from astropy import units as u
+    from poliastro.bodies import Earth
+    from poliastro.twobody import State
+    
+    # Data from Curtis, example 4.3
+    r = [-6045, -3490, 2500] * u.km
+    v = [-3.457, 6.618, 2.533] * u.km / u.s
+    
+    ss = State.from_vectors(Earth, r, v)
+    
+    
 
 Así mismo, podemos definir maniobras (`Maneuver`) que alteran estas órbitas. Una forma es definir directamente los incrementos de velocidad que queremos aplicar, y otra es utilizar las funciones de poliastro para calcular maniobras comunes como las transferencias de Hohmann.
 

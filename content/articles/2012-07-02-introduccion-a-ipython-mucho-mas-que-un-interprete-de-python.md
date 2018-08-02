@@ -60,49 +60,54 @@ Nada más arrancar la interfaz por línea de comandos de IPython ya nos damos cu
 
 El **auto completado** es una característica súper útil para no tener que escribir un código y también, por ejemplo, para inspeccionar objetos rápidamente. Se activa con la tecla Tab; por ejemplo, si tenemos NumPy instalado:
 
-<pre><code class="language-python">In [1]: import nu
-numbers  numpy
-In [1]: import num</code></pre>
+    :::python
+    In [1]: import nu
+    numbers  numpy
+    In [1]: import num
 
 y si escribimos la letra `p` y volvemos a presionar Tab, se terminaría de escribir `numpy`, ya que es la única opción disponible. Podemos explorar, por ejemplo, todas las propiedades del paquete `numpy` cuyo identificador empiece por `e`:
 
-<pre><code class="language-python">In [2]: np.e
-np.e            np.empty        np.exp          np.extract
-np.ediff1d      np.empty_like   np.exp2         np.eye
-np.einsum       np.equal        np.expand_dims
-np.emath        np.errstate     np.expm1</code></pre>
+    :::python
+    In [2]: np.e
+    np.e            np.empty        np.exp          np.extract
+    np.ediff1d      np.empty_like   np.exp2         np.eye
+    np.einsum       np.equal        np.expand_dims
+    np.emath        np.errstate     np.expm1
 
 También funciona con variables definidas por nosotros:
 
-<pre><code class="language-python">In [2]: foobar = 24 ** 2
-In [3]: fo
-foobar    for       format
-In [3]: fo</code></pre>
+    :::python
+    In [2]: foobar = 24 ** 2
+    In [3]: fo
+    foobar    for       format
+    In [3]: fo
 
 ### Historial
 
 El **historial** es una manera de recuperar resultados antiguos que no hemos guardado en una variable. Como las entradas en IPython están numeradas, no hay más que hacer referencia a la salida correspondiente: por ejemplo, si queremos recuperar el resultado obtenido en <code style="color:red;">Out[3]</code>, utilizaremos la variable `_3`:
 
-<pre><code class="language-python">In [3]: 24 ** 2
-Out[3]: 576
-In [4]: _  # Esta variable almacena el último resultado
-Out[4]: 576
-In [5]: _ * 3  # Lo multiplicamos por 3
-Out[5]: 1728
-In [6]: _3  # Y volvemos a 24 ** 2
-Out[6]: 576</code></pre>
+    :::python
+    In [3]: 24 ** 2
+    Out[3]: 576
+    In [4]: _  # Esta variable almacena el último resultado
+    Out[4]: 576
+    In [5]: _ * 3  # Lo multiplicamos por 3
+    Out[5]: 1728
+    In [6]: _3  # Y volvemos a 24 ** 2
+    Out[6]: 576
 
 ### Ayuda
 
 La **ayuda** de IPython nos permite leer la documentación de objetos, funciones, etc. así como el código fuente donde se definieron cuando esté disponible. Ya la hemos utilizado en artículos anteriores, y se invoca utilizando el signo de interrogación `?`:
 
-<pre><code class="language-python">In [7]: import numpy
-In [8]: numpy?  # Signo de interrogación
-[Documentación del paquete numpy]
-In [9]: numpy.linspace?
-[Documentación de la función linspace]
-In [10]: numpy.linspace??  # Doble signo de interrogación
-[Código fuente de la función]</code></pre>
+    :::python
+    In [7]: import numpy
+    In [8]: numpy?  # Signo de interrogación
+    [Documentación del paquete numpy]
+    In [9]: numpy.linspace?
+    [Documentación de la función linspace]
+    In [10]: numpy.linspace??  # Doble signo de interrogación
+    [Código fuente de la función]
 
 ### Guardar, editar, cargar
 
@@ -112,28 +117,30 @@ Con IPython también podemos **guardar, editar y ejecutar archivos**. De esa for
 
 La función `%save` recibe como argumentos el nombre del archivo que queremos y las líneas que queremos guardar en él. Veamos un ejemplo:
 
-<pre><code class="language-python">In [3]: import numpy as np
-In [4]: x = np.linspace(0, 1)
-In [5]: print np.sum(x)
-Out[5]: 25.0
-In [6]: %save foofile.py 3-5  # Guardamos las líneas 3 a 5 en foofile.py
-The following commands were written to file `foofile.py`:
-import numpy as np
-x = np.linspace(0, 1)
-print np.sum(x)
-In [7]: !cat foofile.py  # ¡Sorpresa! Ejecutamos comandos de Linux poniendo ! al principio
-# coding: utf-8
-import numpy as np
-x = np.linspace(0, 1)
-print np.sum(x)</code></pre>
+    :::python
+    In [3]: import numpy as np
+    In [4]: x = np.linspace(0, 1)
+    In [5]: print np.sum(x)
+    Out[5]: 25.0
+    In [6]: %save foofile.py 3-5  # Guardamos las líneas 3 a 5 en foofile.py
+    The following commands were written to file `foofile.py`:
+    import numpy as np
+    x = np.linspace(0, 1)
+    print np.sum(x)
+    In [7]: !cat foofile.py  # ¡Sorpresa! Ejecutamos comandos de Linux poniendo ! al principio
+    # coding: utf-8
+    import numpy as np
+    x = np.linspace(0, 1)
+    print np.sum(x)
 
 Y, si salimos y volvemos a IPython:
 
-<pre><code class="language-python">In [1]: %run foofile.py  # Ejecutamos el archivo foofile.py
-25.0
-In [2]: %edit foofile.py  # Entramos en la ventana del editor, y dividimos la salida entre 3
- done. Executing edited code...
-8.33333333333</code></pre>
+    :::python
+    In [1]: %run foofile.py  # Ejecutamos el archivo foofile.py
+    25.0
+    In [2]: %edit foofile.py  # Entramos en la ventana del editor, y dividimos la salida entre 3
+     done. Executing edited code...
+    8.33333333333
 
 Nótese que el código se ejecuta cuando terminamos de editar el archivo. Si hay algún error, IPython nos lo dirá.
 

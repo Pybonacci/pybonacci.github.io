@@ -25,19 +25,21 @@ Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El 
 
 En todo momento supondremos que se ha iniciado la sesión y se ha hecho
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np
-plt.ion()</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
+    plt.ion()
 
 Después de dar un repaso por toda la librería, obviando algunas funciones estadísticas y eventos, vamos a acabar este tutorial viendo algunas funciones que sirven para leer y guardar imágenes.
 
 Imaginad que queréis usar una imagen de fondo, por ejemplo vuestro nombre, o las siglas de creative commons o una foto,..., en vuestros gráficos. Para el ejemplo que vamos a ver a continuación vamos a usar la imagen que está en [el siguiente enlace](https://upload.wikimedia.org/wikipedia/commons/9/94/Cc_large.png) como fondo (guárdala en local para poder leerla).
 
-<pre><code class="language-python">background = plt.imread('Cc.large.png')  # Leemos la imagen que queremos usar de fondo, lo que escribáis entre comillas es la ruta a la imagen
-x = np.arange(background.shape[1])  # Definimos valores de x
-y = np.random.rand(background.shape[0]) * background.shape[0]  # Definimos valores de y
-plt.plot(x, y)  # Dibujamos la serie
-plt.imshow(background, alpha = 0.25)  # Creamos el fondo con una transparencia del 0.10 (1 es opaco y 0 es transparente)</code></pre>
+    :::python
+    background = plt.imread('Cc.large.png')  # Leemos la imagen que queremos usar de fondo, lo que escribáis entre comillas es la ruta a la imagen
+    x = np.arange(background.shape[1])  # Definimos valores de x
+    y = np.random.rand(background.shape[0]) * background.shape[0]  # Definimos valores de y
+    plt.plot(x, y)  # Dibujamos la serie
+    plt.imshow(background, alpha = 0.25)  # Creamos el fondo con una transparencia del 0.10 (1 es opaco y 0 es transparente)
 
 El resultado es el siguiente:
 
@@ -49,7 +51,8 @@ Con [plt.imread](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotli
 
 Por último, pero no por ello menos importante, quedaría el uso de [plt.savefig](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.savefig), que nos permite guardar cualquiera de las figuras que hemos ido creando a lo largo de todo el tutorial. Para el anterior caso, solo tenemos que añadir lo siguiente al código de más arriba:
 
-<pre><code class="language-python">plt.savefig('imagen_con_fondo_cc.png')</code></pre>
+    :::python
+    plt.savefig('imagen_con_fondo_cc.png')
 
 La función [plt.savefig](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.savefig) permite definir la resolución de la imagen, el formato de salida (por defecto, matplotlib solo permite los formatos png, eps, ps, png y svg, si queremos usar otros formatos haría falta instalar otras librerías ([o bibliotecas](https://twitter.com/Pybonacci/status/237517866646249472)) como [PIL](http://www.pythonware.com/products/pil/)), la orientación de la figura,...
 

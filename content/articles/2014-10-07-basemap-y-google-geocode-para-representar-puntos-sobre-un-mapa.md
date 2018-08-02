@@ -27,10 +27,12 @@ La Formula 1 —categoría reina del automovilísmo— comenzó sus andanzas en 
 
 En Wikipedia podemos encontrar una simple [tabla](http://en.wikipedia.org/wiki/List_of_Formula_One_circuits#Circuits) con una lista de todos los circuitos que alguna vez han albergado un Gran Premio. La copiamos y generamos un fichero CSV o XLS en Excel o en un editor de texto como [Notepad++](http://notepad-plus-plus.org).
 
-<pre><code class="language-python">import pandas as pd</code></pre>
+    :::python
+    import pandas as pd
 
-<pre><code class="language-python">data = pd.DataFrame.from_csv('F1-circuits.csv', header=0, sep=';', index_col=None, parse_dates=False, encoding='latin-1')
-data.head(5)</code></pre>
+    :::python
+    data = pd.DataFrame.from_csv('F1-circuits.csv', header=0, sep=';', index_col=None, parse_dates=False, encoding='latin-1')
+    data.head(5)
 
 <table border="1" class="dataframe">
   <tr style="text-align: right">
@@ -277,84 +279,90 @@ Hay, además, una serie de parámetros opcionales, pero no nos harán falta.
 
 La consulta —`requests.get(url, params)`— devuelve una respuesta en formato [`json`](https://developers.google.com/maps/documentation/geocoding/#JSON) donde se incluyen las coordenadas geográficas que buscamos. El formato `json`, Python lo interpreta como un conjunto de diccionarios y arrays, para lo que indicaremos los `key` y los índices hasta llegar al punto donde se encuentra la información que buscamos. En éste caso: `['results'][0]['geometry']['location']`.
 
-<pre><code class="language-python">import requests</code></pre>
+    :::python
+    import requests
 
-<pre><code class="language-python">_GEOCODE_QUERY_URL = 'http://maps.googleapis.com/maps/api/geocode/json'
-def geocode(address, sensor='false'):
-    """
-    Given a string 'address', return a dictionary of information about
-    that location, including its latitude and longitude.
-    """
-    params = dict(address=address, sensor=sensor)
-    response = requests.get(url=_GEOCODE_QUERY_URL, params=params)
-    return response.json()
-def address_to_latlng(address):
-    """
-    Given a string 'address', return a '(latitude, longitude)' pair.
-    """
-    location = geocode(address)['results'][0]['geometry']['location']
-    return tuple(location.values())</code></pre>
+    :::python
+    _GEOCODE_QUERY_URL = 'http://maps.googleapis.com/maps/api/geocode/json'
+    def geocode(address, sensor='false'):
+        """
+        Given a string 'address', return a dictionary of information about
+        that location, including its latitude and longitude.
+        """
+        params = dict(address=address, sensor=sensor)
+        response = requests.get(url=_GEOCODE_QUERY_URL, params=params)
+        return response.json()
+    def address_to_latlng(address):
+        """
+        Given a string 'address', return a '(latitude, longitude)' pair.
+        """
+        location = geocode(address)['results'][0]['geometry']['location']
+        return tuple(location.values())
 
 ## Basemap {#basemap}
 
 Basemap es un toolkit de matplotlib que nos facilita la tarea de representar información 2D sobre mapas. Ésta información pueden ser contornos, vectores o puntos entre otros como se puede ver en los [ejemplos](http://matplotlib.org/basemap/users/examples.html).
 
-<pre><code class="language-python">from mpl_toolkits.basemap import Basemap
-import numpy as np
-import matplotlib.pyplot as plt</code></pre>
+    :::python
+    from mpl_toolkits.basemap import Basemap
+    import numpy as np
+    import matplotlib.pyplot as plt
 
 Lo primero, vamos a definir es el tipo de proyección a emplear. Hay un montón de ellas descritas en la [Wikipedia](http://en.wikipedia.org/wiki/List_of_map_projections), y en Basemap [disponemos de 24](http://matplotlib.org/basemap/users/mapsetup.html) entre las que escoger. [Para gustos, proyecciones](http://xkcd.com/977/).
 
 En este caso hemos optado por Eckert IV, una proyección pseudocilíndrica, para representar el mapamundi y la Albers Equal Area projection para Europa. Dibujaremos las líneas de costa, las fronteras entre países, los paralelos y meridianos y le daremos un toque de color a los continentes. Basemap, además de disponer de una base de datos con información para representar líneas costeras y fronteras políticas, permite utilizar una imagen como fondo para el mapa. Entre las opciones que ofrece Basemap podemos encontrar el [Blue Marble](http://visibleearth.nasa.gov/view_cat.php?categoryID=1484) de la NASA —`m.bluemarble()`—. Aquí hemos optado por una imagen [_shaded relief_](http://www.shadedrelief.com/) de tonos claros con `m.shadedrelief()`.
 
-<pre><code class="language-python">def basic_world_map(ax=None, region='world'):
-    if region=='world':
-        m = Basemap(resolution='i',projection='eck4',
-                    lat_0=0,lon_0=0)
-        # draw parallels and meridians.
-        m.drawparallels(np.arange(-90.,91.,30.))
-        m.drawmeridians(np.arange(-180.,181.,30.))
-    elif region=='europe':
-        m = Basemap(width=4000000,height=4000000,
-                    resolution='l',projection='aea',\
-                    lat_1=40.,lat_2=60,lon_0=10,lat_0=50)
-        # draw parallels and meridians.
-        m.drawparallels(np.arange(-90.,91.,10.))
-        m.drawmeridians(np.arange(-180.,181.,10.))
-        m.shadedrelief(scale=0.5)
-    m.drawcoastlines()
-    m.drawcountries()
-    m.fillcontinents(color='coral', alpha=0.3)
-    return m</code></pre>
+    :::python
+    def basic_world_map(ax=None, region='world'):
+        if region=='world':
+            m = Basemap(resolution='i',projection='eck4',
+                        lat_0=0,lon_0=0)
+            # draw parallels and meridians.
+            m.drawparallels(np.arange(-90.,91.,30.))
+            m.drawmeridians(np.arange(-180.,181.,30.))
+        elif region=='europe':
+            m = Basemap(width=4000000,height=4000000,
+                        resolution='l',projection='aea',\
+                        lat_1=40.,lat_2=60,lon_0=10,lat_0=50)
+            # draw parallels and meridians.
+            m.drawparallels(np.arange(-90.,91.,10.))
+            m.drawmeridians(np.arange(-180.,181.,10.))
+            m.shadedrelief(scale=0.5)
+        m.drawcoastlines()
+        m.drawcountries()
+        m.fillcontinents(color='coral', alpha=0.3)
+        return m
 
 Creamos un `subplot` y le asignamos un título a la figura. En esa figura vamos a representar las localizaciones de los circuitos con puntos con un área que vendrá determinada por el número de carreras disputadas —tanto mayor será el círculo cuantas más carreras se hayan disputado.
 
 Para que los circulos no sean demasiado grandes —en Monza se han celebrado 64 Grandes Premios— limitaremos el radio del círculo a entre 3 y 20 puntos. Le damos a los cículos algo de transparencia con `alpha=0.7`, añadimos una nota de texto y guardamos la figura.
 
-<pre><code class="language-python">maximum = data['Grands Prix held'].max()
-minimum = data['Grands Prix held'].min()
-f, ax = plt.subplots(figsize=(20, 8))
-ax.set_title('Formula 1 Grand Prix Circuits since 1950\n(Radius by number of races held)')
-m = basic_world_map(ax)
-for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['Grands Prix held'].values):
-    lat, lng = address_to_latlng(cir + ', ' + loc)
-    x, y = m(lat, lng)
-    m.scatter(x, y, s=np.pi * (3 + (num-minimum)/(maximum-minimum)*17)**2, marker='o', c='red', alpha=0.7)
-ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (0, 0))
-f.savefig('f1-circuits.png', dpi=72, transparent=False, bbox_inches='tight')</code></pre>
+    :::python
+    maximum = data['Grands Prix held'].max()
+    minimum = data['Grands Prix held'].min()
+    f, ax = plt.subplots(figsize=(20, 8))
+    ax.set_title('Formula 1 Grand Prix Circuits since 1950\n(Radius by number of races held)')
+    m = basic_world_map(ax)
+    for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['Grands Prix held'].values):
+        lat, lng = address_to_latlng(cir + ', ' + loc)
+        x, y = m(lat, lng)
+        m.scatter(x, y, s=np.pi * (3 + (num-minimum)/(maximum-minimum)*17)**2, marker='o', c='red', alpha=0.7)
+    ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (0, 0))
+    f.savefig('f1-circuits.png', dpi=72, transparent=False, bbox_inches='tight')
 
 ![](http://pybonacci.org/images/2014/10/f1-circuits.png)
 
 Podemos ver una gran concentración de Grandes Premios en Europa, continente que vio nacer a la Fórmula 1 y base de operaciones de la mayoría de equipos que compiten en ella. Si centramos la imagen sobre europa, a la cual hemos añadido un [fondo](http://matplotlib.org/basemap/users/geography.html), podremos ver con mayor claridad la distribución de las que han sido sedes de algún Gran Premio por el viejo continente.
 
-<pre><code class="language-python">f, ax = plt.subplots(figsize=(20, 8))
-ax.set_title('Formula 1 Grand Prix Circuits in Europe since 1950\n(Radius by number of races held)')
-m = basic_world_map(ax, 'europe')
-for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['Grands Prix held'].values):
-    lat, lng = address_to_latlng(cir + ', ' + loc)
-    x, y = m(lat, lng)
-    m.scatter(x, y, s=np.pi * (3 + (num-minimum)/(maximum-minimum)*17)**2, marker='o', c='red', alpha=0.7)
-ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (100000, 100000))
-f.savefig('f1-circuits-europe.png', dpi=72, transparent=False, bbox_inches='tight')</code></pre>
+    :::python
+    f, ax = plt.subplots(figsize=(20, 8))
+    ax.set_title('Formula 1 Grand Prix Circuits in Europe since 1950\n(Radius by number of races held)')
+    m = basic_world_map(ax, 'europe')
+    for cir, loc, num in zip(data['Circuit'].values, data['Location'].values, data['Grands Prix held'].values):
+        lat, lng = address_to_latlng(cir + ', ' + loc)
+        x, y = m(lat, lng)
+        m.scatter(x, y, s=np.pi * (3 + (num-minimum)/(maximum-minimum)*17)**2, marker='o', c='red', alpha=0.7)
+    ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (100000, 100000))
+    f.savefig('f1-circuits-europe.png', dpi=72, transparent=False, bbox_inches='tight')
 
 ![](http://pybonacci.org/images/2014/10/f1-circuits-europe.png)

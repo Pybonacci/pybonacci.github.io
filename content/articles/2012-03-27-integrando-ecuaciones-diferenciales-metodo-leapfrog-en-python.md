@@ -55,12 +55,13 @@ ya podemos resolver el problema, sin más que escoger un valor del paso.
 
 Aunque no sería estrictamente necesario, como la expresión de la matriz del sistema es muy sencilla vamos a utilizar las capacidades de NumPy para manejar matrices. La función $F(U)$ quedará, en Python,
 
-<pre><code class="language-python">A = np.array([  # Matriz del sistema
-    [ 0, 1],
-    [-1, 0]
-])
-def F(t, u):
-    return np.dot(A, u)</code></pre>
+    :::python
+    A = np.array([  # Matriz del sistema
+        [ 0, 1],
+        [-1, 0]
+    ])
+    def F(t, u):
+        return np.dot(A, u)
 
 Aquí hemos utilizado la función `\dot(a, b)`, que para el caso de que `a` sea un array bidimensional y `b` un array unidimensional es el producto de matriz por vector al que estamos acostumbrados en Álgebra Lineal.
 
@@ -70,17 +71,19 @@ Ahora llegó el momento de implementar los esquemas Euler y leapfrog. Como quere
 
 Para el caso del Euler, los datos de entrada serán el instante `t_n`, el vector `u_n`, la función `F(t, u)` y el paso `dt`, y el método nos dará el vector `u_n1`.
 
-<pre><code class="language-python">def euler_step(t_n0, u_n0, F, dt=0.1):
-    """Método Euler explícito."""
-    return u_n0 + dt * F(t_n0, u_n0)</code></pre>
+    :::python
+    def euler_step(t_n0, u_n0, F, dt=0.1):
+        """Método Euler explícito."""
+        return u_n0 + dt * F(t_n0, u_n0)
 
 Traducción literal de la EDD del esquema a Python. Más sencillo imposible 🙂
 
 Hacemos lo mismo con el esquema leapfrog:
 
-<pre><code class="language-python">def lf_step(t_n1, u_n0, u_n1, F, dt=0.1):
-    """Método leapfrog."""
-    return u_n0 + 2 * dt * F(t_n1, u_n1)</code></pre>
+    :::python
+    def lf_step(t_n1, u_n0, u_n1, F, dt=0.1):
+        """Método leapfrog."""
+        return u_n0 + 2 * dt * F(t_n1, u_n1)
 
 Ya sólo nos queda implementar la lógica del programa.
 
@@ -88,34 +91,37 @@ Ya sólo nos queda implementar la lógica del programa.
 
 En primer lugar decidiremos el número `n` de pasos que queremos dar, o hasta dónde queremos hallar la solución, y guardaremos los sucesivos valores de x en un array de dimensión `n`. Para ello utilizamos la función `empty(shape)`, que nos inicializa un array con la forma dada por el primer argumento, y `linspace(a, b, n)`, que discretizará el intervalo $[a, b]$ con `n` puntos. El código correspondiente a esto y a dar las condiciones iniciales quedará:
 
-<pre><code class="language-python"># Número de pasos
-n = 100
-# Paso del esquema
-dt = 0.1
-# Vector solución y vector de tiempos
-t = np.linspace(0.0, (n - 1) * dt, n)
-x = np.empty(n)
-# Condición inicial
-x[0] = 1.0</code></pre>
+    :::python
+    # Número de pasos
+    n = 100
+    # Paso del esquema
+    dt = 0.1
+    # Vector solución y vector de tiempos
+    t = np.linspace(0.0, (n - 1) * dt, n)
+    x = np.empty(n)
+    # Condición inicial
+    x[0] = 1.0
 
 Ya podemos empezar a integrar. El primer paso lo daremos con el euler, y los que queden hasta `n` con el método leapfrog. Después de cada paso guardamos el valor x hallado, y vamos avanzando. Como necesitaremos guardar dos pasos del vector U para poder aplicar el método leapfrog, tendremos que escribir a continuación
 
-<pre><code class="language-python"># Vector U^0
-u_n0 = np.array([x[0], 0.0])
-# Paso 1: Euler explícito
-u_n1 = euler_step(t[0], u_n0, F, dt)
-x[1] = u_n1[0]  # Primera componente del vector U
-# Paso 2: Leapfrog
-u_n2 = lf_step(t[1], u_n0, u_n1, F, dt)
-x[2] = u_n2[0]</code></pre>
+    :::python
+    # Vector U^0
+    u_n0 = np.array([x[0], 0.0])
+    # Paso 1: Euler explícito
+    u_n1 = euler_step(t[0], u_n0, F, dt)
+    x[1] = u_n1[0]  # Primera componente del vector U
+    # Paso 2: Leapfrog
+    u_n2 = lf_step(t[1], u_n0, u_n1, F, dt)
+    x[2] = u_n2[0]
 
 A partir de ahora, todos los pasos son iguales. Iremos sobreescribiendo en `u_n0` y `u_n1` los valores de los vectores que necesitemos para cada paso del leapfrog, y en `u_n2` escribiremos la solución dada por el método. El código del bucle será, finalmente,
 
-<pre><code class="language-python">for i in range(3, n):
-    u_n0 = u_n1
-    u_n1 = u_n2
-    u_n2 = lf_step(t[i - 1], u_n0, u_n1, F, dt)
-    x[i] = u_n2[0]</code></pre>
+    :::python
+    for i in range(3, n):
+        u_n0 = u_n1
+        u_n1 = u_n2
+        u_n2 = lf_step(t[i - 1], u_n0, u_n1, F, dt)
+        x[i] = u_n2[0]
 
 ¡Fácil, rápido y para toda la familia! 🙂
 
@@ -123,8 +129,9 @@ A partir de ahora, todos los pasos son iguales. Iremos sobreescribiendo en `u_n0
 
 Y ya, para dar el toque de gracia, representemos gráficamente la solución con estas sencillas líneas:
 
-<pre><code class="language-python">plt.plot(t, x)
-plt.show()</code></pre>
+    :::python
+    plt.plot(t, x)
+    plt.show()
 
 ![Solución numérica](http://pybonacci.org/images/2012/03/sol_numerica.png?w=300)
 
@@ -134,51 +141,52 @@ plt.show()</code></pre>
 
 El código final es este:
 
-<pre><code class="language-python"># -*- coding: utf-8 -*-
-#
-# Problema de Cauchy con el método leapfrog
-# Juan Luis Cano 
-import numpy as np
-import matplotlib.pyplot as plt
-# Matriz del sistema
-A = np.array([
-    [ 0, 1],
-    [-1, 0]
-])
-# Función
-def F(t, u):
-    return np.dot(A, u)
-def euler_step(t_n0, u_n0, F, dt=0.1):
-    """Método Euler explícito."""
-    return u_n0 + dt * F(t_n0, u_n0)
-def lf_step(t_n1, u_n0, u_n1, F, dt=0.1):
-    """Método leapfrog."""
-    return u_n0 + 2 * dt * F(t_n1, u_n1)
-# Número de pasos
-n = 100
-# Paso del esquema
-dt = 0.1
-# Vector solución y vector de tiempos
-t = np.linspace(0.0, (n - 1) * dt, n)
-x = np.empty(n)
-# Condición inicial
-x[0] = 1.0
-# Vector U^0
-u_n0 = np.array([x[0], 0.0])
-# Paso 1: Euler explícito
-u_n1 = euler_step(t[0], u_n0, F, dt)
-x[1] = u_n1[0]  # Primera componente del vector U
-# Paso 2: Leapfrog
-u_n2 = lf_step(t[1], u_n0, u_n1, F, dt)
-x[2] = u_n2[0]
-for i in range(3, n):
-    u_n0 = u_n1
-    u_n1 = u_n2
-    u_n2 = lf_step(t[i - 1], u_n0, u_n1, F, dt)
-    x[i] = u_n2[0]
-# Representación gráfica
-plt.plot(t, x)
-plt.show()</code></pre>
+    :::python
+    # -*- coding: utf-8 -*-
+    #
+    # Problema de Cauchy con el método leapfrog
+    # Juan Luis Cano 
+    import numpy as np
+    import matplotlib.pyplot as plt
+    # Matriz del sistema
+    A = np.array([
+        [ 0, 1],
+        [-1, 0]
+    ])
+    # Función
+    def F(t, u):
+        return np.dot(A, u)
+    def euler_step(t_n0, u_n0, F, dt=0.1):
+        """Método Euler explícito."""
+        return u_n0 + dt * F(t_n0, u_n0)
+    def lf_step(t_n1, u_n0, u_n1, F, dt=0.1):
+        """Método leapfrog."""
+        return u_n0 + 2 * dt * F(t_n1, u_n1)
+    # Número de pasos
+    n = 100
+    # Paso del esquema
+    dt = 0.1
+    # Vector solución y vector de tiempos
+    t = np.linspace(0.0, (n - 1) * dt, n)
+    x = np.empty(n)
+    # Condición inicial
+    x[0] = 1.0
+    # Vector U^0
+    u_n0 = np.array([x[0], 0.0])
+    # Paso 1: Euler explícito
+    u_n1 = euler_step(t[0], u_n0, F, dt)
+    x[1] = u_n1[0]  # Primera componente del vector U
+    # Paso 2: Leapfrog
+    u_n2 = lf_step(t[1], u_n0, u_n1, F, dt)
+    x[2] = u_n2[0]
+    for i in range(3, n):
+        u_n0 = u_n1
+        u_n1 = u_n2
+        u_n2 = lf_step(t[i - 1], u_n0, u_n1, F, dt)
+        x[i] = u_n2[0]
+    # Representación gráfica
+    plt.plot(t, x)
+    plt.show()
 
 Como se puede ver, en 60 líneas de código incluyendo abundantes comentarios y espacios en blanco hemos implementado un esquema numérico para resolver un problema de ecuaciones diferenciales y hemos representado la solución, sin salirnos de Python.
 

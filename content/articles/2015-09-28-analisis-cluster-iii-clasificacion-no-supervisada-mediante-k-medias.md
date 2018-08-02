@@ -68,87 +68,88 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               [AVISO PARA NAVEGANTES: Todo el código está pensado para funcionar en Python 3. Si usas Python 2 deberías empezar a pensar en actualizarte].<br /> Primero escribo la clase a capón y luego la voy desgranando poco a poco. La he escrito como un iterador de forma que nos permita iterar fácilmente paso a paso (la iteración paso a paso la veremos de forma visual para intentar aportar aun mayor claridad). Para ver más sobre iteradores podéis DuckDuckGoear o ver este <a href="http://www.diveintopython3.net/iterators.html">enlace</a>.
             </p>
             
-            <pre><code>class KMeans:
-    def __init__(self, x, y, n_clusters = 1, limit = 10):
-        self.x = x
-        self.x_min = min(x)
-        self.x_max = max(x)
-        self.y = y
-        self.y_min = min(y)
-        self.y_max = max(y)
-        self.n_clusters = n_clusters
-        self.limit = limit
-        self._init_centroids()        
-        self.iterations = 0
-
-    def _init_centroids(self):
-        self.x_centroids = []
-        self.y_centroids = []
-        self.colors = []
-        for i in range(self.n_clusters):
-            self.x_centroids.append(randint(self.x_min, self.x_max))
-            self.y_centroids.append(randint(self.y_min, self.y_max))
-            r = randint(0,255)
-            g = randint(0,255)
-            b = randint(0,255)
-            color = 'rgb({0},{1},{2})'.format(r, g, b)
-            self.colors.append(color)
-        self._assign_centroids()
-
-    def _assign_centroids(self):
-        self.c = []
-        # Maximum possible distance to a centroid
-        dmax  = sqrt((self.x_min - self.x_max)**2 + 
-                     (self.y_min - self.y_max)**2)
-        for xi, yi in zip(self.x, self.y):
-            cluster = 0
-            d0 = dmax
+                :::[]
+    class KMeans:
+        def __init__(self, x, y, n_clusters = 1, limit = 10):
+            self.x = x
+            self.x_min = min(x)
+            self.x_max = max(x)
+            self.y = y
+            self.y_min = min(y)
+            self.y_max = max(y)
+            self.n_clusters = n_clusters
+            self.limit = limit
+            self._init_centroids()        
+            self.iterations = 0
+    
+        def _init_centroids(self):
+            self.x_centroids = []
+            self.y_centroids = []
+            self.colors = []
             for i in range(self.n_clusters):
-                d = sqrt((xi - self.x_centroids[i])**2 + 
-                         (yi - self.y_centroids[i])**2)
-                if d &lt; d0:
-                    cluster = i
-                    d0 = d
-            self.c.append(cluster)
-
-    def _recalculate_centroids(self):
-        self._x_centroids = self.x_centroids[:]
-        self._y_centroids = self.y_centroids[:]
-        for n in range(self.n_clusters):
-            x0 = 0
-            y0 = 0
-            cont = 0
-            for i, c in enumerate(self.c):
-                if c == n:
-                    cont += 1
-                    x0 += self.x[i]
-                    y0 += self.y[i]
-            self.x_centroids[n] = x0 / cont
-            self.y_centroids[n] = y0 / cont
-        self._assign_centroids()
-
-    def _check_stop(self):
-        for i in range(self.n_clusters):
-            d = sqrt(
-                (self._x_centroids[i] - self.x_centroids[i])**2 +
-                (self._y_centroids[i] - self.y_centroids[i])**2
-                )
-            if d &gt; self.limit:
-                return False
-        return True
-
-    def __iter__(self):
-        return self
-
-    def __next__(self):
-        self.iterations += 1
-        self._recalculate_centroids()
-        stop = self._check_stop()
-        if stop == True:
-            raise StopIteration
-        return self
-
-</code></pre>
+                self.x_centroids.append(randint(self.x_min, self.x_max))
+                self.y_centroids.append(randint(self.y_min, self.y_max))
+                r = randint(0,255)
+                g = randint(0,255)
+                b = randint(0,255)
+                color = 'rgb({0},{1},{2})'.format(r, g, b)
+                self.colors.append(color)
+            self._assign_centroids()
+    
+        def _assign_centroids(self):
+            self.c = []
+            # Maximum possible distance to a centroid
+            dmax  = sqrt((self.x_min - self.x_max)**2 + 
+                         (self.y_min - self.y_max)**2)
+            for xi, yi in zip(self.x, self.y):
+                cluster = 0
+                d0 = dmax
+                for i in range(self.n_clusters):
+                    d = sqrt((xi - self.x_centroids[i])**2 + 
+                             (yi - self.y_centroids[i])**2)
+                    if d &lt; d0:
+                        cluster = i
+                        d0 = d
+                self.c.append(cluster)
+    
+        def _recalculate_centroids(self):
+            self._x_centroids = self.x_centroids[:]
+            self._y_centroids = self.y_centroids[:]
+            for n in range(self.n_clusters):
+                x0 = 0
+                y0 = 0
+                cont = 0
+                for i, c in enumerate(self.c):
+                    if c == n:
+                        cont += 1
+                        x0 += self.x[i]
+                        y0 += self.y[i]
+                self.x_centroids[n] = x0 / cont
+                self.y_centroids[n] = y0 / cont
+            self._assign_centroids()
+    
+        def _check_stop(self):
+            for i in range(self.n_clusters):
+                d = sqrt(
+                    (self._x_centroids[i] - self.x_centroids[i])**2 +
+                    (self._y_centroids[i] - self.y_centroids[i])**2
+                    )
+                if d &gt; self.limit:
+                    return False
+            return True
+    
+        def __iter__(self):
+            return self
+    
+        def __next__(self):
+            self.iterations += 1
+            self._recalculate_centroids()
+            stop = self._check_stop()
+            if stop == True:
+                raise StopIteration
+            return self
+    
+    
             
             <p>
               La clase anterior paso a paso:
@@ -158,19 +159,20 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todo __init__<a class="anchor-link" href="#m&#233;todo-__init__">&#182;</a>
             </h3>
             
-            <pre><code>def __init__(self, x, y, n_clusters = 1, limit = 10):
-        self.x = x
-        self.x_min = min(x)
-        self.x_max = max(x)
-        self.y = y
-        self.y_min = min(y)
-        self.y_max = max(y)
-        self.n_clusters = n_clusters
-        self.limit = limit
-        self._init_centroids()        
-        self.iterations = 0
-
-</code></pre>
+                :::[]
+    def __init__(self, x, y, n_clusters = 1, limit = 10):
+            self.x = x
+            self.x_min = min(x)
+            self.x_max = max(x)
+            self.y = y
+            self.y_min = min(y)
+            self.y_max = max(y)
+            self.n_clusters = n_clusters
+            self.limit = limit
+            self._init_centroids()        
+            self.iterations = 0
+    
+    
             
             <p>
               Inicializamos la clase con los valores <code>x</code> de los puntos, los valores <code>y</code> de los puntos, el número de grupos a usar, <code>n_clusters</code> y el límite del desplazamiento de los grupos a partir del cual consideraremos que podemos parar de iterar, <code>limit</code>.<br /> Además, a partir del los valores introducidos, extraemos las ventana umbral donde se colocan los puntos (atributos <code>x_min</code>, <code>x_max</code>, <code>y_min</code> e <code>y_max</code>) que después usaremos para inicializar los centroides (mediante <code>_init_centroids</code>).
@@ -180,21 +182,22 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todo _init_centroids<a class="anchor-link" href="#m&#233;todo-_init_centroids">&#182;</a>
             </h3>
             
-            <pre><code>    def _init_centroids(self):
-        self.x_centroids = []
-        self.y_centroids = []
-        self.colors = []
-        for i in range(self.n_clusters):
-            self.x_centroids.append(randint(self.x_min, self.x_max))
-            self.y_centroids.append(randint(self.y_min, self.y_max))
-            r = randint(0,255)
-            g = randint(0,255)
-            b = randint(0,255)
-            color = 'rgb({0},{1},{2})'.format(r, g, b)
-            self.colors.append(color)
-        self._assign_centroids()
-
-</code></pre>
+                :::[]
+        def _init_centroids(self):
+            self.x_centroids = []
+            self.y_centroids = []
+            self.colors = []
+            for i in range(self.n_clusters):
+                self.x_centroids.append(randint(self.x_min, self.x_max))
+                self.y_centroids.append(randint(self.y_min, self.y_max))
+                r = randint(0,255)
+                g = randint(0,255)
+                b = randint(0,255)
+                color = 'rgb({0},{1},{2})'.format(r, g, b)
+                self.colors.append(color)
+            self._assign_centroids()
+    
+    
             
             <p>
               Mediante este método, que se usa al inicializar la clase, creamos los centroides iniciales a partir de valores aleatorios situados entre los valores de <code>x_min</code>, <code>x_max</code>, <code>y_min</code> e <code>y_max</code>. Además, asignamos unos colores aleatorios a cada centroide (que luego usaremos en la visualización). Pensándolo fríamente, ahora que estoy escribiendo esto, la verdad que <code>colors</code> podría estar fuera de esta clase pero lo vamos a dejar así.<br /> Una vez que se han creado los centroides hacemos la asignación de cada punto del conjunto de puntos $x$ e $y$ a cada centroide mediante el método <code>_assign_centroids</code>.
@@ -204,23 +207,24 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todo _assign_centroids<a class="anchor-link" href="#m&#233;todo-_assign_centroids">&#182;</a>
             </h3>
             
-            <pre><code>    def _assign_centroids(self):
-        self.c = []
-        # Maximum possible distance to a centroid
-        dmax  = sqrt((self.x_min - self.x_max)**2 + 
-                     (self.y_min - self.y_max)**2)
-        for xi, yi in zip(self.x, self.y):
-            cluster = 0
-            d0 = dmax
-            for i in range(self.n_clusters):
-                d = sqrt((xi - self.x_centroids[i])**2 + 
-                         (yi - self.y_centroids[i])**2)
-                if d &lt; d0:
-                    cluster = i
-                    d0 = d
-            self.c.append(cluster)
-
-</code></pre>
+                :::[]
+        def _assign_centroids(self):
+            self.c = []
+            # Maximum possible distance to a centroid
+            dmax  = sqrt((self.x_min - self.x_max)**2 + 
+                         (self.y_min - self.y_max)**2)
+            for xi, yi in zip(self.x, self.y):
+                cluster = 0
+                d0 = dmax
+                for i in range(self.n_clusters):
+                    d = sqrt((xi - self.x_centroids[i])**2 + 
+                             (yi - self.y_centroids[i])**2)
+                    if d &lt; d0:
+                        cluster = i
+                        d0 = d
+                self.c.append(cluster)
+    
+    
             
             <p>
               en el atributo <code>c</code> (que es una lista) almacenamos el valor del grupo al que pertenece cada punto del conjunto de datos $x$ e $y$. Para ello, primero tenemos que calcular la distancia de cada punto a cada centroide y el que centroide que tenga menos distancia al punto será el asignado. Por tanto, en este paso, hemos de calcular $N \cdot K$ distancias.
@@ -230,23 +234,24 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todo _recalculate_centroids<a class="anchor-link" href="#m&#233;todo-_recalculate_centroids">&#182;</a>
             </h3>
             
-            <pre><code>    def _recalculate_centroids(self):
-        self._x_centroids = self.x_centroids[:]
-        self._y_centroids = self.y_centroids[:]
-        for n in range(self.n_clusters):
-            x0 = 0
-            y0 = 0
-            cont = 0
-            for i, c in enumerate(self.c):
-                if c == n:
-                    cont += 1
-                    x0 += self.x[i]
-                    y0 += self.y[i]
-            self.x_centroids[n] = x0 / cont
-            self.y_centroids[n] = y0 / cont
-        self._assign_centroids()
-
-</code></pre>
+                :::[]
+        def _recalculate_centroids(self):
+            self._x_centroids = self.x_centroids[:]
+            self._y_centroids = self.y_centroids[:]
+            for n in range(self.n_clusters):
+                x0 = 0
+                y0 = 0
+                cont = 0
+                for i, c in enumerate(self.c):
+                    if c == n:
+                        cont += 1
+                        x0 += self.x[i]
+                        y0 += self.y[i]
+                self.x_centroids[n] = x0 / cont
+                self.y_centroids[n] = y0 / cont
+            self._assign_centroids()
+    
+    
             
             <p>
               En este paso, recalculamos los centroides. Cada nuevo centroide será el centroide de los puntos asignados a ese centroide. Los antiguos centroides los conservamos para poder compararlos con los nuevos y ver si han variado poco o mucho las nuevas posiciones de los centroides. Una vez que hemos calculado los nuevos centroides y que mantenemos los antiguos asignamos los puntos a los nuevos centroides mediante el método <code>_assign_centroids</code> explicado anteriormente.
@@ -256,17 +261,18 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todo _check_stop<a class="anchor-link" href="#m&#233;todo-_check_stop">&#182;</a>
             </h3>
             
-            <pre><code>    def _check_stop(self):
-        for i in range(self.n_clusters):
-            d = sqrt(
-                (self._x_centroids[i] - self.x_centroids[i])**2 +
-                (self._y_centroids[i] - self.y_centroids[i])**2
-                )
-            if d &gt; self.limit:
-                return False
-        return True
-
-</code></pre>
+                :::[]
+        def _check_stop(self):
+            for i in range(self.n_clusters):
+                d = sqrt(
+                    (self._x_centroids[i] - self.x_centroids[i])**2 +
+                    (self._y_centroids[i] - self.y_centroids[i])**2
+                    )
+                if d &gt; self.limit:
+                    return False
+            return True
+    
+    
             
             <p>
               En este método calculamos si la diferencia entre la posición de los centroides antiguos y de los nuevos es superior o inferior al límite o umbral que hemos definido al instanciar la clase. Si cualquiera de los centroides se ha movido más del umbral definido seguiremos iterando (<code>_check_stop</code> devolverá <code>False</code>), si ninguno supera el umbral le diremos que pare de iterar (<code>_check_stop</code> devolverá <code>True</code>).
@@ -276,18 +282,19 @@ tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervi
               m&#233;todos __iter__ y __next__<a class="anchor-link" href="#m&#233;todos-__iter__-y-__next__">&#182;</a>
             </h3>
             
-            <pre><code>    def __iter__(self):
-        return self
-
-    def __next__(self):
-        self.iterations += 1
-        self._recalculate_centroids()
-        stop = self._check_stop()
-        if stop == True:
-            raise StopIteration
-        return self
-
-</code></pre>
+                :::[]
+        def __iter__(self):
+            return self
+    
+        def __next__(self):
+            self.iterations += 1
+            self._recalculate_centroids()
+            stop = self._check_stop()
+            if stop == True:
+                raise StopIteration
+            return self
+    
+    
             
             <p>
               Si os habéis leído el enlace sobre iteradores que he dejado más arriba espero que esto sea sencillo de entender.
@@ -793,50 +800,51 @@ class Line(Shape):
                 <div>
                   Por último, este es el código que realiza todo a partir de los demás. Voy a intentar explicarlo un poco más en detalle:</p> 
                   
-                  <pre><code>fig = Figure('cnvs01', borderwidth = 2)
-
-n_points = 50
-x = [randint(10, fig._W - 10) for value in range(n_points)]
-y = [randint(10, fig._H - 10) for value in range(n_points)]
-
-kmeans = KMeans(x, y, n_clusters = 4, limit = 1)
-
-def plot(obj):
-    fig._ctx.save()
-    fig._ctx.fillStyle= "#ffffff"
-    fig._ctx.globalAlpha = 0.3
-    fig._ctx.fillRect(2,2,fig._W-4,fig._H-4)
-    fig._ctx.restore()
-    x = obj.x
-    y = obj.y
-    npoints = len(x)
-    colors = obj.colors
-    xc = obj.x_centroids
-    yc = obj.y_centroids
-    c = obj.c
-    for i in range(npoints):
-        color = colors[c[i]]
-        Line(fig._ctx, [x[i], xc[c[i]]], [y[i], yc[c[i]]],
-             facecolor = color, edgecolor = color)
-        Circle(fig._ctx, x[i], y[i], 
-               facecolor = color, edgecolor = 'black',
-               borderwidth = 1, radius = 4)
-    for xci, yci, color in zip(xc, yc, colors):
-        Circle(fig._ctx, xci, yci, 
-               facecolor = color, edgecolor = 'black',
-               borderwidth = 1, radius = 8)
-
-def update(ev):
-    plot(kmeans)
-    try:
-        next(kmeans)
-    except:
-        #doc['button'].disabled = True
-        del doc['button']
-
-doc['button'].bind('click', update)
-
-</code></pre>
+                      :::[]
+    fig = Figure('cnvs01', borderwidth = 2)
+    
+    n_points = 50
+    x = [randint(10, fig._W - 10) for value in range(n_points)]
+    y = [randint(10, fig._H - 10) for value in range(n_points)]
+    
+    kmeans = KMeans(x, y, n_clusters = 4, limit = 1)
+    
+    def plot(obj):
+        fig._ctx.save()
+        fig._ctx.fillStyle= "#ffffff"
+        fig._ctx.globalAlpha = 0.3
+        fig._ctx.fillRect(2,2,fig._W-4,fig._H-4)
+        fig._ctx.restore()
+        x = obj.x
+        y = obj.y
+        npoints = len(x)
+        colors = obj.colors
+        xc = obj.x_centroids
+        yc = obj.y_centroids
+        c = obj.c
+        for i in range(npoints):
+            color = colors[c[i]]
+            Line(fig._ctx, [x[i], xc[c[i]]], [y[i], yc[c[i]]],
+                 facecolor = color, edgecolor = color)
+            Circle(fig._ctx, x[i], y[i], 
+                   facecolor = color, edgecolor = 'black',
+                   borderwidth = 1, radius = 4)
+        for xci, yci, color in zip(xc, yc, colors):
+            Circle(fig._ctx, xci, yci, 
+                   facecolor = color, edgecolor = 'black',
+                   borderwidth = 1, radius = 8)
+    
+    def update(ev):
+        plot(kmeans)
+        try:
+            next(kmeans)
+        except:
+            #doc['button'].disabled = True
+            del doc['button']
+    
+    doc['button'].bind('click', update)
+    
+    
                   
                   <ul>
                     <li>
@@ -851,38 +859,42 @@ doc['button'].bind('click', update)
                     <li>
                       La función <code>plot</code> hace varias cosas. <ol>
                         <li>
-                          Primero suaviza los colores de la imagen previa antes de la actual iteración (esto está más relacionado con el canvas HTML5 y con javascript y no hace falta entenderlo mucho más allá de lo comentado en esta línea) <pre><code>fig._ctx.save()
-fig._ctx.fillStyle= "#ffffff"
-fig._ctx.globalAlpha = 0.3
-fig._ctx.fillRect(2,2,fig._W-4,fig._H-4)
-fig._ctx.restore()</code></pre>
+                          Primero suaviza los colores de la imagen previa antes de la actual iteración (esto está más relacionado con el canvas HTML5 y con javascript y no hace falta entenderlo mucho más allá de lo comentado en esta línea)     :::[]
+    fig._ctx.save()
+    fig._ctx.fillStyle= "#ffffff"
+    fig._ctx.globalAlpha = 0.3
+    fig._ctx.fillRect(2,2,fig._W-4,fig._H-4)
+    fig._ctx.restore()
                         </li>
                         
                         <li>
-                          Después extraemos todos los datos del objeto (<code>kmeans</code>) que vamos a usar dentro de la función. <pre><code>x = obj.x
-y = obj.y
-npoints = len(x)
-colors = obj.colors
-xc = obj.x_centroids
-yc = obj.y_centroids
-c = obj.c</code></pre>
+                          Después extraemos todos los datos del objeto (<code>kmeans</code>) que vamos a usar dentro de la función.     :::[]
+    x = obj.x
+    y = obj.y
+    npoints = len(x)
+    colors = obj.colors
+    xc = obj.x_centroids
+    yc = obj.y_centroids
+    c = obj.c
                         </li>
                         
                         <li>
-                          Dibujamos las líneas entre los puntos y los centroides y los puntos con colores asociados a cada grupo <pre><code>for i in range(npoints):
-   color = colors[c[i]]
-   Line(fig._ctx, [x[i], xc[c[i]]], [y[i], yc[c[i]]],
-        facecolor = color, edgecolor = color)
-   Circle(fig._ctx, x[i], y[i], 
-          facecolor = color, edgecolor = 'black',
-          borderwidth = 1, radius = 4)</code></pre>
+                          Dibujamos las líneas entre los puntos y los centroides y los puntos con colores asociados a cada grupo     :::[]
+    for i in range(npoints):
+       color = colors[c[i]]
+       Line(fig._ctx, [x[i], xc[c[i]]], [y[i], yc[c[i]]],
+            facecolor = color, edgecolor = color)
+       Circle(fig._ctx, x[i], y[i], 
+              facecolor = color, edgecolor = 'black',
+              borderwidth = 1, radius = 4)
                         </li>
                         
                         <li>
-                          Y finalmente se dibujan los centroides de cada grupo con un círculo un poco más grande que los propios puntos <pre><code>for xci, yci, color in zip(xc, yc, colors):
-   Circle(fig._ctx, xci, yci, 
-          facecolor = color, edgecolor = 'black',
-          borderwidth = 1, radius = 8)</code></pre>
+                          Y finalmente se dibujan los centroides de cada grupo con un círculo un poco más grande que los propios puntos     :::[]
+    for xci, yci, color in zip(xc, yc, colors):
+       Circle(fig._ctx, xci, yci, 
+              facecolor = color, edgecolor = 'black',
+              borderwidth = 1, radius = 8)
                         </li>
                       </ol>
                     </li>

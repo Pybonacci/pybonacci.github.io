@@ -33,21 +33,22 @@ Bueno, veamos el problema a ver si se entiende mejor lo que quiero mostrar:
 
 Imaginad que me encuentro en el punto con longitud y latitud (-3.368620º, 37.054883º) en WGS84. Vamos a transformar esas coordenadas con [pyproj.](http://code.google.com/p/pyproj/) Pyproj es una pequeña biblioteca que permite acceder a la biblioteca de proyecciones cartográficas [proj.4](https://trac.osgeo.org/proj/) escrita en C. Pyproj permite hacer transformaciones de coordenadas y calcular [círculos máximos](http://es.wikipedia.org/wiki/Gran_c%C3%ADrculo). Vamos a usarla para hacer una transformación de coordenadas (ya llegamos al código python):
 
-<pre><code class="language-python">import pyproj
-## http://pyproj.googlecode.com/svn/trunk/docs/pyproj.Proj-class.html
-## Creamos el primer sistema de coordenadas en WGS84
-## epsg:4326, http://spatialreference.org/ref/epsg/4326/
-p1 = pyproj.Proj(init = "epsg:4326")
-## Creamos el segundo sistema de coordenadas en ED50 UTM huso horario 30
-## epsg:23030, http://spatialreference.org/ref/epsg/23030/
-p2 = pyproj.Proj(init = "epsg:23030")
-## Mi posición en WGS84
-lon = -3.368620
-lat = 37.054883
-## Transformamos del sistema de coordenadas p1 (WGS84 en grográficas)
-## al sistema de coordenadas p1 (ED50, UTM, Z30)
-x2, y2 = pyproj.transform(p1, p2, lon, lat)
-print x2, y2</code></pre>
+    :::python
+    import pyproj
+    ## http://pyproj.googlecode.com/svn/trunk/docs/pyproj.Proj-class.html
+    ## Creamos el primer sistema de coordenadas en WGS84
+    ## epsg:4326, http://spatialreference.org/ref/epsg/4326/
+    p1 = pyproj.Proj(init = "epsg:4326")
+    ## Creamos el segundo sistema de coordenadas en ED50 UTM huso horario 30
+    ## epsg:23030, http://spatialreference.org/ref/epsg/23030/
+    p2 = pyproj.Proj(init = "epsg:23030")
+    ## Mi posición en WGS84
+    lon = -3.368620
+    lat = 37.054883
+    ## Transformamos del sistema de coordenadas p1 (WGS84 en grográficas)
+    ## al sistema de coordenadas p1 (ED50, UTM, Z30)
+    x2, y2 = pyproj.transform(p1, p2, lon, lat)
+    print x2, y2
 
 Si lo hemos hecho todo bien el resultado que obtendremos será:
 
@@ -55,17 +56,18 @@ Si lo hemos hecho todo bien el resultado que obtendremos será:
 
 Y estas coordenadas serán las correctas en el mapa ED50 en UTM de nuestro salvador para que nos pueda encontrar sin ningún tipo de error. Imaginad por un momento que os habéis equivocado y en lugar de pasarle las coordenadas en ED50 UTM se las pasáis en WGS84 UTM. El resultado sería:
 
-<pre><code class="language-python">## epsg:4326, http://spatialreference.org/ref/epsg/4326/
-p1 = pyproj.Proj(init = "epsg:4326")
-## epsg:32630, http://spatialreference.org/ref/epsg/32630/
-p2 = pyproj.Proj(init = "epsg:32630")
-## Mi posición en WGS84
-lon = -3.368620
-lat = 37.054883
-## Transformamos del sistema de coordenadas p1 (WGS84 en grográficas)
-## al sistema de coordenadas p1 (ED50, UTM, Z30)
-x2, y2 = pyproj.transform(p1, p2, lon, lat)
-print x2, y2</code></pre>
+    :::python
+    ## epsg:4326, http://spatialreference.org/ref/epsg/4326/
+    p1 = pyproj.Proj(init = "epsg:4326")
+    ## epsg:32630, http://spatialreference.org/ref/epsg/32630/
+    p2 = pyproj.Proj(init = "epsg:32630")
+    ## Mi posición en WGS84
+    lon = -3.368620
+    lat = 37.054883
+    ## Transformamos del sistema de coordenadas p1 (WGS84 en grográficas)
+    ## al sistema de coordenadas p1 (ED50, UTM, Z30)
+    x2, y2 = pyproj.transform(p1, p2, lon, lat)
+    print x2, y2
 
 Cuyo resultado sería:
 

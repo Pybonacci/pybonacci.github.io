@@ -34,43 +34,45 @@ Aunque hay muchas variantes del juego de la vida, nosotros nos vamos a centrar e
 
 Para recrear el tablero voy a utilizar un array de NumPy de tipo `int`, donde el valor 0 corresponderá a célula muerta y el 1 a célula viva. La clave para calcular el número de células vivas va a estar en la función [`roll`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.roll.html), que toma un array de NumPy y desplaza todos los elementos en la dirección indicada. Veamos un ejemplo:
 
-<pre><code class="language-python">&gt;&gt;&gt; b = np.diag([1, 2, 3])
-&gt;&gt;&gt; b
-array([[1, 0, 0],
-       [0, 2, 0],
-       [0, 0, 3]])
-&gt;&gt;&gt; np.roll(b, 1, axis=0)  # Eje 0: filas
-array([[0, 0, 3],
-       [1, 0, 0],
-       [0, 2, 0]])
-&gt;&gt;&gt; np.roll(b, 2, axis=0)  # Dos posiciones
-array([[0, 2, 0],
-       [0, 0, 3],
-       [1, 0, 0]])
-&gt;&gt;&gt; np.roll(b, -1, axis=0)  # Una posición hacia atrás
-array([[0, 2, 0],
-       [0, 0, 3],
-       [1, 0, 0]])
-&gt;&gt;&gt; np.roll(b, 1, axis=1)  # Eje 1: columnas
-array([[0, 1, 0],
-       [0, 0, 2],
-       [3, 0, 0]])</code></pre>
+    :::python
+    &gt;&gt;&gt; b = np.diag([1, 2, 3])
+    &gt;&gt;&gt; b
+    array([[1, 0, 0],
+           [0, 2, 0],
+           [0, 0, 3]])
+    &gt;&gt;&gt; np.roll(b, 1, axis=0)  # Eje 0: filas
+    array([[0, 0, 3],
+           [1, 0, 0],
+           [0, 2, 0]])
+    &gt;&gt;&gt; np.roll(b, 2, axis=0)  # Dos posiciones
+    array([[0, 2, 0],
+           [0, 0, 3],
+           [1, 0, 0]])
+    &gt;&gt;&gt; np.roll(b, -1, axis=0)  # Una posición hacia atrás
+    array([[0, 2, 0],
+           [0, 0, 3],
+           [1, 0, 0]])
+    &gt;&gt;&gt; np.roll(b, 1, axis=1)  # Eje 1: columnas
+    array([[0, 1, 0],
+           [0, 0, 2],
+           [3, 0, 0]])
 
 Pues bien, vamos a desplazar nuestro tablero una posición en las ocho direcciones posibles (recuerda que se cuenta la diagonal también) y vamos a sumar el resultado. Como cada célula viva tendrá el valor 1, esto me dará, en cada celda, el número de células vecinas vivas.
 
-<pre><code class="language-python">def vecindario(b):
-    """Array de células vivas en el vecindario."""
-    vecindario = (
-        np.roll(np.roll(b, 1, 1), 1, 0) +  # Arriba-izquierda
-        np.roll(b, 1, 0) +  # Arriba
-        np.roll(np.roll(b, -1, 1), 1, 0) +  # Arriba-derecha
-        np.roll(b, -1, 1) +  # Derecha
-        np.roll(np.roll(b, -1, 1), -1, 0) +  # Abajo-derecha
-        np.roll(b, -1, 0) +  # Abajo
-        np.roll(np.roll(b, 1, 1), -1, 0) +  # Abajo-izquierda
-        np.roll(b, 1, 1)  # Izquierda
-    )
-    return vecindario</code></pre>
+    :::python
+    def vecindario(b):
+        """Array de células vivas en el vecindario."""
+        vecindario = (
+            np.roll(np.roll(b, 1, 1), 1, 0) +  # Arriba-izquierda
+            np.roll(b, 1, 0) +  # Arriba
+            np.roll(np.roll(b, -1, 1), 1, 0) +  # Arriba-derecha
+            np.roll(b, -1, 1) +  # Derecha
+            np.roll(np.roll(b, -1, 1), -1, 0) +  # Abajo-derecha
+            np.roll(b, -1, 0) +  # Abajo
+            np.roll(np.roll(b, 1, 1), -1, 0) +  # Abajo-izquierda
+            np.roll(b, 1, 1)  # Izquierda
+        )
+        return vecindario
 
 date cuenta de que para desplazar en diagonal tenemos que aplicar la función `roll` dos veces.
 
@@ -78,17 +80,18 @@ date cuenta de que para desplazar en diagonal tenemos que aplicar la función `r
 
 Una vez que tenemos el array `vecindario`, es sencillísimo determinar qué células sobreviven, cuáles mueren y cuáles nacen:
 
-<pre><code class="language-python">def paso(b):
-    """Paso en el juego de la vida de Conway."""
-    v = vecindario(b)  # Se calcula el vecindario
-    buffer_b = b.copy()  # Hacemos una copia de la matriz
-    for i in range(buffer_b.shape[0]):
-        for j in range(buffer_b.shape[1]):
-            if v[i, j] == 3 or (v[i, j] == 2 and buffer_b[i, j]):
-                buffer_b[i, j] = 1
-            else:
-                buffer_b[i, j] = 0
-    return buffer_b</code></pre>
+    :::python
+    def paso(b):
+        """Paso en el juego de la vida de Conway."""
+        v = vecindario(b)  # Se calcula el vecindario
+        buffer_b = b.copy()  # Hacemos una copia de la matriz
+        for i in range(buffer_b.shape[0]):
+            for j in range(buffer_b.shape[1]):
+                if v[i, j] == 3 or (v[i, j] == 2 and buffer_b[i, j]):
+                    buffer_b[i, j] = 1
+                else:
+                    buffer_b[i, j] = 0
+        return buffer_b
 
 Y el tablero en el nuevo paso será el resultado de la función anterior.
 

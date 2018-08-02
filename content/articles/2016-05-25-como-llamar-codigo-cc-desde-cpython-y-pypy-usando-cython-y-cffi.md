@@ -15,11 +15,13 @@ Antes de empezar a leer esta entrada deberías pasar a leer la entrada que hizo 
 
 Antes de probar el código de la presente entrada deberías instalar cffi y cython:
 
-<pre><code class="language-python">conda install cffi cython # Válido en CPython</code></pre>
+    :::python
+    conda install cffi cython # Válido en CPython
 
 o
 
-<pre><code class="language-python">pip install cffi cython # Válido en CPython y Pypy</code></pre>
+    :::python
+    pip install cffi cython # Válido en CPython y Pypy
 
 Todo lo que viene a continuación lo he probado en Linux solo usando CPython 3.5 y Pypy 5.1.1, compatible con CPython 2.7 e instalado [usando esto](https://github.com/kikocorreoso/test_pypy_numpypy).
 
@@ -35,13 +37,15 @@ C y C++ no son el mismo lenguaje pero para este caso el código se puede conside
 
 El fichero _*.hpp_ se llamará _milibrería.hpp_ y contendrá el siguiente código:
 
-<pre><code class="language-cpp">long suma_enteros(long n, long m);</code></pre>
+    :::cpp
+    long suma_enteros(long n, long m);
 
 Mientras que el fichero _*.cpp_ se llamará _milibrería.cpp_ y contendrá el siguiente código:
 
-<pre><code class="language-cpp">long suma_enteros(long n, long m){
-    return n + m;
-}</code></pre>
+    :::cpp
+    long suma_enteros(long n, long m){
+        return n + m;
+    }
 
 Lo que hace el código es bastante simple.
 
@@ -49,17 +53,18 @@ Lo que hace el código es bastante simple.
 
 En este caso solo vamos a usar un fichero _*.cpp_ y se llamará _milibrería_cffi.cpp_ y contendrá el siguiente código:
 
-<pre><code class="language-cpp">long suma_enteros(long n, long m){
-    return n + m;
-}
-
-extern "C"
-{
-    extern long cffi_suma_enteros(long n, long m)
-    {
-        return suma_enteros(n, m);
+    :::cpp
+    long suma_enteros(long n, long m){
+        return n + m;
     }
-}</code></pre>
+    
+    extern "C"
+    {
+        extern long cffi_suma_enteros(long n, long m)
+        {
+            return suma_enteros(n, m);
+        }
+    }
 
 El código es el mismo de antes más una segunda parte que nos permite hacer el código accesible desde Python.
 
@@ -71,32 +76,35 @@ En esta parte vamos a ver cómo unir el lenguaje compilado con el lenguaje inter
 
 Antes de nada necesitamos definir un fichero _milibreria.pxd_. Este fichero es parecido a lo que hacen los ficheros _header_ en C/C++ o Fortran. Nos ayudará a 'encontrar' lo que hemos definido en c++ (más info sobre los ficheros pxd [aquí](http://docs.cython.org/src/tutorial/pxd_files.html)):
 
-<pre><code class="language-python">cdef extern from "milibreria.hpp":
-    long suma_enteros(long n, long m)</code></pre>
+    :::python
+    cdef extern from "milibreria.hpp":
+        long suma_enteros(long n, long m)
 
 Un fichero _*.pxd_ se puede importar en un fichero _*.pyx_ usando la palabra clave `cimport`
 
 Una vez 'enlazado' C/C++ con Cython mediante el fichero _*.pxd_ necesitamos hacer que la parte C/C++ sea accesible desde Python. Para ello creamos el fichero _pylibfromcpp.pyx_, que es una especie de código Python un poco 'cythonizado' (cython es un superconjunto de Python):
 
-<pre><code class="language-python">cimport milibreria
-
-def suma_enteros(n, m):
-    return milibreria.suma_enteros(n, m)</code></pre>
+    :::python
+    cimport milibreria
+    
+    def suma_enteros(n, m):
+        return milibreria.suma_enteros(n, m)
 
 ### Mediante CFFI
 
 En este caso resulta un poco más sencillo, para este caso concreto. Hemos de crear el fichero Python que, mediante CFFI, enlazará C/C++ con Python. Este ficheros se llamará _pylibfromCFFI.py_ y contendrá el siguiente código.:
 
-<pre><code class="language-python">import cffi
-
-
-ffi = cffi.FFI()
-ffi.cdef("long cffi_suma_enteros(long n, long m);")
-C = ffi.dlopen("./milibreria.so")
-
-
-def suma_enteros(n, m):
-    return C.cffi_suma_enteros(n, m)</code></pre>
+    :::python
+    import cffi
+    
+    
+    ffi = cffi.FFI()
+    ffi.cdef("long cffi_suma_enteros(long n, long m);")
+    C = ffi.dlopen("./milibreria.so")
+    
+    
+    def suma_enteros(n, m):
+        return C.cffi_suma_enteros(n, m)
 
 ## Setup
 
@@ -104,19 +112,21 @@ def suma_enteros(n, m):
 
 Para poder acceder a la librería C/C++ hemos de crear un fichero _setup.py_ que se encargará de la compilación que permitirá crear la extensión a la que accederemos desde Python. El fichero _setup.py_ contendrá:
 
-<pre><code class="language-python">from distutils.core import setup, Extension
-from Cython.Build import cythonize
-
-ext = Extension("pylibfromcpp",
-              sources=["pylibfromcpp.pyx", "milibreria.cpp"],
-              language="c++",)
-
-setup(name = "cython_pylibfromcpp",
-      ext_modules = cythonize(ext))</code></pre>
+    :::python
+    from distutils.core import setup, Extension
+    from Cython.Build import cythonize
+    
+    ext = Extension("pylibfromcpp",
+                  sources=["pylibfromcpp.pyx", "milibreria.cpp"],
+                  language="c++",)
+    
+    setup(name = "cython_pylibfromcpp",
+          ext_modules = cythonize(ext))
 
 Para crear la extensión en sí, en la misma carpeta donde hemos dejado todos los ficheros anteriores y desde la línea de comandos, hacemos (como siempre, recomiendo hacer esto desde un entorno virtual):
 
-<pre><code class="language-python">python setup.py build_ext -i</code></pre>
+    :::python
+    python setup.py build_ext -i
 
 Y debería aparecer un fichero _pylibfromcpp.cpp_ y otro fichero _pylibfromcpp.pypy-41.so_ en la misma carpeta donde habéis ejecutado el comando anterior.
 
@@ -124,7 +134,8 @@ Y debería aparecer un fichero _pylibfromcpp.cpp_ y otro fichero _pylibfromcpp.p
 
 Para poder hacer accesible la funcionalidad definida en C/C++ desde Python podemos compilar usando:
 
-<pre><code class="language-cpp">g++ -o ./milibreria.so ./milibreria_cffi.cpp -fPIC -shared</code></pre>
+    :::cpp
+    g++ -o ./milibreria.so ./milibreria_cffi.cpp -fPIC -shared
 
 Y deberíamos obtener el fichero _milibreria.so_.
 
@@ -134,35 +145,39 @@ Y deberíamos obtener el fichero _milibreria.so_.
 
 Ahora, si todo ha salido bien, dentro de un intérprete de python (como he comentado más arriba, lo he probado con CPython 3.5 y Pypy 5.1.1 y me ha funcionado en ambos) podemos hacer:
 
-<pre><code class="language-python">import pylibfromcpp
-print(pylibfromcpp.suma_enteros(2, 3))</code></pre>
+    :::python
+    import pylibfromcpp
+    print(pylibfromcpp.suma_enteros(2, 3))
 
 ### Usando nuestro 'wrapper' CFFI
 
 De igual forma, si todo ha salido bien, podemos hacer:
 
-<pre><code class="language-python">import pylibfromcpp
-print(pylibfromcpp.suma_enteros(2, 3))</code></pre>
+    :::python
+    import pylibfromcpp
+    print(pylibfromcpp.suma_enteros(2, 3))
 
 ## Output completo en la consola pypy
 
 ### Para el caso Cython
 
-<pre><code class="language-python">Python 2.7.10 (b0a649e90b6642251fb4a765fe5b27a97b1319a9, May 05 2016, 17:21:19)
-[PyPy 5.1.1 with GCC 4.9.2] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt;&gt; import pylibfromcpp
-&gt;&gt;&gt;&gt; print(pylibfromcpp.suma_enteros(2, 3))
-5</code></pre>
+    :::python
+    Python 2.7.10 (b0a649e90b6642251fb4a765fe5b27a97b1319a9, May 05 2016, 17:21:19)
+    [PyPy 5.1.1 with GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt;&gt; import pylibfromcpp
+    &gt;&gt;&gt;&gt; print(pylibfromcpp.suma_enteros(2, 3))
+    5
 
 ### Para el caso CFFI
 
-<pre><code class="language-python">Python 2.7.10 (b0a649e90b6642251fb4a765fe5b27a97b1319a9, May 05 2016, 17:21:19)
-[PyPy 5.1.1 with GCC 4.9.2] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
-&gt;&gt;&gt;&gt; import pylibfromCFFI
-&gt;&gt;&gt;&gt; print(pylibfromCFFI.suma_enteros(2, 3))
-5</code></pre>
+    :::python
+    Python 2.7.10 (b0a649e90b6642251fb4a765fe5b27a97b1319a9, May 05 2016, 17:21:19)
+    [PyPy 5.1.1 with GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    &gt;&gt;&gt;&gt; import pylibfromCFFI
+    &gt;&gt;&gt;&gt; print(pylibfromCFFI.suma_enteros(2, 3))
+    5
 
 ## Comentarios finales
 

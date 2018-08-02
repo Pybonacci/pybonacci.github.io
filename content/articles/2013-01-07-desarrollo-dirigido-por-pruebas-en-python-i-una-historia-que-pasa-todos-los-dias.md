@@ -63,19 +63,20 @@ Vamos a crear una clase que implemente las operaciones de una lista. Con este ej
 
 Podemos codificar estos ejemplos como pruebas en Python para tomar decisiones sobre cómo vamos a utilizar la clase lista y para ir verificando que todo funciona correctamente a medida que la programamos. Para ello utilizamos el módulo `unittest` que ya viene incluido en la distribución base de Python. Una posible implementación de los ejemplos anteriores se muestra a continuación.
 
-<pre><code class="language-python">class TestsCasesForMyList(unittest.TestCase):
-    def test_GivenANewListThenItHasZeroElements(self):
-        l = MyList()
-        self.assertEqual(0, l.size())
-    def test_GivenANewListWhenIAddAnElementThenItHasOneElement(self):
-        l = MyList()
-        l.add("A")
-        self.assertEqual(1, l.size())
-    def test_GivenANewListWhenIAdd_A_B_C_Then_A_HasInex_0_B_index_1_and_C_index_2(self):
-        l = MyList("A", "B", "C")
-        self.assertEqual("A", l.get(0))
-        self.assertEqual("B", l.get(1))
-        self.assertEqual("C", l.get(2))</code></pre>
+    :::python
+    class TestsCasesForMyList(unittest.TestCase):
+        def test_GivenANewListThenItHasZeroElements(self):
+            l = MyList()
+            self.assertEqual(0, l.size())
+        def test_GivenANewListWhenIAddAnElementThenItHasOneElement(self):
+            l = MyList()
+            l.add("A")
+            self.assertEqual(1, l.size())
+        def test_GivenANewListWhenIAdd_A_B_C_Then_A_HasInex_0_B_index_1_and_C_index_2(self):
+            l = MyList("A", "B", "C")
+            self.assertEqual("A", l.get(0))
+            self.assertEqual("B", l.get(1))
+            self.assertEqual("C", l.get(2))
 
 Fijémonos en las decisiones de diseño y requisitos que hemos establecido puede que sin darnos cuenta. Por ejemplo, si nos fijamos en la tercera prueba vemos que, aunque nadie lo había mencionado, nos resulta muy cómodo indicar un grupo de elementos al momento de crear la lista, en vez de añadirlo uno a uno. Si no hubiéramos puesto este ejemplo puede que esto nos e nos hubiera ocurrido.
 

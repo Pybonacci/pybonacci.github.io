@@ -25,9 +25,10 @@ Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El 
 
 En todo momento supondremos que se ha iniciado la sesión y se ha hecho
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np
-plt.ion()</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
+    plt.ion()
 
 Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... En esta ocasión nos interesa ver como podemos meter anotaciones, tablas,..., en nuestros gráficos.
 
@@ -37,11 +38,12 @@ A lo largo de las anteriores entregas del tutorial hemos podido ver algunas form
 
 Como caso sencillo para anotar texto en nuestro gráfico podemos usar [plt.text](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.text). En el siguiente ejemplo vamos a resaltar donde está el valor máximo y el valor mínimo de una serie de datos:
 
-<pre><code class="language-python">a = np.random.rand(10)  # Creamos una serie de 10 valores pseudo-aleatorios entre 0 y 1
-plt.plot(a)  # Los dibujamos
-plt.ylim(-0.2, 1.2)  # Definimos el rango de valores para el eje y
-plt.text(np.argmin(a), np.min(a) - 0.1, u'Mínimo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Colocamos texto cerca del valor donde se encuentra el mínimo
-plt.text(np.argmax(a), np.max(a) + 0.1, u'Máximo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Colocamos texto cerca del valor donde se encuentra el máximo</code></pre>
+    :::python
+    a = np.random.rand(10)  # Creamos una serie de 10 valores pseudo-aleatorios entre 0 y 1
+    plt.plot(a)  # Los dibujamos
+    plt.ylim(-0.2, 1.2)  # Definimos el rango de valores para el eje y
+    plt.text(np.argmin(a), np.min(a) - 0.1, u'Mínimo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Colocamos texto cerca del valor donde se encuentra el mínimo
+    plt.text(np.argmax(a), np.max(a) + 0.1, u'Máximo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Colocamos texto cerca del valor donde se encuentra el máximo
 
 El resultado es el siguiente:
 
@@ -51,12 +53,13 @@ Lo que hemos hecho en [plt. text](http://matplotlib.sourceforge.net/api/pyplot_a
 
 Al anterior ejemplo le podemos incluir una flecha que una el texto con la representación del valor máximo y del valor mínimo. Para ello podemos usar [plt.arrow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.arrow) modificando ligeramente el anterior código:
 
-<pre><code class="language-python">plt.plot(a)
-plt.ylim(-0.5, 1.5)  # Extendemos un poco el rango del eje y
-plt.text(np.argmax(a), np.max(a) + 0.4, u'Máximo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Recolocamos el texto del máximo
-plt.text(np.argmin(a), np.min(a) - 0.4, u'Mínimo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Recolocamos el texto del mínimo
-plt.arrow(np.argmax(a), np.max(a) + 0.3, 0, -0.3, length_includes_head = "True", shape = "full", width=0.07, head_width=0.1)  # Unimos el texto al valor representado
-plt.arrow(np.argmin(a), np.min(a) - 0.3, 0, 0.3, length_includes_head = "True", shape = "full", width=0.07, head_width=0.1)  # Unimos el texto al valor representado</code></pre>
+    :::python
+    plt.plot(a)
+    plt.ylim(-0.5, 1.5)  # Extendemos un poco el rango del eje y
+    plt.text(np.argmax(a), np.max(a) + 0.4, u'Máximo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Recolocamos el texto del máximo
+    plt.text(np.argmin(a), np.min(a) - 0.4, u'Mínimo', fontsize = 10, horizontalalignment='center', verticalalignment='center')  # Recolocamos el texto del mínimo
+    plt.arrow(np.argmax(a), np.max(a) + 0.3, 0, -0.3, length_includes_head = "True", shape = "full", width=0.07, head_width=0.1)  # Unimos el texto al valor representado
+    plt.arrow(np.argmin(a), np.min(a) - 0.3, 0, 0.3, length_includes_head = "True", shape = "full", width=0.07, head_width=0.1)  # Unimos el texto al valor representado
 
 El resultado obtenido es el siguiente:
 
@@ -66,10 +69,11 @@ En [plt.arrow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.
 
 Lo que hemos hecho con [plt.text](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.text) y con [plt.arrow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.arrow) lo podemos hacer de forma más compacta y elegante con [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate). Como anteriormente, hacemos uso de un ejemplo y vamos viendo las partes a modificar de [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate):
 
-<pre><code class="language-python">plt.plot(a)
-plt.ylim(-0.5, 1.5)  # Extendemos un poco el rango del eje y
-plt.annotate(u'Máximo', xy = (np.argmax(a), np.max(a)), xycoords = 'data', xytext = (np.argmax(a) - 1.5, np.max(a) + 0.4), textcoords = 'data', arrowprops = dict(arrowstyle = "-&gt;"))
-plt.annotate(u'Mínimo', xy = (np.argmin(a), np.min(a)), xycoords = 'data', xytext = (np.argmin(a) + 1, np.min(a) + 1.2), textcoords = 'data', arrowprops = dict(arrowstyle = "-&gt;"))</code></pre>
+    :::python
+    plt.plot(a)
+    plt.ylim(-0.5, 1.5)  # Extendemos un poco el rango del eje y
+    plt.annotate(u'Máximo', xy = (np.argmax(a), np.max(a)), xycoords = 'data', xytext = (np.argmax(a) - 1.5, np.max(a) + 0.4), textcoords = 'data', arrowprops = dict(arrowstyle = "-&gt;"))
+    plt.annotate(u'Mínimo', xy = (np.argmin(a), np.min(a)), xycoords = 'data', xytext = (np.argmin(a) + 1, np.min(a) + 1.2), textcoords = 'data', arrowprops = dict(arrowstyle = "-&gt;"))
 
 Siendo el resultado el siguiente:
 
@@ -79,11 +83,12 @@ En [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotl
 
 Por último, vamos a ver como podemos dibujar una tabla de forma sencilla. Con [plt.table](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.table) podemos meter rápidamente una tabla pero por defecto la mete debajo del eje x. Vamos a ver un [ejemplo que he encontrado en SO](http://stackoverflow.com/questions/8524401/how-can-i-place-a-table-on-a-plot-in-matplotlib) donde metemos la tabla dentro de los ejes.
 
-<pre><code class="language-python">valores = [[np.argmax(a), np.argmin(a)], [np.max(a), np.min(a)]]
-etiquetas_fil = ('x', 'y')
-etiquetas_col = (u'Máximo', u'Mínimo')
-plt.plot(a)
-plt.table(cellText=valores, rowLabels=etiquetas_fil, colLabels = etiquetas_col, colWidths = [0.3]*len(a), loc='upper center')</code></pre>
+    :::python
+    valores = [[np.argmax(a), np.argmin(a)], [np.max(a), np.min(a)]]
+    etiquetas_fil = ('x', 'y')
+    etiquetas_col = (u'Máximo', u'Mínimo')
+    plt.plot(a)
+    plt.table(cellText=valores, rowLabels=etiquetas_fil, colLabels = etiquetas_col, colWidths = [0.3]*len(a), loc='upper center')
 
 Cuyo resultado es el siguiente:
 

@@ -48,30 +48,31 @@ CVXOpt es un paquete de optimización que emplea notación matricial para resolv
 
 Para mostrar la notación empleada, se muestra el siguiente ejemplo:
 
-<pre><code class="language-python">&gt;&gt;&gt; from cvxopt import matrix
-&gt;&gt;&gt; A = matrix(1, (1,4))
-&gt;&gt;&gt; print(A)
-[ 1 1 1 1]
-&gt;&gt;&gt; A = matrix(1.0, (1,4))
-&gt;&gt;&gt; print(A)
-[ 1.00e+00 1.00e+00 1.00e+00 1.00e+00]
-&gt;&gt;&gt; A = matrix(1+1j)
-&gt;&gt;&gt; print(A)
-[ 1.00e+00+j1.00e+00]
-&gt;&gt;&gt; print(matrix([[1., 2.], [3., 4.], [5., 6.]]))
-[ 1.00e+00 3.00e+00 5.00e+00]
-[ 2.00e+00 4.00e+00 6.00e+00]
-&gt;&gt;&gt; A1 = matrix([1, 2], (2,1))
-&gt;&gt;&gt; B1 = matrix([6, 7, 8, 9, 10, 11], (2,3))
-&gt;&gt;&gt; B2 = matrix([12, 13, 14, 15, 16, 17], (2,3))
-&gt;&gt;&gt; B3 = matrix([18, 19, 20], (1,3))
-&gt;&gt;&gt; C = matrix([[A1, 3.0, 4.0, 5.0], [B1, B2, B3]])
-&gt;&gt;&gt; print(C)
-[ 1.00e+00 6.00e+00 8.00e+00 1.00e+01]
-[ 2.00e+00 7.00e+00 9.00e+00 1.10e+01]
-[ 3.00e+00 1.20e+01 1.40e+01 1.60e+01]
-[ 4.00e+00 1.30e+01 1.50e+01 1.70e+01]
-[ 5.00e+00 1.80e+01 1.90e+01 2.00e+01]</code></pre>
+    :::python
+    &gt;&gt;&gt; from cvxopt import matrix
+    &gt;&gt;&gt; A = matrix(1, (1,4))
+    &gt;&gt;&gt; print(A)
+    [ 1 1 1 1]
+    &gt;&gt;&gt; A = matrix(1.0, (1,4))
+    &gt;&gt;&gt; print(A)
+    [ 1.00e+00 1.00e+00 1.00e+00 1.00e+00]
+    &gt;&gt;&gt; A = matrix(1+1j)
+    &gt;&gt;&gt; print(A)
+    [ 1.00e+00+j1.00e+00]
+    &gt;&gt;&gt; print(matrix([[1., 2.], [3., 4.], [5., 6.]]))
+    [ 1.00e+00 3.00e+00 5.00e+00]
+    [ 2.00e+00 4.00e+00 6.00e+00]
+    &gt;&gt;&gt; A1 = matrix([1, 2], (2,1))
+    &gt;&gt;&gt; B1 = matrix([6, 7, 8, 9, 10, 11], (2,3))
+    &gt;&gt;&gt; B2 = matrix([12, 13, 14, 15, 16, 17], (2,3))
+    &gt;&gt;&gt; B3 = matrix([18, 19, 20], (1,3))
+    &gt;&gt;&gt; C = matrix([[A1, 3.0, 4.0, 5.0], [B1, B2, B3]])
+    &gt;&gt;&gt; print(C)
+    [ 1.00e+00 6.00e+00 8.00e+00 1.00e+01]
+    [ 2.00e+00 7.00e+00 9.00e+00 1.10e+01]
+    [ 3.00e+00 1.20e+01 1.40e+01 1.60e+01]
+    [ 4.00e+00 1.30e+01 1.50e+01 1.70e+01]
+    [ 5.00e+00 1.80e+01 1.90e+01 2.00e+01]
 
   * Las matrices dispersas se llaman mediante el comando `spmatrix`. Las matrices dispersas se suelen definir mediante tripletes en los que se indica el valor numérico, la posición en la fila y la posición en la columna. A modo de ejemplo, el valor 5 que se encuentra en la primera fila y en la segunda columna se nota como (5, 0, 1) Nótese que la primera fila o columna se indica mediante un cero.
 
@@ -90,19 +91,20 @@ La llamada al comando `spmatrix` se hace de la siguiente forma:
 
 A continuación, se muestra cómo se escribe la notación para escribir estas matrices:
 
-<pre><code class="language-python">&gt;&gt;&gt; from cvxopt import spmatrix
-&gt;&gt;&gt; A = spmatrix(1.0, range(4), range(4))
-&gt;&gt;&gt; print(A)
-[ 1.00e+00 0 0 0 ]
-[ 0 1.00e+00 0 0 ]
-[ 0 0 1.00e+00 0 ]
-[ 0 0 0 1.00e+00]
-&gt;&gt;&gt; A = spmatrix([2,-1,2,-2,1,4,3], [1,2,0,2,3,2,0], [0,0,1,1,2,3,4])
-&gt;&gt;&gt; print(A)
-[ 0 2.00e+00 0 0 3.00e+00]
-[ 2.00e+00 0 0 0 0 ]
-[-1.00e+00 -2.00e+00 0 4.00e+00 0 ]
-[ 0 0 1.00e+00 0 0 ]</code></pre>
+    :::python
+    &gt;&gt;&gt; from cvxopt import spmatrix
+    &gt;&gt;&gt; A = spmatrix(1.0, range(4), range(4))
+    &gt;&gt;&gt; print(A)
+    [ 1.00e+00 0 0 0 ]
+    [ 0 1.00e+00 0 0 ]
+    [ 0 0 1.00e+00 0 ]
+    [ 0 0 0 1.00e+00]
+    &gt;&gt;&gt; A = spmatrix([2,-1,2,-2,1,4,3], [1,2,0,2,3,2,0], [0,0,1,1,2,3,4])
+    &gt;&gt;&gt; print(A)
+    [ 0 2.00e+00 0 0 3.00e+00]
+    [ 2.00e+00 0 0 0 0 ]
+    [-1.00e+00 -2.00e+00 0 4.00e+00 0 ]
+    [ 0 0 1.00e+00 0 0 ]
 
 Hay que reseñar que existen más formas para definir las matrices y muchas operaciones aritméticas que se realizan en el paquete CVXOpt. Para tener más información de las mismas, se recomienda visitar el siguiente enlace: <http://cvxopt.org/userguide/matrices.html>
 
@@ -130,14 +132,15 @@ El argumento _solver_ se puede dejar en blanco – con lo que el programa emplea
   <img alt="" src="http://www.subeimagenes.com/img/lp-793026.jpg" />
 </p>
 
-<pre><code class="language-python">&gt;&gt;&gt; from cvxopt import matrix, solvers
-&gt;&gt;&gt; c = matrix([-4., -5.])
-&gt;&gt;&gt; G = matrix([[2., 1., -1., 0.], [1., 2., 0., -1.]])
-&gt;&gt;&gt; h = matrix([3., 3., 0., 0.])
-&gt;&gt;&gt; sol = solvers.lp(c, G, h)
-&gt;&gt;&gt; print(sol['x'])
-[ 1.00e+00]
-[ 1.00e+00]</code></pre>
+    :::python
+    &gt;&gt;&gt; from cvxopt import matrix, solvers
+    &gt;&gt;&gt; c = matrix([-4., -5.])
+    &gt;&gt;&gt; G = matrix([[2., 1., -1., 0.], [1., 2., 0., -1.]])
+    &gt;&gt;&gt; h = matrix([3., 3., 0., 0.])
+    &gt;&gt;&gt; sol = solvers.lp(c, G, h)
+    &gt;&gt;&gt; print(sol['x'])
+    [ 1.00e+00]
+    [ 1.00e+00]
 
 ## Optimización en CVXOpt
 
@@ -169,46 +172,47 @@ Como ejemplo, se puede resolver el sistema lineal siguiente empleando dos notaci
   <img alt="" src="http://www.subeimagenes.com/img/lp2-793028.jpg" />
 </p>
 
-<pre><code class="language-python">&gt;&gt;&gt; from cvxopt.modeling import op
-&gt;&gt;&gt; x = variable()
-&gt;&gt;&gt; y = variable()
-&gt;&gt;&gt; c1 = ( 2*x+y &gt;&gt; c2 = ( x+2*y &gt;&gt; c3 = ( x &gt;= 0 )
-&gt;&gt;&gt; c4 = ( y &gt;= 0 )
-&gt;&gt;&gt; lp1 = op(-4*x-5*y, [c1,c2,c3,c4])
-&gt;&gt;&gt; lp1.solve()
-&gt;&gt;&gt; lp1.status
-'optimal'
-&gt;&gt;&gt; print(lp1.objective.value())
-[-9.00e+00]
-&gt;&gt;&gt; print(x.value)
-[ 1.00e+00]
-&gt;&gt;&gt; print(y.value)
-[ 1.00e+00]
-&gt;&gt;&gt; print(c1.multiplier.value)
-[ 1.00e+00]
-&gt;&gt;&gt; print(c2.multiplier.value)
-[ 2.00e+00]
-&gt;&gt;&gt; print(c3.multiplier.value)
-[ 2.87e-08]
-&gt;&gt;&gt; print(c4.multiplier.value)
-[ 2.80e-08]
-&gt;&gt;&gt; from cvxopt.modeling import op, dot
-&gt;&gt;&gt; x = variable(2)
-&gt;&gt;&gt; A = matrix([[2.,1.,-1.,0.], [1.,2.,0.,-1.]])
-&gt;&gt;&gt; b = matrix([3.,3.,0.,0.])
-&gt;&gt;&gt; c = matrix([-4.,-5.])
-&gt;&gt;&gt; ineq = ( A*x &gt;&gt; lp2 = op(dot(c,x), ineq)
-&gt;&gt;&gt; lp2.solve()
-&gt;&gt;&gt; print(lp2.objective.value())
-[-9.00e+00]
-&gt;&gt;&gt; print(x.value)
-[ 1.00e+00]
-[ 1.00e+00]
-&gt;&gt;&gt; print(ineq.multiplier.value)
-[1.00e+00]
-[2.00e+00]
-[2.87e-08]
-[2.80e-08]</code></pre>
+    :::python
+    &gt;&gt;&gt; from cvxopt.modeling import op
+    &gt;&gt;&gt; x = variable()
+    &gt;&gt;&gt; y = variable()
+    &gt;&gt;&gt; c1 = ( 2*x+y &gt;&gt; c2 = ( x+2*y &gt;&gt; c3 = ( x &gt;= 0 )
+    &gt;&gt;&gt; c4 = ( y &gt;= 0 )
+    &gt;&gt;&gt; lp1 = op(-4*x-5*y, [c1,c2,c3,c4])
+    &gt;&gt;&gt; lp1.solve()
+    &gt;&gt;&gt; lp1.status
+    'optimal'
+    &gt;&gt;&gt; print(lp1.objective.value())
+    [-9.00e+00]
+    &gt;&gt;&gt; print(x.value)
+    [ 1.00e+00]
+    &gt;&gt;&gt; print(y.value)
+    [ 1.00e+00]
+    &gt;&gt;&gt; print(c1.multiplier.value)
+    [ 1.00e+00]
+    &gt;&gt;&gt; print(c2.multiplier.value)
+    [ 2.00e+00]
+    &gt;&gt;&gt; print(c3.multiplier.value)
+    [ 2.87e-08]
+    &gt;&gt;&gt; print(c4.multiplier.value)
+    [ 2.80e-08]
+    &gt;&gt;&gt; from cvxopt.modeling import op, dot
+    &gt;&gt;&gt; x = variable(2)
+    &gt;&gt;&gt; A = matrix([[2.,1.,-1.,0.], [1.,2.,0.,-1.]])
+    &gt;&gt;&gt; b = matrix([3.,3.,0.,0.])
+    &gt;&gt;&gt; c = matrix([-4.,-5.])
+    &gt;&gt;&gt; ineq = ( A*x &gt;&gt; lp2 = op(dot(c,x), ineq)
+    &gt;&gt;&gt; lp2.solve()
+    &gt;&gt;&gt; print(lp2.objective.value())
+    [-9.00e+00]
+    &gt;&gt;&gt; print(x.value)
+    [ 1.00e+00]
+    [ 1.00e+00]
+    &gt;&gt;&gt; print(ineq.multiplier.value)
+    [1.00e+00]
+    [2.00e+00]
+    [2.87e-08]
+    [2.80e-08]
 
 En definitiva, dentro de Python nos encontramos con una serie de paquetes de optimización (en este artículo hemos visto CVXOpt, aunque existen más como Pyomo) que nos permiten realizar problemas de optimización más o menos complejos con resultados totalmente satisfactorios y que nos pueden servir tanto a nivel académico como a nivel profesional.
 

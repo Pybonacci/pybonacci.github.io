@@ -19,42 +19,46 @@ Una vez que hemos calculado todas las medidas de asociación entre las _m_ obser
 
 Bueno, bueno,..., mucha palabrería, mucho enlace a apuntes,... Falta una cosa, ¡¡!SHOW ME THE CODE!! A eso vamos. Para ello vamos a hacer uso de unos datos de temperatura que descargaremos de la <a href="http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+94788&variable=air&DB_vid=20&DB_tid=35711&units=degK&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=60S&lat-end=15N&lon-begin=84W&lon-end=30W&dim0=time&year_begin=2009&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data">siguiente url (pinchad sobre 'FTP a copy of the file')</a>. Una vez que tengáis el fichero descargado vamos a importar todo lo que vamos a necesitar:
 
-<pre><code class="language-python">from scipy import cluster
-import numpy as np
-from matplotlib import pyplot as plt
-import netCDF4 as nc
-from mpl_toolkits import basemap as bm</code></pre>
+    :::python
+    from scipy import cluster
+    import numpy as np
+    from matplotlib import pyplot as plt
+    import netCDF4 as nc
+    from mpl_toolkits import basemap as bm
 
 Ahora vamos a preparar los datos:
 
-<pre><code class="language-python">print('leyendo datos nc')
-tsfc = nc.Dataset('X83.42.0.38.323.14.41.15.nc') #tsfc 'por temperature at surface'
-lat = tsfc.variables['lat'][:]
-lon = tsfc.variables['lon'][:]
-tmp = tsfc.variables['air'][:]</code></pre>
+    :::python
+    print('leyendo datos nc')
+    tsfc = nc.Dataset('X83.42.0.38.323.14.41.15.nc') #tsfc 'por temperature at surface'
+    lat = tsfc.variables['lat'][:]
+    lon = tsfc.variables['lon'][:]
+    tmp = tsfc.variables['air'][:]
   
 Tenemos las series de temperatura (tmp) y su posición (lon, lat). Vamos a ver los nodos (series) que tenemos sobre un mapa.
 
-<pre><code class="language-python">m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
-               urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
-projection = 'mill')
-lon, lat = np.meshgrid(lon, lat)
-x, y = m(lon, lat)
-m.scatter(x, y, color= 'y')
-m.drawcountries()
-m.drawlsmask(land_color = 'g', ocean_color = 'c')
-plt.show()</code></pre>
+    :::python
+    m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
+                   urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
+    projection = 'mill')
+    lon, lat = np.meshgrid(lon, lat)
+    x, y = m(lon, lat)
+    m.scatter(x, y, color= 'y')
+    m.drawcountries()
+    m.drawlsmask(land_color = 'g', ocean_color = 'c')
+    plt.show()
 
 <a href="http://new.pybonacci.org/images/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="http://new.pybonacci.org/images/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a>
 
 Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:
 
-<pre><code class="language-python">tmp = tmp.reshape(tmp.shape[0], tmp.shape[1] * tmp.shape[2])
-print('calculando grupos')
-enlaces = cluster.hierarchy.linkage(tmp.T, method = 'single', metric = 'correlation')
-print('dibujando dendrograma')
-cluster.hierarchy.dendrogram(enlaces, color_threshold=0)
-plt.show()</code></pre>  
+    :::python
+    tmp = tmp.reshape(tmp.shape[0], tmp.shape[1] * tmp.shape[2])
+    print('calculando grupos')
+    enlaces = cluster.hierarchy.linkage(tmp.T, method = 'single', metric = 'correlation')
+    print('dibujando dendrograma')
+    cluster.hierarchy.dendrogram(enlaces, color_threshold=0)
+    plt.show()  
 
 Y veremos algo como lo siguiente, que se conoce como dendrograma:
 
@@ -62,22 +66,23 @@ Y veremos algo como lo siguiente, que se conoce como dendrograma:
 
 Desgraciadamente no se ve muy bien puesto que son muchas observaciones (682), lo dicho, toquetead para hacerlo con menos series y, si queréis, cambiando el método de 'linkage' y de distancias (en el ejemplo se usa el método simple y la correlación, respectivamente). Vemos que en el eje <em>y</em> hay unos valores, Pues bien, si cortamos el dendrograma horizontalmente por un valor nos quedaremos con tantos grupos como 'barritas verticales' o ramas cortemos. Vamos a hacer una prueba usando el valor 0.15 como valor de corte y vamos a representar a qué grupo pertenece cada una de las observaciones:
 
-<pre><code class="language-python">clusters = cluster.hierarchy.fcluster(enlaces, 0.15, criterion = 'distance')
-clusters = clusters.reshape(lat.shape)
-m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
-               urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
-               projection = 'mill')
-colores = np.linspace(0,1,np.max(clusters))
-for j in range(clusters.shape[0]):
-    for i in range(clusters.shape[1]):
-        plt.text(x[j,i],y[j,i], str(clusters[j,i]),
-                 color = str(colores[clusters[j,i] - 1]),
-                 horizontalalignment='center',
-                 verticalalignment='center')
-plt.title(u'Número de grupos: %03d' % np.max(clusters))
-m.drawcountries()
-m.drawlsmask(land_color = 'g', ocean_color = 'c')
-plt.show()</code></pre>
+    :::python
+    clusters = cluster.hierarchy.fcluster(enlaces, 0.15, criterion = 'distance')
+    clusters = clusters.reshape(lat.shape)
+    m = bm.Basemap(llcrnrlon = np.min(lon) - 1, llcrnrlat = np.min(lat) - 1,
+                   urcrnrlon = np.max(lon) + 1, urcrnrlat = np.max(lat) + 1,
+                   projection = 'mill')
+    colores = np.linspace(0,1,np.max(clusters))
+    for j in range(clusters.shape[0]):
+        for i in range(clusters.shape[1]):
+            plt.text(x[j,i],y[j,i], str(clusters[j,i]),
+                     color = str(colores[clusters[j,i] - 1]),
+                     horizontalalignment='center',
+                     verticalalignment='center')
+    plt.title(u'Número de grupos: %03d' % np.max(clusters))
+    m.drawcountries()
+    m.drawlsmask(land_color = 'g', ocean_color = 'c')
+    plt.show()
 
 Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="http://new.pybonacci.org/images/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="http://new.pybonacci.org/images/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a>
   

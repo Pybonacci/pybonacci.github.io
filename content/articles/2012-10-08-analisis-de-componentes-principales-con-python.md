@@ -21,45 +21,47 @@ Para el presente artículo vamos a usar el PCA para obtener imágenes comprimida
 
 Primero la guardaremos en nuestro equipo usando la biblioteca urllib2 disponible en la biblioteca estándar de vuestra instalación de python:
 
-<pre><code class="language-python">import urllib2
-## Leemos la imagen desde la url
-url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
-kk = urllib2.urlopen(url).read()
-## Guardamos la imagen en el directorio donde nos encontremos
-## con el nombre 'king.jpg'
-imagen = open('king.jpg', 'wb')
-imagen.write(kk)
-imagen.close()</code></pre>
+    :::python
+    import urllib2
+    ## Leemos la imagen desde la url
+    url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
+    kk = urllib2.urlopen(url).read()
+    ## Guardamos la imagen en el directorio donde nos encontremos
+    ## con el nombre 'king.jpg'
+    imagen = open('king.jpg', 'wb')
+    imagen.write(kk)
+    imagen.close()
 
 La imagen está en formato jpg, la vamos a leer usando matplotlib y vamos a guardar la información en una matriz 2D (tenemos tres canales (r,g,b) que son iguales (imagen en escala de grises) por lo que solo vamos a usar uno de ellos).
 
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-## Leemos la imagen como un numpy array
-kk = plt.imread('king.jpg')
-## Si hacemos kk.shape vemos que existen
-## tres canales en la imagen (r, g, b)
-## Pero como es una imagen en escala de grises
-## Los tres canales tienen la misma información
-## por lo que nos podemos quedar con un solo canal
-plt.subplot(221)
-plt.title('canal 1')
-plt.imshow(kk[:,:,0])
-plt.subplot(222)
-plt.title('canal 2')
-plt.imshow(kk[:,:,1])
-plt.subplot(223)
-plt.title('canal 3')
-plt.imshow(kk[:,:,2])
-## Vemos que la imagen está rotada, hacemos uso de np.flipud
-## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html
-plt.subplot(224)
-plt.title('canal 1 rotado en BN')
-plt.imshow(np.flipud(kk[:,:,0]), cmap=plt.cm.Greys_r)
-plt.show()
-## Finalmente, nos quedamos con una única dimensión
-## Los tres canales rgb son iguales (escala de grises)
-matriz = np.flipud(kk[:,:,0])</code></pre>
+    :::python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    ## Leemos la imagen como un numpy array
+    kk = plt.imread('king.jpg')
+    ## Si hacemos kk.shape vemos que existen
+    ## tres canales en la imagen (r, g, b)
+    ## Pero como es una imagen en escala de grises
+    ## Los tres canales tienen la misma información
+    ## por lo que nos podemos quedar con un solo canal
+    plt.subplot(221)
+    plt.title('canal 1')
+    plt.imshow(kk[:,:,0])
+    plt.subplot(222)
+    plt.title('canal 2')
+    plt.imshow(kk[:,:,1])
+    plt.subplot(223)
+    plt.title('canal 3')
+    plt.imshow(kk[:,:,2])
+    ## Vemos que la imagen está rotada, hacemos uso de np.flipud
+    ## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html
+    plt.subplot(224)
+    plt.title('canal 1 rotado en BN')
+    plt.imshow(np.flipud(kk[:,:,0]), cmap=plt.cm.Greys_r)
+    plt.show()
+    ## Finalmente, nos quedamos con una única dimensión
+    ## Los tres canales rgb son iguales (escala de grises)
+    matriz = np.flipud(kk[:,:,0])
 
 Bueno, ahora ya tenemos nuestra imagen como la queremos para poder empezar a trabajar con ella.
 
@@ -79,14 +81,15 @@ Imaginad que en un eje tenemos datos del peso de tus vecinos y en el otro eje te
 
 Para ver una implementación del PCA usando matriz de covarianzas en python podéis echarle un ojo al siguiente artículo de [glowingpython](http://glowingpython.blogspot.com.es/2011/07/pca-and-image-compression-with-numpy.html) en el que está basado este. Nosotros no vamos a reinventar la rueda y vamos a usar la PCA que viene en el módulo [decomposition de scikits-learn.](http://scikit-learn.org/dev/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA)  Vamos a crear un bucle para ir reconstruyendo la imagen usando diferentes números de componentes principales, de 50 en 50, para que vayáis viendo que a partir de un número de unas 100 componentes principales ya tenéis una imagen aceptable en lugar de tener que usar todas las dimensiones del conjunto de datos inicial:
 
-<pre><code class="language-python">from sklearn.decomposition import PCA
-## Leemos la imagen desde la url
-for i in range(0,425,50):
-pca = PCA(n_components = i)
-kk = pca.fit_transform(matriz)
-plt.imshow(pca.inverse_transform(kk), cmap=plt.cm.Greys_r)
-plt.title(u'nº de PCs = %s' % str(i))
-plt.show()</code></pre>
+    :::python
+    from sklearn.decomposition import PCA
+    ## Leemos la imagen desde la url
+    for i in range(0,425,50):
+    pca = PCA(n_components = i)
+    kk = pca.fit_transform(matriz)
+    plt.imshow(pca.inverse_transform(kk), cmap=plt.cm.Greys_r)
+    plt.title(u'nº de PCs = %s' % str(i))
+    plt.show()
 
 La siguiente imagen muestra el resultado con 100 componentes principales:
 
@@ -96,13 +99,14 @@ Tampoco está tan mal comparado con la imagen original de más arriba.
 
 Por último, para que veáis la varianza explicada de cada una de las componentes principales y la varianza acumulada podéis hacer lo siguiente:
 
-<pre><code class="language-python">pca = PCA()
-pca.fit(matriz)
-varianza = pca.explained_variance_ratio_
-var_acum= np.cumsum(varianza)
-plt.bar(range(len(varianza)), varianza)
-plt.plot(range(len(varianza)), var_acum)
-plt.show()</code></pre>
+    :::python
+    pca = PCA()
+    pca.fit(matriz)
+    varianza = pca.explained_variance_ratio_
+    var_acum= np.cumsum(varianza)
+    plt.bar(range(len(varianza)), varianza)
+    plt.plot(range(len(varianza)), var_acum)
+    plt.show()
 
 Para obtener el siguiente gráfico:<figure id="attachment_980" style="width: 652px" class="wp-caption aligncenter">
 
@@ -112,60 +116,61 @@ Con unas 30, 35 componentes principales se tendría una varianza acumulada en to
 
 El código completo sería:
 
-<pre><code class="language-python">import urllib2
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-## Leemos la imagen desde la url
-url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
-kk = urllib2.urlopen(url).read()
-## Guardamos la imagen en el directorio donde nos encontremos
-## con el nombre 'king.jpg'
-imagen = open('king.jpg', 'wb')
-imagen.write(kk)
-imagen.close()
-## Leemos la imagen como un numpy array
-kk = plt.imread('king.jpg')
-## Si hacemos kk.shape vemos que existen
-## tres canales en la imagen (r, g, b)
-## Pero como es una imagen en escala de grises
-## Los tres canales tienen la misma información
-## por lo que nos podemos quedar con un solo canal
-plt.subplot(221)
-plt.title('canal 1')
-plt.imshow(kk[:,:,0])
-plt.subplot(222)
-plt.title('canal 2')
-plt.imshow(kk[:,:,1])
-plt.subplot(223)
-plt.title('canal 3')
-plt.imshow(kk[:,:,2])
-## Vemos que la imagen está rotada, hacemos uso de np.flipud
-## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html
-plt.subplot(224)
-plt.title('canal 1 rotado en BN')
-plt.imshow(np.flipud(kk[:,:,0]), cmap=plt.cm.Greys_r)
-plt.show()
-## Finalmente, nos quedamos con una única dimensión
-## Los tres canales rgb son iguales (escala de grises)
-matriz = np.flipud(kk[:,:,0])
-## Leemos la imagen desde la url
-for i in range(0,425,50):
-    ## Nos quedamos con i componentes principales
-    pca = PCA(n_components = i)
-    ## Ajustamos para reducir las dimensiones
-    kk = pca.fit_transform(matriz)
-    ## 'Deshacemos' y dibujamos
-    plt.imshow(pca.inverse_transform(kk), cmap=plt.cm.Greys_r)
-    plt.title(u'nº de PCs = %s' % str(i))
+    :::python
+    import urllib2
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from sklearn.decomposition import PCA
+    ## Leemos la imagen desde la url
+    url = 'https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg'
+    kk = urllib2.urlopen(url).read()
+    ## Guardamos la imagen en el directorio donde nos encontremos
+    ## con el nombre 'king.jpg'
+    imagen = open('king.jpg', 'wb')
+    imagen.write(kk)
+    imagen.close()
+    ## Leemos la imagen como un numpy array
+    kk = plt.imread('king.jpg')
+    ## Si hacemos kk.shape vemos que existen
+    ## tres canales en la imagen (r, g, b)
+    ## Pero como es una imagen en escala de grises
+    ## Los tres canales tienen la misma información
+    ## por lo que nos podemos quedar con un solo canal
+    plt.subplot(221)
+    plt.title('canal 1')
+    plt.imshow(kk[:,:,0])
+    plt.subplot(222)
+    plt.title('canal 2')
+    plt.imshow(kk[:,:,1])
+    plt.subplot(223)
+    plt.title('canal 3')
+    plt.imshow(kk[:,:,2])
+    ## Vemos que la imagen está rotada, hacemos uso de np.flipud
+    ## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html
+    plt.subplot(224)
+    plt.title('canal 1 rotado en BN')
+    plt.imshow(np.flipud(kk[:,:,0]), cmap=plt.cm.Greys_r)
     plt.show()
-pca = PCA()
-pca.fit(matriz)
-varianza = pca.explained_variance_ratio_
-var_acum= np.cumsum(varianza)
-plt.bar(range(len(varianza)), varianza)
-plt.plot(range(len(varianza)), var_acum)
-plt.show()</code></pre>
+    ## Finalmente, nos quedamos con una única dimensión
+    ## Los tres canales rgb son iguales (escala de grises)
+    matriz = np.flipud(kk[:,:,0])
+    ## Leemos la imagen desde la url
+    for i in range(0,425,50):
+        ## Nos quedamos con i componentes principales
+        pca = PCA(n_components = i)
+        ## Ajustamos para reducir las dimensiones
+        kk = pca.fit_transform(matriz)
+        ## 'Deshacemos' y dibujamos
+        plt.imshow(pca.inverse_transform(kk), cmap=plt.cm.Greys_r)
+        plt.title(u'nº de PCs = %s' % str(i))
+        plt.show()
+    pca = PCA()
+    pca.fit(matriz)
+    varianza = pca.explained_variance_ratio_
+    var_acum= np.cumsum(varianza)
+    plt.bar(range(len(varianza)), varianza)
+    plt.plot(range(len(varianza)), var_acum)
+    plt.show()
 
 Espero que os sea útil y si le dais algún uso diferente al del ejemplo lo podéis comentar para que otros lo puedan ver aplicado en otros campos.
 

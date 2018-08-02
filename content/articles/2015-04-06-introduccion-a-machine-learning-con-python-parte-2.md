@@ -30,8 +30,9 @@ Los modelos lineales son fundamentales tanto en estadística como en el aprendiz
 
 Para mostrar cómo funcionan estos modelos vamos a emplear uno de los <a title="Dataset loading utilities" href="http://scikit-learn.org/stable/datasets/index.html" target="_blank">dataset</a> que ya incorpora scikit-learn.
 
-<pre><code class="language-python">from sklearn import datasets
-boston = datasets.load_boston()</code></pre>
+    :::python
+    from sklearn import datasets
+    boston = datasets.load_boston()
 
 El Boston dataset es un conjunto de datos para el análisis de los precios de las viviendas en la región de Boston. Con `boston.DESCR` podemos obtener una descripción del dataset, con información sobre el mismo, como el tipo de atributos.
 
@@ -65,17 +66,20 @@ Ya tenemos los datos, vamos a ajustar una línea recta para ver cuál es la tend
   
 Lo primero es importar `LinearRegression` y crear un objeto.
 
-<pre><code class="language-python">from sklearn.linear_model import LinearRegression
-lr = LinearRegression(normalize=True)</code></pre>
+    :::python
+    from sklearn.linear_model import LinearRegression
+    lr = LinearRegression(normalize=True)
 
 Una vez tenemos claro el modelo a emplear, el siguiente paso es entrenarlo con los datos de variables independientes y variables dependientes que tenemos. Para ello, en scikit-learn tenemos funciones del tipo `modelo.fit(X, y)`.
 
-<pre><code class="language-python">lr.fit(boston.data, boston.target)</code></pre>
+    :::python
+    lr.fit(boston.data, boston.target)
 
 Éste, al tratarse de un modelo sencillo y con muy pocas muestra tardará muy poco en entrenarse. Una vez completado el proceso podemos ver los coeficientes que ha asignado a cada atributo y así ver de qué manera contribuyen al precio final de la vivienda.
 
-<pre><code class="language-python">for (feature, coef) in zip(boston.feature_names, lr.coef_):
-    print('{:&gt;7}: {: 9.5f}'.format(feature, coef))</code></pre>
+    :::python
+    for (feature, coef) in zip(boston.feature_names, lr.coef_):
+        print('{:&gt;7}: {: 9.5f}'.format(feature, coef))
 
     CRIM:  -0.10717
          ZN:   0.04640
@@ -93,17 +97,18 @@ Una vez tenemos claro el modelo a emplear, el siguiente paso es entrenarlo con l
 
 Con esto ya tendríamos una pequeña idea de cuales son los factores que más contribuyen a incrementar o disminuir el precio de la vivienda. Pero no vayamos a sacar conclusiones precipitadas como han hecho en su día <a href="http://www.bbc.com/news/magazine-22223190" target="_blank">Reinhart y Rogoff</a> y visualicemos los datos primero.
 
-<pre><code class="language-python">%matplotlib inline
-import matplotlib.pyplot as plt
-import numpy as np
-def plot_feature(feature):
-    f = (boston.feature_names == feature)
-    plt.scatter(boston.data[:,f], boston.target, c='b', alpha=0.3)
-    plt.plot(boston.data[:,f], boston.data[:,f]*lr.coef_[f] + lr.intercept_, 'k')
-    plt.legend(['Predicted value', 'Actual value'])
-    plt.xlabel(feature)
-    plt.ylabel("Median value in $1000's")
-plot_feature('AGE')</code></pre>
+    :::python
+    %matplotlib inline
+    import matplotlib.pyplot as plt
+    import numpy as np
+    def plot_feature(feature):
+        f = (boston.feature_names == feature)
+        plt.scatter(boston.data[:,f], boston.target, c='b', alpha=0.3)
+        plt.plot(boston.data[:,f], boston.data[:,f]*lr.coef_[f] + lr.intercept_, 'k')
+        plt.legend(['Predicted value', 'Actual value'])
+        plt.xlabel(feature)
+        plt.ylabel("Median value in $1000's")
+    plot_feature('AGE')
 
 
   
@@ -113,12 +118,13 @@ En este caso hemos representado el precio medio la vivienda frente a la proporci
 
 Por tanto vamos a utilizar el modelo ya entrenado para predecir los precios de las viviendas. Aunque en este caso no vamos a utilizar datos nuevos, sino los mismos datos que hemos empleado para entrenar el modelo y así ver las diferencias.
 
-<pre><code class="language-python">predictions = lr.predict(boston.data)
-f, ax = plt.subplots(1)
-ax.hist(boston.target - predictions, bins=50, alpha=0.7)
-ax.set_title('Histograma de residuales')
-ax.text(0.95, 0.90, 'Media de residuales: {:.3e}'.format(np.mean(boston.target - predictions)),
-        transform=ax.transAxes, verticalalignment='top', horizontalalignment='right')</code></pre>
+    :::python
+    predictions = lr.predict(boston.data)
+    f, ax = plt.subplots(1)
+    ax.hist(boston.target - predictions, bins=50, alpha=0.7)
+    ax.set_title('Histograma de residuales')
+    ax.text(0.95, 0.90, 'Media de residuales: {:.3e}'.format(np.mean(boston.target - predictions)),
+            transform=ax.transAxes, verticalalignment='top', horizontalalignment='right')
 
 ![](http://pybonacci.org/images/2015/04/hist.png)
 
@@ -154,26 +160,29 @@ $$\beta = (X^T X + \alpha^2I)^{-1}X^Ty.$$
 
 Veamos un ejemplo. Para ello, en vez de cargar un dataset crearemos nosotros uno con tres atributos, y donde sólo dos sean linealmente independientes. Para ello utilizamos la función <a href="http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regression.html" target="_blank"><code>make_regression</code></a>.
 
-<pre><code class="language-python">from sklearn.datasets import make_regression
-reg_data, reg_target = make_regression(n_samples=2000, n_features=3, effective_rank=2, noise=10)</code></pre>
+    :::python
+    from sklearn.datasets import make_regression
+    reg_data, reg_target = make_regression(n_samples=2000, n_features=3, effective_rank=2, noise=10)
 
 Nos interesará también optimizar el valor de $\alpha$. Eso lo haremos con la validación cruzada mediante el objeto <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html" target="_blank"><code>RidgeCV</code></a> que emplea una técnica similar al _leave-one-out cross-validation_ (LOOCV), i.e., dejando uno fuera para test mientras entrena con el resto de las muestras.
 
-<pre><code class="language-python">from sklearn.linear_model import RidgeCV</code></pre>
+    :::python
+    from sklearn.linear_model import RidgeCV
 
 A la hora de crear el objeto le vamos a indicar los valores de $\alpha$ a evaluar. También guardamos los datos que obtenemos al realizar la validación cruzada con `store_cv_values=True` para representarlos gráficamente.
 
-<pre><code class="language-python"># creamos un numpy array con los valores de alpha que queremos evaluar
-alphas = np.linspace(0.01, 0.5)
-# que pasamos a nuestro modelo RidgeCV, guardando los resultados
-rcv = RidgeCV(alphas=alphas, store_cv_values=True)
-rcv.fit(reg_data, reg_target)
-# representamos gráficamente el error en función de alpha
-plt.rc('text', usetex=False)
-f, ax = plt.subplots()
-ax.plot(alphas, rcv.cv_values_.mean(axis=0))
-ax.text(0.05, 0.90, 'alpha que minimiza el error: {:.3f}'.format(rcv.alpha_),
-        transform=ax.transAxes)</code></pre>
+    :::python
+    # creamos un numpy array con los valores de alpha que queremos evaluar
+    alphas = np.linspace(0.01, 0.5)
+    # que pasamos a nuestro modelo RidgeCV, guardando los resultados
+    rcv = RidgeCV(alphas=alphas, store_cv_values=True)
+    rcv.fit(reg_data, reg_target)
+    # representamos gráficamente el error en función de alpha
+    plt.rc('text', usetex=False)
+    f, ax = plt.subplots()
+    ax.plot(alphas, rcv.cv_values_.mean(axis=0))
+    ax.text(0.05, 0.90, 'alpha que minimiza el error: {:.3f}'.format(rcv.alpha_),
+            transform=ax.transAxes)
 
 ![](http://pybonacci.org/images/2015/04/ridgecv.png)
 
@@ -199,57 +208,61 @@ Para ello en `scikit-learn` contamos con la herramienta <a href="http://scikit-l
 
 En este caso vamos a tomar la función _seno_ entre 0 y 2$\pi$ a la que añadiremos un poco de ruido.
 
-<pre><code class="language-python">f, ax = plt.subplots()
-x = np.linspace(0, 2*np.pi)
-y = np.sin(x)
-ax.plot(x, np.sin(x), 'r', label='sin ruido')
-# añadimos algo de ruido
-xr = x + np.random.normal(scale=0.1, size=x.shape)
-yr = y + np.random.normal(scale=0.2, size=y.shape)
-ax.scatter(xr, yr, label='con ruido')
-ax.legend()</code></pre>
+    :::python
+    f, ax = plt.subplots()
+    x = np.linspace(0, 2*np.pi)
+    y = np.sin(x)
+    ax.plot(x, np.sin(x), 'r', label='sin ruido')
+    # añadimos algo de ruido
+    xr = x + np.random.normal(scale=0.1, size=x.shape)
+    yr = y + np.random.normal(scale=0.2, size=y.shape)
+    ax.scatter(xr, yr, label='con ruido')
+    ax.legend()
 
 ![](http://pybonacci.org/images/2015/04/seno.png)
 
-<pre><code class="language-python">from sklearn.linear_model import Ridge
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.pipeline import make_pipeline</code></pre>
+    :::python
+    from sklearn.linear_model import Ridge
+    from sklearn.preprocessing import PolynomialFeatures
+    from sklearn.pipeline import make_pipeline
 
 Scikit-learn tiene un objeto <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html" target="_blank"><code>PolynomialFeatures</code></a> que nos va a servir para convertir nuestra variable $x$ en un array $z$ del tipo $z = [1, x, x^2, \ldots, n^n]$, que es lo que nos interesa.
 
 El resultado de esa transformación se la pasamos a nuestro modelo `Ridge`. Para facilitar la tarea en este tipo de casos —donde se realizan varios pasos que van desde el pre-tratamiento de los datos hasta un posible post-tratamiento pasando por el entrenamiento—, podemos hacer uso de las <a href="http://scikit-learn.org/stable/modules/pipeline.html" target="_blank"><code>Pipeline</code></a> que nos permiten encadenar multiples estimadores en uno. Esto es especialmente útil cuando hay secuencia de pasos predefinidos en el procesado de datos con, por ejemplo, selección de atributos, normalización y clasificación.
 
-<pre><code class="language-python">f, ax = plt.subplots()
-ax.plot(x, np.sin(x), 'r', label='sin ruido')
-ax.scatter(xr, yr, label='con ruido')
-# convertimos nuestro array en un vector columna
-X = xr[:, np.newaxis]
-# utilizamos un bucle para probar polinomios de diferente grado
-for degree in [3, 4, 5]:
-    # utilizamos Pipeline para crear una secuencia de pasos
-    model = make_pipeline(PolynomialFeatures(degree), Ridge())
-    model.fit(X, y)
-    y = model.predict(x[:, np.newaxis])
-    ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
-ax.legend()</code></pre>
+    :::python
+    f, ax = plt.subplots()
+    ax.plot(x, np.sin(x), 'r', label='sin ruido')
+    ax.scatter(xr, yr, label='con ruido')
+    # convertimos nuestro array en un vector columna
+    X = xr[:, np.newaxis]
+    # utilizamos un bucle para probar polinomios de diferente grado
+    for degree in [3, 4, 5]:
+        # utilizamos Pipeline para crear una secuencia de pasos
+        model = make_pipeline(PolynomialFeatures(degree), Ridge())
+        model.fit(X, y)
+        y = model.predict(x[:, np.newaxis])
+        ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
+    ax.legend()
 
 ![](http://pybonacci.org/images/2015/04/senoridge.png)
 
 Acabamos de utilizar un modelo `Ridge` que implementa regularización, pero sin optimizar. ¿Qué pasaría si optimizamos el parámetro de regularización $alpha \alpha$ con `RidgeCV`?
 
-<pre><code class="language-python">f, ax = plt.subplots()
-ax.plot(x, np.sin(x), 'r', label='sin ruido')
-ax.scatter(xr, yr, label='con ruido')
-# convertimos nuestro array en un vector columna
-X = xr[:, np.newaxis]
-# utilizamos un bucle para probar polinomios de diferente grado
-for degree in [3, 4, 5]:
-    # utilizamos Pipeline para crear una secuencia de pasos
-    model = make_pipeline(PolynomialFeatures(degree), RidgeCV(alphas=alphas))
-    model.fit(X, y)
-    y = model.predict(x[:, np.newaxis])
-    ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
-ax.legend()</code></pre>
+    :::python
+    f, ax = plt.subplots()
+    ax.plot(x, np.sin(x), 'r', label='sin ruido')
+    ax.scatter(xr, yr, label='con ruido')
+    # convertimos nuestro array en un vector columna
+    X = xr[:, np.newaxis]
+    # utilizamos un bucle para probar polinomios de diferente grado
+    for degree in [3, 4, 5]:
+        # utilizamos Pipeline para crear una secuencia de pasos
+        model = make_pipeline(PolynomialFeatures(degree), RidgeCV(alphas=alphas))
+        model.fit(X, y)
+        y = model.predict(x[:, np.newaxis])
+        ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
+    ax.legend()
 
 Si comparamos esta última gráfica con la anterior vemos que ahora las predicciones se han igualado entre si ofreciendo los polinomios de diferente grado predicciones prácticamente idénticas. Eso es porque la regularización tiende a penalizar la complejidad de los modelos tratando de evitar el sobreajuste (_overfitting_).
 
@@ -268,19 +281,21 @@ Para modelos probabilísticos lo más conveniente, en el caso de contar con dos 
 
 Veamos un ejemplo.
 
-<pre><code class="language-python">from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import make_classification
-import matplotlib.pyplot as plt
-import numpy as np</code></pre>
+    :::python
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.datasets import make_classification
+    import matplotlib.pyplot as plt
+    import numpy as np
 
 Con la función `make_classification` de scikit-learn, creamos un conjunto de datos para clasificar. Para empezar vamos a contar con sólo un atributo o </em>feature</em> y dos clases o categorías. Los categorías van a estar separadas, pero permitiremos un cierto grado de solapamiento a través del parámetro `class_sep`; así, la clasificación probabilística cobra más sentido.
 
-<pre><code class="language-python"># con el parámetro random_state nos aseguramos obtener siempre lo mismo
-X, y = make_classification(n_features=1, n_informative=1, n_redundant=0, n_clusters_per_class=1,
-                           class_sep=0.9, random_state=27)
-plt.scatter(X, y, alpha=0.4)
-plt.xlabel('X')
-plt.ylabel('Probabilidad')</code></pre>
+    :::python
+    # con el parámetro random_state nos aseguramos obtener siempre lo mismo
+    X, y = make_classification(n_features=1, n_informative=1, n_redundant=0, n_clusters_per_class=1,
+                               class_sep=0.9, random_state=27)
+    plt.scatter(X, y, alpha=0.4)
+    plt.xlabel('X')
+    plt.ylabel('Probabilidad')
 
 ![](http://pybonacci.org/images/2015/04/class.png)
 
@@ -292,18 +307,20 @@ Como veremos a continuación, la sigmoide tiene forma de _S_ y la función logí
 
 Como es costumbre en scikit-learn, primero definimos el modelo que vamos a emplear que será `LogisticRegression`. Lo cargamos con los parámetros por defecto y lo entrenamos.
 
-<pre><code class="language-python">lr = LogisticRegression()
-lr.fit(X, y)</code></pre>
+    :::python
+    lr = LogisticRegression()
+    lr.fit(X, y)
 
 Por defecto, en Jupyter, nos va a imprimir los parámetros con los que se ha entrenado el modelo. Una vez entrenado podemos predecir las probabilidades de pertenencia a cada categoría. Para ello, como ya hemos dicho, utilizaremos la función `predict_proba()` que toma como datos de entrada los atributos $X$.
 
 Lo que nos devuelve la función `predict_proba()` es un array de dimensiones (n atributos, n clases). A nosotros sólo nos va a interesar representar la segunda columna, es decir, $p(C\_1|x)$, pues sabemos que $p(C\_1|x) = 1 - p(C_0|x)$.
 
-<pre><code class="language-python">plt.scatter(X, y, alpha=0.4, label='real')
-plt.plot(np.sort(X, axis=0), lr.predict_proba(np.sort(X, axis=0))[:,1], color='r', label='sigmoide')
-plt.legend(loc=2)
-plt.xlabel('X')
-plt.ylabel('Probabilidad')</code></pre>
+    :::python
+    plt.scatter(X, y, alpha=0.4, label='real')
+    plt.plot(np.sort(X, axis=0), lr.predict_proba(np.sort(X, axis=0))[:,1], color='r', label='sigmoide')
+    plt.legend(loc=2)
+    plt.xlabel('X')
+    plt.ylabel('Probabilidad')
 
 ![](http://pybonacci.org/images/2015/04/sigmoide.png)
 
@@ -311,11 +328,12 @@ Se aprecia claramente la curva en forma de _S_ de la función logística que es 
 
 Si a partir de las probabilidades quisiesemos hacer una clasificación por categorías no tendríamos más que definir un valor umbral. Es decir, cuando la función logística asigna una probabilidad mayor a, por ejemplo, 0.5 entonces asignamos esa categoría. Eso es básicamente lo que hace `predict()` tal y como podemos ver a continuación.
 
-<pre><code class="language-python">plt.scatter(X, y, alpha=0.4, label='real')
-plt.plot(np.sort(X, axis=0), lr.predict(np.sort(X, axis=0)), color='r', label='categoría')
-plt.legend(loc=2)
-plt.xlabel('X')
-plt.ylabel('Probabilidad')</code></pre>
+    :::python
+    plt.scatter(X, y, alpha=0.4, label='real')
+    plt.plot(np.sort(X, axis=0), lr.predict(np.sort(X, axis=0)), color='r', label='categoría')
+    plt.legend(loc=2)
+    plt.xlabel('X')
+    plt.ylabel('Probabilidad')
 
 ![](http://pybonacci.org/images/2015/04/sigmoideumbral.png)
 

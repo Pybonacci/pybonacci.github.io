@@ -392,10 +392,12 @@ def formatyear(self, theyear, w=2, l=1, c=6, m=3):
                 a(formatstring(weeks, colwidth, c).rstrip())
                 a('n' * l)
         return ''.join(v)</code></pre>
+```
 
   * **khelp**
 
-<pre><code class="language-python">%khelp calendar
+```python
+%khelp calendar
 ```
 
 Que nos devolverá:

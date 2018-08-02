@@ -19,49 +19,55 @@ Shapely permite manejar polígonos, líneas, puntos,..., y permite hacer operaci
 
 Una vez que tenemos los datos vamos a comenzar los cálculos. Leemos los datos del fichero recién descargados:
 
-<pre><code class="language-python">import numpy as np
-import matplotlib.pyplot as plt
-from shapely.geometry import Point, LineString, Polygon
-data = np.loadtxt('Mallorca(UTM_WGS84).xls', delimiter=',')</code></pre>
+    :::python
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from shapely.geometry import Point, LineString, Polygon
+    data = np.loadtxt('Mallorca(UTM_WGS84).xls', delimiter=',')
 
 Leídos los datos vamos a crear un objeto 'polígono' y a dibujarlo:
 
-<pre><code class="language-python">poligono = Polygon(data[:,0:2])
-## Dibujamos el polígono accediendo a los datos (valores x e y del polígono
-plt.ion()
-plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])</code></pre>
+    :::python
+    poligono = Polygon(data[:,0:2])
+    ## Dibujamos el polígono accediendo a los datos (valores x e y del polígono
+    plt.ion()
+    plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])
 
 Calcular el área y la longitud del polígono es tan sencillo como hacer lo siguiente (los expresamos en km2 y en km, respectivamente):
 
-<pre><code class="language-python">print poligono.area/(1000.**2), poligono.length/1000.</code></pre>
+    :::python
+    print poligono.area/(1000.**2), poligono.length/1000.
 
 (vuelvo a avisar, estos valores son una aproximación). Perfecto, ya tenemos nuestra isla soñada. Vamos a por la ruta de nuestro avión para saber por donde llega a la isla. Para ello, vamos a usar un objeto 'línea' y la vamos a dibujar sobre la isla:
 
-<pre><code class="language-python">linea = LineString([(440000,4410000),(560000,4350000)])
-## Dibujamos la isla (polígono) y la ruta del avión (línea) accediendo a los valores xy
-plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])
-plt.plot(list(linea.xy)[0], list(linea.xy)[1])</code></pre>
+    :::python
+    linea = LineString([(440000,4410000),(560000,4350000)])
+    ## Dibujamos la isla (polígono) y la ruta del avión (línea) accediendo a los valores xy
+    plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])
+    plt.plot(list(linea.xy)[0], list(linea.xy)[1])
 
 Genial, ahora, ¿cómo puedo saber la localización de la ruta del avión sobre la isla?, ¿cómo puedo saber cuantos kilómetros recorre el avión sobre la isla?. Nos ayudaremos de los objetos 'punto'.
 
-<pre><code class="language-python">## Para obtener la intersección entre la línea y el polígono
-intersecciones = linea.intersection(poligono)
-## Sabiendo donde intersecciona la ruta del avión podemos extraer
-## el punto donde el avión llega a la isla y por donde la abandona
-puntoNW = Point([intersecciones.xy[0][0], intersecciones.xy[1][0]])
-puntoSE = Point([intersecciones.xy[0][1], intersecciones.xy[1][1]])
-## Imprimimos en pantalla esos valores
-print linea.intersection(poligono)
-## Y, por último, calculamos la distancia entre los dos puntos
-## (La distancia que el avión recorre sobre la isla en km)
-print puntoNW.distance(puntoSE)/1000.</code></pre>
+    :::python
+    ## Para obtener la intersección entre la línea y el polígono
+    intersecciones = linea.intersection(poligono)
+    ## Sabiendo donde intersecciona la ruta del avión podemos extraer
+    ## el punto donde el avión llega a la isla y por donde la abandona
+    puntoNW = Point([intersecciones.xy[0][0], intersecciones.xy[1][0]])
+    puntoSE = Point([intersecciones.xy[0][1], intersecciones.xy[1][1]])
+    ## Imprimimos en pantalla esos valores
+    print linea.intersection(poligono)
+    ## Y, por último, calculamos la distancia entre los dos puntos
+    ## (La distancia que el avión recorre sobre la isla en km)
+    print puntoNW.distance(puntoSE)/1000.
 
 Bien, ya sé donde está esa playa que veo cuando estamos llegando a la isla (punto NW). Voy a dibujar la isla (polígono), la ruta del avión (línea) y los puntos donde el avión llega y sale de la isla (punto NW y punto SE, respectivamente):
 
-<pre><code class="language-python">plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])
-plt.plot(list(linea.xy)[0], list(linea.xy)[1])
-plt.plot(intersecciones.xy[0][0], intersecciones.xy[1][0], 'rs')
-plt.plot(intersecciones.xy[0][1], intersecciones.xy[1][1], 'ys')</code></pre>
+    :::python
+    plt.plot(list(poligono.exterior.xy)[0], list(poligono.exterior.xy)[1])
+    plt.plot(list(linea.xy)[0], list(linea.xy)[1])
+    plt.plot(intersecciones.xy[0][0], intersecciones.xy[1][0], 'rs')
+    plt.plot(intersecciones.xy[0][1], intersecciones.xy[1][1], 'ys')
 
 Con este resultado:
 

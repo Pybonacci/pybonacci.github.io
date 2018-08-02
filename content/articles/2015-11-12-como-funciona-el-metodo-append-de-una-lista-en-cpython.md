@@ -208,24 +208,26 @@ número de elementos = 100 , tamaño de la lista =  912
         A partir de la línea 42 del código C podemos leer:
       </p>
       
-      <pre><code>/* This over-allocates proportional to the list size, making room
- * for additional growth.  The over-allocation is mild, but is
- * enough to give linear-time amortized behavior over a long
- * sequence of appends() in the presence of a poorly-performing
- * system realloc().
- * The growth pattern is:  0, 4, 8, 16, 25, 35, 46, 58, 72, 88, ...
- */
-new_allocated = (newsize &gt;&gt; 3) + (newsize &lt; 9 ? 3 : 6);
-
-</code></pre>
+          :::[]
+    /* This over-allocates proportional to the list size, making room
+     * for additional growth.  The over-allocation is mild, but is
+     * enough to give linear-time amortized behavior over a long
+     * sequence of appends() in the presence of a poorly-performing
+     * system realloc().
+     * The growth pattern is:  0, 4, 8, 16, 25, 35, 46, 58, 72, 88, ...
+     */
+    new_allocated = (newsize &gt;&gt; 3) + (newsize &lt; 9 ? 3 : 6);
+    
+    
       
       <p>
         La última línea traducida a Python sería algo así:
       </p>
       
-      <pre><code>new_allocated = (newsize &gt;&gt; 3) + (3 if newsize &lt; 9 else 6)
-
-</code></pre>
+          :::[]
+    new_allocated = (newsize &gt;&gt; 3) + (3 if newsize &lt; 9 else 6)
+    
+    
       
       <p>
         En el primer paréntesis tenemos el <a href="https://wiki.python.org/moin/BitwiseOperators">operador <em>bitwise right shift</em></a>, similar a la versión en C (no hay que olvidar que CPython está escrito en C) mientras que en el segundo paréntesis tenemos el operador ternario (sin duda, un poco más legible que la versión en C).

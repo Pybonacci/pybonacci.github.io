@@ -56,23 +56,26 @@ En la web de numba tienes los [pasos que hay que seguir](http://numba.pydata.org
 
 En primer lugar, descarga y extrae las fuentes de llvm 3.1 y ejecuta los siguientes comandos para compilar la biblioteca:
 
-<pre><code class="language-bash">$ ./configure --enable-pic --disable-libffi
-$ make
-$ make install</code></pre>
+    :::bash
+    $ ./configure --enable-pic --disable-libffi
+    $ make
+    $ make install
 
 A continuación, clona el repositorio de llvm-py e instala la biblioteca:
 
-<pre><code class="language-bash">$ git clone https://github.com/llvmpy/llvmpy.git
-$ cd llvmpy
-$ python setup.py install</code></pre>
+    :::bash
+    $ git clone https://github.com/llvmpy/llvmpy.git
+    $ cd llvmpy
+    $ python setup.py install
 
 Por último, ya puedes instalar numba directamente del repositorio también:
 
-<pre><code class="language-bash">$ git clone https://github.com/numba/numba.git
-$ cd numba
-$ git submodule init
-$ git submodule update
-$ python setup.py install</code></pre>
+    :::bash
+    $ git clone https://github.com/numba/numba.git
+    $ cd numba
+    $ git submodule init
+    $ git submodule update
+    $ python setup.py install
 
 En principio estas instrucciones funcionan en el caso más general, pero si tienes algún problema concreto durante el proceso o más adelante probando los ejemplos, dínoslo en los comentarios.
 
@@ -86,63 +89,67 @@ Las capacidades de numba se aprecian mejor si se aplican con programas con mucho
 
 El código del ejemplo es el siguiente:
 
-<pre><code class="language-python">from numba import d
-from numba.decorators import jit as jit
-def sum2d(arr):
-    M, N = arr.shape
-    result = 0.0
-    for i in range(M):
-        for j in range(N):
-            result += arr[i,j]
-    return result
-csum2d = jit(ret_type=d, arg_types=[d[:,:]])(sum2d)
-from numpy import random
-arr = random.randn(100,100)
-import time
-start = time.time()
-res = sum2d(arr)
-duration = time.time() - start
-print "Result from python is %s in %s (msec)" % (res, duration*1000)
-start = time.time()
-res = csum2d(arr)
-duration2 = time.time() - start
-print "Result from compiled is %s in %s (msec)" % (res, duration2*1000)
-print "Speed up is %s" % (duration / duration2)</code></pre>
+    :::python
+    from numba import d
+    from numba.decorators import jit as jit
+    def sum2d(arr):
+        M, N = arr.shape
+        result = 0.0
+        for i in range(M):
+            for j in range(N):
+                result += arr[i,j]
+        return result
+    csum2d = jit(ret_type=d, arg_types=[d[:,:]])(sum2d)
+    from numpy import random
+    arr = random.randn(100,100)
+    import time
+    start = time.time()
+    res = sum2d(arr)
+    duration = time.time() - start
+    print "Result from python is %s in %s (msec)" % (res, duration*1000)
+    start = time.time()
+    res = csum2d(arr)
+    duration2 = time.time() - start
+    print "Result from compiled is %s in %s (msec)" % (res, duration2*1000)
+    print "Speed up is %s" % (duration / duration2)
 
 Como se puede ver, en la línea 12 se aplica la función `jit` (que también funciona como decorador, como ya veremos) al pequeño programa que hemos escrito para sumar los elementos de una matriz. El argumento `arg_types` indica que a la función sum2d se le va a pasar un array de NumPy de dos dimensiones. Esto viene a ser como una declaración de tipos.
 
 Comprobemos los resultados:
 
-<pre><code class="language-bash">$ python -O sum.py
-Result from python is -72.8742506632 in 4.33301925659 (msec)
-Result from compiled is -72.8742506632 in 0.028133392334 (msec)
-Speed up is 154.016949153</code></pre>
+    :::bash
+    $ python -O sum.py
+    Result from python is -72.8742506632 in 4.33301925659 (msec)
+    Result from compiled is -72.8742506632 in 0.028133392334 (msec)
+    Speed up is 154.016949153
 
 Conseguimos **un aumento de 150x**, solamente añadiendo una línea.
 
 Probemos otro de los ejemplos, <https://github.com/numba/numba/blob/master/examples/example.py>. En este caso se trata de comparar numba con una función de SciPy, y podemos ver cómo se utiliza el decorador:
 
-<pre><code class="language-python">@jit(arg_types=[int32[:,:], int32[:,:]], ret_type=int32[:,:])
-def filter2d(image, filt):
-    M, N = image.shape
-    Mf, Nf = filt.shape
-    Mf2 = Mf // 2
-    Nf2 = Nf // 2
-    result = numpy.zeros_like(image)
-    for i in range(Mf2, M - Mf2):
-        for j in range(Nf2, N - Nf2):
-            num = 0.0
-            for ii in range(Mf):
-                for jj in range(Nf):
-                    num += (filt[Mf-1-ii, Nf-1-jj] * image[i-Mf2+ii, j-Nf2+jj])
-            result[i, j] = num
-    return result</code></pre>
+    :::python
+    @jit(arg_types=[int32[:,:], int32[:,:]], ret_type=int32[:,:])
+    def filter2d(image, filt):
+        M, N = image.shape
+        Mf, Nf = filt.shape
+        Mf2 = Mf // 2
+        Nf2 = Nf // 2
+        result = numpy.zeros_like(image)
+        for i in range(Mf2, M - Mf2):
+            for j in range(Nf2, N - Nf2):
+                num = 0.0
+                for ii in range(Mf):
+                    for jj in range(Nf):
+                        num += (filt[Mf-1-ii, Nf-1-jj] * image[i-Mf2+ii, j-Nf2+jj])
+                result[i, j] = num
+        return result
 
 Ahora estamos indicando que la función requiere dos arrays de enteros. Nótese que tenemos cuatro (4) bucles anidados. Si ahora probamos el ejemplo:
 
-<pre><code class="language-bash">$ python -O example.py
-Time for LLVM code = 0.028516
-Time for convolve = 0.041848</code></pre>
+    :::bash
+    $ python -O example.py
+    Time for LLVM code = 0.028516
+    Time for convolve = 0.041848
 
 Aquí hemos conseguido una ganancia de **1.47x**. Nótese que la versión de SciPy está **escrita en C**.
 

@@ -11,16 +11,17 @@ tags: python, python 3
 
 Un programa escrito en Python tiene esta pinta:
 
-<pre><code class="language-python">#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# Suma dos números (suma.py)
-from __future__ import print_function
-def suma(a, b):
-  c = a + b
-  return c
-x = 1
-y = 2.3
-print('La suma de x e y es: {}'.format(suma(x, y)))</code></pre>
+    :::python
+    #!/usr/bin/python
+    # -*- coding: utf-8 -*-
+    # Suma dos números (suma.py)
+    from __future__ import print_function
+    def suma(a, b):
+      c = a + b
+      return c
+    x = 1
+    y = 2.3
+    print('La suma de x e y es: {}'.format(suma(x, y)))
 
 Este programa imprimiría por pantalla
 

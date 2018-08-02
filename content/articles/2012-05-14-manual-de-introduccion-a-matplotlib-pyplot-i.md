@@ -23,20 +23,23 @@ Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El 
 
 En todo momento supondremos que se ha iniciado la sesión y se ha hecho
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
 
 Para empezar diremos que hay tres formas de usar la librería Matplotlib:
 
   * La podemos usar desde python usando el módulo pylab. El módulo pylab pretende mostrar un entorno de trabajo parecido al de [matlab](http://guillemborrell.es/blog/carta-abierta-a-mathworks/) mezclando las librerías numpy y matplotlib. Es la forma menos pythónica de usar matplotlib y se obtiene usando
 
-<pre><code class="language-python">from pylab import *</code></pre>
+    :::python
+    from pylab import *
 
 Normalmente solo se recomienda para hacer pruebas rápidas desde la línea de comandos.
 
   * Una segunda forma, que es la que veremos en este tutorial, es usando el módulo pyplot.
 
-<pre><code class="language-python">import matplotlib.pyplot as plt</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
 
   * Por último, la forma más recomendable y pythónica, pero más compleja, sería usar matplotlib mediante la interfaz orientada a objetos. Cuando se programa con matplotlib, no mientras se trabaja interactivamente, esta es la forma que permite tener más control sobre el código. Quizá veamos esto en el futuro si alguno nos animamos/os animáis a escribir sobre ello.
 

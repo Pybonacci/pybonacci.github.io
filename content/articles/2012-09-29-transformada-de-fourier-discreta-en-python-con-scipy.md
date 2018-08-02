@@ -55,18 +55,19 @@ Para manejar números redondos, vamos a recrear una señal con un armónico de $
 
 donde $2 \pi f = \omega$. Nótese que, por lo que hemos visto en el apartado anterior, veremos cuatro rayas en el espectro de esta función: dos para la frecuencia $f$ y otras dos para la $2 f$. Vamos a imponer a priori el número de intervalos y la distancia entre ellos y de ahí vamos a calcular el intervalo de tiempo. Evidentemente así no se funciona cuando muestreamos un archivo de audio, pongo por caso, pero como digo así obtendremos el resultado exacto. El código y la salida serían las siguientes:
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import numpy as np
-from numpy import pi
-n = 2 ** 6  # Número de intervalos
-f = 400.0  # Hz
-dt = 1 / (f * 16)  # Espaciado, 16 puntos por período
-t = np.linspace(0, (n - 1) * dt, n)  # Intervalo de tiempo en segundos
-y = np.sin(2 * pi * f * t) - 0.5 * np.sin(2 * pi * 2 * f * t)  # Señal
-plt.plot(t, y)
-plt.plot(t, y, 'ko')
-plt.xlabel('Tiempo (s)')
-plt.ylabel('$y(t)$')</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from numpy import pi
+    n = 2 ** 6  # Número de intervalos
+    f = 400.0  # Hz
+    dt = 1 / (f * 16)  # Espaciado, 16 puntos por período
+    t = np.linspace(0, (n - 1) * dt, n)  # Intervalo de tiempo en segundos
+    y = np.sin(2 * pi * f * t) - 0.5 * np.sin(2 * pi * 2 * f * t)  # Señal
+    plt.plot(t, y)
+    plt.plot(t, y, 'ko')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('$y(t)$')
 
 ![Señal 1](http://pybonacci.org/images/2012/09/sec3b1al1.png)
 
@@ -77,17 +78,18 @@ Esta es la señal que vamos a transformar. Fijáos en el último punto represent
 
 Como en este caso solo hay dos frecuencias fundamentales, vamos a representarlas utilizando la función vlines de matplotlib. El código y la salida quedarían así:
 
-<pre><code class="language-python">from scipy.fftpack import fft, fftfreq
-Y = fft(y) / n  # Normalizada
-frq = fftfreq(n, dt)  # Recuperamos las frecuencias
-plt.vlines(frq, 0, Y.imag)  # Representamos la parte imaginaria
-plt.annotate(s=u'f = 400 Hz', xy=(400.0, -0.5), xytext=(400.0 + 1000.0, -0.5 - 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
-plt.annotate(s=u'f = -400 Hz', xy=(-400.0, 0.5), xytext=(-400.0 - 2000.0, 0.5 + 0.15), arrowprops=dict(arrowstyle = "-&gt;"))
-plt.annotate(s=u'f = 800 Hz', xy=(800.0, 0.25), xytext=(800.0 + 600.0, 0.25 + 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
-plt.annotate(s=u'f = -800 Hz', xy=(-800.0, -0.25), xytext=(-800.0 - 1000.0, -0.25 - 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
-plt.ylim(-1, 1)
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('Im($Y$)')</code></pre>
+    :::python
+    from scipy.fftpack import fft, fftfreq
+    Y = fft(y) / n  # Normalizada
+    frq = fftfreq(n, dt)  # Recuperamos las frecuencias
+    plt.vlines(frq, 0, Y.imag)  # Representamos la parte imaginaria
+    plt.annotate(s=u'f = 400 Hz', xy=(400.0, -0.5), xytext=(400.0 + 1000.0, -0.5 - 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
+    plt.annotate(s=u'f = -400 Hz', xy=(-400.0, 0.5), xytext=(-400.0 - 2000.0, 0.5 + 0.15), arrowprops=dict(arrowstyle = "-&gt;"))
+    plt.annotate(s=u'f = 800 Hz', xy=(800.0, 0.25), xytext=(800.0 + 600.0, 0.25 + 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
+    plt.annotate(s=u'f = -800 Hz', xy=(-800.0, -0.25), xytext=(-800.0 - 1000.0, -0.25 - 0.35), arrowprops=dict(arrowstyle = "-&gt;"))
+    plt.ylim(-1, 1)
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Im($Y$)')
 
 ![Transformada 1](http://pybonacci.org/images/2012/09/transformada1.png)
 
@@ -99,39 +101,41 @@ plt.ylabel('Im($Y$)')</code></pre>
 
 Vamos a analizar el ejemplo anterior, pero en esta ocasión vamos a poner menos cuidado con la preparación de los datos. Veamos qué ocurre:
 
-<pre><code class="language-python">n2 = 2 ** 5
-t2 = np.linspace(0, 0.012, n2)  # Intervalo de tiempo en segundos
-dt2 = t2[1] - t2[0]
-y2 = np.sin(2 * pi * f * t2) - 0.5 * np.sin(2 * pi * 2 * f * t2)  # Señal
-Y2 = fft(y2) / n2  # Transformada normalizada
-frq2 = fftfreq(n2, dt2)
-fig = plt.figure(figsize=(6, 8))
-ax1 = fig.add_subplot(211)
-ax1.plot(t2, y2)
-ax1.set_xlabel('Tiempo (s)')
-ax1.set_ylabel('$y_2(t)$')
-ax2 = fig.add_subplot(212)
-ax2.vlines(frq2, 0, Y2.imag)
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('Im($Y_2$)')</code></pre>
+    :::python
+    n2 = 2 ** 5
+    t2 = np.linspace(0, 0.012, n2)  # Intervalo de tiempo en segundos
+    dt2 = t2[1] - t2[0]
+    y2 = np.sin(2 * pi * f * t2) - 0.5 * np.sin(2 * pi * 2 * f * t2)  # Señal
+    Y2 = fft(y2) / n2  # Transformada normalizada
+    frq2 = fftfreq(n2, dt2)
+    fig = plt.figure(figsize=(6, 8))
+    ax1 = fig.add_subplot(211)
+    ax1.plot(t2, y2)
+    ax1.set_xlabel('Tiempo (s)')
+    ax1.set_ylabel('$y_2(t)$')
+    ax2 = fig.add_subplot(212)
+    ax2.vlines(frq2, 0, Y2.imag)
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Im($Y_2$)')
 
 ![Señal 2](http://pybonacci.org/images/2012/09/sec3b1al2.png)
 
 Como se puede ver, el fenómeno no es extremadamente importante pero han aparecido otras rayas espectrales que no esperábamos. Esto se conoce como «leaking» (y yo lo voy a traducir por fuga) y es debido a que, en este caso, los trozos «no empalman exactamente». Recuerda que la DFT, y por extensión la FFT asume que estamos transformando un período de una señal periódica. Si utilizamos más puntos y extendemos la señal con ceros (esto se conoce como «zero-padding») la DFT da más resolución en frecuencia pero la fuga se magnifica:
 
-<pre><code class="language-python">t3 = np.linspace(0, 0.012 + 9 * dt2, 10 * n2)  # Intervalo de tiempo en segundos
-y3 = np.append(y2, np.zeros(9 * n2))  # Señal
-Y3 = fft(y3) / (10 * n2)  # Transformada normalizada
-frq3 = fftfreq(10 * n2, dt2)
-fig = plt.figure(figsize=(6, 8))
-ax1 = fig.add_subplot(211)
-ax1.plot(t3, y3)
-ax1.set_xlabel('Tiempo (s)')
-ax1.set_ylabel('$y_3(t)$')
-ax2 = fig.add_subplot(212)
-ax2.vlines(frq3, 0, Y3.imag)
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('Im($Y_3$)')</code></pre>
+    :::python
+    t3 = np.linspace(0, 0.012 + 9 * dt2, 10 * n2)  # Intervalo de tiempo en segundos
+    y3 = np.append(y2, np.zeros(9 * n2))  # Señal
+    Y3 = fft(y3) / (10 * n2)  # Transformada normalizada
+    frq3 = fftfreq(10 * n2, dt2)
+    fig = plt.figure(figsize=(6, 8))
+    ax1 = fig.add_subplot(211)
+    ax1.plot(t3, y3)
+    ax1.set_xlabel('Tiempo (s)')
+    ax1.set_ylabel('$y_3(t)$')
+    ax2 = fig.add_subplot(212)
+    ax2.vlines(frq3, 0, Y3.imag)
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Im($Y_3$)')
 
 ![Señal 3](http://pybonacci.org/images/2012/09/sec3b1al3.png)
 
@@ -141,34 +145,35 @@ Existe una manera de reducir la fuga y es mediante el uso de **funciones ventana
 
 Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana reciben un único argumento que es el número de puntos. Si multiplicamos la ventana por la señal, obtenemos una nueva señal que vale cero en los extremos. Comprobemos el resultado, representando ahora el espectro de amplitud y comparando cómo es el resultado si aplicamos o no la ventana de Blackman:
 
-<pre><code class="language-python">n4 = 2 ** 8
-t4 = np.linspace(0, 0.05, n4)
-dt4 = t4[1] - t4[0]
-y4 = np.sin(2 * pi * f * t4) - 0.5 * np.sin(2 * pi * 2 * f * t4)
-y5 = y4 * np.blackman(n4)
-t4 = np.linspace(0, 0.12 + 4 * dt4, 5 * n4)
-y4 = np.append(y4, np.zeros(4 * n4))
-y5 = np.append(y5, np.zeros(4 * n4))
-Y4 = fft(y4) / (5 * n4)
-Y5 = fft(y5) / (5 * n4)
-frq4 = fftfreq(5 * n4, dt4)
-fig = plt.figure(figsize=(6, 8))
-ax1 = fig.add_subplot(411)
-ax1.plot(t4, y4)
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('$y_4(t)$')
-ax2 = fig.add_subplot(412)
-ax2.vlines(frq4, 0, abs(Y4))  # Espectro de amplitud
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('Abs($Y_4$)')
-ax3 = fig.add_subplot(413)
-ax3.plot(t4, y5)
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('$y_5(t)$')
-ax4 = fig.add_subplot(414)
-ax4.vlines(frq4, 0, abs(Y5))  # Espectro de amplitud
-plt.xlabel('Frecuencia (Hz)')
-plt.ylabel('Abs($Y_5$)')</code></pre>
+    :::python
+    n4 = 2 ** 8
+    t4 = np.linspace(0, 0.05, n4)
+    dt4 = t4[1] - t4[0]
+    y4 = np.sin(2 * pi * f * t4) - 0.5 * np.sin(2 * pi * 2 * f * t4)
+    y5 = y4 * np.blackman(n4)
+    t4 = np.linspace(0, 0.12 + 4 * dt4, 5 * n4)
+    y4 = np.append(y4, np.zeros(4 * n4))
+    y5 = np.append(y5, np.zeros(4 * n4))
+    Y4 = fft(y4) / (5 * n4)
+    Y5 = fft(y5) / (5 * n4)
+    frq4 = fftfreq(5 * n4, dt4)
+    fig = plt.figure(figsize=(6, 8))
+    ax1 = fig.add_subplot(411)
+    ax1.plot(t4, y4)
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('$y_4(t)$')
+    ax2 = fig.add_subplot(412)
+    ax2.vlines(frq4, 0, abs(Y4))  # Espectro de amplitud
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Abs($Y_4$)')
+    ax3 = fig.add_subplot(413)
+    ax3.plot(t4, y5)
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('$y_5(t)$')
+    ax4 = fig.add_subplot(414)
+    ax4.vlines(frq4, 0, abs(Y5))  # Espectro de amplitud
+    plt.xlabel('Frecuencia (Hz)')
+    plt.ylabel('Abs($Y_5$)')
 
 ![Aplicación de la ventana de Blackman](http://pybonacci.org/images/2012/09/windowing.png)
 
@@ -183,16 +188,17 @@ Para acabar de manera triunfal, vamos a ver **cómo representar el espectrograma
 
 Al tratarse de un archivo OGG, vamos a utilizar el [SciKit audiolab](http://scikits.appspot.com/audiolab).
 
-<pre><code class="language-python">import matplotlib.pyplot as plt
-import scikits.audiolab as audiolab
-sound = audiolab.sndfile('Violin_for_spectrogram.ogg', 'read')
-y = sound.read_frames(sound.get_nframes())
-Pxx, freqs, bins, im = plt.specgram(y, NFFT=512, Fs=44100)
-plt.xlim(0, len(y) / 44100.0)
-plt.ylim(0, 22050.0)
-plt.colorbar(im).set_label(u'Intensidad (dB)')
-plt.xlabel(u'Tiempo (s)')
-plt.ylabel(u'Frecuencia (Hz)')</code></pre>
+    :::python
+    import matplotlib.pyplot as plt
+    import scikits.audiolab as audiolab
+    sound = audiolab.sndfile('Violin_for_spectrogram.ogg', 'read')
+    y = sound.read_frames(sound.get_nframes())
+    Pxx, freqs, bins, im = plt.specgram(y, NFFT=512, Fs=44100)
+    plt.xlim(0, len(y) / 44100.0)
+    plt.ylim(0, 22050.0)
+    plt.colorbar(im).set_label(u'Intensidad (dB)')
+    plt.xlabel(u'Tiempo (s)')
+    plt.ylabel(u'Frecuencia (Hz)')
 
 ![Espectrograma](http://pybonacci.org/images/2012/09/specgram.png)
 

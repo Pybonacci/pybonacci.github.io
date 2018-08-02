@@ -34,14 +34,15 @@ El jueves, después del cierre del plazo de inscripción, se enviará a los insc
 
 [El número del Cuponazo de la ONCE del viernes 30 de octubre](https://www.juegosonce.es/resultados-cuponazo-30-octubre-2015) es el **33328**.
 
-<pre><code class="language-python">&gt;&gt;&gt; N = 33328
-&gt;&gt;&gt; plazas = 34
-&gt;&gt;&gt; inscritos = 42
-&gt;&gt;&gt; N % inscritos
-22
-&gt;&gt;&gt; admitidos = [((N % inscritos) + ii) % inscritos for ii in range(plazas)]
-&gt;&gt;&gt; admitidos
-[22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]</code></pre>
+    :::python
+    &gt;&gt;&gt; N = 33328
+    &gt;&gt;&gt; plazas = 34
+    &gt;&gt;&gt; inscritos = 42
+    &gt;&gt;&gt; N % inscritos
+    22
+    &gt;&gt;&gt; admitidos = [((N % inscritos) + ii) % inscritos for ii in range(plazas)]
+    &gt;&gt;&gt; admitidos
+    [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
 ## Preguntas frecuentes
 

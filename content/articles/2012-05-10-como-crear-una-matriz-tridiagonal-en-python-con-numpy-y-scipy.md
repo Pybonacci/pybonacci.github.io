@@ -63,63 +63,68 @@ Para crear la matriz tridiagonal, vamos a utilizar la función [`spdiags`](http:
 
 Para escribir **código compatible con Python 3**, al principio del programa escribiremos la línea
 
-<pre><code class="language-python">from __future__ import print_function</code></pre>
+    :::python
+    from __future__ import print_function
 
 que sustituye la sentencia `print` de Python 2 por la nueva **función** `print` de Python 3. El [módulo `__future__`](http://www.python.org/dev/peps/pep-0236/) de Python 2 contiene varias sentencias que importan características de versiones de Python posteriores, de tal manera que podemos aprovechar nuevas posibilidades o simplemente hacer nuestro código más portable. Para lo que vamos a hacer hoy no necesitamos más.
 
 En primer lugar construimos las tres diagonales, haciendo uso de la función [`ones`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.ones.html#numpy.ones) de NumPy que nos da un array lleno de unos, y utilizando la función [`vstack`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.vstack.html#numpy.vstack) de Numpy las apilamos (de ahí el nombre) por filas:
 
-<pre><code class="language-python"># Número de puntos de colocación
-N = 100
-dl = np.ones(N - 1)
-du = np.ones(N - 1)
-d0 = -2 * np.ones(N - 1)
-d = np.vstack((dl, d0, du))</code></pre>
+    :::python
+    # Número de puntos de colocación
+    N = 100
+    dl = np.ones(N - 1)
+    du = np.ones(N - 1)
+    d0 = -2 * np.ones(N - 1)
+    d = np.vstack((dl, d0, du))
 
 Ahora simplemente tenemos que llamar a la función `spdiags` para construir la matriz:
 
-<pre><code class="language-python">A = sparse.spdiags(d, (-1, 0, 1), N - 1, N - 1)</code></pre>
+    :::python
+    A = sparse.spdiags(d, (-1, 0, 1), N - 1, N - 1)
 
 El código quedará finalmente de esta manera:
 
-<pre><code class="language-python"># coding: utf-8
-#
-# Crea una matriz tridiagonal
-# Juan Luis Cano Rodríguez &lt;juanlu001@gmail.com&gt;
-from __future__ import print_function
-import numpy as np
-from scipy import sparse
-# Número de puntos de colocación
-N = 100
-dl = du = np.ones(N - 1)
-d0 = -2 * np.ones(N - 1)
-d = np.vstack((dl, d0, du))
-A = sparse.spdiags(d, (-1, 0, 1), N - 1, N - 1)
-print(A.todense())</code></pre>
+    :::python
+    # coding: utf-8
+    #
+    # Crea una matriz tridiagonal
+    # Juan Luis Cano Rodríguez &lt;juanlu001@gmail.com&gt;
+    from __future__ import print_function
+    import numpy as np
+    from scipy import sparse
+    # Número de puntos de colocación
+    N = 100
+    dl = du = np.ones(N - 1)
+    d0 = -2 * np.ones(N - 1)
+    d = np.vstack((dl, d0, du))
+    A = sparse.spdiags(d, (-1, 0, 1), N - 1, N - 1)
+    print(A.todense())
 
 Si lo ejecutamos desde IPython:
 
-<pre><code class="language-python">In [1]: %run tridiag.py
-[[-2.  1.  0. ...,  0.  0.  0.]
- [ 1. -2.  1. ...,  0.  0.  0.]
- [ 0.  1. -2. ...,  0.  0.  0.]
- ...,
- [ 0.  0.  0. ..., -2.  1.  0.]
- [ 0.  0.  0. ...,  1. -2.  1.]
- [ 0.  0.  0. ...,  0.  1. -2.]]
-In [2]: A
-Out[2]:
-&lt;99x99 sparse matrix of type '&lt;class 'numpy.float64'&gt;'
-	with 295 stored elements (3 diagonals) in DIAgonal format&gt;
-In [3]: type(A)
-Out[3]: scipy.sparse.dia.dia_matrix
-In [4]: sparse.dia?
-Type:       module
-Base Class: &lt;class 'module'&gt;
-String Form:&lt;module 'scipy.sparse.dia' from '/usr/lib/python3.2/site-packages/scipy/sparse/dia.py'&gt;
-Namespace:  Interactive
-File:       /usr/lib/python3.2/site-packages/scipy/sparse/dia.py
-Docstring:  Sparse DIAgonal format</code></pre>
+    :::python
+    In [1]: %run tridiag.py
+    [[-2.  1.  0. ...,  0.  0.  0.]
+     [ 1. -2.  1. ...,  0.  0.  0.]
+     [ 0.  1. -2. ...,  0.  0.  0.]
+     ...,
+     [ 0.  0.  0. ..., -2.  1.  0.]
+     [ 0.  0.  0. ...,  1. -2.  1.]
+     [ 0.  0.  0. ...,  0.  1. -2.]]
+    In [2]: A
+    Out[2]:
+    &lt;99x99 sparse matrix of type '&lt;class 'numpy.float64'&gt;'
+    	with 295 stored elements (3 diagonals) in DIAgonal format&gt;
+    In [3]: type(A)
+    Out[3]: scipy.sparse.dia.dia_matrix
+    In [4]: sparse.dia?
+    Type:       module
+    Base Class: &lt;class 'module'&gt;
+    String Form:&lt;module 'scipy.sparse.dia' from '/usr/lib/python3.2/site-packages/scipy/sparse/dia.py'&gt;
+    Namespace:  Interactive
+    File:       /usr/lib/python3.2/site-packages/scipy/sparse/dia.py
+    Docstring:  Sparse DIAgonal format
 
 ¡Y ya está! 🙂 Espero que te haya resultado útil, no dudes mandarnos tus dudas y sugerencias así como de difundir el artículo.
 

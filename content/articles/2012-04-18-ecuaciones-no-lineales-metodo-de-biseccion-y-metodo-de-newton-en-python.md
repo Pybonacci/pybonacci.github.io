@@ -15,18 +15,19 @@ Vamos a ver la anatomía de un módulo en Python. Este es el código del archivo
 
 <!--more-->
 
-<pre><code class="language-python"># -*- coding: utf-8 -*-
-"""Búsqueda de raíces
-Este módulo contiene métodos para la búsqueda de raíces de ecuaciones de la
-forma f(x) = 0, con f función real de variable real, continua y de derivada
-continua.
-"""
-def biseccion():
-    """Método de bisección"""
-    pass
-def newton():
-    """Método de Newton"""
-    pass</code></pre>
+    :::python
+    # -*- coding: utf-8 -*-
+    """Búsqueda de raíces
+    Este módulo contiene métodos para la búsqueda de raíces de ecuaciones de la
+    forma f(x) = 0, con f función real de variable real, continua y de derivada
+    continua.
+    """
+    def biseccion():
+        """Método de bisección"""
+        pass
+    def newton():
+        """Método de Newton"""
+        pass
 
 Analicemos el código:
 
@@ -37,16 +38,17 @@ Analicemos el código:
 
 Para utilizar este módulo, simplemente lenzaríamos un intérprete Python en la carpeta donde esté el archivo `ceros.py` y escribiríamos:
 
-<pre><code class="language-python">&gt;&gt;&gt; import ceros
-&gt;&gt;&gt; dir(ceros)
-['__builtins__', '__doc__', '__file__', '__name__', '__package__', 'biseccion', 'newton']
-&gt;&gt;&gt; print ceros.__doc__
-Búsqueda de raíces
-Este módulo contiene métodos para la búsqueda de raíces de ecuaciones de la
-forma f(x) = 0, con f función real de variable real, continua y de derivada
-continua.
-&gt;&gt;&gt; print ceros.biseccion
-&lt;function biseccion at 0x7fc17efb5668&gt;</code></pre>
+    :::python
+    &gt;&gt;&gt; import ceros
+    &gt;&gt;&gt; dir(ceros)
+    ['__builtins__', '__doc__', '__file__', '__name__', '__package__', 'biseccion', 'newton']
+    &gt;&gt;&gt; print ceros.__doc__
+    Búsqueda de raíces
+    Este módulo contiene métodos para la búsqueda de raíces de ecuaciones de la
+    forma f(x) = 0, con f función real de variable real, continua y de derivada
+    continua.
+    &gt;&gt;&gt; print ceros.biseccion
+    &lt;function biseccion at 0x7fc17efb5668&gt;
 
 Ahora no hay más que _implementar_ estos métodos.
 
@@ -85,57 +87,58 @@ A la vista del algoritmo anterior, ya podemos implementar el método de bisecci�
 
 **_Nota_**: Cambiado por sugerencia de David para evitar errores de precisión.
 
-<pre><code class="language-python">import numpy as np
-def biseccion(f, a, b, tol=1.0e-6):
-    """Método de bisección
-    Halla una raíz de la función f en el intervalo [a, b] mediante el método
-    de bisección.
-    Argumentos
-    ----------
-    f - Función, debe ser tal que f(a) f(b) &lt; 0
-    a - Extremo inferior del intervalo
-    b - Extremo superior del intervalo
-    tol (opcional) - Cota para el error absoluto de la x
-    Devuelve
-    --------
-    x - Raíz de f en [a, b]
-    Excepciones
-    -----------
-    ValueError - Intervalo mal definido, la función no cambia de signo en el
-                 intervalo o cota no positiva
-    Ejemplos
-    --------
-    &gt;&gt;&gt; def f(x): return x ** 2 - 1
-    ...
-    &gt;&gt;&gt; biseccion(f, 0, 2)
-    1.0
-    &gt;&gt;&gt; biseccion(f, 0, 5)
-    1.000000238418579
-    &gt;&gt;&gt; biseccion(f, -2, 2)
-    Traceback (most recent call last):
-        File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-        File "ceros.py", line 35, in biseccion
-        raise ValueError("La función debe cambiar de signo en el intervalo")
-    ValueError: La función debe cambiar de signo en el intervalo
-    &gt;&gt;&gt; biseccion(f, -3, 0, tol=1.0e-12)
-    -1.0000000000004547
-    """
-    if a &gt; b:
-        raise ValueError("Intervalo mal definido")
-    if f(a) * f(b) &gt;= 0.0:
-        raise ValueError("La función debe cambiar de signo en el intervalo")
-    if tol &lt;= 0:
-        raise ValueError("La cota de error debe ser un número positivo")
-    x = (a + b) / 2.0
-    while True:
-        if b - a &lt; tol:
-            return x
-        # Utilizamos la función signo para evitar errores de precisión
-        elif np.sign(f(a)) * np.sign(f(x)) &gt; 0:
-            a = x
-        else:
-            b = x
-        x = (a + b) / 2.0</code></pre>
+    :::python
+    import numpy as np
+    def biseccion(f, a, b, tol=1.0e-6):
+        """Método de bisección
+        Halla una raíz de la función f en el intervalo [a, b] mediante el método
+        de bisección.
+        Argumentos
+        ----------
+        f - Función, debe ser tal que f(a) f(b) &lt; 0
+        a - Extremo inferior del intervalo
+        b - Extremo superior del intervalo
+        tol (opcional) - Cota para el error absoluto de la x
+        Devuelve
+        --------
+        x - Raíz de f en [a, b]
+        Excepciones
+        -----------
+        ValueError - Intervalo mal definido, la función no cambia de signo en el
+                     intervalo o cota no positiva
+        Ejemplos
+        --------
+        &gt;&gt;&gt; def f(x): return x ** 2 - 1
+        ...
+        &gt;&gt;&gt; biseccion(f, 0, 2)
+        1.0
+        &gt;&gt;&gt; biseccion(f, 0, 5)
+        1.000000238418579
+        &gt;&gt;&gt; biseccion(f, -2, 2)
+        Traceback (most recent call last):
+            File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+            File "ceros.py", line 35, in biseccion
+            raise ValueError("La función debe cambiar de signo en el intervalo")
+        ValueError: La función debe cambiar de signo en el intervalo
+        &gt;&gt;&gt; biseccion(f, -3, 0, tol=1.0e-12)
+        -1.0000000000004547
+        """
+        if a &gt; b:
+            raise ValueError("Intervalo mal definido")
+        if f(a) * f(b) &gt;= 0.0:
+            raise ValueError("La función debe cambiar de signo en el intervalo")
+        if tol &lt;= 0:
+            raise ValueError("La cota de error debe ser un número positivo")
+        x = (a + b) / 2.0
+        while True:
+            if b - a &lt; tol:
+                return x
+            # Utilizamos la función signo para evitar errores de precisión
+            elif np.sign(f(a)) * np.sign(f(x)) &gt; 0:
+                a = x
+            else:
+                b = x
+            x = (a + b) / 2.0
 
 Vamos a señalar algunas cosas:
 
@@ -150,10 +153,11 @@ Podíamos haber tomado la decisión de no incluir este manejo de errores, y deja
 
 Para gestionar los errores que se pueden producir, utilizamos el bloque `try...except`:
 
-<pre><code class="language-python">try:
-    biseccion(f, a, b)
-except ValueError:
-    pass  # Este bloque se ejecuta si se produce un error</code></pre>
+    :::python
+    try:
+        biseccion(f, a, b)
+    except ValueError:
+        pass  # Este bloque se ejecuta si se produce un error
 
 Gracias a esta característica de Python podemos evitar cosas como que una división por cero mate al programa, por ejemplo.
 
@@ -190,53 +194,54 @@ Aquí, debido a que el método no tiene garantizada la convergencia, habrá que 
 
 El código sería este:
 
-<pre><code class="language-python">def newton(f, df, x_0, maxiter=50, xtol=1.0e-6, ftol=1.0e-6):
-    """Método de Newton
-    Halla la raíz de la función f en el entorno de x_0 mediante el método de
-    Newton.
-    Argumentos
-    ----------
-    f - Función
-    df - Función, debe ser la función derivada de f
-    x_0 - Punto de partida del método
-    maxiter (opcional) - Número máximo de iteraciones
-    xtol (opcional) - Cota para el error relativo para la raíz
-    ftol (opcional) - Cota para el valor de la función
-    Devuelve
-    --------
-    x - Raíz de la ecuación en el entorno de x_0
-    Excepciones
-    -----------
-    RuntimeError - No hubo convergencia superado el número máximo de
-                   iteraciones
-    ZeroDivisionError - La derivada se anuló en algún punto
-    Exception - El valor de x se sale del dominio de definición de f
-    Ejemplos
-    --------
-    &gt;&gt;&gt; def f(x): return x ** 2 - 1
-    ...
-    &gt;&gt;&gt; def df(x): return 2 * x
-    ...
-    &gt;&gt;&gt; newton(f, df, 2)
-    1.000000000000001
-    &gt;&gt;&gt; newton(f, df, 5)
-    1.0
-    &gt;&gt;&gt; newton(f, df, 0)
-    Traceback (most recent call last):
-      File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-      File "ceros.py", line 102, in newton
-        dx = -f(x) / df(x)  # ¡Aquí se puede producir una división por cero!
-    ZeroDivisionError: float division by zero
-    """
-    x = float(x_0)  # Se convierte a número de coma flotante
-    for i in xrange(maxiter):
-        dx = -f(x) / df(x)  # ¡Aquí se puede producir una división por cero!
-                            # También x puede haber quedado fuera del dominio
-        x = x + dx
-        if abs(dx / x) &lt; xtol and abs(f(x)) &lt; ftol:
-            return x
-    raise RuntimeError("No hubo convergencia después de {}
-                        iteraciones".format(maxiter))</code></pre>
+    :::python
+    def newton(f, df, x_0, maxiter=50, xtol=1.0e-6, ftol=1.0e-6):
+        """Método de Newton
+        Halla la raíz de la función f en el entorno de x_0 mediante el método de
+        Newton.
+        Argumentos
+        ----------
+        f - Función
+        df - Función, debe ser la función derivada de f
+        x_0 - Punto de partida del método
+        maxiter (opcional) - Número máximo de iteraciones
+        xtol (opcional) - Cota para el error relativo para la raíz
+        ftol (opcional) - Cota para el valor de la función
+        Devuelve
+        --------
+        x - Raíz de la ecuación en el entorno de x_0
+        Excepciones
+        -----------
+        RuntimeError - No hubo convergencia superado el número máximo de
+                       iteraciones
+        ZeroDivisionError - La derivada se anuló en algún punto
+        Exception - El valor de x se sale del dominio de definición de f
+        Ejemplos
+        --------
+        &gt;&gt;&gt; def f(x): return x ** 2 - 1
+        ...
+        &gt;&gt;&gt; def df(x): return 2 * x
+        ...
+        &gt;&gt;&gt; newton(f, df, 2)
+        1.000000000000001
+        &gt;&gt;&gt; newton(f, df, 5)
+        1.0
+        &gt;&gt;&gt; newton(f, df, 0)
+        Traceback (most recent call last):
+          File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+          File "ceros.py", line 102, in newton
+            dx = -f(x) / df(x)  # ¡Aquí se puede producir una división por cero!
+        ZeroDivisionError: float division by zero
+        """
+        x = float(x_0)  # Se convierte a número de coma flotante
+        for i in xrange(maxiter):
+            dx = -f(x) / df(x)  # ¡Aquí se puede producir una división por cero!
+                                # También x puede haber quedado fuera del dominio
+            x = x + dx
+            if abs(dx / x) &lt; xtol and abs(f(x)) &lt; ftol:
+                return x
+        raise RuntimeError("No hubo convergencia después de {}
+                            iteraciones".format(maxiter))
 
 Se deja como ejercicio (qué placentero es decir esto) programar el [método de la secante](http://es.wikipedia.org/wiki/M%C3%A9todo_de_la_secante "Método de la secante") que se utilice como alternativa si no se dispone de la derivada de la función.
 
