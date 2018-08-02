@@ -98,7 +98,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     y que tiene esta pinta:
   </p>
   
-    <pre><code class="language-python">
+    :::python
     x = np.linspace(0, 3, 151)
     def A(x):
         """Área transversal de la tobera.
@@ -117,8 +117,6 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.title("Tobera")
     plt.xlabel("x (m)")
     plt.ylabel("Radio (dm)")
-    </code>
-    </pre>
 
     <p>
         <a href="http://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
@@ -140,7 +138,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
         donde $A^*$ es el área crítica y $\gamma = 1.4$ para el caso del aire. Date cuenta de que es imposible despejar $x$ en función de $M$ o viceversa, de tal forma que tenemos que resolver la relación implícita que existe entre estas variables. Este es el código:
     </p>
 
-    <pre><code class="language-python">
+    :::python
     from scipy.optimize import brentq, newton
     def rel(M, gamma=1.4):
         """Parte derecha de la relación entre el número de Mach $M$
@@ -168,7 +166,6 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.ylabel("M")
     plt.xlabel("x (m)")
     plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))
-    </code></pre>
 
   <p>
     <a href="http://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="http://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
@@ -210,7 +207,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     El código en Python será:
   </p>
   
-    <pre><code class="language-python">
+    :::python
     from scipy.optimize import root
     def f(x):
         """Sistema de dos ecuaciones con dos incógnitas.
@@ -221,7 +218,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
         ]
     sol = root(f, [1, 1], jac=False)  # Devuelve objecto Result
     print sol.x  # Result.x contiene la solución
-    </code></pre>
+
   <p>
     Y esto ha sido todo, no olvides hacernos llegar tus sugerencias y comentarios. ¡Un saludo!
   </p>
