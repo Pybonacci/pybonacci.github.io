@@ -24,6 +24,12 @@ $ source activate pybonacci36
 (pybonacci36) $ npm install -g less
 ```
 
+Si `npm` os falla, la línea anterior a esta, quizá tengáis que hacer antes lo siguiente:
+
+```
+(pybonacci36) $ npm config set registry https://registry.npmjs.org/
+```
+
 3. Genera el archivo `main.css`:
 
 ```
