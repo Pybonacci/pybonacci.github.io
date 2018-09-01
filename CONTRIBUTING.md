@@ -31,6 +31,20 @@ tags: lista de tags separadas por comas (por ejemplo,  "tag1, ecuaciones diferen
 
 [Aquí](https://github.com/Pybonacci/pybonacci.github.io-source/pull/9/files) se puede ver un ejemplo de Pull Request.
 
+### Si es tu primera aportación al blog...
+
+Seguramente no tengas una página de Autor. para crear una puedes seguir [estos ejemplos](https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author) y llamarla con el mismo nombre que hayas usado para el autor del artículo (sección `author` más arriba) con un guión en cada espacio. Por ejemplo, si el autor del artículo lo has puesto así:
+
+```
+# ...
+author: Pepe Gotera
+# ...
+```
+
+La plantilla a colocar en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author deberá llamarse Pepe-Gotera.html
+
+Si quieres añadir una imagen la deberás incluir en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/content/images/author y enlazarla de forma correcta en la plantilla de autor. Mira los ejemplos que ya existen en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author .
+
 ## Mejorar el blog
 
 La versión actual del proyecto usa Pelican para generar el contenido estatico. ¿Quieres mejorar el css, añadir plugins que creas que nos podrian ayudar? ¡Se admiten Pull Requests!
