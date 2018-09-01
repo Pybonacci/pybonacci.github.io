@@ -43,7 +43,9 @@ author: Pepe Gotera
 
 La plantilla a colocar en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author deberá llamarse Pepe-Gotera.html
 
-Si quieres añadir una imagen la deberás incluir en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/content/images/author y enlazarla de forma correcta en la plantilla de autor. Mira los ejemplos que ya existen en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author .
+Si quieres añadir una imagen la deberás incluir en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/content/images/author y enlazarla de forma correcta en la plantilla de autor. Mira los ejemplos que ya existen en https://github.com/Pybonacci/pybonacci.github.io/tree/sources/theme/templates/author.
+
+[Aquí](https://github.com/Pybonacci/pybonacci.github.io/pull/64/files) se puede ver un ejemplo de Pull Request.
 
 ## Mejorar el blog
 
