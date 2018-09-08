@@ -168,11 +168,11 @@ Las figuras que obtenemos son las siguientes.
   <figure class='gallery-item'>
 
   <div class='gallery-icon landscape'>
-    <a href='https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-distance.png'><img width="150" height="150" src="https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-distance-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3078" /></a>
+    <a href='https://pybonacci.org/images/2015/01/iris-knn-distance.png'><img width="150" height="150" src="https://pybonacci.org/images/2015/01/iris-knn-distance-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3078" /></a>
   </div><figcaption class='wp-caption-text gallery-caption' id='gallery-1-3078'> 3-Class classification (k = 15, weights=&#8217;distance&#8217;) </figcaption></figure><figure class='gallery-item'>
 
   <div class='gallery-icon landscape'>
-    <a href='https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-uniform.png'><img width="150" height="150" src="https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-uniform-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3077" /></a>
+    <a href='https://pybonacci.org/images/2015/01/iris-knn-uniform.png'><img width="150" height="150" src="https://pybonacci.org/images/2015/01/iris-knn-uniform-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3077" /></a>
   </div><figcaption class='wp-caption-text gallery-caption' id='gallery-1-3077'> 3-Class classification (k = 15, weights=&#8217;uniform&#8217;) </figcaption></figure>
 </div>
 
