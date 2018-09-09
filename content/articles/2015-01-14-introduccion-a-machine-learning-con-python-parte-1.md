@@ -32,44 +32,53 @@ Este es un problema de aprendizaje supervisado o clasificación. Puesto que el c
 Nuestro primer modelo de clasificación se basará precisamente en esa primera agrupación visual que hemos realizado. Es decir, si la longitud del pétalo es inferior a 2, entonces se trata de Iris Setosa, si no, puede ser Iris Versicolor o Iris Virginica.
 
     :::python
-    from pandas import read_csv
+    from sklearn import datasets
     # leemos el dataset
-    iris = read_csv('iris.csv')
+    iris = datasets.load_iris()
+    # El dataset contiene 4 atributos
+    print(iris.feature_names)
     # Separamos Iris Setosa de las otras dos especies en función de la longitud
-    # del pétalo.
-    for value in iris.PetalLength.values:
-        if value &lt; 2:
+    # del pétalo (tercer atributo).
+    for value in iris.data[:, 2]:
+        if value > 2:
             print('Iris setosa')
         else:
             print('Iris virginica o Iris versicolor')
 
 Lo que hemos creado es un simple umbral en una de las dimensiones. Lo hemos hecho de manera visual; el aprendizaje automático tiene lugar cuando escribimos código que realiza esto mismo por nosotros.
 
-Distinguir Iris Setosa de las otras dos especies fue sencillo. Sin embargo, no tenemos forma de ver inmediatamente cual es el mejor umbral para distinguir Iris Virginica de Iris Versicolor. Es más, podemos deducir que la distinción nunca será perfecta. Pero podemos generar un algoritmo sencillo que nos de la mejor solución de compromiso en base a los parámetros medidos de las plantas.
+Distinguir Iris Setosa de las otras dos especies fue sencillo. Sin embargo, no tenemos forma de ver inmediatamente cuál es el mejor umbral para distinguir Iris Virginica de Iris Versicolor. Es más, podemos deducir que la distinción nunca será perfecta. Pero podemos generar un algoritmo sencillo que nos de la mejor solución de compromiso en base a los parámetros medidos de las plantas.
 
 En el siguiente fragmento de código vamos a buscar, de entre las cuatro características medidas —longitud y ancho de sépalo y pétalo—, el valor de umbral que mejor clasifica la familia de Iris.
 
     :::python
-    from pandas import read_csv
-    # leemos el dataset
-    iris = read_csv('iris.csv')
+    from sklearn import datasets
+    import pandas as pd
+    # leemos el dataset y pasamos los datos a una DataFrame de pandas por comodidad
+    sk_iris = datasets.load_iris()
+    iris = pd.DataFrame(data=sk_iris.data, columns=sk_iris.feature_names)
+    iris['labels'] = pd.Categorical.from_codes(sk_iris.target, sk_iris.target_names)
     # descartamos la familia setosa que ya tenemos clasificada
-    iris = iris[iris.Name != 'Iris-setosa']
-    virginica = iris.Name=='Iris-virginica'
+    iris = iris[iris.labels != 'setosa']
+    virginica = iris.labels=='virginica'
     # obtenemos un array con los nombres de las características que medimos
     features = iris.columns[:4]
     # inicializamos en valor de precisión
     best_acc = 0.0
     for fi in features:                    # Por cada parámetro o característica de la que tenemos valores
         thresh = iris[fi].copy()           # obtenemos una lista de valores para el umbral
-        thresh.sort(inplace=True)          # que ordenamos de menor a mayor.
+        thresh.sort_values(inplace=True)   # que ordenamos de menor a mayor.
         for t in thresh:                   # Por cada posible valor de umbral
-            pred = (iris[fi] &gt; t)       # determinamos los elementos de la tabla que están por encima
+            pred = (iris[fi] > t)          # determinamos los elementos de la tabla que están por encima
             acc = (pred==virginica).mean() # y calculamos que porcentaje de la familia virginica está recogida.
-            if acc &gt; best_acc:          # Si mejoramos la detección, actualizamos los parámetro de la colección.
+            if acc > best_acc:             # Si mejoramos la detección, actualizamos los parámetro de la colección.
                 best_acc = acc             # Mejor precisión obtenida.
                 best_fi = fi               # Mejor característica para clasificar las familias.
                 best_t = t                 # Valor óptimo de umbral.
+
+    print('Mejor precisión obtenida: {:.1%}'.format(best_acc))
+    print('Mejor característica para clasificar: {}'.format(best_fi))
+    print('Valor óptimo de umbral: {} cm'.format(best_t))
 
 Según el algoritmo que hemos implementado, el valor óptimo de umbral es de 1.6 cm de ancho de pétalo. Con ese valor, clasificamos correctamente el 94% de las plantas como Virginica. En este tipo de modelos de umbral, la frontera de decisión será siempre paralela a uno de los ejes.
 
@@ -79,7 +88,7 @@ El modelo, a pesar de su simplicidad, logra un 94% de acierto sobre los datos de
 
 Para determinar las capacidades del modelo, u obtener un modelo más robusto, se suele recurrir a la <a href="http://es.wikipedia.org/wiki/Validación_cruzada" target="_blank">validación cruzada</a>. De esta manera utilizamos parte de los datos de que disponemos para entrenar el modelo —_training set_—, y el resto de datos para probarlo —_test set_— (ver imagen inferior).<figure style="width: 526px" class="wp-caption aligncenter">
 
-<img src="http://upload.wikimedia.org/wikipedia/commons/f/f2/K-fold_cross_validation.jpg" width="526" height="262" class /><figcaption class="wp-caption-text">Validación cruzada de k=4 iteraciones [<a href="http://es.wikipedia.org/wiki/Validaci%C3%B3n_cruzada#Error_de_la_validaci.C3.B3n_cruzada_de_K_iteraciones" target="_blank">Fuente</a>].</figcaption></figure> 
+<img src="http://upload.wikimedia.org/wikipedia/commons/f/f2/K-fold_cross_validation.jpg" width="526" height="262" class /><figcaption class="wp-caption-text">Validación cruzada de k=4 iteraciones [<a href="http://es.wikipedia.org/wiki/Validaci%C3%B3n_cruzada#Error_de_la_validaci.C3.B3n_cruzada_de_K_iteraciones" target="_blank">Fuente</a>].</figcaption></figure>
 
 ### K nearest neighbors
 
@@ -94,13 +103,16 @@ Si bien podemos <a href="http://machinelearningmastery.com/tutorial-to-implement
     from matplotlib.colors import ListedColormap
     from sklearn.neighbors import KNeighborsClassifier
 
-Aunque scikit-learn incluye su propio dataset de Iris, vamos a importar el mismo que hemos empleado en los casos anteriores.
+Vamos a importar ahora el dataset que viene con scikit-learn.
 
     :::python
-    iris = pd.read_csv('iris.csv')          # Importamos el dataset.
-    X = iris[['PetalLenght', 'PetalWidth']] # Tomamos el ancho y longitud del pétalo.
-    y = iris['Name'].astype('category')     # Para crear luego los gráficos vamos a necesitar categorizar los nombres
-    y.cat.categories = [0, 1, 2]            # y asignarles un número a cada variedad de planta; en este caso tres.
+    # leemos el dataset y pasamos los datos a una DataFrame de pandas por comodidad
+    sk_iris = datasets.load_iris()
+    iris = pd.DataFrame(data=sk_iris.data, columns=sk_iris.feature_names)
+    # que las etiquetas sean de tipo Categorical será importante más adelante a la hora de crear los gráficos
+    iris['labels'] = pd.Categorical.from_codes(sk_iris.target, sk_iris.target_names)
+    X = iris[['petal length (cm)', 'petal width (cm)']] # Tomamos el ancho y longitud del pétalo.
+    y = iris['labels'].astype('category')
 
 Tomaremos un número de vecinos relativamente grande, _k_ = 15. El valor de _k_ depende mucho de los datos de que dispongamos, pero en general, un valor alto mitiga el ruido a costa de diferenciar menos zonas. Definimos también el espesor de la malla y los _colormaps_ del gráfico.
 
@@ -126,7 +138,7 @@ Con la función `fit()` entrenamos el modelo para obtener los parámetros que ut
         # Los pesos (weights) determinarán en qué proporción participa cada punto en la
         # asignación del espacio. De manera uniforme o proporcional a la distancia.
         clf = KNeighborsClassifier(n_neighbors, weights=weights)
-        clf.fit(X, y)
+        clf.fit(X, y.cat.codes)
         # Creamos una gráfica con las zonas asignadas a cada categoría según el modelo
         # k-nearest neighborgs. Para ello empleamos el meshgrid de Numpy.
         # A cada punto del grid o malla le asignamos una categoría según el modelo knn.
@@ -141,7 +153,7 @@ Con la función `fit()` entrenamos el modelo para obtener los parámetros que ut
         plt.figure()
         plt.pcolormesh(xx, yy, Z, cmap=cmap_light)
         # Representamos también los datos de entrenamiento.
-        plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y, cmap=cmap_bold)
+        plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=y.cat.codes, cmap=cmap_bold)
         plt.xlim(xx.min(), xx.max())
         plt.ylim(yy.min(), yy.max())
         plt.title("3-Class classification (k = %i, weights = '%s')"
@@ -153,18 +165,18 @@ Con la función `fit()` entrenamos el modelo para obtener los parámetros que ut
 Las figuras que obtenemos son las siguientes.
 
 <div id='gallery-1' class='gallery galleryid-2976 gallery-columns-2 gallery-size-thumbnail'>
-  <figure class='gallery-item'> 
-  
+  <figure class='gallery-item'>
+
   <div class='gallery-icon landscape'>
-    <a href='https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-distance.png'><img width="150" height="150" src="https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-distance-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3078" /></a>
-  </div><figcaption class='wp-caption-text gallery-caption' id='gallery-1-3078'> 3-Class classification (k = 15, weights=&#8217;distance&#8217;) </figcaption></figure><figure class='gallery-item'> 
-  
+    <a href='https://pybonacci.org/images/2015/01/iris-knn-distance.png'><img width="150" height="150" src="https://pybonacci.org/images/2015/01/iris-knn-distance-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3078" /></a>
+  </div><figcaption class='wp-caption-text gallery-caption' id='gallery-1-3078'> 3-Class classification (k = 15, weights=&#8217;distance&#8217;) </figcaption></figure><figure class='gallery-item'>
+
   <div class='gallery-icon landscape'>
-    <a href='https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-uniform.png'><img width="150" height="150" src="https://pybonacci.org/wp-content/uploads/2015/01/iris-knn-uniform-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3077" /></a>
+    <a href='https://pybonacci.org/images/2015/01/iris-knn-uniform.png'><img width="150" height="150" src="https://pybonacci.org/images/2015/01/iris-knn-uniform-150x150.png" class="attachment-thumbnail size-thumbnail" alt="" aria-describedby="gallery-1-3077" /></a>
   </div><figcaption class='wp-caption-text gallery-caption' id='gallery-1-3077'> 3-Class classification (k = 15, weights=&#8217;uniform&#8217;) </figcaption></figure>
 </div>
 
-Como podemos ver, en este caso, las lineas que separan las tres categorías de planta Iris ya no son verticales. El modelo _k_ Nearest Neighborgs que hemos empleado ha considerado que la separación de categorías (para selección de ordenadas y abscisas) es más bien tirando a horizontal. Visualmente también podemos apreciar que éste modelo incluye más puntos dentro de la categoría correcta que el modelo simple que hemos estudiado en primer lugar. Si recurrimos a la función `score()`, obtendremos una puntuación del 96% en el caso de `weights='uniform'`, y del 98.6% si optamos por `weights='distancia'`. Cabe recordar que en este caso tampoco se ha recurrido a un _cross validation_ para puntuar el modelo, por lo que esta puntuación puede ser algo optimista.
+Como podemos ver, en este caso, las lineas que separan las tres categorías de planta Iris ya no son verticales. El modelo _k_ Nearest Neighborgs que hemos empleado ha considerado que la separación de categorías (para selección de ordenadas y abscisas) es más bien inclinada. Visualmente también podemos apreciar que éste modelo incluye más puntos dentro de la categoría correcta que el modelo simple que hemos estudiado en primer lugar. Si recurrimos a la función `score()`, obtendremos una puntuación del 96% en el caso de `weights='uniform'`, y del 98.6% si optamos por `weights='distancia'`. Cabe recordar que en este caso tampoco se ha recurrido a un _cross validation_ para puntuar el modelo, por lo que esta puntuación puede ser algo optimista.
 
 ## Conclusión
 
