@@ -4,7 +4,6 @@
 @link-color: #007EE5;
 @read-more-color: #007AA3;
 
-
 .description-author {
     font-size: 0.8em;
     color: #333;
@@ -240,7 +239,7 @@ article {
 }
 
 .index {
-    max-width: 700px;
+    //max-width: 700px;
 
     article {
         header {
@@ -381,4 +380,23 @@ article {
 
 pre {
     font-size: 1.2em;
+}
+
+@media all and (min-width: 960px) {
+    body{
+        font-size: 18px;
+    }
+}
+ 
+@media all and (max-width: 959px) and (min-width: 600px) {
+    body{
+        font-size: 16px;
+    }
+}
+ 
+@media all and (max-width: 599px) and (min-width: 320px) {
+    body{
+        font-size: 12px;
+    }
+ 
 }
