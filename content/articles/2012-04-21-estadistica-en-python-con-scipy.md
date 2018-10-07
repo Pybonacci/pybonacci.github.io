@@ -134,9 +134,7 @@ Lo que hemos hecho ha sido
   5. Comprobar qué pasa en 0. Nada que no supiéramos.
   6. Comprobar que la función densidad está normalizada integrándola sobre la recta real (el primer número es el valor de la integral y el segundo una estimación del error, como podemos ver en la documentación de la función `<a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html">quad</a>)`.
 
-<div>
-  A partir de ahora podemos hacer lo mismo que hemos hecho antes: o bien crear una distribución fija o acceder a los métodos de la misma directamente. Aunque sólo hemos dado la función de densidad, comprobamos que también podemos llamar al resto:
-</div>
+A partir de ahora podemos hacer lo mismo que hemos hecho antes: o bien crear una distribución fija o acceder a los métodos de la misma directamente. Aunque sólo hemos dado la función de densidad, comprobamos que también podemos llamar al resto:
 
     :::python
     In [23]: rv = variable()  # Nótense los paréntesis
