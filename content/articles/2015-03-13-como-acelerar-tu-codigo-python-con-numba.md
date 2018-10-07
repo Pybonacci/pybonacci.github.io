@@ -41,7 +41,7 @@ Voy a tomar directamente el ejemplo que usó Kiko para su artículo sobre Cython
 
 > "Por ejemplo, imaginemos que tenemos que detectar valores mínimos locales dentro de una malla. Los valores mínimos deberán ser simplemente valores más bajos que los que haya en los 8 nodos de su entorno inmediato. En el siguiente gráfico, el nodo en verde será un nodo con un mínimo y en su entorno son todo valores superiores:
 
-<div>
+<div align="center">
   <table>
     <tr>
       <td style="background:red">

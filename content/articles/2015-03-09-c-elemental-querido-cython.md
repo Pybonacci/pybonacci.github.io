@@ -29,7 +29,7 @@ La idea principal de este primer acercamiento a Cython será empezar con un cód
 
 Por ejemplo, imaginemos que tenemos que detectar valores mínimos locales dentro de una malla. Los valores mínimos deberán ser simplemente valores más bajos que los que haya en los 8 nodos de su entorno inmediato. En el siguiente gráfico, el nodo en verde será un nodo con un mínimo y en su entorno son todo valores superiores:
 
-<div>
+<div align="center">
   <table>
     <tr>
       <td style="background:red">
@@ -1028,8 +1028,8 @@ Vamos a comprobar que el resultado sea el mismo que la función original:
 
 **OUTPUT:**
 
-[   1    1    1 ..., 1998 1998 1998]
-[   1    3   11 ..., 1968 1977 1985]
+    [   1    1    1 ..., 1998 1998 1998]
+    [   1    3   11 ..., 1968 1977 1985]
 
 <br>
 
