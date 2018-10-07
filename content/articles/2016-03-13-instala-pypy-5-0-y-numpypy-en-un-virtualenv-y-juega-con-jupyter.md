@@ -7,11 +7,11 @@ tags: jupyter, numpy, numpypy, pypy, pypy-portable, virtualenv
 
 Hoy voy a mostrar como usar la última versión de pypy y numpypy en vuestro linux. Para instalar pypy usaremos la versión [portable](https://github.com/squeaky-pl/portable-pypy) creada por [squeaky-pl](https://github.com/squeaky-pl). Numpypy lo instalaremos en un entorno virtual juntamente con Jupyter para poder hacer las pruebas en un entorno más amigable que la consola de pypy.
 
-## Requerimientos
+# Requerimientos
 
 Necesitaremos tener instalada una versión reciente de virtualenv y git.
 
-## Al lío
+# Al lío
 
 ¡Si queréis la versión TL;DR [pinchad aquí](https://github.com/kikocorreoso/test_pypy_numpypy#usage-of-the-script)! Si sois un poco más pacientes y queréis entender un poco lo que vamos a hacer seguid leyento.
 
@@ -77,14 +77,14 @@ Y, por último, hacemos un poco de limpieza eliminando el fichero comprimido del
 
 ¡¡¡Listo!!!
 
-## Usando pypy
+# Usando pypy
 
 Para usar pypy (sin numpy) puedes lanzar una consola con pypy 5.0 (compatible con CPython 2.7) escribiendo en el terminal:
 
     :::bash
     pypy
 
-## Usando pypy con numpy en un notebook de jupyter
+# Usando pypy con numpy en un notebook de jupyter
 
 Activamos el entorno virtual recien creado. Desde el terminal escribimos:
 
@@ -98,7 +98,7 @@ Y arrancamos jupyter:
 
 Y después venís aquí y me contáis vuestras experiencias con pypy y numpypy o, si habéis encontrado fallos o queréis añadir mejoras, os vais a [github](https://github.com/kikocorreoso/test_pypy_numpypy) y abrís un issue o mandáis un Pull Request y salimos ganando todos.
 
-## Ideas para mejorar el script (con vuestros pull requests)
+# Ideas para mejorar el script (con vuestros pull requests)
 
   * Que pregunte donde instalar el pypy portable.
   * Que pregunte si queremos una carpeta **bin** o no.
@@ -107,5 +107,3 @@ Y después venís aquí y me contáis vuestras experiencias con pypy y numpypy o
   * ...
 
 Saludos.
-
-&nbsp;
