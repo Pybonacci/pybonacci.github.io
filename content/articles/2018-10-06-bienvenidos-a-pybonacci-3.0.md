@@ -81,8 +81,3 @@ Hemos decidido usar Github Pages como nuestro hosting, esto permite que cualquie
 En esta nueva etapa esperamos escribir más, mucho más. Esperamos que participe mucha más gente compartiendo su conocimiento. Esperamos que los campos estén más abiertos y hablemos no solo de ciencia establecida como la química, biología, matemáticas, física, ingeniería,..., sino también de periodismo de datos, sociología, procesamiento del lenguaje natural o cualquier otro campo que se esté revolucionando con esta explosión de datos y conocimiento libre y colaborativo.
 
 Asi que, ¿a qué esperas para publicar tu primer artículo en Pybonacci? Sólo tienes que echarle un ojo a las instrucciones para contribuidores [aquí](https://github.com/Pybonacci/pybonacci.github.io/blob/sources/CONTRIBUTING.md).
-
-
-```python
-
-```
