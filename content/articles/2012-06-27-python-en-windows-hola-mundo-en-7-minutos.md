@@ -46,15 +46,13 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * El cursor estará parpadeando justo a la derecha de algo como esto: >>>.
   * Escribe el siguiente comando, asegurándote de que "¡Hola, mundo!" está entre comillas:
 
-<pre>&gt;&gt;&gt; print("¡Hola mundo!")</pre>
+`>>>print("¡Hola mundo!")`
 
   * Presiona Enter. Deberías ver «¡Hola mundo!» en un color diferente en la línea inferior.
   * Si es así, ¡ya está!
-  * Si ves un mensaje de error que dice: "SyntaxError: invalid syntax" entonces te has olvidado de las comillas. <ins datetime="2013-12-23T10:39:18+00:00">En versiones antiguas de Python (Python 2.x) no hacían falta paréntesis. Te recomendamos que aprendas Python 3, pero si quieres puedes instalar también Python 2.7 porque no todas las bibliotecas están disponibles en las nuevas versiones.</ins>
+  * Si ves un mensaje de error que dice: "SyntaxError: invalid syntax" entonces te has olvidado de las comillas. __*En versiones antiguas de Python (Python 2.x) no hacían falta paréntesis. Te recomendamos que aprendas Python 3, pero si quieres puedes instalar también Python 2.7 porque no todas las bibliotecas están disponibles en las nuevas versiones.*__
 
-<div>
-  <span style="font-size:11px;"><img class="aligncenter size-full wp-image-2065" alt="Python 3 en Windows" src="http://new.pybonacci.org/images/2013/12/python3.png" width="690" height="240" srcset="https://pybonacci.org/wp-content/uploads/2013/12/python3.png 690w, https://pybonacci.org/wp-content/uploads/2013/12/python3-300x104.png 300w" sizes="(max-width: 690px) 100vw, 690px" /></span>
-</div>
+![](https://pybonacci.org/images/2013/12/python3.png?style=centerme)
 
 Estás dentro de la ventana del IDE (Integrated Development Environment) IDLE. Deja el intérprete de Python abierto, listo y esperando recibir tus comandos. ¡Ahora sólo tienes que aprender Python! Para eso, tienes varios recursos. Algunos los hemos sacado de la [página de lengua española de la wiki oficial de Python](http://wiki.python.org/moin/SpanishLanguage), y otros del sitio de P&R [Python Majibu](http://python.majibu.org/preguntas/154/libros-recomendados-de-programacion-en-python).
 
@@ -67,6 +65,6 @@ Cuando empieces a trabajar con el lenguaje y te surjan dudas, siempre puedes pre
 
 **Si has llegado hasta aquí, ¿por qué no [nos cuentas qué te ha parecido el artículo](#commentform)? ¿Te ha ayudado a empezar con Python en tu sistema? ¿Ha ido todo bien o has tenido que cambiar algún paso? ¡[Déjanos un comentario](#commentform)! 🙂**
 
-<ins datetime="2013-12-23T10:39:18+00:00"><strong>Nota</strong>: Actualizado el artículo para los nuevos tiempos: ahora instalamos Python 3 por defecto. ¡Ya va siendo hora! 😉</ins>
+__*Nota: Actualizado el artículo para los nuevos tiempos: ahora instalamos Python 3 por defecto. ¡Ya va siendo hora! 😉*__
 
 _Esta es una traducción y adaptación del artículo [Python On XP: 7 Minutes To “Hello World!”](http://www.richarddooling.com/index.php/2006/03/14/python-on-xp-7-minutes-to-hello-world/), por Richard Dooling. Thank you RD!_
