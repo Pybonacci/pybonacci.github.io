@@ -27,8 +27,6 @@ div.output_prompt {
 }
 
 div.input_area {
-    margin: .2em 0.4em;
-    max-width: 580px;
 }
 
 table.dataframe {
