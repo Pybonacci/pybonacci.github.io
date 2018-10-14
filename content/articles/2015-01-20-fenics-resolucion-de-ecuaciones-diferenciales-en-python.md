@@ -176,7 +176,7 @@ Y para terminar, la gráfica correspondiente:
 
 ¡Y este es el resultado!
 
-![](https://pybonacci.org/images/2015/01/poisson-300x233.png)
+![poisson](https://pybonacci.org/images/2015/01/poisson-300x233.png)
 
 ## Conclusiones
 

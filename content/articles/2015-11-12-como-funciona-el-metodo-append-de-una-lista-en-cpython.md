@@ -196,7 +196,7 @@ Y ahora dibujamos los tamaños en función del número de elementos dentro de la
 
 `<matplotlib.text.Text at 0x7f0655169c88>`
 
-![](https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython1.png?style=centerme)
+![wpid](https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython1.png?style=centerme)
 
 Vemos como los "escalones" en el tamaño de la lista con _N_ elementos va aumentando y el escalón cada vez es más largo a medida que aumenta el tamaño de la `lista`.
 
@@ -217,7 +217,7 @@ Veamos como es el valor del tamaño dividido por el número de elementos de la l
 
 `<matplotlib.text.Text at 0x7f06552ada20>`
 
-![](https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython2.png?style=centerme)
+![wpid2](https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython2.png?style=centerme)
 
 Curioso, ¿no?
 

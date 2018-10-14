@@ -25,7 +25,7 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * Abre otra pestaña (para poder seguir leyendo esta) haciendo Ctrl+clic en la [página de descargas de Python](http://python.org/download/) o en la imagen.
 
 <p style="text-align:center;">
-  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="http://new.pybonacci.org/images/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
+  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="https://pybonacci.org/images/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
 </p>
 
   * El primer párrafo habla sobre implementaciones alternativas de Python. Ignóralo: vamos a instalar la «tradicional».

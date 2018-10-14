@@ -33,4 +33,4 @@ Durante este último año, CAChemE y Pybonacci hemos introducido Python a los a
 
 El material del taller estará accesible desde GitHub. Te recomendamos, no obstante, la visualización del [Curso online](http://cacheme.org/curso-online-python-cientifico-ingenieros/ "Curso Python para científicos e ingenieros.") y/o las lecciones del [Curso de AeroPython](http://nbviewer.ipython.org/github/AeroPython/Curso_AeroPython/tree/master/Notebooks/%20) ya que serán la base de nuestro taller y son mucho más completas.
 
-Nos vemos en la PyConES <img class="wp-smiley" title="Taller: Python para ciencia e ingeniería" src="http://www.cacheme.org/wp-includes/http://new.pybonacci.org/images/smilies/icon_smile.gif" alt="icon smile Taller: Python para ciencia e ingeniería" />
+Nos vemos en la PyConES <img class="wp-smiley" title="Taller: Python para ciencia e ingeniería" src="http://www.cacheme.org/wp-includes/https://pybonacci.org/images/smilies/icon_smile.gif" alt="icon smile Taller: Python para ciencia e ingeniería" />

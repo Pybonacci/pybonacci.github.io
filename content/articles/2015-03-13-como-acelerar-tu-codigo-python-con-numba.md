@@ -670,7 +670,7 @@ La clave estuvo, una vez más, en usar numba para optimizar los bucles. En GitHu
                                        * sin(nn * pi * yy[ii, jj] / b)
                                        / (pi**4 * D)) 
 
-![](https://www.pybonacci.org/images/2015/03/solucion_placa_plana.png?style=centerme)
+![solucion](https://www.pybonacci.org/images/2015/03/solucion_placa_plana.png?style=centerme)
 
 Podéis comprobar vosotros mismos que las diferencias de rendimiento en este caso son brutales. _Y solo hemos añadido una línea a cada función_.
 

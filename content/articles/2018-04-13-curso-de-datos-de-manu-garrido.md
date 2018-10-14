@@ -107,7 +107,7 @@ es una carga trivial.  *
 *En cuanto a las horas de sueño, pues te puedo pasar una imagen de mi
 Fitbit que creo que lo explica bastante bien.*
 
-![](https://pybonacci.org/images/2018/04/fitbit_mg.png?style=centerme)
+![cansancio](https://pybonacci.org/images/2018/04/fitbit_mg.png?style=centerme)
 
 *Básicamente, el peque empezó a dormir más de 4 horas seguidas en Julio,
 y en Agosto fuimos a casa de la familia lo que nos permitió el lujo de

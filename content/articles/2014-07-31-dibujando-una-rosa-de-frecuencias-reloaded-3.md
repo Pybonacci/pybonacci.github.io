@@ -158,7 +158,7 @@ Versión de Matplotlib usada:  1.3.1
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://new.pybonacci.org/images/2014/07/wpid-Dibujando_una_rosa_de_frecuencias_reloaded1.png" />
+          <img src="https://pybonacci.org/images/2014/07/wpid-Dibujando_una_rosa_de_frecuencias_reloaded1.png" />
         </div>
       </div>
     </div>

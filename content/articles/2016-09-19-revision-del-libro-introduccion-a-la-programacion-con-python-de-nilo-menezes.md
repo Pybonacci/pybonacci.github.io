@@ -21,7 +21,7 @@ Algunas generalidades del libro:
   * Si vas a la PyConES podrás hablar con el autor en persona y pedirle que te ¡¡firme un ejemplar!!
   * No está disponible en formato electrónico.<figure id="attachment_3909" style="width: 608px" class="wp-caption aligncenter">
 
-![](https://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg)
+![photo](https://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg)
 
 Vamos a repasar un poco la estructura del libro capítulo a capítulo:
 

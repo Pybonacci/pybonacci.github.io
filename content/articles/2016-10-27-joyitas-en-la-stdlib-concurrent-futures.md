@@ -50,7 +50,7 @@ print()</code></pre>
 
 Si ejecutáis el anterior código en una terminal, yo lo he llamado _temp.py_, podéis ver el efecto que andaba buscando:
 
-![](https://pybonacci.org/images/2016/10/futures.gif)
+![futures](https://pybonacci.org/images/2016/10/futures.gif)
 
 Vamos a comentar la función `tareas` un poco más en detalle.
 

@@ -83,13 +83,13 @@ Ahora vamos a detallar la trayectoria del huracán con su posición, fecha y en 
     deltat = dt.timedelta(hours = 6)
     fechas = [fecha_inicial + deltat * i for i in range(len(tipo))]
     # El icono que vamos a asignar a cada 6h, en función del estado de la tormenta.
-    iconos = {'TD':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/td.gif',
-              'TS':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/ts.gif',
-              'H1':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/h1.gif',
-              'H2':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/h2.gif',
-              'H3':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/h3.gif',
-              'H4':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/h4.gif',
-              'H5':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttp://new.pybonacci.org/images/h5.gif'}
+    iconos = {'TD':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/td.gif',
+              'TS':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/ts.gif',
+              'H1':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h1.gif',
+              'H2':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h2.gif',
+              'H3':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h3.gif',
+              'H4':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h4.gif',
+              'H5':'http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h5.gif'}
 
 Ahora vamos a definir una función que es la que usaremos para dibujar los datos de presión y viento que luego irán en el fichero kml/kmz
 
@@ -165,7 +165,7 @@ Y ahora es cuando vamos a crear el fichero kml haciendo un bucle donde se van a 
         # Las unidades para latitude y longitude son grados, para altitude
         # y range son metros y para tilt son grados desde la vertical.
         # En el gráfico de este enlace se verá mejor:
-        # https://developers.google.com/kml/documentation/http://new.pybonacci.org/images/lookAt.gif
+        # https://developers.google.com/kml/documentation/https://pybonacci.org/images/lookAt.gif
         fich_kml.Document[gxns+"Tour"].Playlist.append(
           GX.FlyTo(
             GX.duration(1),

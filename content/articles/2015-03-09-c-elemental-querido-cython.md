@@ -1962,7 +1962,7 @@ Vamos a ver los resultados completos en un breve resumen. Primero vamos a ver lo
     plt.xticks(index + 0.4, [func.__name__[9:] for func in funcs])
     plt.tight_layout()
 
-![](https://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython1.png?style=centerme)
+![wpid](https://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython1.png?style=centerme)
 
 En el gráfico anterior, la primera barra corresponde a la función de partida (`busca_min`). Recordemos que la versión de pypy ha tardado unos 0.38 segundos.
 

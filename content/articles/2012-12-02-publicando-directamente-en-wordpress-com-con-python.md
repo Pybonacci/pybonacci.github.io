@@ -32,7 +32,7 @@ Este ipynb consta de celdas con código python, celdas con texto formateado con 
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
+![wpid](https://pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
 
     :::python
     ## Ejemplo de celda que muestra un video de youtube
@@ -46,11 +46,11 @@ La salida del anterior código mostrará lo siguiente
     :::python
     ## Ejemplo de celda que muestra una imagen enlazada como output
     from IPython.display import Image
-    Image("http://new.pybonacci.org/images/2012/11/pybofractal1.png")
+    Image("https://pybonacci.org/images/2012/11/pybofractal1.png")
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
+![wpid2](https://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
 
     :::python
     ## Ejemplo de celda que muestra un frame html como output

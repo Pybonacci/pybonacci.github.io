@@ -25,11 +25,11 @@ tecla `tab`):
 
 -   Antes:
 
-![](https://pybonacci.org/images/2017/08/console1.png?style=centerme)
+![console1](https://pybonacci.org/images/2017/08/console1.png?style=centerme)
 
 -   Después:
 
-![](https://pybonacci.org/images/2017/08/console2.png?style=centerme)
+![console2](https://pybonacci.org/images/2017/08/console2.png?style=centerme)
 
 Esto puede ser útil para scripts propios, demos, formación,..., pero os
 lo desaconsejo en código en producción o a compartir ;-)
