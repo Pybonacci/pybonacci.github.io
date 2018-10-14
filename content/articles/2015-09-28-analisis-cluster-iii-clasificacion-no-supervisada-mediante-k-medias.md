@@ -6,7 +6,7 @@ slug: analisis-cluster-iii-clasificacion-no-supervisada-mediante-k-medias
 tags: agrupamiento clusters, ai, aprendizaje automático, aprendizaje no supervisado, clasificación clustering, ia, inteligencia artificial, machine learning, scipy, scipy.cluster, scipy.spatial, unsupervised learning
 Status: published
 
-*(Este es el tercer capítulo de la mini-serie de artículos sobre análisis cluster que estamos haciendo en pybonacci, si todavía no has leído [los anteriores artículos les puedes echar un ojo ahora](http://pybonacci.org/tag/agrupamiento-clusters/). Escribir esta tercera parte solo ha tardado ¡¡¡tres años en salir!!!).*
+*(Este es el tercer capítulo de la mini-serie de artículos sobre análisis cluster que estamos haciendo en pybonacci, si todavía no has leído [los anteriores artículos les puedes echar un ojo ahora](https://pybonacci.org/tag/agrupamiento-clusters/). Escribir esta tercera parte solo ha tardado ¡¡¡tres años en salir!!!).*
 
 El algoritmo de k-medias es uno de los algoritmos más sencillos de agrupamiento dentro del campo del aprendizaje automático (*machine learning* para los *hipsters*). Sirve para agrupar $N$-elementos en $K$-grupos distintos.
 
@@ -240,7 +240,7 @@ Si os habéis leído el enlace sobre iteradores que he dejado más arriba espero
 # Visualización
 
 El hecho de crear la clase como un iterador es porque he pensado que podríamos iterar en cada paso y hacer una visualización interactiva. Como la visualizazión quiero que funciones cuando el notebook está estático he recurrido a usar [Brythonmagic](https://github.com/kikocorreoso/brythonmagic).  
-Si queréis saber más sobre Brythonmagic podéis leer el README del enlace anterior o ver [esta entrada](http://pybonacci.org/2014/03/03/presentando-brythonmagic/) con vídeo y todo que muestra el funcionamiento.  
+Si queréis saber más sobre Brythonmagic podéis leer el README del enlace anterior o ver [esta entrada](https://pybonacci.org/2014/03/03/presentando-brythonmagic/) con vídeo y todo que muestra el funcionamiento.  
 Como resumen, básicamente es una _magic function_ para el notebook que nos permite usar brython (una implementación de Python 3 hecha en javascript que funciona en el navegador sin necesidad de ningún kernel detrás).  
 Si no lo tienes instalado lo puedes instalar mediante `pip`.
     

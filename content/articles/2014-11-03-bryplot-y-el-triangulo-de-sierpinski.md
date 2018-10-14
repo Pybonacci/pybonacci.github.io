@@ -387,7 +387,7 @@ Y ahora vamos a crear simplemente la figura, que es donde pintaremos todo lo que
 <pre class="language-python"><code class="language-python" data-language="python">%%brython -S base -h HTML
 fig = Figure('cnvs01', facecolor = "black")</code></pre>
 
-![](http://pybonacci.org/images/2014/11/BRYPLOT01.png)
+![bryplot1](https://pybonacci.org/images/2014/11/BRYPLOT01.png)
 
 Ahora vamos a dar un pequeño paso más y vamos a dibujar un triángulo usando la clase `Polygon`. A esta clase le hemos de pasar el contexto del canvas que, dicho de forma muy simplificada, es lo que nos permite realmente dibujar en el canvas. Además, le hemos de pasar los puntos que delimitan el polígono y luego podemos pasarle diferentes valores opcionales.
 
@@ -410,15 +410,15 @@ p3 = [width / 2, 0]
 
 triangle(ctx, p1, p2, p3)</code></pre>
 
-![](http://pybonacci.org/images/2014/11/BRYPLOT02.png)
+![bryplot2](https://pybonacci.org/images/2014/11/BRYPLOT02.png)
 
 Como he comentado anteriormente, tenéis más clases y con un poco de maña podéis crear vuestras propias figuras como las que tenéis en el [README del repo](https://bitbucket.org/kikocorreoso/brython-bryplot/src/2de8de16b41b241a295bcd2759ff0c008597dc13/README.md?at=default).
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://pybonacci.org/images/pie.png)
+![pie](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/https://pybonacci.org/images/pie.png)
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://pybonacci.org/images/rose.png)
+![rose](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/https://pybonacci.org/images/rose.png)
 
-![](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/http://pybonacci.org/images/radar.png)
+![radar](https://bytebucket.org/kikocorreoso/brython-bryplot/raw/c49dca54fb12a87d211881a5f1e16e573ec35a49/https://pybonacci.org/images/radar.png)
 
 Por último, vamos a dibujar un fractal usando recursión. No voy a explicar el ejemplo y si os hace falta alguna explicación podéis preguntar en los comentarios del blog puesto que este notebook se convertirá en post.
 
@@ -456,7 +456,7 @@ p2 = [width, 0]
 p3 = [width / 2, height]
 sierpinski(ctx, p1, p2, p3, 6)</code></pre>
 
-![](http://pybonacci.org/images/2014/11/BRYPLOT03.png)
+![bryplot3](https://pybonacci.org/images/2014/11/BRYPLOT03.png)
 
 Y eso es todo por hoy.
 

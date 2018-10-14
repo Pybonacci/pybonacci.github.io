@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: formateando-numeros
 tags: format, formateando texto, formato, python
 
-Muy a menudo tengo que andar leyendo datos de sensores de medida conectados a 'loggers' con formatos muy variopintos y transformarlos a algo legible por un ser humano (echadle un ojo a [regex mediante ejemplos](http://pybonacci.org/2013/02/21/regex-mediante-ejemplos/) para conocer el maravilloso mundo de las expresiones regulares y no ser tan bruto como yo a la hora de tratar esos variopintos formatos).
+Muy a menudo tengo que andar leyendo datos de sensores de medida conectados a 'loggers' con formatos muy variopintos y transformarlos a algo legible por un ser humano (echadle un ojo a [regex mediante ejemplos](https://pybonacci.org/2013/02/21/regex-mediante-ejemplos/) para conocer el maravilloso mundo de las expresiones regulares y no ser tan bruto como yo a la hora de tratar esos variopintos formatos).
 
 Hoy vamos a estar muy centrados en una sola cosa, vamos a ver como usar el método [`format`](http://docs.python.org/3.3/library/stdtypes.html#str.format) de la clase [`string`](http://docs.python.org/3.3/library/stdtypes.html#text-sequence-type-str).
 

@@ -4,7 +4,7 @@ date: 2012-12-20T15:05:31+00:00
 author: Kiko Correoso
 slug: un-2012-de-python-cientifico
 
-Primero de todo, lo más importante, ¡¡¡ha nacido Pybonacci!!!! Un blog dedicado a hablar del uso de Python en el ámbito científico y en español. Si no lo conocéis aún, podéis visitarlo en <http://pybonacci.org> 🙂
+Primero de todo, lo más importante, ¡¡¡ha nacido Pybonacci!!!! Un blog dedicado a hablar del uso de Python en el ámbito científico y en español. Si no lo conocéis aún, podéis visitarlo en <https://pybonacci.org> 🙂
 
   * Blog (+Twitter, +Fb, +G+) nacido en marzo de 2012
   * Más de 60 artículos publicados
@@ -20,7 +20,7 @@ Venga, hablando en serio, os resumo lo que ha sido este año. Primero veamos las
 
 **MATPLOTLIB**
 
-  * Lo más destacable, por desgracia, fue la [muerte de John Hunter](http://numfocus.org/johnhunter/), creador de matplotlib, de forma rápida y repentina. Por otra parte, este año salió la versión 1.2 totalmente compatible con Python 3.x, [entre otras muchas novedades](http://matplotlib.org/1.2.0/users/whats_new.html#new-in-matplotlib-1-2). Ya hablamos sobre matplotlib 1.2 en nuestro artículo sobre [líneas de corriente en Python](http://pybonacci.org/2012/11/13/visualizando-lineas-de-corriente-en-python-con-matplotlib/ "Visualizando líneas de corriente en Python con matplotlib").
+  * Lo más destacable, por desgracia, fue la [muerte de John Hunter](http://numfocus.org/johnhunter/), creador de matplotlib, de forma rápida y repentina. Por otra parte, este año salió la versión 1.2 totalmente compatible con Python 3.x, [entre otras muchas novedades](http://matplotlib.org/1.2.0/users/whats_new.html#new-in-matplotlib-1-2). Ya hablamos sobre matplotlib 1.2 en nuestro artículo sobre [líneas de corriente en Python](https://pybonacci.org/2012/11/13/visualizando-lineas-de-corriente-en-python-con-matplotlib/ "Visualizando líneas de corriente en Python con matplotlib").
 
 **SCIPY**
 
@@ -30,7 +30,7 @@ Los tres proyectos se han movido a GitHub, junto con otros, y el desarrollo ha c
 
 <!--more-->
 
-El creador de numpy, Travis Oliphant, ha creado [Continuum](http://www.continuum.io/) que están dando un gran espaldarazo a la comunidad científica creando una [serie de herramientas](http://continuum.io/developer-resources.html) que son más que interesantes y que durante el 2013 darán mucho que hablar. [Blaze](https://github.com/ContinuumIO/blaze), por ejemplo, acaba de recibir una [inversión de $3.000.000](http://technicaldiscovery.blogspot.com.es/2012/12/passing-torch-of-numpy-and-moving-on-to.html) por parte de la [DARPA](www.darpa.mil/). [numba](https://github.com/numba/numba) parece algo excitante para gente que necesita acelerar sus cálculos, y de hecho en Pybonacci puedes leer nuestro [artículo sobre numba](http://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/ "Probando numba: compilador para Python basado en LLVM").
+El creador de numpy, Travis Oliphant, ha creado [Continuum](http://www.continuum.io/) que están dando un gran espaldarazo a la comunidad científica creando una [serie de herramientas](http://continuum.io/developer-resources.html) que son más que interesantes y que durante el 2013 darán mucho que hablar. [Blaze](https://github.com/ContinuumIO/blaze), por ejemplo, acaba de recibir una [inversión de $3.000.000](http://technicaldiscovery.blogspot.com.es/2012/12/passing-torch-of-numpy-and-moving-on-to.html) por parte de la [DARPA](www.darpa.mil/). [numba](https://github.com/numba/numba) parece algo excitante para gente que necesita acelerar sus cálculos, y de hecho en Pybonacci puedes leer nuestro [artículo sobre numba](https://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/ "Probando numba: compilador para Python basado en LLVM").
 
 Siguiendo con otras herramientas:
 
@@ -46,7 +46,7 @@ Sin duda, este ha sido un año muy importante para [IPython](http://ipython.org/
 
   * Su notebook está revolucionando el modo de crear ciencia (entre otras cosas) y se esperan muchísimas novedades para el 2013 como introducir gráficos interactivos con [flot](http://www.flotcharts.org/) o [D3](http://d3js.org/) <modo pataleta ON>¿por qué solo existe JS para el navegador? No quiero aprender JS para hacer esas cosas tan chulas que se hacen con JS en el navegador<modo pataleta OFF>.
 
-¿Que aun no has probado IPython? Lo puedes probar online desde [PythonAnywhere](https://www.pythonanywhere.com/try-ipython/). Puedes leer nuestra [introducción a IPython](http://pybonacci.org/2012/07/02/introduccion-a-ipython-mucho-mas-que-un-interprete-de-python/ "Introducción a IPython: mucho más que un intérprete de Python") o nuestro artículo sobre [el notebook de IPython](http://pybonacci.org/2012/11/02/el-notebook-de-ipython/ "El notebook de IPython").
+¿Que aun no has probado IPython? Lo puedes probar online desde [PythonAnywhere](https://www.pythonanywhere.com/try-ipython/). Puedes leer nuestra [introducción a IPython](https://pybonacci.org/2012/07/02/introduccion-a-ipython-mucho-mas-que-un-interprete-de-python/ "Introducción a IPython: mucho más que un intérprete de Python") o nuestro artículo sobre [el notebook de IPython](https://pybonacci.org/2012/11/02/el-notebook-de-ipython/ "El notebook de IPython").
 
 **PANDAS**
 
@@ -62,7 +62,7 @@ La biblioteca para cálculo simbólico también pasa por un buen momento. Para m
   * Ha salido la versión 0.7.2 hace apenas un par de meses.
   * Ya es [compatible con Python 3.3 y con PyPy 1.9](https://github.com/sympy/sympy/wiki/Release-Notes-for-0.7.2). ¡¡¡La combinación pypy + sympy puede ser algo muy interesante!!!
 
-¿Has leído ya nuestra [introducción a SymPy](http://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/ "Introducción al Cálculo Simbólico en Python con SymPy") o nuestro tutorial sobre [cómo calcular límites, derivadas, series e integrales con SymPy](http://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/ "Cómo calcular límites, derivadas, series e integrales en Python con SymPy")?
+¿Has leído ya nuestra [introducción a SymPy](https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/ "Introducción al Cálculo Simbólico en Python con SymPy") o nuestro tutorial sobre [cómo calcular límites, derivadas, series e integrales con SymPy](https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/ "Cómo calcular límites, derivadas, series e integrales en Python con SymPy")?
 
 **CONFERENCIAS**
 
@@ -74,7 +74,7 @@ Ha habido muchas este año y parece que va en aumento el interés por hacer más
   * Existen conferencias más focalizadas que ya empiezan a ser «veteranas» como la que organiza la [American Meteorological Society](http://annual.ametsoc.org/2013/index.cfm/programs-and-events/conferences-and-symposia/third-symposium-on-advances-in-modeling-and-analysis-using-python/), o la [pyHPC](http://www.dlr.de/sc/desktopdefault.aspx/tabid-8028/13765_read-34936/), ...
   * Habrá una PyData dentro de la PyCon US del 2013.
 
-En Pybonacci hemos hecho resúmenes o listados de vídeos de muchas de estas conferencias: puedes leer por ejemplo nuestro [repaso a la EuroSciPy 2012](http://pybonacci.org/2012/09/17/repaso-a-la-euroscipy-2012/ "Repaso a la EuroScipy 2012") o la [recopilación de vídeos del PyData NYC](http://pybonacci.org/2012/10/31/recopilacion-del-pydata-nyc-2012/ "Recopilación del PyData NYC 2012"), entre otros 🙂
+En Pybonacci hemos hecho resúmenes o listados de vídeos de muchas de estas conferencias: puedes leer por ejemplo nuestro [repaso a la EuroSciPy 2012](https://pybonacci.org/2012/09/17/repaso-a-la-euroscipy-2012/ "Repaso a la EuroScipy 2012") o la [recopilación de vídeos del PyData NYC](https://pybonacci.org/2012/10/31/recopilacion-del-pydata-nyc-2012/ "Recopilación del PyData NYC 2012"), entre otros 🙂
 
 **Libros**
 

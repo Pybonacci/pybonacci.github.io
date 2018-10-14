@@ -7,17 +7,17 @@ tags: matplotlib, matplotlib.pyplot, pyplot, tutorial matplotlib.pyplot
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. [Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
-  4. [Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. [Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
-  7. [Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
-  8. **[Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")**
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. [Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
+  4. [Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. [Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
+  7. [Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
+  8. **[Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")**
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. [Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
+ 11. [Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0 ]**
 
@@ -47,7 +47,7 @@ Como caso sencillo para anotar texto en nuestro gráfico podemos usar [plt.text]
 
 El resultado es el siguiente:
 
-![texto](http://pybonacci.org/images/2012/08/texto.png)
+![texto](https://pybonacci.org/images/2012/08/texto.png)
 
 Lo que hemos hecho en [plt. text](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.text) es definir la posición del texto con un valor para la x y un valor para la y (en el sistema de referencia de los datos), la cadena de texto a mostrar, como queremos que sea la fuente, donde queremos que vaya colocado, si la queremos rotar, si la queremos en negrita,...
 
@@ -63,7 +63,7 @@ Al anterior ejemplo le podemos incluir una flecha que una el texto con la repres
 
 El resultado obtenido es el siguiente:
 
-![texto y flecha](http://pybonacci.org/images/2012/08/texto-y-flecha.png)
+![texto y flecha](https://pybonacci.org/images/2012/08/texto-y-flecha.png)
 
 En [plt.arrow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.arrow) hemos de definir el origen de la flecha, la distancia desde ese origen hasta el otro extremo de la flecha, si queremos que tenga cabecera, si queremos que la cabecera esté en el origen, el color de la flecha,...
 
@@ -77,7 +77,7 @@ Lo que hemos hecho con [plt.text](http://matplotlib.sourceforge.net/api/pyplot_a
 
 Siendo el resultado el siguiente:
 
-![annotate](http://pybonacci.org/images/2012/08/annotate.png)
+![annotate](https://pybonacci.org/images/2012/08/annotate.png)
 
 En [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate) introducimos la cadena de caracteres a mostrar, indicamos hacia donde apuntará esa cadena de caracteres (xy, en este caso estamos usando el sistema de referencia de los datos, 'data', pero podemos usar píxeles, puntos,...), la posición del texto (xytext), y como se representará la flecha. Con [plt.annotate](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.annotate) podemos tener anotaciones elegantes de forma sencilla como puedes ver en estos enlaces [[1]](http://matplotlib.sourceforge.net/mpl_examples/pylab_examples/annotation_demo2_00.png), [[2].](http://matplotlib.sourceforge.net/mpl_examples/pylab_examples/annotation_demo2_01.png)
 
@@ -92,8 +92,8 @@ Por último, vamos a ver como podemos dibujar una tabla de forma sencilla. Con [
 
 Cuyo resultado es el siguiente:
 
-![table](http://pybonacci.org/images/2012/08/table.png)
+![table](https://pybonacci.org/images/2012/08/table.png)
 
 Donde hemos definido los valores de las celdas internas (cellText), Las etiquetas de filas y columnas (rowLabels y colLabels), el ancho de las celdas y la localización de la tabla.
 
-Y, después de este breve entrada, hemos acabado por hoy haciendo un montón de anotaciones. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega tendrás que esperar un poquito (pero muy poquito esta vez, espero).
+Y, después de este breve entrada, hemos acabado por hoy haciendo un montón de anotaciones. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](https://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega tendrás que esperar un poquito (pero muy poquito esta vez, espero).

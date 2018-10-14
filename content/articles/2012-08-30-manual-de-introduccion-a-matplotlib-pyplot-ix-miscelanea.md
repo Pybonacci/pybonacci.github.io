@@ -7,17 +7,17 @@ tags: matplotlib, matplotlib.pyplot, pyplot, tutorial matplotlib.pyplot
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. [Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
-  4. [Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. [Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
-  7. [Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
-  8. [Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. [Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
+  4. [Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. [Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
+  7. [Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
+  8. [Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. **[Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")**
+ 11. **[Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")**
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0 ]**
 
@@ -43,7 +43,7 @@ Imaginad que queréis usar una imagen de fondo, por ejemplo vuestro nombre, o la
 
 El resultado es el siguiente:
 
-![imagenconfondo](http://pybonacci.org/images/2012/08/imagenconfondo.png)
+![imagenconfondo](https://pybonacci.org/images/2012/08/imagenconfondo.png)
 
 Con [plt.imread](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imread) lo que hacemos es leer una imagen y convertirla en un numpy array que más tarde podemos utilizar como queramos (en este caso, como fondo para la imagen). Con [plt.imshow](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imshow) lo que hemos hecho es mostrar la imagen en pantalla. Por último, que sepáis que también existe [plt.imsave](http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.imsave), que permite guardar un numpy array como una imagen.
 
@@ -58,7 +58,7 @@ La función [plt.savefig](http://matplotlib.sourceforge.net/api/pyplot_api.html#
 
 Y esto es todo, de momento, espero que os haya resultado útil por lo menos alguna cosa. Lástima no disponer de más tiempo para poder ver todo lo anterior con más profundidad pero espero que, por lo menos, si no conocíais esta maravillosa librería/biblioteca 🙂 os haya servido para adentraros un poco en ella y poder profundizar más por vuestra cuenta.
 
-He 'limpiado' y resumido [todo el tutorial en un documento pdf que podéis descargar a continuación](http://pybonacci.org/images/2012/08/tutorial-de-matplotlib-pyplotv0-1-201208311.pdf) (que, desgraciadamente, se ha convertido en un homenaje póstumo a [John D. Hunter, creador de Matplotlib y ](http://numfocus.org/johnhunter./)[recientemente fallecido](http://numfocus.org/johnhunter./) :-().
+He 'limpiado' y resumido [todo el tutorial en un documento pdf que podéis descargar a continuación](https://pybonacci.org/images/2012/08/tutorial-de-matplotlib-pyplotv0-1-201208311.pdf) (que, desgraciadamente, se ha convertido en un homenaje póstumo a [John D. Hunter, creador de Matplotlib y ](http://numfocus.org/johnhunter./)[recientemente fallecido](http://numfocus.org/johnhunter./) :-().
 
 Hasta siempre, John.
 

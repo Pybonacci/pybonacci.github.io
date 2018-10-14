@@ -15,7 +15,7 @@ Una persona normal pensaría, me compro una guía lonely planet, busco en la wik
 
 [Para esta entrada usamos numpy 1.6, matplotlib 1.1 y  shapely 1.2 en python 2.7]
 
-Shapely permite manejar polígonos, líneas, puntos,..., y permite hacer operaciones con ellos. Primero de todo vamos a descargar la línea de costa de la isla de Mallorca desde <http://www.ngdc.noaa.gov/mgg/coast/>. He usado datos del World Data Bank II a escala 1:2000000 y los he pasado a coordenadas UTM [WGS84](http://es.wikipedia.org/wiki/WGS84) y [subido aquí](http://pybonacci.org/images/2012/09/mallorcautm_wgs84.xls) para que los podáis descargar y reproducir los ejemplos de esta entrada). El fichero a descargar tiene extensión xls pero en realidad es un fichero csv (restricciones de wordpress.com, disculpen las molestias). Las unidades de los datos son metros.
+Shapely permite manejar polígonos, líneas, puntos,..., y permite hacer operaciones con ellos. Primero de todo vamos a descargar la línea de costa de la isla de Mallorca desde <http://www.ngdc.noaa.gov/mgg/coast/>. He usado datos del World Data Bank II a escala 1:2000000 y los he pasado a coordenadas UTM [WGS84](http://es.wikipedia.org/wiki/WGS84) y [subido aquí](https://pybonacci.org/images/2012/09/mallorcautm_wgs84.xls) para que los podáis descargar y reproducir los ejemplos de esta entrada). El fichero a descargar tiene extensión xls pero en realidad es un fichero csv (restricciones de wordpress.com, disculpen las molestias). Las unidades de los datos son metros.
 
 Una vez que tenemos los datos vamos a comenzar los cálculos. Leemos los datos del fichero recién descargados:
 
@@ -71,6 +71,6 @@ Bien, ya sé donde está esa playa que veo cuando estamos llegando a la isla (pu
 
 Con este resultado:
 
-![ejemplo_shapely](http://pybonacci.org/images/2012/09/ejemplo_shapely.png)
+![ejemplo_shapely](https://pybonacci.org/images/2012/09/ejemplo_shapely.png)
 
 Hasta la próxima.

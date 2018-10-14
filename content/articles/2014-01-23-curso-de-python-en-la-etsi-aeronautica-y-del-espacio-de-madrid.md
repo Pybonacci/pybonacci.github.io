@@ -5,7 +5,7 @@ author: Juan Luis Cano
 slug: curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid
 tags: #aeropython, curso, etsia, etsiae, python
 
-<ins datetime="2014-10-03T14:28:17+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="http://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/" title="Curso de Python en la ETSIAE: 2ª edición">segunda edición del curso de Python</a> en el blog.</ins>
+<ins datetime="2014-10-03T14:28:17+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="https://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/" title="Curso de Python en la ETSIAE: 2ª edición">segunda edición del curso de Python</a> en el blog.</ins>
 
 Ya tenemos lista la información sobre el **curso de Python** que celebraremos para los **estudiantes de Ingeniería Aeronáutica** de la Universidad Politécnica de Madrid. Durará **18 horas**, <ins datetime="2014-01-27T21:57:15+00:00">será gratuito</ins> y el temario será:
 
@@ -65,6 +65,6 @@ Si aun así no podéis, esperad a venir al curso, traed vuestro portátil y os a
 
 * * *
 
-Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](http://pybonacci.org/contacto/ "Contacto") o pararnos por los pasillos.
+Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](https://pybonacci.org/contacto/ "Contacto") o pararnos por los pasillos.
 
 ¡Un saludo! 😉

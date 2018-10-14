@@ -9,7 +9,7 @@ tags: matplotlib, python, vídeos
 
 <http://www.youtube.com/user/Pybonacci>
 
-Ya lleva activo unas semanas, y en él iremos colgando vídeos y animaciones que vayamos creando. De momento podéis ver estas tres animaciones creadas con [matplotlib](/tag/matplotlib) y [ffmpeg](http://ffmpeg.org/). Si quieres iniciarte en matplotlib, ya sabes que puedes empezar por la primera parte de nuestro [manual de introducción a matplotlib](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos.").
+Ya lleva activo unas semanas, y en él iremos colgando vídeos y animaciones que vayamos creando. De momento podéis ver estas tres animaciones creadas con [matplotlib](/tag/matplotlib) y [ffmpeg](http://ffmpeg.org/). Si quieres iniciarte en matplotlib, ya sabes que puedes empezar por la primera parte de nuestro [manual de introducción a matplotlib](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos.").
 
 ### Péndulo esférico
 

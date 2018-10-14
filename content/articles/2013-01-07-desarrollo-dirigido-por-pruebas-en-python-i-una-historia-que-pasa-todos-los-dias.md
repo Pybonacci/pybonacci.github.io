@@ -43,7 +43,7 @@ El señor Sellers y GardenTech están de acuerdo  en los requisitos que debe te
 
 El ingeniero tira de la manta y… sorpresa.
 
-![](http://pybonacci.org/images/2012/12/regadera.jpg?w=257)
+![regadera](https://pybonacci.org/images/2012/12/regadera.jpg?w=257)
 
 > _GT_: Mire, está todo. Tiene un asa, un agujero grande para llenarlo, muchos pequeños para esparcir el agua alejados por un tubo, tiene el tamaño justo para que no puse mucho y un llamativo color rojo. ¿A que es perfecta?
 

@@ -7,17 +7,17 @@ tags: basemap, gráficos, matplotlib, matplotlib.pyplot, netcdf4, pyplot, python
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. [Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
-  4. [Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. [Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
-  7. **[Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")**
-  8. [Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. [Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
+  4. [Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. [Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
+  7. **[Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")**
+  8. [Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. [Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
+ 11. [Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1, matplotlib 1.1.0, netcdf4-python 0.9.9 y Basemap 1.0.2]**
 
@@ -35,7 +35,7 @@ Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, defi
 
 <!--more-->
 
-[Anteriormente](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/) ya hemos usado [Basemap](http://matplotlib.github.com/basemap/), un toolkit que da capacidades de generar mapas a matplotlib. En este momento vamos a volver a recurrir a esta librería para mostrar datos sobre mapas. En el primer caso vamos a dibujar gráficos de barbas de viento ([wind barbs](http://en.wikipedia.org/wiki/Station_model#Plotted_winds)) sobre un mapa. También vamos a usar la librería [netcdf4-python,](https://unidata.github.io/netcdf4-python/) que permite leer, modificar y crear ficheros [netcdf](http://www.unidata.ucar.edu/software/netcdf/) así como descargarlos desde diferentes TDS (servidores de datos [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/)) de forma muy sencilla. Los datos que usaremos serán datos de viento obtenidos del reanálisis [CFSR](http://journals.ametsoc.org/doi/pdf/10.1175/2010BAMS3001.1) de la atmósfera pero podéis usar cualquier otro tipo de datos que se os ocurra:
+[Anteriormente](https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/) ya hemos usado [Basemap](http://matplotlib.github.com/basemap/), un toolkit que da capacidades de generar mapas a matplotlib. En este momento vamos a volver a recurrir a esta librería para mostrar datos sobre mapas. En el primer caso vamos a dibujar gráficos de barbas de viento ([wind barbs](http://en.wikipedia.org/wiki/Station_model#Plotted_winds)) sobre un mapa. También vamos a usar la librería [netcdf4-python,](https://unidata.github.io/netcdf4-python/) que permite leer, modificar y crear ficheros [netcdf](http://www.unidata.ucar.edu/software/netcdf/) así como descargarlos desde diferentes TDS (servidores de datos [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/)) de forma muy sencilla. Los datos que usaremos serán datos de viento obtenidos del reanálisis [CFSR](http://journals.ametsoc.org/doi/pdf/10.1175/2010BAMS3001.1) de la atmósfera pero podéis usar cualquier otro tipo de datos que se os ocurra:
 
     :::python
     plt.ion()  # Ponemos el modo interactivo
@@ -63,11 +63,11 @@ Una vez que disponemos de todas las variables pasamos a hacer el gráfico repres
 
 El resultado quedaría de la siguiente forma:
 
-![barbs](http://pybonacci.org/images/2012/07/barbs.png)
+![barbs](https://pybonacci.org/images/2012/07/barbs.png)
 
 Y un detalle de la parte sur:
 
-![barbs_detalle](http://pybonacci.org/images/2012/07/barbs_detalle.png)
+![barbs_detalle](https://pybonacci.org/images/2012/07/barbs_detalle.png)
 
 El código completo del ejemplo:
 
@@ -95,4 +95,4 @@ En realidad no hemos usado 'matplotlib.pyplot.barbs' sino que hemos hecho uso de
 
 Podéis encontrar muchos ejemplos de como usar matplotlib.pyplot (en algunos casos usando pylab) en [http://matplotlib.sourceforge.net/examples/pylab_examples/index.html.](http://matplotlib.sourceforge.net/examples/pylab_examples/index.html)
 
-Y, después de este breve entrada, hemos acabado por hoy y hemos acabado los tipos de gráfico que vamos a ver. Esto ha sido solo una muestra de las cosas que se suelen usar más. El próximo día veremos como hacer anotaciones en un gráfico. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/).
+Y, después de este breve entrada, hemos acabado por hoy y hemos acabado los tipos de gráfico que vamos a ver. Esto ha sido solo una muestra de las cosas que se suelen usar más. El próximo día veremos como hacer anotaciones en un gráfico. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](https://pybonacci.org/tag/tutorial-matplotlib-pyplot/).

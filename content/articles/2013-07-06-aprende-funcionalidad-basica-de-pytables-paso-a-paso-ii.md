@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: aprende-funcionalidad-basica-de-pytables-paso-a-paso-ii
 tags: bases de datos, bbdd, hdf5, pytables, tutorial pytables básico 3.0
 
-En el [anterior capítulo](http://pybonacci.org/2013/07/04/aprende-funcionalidad-basica-de-pytables-paso-a-paso-i/) vimos como crear una estructura básica para nuestro fichero `h5`. Ahora vamos a ver como rellenar tablas de ese mismo fichero.
+En el [anterior capítulo](https://pybonacci.org/2013/07/04/aprende-funcionalidad-basica-de-pytables-paso-a-paso-i/) vimos como crear una estructura básica para nuestro fichero `h5`. Ahora vamos a ver como rellenar tablas de ese mismo fichero.
 
 ### Rellenar tablas
 

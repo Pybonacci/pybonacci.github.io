@@ -9,7 +9,7 @@ Hoy vamos a tratar una serie de simulaciones que deben su nombre al lujoso casin
 
 En primer lugar vamos a calcular un área considerando el siguiente problema: Tenemos un recuadro que mide 10 km de lado y dentro de este recuadro tenemos un polígono de lados irregulares que, por la razón que sea, no sabemos cuanto ocupa, es decir, cuál es su área.
 
-Para resolver este problema de forma aproximada vamos a usar [shapely](http://pybonacci.org/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/), además de los omnipresentes numpy y matplotlib. Empezamos importando todo lo que necesitamos:
+Para resolver este problema de forma aproximada vamos a usar [shapely](https://pybonacci.org/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/), además de los omnipresentes numpy y matplotlib. Empezamos importando todo lo que necesitamos:
 
     :::python
     from shapely.geometry import Polygon, Point
@@ -31,7 +31,7 @@ Si dibujamos ambos polígonos tendremos algo parecido a lo siguiente:
     plt.plot(poligono_externo.boundary.xy[0], poligono_externo.boundary.xy[1])
     plt.plot(poligono_interno.boundary.xy[0], poligono_interno.boundary.xy[1])
 
-![poligonos](http://pybonacci.org/images/2012/10/poligonos.png)
+![poligonos](https://pybonacci.org/images/2012/10/poligonos.png)
 
 Ahora creamos una función que será la que se encarga de hacer el cálculo:
 
@@ -47,11 +47,11 @@ Ahora creamos una función que será la que se encarga de hacer el cálculo:
 
 ¿Qué hemos hecho en la anterior pieza de código? Hemos generado unos valores aleatorios para la variable **_x_** y para la variable **_y_** de la posición. Comprobamos si cada uno de los puntos generados se encuentran dentro del polígono de área desconocida y los contamos. Finalmente devolvemos el cálculo del área aproximada. El área se calcula aprovechando que la probabilidad de que un punto esté dentro del área del polígono interior será proporcional al área de ese polígono:
 
-$frac{Area\_{text{poligono exterior}}}{Area\_{text{poligono interior}}}proptofrac{text{puntos contenidos en el poligono exterior}}{text{puntos contenidos en el poligono interior}} = frac{text{num pruebas}}{text{cont}} $
+$frac{Area_{text{poligono exterior}}}{Area\_{text{poligono interior}}}proptofrac{text{puntos contenidos en el poligono exterior}}{text{puntos contenidos en el poligono interior}} = frac{text{num pruebas}}{text{cont}}$
 
 Por tanto, si despejamos el Área del polígono interior de la anterior fórmula tenemos que el área aproximada la podemos obtener de la siguiente forma:
 
-$Area\_{text{poligono interior}} = Area\_{text{poligono exterior}}frac{text{cont}}{text{num pruebas}} $
+$Area_{\text{poligono interior}} = Area_{\text{poligono exterior}}\frac{\text{cont}}{\text{num pruebas}}$
 
 Donde _num_pruebas_ es el número de puntos (posiciones) que usamos en la simulación (todos contenidos dentro del polígono exterior) y _cont_ es el número de puntos que han 'caído' en el polígono interior.
 
@@ -67,7 +67,7 @@ Una simulación de 1000 puntos lo que hace es lo que podemos ver en la siguiente
     plt.plot(poligono_interno.boundary.xy[0], poligono_interno.boundary.xy[1])
     plt.plot(xvect, yvect, 'r.')
 
-![poligono_puntos](http://pybonacci.org/images/2012/10/poligono_puntos.png)
+![poligono_puntos](https://pybonacci.org/images/2012/10/poligono_puntos.png)
 
 El número de puntos dentro del polígono interno sería _cont_ en la función que hemos definido anteriormente mientras que el número de puntos dentro del polígono externo serían todos los puntos usados, es decir, _num_pruebas._
 
@@ -83,7 +83,7 @@ Vamos a hacer varias simulaciones con diferentes números de puntos y representa
 
 El resultado sería el siguiente:
 
-![Montecarlo](http://pybonacci.org/images/2012/10/montecarlo.png)
+![Montecarlo](https://pybonacci.org/images/2012/10/montecarlo.png)
 
 Vemos que los valores obtenidos están en torno a 15 y pico y que hay menos dispersión a medida que aumentamos el número de puntos usados en la simulación. Si ahora usamos la propiedad **area** de la clase Polygon podemos ver el área que tiene el polígono interno:
 

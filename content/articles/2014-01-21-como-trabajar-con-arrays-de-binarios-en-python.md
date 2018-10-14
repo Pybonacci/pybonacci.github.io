@@ -15,7 +15,7 @@ He investigado un poco [acerca de bitset en la referencia de C++](http://www.cpl
 
 Esto es exactamente lo que puedes conseguir con los arrays de NumPy: son contenedores de datos homogéneos, que se almacenan eficientemente en memoria e implementados en C para que su manejo sea mucho más rápido. En nuestro blog tienes muchos artículos sobre NumPy, como por ejemplo este tutorial sobre los distintos métodos para crear arrays:
 
-<http://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/>
+<https://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/>
 
 Para que los arrays funcionen como bitset, **tienen que tener el `dtype bool`**. Puedes conseguir esto de varias maneras:
 

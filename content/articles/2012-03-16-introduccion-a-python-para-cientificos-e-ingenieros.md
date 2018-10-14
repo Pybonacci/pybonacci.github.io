@@ -103,7 +103,7 @@ Si estás en **Windows**:
   2. En la sección “Download Python”, escoge Python Windows Installer o Mac OS X Installer, dependiendo de tu sistema operativo.
   3. Sigue las instrucciones del instalador, ¡y listo!
 
-<ins datetime="2012-08-18T08:01:17+00:00">En nuestro blog puedes leer instrucciones más detalladas para <a title="Python en Windows: «¡Hola mundo!» en 7 minutos" href="http://pybonacci.org/2012/06/27/python-en-windows-hola-mundo-en-7-minutos/">instalar Python en Windows</a>.</ins>
+<ins datetime="2012-08-18T08:01:17+00:00">En nuestro blog puedes leer instrucciones más detalladas para <a title="Python en Windows: «¡Hola mundo!» en 7 minutos" href="https://pybonacci.org/2012/06/27/python-en-windows-hola-mundo-en-7-minutos/">instalar Python en Windows</a>.</ins>
 
 Si estás en **Mac**, la opción más recomendada es usar [Macports](http://www.macports.org/ "Macports"):
 

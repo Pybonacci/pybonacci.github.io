@@ -9,7 +9,7 @@ tags: cálculo simbólico, derivadas, integrales, límites, python, series, symp
 
 Como buen paquete de cálculo simbólico que es, Sympy ofrece numerosas posibilidades para realizar tareas comunes del cálculo infinitesimal, como son calcular **límites, derivadas, series e integrales simbólicas**. Por ejemplo, mientras que con SciPy podemos calcular, utilizando [diferencias centradas](http://es.wikipedia.org/wiki/Derivaci%C3%B3n_num%C3%A9rica), la derivada de una función en un punto utilizando la función `<a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.misc.derivative.html">scipy.misc.derivative</a>`, con SymPy podemos **calcular la derivada simbólica** de la función.
 
-Si no conoces SymPy, puedes leer nuestra [Introducción al Cálculo Simbólico en Python con SymPy](http://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/) para hacerte una idea del manejo del paquete. Este artículo está basado en la [sección de Cálculo Infinitesimal del tutorial de SymPy](http://docs.sympy.org/0.7.1/tutorial.html#calculus), y en él utilizaremos el intérprete interactivo de SymPy (`isympy`) que viene incluido con el paquete; para que el código funcione en un programa Python normal, sólo habría que incluir las correspondientes sentencias `import`.
+Si no conoces SymPy, puedes leer nuestra [Introducción al Cálculo Simbólico en Python con SymPy](https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/) para hacerte una idea del manejo del paquete. Este artículo está basado en la [sección de Cálculo Infinitesimal del tutorial de SymPy](http://docs.sympy.org/0.7.1/tutorial.html#calculus), y en él utilizaremos el intérprete interactivo de SymPy (`isympy`) que viene incluido con el paquete; para que el código funcione en un programa Python normal, sólo habría que incluir las correspondientes sentencias `import`.
 
 <!--more-->
 
@@ -107,7 +107,7 @@ También se pueden derivar funciones simbólicas, y se respeta la regla de la ca
       3
     dx
 
-También, [utilizando sustitución como ya vimos en nuestra introducción](http://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/#sustitucion), podemos calcular la derivada en un punto o dejar la derivada sin efectuar utilizando el argumento `evaluate`:
+También, [utilizando sustitución como ya vimos en nuestra introducción](https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/#sustitucion), podemos calcular la derivada en un punto o dejar la derivada sin efectuar utilizando el argumento `evaluate`:
 
     :::python
     In [13]: diff(sin(x) ** 2, x)

@@ -88,7 +88,7 @@ Como los métodos básicos están vectorizados, es muy sencillo representarlos g
 
 Y podemos obtener bonitas figuras como esta.<figure id="attachment_217" style="width: 448px" class="wp-caption aligncenter">
 
-![Distribuciones normales](http://pybonacci.org/images/2012/04/normal_pdf1.png)
+![Distribuciones normales](https://pybonacci.org/images/2012/04/normal_pdf1.png)
 
 ### Definir distribuciones
 
@@ -189,7 +189,7 @@ Ahora representar gráficamente una distribución discreta tiene un poco más de
 
 Se obtienen resultados similares a estos:<figure id="attachment_232" style="width: 300px" class="wp-caption aligncenter">
 
-![Binomial (5, 1/2)](http://pybonacci.org/images/2012/04/binomial5_05_pmf.png?w=300)
+![Binomial (5, 1/2)](https://pybonacci.org/images/2012/04/binomial5_05_pmf.png?w=300)
 
 Para la función de distribución, sabemos que en el caso discreto esta tiene discontinuidades de salto. Para no obtener una gráfica horrible con puntos unidos que no deberían estarlo, o bien hacemos otro diagrama de barras o utilizamos **arrays enmascarados** («masked arrays» suena menos chistoso). Los [masked arrays](http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html#what-is-a-masked-array) con arrays de NumPy en los que, bien manualmente o bien siguiendo alguna regla o patrón, hemos marcado algunas entradas como inválidas. Son de utilidad cuando, por ejemplo, estamos recogiendo datos y queremos descartar los que sean erróneos o se alejen demasiado de la media.
 
@@ -227,7 +227,7 @@ Si representamos gráficamente arrays enmascarados, matplotlib _no_ unirá los p
 
 Y se obtiene un diagrama similar a este:<figure id="attachment_237" style="width: 300px" class="wp-caption aligncenter">
 
-![Distribución binomial (5, 1/2)](http://pybonacci.org/images/2012/04/binomial5_05_cdf.png?w=300)
+![Distribución binomial (5, 1/2)](https://pybonacci.org/images/2012/04/binomial5_05_cdf.png?w=300)
 
 ### Definir distribuciones
 

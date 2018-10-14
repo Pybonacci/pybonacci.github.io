@@ -7,11 +7,11 @@ tags: python, TDD, testing
 
 ## Introducción
 
-Como ya sabéis Javier Gutiérrez, profesor de la Universidad de Sevilla, está escribiendo una serie de entradas en Pybonacci sobre [desarrollo dirigido por pruebas en Python](http://pybonacci.org/author/javierjus/), que os animo a leer si no lo habéis hecho todavía. Pues bien, después de conocernos en la PyConES rescatamos la idea de aplicar estos conceptos a problemas no tan genéricos y más cercanos al software científico que escribimos nosotros. Fruto de esta idea Javier se ha tomado la molestia de revisar nuestra biblioteca scikit-aero, y ha escrito [una entrada en su blog sobre el proceso](http://iwt2-javierj.tumblr.com/post/69258809610/analizando-scikit-aero-en-python-2-x):
+Como ya sabéis Javier Gutiérrez, profesor de la Universidad de Sevilla, está escribiendo una serie de entradas en Pybonacci sobre [desarrollo dirigido por pruebas en Python](https://pybonacci.org/author/javierjus/), que os animo a leer si no lo habéis hecho todavía. Pues bien, después de conocernos en la PyConES rescatamos la idea de aplicar estos conceptos a problemas no tan genéricos y más cercanos al software científico que escribimos nosotros. Fruto de esta idea Javier se ha tomado la molestia de revisar nuestra biblioteca scikit-aero, y ha escrito [una entrada en su blog sobre el proceso](http://iwt2-javierj.tumblr.com/post/69258809610/analizando-scikit-aero-en-python-2-x):
 
 > Como comenté en la entrada [Auditorias de código o aprendamos juntos a ser mejores](http://iwt2-javierj.tumblr.com/post/64940568924/auditorias-de-codigo-o-aprendamos-juntos-a-ser-mejores "Auditorias de código o aprendamos juntos a ser mejores"), una de las cosas que más me gusta hacer es analizar código de otras personas para aprender y también para aplicar la [regla del buen boy scout](http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule "regla del buen boy scout") e intentar contribuir a que ese código sea un poquito mejor.
 > 
-> El último proyecto que he analizado por el momento ha sido ha sido [Scikit-Aero en Github](https://github.com/Pybonacci/scikit-aero "Scikit-Aero en Github") del fenomenal Juan Luis Pibonacci que lleva el proyecto del [blog Pybonacci](http://pybonacci.org/ "blog Pybonacci") (enlace) y en el que colaboro son una serie de entradas sobre TDD / Desarollo Dirigido por Pruebas.
+> El último proyecto que he analizado por el momento ha sido ha sido [Scikit-Aero en Github](https://github.com/Pybonacci/scikit-aero "Scikit-Aero en Github") del fenomenal Juan Luis Pibonacci que lleva el proyecto del [blog Pybonacci](https://pybonacci.org/ "blog Pybonacci") (enlace) y en el que colaboro son una serie de entradas sobre TDD / Desarollo Dirigido por Pruebas.
 
 En este artículo voy a contar brevemente cómo las cosas que he aprendido 🙂
 
@@ -19,7 +19,7 @@ En este artículo voy a contar brevemente cómo las cosas que he aprendido 🙂
 
 [scikit-aero](https://github.com/Pybonacci/scikit-aero) es una pequeña biblioteca Python que escribí mientras estudiaba flujos isentrópicos, ondas de choque, expansiones de Prandtl-Meyer y similares en una materia llamada «Aerothermodynamics». Es, por tanto, algo bastante específico. De ella me serví por ejemplo para producir este diagrama:<figure id="attachment_2028" style="width: 367px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/12/oblique_shocks.png)
+![oblique](https://pybonacci.org/images/2013/12/oblique_shocks.png)
 
 Podéis consultar el código en [este notebook de ejemplo](http://nbviewer.ipython.org/github/Pybonacci/scikit-aero/blob/master/examples/Oblique%20shocks%20chart.ipynb). Mi idea era además tratar de crear un código bien documentado, bien estructurado y bien probado.
 

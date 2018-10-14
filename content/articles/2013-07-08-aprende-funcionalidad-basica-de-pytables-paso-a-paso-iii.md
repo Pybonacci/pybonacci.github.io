@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: aprende-funcionalidad-basica-de-pytables-paso-a-paso-iii
 tags: bases de datos, bbdd, hdf5, pytables, tutorial pytables básico 3.0
 
-En los [anteriores capítulos](http://pybonacci.org/tag/tutorial-pytables-basico-3-0/) vimos como crear una estructura básica para nuestro fichero `h5` y como rellenar una tabla de datos. Ahora vamos a ver como volver a la tabla que ya rellenamos para añadir nuevos registros sin eliminar los anteriores.
+En los [anteriores capítulos](https://pybonacci.org/tag/tutorial-pytables-basico-3-0/) vimos como crear una estructura básica para nuestro fichero `h5` y como rellenar una tabla de datos. Ahora vamos a ver como volver a la tabla que ya rellenamos para añadir nuevos registros sin eliminar los anteriores.
 
 ### Modificar tablas existentes
 

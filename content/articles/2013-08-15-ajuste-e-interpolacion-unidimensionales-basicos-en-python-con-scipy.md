@@ -51,7 +51,7 @@ El código será este:
 
 Y este es el resultado:<figure id="attachment_1754" style="width: 380px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/08/fenomeno_runge.png)
+![fenomeno_runge](https://pybonacci.org/images/2013/08/fenomeno_runge.png)
 
 Y no os quiero contar nada si escogemos 20 o 100 puntos.
 
@@ -66,7 +66,7 @@ Existe una forma de mitigar este problema, que es, como ya hemos dicho, «escogi
 
 Utilizando estos puntos, la cosa no queda tan mal:<figure id="attachment_1759" style="width: 603px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/08/chebyshev1.png)
+![chebyshev](https://pybonacci.org/images/2013/08/chebyshev1.png)
 
 Aun así, aún tenemos varios problemas:
 
@@ -94,11 +94,11 @@ El trazador más elemental, el lineal (grado 1), se puede construir rápidamente
     #y1d = InterpolatedUnivariateSpline(xi, yi, k=1)(x)  # Mismo resultado
     ysp = InterpolatedUnivariateSpline(xi, yi)(x)  # Llamamos a la clase con x
 
-**_Nota_**: ¿[Quieres saber el truco de `zip(*P)`](http://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/#comment-509)? 😉
+**_Nota_**: ¿[Quieres saber el truco de `zip(*P)`](https://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/#comment-509)? 😉
 
 Y si representamos el resultado obtenemos esto:<figure id="attachment_1767" style="width: 375px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/08/trazadores.png)
+![trazadores](https://pybonacci.org/images/2013/08/trazadores.png)
 
 **¿Alguien se anima a enviarnos una gráfica de cómo quedaría la interpolación si usásemos un polinomio de grado 20? 😉**
 
@@ -158,7 +158,7 @@ El código es simplemente:
 
 Y este es el resultado que obtenemos:<figure id="attachment_1776" style="width: 407px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/08/polar.png)
+![polar](https://pybonacci.org/images/2013/08/polar.png)
 
 En la figura se aprecia perfectamente cómo he descartado los puntos más allá del máximo y cómo la parábola, aun no pasando por todos los puntos (tal vez no pase por ninguno) aproxima bastante bien los datos que tenemos. ¡Bien!
 
@@ -193,7 +193,7 @@ Así realizamos el ajuste:
 
 Y el resultado queda así:<figure id="attachment_1779" style="width: 372px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/08/curve_fit.png)
+![curve_fit](https://pybonacci.org/images/2013/08/curve_fit.png)
 
 Fácil, ¿no?
 

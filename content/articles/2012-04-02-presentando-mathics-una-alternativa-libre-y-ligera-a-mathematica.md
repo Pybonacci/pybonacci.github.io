@@ -7,7 +7,7 @@ tags: cas, foss, mathematica, mathics, python, sympy
 
 A través de la lista de correo sage-dev acabo de descubrir hace un momento [Mathics](http://www.mathics.org/): un sistema de álgebra computacional (CAS) libre y gratuito con una interfaz web y basado en SymPy y Sage.<figure id="attachment_126" style="width: 560px" class="wp-caption aligncenter">
 
-![Interfaz web de Mathics](http://pybonacci.org/images/2012/04/2012-04-02-161414_1366x768_scrot.png)
+![Interfaz web de Mathics](https://pybonacci.org/images/2012/04/2012-04-02-161414_1366x768_scrot.png)
 
 En el momento de escribir estas líneas se trata de un proyecto personal de [Jan Pöschko](http://www.poeschko.com/), un estudiante austríaco. Me parece impresionante que [una sola persona haya llevado esto adelante](http://www.mathics.net/doc/manual/introduction/who-is-behind-it/): este hombre tiene mi más sincera admiración.
 

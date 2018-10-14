@@ -16,7 +16,7 @@ _**En esta entrada se ha usado python 2.7.3 y numpy 1.6.1 **_**y es compatible 
 
 ## Arrays y matrices
 
-Como ya comentamos hace tiempo en nuestra [introducción a Python](http://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/ "Introducción a Python para científicos e ingenieros"), el paquete NumPy introdujo los arrays N-dimensionales, que no son más que colecciones homogéneas de elementos indexados usando N elementos. Los hemos utilizado constantemente usando las [funciones de creación de arrays](http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html):
+Como ya comentamos hace tiempo en nuestra [introducción a Python](https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/ "Introducción a Python para científicos e ingenieros"), el paquete NumPy introdujo los arrays N-dimensionales, que no son más que colecciones homogéneas de elementos indexados usando N elementos. Los hemos utilizado constantemente usando las [funciones de creación de arrays](http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html):
 
     In [1]: import numpy as np
     In [2]: np.array([1, 2, 3])  # Array de una lista

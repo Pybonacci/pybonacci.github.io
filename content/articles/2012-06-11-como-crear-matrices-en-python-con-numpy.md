@@ -11,7 +11,7 @@ En este breve apunte vamos a ver **cómo crear matrices en Python** usando la bi
 
 Si buscas por Internet encontrarás varias recetas de [cómo crear una matriz en Python utilizando listas](http://python.majibu.org/preguntas/1614/como-crear-una-matriz-vacia-en-python-con-listas), es decir, haciendo uso solamente de la biblioteca estándar. Sin embargo, aquí asumimos que vamos a emplear la matriz básicamente para hacer cálculos matemáticos con ella, y por otro lado en nuestro caso no supone un problema añadir NumPy como dependencia porque por unas razones o por otras lo íbamos a necesitar 😉
 
-Esta entrada es básicamente una recopilación de los [métodos listados en la documentación de NumPy](http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html). <del datetime="2012-08-18T07:59:04+00:00">Otro día veremos</del><ins datetime="2012-08-18T08:03:17+00:00">En este artículo en nuestro blog puedes leer <a title="Cómo leer y escribir datos en archivos con NumPy" href="http://pybonacci.org/2012/08/17/como-leer-y-escribir-datos-en-archivos-con-numpy/">cómo construir arrays a partir de ficheros externos</a>.</ins>
+Esta entrada es básicamente una recopilación de los [métodos listados en la documentación de NumPy](http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html). <del datetime="2012-08-18T07:59:04+00:00">Otro día veremos</del><ins datetime="2012-08-18T08:03:17+00:00">En este artículo en nuestro blog puedes leer <a title="Cómo leer y escribir datos en archivos con NumPy" href="https://pybonacci.org/2012/08/17/como-leer-y-escribir-datos-en-archivos-con-numpy/">cómo construir arrays a partir de ficheros externos</a>.</ins>
 
 **Editado el 13 de junio de 2012**: Añadidas funciones para crear arrays de NumPy a partir de listas y una nota sobre el peligro de la función `empty`.
 
@@ -115,7 +115,7 @@ Cuando conocemos todos los valores del array antes de crearlo, podemos utilizar 
     In [8]: np.array(range(5))
     Out[8]: array([0, 1, 2, 3, 4])
 
-Este será el método que utilizaremos con más frecuencia para arrays pequeños en los que ya conocemos los valores. Gracias a [ozroc](http://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/?preview=true&preview_id=577&preview_nonce=55fcd1e8ce#comment-72) por el apunte 🙂
+Este será el método que utilizaremos con más frecuencia para arrays pequeños en los que ya conocemos los valores. Gracias a [ozroc](https://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/?preview=true&preview_id=577&preview_nonce=55fcd1e8ce#comment-72) por el apunte 🙂
 
 ## Rangos numéricos
 

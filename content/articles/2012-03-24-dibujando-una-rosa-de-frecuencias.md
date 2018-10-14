@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: dibujando-una-rosa-de-frecuencias
 tags: gráficos, math, matplotlib, numpy, python, python 2
 
-**[Este post ha sido actualizado para usar nuevas funcionalidades de matplotlib. Pincha sobre este enlace para ver la nueva versión.](http://pybonacci.org/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/)**
+**[Este post ha sido actualizado para usar nuevas funcionalidades de matplotlib. Pincha sobre este enlace para ver la nueva versión.](https://pybonacci.org/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/)**
 
 _**Para la siguiente entrada se ha usado python 2.7.2, math (de la librería estándar), numpy 1.6.1 y matplotlib 1.1.0**_
 

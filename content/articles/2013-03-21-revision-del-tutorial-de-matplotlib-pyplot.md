@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: revision-del-tutorial-de-matplotlib-pyplot
 tags: ipython, matplotlib, matplotlib.pyplot, pyplot, tutorial matplotlib.pyplot
 
-El [tutorial de matplotlib.pyplot](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/) publicado en este blog durante el 2012 ha sido revisado, corregido 🙁 y publicado con formato notebook de ipython.
+El [tutorial de matplotlib.pyplot](https://pybonacci.org/tag/tutorial-matplotlib-pyplot/) publicado en este blog durante el 2012 ha sido revisado, corregido 🙁 y publicado con formato notebook de ipython.
 
 Se ha subido el material al repositorio de [pybonacci en github](https://github.com/Pybonacci/Tutorial-de-matplotlib.pyplot-en-pybonacci) por lo que lo podéis descargar, usar, modificar, mejorar,...
 

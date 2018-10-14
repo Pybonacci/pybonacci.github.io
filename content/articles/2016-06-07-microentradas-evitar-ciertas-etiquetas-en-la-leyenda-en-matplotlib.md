@@ -25,7 +25,7 @@ A veces, me llegan ficheros de datos con datos cada hora o cada día y los quier
 
 ![](https://pybonacci.org/images/2016/06/wpid-Microentradas_Evitar_ciertas_etiquetas_en_la_leyenda_en_Matplotlib-ipynb1.png?style=centerme
 
-Como véis, en la gráfica anterior hay varios problemas pero como esta es una [MicroEntrada](http://pybonacci.org/tag/microentradas/) solo nos vamos a centrar en el problema de las etiquetas repetidas en la leyenda.
+Como véis, en la gráfica anterior hay varios problemas pero como esta es una [MicroEntrada](https://pybonacci.org/tag/microentradas/) solo nos vamos a centrar en el problema de las etiquetas repetidas en la leyenda.
 
 ¿Cómo podríamos evitar el meter tantas veces una etiqueta repetida?
 --------------------------------------------------------------------------------------------------------------

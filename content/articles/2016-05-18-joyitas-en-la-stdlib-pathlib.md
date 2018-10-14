@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: joyitas-en-la-stdlib-pathlib
 tags: directorios, ficheros, path, pathlib, rutas, stdlib
 
-El otro día estuvimos hablando de la [biblioteca `collections`](http://pybonacci.org/2016/05/08/joyitas-en-la-stdlib-collections/), una joya dentro de la librería estándar. Hoy vamos a hablar de una nueva biblioteca que se incluyó en la versión 3.4 de CPython llamada [`pathlib`](https://docs.python.org/3/library/pathlib.html).
+El otro día estuvimos hablando de la [biblioteca `collections`](https://pybonacci.org/2016/05/08/joyitas-en-la-stdlib-collections/), una joya dentro de la librería estándar. Hoy vamos a hablar de una nueva biblioteca que se incluyó en la versión 3.4 de CPython llamada [`pathlib`](https://docs.python.org/3/library/pathlib.html).
 
 **Solo python 3, actualízate!!!**
 

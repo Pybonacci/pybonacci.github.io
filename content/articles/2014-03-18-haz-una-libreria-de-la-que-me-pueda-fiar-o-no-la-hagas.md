@@ -34,11 +34,11 @@ Si un parámetro negativo producirá una excepción más adelante, ¿para qué e
 
 _Sin comprobar valores de entrada._
 
-![](http://pybonacci.org/images/2014/03/res01.jpg?w=300)
+![res01](https://pybonacci.org/images/2014/03/res01.jpg?w=300)
 
 _Comprobando valores de entrada._
 
-![](http://pybonacci.org/images/2014/03/res02.jpg?w=300)
+![res02](https://pybonacci.org/images/2014/03/res02.jpg?w=300)
 
 Si comprobamos todos los parámetros de entrada, estaremos escribiendo una librería sólida que ayuda a sus usuarios a escribir buen código. Pero también podemos estar repitiendo muchas veces el código de comprobación y repetir código siempre es malo.
 
@@ -71,6 +71,6 @@ Existe una técnica de diseño 7 programación conocida como diseño por contrat
 
 Esta técnica alcanzó popularidad a finales de los 90 por el [desastre el cohete Ariane 5](http://www.around.com/ariane.html "Ariane 5 crashes"), el cual se podría haber evitado especificando los contratos de las operaciones.<figure id="attachment_2268" style="width: 300px" class="wp-caption alignnone">
 
-![](http://pybonacci.org/images/2014/03/ariane_5_self-destruction.jpg?w=300)
+![ariane](https://pybonacci.org/images/2014/03/ariane_5_self-destruction.jpg?w=300)
 
 Si os manejáis por el mundo Java, podéis ver esta técnica en aplicación por ejemplo en java.collection, aunque luego no implementéis todas las precondiciones, poscondiciones e invariante sí es una buena idea pensar en los contratos de vuestras librerías. Además, también sirve de ayuda para diseñar casos de prueba.

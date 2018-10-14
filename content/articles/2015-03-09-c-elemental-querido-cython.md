@@ -2004,7 +2004,7 @@ Y ahora vamos a ver los tiempos entre `busca_min` (la versión original) y la ú
 
     [<matplotlib.lines.Line2D at 0x7f5b810a1d30>]
 
-![](http://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython2.png?style=centerme)
+![wpid2](https://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython2.png?style=centerme)
 
     ratio = np.array(t_p) / np.array(t_c)
     plt.figure(figsize = (10,6))
@@ -2014,7 +2014,7 @@ Y ahora vamos a ver los tiempos entre `busca_min` (la versión original) y la ú
 
     [<matplotlib.lines.Line2D at 0x7f5b810af2e8>]
 
-![](http://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython3.png?style=centerme)
+![wpid3](https://pybonacci.org/images/2015/03/wpid-C_elemental_querido_Cython3.png?style=centerme)
 
 Parece que conseguimos rendimientos que son 40 veces más rápidos que con Python puro que usa un numpy array de por medio (excepto para tamaños de arrays muy pequeños en los que el rendimiento no sería una gran problema).
 

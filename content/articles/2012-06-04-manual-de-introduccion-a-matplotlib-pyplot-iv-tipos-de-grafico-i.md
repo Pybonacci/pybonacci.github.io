@@ -7,17 +7,17 @@ tags: gráficos, matplotlib, matplotlib.pyplot, pyplot, python, tutorial matplot
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. [Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
-  4. **[Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")**
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. [Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
-  7. [Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
-  8. [Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. [Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
+  4. **[Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")**
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. [Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
+  7. [Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
+  8. [Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. [Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
+ 11. [Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0]**
 
@@ -46,7 +46,7 @@ Como habéis podido comprobar, en los ejemplos anteriores hemos estado viendo mu
     plt.xlabel('valores x')  # Colocamos la etiqueta en el eje x
     plt.ylabel('valores f(x)')  # Colocamos la etiqueta en el eje y
 
-![ejemplo plot](http://pybonacci.org/images/2012/05/ejemplo-plot.png)
+![ejemplo plot](https://pybonacci.org/images/2012/05/ejemplo-plot.png)
 
 Este es el tipo de gráfico que suelo usar un 75% de las veces. Tipos de gráfico análogos a este son plt.plot_date(), que es similar a plt.plot() considerando uno o ambos ejes como fechas, y plt.plotfile(), que dibuja directamente desde los datos de un fichero.
 
@@ -65,7 +65,7 @@ Otro tipo de gráfico sería el que podemos obtener con plt.stem(). Dibuja líne
     plt.xlabel('valores x')  # Colocamos la etiqueta en el eje x
     plt.ylabel('valores f(x)')  # Colocamos la etiqueta en el eje y
 
-![ejemplo_stem](http://pybonacci.org/images/2012/05/ejemplo_stem.png)
+![ejemplo_stem](https://pybonacci.org/images/2012/05/ejemplo_stem.png)
 
 En algunos casos, nos interesa ver cuando una serie está por encima o por debajo de la otra. Eso, con un gráfico tipo plt.plot() lo podemos hacer sin problemas, pero nos gustaría resaltarlo visualmente de forma sencilla. Para ello podemos usar plt.fill_between(). Imaginemos un ejemplo donde tenemos dos series temporales y queremos localizar fácilmente cuando la primera está por encima de la segunda y cuando está por debajo.
 
@@ -84,7 +84,7 @@ En algunos casos, nos interesa ver cuando una serie está por encima o por debaj
     plt.xlabel('valores x')  # Colocamos la etiqueta en el eje x
     plt.ylabel('valores y')  # Colocamos la etiqueta en el eje y
 
-![ejemplo_fillbetween](http://pybonacci.org/images/2012/05/ejemplo_fillbetween.png)
+![ejemplo_fillbetween](https://pybonacci.org/images/2012/05/ejemplo_fillbetween.png)
   
 Recordad que usamos valores aleatorios para y1 e y2 por lo que si usáis ese código no os tiene porque dar lo mismo. Como veis, cuando los valores de y2 son mayores que los de y1 dibuja polígonos verdes, en caso contrario dibuja polígonos rojos. Algo parecido pero para el eje y en lugar de para el eje x lo podemos hacer usando plt.fill_betweenx(). También podemos dibujar el polígono que queramos sobre el gráfico usando plt.fill().Veamos una 'ki-cutrez' usando plt.fill():
 
@@ -105,7 +105,7 @@ Recordad que usamos valores aleatorios para y1 e y2 por lo que si usáis ese có
     plt.title(u'Símbolo de python cutre')
     plt.ylim(0.1,2)
 
-![ejemplo_fill](http://pybonacci.org/images/2012/05/ejemplo_fill.png?w=300)
+![ejemplo_fill](https://pybonacci.org/images/2012/05/ejemplo_fill.png?w=300)
 
 Y ya lo último que vamos a ver hoy es un diagrama de caja-bigote ([box plot o box-whisker diagram](http://polimedia.upv.es/visor/?id=f28a58a0-ef5d-8643-9113-15fdcab1489e#)). Este es un diagrama donde se puede ver un resumen de una serie de forma rápida y sencilla. En él se representa el primer cuartil y el tercer cuartil, que son los extremos de la caja, el valor de la mediana (o segundo cuartil), que se representa mediante una línea dentro de la caja, y los extremos de la serie que no se consideran anómalos, los llamados 'bigotes', que son los valores extremos que están dentro del rango de 1.5 veces el rango intercuartílico (IQR por sus siglas en inglés, Inter Quartil Range). Los valores que quedan fuera de este rango que definamos, que como hemos comentado suele ser 1.5xIQR, se consideran valores anómalos u '[outliers](http://en.wikipedia.org/wiki/Outlier)' y se representan como puntos fuera de los bigotes. Por tanto, imaginemos que estamos representando la altura de las mujeres que viven en España, las mujeres que viven en Alemania y las mujeres que viven en Tailandia. Con un diagrama de caja-bigote podemos ver rápidamente como se distribuyen cada uno de estos conjuntos de datos y podemos compararlos visualmente entre ellos.
 
@@ -118,8 +118,8 @@ Y ya lo último que vamos a ver hoy es un diagrama de caja-bigote ([box plot o b
     plt.xticks([1,2,3], ['Esp', 'Ale', 'Tai'], size = 'small', color = 'k')  # Colocamos las etiquetas para cada distribución
     plt.ylabel(u'Altura (cm)')
 
-![boxplot](http://pybonacci.org/images/2012/05/boxplot.png)
+![boxplot](https://pybonacci.org/images/2012/05/boxplot.png)
 
 [TODO ESTE COMENTARIO ES PARA COMENTAR EL GRÁFICO, CUALQUIER PARECIDO CON LA REALIDAD SERÍA MUY RARUNO Y HABRÍA QUE LLAMAR A [FRIKER JIMÉNEZ](https://en.wikipedia.org/wiki/Iker_Jim%C3%A9nez)] Vemos como las alemanas presentan alturas superiores y las tailandesas son las que, en general, mostrarían alturas inferiores. En las alemanas hay algunas mujeres que quedan por encima de lo que hemos considerado como valores normales llegando a alturas por encima de los 200 cm. Las españolas se encontrarían entre unas alturas de unos 140 cm y unos 190 cm.
 
-Y, de momento, hemos acabado por hoy. El próximo día veremos más tipos de gráfico que podemos hacer con matplotlib.pyplot. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega [pincha aquí](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/).
+Y, de momento, hemos acabado por hoy. El próximo día veremos más tipos de gráfico que podemos hacer con matplotlib.pyplot. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](https://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega [pincha aquí](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/).

@@ -61,7 +61,7 @@ end{cases}$
 
 Ahora es el punto en el que a lo mejor alguno se está preguntando: «¿Dónde está esa lista de arrays booleanos que ibas a pasar? Yo solo veo `x < 3`». Pues esta es una buena pregunta, y vamos a tratar de responderla con un poco de detalle.
 
-Las operaciones entre arrays en NumPy primero expanden los arrays que se van a operar (ya explicamos la expansión o «broadcasting» en nuestro artículo sobre [Álgebra Lineal en Python](http://pybonacci.org/2012/06/07/algebra-lineal-en-python-con-numpy-i-operaciones-basicas/ "Álgebra Lineal en Python con NumPy (I): Operaciones básicas")). Por tanto, cuando hacemos una operación como `x < 3`, al ser 3 un array de dimensión cero se expande y el resultado es un array con la forma de x:
+Las operaciones entre arrays en NumPy primero expanden los arrays que se van a operar (ya explicamos la expansión o «broadcasting» en nuestro artículo sobre [Álgebra Lineal en Python](https://pybonacci.org/2012/06/07/algebra-lineal-en-python-con-numpy-i-operaciones-basicas/ "Álgebra Lineal en Python con NumPy (I): Operaciones básicas")). Por tanto, cuando hacemos una operación como `x < 3`, al ser 3 un array de dimensión cero se expande y el resultado es un array con la forma de x:
 
     :::python
     In [10]: x

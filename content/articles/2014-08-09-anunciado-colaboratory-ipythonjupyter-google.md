@@ -11,7 +11,7 @@ El ecosistema Python científico sigue avanzando a un ritmo frenético y el proy
 
 Como explican desde Google, coLaboratory corre en Google Chrome gracias a su [tecnología PNaCl](http://www.chromium.org/nativeclient/pnacl) y la aplicación para el navegador lleva incorporadas todas las bibliotecas de Python necesarias, de tal forma que es extremadamente fácil de instalar. Será posible editar notebooks como si fuesen documentos de Google Drive y colaborar entre varias personas.<figure id="attachment_2607" style="width: 300px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2014/08/new-notebook-image-300x174.png)
+![new-notebook](https://pybonacci.org/images/2014/08/new-notebook-image-300x174.png)
 
 Aunque sin duda lo más impactante es la posibilidad de **crear componentes gráficos interactivos a partir de código**. Como se ve en la imagen, en el código de una celda podemos añadir unos comentarios especiales que generan elementos como deslizadores, menús desplegables... y que el programador puede _ocultar_ el código y mostrar solo esa parte gráfica, mejorando enormemente la experiencia del usuario no programador.
 

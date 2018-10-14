@@ -9,7 +9,7 @@ En la primera entrada del año de Pybonacci vamos a «importar» el Meme Python 
 
 ## 1. ¿Cuál es la aplicación, framework o biblioteca Python más interesante que has descubierto en el 2012?
 
-Sin duda, el más interesante y el que más ha determinado la forma en la que programo con Python ha sido el notebook de IPython, [del que ya hablamos en el blog](http://pybonacci.org/2012/11/02/el-notebook-de-ipython/ "El notebook de IPython"). Además tiene un potencial enorme, hay gente haciendo cosas increíbles con él y está yendo más allá del ecosistema científico. El 2013 va a ser un buen año para IPython 🙂
+Sin duda, el más interesante y el que más ha determinado la forma en la que programo con Python ha sido el notebook de IPython, [del que ya hablamos en el blog](https://pybonacci.org/2012/11/02/el-notebook-de-ipython/ "El notebook de IPython"). Además tiene un potencial enorme, hay gente haciendo cosas increíbles con él y está yendo más allá del ecosistema científico. El 2013 va a ser un buen año para IPython 🙂
 
 <!--more-->
 

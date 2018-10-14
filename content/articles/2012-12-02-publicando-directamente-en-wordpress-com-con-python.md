@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: publicando-directamente-en-wordpress-com-con-python
 tags: ipynb, ipython, notebook, prueba de concepto, XML-RPC
 
-Este es un notebook de prueba publicado directamente en <http://pybonacci.org> (aunque se puede publicar en cualquier plataforma [wordpress](http://wordpress.org/) que tenga habilitado [xml-rpc](http://codex.wordpress.org/XML-RPC_Support)) desde un ipython notebook (ipynb de ahora en adelante).
+Este es un notebook de prueba publicado directamente en <https://pybonacci.org> (aunque se puede publicar en cualquier plataforma [wordpress](http://wordpress.org/) que tenga habilitado [xml-rpc](http://codex.wordpress.org/XML-RPC_Support)) desde un ipython notebook (ipynb de ahora en adelante).
 
 Este ipynb consta de celdas con código python, celdas con texto formateado con markdown, con output de celdas con imágenes que se muestran 'inline', con celdas que enlazan a videos de youtube, con celdas que enlazan a imágenes online, con celdas que enlazan a páginas web,...
 

@@ -141,7 +141,7 @@ Vamos a representar el campo de presiones en el mapa:
 
 Este último código mostrará la siguiente figura:
 
-![Ejemplo_BlueMarble](http://pybonacci.org/images/2012/04/ejemplo_bluemarble.png)
+![Ejemplo_BlueMarble](https://pybonacci.org/images/2012/04/ejemplo_bluemarble.png)
 
 En el anterior mapa hemos mostrado las líneas de nivel de la presión, hemos dibujado meridianos y paralelos y lo hemos representado con una proyección cilíndrica de Miller usando como fondo los datos [Blue Marble de la NASA](http://en.wikipedia.org/wiki/The_Blue_Marble).
 
@@ -160,7 +160,7 @@ Ahora vamos a introducir también los datos de temperatura usando contourf (la f
 
 Y obtenemos el siguiente resultado:
 
-![Ejemplo_P_y_T](http://pybonacci.org/images/2012/04/ejemplo_p_y_t.png)
+![Ejemplo_P_y_T](https://pybonacci.org/images/2012/04/ejemplo_p_y_t.png)
 
 Donde hemos representado la presión al nivel del mar (isolíneas en color negro), las temperaturas en superficie (contornos de color rellenos), las líneas de costa (líneas continuas grises), paralelos y meridianos.
 

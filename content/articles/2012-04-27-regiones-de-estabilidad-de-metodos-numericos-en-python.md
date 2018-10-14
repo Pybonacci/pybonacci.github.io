@@ -7,7 +7,7 @@ tags: ecuaciones diferenciales, matplotlib, métodos numéricos, numpy, python
 
 ## Introducción
 
-Hoy veremos cómo computar con Python la **región de estabilidad absoluta** de un método numérico para resolver problemas de valores iniciales en ecuaciones diferenciales ordinarias, una herramienta muy importante a la hora de escoger un método numérico adecuado para integrar nuestro problema concreto. Se trata simplemente de otro ejemplo aplicado de lo que publicamos hace unos días sobre [cómo pintar curvas de nivel con matplotlib](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/); si quieres ver otro más, puedes leer nuestro [ejemplo de uso de Basemap y NetCDF4](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/), donde vimos cómo representar datos climatológicos.
+Hoy veremos cómo computar con Python la **región de estabilidad absoluta** de un método numérico para resolver problemas de valores iniciales en ecuaciones diferenciales ordinarias, una herramienta muy importante a la hora de escoger un método numérico adecuado para integrar nuestro problema concreto. Se trata simplemente de otro ejemplo aplicado de lo que publicamos hace unos días sobre [cómo pintar curvas de nivel con matplotlib](https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/); si quieres ver otro más, puedes leer nuestro [ejemplo de uso de Basemap y NetCDF4](https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/), donde vimos cómo representar datos climatológicos.
 
 _**En esta entrada se ha usado python 2.7.3, numpy 1.6.1 y matplotlib 1.1.0.**_
 
@@ -127,7 +127,7 @@ Una vez tenemos esto en un archivo `region_estabilidad.py`, si abrimos un intér
 
 El segundo argumento de `plt.contour` es para especificar los niveles que queremos pintar (normalmente sólo nos interesará hasta el 1.0). Podemos obtener resultados similares a estos:<figure id="attachment_327" style="width: 350px" class="wp-caption aligncenter">
 
-![Adams-Bashfort 3](http://pybonacci.org/images/2012/04/ab3.png)
+![Adams-Bashfort 3](https://pybonacci.org/images/2012/04/ab3.png)
 
 <p style="text-align:left">
   Y hasta aquí llega el artículo de hoy. Espero que os haya resultado interesante y útil, no olvidéis difundir y comentar 🙂

@@ -25,7 +25,7 @@ Imaginad que tenéis una distribución normal discreta (la altura de 10.000 chav
 
 Obtendríamos la siguiente distribución que tiene, aproximadamente, la media y desviación estándar que hemos comentado anteriormente.
 
-![histograma](http://pybonacci.org/images/2012/09/histograma.png)
+![histograma](https://pybonacci.org/images/2012/09/histograma.png)
 
 Vamos ahora al lío que nos ha traído aquí, vamos a calcular un percentil de esa distribución para saber cuanto mide el chaval que está en el percentil 75. Para hacer ese cálculo podemos acudir tanto a [numpy](http://docs.scipy.org/doc/numpy/reference/generated/numpy.percentile.html) como a la librería [stats de scipy](http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.scoreatpercentile.html). Vamos a usar ambas para ver el resultado:
 
@@ -51,7 +51,7 @@ El primer decil dejaría el 10% de los datos de la distribución a la izquierda,
 
 Cuya representación sería:
 
-![Hist_con_deciles](http://pybonacci.org/images/2012/09/hist_con_deciles.png)
+![Hist_con_deciles](https://pybonacci.org/images/2012/09/hist_con_deciles.png)
 
 Espero que os resulte útil el descubrimiento de np.percentile o de scipy.stats.scoreatpercentile para vuestros cálculos.
 

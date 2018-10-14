@@ -431,8 +431,8 @@ Todo esto era para ver si os picaba un poco el gusanillo y dejáis (dejamos) de 
 # Enlaces
 
 *  Un [minitutorial sobre SQL](http://opentechschool.github.io/sql-tutorial/index.html) muy ameno.
-*  Nuestro (inacabado) [tutorial sobre PyTables](http://pybonacci.org/tag/pytables/).
-*  Y [¿por qué no usar netCDF?](http://pybonacci.org/2012/12/03/por-que-usar-netcdf/)
+*  Nuestro (inacabado) [tutorial sobre PyTables](https://pybonacci.org/tag/pytables/).
+*  Y [¿por qué no usar netCDF?](https://pybonacci.org/2012/12/03/por-que-usar-netcdf/)
 *  Funcionalidad [SQL en pandas](http://pandas.pydata.org/pandas-docs/stable/io.html?highlight=read_sql#io-sql).
 *  [IPython-sql](https://github.com/catherinedevlin/ipython-sql), para trabajar con sql en el notebook.
 *  [SQLAlchemy](http://www.sqlalchemy.org/) para facilitarnos la vida cuando trabajamos con Pandas y bases de datos.

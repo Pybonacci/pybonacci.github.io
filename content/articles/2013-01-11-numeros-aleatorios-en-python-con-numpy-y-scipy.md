@@ -7,9 +7,9 @@ tags: aleatorio, números aleatorios, python, random
 
 ## Introducción
 
-En este artículo vamos a hacer un repaso de algunos métodos que tenemos para **generar números aleatorios en Python**. Los números aleatorios son importantísimos en computación: aquí en Pybonacci ya los hemos aplicado en nuestra [simulación de Monte Carlo para calcular áreas de polígonos](http://pybonacci.org/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/ "Calculando cosas mientras jugamos a la ruleta") y en nuestro artículo sobre [algoritmos heurísticos en Python](http://pybonacci.org/2012/10/31/nuestro-primer-algoritmo-heuristico/ "Nuestro primer algoritmo heurístico"). Como veremos, NumPy ofrece funciones para generar datos aleatorios simples y algunas distribuciones estadísticas, que luego amplía SciPy.
+En este artículo vamos a hacer un repaso de algunos métodos que tenemos para **generar números aleatorios en Python**. Los números aleatorios son importantísimos en computación: aquí en Pybonacci ya los hemos aplicado en nuestra [simulación de Monte Carlo para calcular áreas de polígonos](https://pybonacci.org/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/ "Calculando cosas mientras jugamos a la ruleta") y en nuestro artículo sobre [algoritmos heurísticos en Python](https://pybonacci.org/2012/10/31/nuestro-primer-algoritmo-heuristico/ "Nuestro primer algoritmo heurístico"). Como veremos, NumPy ofrece funciones para generar datos aleatorios simples y algunas distribuciones estadísticas, que luego amplía SciPy.
 
-Vamos a mencionar sin explicar las distribuciones uniforme y normal, así que si quieres una explicación más detallada te recomiendo que leas nuestro artículo sobre [estadística en Python con SciPy](http://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/ "Estadística en Python con SciPy (I)"). Haremos referencia a él más adelante.
+Vamos a mencionar sin explicar las distribuciones uniforme y normal, así que si quieres una explicación más detallada te recomiendo que leas nuestro artículo sobre [estadística en Python con SciPy](https://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/ "Estadística en Python con SciPy (I)"). Haremos referencia a él más adelante.
 
 _**En esta entrada se han usado python 3.3.0, numpy 1.7.0rc1 y scipy 0.11.0.**_
 
@@ -183,6 +183,6 @@ Si se utiliza SciPy, hay que llamar a la función [`rvs`](http://docs.scipy.org/
     In [139]: sp.stats.expon(1.5).rvs()  # Exponencial de lambda = 1.5
     Out[139]: 2.8403282013254163
 
-Si quieres más información o utilizar el resto de funciones estadísticas que ofrece SciPy, puedes leer nuestro artículo sobre [estadística en Python con SciPy](http://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/).
+Si quieres más información o utilizar el resto de funciones estadísticas que ofrece SciPy, puedes leer nuestro artículo sobre [estadística en Python con SciPy](https://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/).
 
 Ahora ya puedes hacer sorteos de lotería, bonitas simulaciones de Monte Carlo o explorar juegos de azar con Python. Y tú, **¿para qué utilizarías números aleatorios?**

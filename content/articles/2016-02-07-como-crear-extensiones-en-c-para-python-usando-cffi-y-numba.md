@@ -7,9 +7,9 @@ tags: c, cffi, numba, performance, python, python 3
 
 ## Introducción
 
-En este artículo vamos a ver **cómo crear extensiones en C para Python usando CFFI y aceleradas con numba**. El proyecto [CFFI](http://cffi.readthedocs.org/) ("C Foreign Function Interface") pretende ofrecer una manera de llamar a bibliotecas escritas en C desde Python de una manera simple, mientras que [numba](http://pybonacci.org/tag/numba/), como podéis leer en nuestro blog, es un compilador JIT para código Python numérico. Mientras que hay algo de literatura sobre cómo usar CFFI, muy poco se ha escrito sobre cómo usar funciones CFFI desde numba, una característica que estaba desde las primeras versiones pero que no se completó [hasta hace cuatro meses](https://github.com/numba/numba/pull/1454). Puede parecer contradictorio mezclar estos dos proyectos pero en seguida veremos la justificación y por qué hacerlo puede abrir nuevos caminos para escribir código Python extremadamente eficiente.
+En este artículo vamos a ver **cómo crear extensiones en C para Python usando CFFI y aceleradas con numba**. El proyecto [CFFI](https://cffi.readthedocs.org/) ("C Foreign Function Interface") pretende ofrecer una manera de llamar a bibliotecas escritas en C desde Python de una manera simple, mientras que [numba](https://pybonacci.org/tag/numba/), como podéis leer en nuestro blog, es un compilador JIT para código Python numérico. Mientras que hay algo de literatura sobre cómo usar CFFI, muy poco se ha escrito sobre cómo usar funciones CFFI desde numba, una característica que estaba desde las primeras versiones pero que no se completó [hasta hace cuatro meses](https://github.com/numba/numba/pull/1454). Puede parecer contradictorio mezclar estos dos proyectos pero en seguida veremos la justificación y por qué hacerlo puede abrir nuevos caminos para escribir código Python extremadamente eficiente.
 
-Este trabajo ha surgido a raíz de mis intentos de utilizar funciones hipergeométricas escritas en C desde funciones aceleradas con numba para el artículo que estoy escribiendo sobre [poliastro](http://pybonacci.org/tag/poliastro/). El resultado, si bien no es 100 % satisfactorio aún, es bastante bueno y ha sido relativamente fácil de conseguir, teniendo en cuenta que partía sin saber nada de C ni CFFI hace tres días.
+Este trabajo ha surgido a raíz de mis intentos de utilizar funciones hipergeométricas escritas en C desde funciones aceleradas con numba para el artículo que estoy escribiendo sobre [poliastro](https://pybonacci.org/tag/poliastro/). El resultado, si bien no es 100 % satisfactorio aún, es bastante bueno y ha sido relativamente fácil de conseguir, teniendo en cuenta que partía sin saber nada de C ni CFFI hace tres días.
 
 <blockquote class="twitter-tweet" data-width="550">
   <p lang="es" dir="ltr">
@@ -28,26 +28,26 @@ Este trabajo ha surgido a raíz de mis intentos de utilizar funciones hipergeom�
 Como decíamos CFFI y numba, aunque tienen que ver con hacer nuestros programas más rápidos, tienen objetivos bastante diferentes:
 
   * CFFI nos permite usar C desde Python. De este modo, si encontramos algún algoritmo que merece la pena ser optimizado, lo podríamos escribir en C y llamarlo gracias a CFFI.
-  * [numba nos permite acelerar código Python numérico](http://pybonacci.org/2015/03/13/como-acelerar-tu-codigo-python-con-numba/). Si encontramos algún algoritmo que merece la pena ser optimizado, adecentamos un poco la función correspondiente y un decorador la compilará a LLVM al vuelo.
+  * [numba nos permite acelerar código Python numérico](https://pybonacci.org/2015/03/13/como-acelerar-tu-codigo-python-con-numba/). Si encontramos algún algoritmo que merece la pena ser optimizado, adecentamos un poco la función correspondiente y un decorador la compilará a LLVM al vuelo.
 
 <!--more-->
 
-¿En qué situaciones nos puede interesar combinar las dos? En mi caso, quería implementar un algoritmo para poliastro en Python y en un momento dado me di cuenta de que tenía que utilizar [la función hipergeométrica de Gauss ${}\_2{F}\_1$](http://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/). En este punto tenía varias opciones:
+¿En qué situaciones nos puede interesar combinar las dos? En mi caso, quería implementar un algoritmo para poliastro en Python y en un momento dado me di cuenta de que tenía que utilizar [la función hipergeométrica de Gauss ${}\_2{F}\_1$](https://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/). En este punto tenía varias opciones:
 
   * Escribir todo el código en C, y llamarlo desde CFFI. Sonaba como una trampa mortal puesto que no sé C, y además volvería al problema de los dos lenguajes que de alguna forma estoy tratando de evitar o minimizar.
-  * Reimplementar la función hipergeométrica en Python y acelerarla con numba. Esta sería una opción bastante buena de no ser porque la función en cuestión [tiene una definición endemoniada](http://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/02/02/) si la quería implementar para todos los casos. Lo que me lleva a las siguientes dos opciones.
+  * Reimplementar la función hipergeométrica en Python y acelerarla con numba. Esta sería una opción bastante buena de no ser porque la función en cuestión [tiene una definición endemoniada](https://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/02/02/) si la quería implementar para todos los casos. Lo que me lleva a las siguientes dos opciones.
   * Implementar una versión simplificada de la función. En mi caso solo estoy interesado en los valores ${}\_2{F}\_1(3, 1, \frac{5}{2}, x)$. Habría sido lo más fácil y no me habrían salido tantas canas, pero entonces se me ocurrió una mejor:
   * Aprovechar la implementación de la biblioteca CEPHES, que es la que usa `scipy.special`, hacer un wrapper usando CFFI y acelerarlo con numba.
 
 Aquí la pregunta clave es: ¿qué es esto de acelerar con numba algo escrito en C? La cuestión es que si quiero usar numba _en modo estricto_ (es decir: aprovechando el modo `nopython`) todas las funciones que se utilicen tienen que estar compiladas en modo `nopython` también. Un meme vale más que mil palabras.
 
-![](http://pybonacci.org/images/2016/02/nopython-300x300.jpg)
+![nopython](https://pybonacci.org/images/2016/02/nopython-300x300.jpg)
 
 En definitiva: una de las ventajas sustanciales que tendríamos con esto es que **podríamos reutilizar código legado con código nuevo acelerado con numba**. ¿Lo intentamos? ¡Vamos allá!
 
 ## 0. CFFI: ¡Hola mundo!
 
-[La documentación de CFFI](http://cffi.readthedocs.org/) es bastante buena, aunque desde mi punto de vista le faltan una referencia y una explicación para novatos que no saben nada. Hay cuatro formas de utilizar CFFI, que surgen de combinar dos parámetros:
+[La documentación de CFFI](https://cffi.readthedocs.org/) es bastante buena, aunque desde mi punto de vista le faltan una referencia y una explicación para novatos que no saben nada. Hay cuatro formas de utilizar CFFI, que surgen de combinar dos parámetros:
 
   * **ABI/API**: En el modo ABI utilizamos la función `ffi.dlopen` para cargar el código «a nivel binario», de donde se leen en crudo las estructuras y las funciones. En el modo API, en cambio, creamos una biblioteca compartida utilizando el compilador de C: esta forma de trabajar es mucho más portable.
   * **"in-line"/"out-of-line"**: En el modo "in-line" importamos las definiciones al vuelo cada vez, mientras que en el modo "out-of-core" hay dos pasos: uno de creación y otro de importación. El segundo es más apropiado cuando vamos a distribuir código.
@@ -129,7 +129,7 @@ Y ahora lo instalamos y lo usamos:
     1.0
     
 
-¡Perfecto! Ya hemos conseguido un ejemplo trivial. Para tener algo que funcione necesito hacer un "wrapper" _de verdad_ para CEPHES, para seguir me gustaría que diese el mismo resultado que [scipy.special.hyp2f1](http://docs.scipy.org/doc/scipy/reference/generated/scipy.special.hyp2f1.html) y para terminar me gustaría poder acelerar el resultado con numba. ¡Seguimos!
+¡Perfecto! Ya hemos conseguido un ejemplo trivial. Para tener algo que funcione necesito hacer un "wrapper" _de verdad_ para CEPHES, para seguir me gustaría que diese el mismo resultado que [scipy.special.hyp2f1](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.hyp2f1.html) y para terminar me gustaría poder acelerar el resultado con numba. ¡Seguimos!
 
 ## 1. Haciendo un wrapper para una biblioteca C
 
@@ -138,7 +138,7 @@ Seguro que hay bibliotecas de funciones especiales escritas en C, FORTRAN y COBO
   * Podría incluir directamente en mi proyecto todos los archivos C y compilarlos con un poco de magia distutils + CFFI + ?. El problema es que el Makefile tenía cosas relacionadas con lenguaje ensamblador (!) y solo de pensar en que eso podría interferir con distutils me asusté bastante.
   * Distribuir de alguna forma CEPHES como un proyecto aparte de forma que pudiese instalarlo en mi sistema y hacer referencia a la biblioteca compartida correspondiente.
 
-La segunda opción tenía mucha menos incertidumbre para mí, porque a pesar de que no encontré paquetes para ninguna distribución de Linux que proporcionasen esta biblioteca, tenía un arma secreta: [conda](http://conda.pydata.org/docs/building/build.html).
+La segunda opción tenía mucha menos incertidumbre para mí, porque a pesar de que no encontré paquetes para ninguna distribución de Linux que proporcionasen esta biblioteca, tenía un arma secreta: [conda](https://conda.pydata.org/docs/building/build.html).
 
 Los que me conocéis ya sabéis que soy un <del datetime="2016-02-07T20:02:58+00:00">fanático</del> <ins datetime="2016-02-07T20:02:58+00:00">gran admirador</ins> del trabajo de Continuum en general, y de numba y conda en particular. En este caso, conda me venía perfecto porque podría crear un paquete a mi medida (conda sirve para cualquier lenguaje) y luego instalarlo en un entorno conda apropiado para que CFFI encontrase la biblioteca a la primera sin tener que hacer manipulaciones con el `PATH`. La [receta para el paquete conda de CEPHES](https://github.com/Pybonacci/cffi_test/tree/548196c/buildscripts/condarecipes/cephes) también está en GitHub, y las explicaciones me las reservo para otro artículo 😉
 
@@ -195,7 +195,7 @@ En el fondo los ingenieros no dejamos de ser gente primaria y visceral, y aunque
 
 Llegados a este punto sin embargo merece la pena hacer un microbenchmark y un pequeño comentario entre la función que acabamos de incorporar con CFFI y numba y su equivalente en SciPy. Para ello utilizaremos [pytest-benchmark](https://github.com/ionelmc/pytest-benchmark), que acabo de usar por primera vez hace cinco minutos y que me ha dejado boquiabierto (tanto por la buena presentación de los resultados como por los números en sí).
 
-![](http://pybonacci.org/images/2016/02/benchmark-300x76.png)
+![benchmark](https://pybonacci.org/images/2016/02/benchmark-300x76.png)
 
 Habéis leído bien: **nuestra función con CFFI + numba es, en media, 5 veces más rápida que la versión de SciPy**. Hay que puntualizar una cosa importante, y es que la función de SciPy tiene interfaz de ufunc: esto puede suponer una sobrecarga considerable (si bien ["de utilidad cuestionable"](https://github.com/scipy/scipy/blob/maintenance/0.17.x/scipy/special/README)). Aun así, me parece que los resultados son excelentes y que podría plantearse incluso aprovechar esta estrategia de forma más generalizada en el futuro.
 
@@ -241,7 +241,7 @@ Tendríamos que llamarla desde Python de esta manera:
 
 ## y 4. Sobrecargando la función
 
-Como colofón final y visto que nuestra función y la de SciPy aún no son exactamente equivalentes ¿sabéis qué sería genial? ¡Poder sobrecargar la función y que se comporte de manera vectorizada si la llamamos con arrays! numba ya permite este mecanismo (conocido como ["multiple dispatch"](http://numba.pydata.org/numba-doc/0.23.1/developer/dispatching.html)), pero el problema es que <del datetime="2016-02-08T20:20:51+00:00">en el momento de escribir estas líneas <a href="https://github.com/numba/numba/issues/1691">no funciona para funciones CFFI</a></del> <ins datetime="2016-02-08T20:20:51+00:00">no estaba interpretando bien la semántica de Python y <a href="https://groups.google.com/a/continuum.io/d/msg/numba-users/Q3LfRbpWP6w/aHuXoL_JDwAJ">no tengo claro que esto sea posible</a></ins>. Esto es lo único que me falta para llegar a un 100 % de satisfacción 🙂
+Como colofón final y visto que nuestra función y la de SciPy aún no son exactamente equivalentes ¿sabéis qué sería genial? ¡Poder sobrecargar la función y que se comporte de manera vectorizada si la llamamos con arrays! numba ya permite este mecanismo (conocido como ["multiple dispatch"](https://numba.pydata.org/numba-doc/0.23.1/developer/dispatching.html)), pero el problema es que <del datetime="2016-02-08T20:20:51+00:00">en el momento de escribir estas líneas <a href="https://github.com/numba/numba/issues/1691">no funciona para funciones CFFI</a></del> <ins datetime="2016-02-08T20:20:51+00:00">no estaba interpretando bien la semántica de Python y <a href="https://groups.google.com/a/continuum.io/d/msg/numba-users/Q3LfRbpWP6w/aHuXoL_JDwAJ">no tengo claro que esto sea posible</a></ins>. Esto es lo único que me falta para llegar a un 100 % de satisfacción 🙂
 
 ## Conclusiones
 
@@ -249,7 +249,7 @@ Personalmente era la primera vez en mi vida que probaba CFFI y me ha parecido ex
 
 Algunas cosas que no he tratado son:
 
-  * Llamada de código Fortran desde CFFI. ¡Habéis leído bien! Una vez que la interoperabilidad Python C está resuelta, solo hay que resolver C Fortran. En este artículo de Dorota Jarecka tenéis un ejemplo de [cómo usar CFFI para llamar Fortran desde Python](http://scientific-software-diary.com/?p=29). ¿Quién se anima a construir un f2py de segunda generación capaz de generar "wrappers" a código Fortran que use ISO\_C\_BINDING?
+  * Llamada de código Fortran desde CFFI. ¡Habéis leído bien! Una vez que la interoperabilidad Python C está resuelta, solo hay que resolver C Fortran. En este artículo de Dorota Jarecka tenéis un ejemplo de [cómo usar CFFI para llamar Fortran desde Python](https://scientific-software-diary.com/?p=29). ¿Quién se anima a construir un f2py de segunda generación capaz de generar "wrappers" a código Fortran que use ISO\_C\_BINDING?
   * [Uso de CFFI para "embedding" de código Python en C](http://cffi.readthedocs.org/en/latest/embedding.html). Esta característica se introdujo hace menos de un mes (!) y para algunos es ["lo más guay que se ha añadido a CFFI hasta la fecha"](https://groups.google.com/d/msg/python-cffi/D6I9spmLwug/SgVm36HTAwAJ). ¿Quién se anima a invertir totalmente esta relación de dependencia?
 
 Vuelvo a señalar que [todo el código está en GitHub](https://github.com/Pybonacci/cffi_test), que se aceptan forks y pull requests y que estoy deseando oír vuestros comentarios sobre esto 🙂 ¿Qué opináis los que usáis Cython para crear wrappers por ejemplo? ¿Cómo puede afectar esto a la expansión de PyPy? ¿Qué echáis en falta?

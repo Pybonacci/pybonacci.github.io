@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: 157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-ii
 tags: ipynb, ipython, notebook
 
-En la [primera entrega](http://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/) vimos como usar la ayuda de IPython y como personalizar nuestras propias funciones mágicas de ayuda.
+En la [primera entrega](https://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/) vimos como usar la ayuda de IPython y como personalizar nuestras propias funciones mágicas de ayuda.
 
 En esta segunda entrega vamos a hablar del uso de la historia dentro de IPython.
 

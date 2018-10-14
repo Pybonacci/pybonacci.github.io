@@ -9,7 +9,7 @@ Como siempre, en GitHub podréis encontrar el <a href="http://nbviewer.ipython.o
 
 Las gráficas pueden proporcionar mucha información de un sólo vistazo, pero no siempre son el mejor método de representación. A veces es necesario dar un paso más; y ese es precisamente el caso que vamos a tratar en éste artículo.
 
-Representar valores sobre un mapa geográfico nos permite ubicar la información sobre el terreno. Lo datos a representar pueden ser desde contornos de temperatura hasta vectores de velocidad del viento pasando por la identificación de puntos geográficos. Para facilitarnos todo ese trabajo —en Python— disponemos de una serie de librerías. [PyNGL](http://www.pyngl.ucar.edu/), [CDAT](http://www-pcmdi.llnl.gov/software/cdat/support/vcs/vcs.html) o [Basemap](http://matplotlib.org/basemap/index.html) —del que Kiko ya ha hablado en <a href="http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/" title="Ejemplo de uso de Basemap y NetCDF4 | Pybonacci" target="_blank">ésta entrada</a>— son librerías que nacieron para satisfacer las necesidades de ciertos colectivos de científicos, como meteorólogos u oceanógrafos.
+Representar valores sobre un mapa geográfico nos permite ubicar la información sobre el terreno. Lo datos a representar pueden ser desde contornos de temperatura hasta vectores de velocidad del viento pasando por la identificación de puntos geográficos. Para facilitarnos todo ese trabajo —en Python— disponemos de una serie de librerías. [PyNGL](http://www.pyngl.ucar.edu/), [CDAT](http://www-pcmdi.llnl.gov/software/cdat/support/vcs/vcs.html) o [Basemap](http://matplotlib.org/basemap/index.html) —del que Kiko ya ha hablado en <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/" title="Ejemplo de uso de Basemap y NetCDF4 | Pybonacci" target="_blank">ésta entrada</a>— son librerías que nacieron para satisfacer las necesidades de ciertos colectivos de científicos, como meteorólogos u oceanógrafos.
 
 En éste notebook vamos a utilizar:
 
@@ -350,7 +350,7 @@ Para que los circulos no sean demasiado grandes —en Monza se han celebrado 64 
     ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (0, 0))
     f.savefig('f1-circuits.png', dpi=72, transparent=False, bbox_inches='tight')
 
-![](http://pybonacci.org/images/2014/10/f1-circuits.png)
+![f1](https://pybonacci.org/images/2014/10/f1-circuits.png)
 
 Podemos ver una gran concentración de Grandes Premios en Europa, continente que vio nacer a la Fórmula 1 y base de operaciones de la mayoría de equipos que compiten en ella. Si centramos la imagen sobre europa, a la cual hemos añadido un [fondo](http://matplotlib.org/basemap/users/geography.html), podremos ver con mayor claridad la distribución de las que han sido sedes de algún Gran Premio por el viejo continente.
 
@@ -365,4 +365,4 @@ Podemos ver una gran concentración de Grandes Premios en Europa, continente que
     ax.annotate(u'\N{COPYRIGHT SIGN} 2014, Pablo Fernandez', (100000, 100000))
     f.savefig('f1-circuits-europe.png', dpi=72, transparent=False, bbox_inches='tight')
 
-![](http://pybonacci.org/images/2014/10/f1-circuits-europe.png)
+![f12](https://pybonacci.org/images/2014/10/f1-circuits-europe.png)

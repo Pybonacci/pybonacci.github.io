@@ -7,17 +7,17 @@ tags: gráficos, matplotlib, matplotlib.pyplot, pyplot, python, tutorial matplot
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. **[Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")**
-  4. [Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. [Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
-  7. [Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
-  8. [Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. **[Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")**
+  4. [Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. [Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")
+  7. [Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
+  8. [Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. [Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
+ 11. [Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0]**
 
@@ -40,13 +40,13 @@ Hasta ahora hemos visto como podemos configurar la ventana y la sesión, en esta
 
 El resultado es el siguiente:
 
-![axesmultiples](http://pybonacci.org/images/2012/05/axesmultiples.png)
+![axesmultiples](https://pybonacci.org/images/2012/05/axesmultiples.png)
 
 Como podéis imaginar, podemos usar plt.axes() como sustituto de plt.subplot() si queremos dibujar gráficos que no tengan que tener una forma 'regular' dentro de la ventana. Si ahora queremos borrar el área del gráfico podemos usar plt.delaxes(), si queremos borrar el contenido que hay en el área del gráfico podemos usar plt.cla() y si queremos que no aparezca la 'caja' donde se dibuja el gráfico podemos usar plt.box() (si no hay 'caja' y queremos que aparezca podemos llamar a plt.box() y volverá a aparecer la 'caja').
 
-![concaja](http://pybonacci.org/images/2012/05/concaja.png?w=300)
+![concaja](https://pybonacci.org/images/2012/05/concaja.png?w=300)
 
-El área del gráfico puede ser un área rectangular o un área para [un gráfico polar (ver ejemplo)](http://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/).
+El área del gráfico puede ser un área rectangular o un área para [un gráfico polar (ver ejemplo)](https://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/).
 
 Podemos colocar una rejilla que nos ayude a identificar mejor las áreas del gráfico mediante plt.grid() (en un gráfico polar deberemos usar plt.rgrid() y plt.thetagrids()).
 
@@ -64,7 +64,7 @@ Si os habéis fijado, matplotlib dibuja los ejes de forma que se ajusten al grá
     plt.ylabel(u'Línea verde')  # Ponemos etiqueta al segundo eje y
     plt.xlim(-10,110)  # Limitamos los valores del eje x para que vayan desde -10 a 110
 
-![ejesydemas](http://pybonacci.org/images/2012/05/ejesydemas.png)
+![ejesydemas](https://pybonacci.org/images/2012/05/ejesydemas.png)
 
 Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿Y para qué sirven estas 'cosas'? Pensad que, por ejemplo, queréis resaltar una zona de vuestro gráfico para focalizar la atención en esa área. Eso lo podríamos hacer usando lo anterio. plt.axvline() y plt.axhline() dibujan líneas verticales y horizontales en la x o en la y que le digamos mientras que plt.axvspan y plt.axhspan dibujan recuadros entre las coordenadas x o y que queramos, respectivamente.
 
@@ -78,7 +78,7 @@ Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿
     plt.axvspan(-0.5,0.5, alpha = 0.25)  #  Dibujamos un recuadro azul vertical entre x[-0.5,0.5] con transparencia 0.25
     plt.axhspan(-0.5,0.5, alpha = 0.25)  #  Dibujamos un recuadro azul horizontal entre x[-0.5,0.5] con transparencia 0.25
 
-![vhlinevhspan](http://pybonacci.org/images/2012/05/vhlinevhspan.png)
+![vhlinevhspan](https://pybonacci.org/images/2012/05/vhlinevhspan.png)
 
 ¿Y como podemos controlar el texto básico sobre el gráfico? Hay muchas formas de meter texto y controlar las etiquetas de forma básica y sencilla. En algunos momentos hemos visto plt.legend(), también existe plt.figlegend(). Yo siempre uso plt.legend() el 100% de las veces. Para usos avanzados podéis mirar [este enlace](http://stackoverflow.com/a/4701285) y [este otro enlace](http://matplotlib.sourceforge.net/users/legend_guide.html). Si queremos poner un título al gráfico podemos usar plt.title() y plt.suptitle(). Si queremos poner título a los ejes podemos usar plt.xlabel() y plt.ylabel() para los ejes x e y, respectivamente. Por último, para controlar los valores de las etiquetas que se ponen sobre los ejes dispones de plt.locator\_params(), plt.minorticks\_on(), plt.minorticks\_off(), plt.tick\_params(), plt.tick\_label\_format(), plt.xticks() y plt.yticks(). Vamos a manejar la mayor parte de estas funciones mediante un ejemplo para que se vea más claro su uso. Imaginemos que queremos representar el valor medio diario de una variable durante un año, en el eje x queremos que aparezca solo los meses en el día del año en que empieza el mes
 
@@ -101,8 +101,8 @@ Ahora vamos a ver plt.axvline(), plt.axvspan(), plt.axhline(), plt.axhspan(). ¿
 
 Cuyo resultado será algo parecido a lo siguiente:
 
-![textobasico](http://pybonacci.org/images/2012/05/textobasico.png)
+![textobasico](https://pybonacci.org/images/2012/05/textobasico.png)
 
-Y con esto hemos visto, más o menos, la forma básica de configurar los elementos del gráfico. Si no los habéis visto aún, podéis leer el [capítulo 1](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/) y el [capítulo 2](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/) de esta serie.
+Y con esto hemos visto, más o menos, la forma básica de configurar los elementos del gráfico. Si no los habéis visto aún, podéis leer el [capítulo 1](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/) y el [capítulo 2](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/) de esta serie.
 
-Si quieres puedes pasar a [la siguiente parte](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)").
+Si quieres puedes pasar a [la siguiente parte](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)").

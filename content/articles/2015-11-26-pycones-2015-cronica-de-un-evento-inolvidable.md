@@ -9,7 +9,7 @@ Esta es la primera crónica que escribo de una conferencia a la que asisto desde
 
 El 4 de enero de este año le mandaba a Quique Porta un correo electrónico proponiéndole cómo nos íbamos a distribuir el trabajo para la PyConES 2015, así que podemos decir que la gestación de esta conferencia ha sido más larga que un embarazo humano xD Desde entonces hemos tenido más de 15 videoconferencias entre Marcos, Javi, Mai y yo en las que hemos ido avanzando poco a poco hasta el momento clave del fin de semana del 20 al 22 de noviembre.<figure id="attachment_3590" style="width: 300px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2015/11/photo10296639087552955-300x224.jpg)
+![photo](https://pybonacci.org/images/2015/11/photo10296639087552955-300x224.jpg)
 
 El viernes una expedición de 8 intrépidos aeronáuticos (más 1 ingeniero naval infiltrado) partió desde Madrid rumbo al que iba a ser un evento muy especial para el equipo de AeroPython: batíamos récords de asistencia, contábamos con patrocinadores de la talla de Airbus y Skyscanner y dos compañeros, Carlos y Siro, daban un taller habiendo aprendido Python hace tan solo 1 año (¡1 año!). Yo aun así estaba extremadamente nervioso porque intuía que las tareas organizativas me absorberían para todo el fin de semana, como al final sucedió.
 

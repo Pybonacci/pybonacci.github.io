@@ -579,7 +579,7 @@ Vamos a usar el estilo  ggplot
           <a href="http://ggplot.yhathq.com/">GGplot</a>
         </li>
         <li>
-          Usad alguna librería javascript como Highcharts (<a href="http://pybonacci.org/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/">ved un tutorial aquí</a>), d3js,...
+          Usad alguna librería javascript como Highcharts (<a href="https://pybonacci.org/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/">ved un tutorial aquí</a>), d3js,...
         </li>
         <li>
           <a href="http://code.enthought.com/chaco/">Chaco</a>
