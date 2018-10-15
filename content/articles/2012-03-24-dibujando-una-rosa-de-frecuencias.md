@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: dibujando-una-rosa-de-frecuencias
 tags: gráficos, math, matplotlib, numpy, python, python 2
 
-**[Este post ha sido actualizado para usar nuevas funcionalidades de matplotlib. Pincha sobre este enlace para ver la nueva versión.](http://pybonacci.org/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/)**
+**[Este post ha sido actualizado para usar nuevas funcionalidades de matplotlib. Pincha sobre este enlace para ver la nueva versión.](https://pybonacci.org/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/)**
 
 _**Para la siguiente entrada se ha usado python 2.7.2, math (de la librería estándar), numpy 1.6.1 y matplotlib 1.1.0**_
 
@@ -58,7 +58,7 @@ Por último solo nos queda dibujar la rosa de frecuencias:
 
 Definimos el tipo de gráfico y el área que ocupará. definimos colores de las barras, anchos de las líneas, transparencia de las barras,..., colocamos el nombre de la dirección en cada sector definido (en este caso hemos usado 8 sectores), ponemos un título a nuestro gráfico y hemos acabado.
 
-![Rosa de frecuencias de las nubes durante mis últimas vacaciones](http://new.pybonacci.org/images/2012/03/rosafrecuencias.png)
+![Rosa de frecuencias de las nubes durante mis últimas vacaciones](https://pybonacci.org/images/2012/03/rosafrecuencias.png)
 
 Vuestra gráfica no tiene porque ser igual a esta, recordad que los datos los obtenemos de una muestra aleatoria.
 

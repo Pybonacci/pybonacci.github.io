@@ -14,17 +14,18 @@ En un vistazo general podemos ver que es muy adaptable a nuestras necesidades (o
   * definir accesos rápidos,
   * Gestionar el PYTHONPATH de manera visual
 
-![pythonpath](http://pybonacci.org/images/2012/08/pythonpath.png)
+![pythonpath](https://pybonacci.org/images/2012/08/pythonpath.png)
 
   * Acceso a la documentación de las librerías más importantes (Numpy, Scipy, Matplotlib,...) desde la ayuda del propio IDE
   * Acceso directo a herramientas (y documentación) Qt.
   * Configuración del coloreado de la sintáxis
-  * Podemos colocar los paneles como mejor nos convenga. En general, yo lo configuro con un explorador de archivos a la izquierda, el editor a la derecha y abajo cosas útiles como consolas, el historial, y el explorador de variables:![IDE](http://pybonacci.org/images/2012/08/ide.png)
+  * Podemos colocar los paneles como mejor nos convenga. En general, yo lo configuro con un explorador de archivos a la izquierda, el editor a la derecha y abajo cosas útiles como consolas, el historial, y el explorador de variables:![IDE](https://pybonacci.org/images/2012/08/ide.png)
   * Pero con el mismo ratón se puede recolocar todo de forma sencilla y se puede elegir qué aparece en la pantalla desde el menú ‘view | Windows and toolbars’:
 
 <p style="text-align:center;">
-  <a href="http://pybonacci.org/images/2012/08/ideconfigurable.png"><img class="aligncenter  wp-image-789" title="IDEconfigurable" alt="" src="http://pybonacci.org/images/2012/08/ideconfigurable.png" width="560" height="350" srcset="https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable.png 1680w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-300x187.png 300w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-1024x640.png 1024w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-1200x750.png 1200w" sizes="(max-width: 560px) 100vw, 560px" /></a>
+  <a href="https://pybonacci.org/images/2012/08/ideconfigurable.png"><img class="aligncenter  wp-image-789" title="IDEconfigurable" alt="" src="https://pybonacci.org/images/2012/08/ideconfigurable.png" width="560" height="350" srcset="https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable.png 1680w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-300x187.png 300w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-1024x640.png 1024w, https://pybonacci.org/wp-content/uploads/2012/08/ideconfigurable-1200x750.png 1200w" sizes="(max-width: 560px) 100vw, 560px" /></a>
 </p>
+![ideconfigurable.png](https://pybonacci.org/images/2012/08/ideconfigurable.png?style=centerme)
 
 Puedes ver [más pantallazos en el siguiente enlace](http://pythonhosted.org/spyder/).
 

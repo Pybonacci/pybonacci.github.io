@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: pfs-multiplicacion-de-karatsuba
 tags: exponenciación binaria, optimización, PFS, potencias, python, Python fuente de sabiduria
 
-Vamos a seguir con nuestra serie sobre ['**p**ython, **f**uente de **s**abiduria'](http://pybonacci.org/tag/python-fuente-de-sabiduria/) hablando sobre la multiplicación.
+Vamos a seguir con nuestra serie sobre ['**p**ython, **f**uente de **s**abiduria'](https://pybonacci.org/tag/python-fuente-de-sabiduria/) hablando sobre la multiplicación.
 
 ¿Te has preguntado alguna vez cómo se multiplican dos números en un ordenador o calculadora? Normalmente, los <a href="http://en.wikipedia.org/wiki/Arithmetic_logic_unit" target="_blank">circuitos</a> de los procesadores incluyen operaciones básicas como la <a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Shift_and_add" target="_blank">multiplicación de enteros de tamaño pequeño</a>. Sobre estas operaciones básicas se construye todo lo demás.
 

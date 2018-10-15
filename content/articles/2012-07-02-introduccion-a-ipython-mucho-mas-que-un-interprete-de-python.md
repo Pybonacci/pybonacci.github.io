@@ -9,9 +9,9 @@ tags: editores, IDEs, ipython, python
 
 Hoy ha llegado el momento de hablar de [IPython](http://ipython.org/ "IPython"), aprovechando que [acaba de salir la versión 0.13](http://ipython.org/ipython-doc/rel-0.13/whatsnew/version0.13.html) después de 6 meses de duro trabajo. IPython es un intérprete de Python con unas cuantas características avanzadas que hemos usado desde que empezamos a escribir en el blog y que, sinceramente, si no conoces todavía no sé a qué estás esperando 😛
 
-Decir que IPython es _solo_ un intérprete de Python es, no obstante, quedarse muy corto. Actualmente multitud de paquetes utilizan IPython como biblioteca o como intérprete interactivo, siendo el ejemplo más notable el proyecto [Sage](http://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/ "Sage: software matemático libre como alternativa"). IPython es multiplataforma, es software libre, tiene una enorme comunidad detrás, un desarrollo constante y bien organizado y es extremadamente potente. ¿Qué más se le puede pedir? 🙂<figure id="attachment_681" style="width: 560px" class="wp-caption aligncenter">
+Decir que IPython es _solo_ un intérprete de Python es, no obstante, quedarse muy corto. Actualmente multitud de paquetes utilizan IPython como biblioteca o como intérprete interactivo, siendo el ejemplo más notable el proyecto [Sage](https://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/ "Sage: software matemático libre como alternativa"). IPython es multiplataforma, es software libre, tiene una enorme comunidad detrás, un desarrollo constante y bien organizado y es extremadamente potente. ¿Qué más se le puede pedir? 🙂<figure id="attachment_681" style="width: 560px" class="wp-caption aligncenter">
 
-![Notebook de IPython](http://pybonacci.org/images/2012/07/ipy_013_notebook_spectrogram.png)
+![Notebook de IPython](https://pybonacci.org/images/2012/07/ipy_013_notebook_spectrogram.png)
 
 ## Breve historia
 
@@ -21,7 +21,7 @@ Lo importante para nosotros de este programa es que nació en un ámbito cientí
 
 <!--more-->
 
-**Nota**: ¿Sabes que escribimos hace tiempo sobre una [alternativa libre a Mathematica](http://pybonacci.org/2012/04/02/presentando-mathics-una-alternativa-libre-y-ligera-a-mathematica/ "Presentando Mathics: una alternativa libre y ligera a Mathematica") escrita en Python?
+**Nota**: ¿Sabes que escribimos hace tiempo sobre una [alternativa libre a Mathematica](https://pybonacci.org/2012/04/02/presentando-mathics-una-alternativa-libre-y-ligera-a-mathematica/ "Presentando Mathics: una alternativa libre y ligera a Mathematica") escrita en Python?
 
 ## Instalación
 
@@ -29,7 +29,7 @@ Si estás en **Linux** (que, por supuesto, es el mejor sistema operativo :P) la 
 
 Si estás en **Windows**, debes instalar primero `distribute` y `readline`. Como se puede leer [en la documentación](http://ipython.org/ipython-doc/stable/install/install.html#windows), los pasos son los siguientes:
 
-**Nota**: ¿Sabes que puedes leer nuestra guía sobre [cómo instalar Python en Windows](http://pybonacci.org/2012/06/27/python-en-windows-hola-mundo-en-7-minutos/ "Python en Windows: «¡Hola mundo!» en 7 minutos") si no lo tienes aún?
+**Nota**: ¿Sabes que puedes leer nuestra guía sobre [cómo instalar Python en Windows](https://pybonacci.org/2012/06/27/python-en-windows-hola-mundo-en-7-minutos/ "Python en Windows: «¡Hola mundo!» en 7 minutos") si no lo tienes aún?
 
   1. Instalar distribute. Para ello, descarga el archivo de [`distribute_setup.py`](http://python-distribute.org/distribute_setup.py) y haz doble clic sobre él.
   2. Instala pyreadline utilizando `easy_install`, el que acabas de añadir ahora. Para ello abre una ventana de línea de comandos (Ejecutar -> cmd -> OK) y escribe:
@@ -46,7 +46,7 @@ Si estás en **Windows**, debes instalar primero `distribute` y `readline`. Como
 
 Si todo ha ido bien, si inicias IPython deberías ver algo como lo que aparece en la imagen.<figure id="attachment_695" style="width: 538px" class="wp-caption aligncenter">
 
-![IPython en Windows](http://pybonacci.org/images/2012/07/ipython_windows.png)
+![IPython en Windows](https://pybonacci.org/images/2012/07/ipython_windows.png)
 
 Para **Mac**, tendrías que instalar IPython utilizando easy_install al igual que hemos hecho en Windows a través de una ventana de línea de comandos.
 
@@ -152,7 +152,7 @@ Nótese que el código se ejecuta cuando terminamos de editar el archivo. Si hay
 
 Aparecerán una serie de mensajes indicando la configuración del servidor y se abrirá una ventana del navegador.<figure id="attachment_701" style="width: 560px" class="wp-caption aligncenter">
 
-![Notebook de IPython](http://pybonacci.org/images/2012/07/ipython_notebook.png)
+![Notebook de IPython](https://pybonacci.org/images/2012/07/ipython_notebook.png)
 
 A partir de aquí, si creas un nuevo notebook tendrás todo el poder de IPython con una interfaz mucho más rica en la que puedes editar y fusionar celdas, insertar texto y ecuaciones matemáticas, exportar los notebooks para compartirlos con otros usuarios y muchísimo más. Y lo vamos a dejar aquí, porque si no nos quedaría un artículo larguísimo.
 

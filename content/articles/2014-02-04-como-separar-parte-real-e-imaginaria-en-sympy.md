@@ -182,4 +182,4 @@ También podemos utilizar el sistema de _assumptions_ de SymPy (¿cómo traducir
 
 Y esto ya no responde a la pregunta de la semana, ¡pero seguro que resulta útil!
 
-¡Recuerda [mandarnos tu pregunta](http://pybonacci.org/contacto/ "Contacto") para que la contestemos semanalmente en Pybonacci! Un saludo 😉
+¡Recuerda [mandarnos tu pregunta](https://pybonacci.org/contacto/ "Contacto") para que la contestemos semanalmente en Pybonacci! Un saludo 😉

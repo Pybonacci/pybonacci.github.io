@@ -232,7 +232,7 @@ tags: estilos, matplotlib.pyplot, styles
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib1.png" />
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib1.png" />
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@ Vamos a usar el estilo  ggplot
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib2.png" />
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib2.png" />
         </div>
       </div>
     </div>
@@ -543,7 +543,7 @@ Vamos a usar el estilo  ggplot
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://new.pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib3.png" />
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib3.png" />
         </div>
       </div>
     </div>
@@ -579,7 +579,7 @@ Vamos a usar el estilo  ggplot
           <a href="http://ggplot.yhathq.com/">GGplot</a>
         </li>
         <li>
-          Usad alguna librería javascript como Highcharts (<a href="http://pybonacci.org/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/">ved un tutorial aquí</a>), d3js,...
+          Usad alguna librería javascript como Highcharts (<a href="https://pybonacci.org/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/">ved un tutorial aquí</a>), d3js,...
         </li>
         <li>
           <a href="http://code.enthought.com/chaco/">Chaco</a>

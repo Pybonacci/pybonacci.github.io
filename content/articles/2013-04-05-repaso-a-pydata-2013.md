@@ -15,7 +15,7 @@ Entre las charlas introductorias destacaremos:
 
 [Aprendiendo Python](http://vimeo.com/63269282) por _Peter Norvig_: Otro tutorial más para empezar con Python!!
 
-[Hacer bonitos gráficos con MatPlotLib](http://vimeo.com/63284840) por Mike Müller: Otro más avanzado muestra como hacer [MatPlotLib más interactivo](http://vimeo.com/63260224) gracias al gran Jake Vanderplas. Os dejamos aquí [nuestro tutorial de matplotlib](http://pybonacci.org/2013/03/21/revision-del-tutorial-de-matplotlib-pyplot/) por si alguno no lo conoce aún (#autobombo).
+[Hacer bonitos gráficos con MatPlotLib](http://vimeo.com/63284840) por Mike Müller: Otro más avanzado muestra como hacer [MatPlotLib más interactivo](http://vimeo.com/63260224) gracias al gran Jake Vanderplas. Os dejamos aquí [nuestro tutorial de matplotlib](https://pybonacci.org/2013/03/21/revision-del-tutorial-de-matplotlib-pyplot/) por si alguno no lo conoce aún (#autobombo).
 
 [Visualización de datos con NodeBox](http://vimeo.com/63270085) por Lynn Cherny: Librería para hacer gráficos más 'artísticos'. Yo tengo sentimientos encontrados con algunos enfoques de este tipo de gráficos (NodeBox, D3,...) por lo que te recomiendo mejor verlo y, si alguien quiere, lo discutimos en los comentarios.
 

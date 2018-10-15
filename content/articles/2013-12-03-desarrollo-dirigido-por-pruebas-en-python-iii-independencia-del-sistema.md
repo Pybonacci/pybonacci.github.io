@@ -10,9 +10,9 @@ Nos enfrentaremos con el problema de depender de la fecha del sistema por lo que
   
 Las entregas anteriores de esta serie son:
 
-[Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días](http://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/#more-1352 "Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días")
+[Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días](https://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/#more-1352 "Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días")
 
-[Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)](http://pybonacci.org/2013/06/19/desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i/ "Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)")
+[Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)](https://pybonacci.org/2013/06/19/desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i/ "Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)")
 
 Aunque la aplicación es la misma en todas las entregas, en cada una nos centramos en un problema concreto, así que puedes leer esta entrega aunque no hayas leído las dos anteriores.
 

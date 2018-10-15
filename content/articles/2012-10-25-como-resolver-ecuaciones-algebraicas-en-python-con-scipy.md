@@ -7,7 +7,7 @@ tags: ecuaciones no lineales, python, scipy, scipy.optimize
 
 ## Introducción
 
-En este artículo vamos a utilizar las rutinas de búsqueda de raíces ya disponibles en el módulo [`scipy.optimize`](http://docs.scipy.org/doc/scipy/reference/optimize.html#root-finding) para **resolver ecuaciones algebraicas con Python**. Ya vimos hace tiempo [cómo encontrar el mínimo de una función con SciPy](http://pybonacci.org/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/ "¿Cómo encontrar el mínimo de una función usando scipy?"), y también [cómo implementar los métodos de la bisección y de Newton en Python](http://pybonacci.org/2012/04/18/ecuaciones-no-lineales-metodo-de-biseccion-y-metodo-de-newton-en-python/ "Ecuaciones no lineales: método de bisección y método de Newton en Python"). Ahora, además, exploraremos el caso de **sistemas de ecuaciones**.
+En este artículo vamos a utilizar las rutinas de búsqueda de raíces ya disponibles en el módulo [`scipy.optimize`](http://docs.scipy.org/doc/scipy/reference/optimize.html#root-finding) para **resolver ecuaciones algebraicas con Python**. Ya vimos hace tiempo [cómo encontrar el mínimo de una función con SciPy](https://pybonacci.org/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/ "¿Cómo encontrar el mínimo de una función usando scipy?"), y también [cómo implementar los métodos de la bisección y de Newton en Python](https://pybonacci.org/2012/04/18/ecuaciones-no-lineales-metodo-de-biseccion-y-metodo-de-newton-en-python/ "Ecuaciones no lineales: método de bisección y método de Newton en Python"). Ahora, además, exploraremos el caso de **sistemas de ecuaciones**.
 
 _**En esta entrada se ha usado python 2.7.3, numpy 1.6.2 y scipy 0.11.**_
 
@@ -29,7 +29,7 @@ En el caso en que conozcamos un valor próximo a la solución, seguiremos utiliz
     x = np.linspace(0, 9, 100)
     plt.plot(x, exp(x / 3) * cos(x) + 10 * sin(3 * x), x, x ** 2 / 4)
 
-![Ecuación 1](http://pybonacci.org/images/2012/10/ecuacion1.png)
+![Ecuación 1](https://pybonacci.org/images/2012/10/ecuacion1.png)
 
 Antes que nada debemos definir la función que va a representar la ecuación. Todas las subrutinas de búsqueda de raíces en realidad buscan ceros de funciones, así que debemos escribir
 
@@ -59,7 +59,7 @@ Sencillo, ¿no? Ahora si queremos buscar la solución que está cerca de 2, pode
 
 Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_1088" style="width: 374px" class="wp-caption aligncenter">
 
-![Soluciones de la ecuación 1](http://pybonacci.org/images/2012/10/ecuacion1_soluciones.png)
+![Soluciones de la ecuación 1](https://pybonacci.org/images/2012/10/ecuacion1_soluciones.png)
 
 <p style="text-align:center">
   <h2>
@@ -119,11 +119,11 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.ylabel("Radio (dm)")
 
     <p>
-        <a href="http://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="http://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
+        <a href="https://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="https://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
       </p>
       
       <p>
-        <strong>Nota</strong>: Recuerda que puedes leer en Pybonacci <a href="http://pybonacci.org/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/">cómo definir funciones definidas a trozos en NumPy</a>.
+        <strong>Nota</strong>: Recuerda que puedes leer en Pybonacci <a href="https://pybonacci.org/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/">cómo definir funciones definidas a trozos en NumPy</a>.
       </p>
       
       <p>
@@ -168,7 +168,7 @@ Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_
     plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))
 
   <p>
-    <a href="http://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="http://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
+    <a href="https://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="https://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
   </p>
   
   <p>

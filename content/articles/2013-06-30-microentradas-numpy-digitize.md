@@ -38,7 +38,7 @@ Una solución sencilla usando `np.digitize` podría ser la siguiente:
 
 El resultado final debería ser una imagen como la siguiente:
 
-![](http://pybonacci.org/images/2013/06/imagen-png-382-c397-253-pc3adxeles.png)
+![imagen](https://pybonacci.org/images/2013/06/imagen-png-382-c397-253-pc3adxeles.png)
 
 Quizá lo más complicado de entender sea la línea 8 de la anterior porción de código, si no entiendes algo puedes preguntar en los comentarios.
 

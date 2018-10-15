@@ -30,7 +30,7 @@ plt.xlabel('valor del exponente n')
 plt.ylabel('t en microsegundos')
 ```
 
-<img class="aligncenter" src="http://new.pybonacci.org/images/2013/08/pow_bruto.png" width="396" height="278" />
+<img class="aligncenter" src="https://pybonacci.org/images/2013/08/pow_bruto.png" width="396" height="278" />
 
 [Nota: la escala de los ejes en la anterior figura es logarítmica]
 
@@ -119,7 +119,7 @@ plt.xlabel('valor del exponente n')
 plt.ylabel('t en microsegundos')
 ```
 
-<img class="aligncenter" src="http://new.pybonacci.org/images/2013/08/pow_bruto_bin.png" width="429" height="268" />
+<img class="aligncenter" src="https://pybonacci.org/images/2013/08/pow_bruto_bin.png" width="429" height="268" />
 
 [Nota: Ahora, las escalas de los ejes son lineales]
 

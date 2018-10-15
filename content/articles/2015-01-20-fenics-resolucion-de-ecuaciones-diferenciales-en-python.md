@@ -9,7 +9,7 @@ tags: conda, ecuaciones diferenciales, EDPs, fenics, python
 
 En este artículo os voy a presentar el **[proyecto FEniCS](http://fenicsproject.org/)**, una colección de _bibliotecas escritas con interfaz en Python_ para la _resolución de ecuaciones diferenciales por el [método de los elementos finitos](http://es.wikipedia.org/wiki/M%C3%A9todo_de_los_elementos_finitos)_. FEniCS proporciona un método muy inteligente para automatizar los procesos más laboriosos de la solución de este tipo de ecuaciones, de forma que podemos atacar cualquier problema que se nos ocurra. Las posibilidades son inmensas y la documentación es bastante exhaustiva, así que aquí veremos una introducción a **cómo resolver ecuaciones en derivadas parciales con FEniCS**.<figure id="attachment_3098" style="width: 300px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2015/01/plate-300x237.png)
+![plate](https://pybonacci.org/images/2015/01/plate-300x237.png)
 
 <!--more-->
 
@@ -29,7 +29,7 @@ El proyecto FEniCS busca automatizar la resolución de ecuaciones diferenciales,
 
 FEniCS se creó en 2003 y se ocupa fundamentalmente de la **automatización de la discretización**. Una vez que se ha discretizado el problema y se han ensamblado los correspondientes sistemas lineales, su resolución (es decir, la segunda tarea) se deja a bibliotecas especializadas como PETSc, UMFPACK y otras.<figure id="attachment_3095" style="width: 297px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2015/01/fenics_project-297x300.png)
+![fenics](https://pybonacci.org/images/2015/01/fenics_project-297x300.png)
 
 FEniCS proporciona una interfaz en Python para todos estos paquetes, la mayoría escritos en Fortran o C++, y eso le da una sencillez de uso inigualable. Pero primero tenemos que ver cómo lo instalamos.
 
@@ -176,7 +176,7 @@ Y para terminar, la gráfica correspondiente:
 
 ¡Y este es el resultado!
 
-![](http://pybonacci.org/images/2015/01/poisson-300x233.png)
+![poisson](https://pybonacci.org/images/2015/01/poisson-300x233.png)
 
 ## Conclusiones
 

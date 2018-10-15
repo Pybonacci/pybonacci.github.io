@@ -7,7 +7,7 @@ tags: blttlenec, cython, numba, numbagg, numpy, python, rendimiento
 
 # Volvemos al torneo del rendimiento!!!
 
-Recapitulando. Un artículo sobre Cython donde conseguíamos [mejoras de velocidad de código Python con numpy arrays de 40x usando Cython](http://pybonacci.org/2015/03/09/c-elemental-querido-cython/) desembocó [en mejoras de 70x usando numba](http://pybonacci.org/2015/03/13/como-acelerar-tu-codigo-python-con-numba/). En esta tercera toma vamos a ver si con Cython conseguimos las velocidades de numba tomando algunas ideas de la implementación de JuanLu y definiendo una función un poco más inteligente que mi implementación con Cython ([busca_min_cython9](http://pybonacci.org/2015/03/09/c-elemental-querido-cython/#Cythonizando,-que-es-gerundio-%28toma-9%29.)).
+Recapitulando. Un artículo sobre Cython donde conseguíamos [mejoras de velocidad de código Python con numpy arrays de 40x usando Cython](https://pybonacci.org/2015/03/09/c-elemental-querido-cython/) desembocó [en mejoras de 70x usando numba](https://pybonacci.org/2015/03/13/como-acelerar-tu-codigo-python-con-numba/). En esta tercera toma vamos a ver si con Cython conseguimos las velocidades de numba tomando algunas ideas de la implementación de JuanLu y definiendo una función un poco más inteligente que mi implementación con Cython ([busca_min_cython9](https://pybonacci.org/2015/03/09/c-elemental-querido-cython/#Cythonizando,-que-es-gerundio-%28toma-9%29.)).
 
 Preparamos el _setup inicial_.
 

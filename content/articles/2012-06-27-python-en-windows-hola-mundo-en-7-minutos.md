@@ -12,7 +12,7 @@ En lugar de escribir un tutorial para todos, este asume dos cosas:
   * Eres un usuario de Windows curioso acerca de la programación, y
   * Te gustaría instalar el lenguaje de programación Python en tu ordenador con Windows, lanzar el intérprete de Python y ejecutar el clásico programa «¡Hola mundo!».
 
-Si tienes preguntas del tipo «¿Qué es Python y por qué debería instalarlo en mi ordenador con Windows?» lee el principio de [Introducción a Python para científicos e ingenieros](http://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/ "Introducción a Python para científicos e ingenieros"). Y si quieres instalar Python, vuelve.
+Si tienes preguntas del tipo «¿Qué es Python y por qué debería instalarlo en mi ordenador con Windows?» lee el principio de [Introducción a Python para científicos e ingenieros](https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/ "Introducción a Python para científicos e ingenieros"). Y si quieres instalar Python, vuelve.
 
 ¿Ya estás de vuelta? ¿No te habías ido? Vale. Seguimos.
 
@@ -25,7 +25,7 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * Abre otra pestaña (para poder seguir leyendo esta) haciendo Ctrl+clic en la [página de descargas de Python](http://python.org/download/) o en la imagen.
 
 <p style="text-align:center;">
-  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="http://new.pybonacci.org/images/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
+  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="https://pybonacci.org/images/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
 </p>
 
   * El primer párrafo habla sobre implementaciones alternativas de Python. Ignóralo: vamos a instalar la «tradicional».
@@ -52,7 +52,7 @@ De la [web oficial de Python](http://python.org/) podemos descargar directamente
   * Si es así, ¡ya está!
   * Si ves un mensaje de error que dice: "SyntaxError: invalid syntax" entonces te has olvidado de las comillas. __*En versiones antiguas de Python (Python 2.x) no hacían falta paréntesis. Te recomendamos que aprendas Python 3, pero si quieres puedes instalar también Python 2.7 porque no todas las bibliotecas están disponibles en las nuevas versiones.*__
 
-![](https://pybonacci.org/images/2013/12/python3.png?style=centerme)
+![python3](https://pybonacci.org/images/2013/12/python3.png?style=centerme)
 
 Estás dentro de la ventana del IDE (Integrated Development Environment) IDLE. Deja el intérprete de Python abierto, listo y esperando recibir tus comandos. ¡Ahora sólo tienes que aprender Python! Para eso, tienes varios recursos. Algunos los hemos sacado de la [página de lengua española de la wiki oficial de Python](http://wiki.python.org/moin/SpanishLanguage), y otros del sitio de P&R [Python Majibu](http://python.majibu.org/preguntas/154/libros-recomendados-de-programacion-en-python).
 

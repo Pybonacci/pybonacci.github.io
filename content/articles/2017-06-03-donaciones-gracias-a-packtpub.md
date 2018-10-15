@@ -17,7 +17,7 @@ afiliación](https://en.wikipedia.org/wiki/UTM_parameters) que se usará
 para que donen 1\$ (hasta 1000\$) a la organización sin ánimo de lucro
 que les indiquemos.
 
-[![](https://www.pybonacci.org/images/2017/06/FLSS-Social-V2-300x150.png?style=centerme)](https://www.packtpub.com/packt/offers/free-learning?utm_source=Pybonacci&utm_medium=referral&utm_campaign=FreeLearning2017CharityReferrals)
+[![FLSS](https://www.pybonacci.org/images/2017/06/FLSS-Social-V2-300x150.png?style=centerme)](https://www.packtpub.com/packt/offers/free-learning?utm_source=Pybonacci&utm_medium=referral&utm_campaign=FreeLearning2017CharityReferrals)
 
 ¿Cómo funcionará la campaña y cómo nos podéis ayudar?
 
@@ -61,7 +61,7 @@ During the week starting Monday, June 5, until next Sunday,
 will be used to donate 1\$ (up to 1000\$) to the non-profit organization
 we prefer.
 
-[![](https://www.pybonacci.org/images/2017/06/FLSS-Social-V2-300x150.png?style=centerme)](https://www.packtpub.com/packt/offers/free-learning?utm_source=Pybonacci&utm_medium=referral&utm_campaign=FreeLearning2017CharityReferrals)
+[![FLSSV2](https://www.pybonacci.org/images/2017/06/FLSS-Social-V2-300x150.png?style=centerme)](https://www.packtpub.com/packt/offers/free-learning?utm_source=Pybonacci&utm_medium=referral&utm_campaign=FreeLearning2017CharityReferrals)
 
 How does the campaign work and how can you help?
 

@@ -9,7 +9,7 @@ No, no habéis leído mal, hoy vamos a hablar de OpenLayers, una librería javas
 
 Como sabéis, hablamos principalmente de Python porque nos gusta y porque nos divierte y este tutorial de una librería javascript lo vamos a realizar usando una sintaxis pythónica y, mientras aprendemos el uso básico de OpenLayers, también veremos algo de sintaxis javascript.
 
-Para poder seguir este tutorial necesitaréis tener una versión moderna de IPython notebook instalada e instalar brythonmagic del que ya [hablamos por aquí hace poco](http://pybonacci.org/2014/03/03/presentando-brythonmagic/). El tutorial lo podéis descargar [desde aquí](http://nbviewer.ipython.org/github/kikocorreoso/brythonmagic/blob/master/notebooks/OpenLayers%20%28python%29%20tutorial.ipynb).
+Para poder seguir este tutorial necesitaréis tener una versión moderna de IPython notebook instalada e instalar brythonmagic del que ya [hablamos por aquí hace poco](https://pybonacci.org/2014/03/03/presentando-brythonmagic/). El tutorial lo podéis descargar [desde aquí](http://nbviewer.ipython.org/github/kikocorreoso/brythonmagic/blob/master/notebooks/OpenLayers%20%28python%29%20tutorial.ipynb).
 
 Finalmente, quería agradecer a [Roger Veciana](https://twitter.com/rveciana) por ofrecerse a revisar el tutorial y aportar mejoras importantes al mismo. Gracias monstruo.
 

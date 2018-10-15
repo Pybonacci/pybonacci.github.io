@@ -4,7 +4,7 @@ date: 2015-11-24T11:47:34+00:00
 author: Manuel Garrido
 slug: como-hacer-analisis-de-sentimiento-en-espanol-2
 
-**Este post es una continuación de un [articulo previo](http://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/) donde explico como obtener y dibujar en un mapa un mapa de calor de miles de tweets enviados desde mi ciudad**
+**Este post es una continuación de un [articulo previo](https://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/) donde explico como obtener y dibujar en un mapa un mapa de calor de miles de tweets enviados desde mi ciudad**
 
 Puedes encontrar el código que he usado en [github](https://github.com/manugarri/tweets_map).
 
@@ -16,9 +16,9 @@ Hacer Sentiment Analysis en inglés es muy fácil. Hay múltiples paquetes que v
 
 Sin embargo, no tengo constancia de un modelo preparado en español, así que en este post vamos a hacer nuestro propio modelo predictivo :).
 
-Para eso, lo primero que necesitamos es un dataset previamente categorizado. En mi caso utilicé el corpus de [TASS](http://www.sngularmeaning.team/TASS2015/tass2015.php#corpus).
+Para eso, lo primero que necesitamos es un dataset previamente categorizado. En mi caso utilicé el corpus de [TASS](https://www.sngularmeaning.team/TASS2015/tass2015.php#corpus).
 
-TASS es un Taller de Análisis de Sentimiento en español organizado cada año por la [Sociedad Española del Procesado del Lenguaje Natural(SEPLN)](http://www.sepln.org/).
+TASS es un Taller de Análisis de Sentimiento en español organizado cada año por la [Sociedad Española del Procesado del Lenguaje Natural(SEPLN)](https://www.sepln.org/).
 
 Hay que pedir permiso para usar el corpus, por tanto no puedo compartirlo aquí. Para conseguirlo, solo hay que ponerse en contacto con los organizadores del TASS (hay un email de contacto en su pagina).
 
@@ -337,7 +337,7 @@ Finalmente, guardaremos en un archivo la latitud, longitud y polaridad de cada t
     #now we predict on the new tweets dataset
     tweets['polarity'] = pipeline.predict(tweets.tweet)
 
-Cuando tenemos el archivo de latitudes y longitudes con su polaridad, seguimos los mismos pasos que seguimos en el [tutorial previo](http://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/) y obtenemos el siguiente mapa de calor donde se pueden observar los sitios con polaridad más negativa y más positiva:
+Cuando tenemos el archivo de latitudes y longitudes con su polaridad, seguimos los mismos pasos que seguimos en el [tutorial previo](https://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/) y obtenemos el siguiente mapa de calor donde se pueden observar los sitios con polaridad más negativa y más positiva:
 
 ![murcia sentiment heatmap](https://cdn.rawgit.com/manugarri/tweets_map/master/murcia_tweets_polarity.png)
 

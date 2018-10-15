@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: aprende-funcionalidad-basica-de-pytables-paso-a-paso-iii
 tags: bases de datos, bbdd, hdf5, pytables, tutorial pytables básico 3.0
 
-En los [anteriores capítulos](http://pybonacci.org/tag/tutorial-pytables-basico-3-0/) vimos como crear una estructura básica para nuestro fichero `h5` y como rellenar una tabla de datos. Ahora vamos a ver como volver a la tabla que ya rellenamos para añadir nuevos registros sin eliminar los anteriores.
+En los [anteriores capítulos](https://pybonacci.org/tag/tutorial-pytables-basico-3-0/) vimos como crear una estructura básica para nuestro fichero `h5` y como rellenar una tabla de datos. Ahora vamos a ver como volver a la tabla que ya rellenamos para añadir nuevos registros sin eliminar los anteriores.
 
 ### Modificar tablas existentes
 
@@ -58,7 +58,7 @@ tab.flush()
 
 En la siguiente imagen se muestra un ejemplo de lo que acabamos de hacer:
 
-<img class="aligncenter" src="http://new.pybonacci.org/images/2013/07/hdfview_nuevos-valores-ac3b1adidos.png" width="335" height="128" />
+<img class="aligncenter" src="https://pybonacci.org/images/2013/07/hdfview_nuevos-valores-ac3b1adidos.png" width="335" height="128" />
 
 ¿Qué pasa si ahora queremos modificar un valor de una columna? Eso lo podemos hacer usando la clase \`Cols\`. Imaginad que los primeros diez elementos de la columna \`x\` son erróneos y los queremos representar con 'NaNs'. Lo podemos hacer así:
 
@@ -69,7 +69,7 @@ tab.flush()
 
 Si ahora inspeccionamos la tabla veremos que los diez primeros elementos de la columna 'x' han cambiado al valor NaN:
 
-<img class="aligncenter" src="http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-valores.png" width="403" height="284" />
+<img class="aligncenter" src="https://pybonacci.org/images/2013/07/hdfview_reemplazar-valores.png" width="403" height="284" />
 
 ¿Y si queremos cambiar una columna entera de datos? Pues siguiendo el mismo procedimiento podemos hacer lo siguiente para modificar la columna 'z':
 
@@ -80,7 +80,7 @@ tab.flush()
 
 Con lo que la tabla quedaría con la última columna (columna 'z') con todos sus elementos con valor '-999.99'
 
-<img class="aligncenter" src="http://new.pybonacci.org/images/2013/07/hdfview_reemplazar-columna.png" width="453" height="529" />
+<img class="aligncenter" src="https://pybonacci.org/images/2013/07/hdfview_reemplazar-columna.png" width="453" height="529" />
 
 Finalmente, para terminar este capítulo, cerramos la tabla creada como vimos en anteriores capítulos.
 

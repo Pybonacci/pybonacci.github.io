@@ -21,7 +21,7 @@ Algunas generalidades del libro:
   * Si vas a la PyConES podrás hablar con el autor en persona y pedirle que te ¡¡firme un ejemplar!!
   * No está disponible en formato electrónico.<figure id="attachment_3909" style="width: 608px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg)
+![photo](https://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg)
 
 Vamos a repasar un poco la estructura del libro capítulo a capítulo:
 
@@ -53,7 +53,7 @@ Una cosa que no me gusta en exceso es que en este capítulo nombra el uso de obj
 
 ## 7.Trabajando con cadenas de caracteres
 
-Este es otro capítulo muy completo donde entramos en el mundo de las cadenas de caracteres (_strings_). Se habla del trabajo típico con cadenas y de la funcionalidad más básica como contar, sustituir, eliminar,..., caracteres. Además, se hace una gran y completa introducción a como formatear cadenas usando `format` ([muchísimo más completo que el que hicimos nosotros aquí hace un tiempo](http://pybonacci.org/2013/03/03/formateando-numeros/)). Acaba el capítulo programando un ejemplo del juego del ahorcado.
+Este es otro capítulo muy completo donde entramos en el mundo de las cadenas de caracteres (_strings_). Se habla del trabajo típico con cadenas y de la funcionalidad más básica como contar, sustituir, eliminar,..., caracteres. Además, se hace una gran y completa introducción a como formatear cadenas usando `format` ([muchísimo más completo que el que hicimos nosotros aquí hace un tiempo](https://pybonacci.org/2013/03/03/formateando-numeros/)). Acaba el capítulo programando un ejemplo del juego del ahorcado.
 
 ## 8. Funciones
 

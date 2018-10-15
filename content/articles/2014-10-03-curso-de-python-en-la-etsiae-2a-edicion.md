@@ -5,7 +5,7 @@ author: Juan Luis Cano
 slug: curso-de-python-en-la-etsiae-2a-edicion
 tags: #aeropython, curso, etsia, etsiae, python
 
-<ins datetime="2015-10-15T10:36:08+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="http://pybonacci.org/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/" title="Curso de Python en la ETSIAE: 4ª edición">cuarta edición del curso de Python</a> en el blog.</ins>
+<ins datetime="2015-10-15T10:36:08+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="https://pybonacci.org/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/" title="Curso de Python en la ETSIAE: 4ª edición">cuarta edición del curso de Python</a> en el blog.</ins>
 
 ¡Tenemos el placer de anunciar la **segunda edición de nuestro curso de Python para aeronáuticos**! Como la primera, durará 18 horas y este es el temario:
 
@@ -29,7 +29,7 @@ El curso se desarrollará en las aulas de informática de la ETSI Aeronáutica y
 
 Desde este momento [está abierta la inscripción en este formulario](http://goo.gl/forms/0TeouPSwHU). **La inscripción se cerrará <del datetime="2014-10-06T20:08:04+00:00">el miércoles 8 de octubre a las 00:00 horas</del> <ins datetime="2014-10-06T20:08:04+00:00">el jueves 9 de octubre a las 12:00</ins> y se realizará un sorteo entre los inscritos**. ¡Estad atentos vuestro email institucional estos días!
 
-![](http://pybonacci.org/images/2014/10/aeropython.jpg)
+![aeropython](https://pybonacci.org/images/2014/10/aeropython.jpg)
 
 Lo impartiremos Juan Luis Cano ([@Pybonacci](http://twitter.com/Pybonacci)) y mi compañero Álex Sáez ([@Alex__S12](http://twitter.com/Alex__S12)), con la ayuda de Alberto Lorenzo ([@newlawrence](http://twitter.com/newlawrence)) y tal vez algún ex-alumno más. Estará pensado para que sea un curso eminentemente práctico, con ejemplos extraídos de asignaturas de la carrera. Con los conocimientos básicos de programación que se imparten en la carrera es suficiente: no vamos a explicar qué es un bucle y un condicional, pero con haber escrito alguno en Fortran o MATLAB es suficiente 😉
 
@@ -66,6 +66,6 @@ Ahora puedes descargar Anaconda directamente con Python 3 y ahorrarte algunos qu
 
 * * *
 
-Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](http://pybonacci.org/contacto/) o pararnos por los pasillos.
+Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](https://pybonacci.org/contacto/) o pararnos por los pasillos.
 
 ¡Un saludo! 😉

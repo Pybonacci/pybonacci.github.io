@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: publicando-directamente-en-wordpress-com-con-python
 tags: ipynb, ipython, notebook, prueba de concepto, XML-RPC
 
-Este es un notebook de prueba publicado directamente en <http://pybonacci.org> (aunque se puede publicar en cualquier plataforma [wordpress](http://wordpress.org/) que tenga habilitado [xml-rpc](http://codex.wordpress.org/XML-RPC_Support)) desde un ipython notebook (ipynb de ahora en adelante).
+Este es un notebook de prueba publicado directamente en <https://pybonacci.org> (aunque se puede publicar en cualquier plataforma [wordpress](http://wordpress.org/) que tenga habilitado [xml-rpc](http://codex.wordpress.org/XML-RPC_Support)) desde un ipython notebook (ipynb de ahora en adelante).
 
 Este ipynb consta de celdas con código python, celdas con texto formateado con markdown, con output de celdas con imágenes que se muestran 'inline', con celdas que enlazan a videos de youtube, con celdas que enlazan a imágenes online, con celdas que enlazan a páginas web,...
 
@@ -32,7 +32,7 @@ Este ipynb consta de celdas con código python, celdas con texto formateado con 
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
+![wpid](https://pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python0.png)
 
     :::python
     ## Ejemplo de celda que muestra un video de youtube
@@ -46,11 +46,11 @@ La salida del anterior código mostrará lo siguiente
     :::python
     ## Ejemplo de celda que muestra una imagen enlazada como output
     from IPython.display import Image
-    Image("http://new.pybonacci.org/images/2012/11/pybofractal1.png")
+    Image("https://pybonacci.org/images/2012/11/pybofractal1.png")
 
 La salida del anterior código mostrará lo siguiente
   
-![](http://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
+![wpid2](https://new.pybonacci.org/images/2012/12/wpid-publicando_directamente_en_wordpress-com_con_python1.png)
 
     :::python
     ## Ejemplo de celda que muestra un frame html como output

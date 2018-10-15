@@ -66,14 +66,14 @@ La función [`streamplot`](http://matplotlib.org/api/axes_api.html#matplotlib.ax
   * Dos arrays `x` e `y`, que representan el plano, y
   * dos arrays `v_x` y `v_y`, que son las componentes del campo de velocidades según `x` e `y`.
 
-Como vemos, `streamplot` asume que vamos a dar el campo de velocidades en coordenadas rectangulares, así que tenemos que trabajar un poco. En primer lugar generamos el dominio plano utilizando la función `meshgrid`, que ya vimos en nuestro [artículo sobre líneas de nivel en Python](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"):
+Como vemos, `streamplot` asume que vamos a dar el campo de velocidades en coordenadas rectangulares, así que tenemos que trabajar un poco. En primer lugar generamos el dominio plano utilizando la función `meshgrid`, que ya vimos en nuestro [artículo sobre líneas de nivel en Python](https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"):
 
     :::python
     x = np.linspace(-3, 3, 151)
     y = np.linspace(-3, 3, 151)
     xx, yy = np.meshgrid(x, y)
 
-Ahora lo tenemos que transformar a coordenadas polares, y vamos a tener la precacución de enmascarar la parte central del dominio para evitar singularidades. Ya empleamos los arrays enmascarados en nuestro [artículo sobre estadística en Python con SciPy](http://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/ "Estadística en Python con SciPy (I)"):
+Ahora lo tenemos que transformar a coordenadas polares, y vamos a tener la precacución de enmascarar la parte central del dominio para evitar singularidades. Ya empleamos los arrays enmascarados en nuestro [artículo sobre estadística en Python con SciPy](https://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/ "Estadística en Python con SciPy (I)"):
 
     :::python
     rr = np.sqrt(xx ** 2 + yy ** 2)
@@ -97,7 +97,7 @@ Ahora ya podemos calcular nuestras funciones potencial y de corriente, nuestro c
     v_x = v_r * np.cos(tt) - v_theta * np.sin(tt)
     v_y = v_r * np.sin(tt) + v_theta * np.cos(tt)
 
-Para la gráfica vamos a combinar la función `streamplot` para representar las líneas de corriente con la función `contourf`, que también mencionamos en nuestro artículo sobre [líneas de nivel](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"), para representar el coeficiente de presiones en nuestro dominio:
+Para la gráfica vamos a combinar la función `streamplot` para representar las líneas de corriente con la función `contourf`, que también mencionamos en nuestro artículo sobre [líneas de nivel](https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/ "Dibujando líneas de nivel en Python con matplotlib"), para representar el coeficiente de presiones en nuestro dominio:
 
     :::python
     # Creamos la figura
@@ -114,7 +114,7 @@ Para la gráfica vamos a combinar la función `streamplot` para representar las 
 
 El código completo lo puedes ver [a través de nbviewer](http://nbviewer.ipython.org/4046447/) y este es el resultado:<figure id="attachment_1219" style="width: 560px" class="wp-caption aligncenter">
 
-![Líneas de corriente](http://pybonacci.org/images/2012/11/lineas-corriente1.png)
+![Líneas de corriente](https://pybonacci.org/images/2012/11/lineas-corriente1.png)
 
 Como ves, la única diferencia que hay en el código respecto a lo que habríamos escrito en Python 2.x es que no hace falta especificar que las cadenas contienen Unicode, [porque este es ya el tipo por defecto](http://docs.python.org/3.0/whatsnew/3.0.html#text-vs-data-instead-of-unicode-vs-8-bit).
 

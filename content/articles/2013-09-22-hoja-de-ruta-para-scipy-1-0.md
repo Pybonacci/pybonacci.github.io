@@ -15,7 +15,7 @@ Anuncio en la lista de correo:
 
 http://mail.scipy.org/pipermail/scipy-dev/2013-September/019237.html
 
-Ralf Gommers, Pauli Virtanen y David Cournapeau se reunieron en la [EuroSciPy](http://pybonacci.org/tag/euroscipy/) que se celebró en Bruselas en agosto y han redactado un documento donde se recogen los pasos necesarios en términos de nueva funcionalidad, solución de fallos, etc. para llegar a SciPy 1.0. Cuando esto se consiga, significará que SciPy contiene lo esencial y que tiene una API y un código de buena calidad.
+Ralf Gommers, Pauli Virtanen y David Cournapeau se reunieron en la [EuroSciPy](https://pybonacci.org/tag/euroscipy/) que se celebró en Bruselas en agosto y han redactado un documento donde se recogen los pasos necesarios en términos de nueva funcionalidad, solución de fallos, etc. para llegar a SciPy 1.0. Cuando esto se consiga, significará que SciPy contiene lo esencial y que tiene una API y un código de buena calidad.
 
 <blockquote class="twitter-tweet" width="550">
   <p>

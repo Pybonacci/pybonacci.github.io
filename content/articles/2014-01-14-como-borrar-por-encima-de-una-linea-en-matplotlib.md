@@ -5,7 +5,7 @@ author: Juan Luis Cano
 slug: como-borrar-por-encima-de-una-linea-en-matplotlib
 tags: clip, matplotlib, python
 
-Inauguramos sección nueva en el 2014 con **las preguntas que nos llegan de nuestros lectores** por las redes sociales o el correo electrónico 🙂 Nos llegan unas cuantas, ¡así que tenemos material para al menos una pregunta semanal! Estas serán entradas breves que publicaremos cada martes y que tratarán de responder vuestras dudas sin rodeos. ¡Si queréis mandar las vuestras no dudéis en [contactar con nosotros](http://pybonacci.org/contacto/ "Contacto")!
+Inauguramos sección nueva en el 2014 con **las preguntas que nos llegan de nuestros lectores** por las redes sociales o el correo electrónico 🙂 Nos llegan unas cuantas, ¡así que tenemos material para al menos una pregunta semanal! Estas serán entradas breves que publicaremos cada martes y que tratarán de responder vuestras dudas sin rodeos. ¡Si queréis mandar las vuestras no dudéis en [contactar con nosotros](https://pybonacci.org/contacto/ "Contacto")!
 
 Empezamos con Alberto, que me comenta:
 
@@ -23,9 +23,9 @@ Que es más o menos lo que se pretendía... pero en mi ordenador se vio el detal
 
 <!--more-->
 
-A continuación me puse a pensar en si habría alguna manera de calcular la intersección de esas líneas con matplotlib. Ya Kiko escribió un artículo que [utilizaba Shapely para calcular intersecciones entre formas geométricas](http://pybonacci.org/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/ "Buscando esa playa en la isla a mediodía (usando Shapely)"), así que tenía un punto de partida, pero introducir Shapely para resolver algo tan aparentemente simple no me gustaba.
+A continuación me puse a pensar en si habría alguna manera de calcular la intersección de esas líneas con matplotlib. Ya Kiko escribió un artículo que [utilizaba Shapely para calcular intersecciones entre formas geométricas](https://pybonacci.org/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/ "Buscando esa playa en la isla a mediodía (usando Shapely)"), así que tenía un punto de partida, pero introducir Shapely para resolver algo tan aparentemente simple no me gustaba.
 
-Otra opción era [crear funciones interpolantes usando SciPy](http://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/ "Ajuste e interpolación unidimensionales básicos en Python con SciPy") y [calcular intersecciones entre funciones](http://pybonacci.org/2012/10/25/como-resolver-ecuaciones-algebraicas-en-python-con-scipy/ "Cómo resolver ecuaciones algebraicas en Python con SciPy") usando cualquiera de los métodos de optimización disponibles. El problema es que las curvas negras de la figura, que se obtienen con la función contour, no se pueden trasformar en una función tan fácilmente y eso me causaría problemas.
+Otra opción era [crear funciones interpolantes usando SciPy](https://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/ "Ajuste e interpolación unidimensionales básicos en Python con SciPy") y [calcular intersecciones entre funciones](https://pybonacci.org/2012/10/25/como-resolver-ecuaciones-algebraicas-en-python-con-scipy/ "Cómo resolver ecuaciones algebraicas en Python con SciPy") usando cualquiera de los métodos de optimización disponibles. El problema es que las curvas negras de la figura, que se obtienen con la función contour, no se pueden trasformar en una función tan fácilmente y eso me causaría problemas.
 
 Estaba ya desempolvando mi ejemplar de «Computational Geometry: Algorithms and Applications» cuando se me ocurrió que tal vez matplotlib tuviese el concepto de **máscaras**, es decir, poder utilizar una forma geométrica para enmascarar otra, de la misma forma que usamos máscaras en arrays de NumPy. Y efectivamente, después de un rato buscando en Google encontré justo lo que buscaba: el método [set\_clip\_path](http://matplotlib.org/api/artist_api.html?highlight=set_clip_path#matplotlib.artist.Artist.set_clip_path).
 

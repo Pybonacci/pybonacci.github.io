@@ -5,18 +5,18 @@ author: Pablo Fernández
 slug: introduccion-a-machine-learning-con-python-parte-2
 tags: machine learning, python, regresión lineal, regresión logística, scikit-learn
 
-En la entrada anterior, [Introducción a Machine Learning con Python (Parte 1)](http://pybonacci.org/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/ "Introducción a Machine Learning con Python (Parte 1)"), di unas pequeñas pinceladas sobre lo que es el Aprendizaje Automático con algunos ejemplos prácticos. Ahora vamos a adentrarnos en materia de un modo más estructurado viendo paso a paso algunas de las técnicas que podemos emplear en Python.
+En la entrada anterior, [Introducción a Machine Learning con Python (Parte 1)](https://pybonacci.org/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/ "Introducción a Machine Learning con Python (Parte 1)"), di unas pequeñas pinceladas sobre lo que es el Aprendizaje Automático con algunos ejemplos prácticos. Ahora vamos a adentrarnos en materia de un modo más estructurado viendo paso a paso algunas de las técnicas que podemos emplear en Python.
 
 Podemos dividir los problemas de aprendizaje automático en dos grandes categorías (Pedregosa et al., 2011):
 
   * **Aprendizaje supervisado**, cuando el conjunto de datos viene con los atributos adicionales que queremos predecir. El problema puede clasificarse en dos categorías: 
       * Regresión: los valores de salida consisten en una o más variables continuas. Un ejemplo es la predicción del valor de una casa en función de su superficie útil, número de habitaciones, cuartos de baños, etc.
       * Clasificación: las muestras pertenecen a dos o más clases y queremos aprender a partir de lo que ya conocemos cómo clasificar nuevas muestras. Tenemos como ejemplo el _Iris dataset_ que ya mostramos en la entrada anterior
-  * **Aprendizaje no supervisado**, cuando no hay un conocimiento a priori de las salidas que corresponden al conjunto de datos de entrada. En estos casos el objetivo es encontrar grupos mediante _<a title="Cluster analysis" href="http://en.wikipedia.org/wiki/Cluster_analysis" target="_blank">clustering</a>_ o determinar una distribución de probabilidad sobre un conjunto de entrada.
+  * **Aprendizaje no supervisado**, cuando no hay un conocimiento a priori de las salidas que corresponden al conjunto de datos de entrada. En estos casos el objetivo es encontrar grupos mediante _<a title="Cluster analysis" href="https://en.wikipedia.org/wiki/Cluster_analysis" target="_blank">clustering</a>_ o determinar una distribución de probabilidad sobre un conjunto de entrada.
 
 Como vemos, en ambos casos el aprendizaje automático trata de aprender una serie de propiedades del conjunto de datos y aplicarlos a nuevos datos.
 
-Ésta entrada se la vamos a dedicar al aprendizaje supervisado, acompañando cada una de las técnica que veamos con un Notebook de <a title="Jupyter" href="http://jupyter.org" target="_blank">Jupyter</a>.
+Ésta entrada se la vamos a dedicar al aprendizaje supervisado, acompañando cada una de las técnica que veamos con un Notebook de [Jupyter](https://jupyter.org)
 
 ## Aprendizaje supervisado
 
@@ -112,7 +112,7 @@ Con esto ya tendríamos una pequeña idea de cuales son los factores que más co
 
 
   
-![](http://pybonacci.org/images/2015/04/age.png)
+![age](https://pybonacci.org/images/2015/04/age.png)
 
 En este caso hemos representado el precio medio la vivienda frente a la proporción de viviendas anteriores a 1940 que hay en la zona. Y como poder ver cláramente, emplear sólo un parámetro (AGE) para determinar el precio de la vivienda mediante una línea recta no parece lo ideal. Pero si tomamos en cuenta todas las variables las predicciones posiblemente mejoren.
 
@@ -126,7 +126,7 @@ Por tanto vamos a utilizar el modelo ya entrenado para predecir los precios de l
     ax.text(0.95, 0.90, 'Media de residuales: {:.3e}'.format(np.mean(boston.target - predictions)),
             transform=ax.transAxes, verticalalignment='top', horizontalalignment='right')
 
-![](http://pybonacci.org/images/2015/04/hist.png)
+![hist](https://pybonacci.org/images/2015/04/hist.png)
 
 Podemos ver que el error medio es despreciable y que la mayoría de los valores se concentran entorno al 0. Pero, ¿cómo hemos llegado a esos valores?
 
@@ -184,7 +184,7 @@ A la hora de crear el objeto le vamos a indicar los valores de $\alpha$ a evalua
     ax.text(0.05, 0.90, 'alpha que minimiza el error: {:.3f}'.format(rcv.alpha_),
             transform=ax.transAxes)
 
-![](http://pybonacci.org/images/2015/04/ridgecv.png)
+![ridgecv](https://pybonacci.org/images/2015/04/ridgecv.png)
 
 Con `rcv.alpha_` obtenemos el valor de $\alpha$ que nuestro método `RidgeCV` ha considerado minimiza el error, lo cual también acabamos de comprobar gráficamente.
 
@@ -219,7 +219,7 @@ En este caso vamos a tomar la función _seno_ entre 0 y 2$\pi$ a la que añadire
     ax.scatter(xr, yr, label='con ruido')
     ax.legend()
 
-![](http://pybonacci.org/images/2015/04/seno.png)
+![seno](https://pybonacci.org/images/2015/04/seno.png)
 
     :::python
     from sklearn.linear_model import Ridge
@@ -245,7 +245,7 @@ El resultado de esa transformación se la pasamos a nuestro modelo `Ridge`. Para
         ax.plot(x, y, '--', lw=2, label="degree %d" % degree)
     ax.legend()
 
-![](http://pybonacci.org/images/2015/04/senoridge.png)
+![senoridge](https://pybonacci.org/images/2015/04/senoridge.png)
 
 Acabamos de utilizar un modelo `Ridge` que implementa regularización, pero sin optimizar. ¿Qué pasaría si optimizamos el parámetro de regularización $alpha \alpha$ con `RidgeCV`?
 
@@ -275,7 +275,7 @@ En scikit-learn podemos obtener clasificaciones de ambas maneras una vez entrena
   * `modelo.predict()`, para asignar una categoría.
   * `modelo.predict_proba()`, para determinar la probabilidad de pertenencia.
 
-Aquí nos centraremos en la parte probabilística, que espero nos dé una visión más ampliar, y a su vez nos servirá para asignar una categoría si definimos un [hiperplano](http://es.wikipedia.org/wiki/Hiperplano).
+Aquí nos centraremos en la parte probabilística, que espero nos dé una visión más ampliar, y a su vez nos servirá para asignar una categoría si definimos un [hiperplano](https://es.wikipedia.org/wiki/Hiperplano).
 
 Para modelos probabilísticos lo más conveniente, en el caso de contar con dos categorías, es la representación binaria donde contamos con una única variable objetivo $t \in &#123;0,1&#125;$ tal que $t=0$ representa la clase $C\_1$ y $t=1$ representa la clase $C\_2$. Podemos considerar que el valor de $t$ representa la probabilidad de que la clase sea $C_2$, con los valores de probabilidad tomando valores entre $0$ y $1$.
 
@@ -297,13 +297,13 @@ Con la función `make_classification` de scikit-learn, creamos un conjunto de da
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-![](http://pybonacci.org/images/2015/04/class.png)
+![class](https://pybonacci.org/images/2015/04/class.png)
 
 En regresión logística los que vamos a hacer es calcular las probabilidades $p(C_k|x)$. La función logística o [sigmoide](http://es.wikipedia.org/wiki/Función_sigmoide) nos va a permitir definir esas probabilidades y viene definida como
 
 $$f(x) = \frac{1}{1 + \exp(-k(x-x_0))} $$
 
-Como veremos a continuación, la sigmoide tiene forma de _S_ y la función logística juega un papel muy importante en muchos algoritmos de clasificación. Pero no es la única función de ese tipo; también podemos encontrarnos las función arcotangente, tangente hiperbólica o [softmax](http://en.wikipedia.org/wiki/Softmax_function) entre otras.
+Como veremos a continuación, la sigmoide tiene forma de _S_ y la función logística juega un papel muy importante en muchos algoritmos de clasificación. Pero no es la única función de ese tipo; también podemos encontrarnos las función arcotangente, tangente hiperbólica o [softmax](https://en.wikipedia.org/wiki/Softmax_function) entre otras.
 
 Como es costumbre en scikit-learn, primero definimos el modelo que vamos a emplear que será `LogisticRegression`. Lo cargamos con los parámetros por defecto y lo entrenamos.
 
@@ -322,7 +322,7 @@ Lo que nos devuelve la función `predict_proba()` es un array de dimensiones (n 
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-![](http://pybonacci.org/images/2015/04/sigmoide.png)
+![sigmoide](https://pybonacci.org/images/2015/04/sigmoide.png)
 
 Se aprecia claramente la curva en forma de _S_ de la función logística que es lo que estábamos buscando. Esto nos dice que un punto con $x=0$ tiene aproximadamente un 50 % de probabilidades de pertenecer a cualquiera de las dos categorías.
 
@@ -335,7 +335,7 @@ Si a partir de las probabilidades quisiesemos hacer una clasificación por categ
     plt.xlabel('X')
     plt.ylabel('Probabilidad')
 
-![](http://pybonacci.org/images/2015/04/sigmoideumbral.png)
+![sigmoideumbral](https://pybonacci.org/images/2015/04/sigmoideumbral.png)
 
 ## Conclusión
 
@@ -343,7 +343,7 @@ Los métodos que hemos visto en ésta segunda parte son de los más sencillos qu
 
 En la tercera entrega de ésta serie seguiremos viendo métodos de aprendizaje supervisado pero con un enfoque ya más práctico. También veremos cómo competir en Kaggle a través de sus tutoriales; y una vez hayamos adquirido algo de confianza, pasar a las competiciones. La dinámica es la misma, lo que cambia es el premio.
 
-![](http://pybonacci.org/images/2015/04/mnist.png)
+![mnist](https://pybonacci.org/images/2015/04/mnist.png)
 
 Espero que os haya gustado. Cualquier comentario o sugerencia es bienvenido.
 

@@ -7,17 +7,17 @@ tags: gráficos, matplotlib, matplotlib.pyplot, pyplot, python, tutorial matplot
 
 Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).
 
-  1. [Primeros pasos](http://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
-  2. [Creando ventanas, manejando ventanas y configurando la sesión](http://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
-  3. [Configuración del gráfico](http://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
-  4. [Tipos de gráfico I](http://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
-  5. [Tipos de gráfico II](http://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
-  6. **[Tipos de gráfico III](http://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")**
-  7. [Tipos de gráfico IV](http://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
-  8. [Texto y anotaciones (arrow, annotate, table, text...)](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
+  1. [Primeros pasos](https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/ "Manual de introducción a matplotlib.pyplot (I): Primeros pasos")
+  2. [Creando ventanas, manejando ventanas y configurando la sesión](https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/ "Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión")
+  3. [Configuración del gráfico](https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/ "Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico")
+  4. [Tipos de gráfico I](https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/ "Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)")
+  5. [Tipos de gráfico II](https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/ "Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)")
+  6. **[Tipos de gráfico III](https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/ "Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)")**
+  7. [Tipos de gráfico IV](https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/ "Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)")
+  8. [Texto y anotaciones (arrow, annotate, table, text...)](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones")
   9. <del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del>
  10. <del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del>
- 11. [Miscelánea](http://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
+ 11. [Miscelánea](https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/ "Manual de introducción a matplotlib.pyplot (IX): Miscelánea")
 
 **[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0]**
 
@@ -29,7 +29,7 @@ En todo momento supondremos que se ha iniciado la sesión y se ha hecho
     import matplotlib.pyplot as plt
     import numpy as np
 
-Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en otros gráficos que, quizá, sean menos usados que los vistos hasta ahora. Algunos ya los hemos visto en otras entradas, como [gráficos polares](http://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/), gráficos de contornos [[1]](http://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/) [[2]](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/),...
+Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en otros gráficos que, quizá, sean menos usados que los vistos hasta ahora. Algunos ya los hemos visto en otras entradas, como [gráficos polares](https://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/), gráficos de contornos [[1]](https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/) [[2]](https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/),...
 
 Vamos a empezar por ver un gráfico tipo tarta de quesitos o tipo tarta o como lo queráis traducir (en inglés se llama pie chart). Estos son los típicos gráficos que ponen en los periódicos con los resultados de elecciones o cosas así. En este caso vamos a ver un ejemplo real a partir de los datos de las visitas por países a este humilde blog:
 
@@ -44,7 +44,7 @@ Vamos a empezar por ver un gráfico tipo tarta de quesitos o tipo tarta o como l
 
 El resultado se puede ver en el gráfico siguiente. Como habréis adivinado, explode sirve para separar quesitos del centro de la tarta. En este caso hemos separado los quesitos de USA e Islandia para destacar los países no hispanohablantes:
 
-![quesitos](http://pybonacci.org/images/2012/06/quesitos.png)
+![quesitos](https://pybonacci.org/images/2012/06/quesitos.png)
 
 <!--more-->
 
@@ -61,7 +61,7 @@ Como ya hemos comentado anteriormente, ejemplos de gráficos de contornos ya hem
 
 El resultado se puede ver en la siguiente figura. Se ha usado plt.scatter para representar la posición de las estaciones de medida:
 
-![tricontornos](http://pybonacci.org/images/2012/07/tricontornos.png)
+![tricontornos](https://pybonacci.org/images/2012/07/tricontornos.png)
 
 Por defecto usa una [triangulación de Delaunay](http://es.wikipedia.org/wiki/Triangulaci%C3%B3n_de_Delaunay) pero se puede definir la triangulación que queramos haciendo uso de matplotlib.tri.triangulation.
 
@@ -80,17 +80,11 @@ También podemos dibujar cuadros de valores que correspondan a una matriz en lug
 
 El resultado lo podemos ver en el siguiente ejemplo. En la imagen de la izquierda vemos que las líneas de contorno, en este caso, quedan mal en los bordes y la representación solo usando matshow (imagen de la derecha) sería más adecuada (repito, todos los ejemplos no tienen más sentido que el de explicar el uso de matplotlib.pyplot).
 
-<p style="text-align:center;">
-  <a href="http://pybonacci.org/images/2012/07/matcont.png"><img class=" wp-image-676 alignnone" title="matcont" src="http://pybonacci.org/images/2012/07/matcont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.org/wp-content/uploads/2012/07/matcont.png 492w, https://pybonacci.org/wp-content/uploads/2012/07/matcont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a><a href="http://pybonacci.org/images/2012/07/matnocont.png"><img class="size-medium wp-image-677 alignnone" title="matnocont" src="http://pybonacci.org/images/2012/07/matnocont.png?w=266" alt="" width="266" height="300" srcset="https://pybonacci.org/wp-content/uploads/2012/07/matnocont.png 492w, https://pybonacci.org/wp-content/uploads/2012/07/matnocont-266x300.png 266w" sizes="(max-width: 266px) 100vw, 266px" /></a>
-</p>
+![matcont](https://pybonacci.org/images/2012/07/matcont.png?style=centerme)
 
-<p style="text-align:left;">
-  Podéis echarle un ojo a plt.pcolor, plt.pcolomesh y plt.tripcolor que permiten hacer cosas similares a estas.
-</p>
+Podéis echarle un ojo a plt.pcolor, plt.pcolomesh y plt.tripcolor que permiten hacer cosas similares a estas.
 
-<p style="text-align:left;">
-  plt.hexbin hace algo parecido a lo anterior pero teniendo en cuenta la ocurrencia en los intervalos que determinemos (esto mismo lo podemos hacer, por ejemplo, con plt.matshow aunque tendremos que calcular previamente las frecuencias para cada recuadro). Vamos a representar el número de veces que los valores de dos series (x e y) se encuentran en determinado intervalo de datos. Para ello vamos a recurrir, como siempre, a np.random.randn:
-</p>
+`plt.hexbin` hace algo parecido a lo anterior pero teniendo en cuenta la ocurrencia en los intervalos que determinemos (esto mismo lo podemos hacer, por ejemplo, con plt.matshow aunque tendremos que calcular previamente las frecuencias para cada recuadro). Vamos a representar el número de veces que los valores de dos series (x e y) se encuentran en determinado intervalo de datos. Para ello vamos a recurrir, como siempre, a np.random.randn:
 
     :::python
     plt.ion()  # Ponemos el modo interactivo
@@ -104,11 +98,11 @@ El resultado lo podemos ver en el siguiente ejemplo. En la imagen de la izquierd
 </p>
 
 <p style="text-align:left;">
-  <a href="http://pybonacci.org/images/2012/07/hexbin.png"><img class="aligncenter size-full wp-image-684" title="hexbin" src="http://pybonacci.org/images/2012/07/hexbin.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/hexbin.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/hexbin-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" /></a>
+  <a href="https://pybonacci.org/images/2012/07/hexbin.png"><img class="aligncenter size-full wp-image-684" title="hexbin" src="https://pybonacci.org/images/2012/07/hexbin.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/hexbin.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/hexbin-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" /></a>
 </p>
 
 <p style="text-align:left;">
-  Por último por hoy vamos a dibujar gráficos de flechas. Esto se suele usar para dibujar viento, el movimiento de un fluido, movimiento de partículas, ... En este caso vamos usar plt.quiver (echadle un ojo también a plt.quiverkey y a plt.barbs). Vamos a dibujar flechas de un viento un poco loco en las latitudes y longitudes de la Península Ibérica (no voy a usar un mapa por debajo, si queréis completar el ejemplo usando un mapa podéis echarle un ojo a <a href="http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">este ejemplo</a>):
+  Por último por hoy vamos a dibujar gráficos de flechas. Esto se suele usar para dibujar viento, el movimiento de un fluido, movimiento de partículas, ... En este caso vamos usar plt.quiver (echadle un ojo también a plt.quiverkey y a plt.barbs). Vamos a dibujar flechas de un viento un poco loco en las latitudes y longitudes de la Península Ibérica (no voy a usar un mapa por debajo, si queréis completar el ejemplo usando un mapa podéis echarle un ojo a <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">este ejemplo</a>):
 </p>
 
     :::python
@@ -126,8 +120,8 @@ El resultado lo podemos ver en el siguiente ejemplo. En la imagen de la izquierd
 
 El resultado es el siguiente:
 
-![quiver](http://pybonacci.org/images/2012/07/quiver.png)
+![quiver](https://pybonacci.org/images/2012/07/quiver.png)
 
 Los colores los hemos colocado de forma aleatoria solo definiendo ocho colores.
 
-Y, de momento, hemos acabado por hoy. El próximo día veremos algún gráfico que no ha entrado dentro de los anteriores capítulos. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](http://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega tendrás que esperar que encontremos un ratico para poder hacerla.
+Y, de momento, hemos acabado por hoy. El próximo día veremos algún gráfico que no ha entrado dentro de los anteriores capítulos. Si quieres ver las [anteriores entregas del tutorial pulsa aquí](https://pybonacci.org/tag/tutorial-matplotlib-pyplot/). Y si quieres ver la nueva entrega tendrás que esperar que encontremos un ratico para poder hacerla.

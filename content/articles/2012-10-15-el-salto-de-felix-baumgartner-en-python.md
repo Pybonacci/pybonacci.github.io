@@ -122,7 +122,7 @@ Este es el código del programa. Se explica por sí solo:
     ax2.set_ylabel('v (km / h)')
     ax2.set_xlabel('t (s)')<figure id="attachment_1037" style="width: 407px" class="wp-caption aligncenter">
 
-![Caída libre](http://pybonacci.org/images/2012/10/caida_libre2.png)
+![Caída libre](https://pybonacci.org/images/2012/10/caida_libre2.png)
 
 Ajá, ¿no os creíais que cada vez caía más despacio? 😛 Esto evidentemente tenía cierto truco, pero ¡ya se ven los resultados en las gráficas!
 
@@ -146,6 +146,6 @@ siendo $u$ la velocidad, $c = \sqrt{\gamma R T}$ la velocidad del sonido en el a
     plt.ylabel('M')
     plt.xlabel('t (s)')<figure id="attachment_1038" style="width: 389px" class="wp-caption aligncenter">
 
-![Número de Mach](http://pybonacci.org/images/2012/10/mach_number.png)
+![Número de Mach](https://pybonacci.org/images/2012/10/mach_number.png)
 
 Así que sí, _¡Felix Baumgartner superó la barrera del sonido!_ Según Pybonacci, por supuesto 😉

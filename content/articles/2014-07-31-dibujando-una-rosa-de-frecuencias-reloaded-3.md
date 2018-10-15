@@ -11,7 +11,7 @@ tags: gráficos, math, matplotlib, numpy, python, python 3
   
   <div class="inner_cell">
     <div class="text_cell_render border-box-sizing rendered_html">
-      <strong>Esta entrada es una actualización a la entrada <a href="http://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/">Dibujando una rosa de frecuencias</a> dónde se rehace el código para usar nuevas funcionalidades de matplotlib que simplifica el script.</strong><br /> Imaginaos que estáis de vacaciones en Agosto en la playa y la única preocupación que tenéis es observar las nubes. Como sois un poco frikis y no podéis desconectar de vuestra curiosidad científica decidís apuntar las ocurrencias de la procedencia de las nubes y al final de las vacaciones decidís representar esos datos. La forma más normal de hacerlo sería usando una rosa de frecuencias.<br /> Primero de todo vamos a importar los módulos que nos harán falta:
+      <strong>Esta entrada es una actualización a la entrada <a href="https://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/">Dibujando una rosa de frecuencias</a> dónde se rehace el código para usar nuevas funcionalidades de matplotlib que simplifica el script.</strong><br /> Imaginaos que estáis de vacaciones en Agosto en la playa y la única preocupación que tenéis es observar las nubes. Como sois un poco frikis y no podéis desconectar de vuestra curiosidad científica decidís apuntar las ocurrencias de la procedencia de las nubes y al final de las vacaciones decidís representar esos datos. La forma más normal de hacerlo sería usando una rosa de frecuencias.<br /> Primero de todo vamos a importar los módulos que nos harán falta:
     </div>
   </div>
 </div>
@@ -158,7 +158,7 @@ Versión de Matplotlib usada:  1.3.1
         </div>
         
         <div class="output_png output_subarea ">
-          <img src="http://new.pybonacci.org/images/2014/07/wpid-Dibujando_una_rosa_de_frecuencias_reloaded1.png" />
+          <img src="https://pybonacci.org/images/2014/07/wpid-Dibujando_una_rosa_de_frecuencias_reloaded1.png" />
         </div>
       </div>
     </div>

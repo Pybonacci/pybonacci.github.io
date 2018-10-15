@@ -16,7 +16,7 @@ Versión de Matplotlib:  1.3.1
 ```
 
 Y sin más preámbulos seguimos con esta tercera parte de 
-[la serie](http://pybonacci.org/tag/tutorial-de-pandas/).
+[la serie](https://pybonacci.org/tag/tutorial-de-pandas/).
 
 **Trabajando con datos, indexación, selección,...**
 

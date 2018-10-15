@@ -5,7 +5,7 @@ author: javierjus
 slug: desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i
 tags: python, TDD, test, testing
 
-A principios de año escribimos una entrada que puedes leer [aquí](http://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/ "Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días"). Después de un parón más largo de lo previsto, volvemos a la carga con el desarrollo dirigido por pruebas en Python.
+A principios de año escribimos una entrada que puedes leer [aquí](https://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/ "Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días"). Después de un parón más largo de lo previsto, volvemos a la carga con el desarrollo dirigido por pruebas en Python.
 
 Vamos a utilizar TDD y el módulo unittest para crear una aplicación que se conecte a twitter, recupere los mensajes de un hashtag y almacene parte de los mensajes en un fichero. El nombre del fichero será la fecha actual y el hashtag. El fichero contendrá la información de cada tweet separada por comas.
 

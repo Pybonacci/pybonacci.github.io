@@ -5,7 +5,7 @@ author: Juan Luis Cano
 slug: curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid
 tags: #aeropython, curso, etsia, etsiae, python
 
-<ins datetime="2014-10-03T14:28:17+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="http://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/" title="Curso de Python en la ETSIAE: 2ª edición">segunda edición del curso de Python</a> en el blog.</ins>
+<ins datetime="2014-10-03T14:28:17+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="https://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/" title="Curso de Python en la ETSIAE: 2ª edición">segunda edición del curso de Python</a> en el blog.</ins>
 
 Ya tenemos lista la información sobre el **curso de Python** que celebraremos para los **estudiantes de Ingeniería Aeronáutica** de la Universidad Politécnica de Madrid. Durará **18 horas**, <ins datetime="2014-01-27T21:57:15+00:00">será gratuito</ins> y el temario será:
 
@@ -26,7 +26,7 @@ Los materiales del curso se pueden encontrar en <https://github.com/AeroPython/C
 Lo impartiremos Juan Luis Cano (@Pybonacci) y mi compañero Álex Sáez (@Alex__S12). Estará pensado para que sea un curso eminentemente **práctico**, con ejemplos extraídos de asignaturas de la carrera (aunque gente de otras escuelas también es bienvenida). <del datetime="2014-01-25T15:51:02+00:00">Se asume que los participantes ya conocen al menos un lenguaje de programación (Fortran, C/C++, MATLAB).</del> <ins datetime="2014-01-25T15:51:02+00:00">Con los conocimientos básicos de programación que se imparten en la carrera es suficiente: no vamos a explicar qué es un bucle y un condicional, pero con haber escrito alguno en Fortran o MATLAB es suficiente 😉</ins>
 
 <p style="text-align:center">
-  <a href="http://new.pybonacci.org/images/2014/01/cartel1.pdf"><img class="aligncenter  wp-image-2175" alt="cartel" src="http://new.pybonacci.org/images/2014/01/cartel.jpg" width="420" height="594" srcset="https://pybonacci.org/wp-content/uploads/2014/01/cartel.jpg 2480w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-212x300.jpg 212w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-723x1024.jpg 723w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-1200x1697.jpg 1200w" sizes="(max-width: 420px) 100vw, 420px" /></a>
+  <a href="https://pybonacci.org/images/2014/01/cartel1.pdf"><img class="aligncenter  wp-image-2175" alt="cartel" src="https://pybonacci.org/images/2014/01/cartel.jpg" width="420" height="594" srcset="https://pybonacci.org/wp-content/uploads/2014/01/cartel.jpg 2480w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-212x300.jpg 212w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-723x1024.jpg 723w, https://pybonacci.org/wp-content/uploads/2014/01/cartel-1200x1697.jpg 1200w" sizes="(max-width: 420px) 100vw, 420px" /></a>
 </p>
 
 El **miércoles 5 de febrero a las 18:00 abriremos el plazo de inscripción**, incluyendo en este artículo un enlace a un formulario que tendréis que rellenar. Hay 30 plazas, de modo que si hay mucha demanda realizaremos un sorteo. **El formulario se cerrará el sábado 8 de febrero a las 14:00**. <ins datetime="2014-01-28T17:03:07+00:00">Se dará prioridad a gente de Aeronáutica y de la Universidad Politécnica de Madrid.</ins>
@@ -65,6 +65,6 @@ Si aun así no podéis, esperad a venir al curso, traed vuestro portátil y os a
 
 * * *
 
-Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](http://pybonacci.org/contacto/ "Contacto") o pararnos por los pasillos.
+Para cualquier duda que tengáis podéis usar los comentarios, [mandarnos un email](https://pybonacci.org/contacto/ "Contacto") o pararnos por los pasillos.
 
 ¡Un saludo! 😉

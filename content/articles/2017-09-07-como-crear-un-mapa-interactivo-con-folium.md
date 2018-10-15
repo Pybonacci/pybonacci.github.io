@@ -96,7 +96,7 @@ y abrirlo en vuestro [navegador
 favorito](https://www.mozilla.org/es-ES/firefox/new/?scene=2) y veréis
 un bonito mapa centrado cerca de unas hermosas islas.
 
-![](https://www.pybonacci.org/images/2017/09/mapa1-300x148.png?style=centerme)
+![mapa1](https://www.pybonacci.org/images/2017/09/mapa1-300x148.png?style=centerme)
 
 Pero este mapa está muy tímido sin mostrar muchas cosas. Vamos a crear
 varios marcadores:
@@ -124,7 +124,7 @@ mi_mapa.save("mapa.html")
 Si abrís el mapa veréis cuatro marcadores alrededor de la isla de
 Mallorca. Si pulsáis sobre los marcadores no harán nada.
 
-![](https://www.pybonacci.org/images/2017/09/mapa2-300x147.png?style=centerme)
+![mapa2](https://www.pybonacci.org/images/2017/09/mapa2-300x147.png?style=centerme)
 
 Vamos a incluir información en un popup y vamos a cambiar el color de
 los iconos de los marcadores usando `folium.Icon`:
@@ -175,7 +175,7 @@ marcador4.add_to(mi_mapa)
 mi_mapa.save("mapa.html")
 ```
 
-![](https://www.pybonacci.org/images/2017/09/mapa3-300x147.png?style=centerme)
+![mapa3](https://www.pybonacci.org/images/2017/09/mapa3-300x147.png?style=centerme)
 
 Por último, vamos a modificar un poco todo esto para añadir los
 marcadores del este (grises) a una capa y los del oeste (negros) a otra
@@ -240,7 +240,7 @@ folium.LayerControl().add_to(mi_mapa)
 mi_mapa.save("mapa.html")
 ```
 
-![](https://www.pybonacci.org/images/2017/09/mapa4-1-300x148.png?style=centerme)
+![mapa4](https://www.pybonacci.org/images/2017/09/mapa4-1-300x148.png?style=centerme)
 
 *Et voilà*, tenemos un precioso mapa interactivo con mucha funcionalidad
 en unas pocas líneas de Python.

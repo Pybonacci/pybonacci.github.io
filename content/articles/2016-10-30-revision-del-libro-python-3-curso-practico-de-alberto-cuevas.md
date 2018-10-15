@@ -115,6 +115,6 @@ sale que el ganador ha sido [@FlixUjo](https://twitter.com/flixujo). He usado lo
 'Raúl', 'José Carlos Juanos', 'Christian',<br />
 'Kike', 'Eduardo Campillos']`
 
-Enhorabuena al vencedor, por favor, mándanos un DM por twitter o [usa el formulario de contacto](http://pybonacci.org/contacto/) para mandarnos una dirección de correo/teléfono o lo que prefieras.
+Enhorabuena al vencedor, por favor, mándanos un DM por twitter o [usa el formulario de contacto](https://pybonacci.org/contacto/) para mandarnos una dirección de correo/teléfono o lo que prefieras.
 
 Saludos a todos.

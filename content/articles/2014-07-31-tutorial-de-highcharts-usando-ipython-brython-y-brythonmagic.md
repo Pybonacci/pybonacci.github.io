@@ -5,7 +5,7 @@ author: Kiko Correoso
 slug: tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic
 tags: brython, brython brythonmagic highcharts javascript ipython IPython, brythonmagic, gráficas, highcharts, ipython, javascript
 
-Hoy volvemos a hablar de una librería Javascript ([ver tutorial de Openlayers](http://pybonacci.org/2014/06/11/tutorial-de-openlayers-usando-ipython-brython-y-brythonmagic/)) pero lo vamos a hacer desde un punto de vista un poco más pythónico (aunque por debajo no dejará de ser Javascript).
+Hoy volvemos a hablar de una librería Javascript ([ver tutorial de Openlayers](https://pybonacci.org/2014/06/11/tutorial-de-openlayers-usando-ipython-brython-y-brythonmagic/)) pero lo vamos a hacer desde un punto de vista un poco más pythónico (aunque por debajo no dejará de ser Javascript).
 
 En el siguiente frame tenéis un tutorial de Highcharts (librería para hacer gráficos interactivos en el navegador):
 

@@ -260,7 +260,7 @@ Dibujamos los valores máximos anuales usando Pandas:
 
 `<matplotlib.axes._subplots.AxesSubplot at 0x10a923d0>`
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R1.png?style=centerme)
+![wpid1](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R1.png?style=centerme)
 
 Referenciamos la funcionalidad [`fevd` (_fit extreme value distribution_) dentro del paquete `extremes`](https://cran.r-project.org/web/packages/extRemes/extRemes.pdf) de R para poder usarla directamente con los valores máximos que hemos obtenido usando Pandas y desde Python.
 
@@ -620,7 +620,7 @@ A veces, será más simple usar la función mágica para interactuar con R. Veam
 
 `%R -i res plot.fevd(res)`
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R2.png?style=centerme)
+![wpid2](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R2.png?style=centerme)
 
 En la anterior celda de código le he pasado como parámetro de entrada (`- i res`) la variable `res` que había obtenido anteriormente para que esté disponible desde R. y he ejecutado código R puro (`plot.fevd(res)`).
 
@@ -664,25 +664,25 @@ Lo que vamos a hacer es calcular los parámetros del ajuste usando la distribuci
     método de ajuste:  MLE
     [ 23.05170779   1.80858528  -0.14979836]
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R3.png?style=centerme)
+![wpid3](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R3.png?style=centerme)
 
     tipo de ajuste:  GEV
     método de ajuste:  GMLE
     [ 23.06394152   1.75769129  -0.16288164]
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R4.png?style=centerme)
+![wpid4](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R4.png?style=centerme)
 
     tipo de ajuste:  Gumbel
     método de ajuste:  MLE
     [ 22.90587606   1.81445179]
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R5.png?style=centerme)
+![wpid5](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R5.png?style=centerme)
 
     tipo de ajuste:  Gumbel
     método de ajuste:  GMLE
     [ 22.90587606   1.81445179]
 
-![](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R6.png?style=centerme)
+![wpid6](https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R6.png?style=centerme)
 
 # Comentarios finales
 

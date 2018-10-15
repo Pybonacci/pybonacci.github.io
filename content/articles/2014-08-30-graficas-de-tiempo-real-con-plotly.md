@@ -115,7 +115,7 @@ En nuestro caso vamos a necesitar dos _stream tokens_, uno para la temperatura y
 
 ### Data
 
-La metodología a seguir es la misma que hemos empleado en tutorial <a href="http://pybonacci.org/2014/08/22/graficas-interactivas-con-plotly/" title="Gráficas interactivas con Plotly" target="_blank">Gráficas interactivas con Plotly</a>.
+La metodología a seguir es la misma que hemos empleado en tutorial <a href="https://pybonacci.org/2014/08/22/graficas-interactivas-con-plotly/" title="Gráficas interactivas con Plotly" target="_blank">Gráficas interactivas con Plotly</a>.
 
 Inicializamos las líneas a representar. Para ello, el objeto `Scatter` tomará arrays vacíos para las variables `x` e `y`. La temperatura la representaremos como líneas y puntos (`'lines+markers'`) de color verde lima y con un ajuste de tipo spline. Por su parte, la velocidad del ventilador, de color cyan y líneas verticales y horizontales (`'vh'`) utilizará el segundo eje _y_ `'y2'`.
 

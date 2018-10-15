@@ -28,7 +28,7 @@ Solo hacen falta tres líneas para empezar a probar el potencial de poliastro:
     
     
 
-![](http://pybonacci.org/images/2014/08/molniya.png)
+![molniya](https://pybonacci.org/images/2014/08/molniya.png)
 
 La piedra angular del paquete son los objetos `State`, que representan el estado de un objeto (un planeta, un satélite artificial) con respecto a un atractor principal (el Sol, la Tierra). Podemos acceder a sus vectores posición y velocidad, sus elementos keplerianos o pintar su órbita osculatriz.
 
@@ -48,7 +48,7 @@ La piedra angular del paquete son los objetos `State`, que representan el estado
 
 Así mismo, podemos definir maniobras (`Maneuver`) que alteran estas órbitas. Una forma es definir directamente los incrementos de velocidad que queremos aplicar, y otra es utilizar las funciones de poliastro para calcular maniobras comunes como las transferencias de Hohmann.
 
-![](http://pybonacci.org/images/2014/08/hohmann.png)
+![hohmann](https://pybonacci.org/images/2014/08/hohmann.png)
 
 Podéis leer la documentación completa en inglés en la web de poliastro, y el código fuente está disponible en GitHub. Os animo a que le echéis un vistazo y me hagáis llegar todas las sugerencias que se os ocurran: he dedicado mucho tiempo a organizar el código de forma que fuese fácil de usar y me gustaría conocer vuestra opinión al respecto.
 

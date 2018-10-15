@@ -13,7 +13,7 @@ En este artículo vamos a ver **cómo calcular la transformada de Fourier discre
 
 La transformada rápida de Fourier o FFT es en realidad una familia de algoritmos muy eficientes ($O(n \log n)$) para calcular la DFT de una señal discreta, de los cuales el más utilizado es el algoritmo de Cooley-Tukey. Este es el que está implementado en SciPy a través de las subrutinas FFTPACK, escritas en FORTRAN 77, y es el que vamos a utilizar. También podríamos haber utilizado la biblioteca FFTW, más moderna y escrita en C, o la implementación presente en NumPy, que es una traducción a C de FFTPACK y que funciona igual que la de SciPy, pero no lo vamos a hacer.
 
-Nótese que estos métodos no nos permiten calcular ni la serie de Fourier de una función periódica ni la transformada de Fourier de una función no periódica. Estas operaciones forman parte del cálculo simbólico y deben llevarse a cabo con otro tipo de programas, como SymPy o Sage. En Pybonacci puedes leer una [introducción a SymPy](http://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/ "Introducción al Cálculo Simbólico en Python con SymPy") y [cómo calcular series con SymPy](http://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/ "Cómo calcular límites, derivadas, series e integrales en Python con SymPy"), así como una [reseña sobre Sage](http://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/ "Sage: software matemático libre como alternativa").
+Nótese que estos métodos no nos permiten calcular ni la serie de Fourier de una función periódica ni la transformada de Fourier de una función no periódica. Estas operaciones forman parte del cálculo simbólico y deben llevarse a cabo con otro tipo de programas, como SymPy o Sage. En Pybonacci puedes leer una [introducción a SymPy](https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/ "Introducción al Cálculo Simbólico en Python con SymPy") y [cómo calcular series con SymPy](https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/ "Cómo calcular límites, derivadas, series e integrales en Python con SymPy"), así como una [reseña sobre Sage](https://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/ "Sage: software matemático libre como alternativa").
 
 En este artículo nos vamos a centrar en el caso unidimensional, aunque el código es fácilmente extrapolable al caso de dos y más dimensiones.
 
@@ -69,7 +69,7 @@ donde $2 \pi f = \omega$. Nótese que, por lo que hemos visto en el apartado ant
     plt.xlabel('Tiempo (s)')
     plt.ylabel('$y(t)$')
 
-![Señal 1](http://pybonacci.org/images/2012/09/sec3b1al1.png)
+![Señal 1](https://pybonacci.org/images/2012/09/sec3b1al1.png)
 
 Esta es la señal que vamos a transformar. Fijáos en el último punto representado. Como el intervalo va desde 0 hasta `n - 1`, los trozos «empalman» perfectamente. Ahora vamos a hallar la DFT de la señal `y`. Para ello necesitamos dos funciones, que se importan del paquete scipy.fftpack:
 
@@ -91,9 +91,9 @@ Como en este caso solo hay dos frecuencias fundamentales, vamos a representarlas
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y$)')
 
-![Transformada 1](http://pybonacci.org/images/2012/09/transformada1.png)
+![Transformada 1](https://pybonacci.org/images/2012/09/transformada1.png)
 
-**Nota**: Si quieres leer más sobre añadir texto y anotaciones a una gráfica en matplotlib, puedes leer la parte VIII del nuestro [magnífico tutorial de matplotlib](http://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones") por Kiko 🙂
+**Nota**: Si quieres leer más sobre añadir texto y anotaciones a una gráfica en matplotlib, puedes leer la parte VIII del nuestro [magnífico tutorial de matplotlib](https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/ "Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones") por Kiko 🙂
 
 ¡Y ya hemos hecho nuestra primera transformada discreta de Fourier con el algoritmo FFT! Pero las cosas en la realidad son bastante más complicadas. Vamos a ver algunos de los problemas que apareceran con frecuencia.
 
@@ -118,7 +118,7 @@ Vamos a analizar el ejemplo anterior, pero en esta ocasión vamos a poner menos 
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y_2$)')
 
-![Señal 2](http://pybonacci.org/images/2012/09/sec3b1al2.png)
+![Señal 2](https://pybonacci.org/images/2012/09/sec3b1al2.png)
 
 Como se puede ver, el fenómeno no es extremadamente importante pero han aparecido otras rayas espectrales que no esperábamos. Esto se conoce como «leaking» (y yo lo voy a traducir por fuga) y es debido a que, en este caso, los trozos «no empalman exactamente». Recuerda que la DFT, y por extensión la FFT asume que estamos transformando un período de una señal periódica. Si utilizamos más puntos y extendemos la señal con ceros (esto se conoce como «zero-padding») la DFT da más resolución en frecuencia pero la fuga se magnifica:
 
@@ -137,11 +137,11 @@ Como se puede ver, el fenómeno no es extremadamente importante pero han apareci
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Im($Y_3$)')
 
-![Señal 3](http://pybonacci.org/images/2012/09/sec3b1al3.png)
+![Señal 3](https://pybonacci.org/images/2012/09/sec3b1al3.png)
 
 Existe una manera de reducir la fuga y es mediante el uso de **funciones ventana**. Las funciones ventana no son más que funciones que valen cero fuera de un cierto intervalo, y que en procesamiento de señales digitales se utilizan para «suavizar» o filtrar una determinada señal. NumPy trae [unas cuantas funciones ventana](http://docs.scipy.org/doc/numpy/reference/routines.window.html) por defecto; por ejemplo, la ventana de Blackman tiene este aspecto:
 
-![Ventana de Blackman](http://pybonacci.org/images/2012/09/blackman.png)
+![Ventana de Blackman](https://pybonacci.org/images/2012/09/blackman.png)
 
 Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana reciben un único argumento que es el número de puntos. Si multiplicamos la ventana por la señal, obtenemos una nueva señal que vale cero en los extremos. Comprobemos el resultado, representando ahora el espectro de amplitud y comparando cómo es el resultado si aplicamos o no la ventana de Blackman:
 
@@ -175,7 +175,7 @@ Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana 
     plt.xlabel('Frecuencia (Hz)')
     plt.ylabel('Abs($Y_5$)')
 
-![Aplicación de la ventana de Blackman](http://pybonacci.org/images/2012/09/windowing.png)
+![Aplicación de la ventana de Blackman](https://pybonacci.org/images/2012/09/windowing.png)
 
 Esto ya ha sido más interesante, ¿no? 🙂
 
@@ -200,7 +200,7 @@ Al tratarse de un archivo OGG, vamos a utilizar el [SciKit audiolab](http://scik
     plt.xlabel(u'Tiempo (s)')
     plt.ylabel(u'Frecuencia (Hz)')
 
-![Espectrograma](http://pybonacci.org/images/2012/09/specgram.png)
+![Espectrograma](https://pybonacci.org/images/2012/09/specgram.png)
 
 Se puede apreciar cómo va cambiando la frecuencia fundamental (barras horizontales inferiores) y los armónicos (todas las que están encima, cada vez más débiles) a medida que el intérprete toca una nota distinta. En definitiva, una preciosidad 😛
 

@@ -7,7 +7,7 @@ tags: gráficas, plotly, python, tutorial
 
 Podéis conseguir el [notebook](http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/plotly/Heathrow.ipynb) y los archivos asociados en [GitHub](https://github.com/Pybonacci/notebooks/tree/master/plotly).
 
-En un [artículo anterior](http://pybonacci.org/2014/08/05/de-matplotlib-a-la-web-con-plotly/) ya vimos como pasar las gráficas creadas con `matplotlib` a `plotly` para obtener cierto nivel de interacción con los datos en la web. Ahora, lo que vamos a ver es cómo crear gráficas directamente con `plotly`. Para ello vamos a utilizar:
+En un [artículo anterior](https://pybonacci.org/2014/08/05/de-matplotlib-a-la-web-con-plotly/) ya vimos como pasar las gráficas creadas con `matplotlib` a `plotly` para obtener cierto nivel de interacción con los datos en la web. Ahora, lo que vamos a ver es cómo crear gráficas directamente con `plotly`. Para ello vamos a utilizar:
 
   * `pandas 0.14.1`, para trabajar con tablas de datos.
   * `plotly 1.2.6`, para crear las gráficas.

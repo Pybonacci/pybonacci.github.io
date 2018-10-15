@@ -114,7 +114,7 @@ Por último, vamos a hacer una representación de los resultados de la siguiente
 
 Que nos mostraría la siguiente ventana:
 
-![Heuristico](http://pybonacci.org/images/2012/10/heuristico.png)
+![Heuristico](https://pybonacci.org/images/2012/10/heuristico.png)
 
 Donde el primer panel (arriba), nos muestra la posición de la primera solución aleatoria que hemos generado con el método _padre_. Como hemos visto anteriormente, el primer miembro ha tomado un valor en torno a -56, el segundo un valor en torno a 96 y el tercero un valor en torno a 31. En el segundo panel (en medio) vemos como va evolucionando la solución, cada uno de los miembros de la solución va descendiendo poco a poco hacia la solución final (cercana a cero). Por último, en el tercer panel (abajo) vemos el valor de nuestra solución y como se va a cercando a una solución cercana a 0, de hecho, vemos que a partir de las 300 iteraciones ya estaríamos cerca de 0. Aunque después de las 1000 iteraciones no hemos alcanzado la solución exacta, 0, puesto que estos algoritmos dan valores aproximados.
 
@@ -135,7 +135,7 @@ Veamos un segundo caso:
 
 Que nos daría el siguiente resultado:
 
-![Heuristico_ii](http://pybonacci.org/images/2012/10/heuristico_ii1.png)
+![Heuristico_ii](https://pybonacci.org/images/2012/10/heuristico_ii1.png)
 
 En este caso vemos hemos usado un conjunto de 20 números y observamos que quizá serían necesarias más iteraciones para llegar a un número más aproximado.
 

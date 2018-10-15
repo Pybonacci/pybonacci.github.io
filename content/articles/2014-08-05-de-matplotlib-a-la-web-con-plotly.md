@@ -15,7 +15,7 @@ Los paquetes que vamos a emplear son,
   * <a href="http://matplotlib.org/" target="_blank"><code>matplotlib</code></a> 1.3.1, para generar diversisos tipos de gráficos con calidad de imprenta.
   * <a href="https://plot.ly/" target="_blank"><code>plotly</code></a> 1.1.2, para generar gráficos interactivos para la web.
 
-Empezaremos por importar los datos con `pandas`. Podeis encontrar una introducción a `pandas` en <a href="http://pybonacci.org/2014/05/30/pandas-i/" target="_blank">éste</a> post de Pybonacci.
+Empezaremos por importar los datos con `pandas`. Podeis encontrar una introducción a `pandas` en <a href="https://pybonacci.org/2014/05/30/pandas-i/" target="_blank">éste</a> post de Pybonacci.
 
 ### Datos
 
@@ -149,7 +149,7 @@ Lo primero será crear un objeto **`figura`**, que necesitaremos para pasarle a 
         ax[j].get_xaxis().tick_bottom()
         ax[j].get_yaxis().tick_left()
 
-![](http://pybonacci.files.wordpress.com/2014/07/velocidades.png)
+![velocidades](https://pybonacci.files.wordpress.com/2014/07/velocidades.png)
 
 Lo que vemos en la gráfica de arriba son tres subgráficas que comparten el mismo eje _x_. De ese modo podemos ver la relación entre los diversos parámetros.
 
@@ -174,7 +174,7 @@ Para ello podemos utilizar en `pandas` el tipo `scatter` y colorear los valo
     ax1.get_xaxis().tick_bottom()
     ax1.get_yaxis().tick_left()
 
-![](http://pybonacci.files.wordpress.com/2014/07/rpm.png)
+![rpm](https://pybonacci.files.wordpress.com/2014/07/rpm.png)
 
 #### Histograma del acelerador
 
@@ -194,7 +194,7 @@ Mediante un histograma podemos analizar el uso que hace el piloto del pedal del 
     ax2.get_xaxis().tick_bottom()
     ax2.get_yaxis().tick_left()
 
-![](http://pybonacci.files.wordpress.com/2014/07/acelerador.png)
+![acelerador](https://pybonacci.files.wordpress.com/2014/07/acelerador.png)
 
 La mayor parte del tiempo, el piloto la pasa con el pedal a fondo.
 

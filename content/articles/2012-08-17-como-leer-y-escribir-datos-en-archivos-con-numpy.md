@@ -9,7 +9,7 @@ tags: archivos, datos, numpy, python
 
 Hoy vamos a ver rápidamente **cómo leer datos desde un archivo con NumPy** y también **cómo escribirlos**. Es algo a lo que tendremos que recurrir con mucha frecuencia, ya sea porque hemos recogido nuestros datos de un experimento y los tenemos almacenados en un fichero de texto, porque los hemos recibido por otras fuentes o porque queremos separar lo que es la lógica del programa de los datos con los que opera.
 
-Ya comentamos hace tiempo [cómo crear matrices en Python](http://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/ "Cómo crear matrices en Python con NumPy") a partir de listas, utilizando rangos numéricos, etc. Lo bueno que tienen las funciones de NumPy que nos ayudan a desempeñar estas tareas es que no tenemos que preocuparnos por el manejo de ficheros con Python, así que leer o escribir será tan fácil como invocar una función.
+Ya comentamos hace tiempo [cómo crear matrices en Python](https://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/ "Cómo crear matrices en Python con NumPy") a partir de listas, utilizando rangos numéricos, etc. Lo bueno que tienen las funciones de NumPy que nos ayudan a desempeñar estas tareas es que no tenemos que preocuparnos por el manejo de ficheros con Python, así que leer o escribir será tan fácil como invocar una función.
 
 _**En esta entrada se ha usado python 2.7.3 y numpy 1.6.2 **_**y es compatible con ****python 3.2.3**
 

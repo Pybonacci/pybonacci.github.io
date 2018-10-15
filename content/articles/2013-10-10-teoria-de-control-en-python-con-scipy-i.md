@@ -10,13 +10,13 @@ tags: control, python, python 3, scipy, scipy.signal
 En esta serie de artículos vamos a estudiar **cómo podemos aplicar Python al estudio de la teoría de control**, en este caso utilizando SciPy. La teoría de control se centra en los **sistemas dinámicos** con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...
 
   1. **Conceptos básicos**
-  2. [Control PID](http://pybonacci.org/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/ "Teoría de control en Python con SciPy (II): Control PID")
+  2. [Control PID](https://pybonacci.org/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/ "Teoría de control en Python con SciPy (II): Control PID")
 
 En esta primera parte vamos a hacer una breve introducción matemática para centrar el tema y vamos a ver el manejo básico de sistemas LTI.
 
 Cuando uno piensa en estudiar sistemas dinámicos con un ordenador, automáticamente se le viene a la cabeza **MATLAB**, y no sin motivo. Este programa tiene unas capacidades extraordinarias en este campo, y aunque nos duela decirlo _Python no está al mismo nivel_. Sin embargo, queremos mostrar en este artículo que Python tiene el potencial de ser una alternativa real a MATLAB, enseñando los fundamentos del análisis de sistemas dinámicos utilizando el paquete `scipy.signal`. Yo mismo he trabajado un poco en este paquete en los últimos meses, así que he tenido la oportunidad de ver cómo funciona y también de conocer sus carencias; algunas de mis contribuciones han visto la luz en la recién liberada versión 0.13 de SciPy, pero aún queda mucho por mejorar.<figure id="attachment_1904" style="width: 418px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/10/lti_laplace.png)
+![lti_laplace](https://pybonacci.org/images/2013/10/lti_laplace.png)
 
 Los ejemplos para este artículo los he sacado de [Sedra y Smith, 2004], un excelente libro de electrónica, y de [Messner et al. 2011], unos tutoriales para MATLAB y Simulink. Para la teoría, recomiendo el excelente [Gil y Rubio 2009], un libro editado por la Universidad de Navarra y disponible para visualización, impresión y copia para uso personal sin fines de lucro (¡gracias @Alex__S12!).
 
@@ -43,7 +43,7 @@ siendo $Y(s)$ y $X(s)$ las transformadas de laplace de $y(t)$ y $x(t)$ y $H(s)$ 
 
 Precisamente la función de transferencia es una de las formas que tenemos de definir un sistema LTI en Python. Para ello simplemente tenemos que usar la función [`signal.lti`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.lti.html), que acepta como argumento una tupla de dos, tres o cuatro elementos:
 
-  * Si damos **dos** elementos, deberán ser dos listas con los coeficientes de los polinomios del numerador y del denominador, **siguiendo la convención antigua de coeficientes decrecientes** (la convención contraria a la usada en nuestro [artículo sobre ajuste e interpolación](http://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/ "Ajuste e interpolación unidimensionales básicos en Python con SciPy")).
+  * Si damos **dos** elementos, deberán ser dos listas con los coeficientes de los polinomios del numerador y del denominador, **siguiendo la convención antigua de coeficientes decrecientes** (la convención contraria a la usada en nuestro [artículo sobre ajuste e interpolación](https://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/ "Ajuste e interpolación unidimensionales básicos en Python con SciPy")).
   * Si damos **tres** elementos, deberán ser los ceros, polos y ganancia del sistema (ver más adelante).
   * Si damos **cuatro** elementos, deberán ser las matrices de espacio de estado A, B, C y D (ver más adelante).
 
@@ -68,7 +68,7 @@ usando el diagrama de Bode. Este es el código:
     ax1.semilogx(w, mag) # Eje x logarítmico
     ax2.semilogx(w, phase) # Eje x logarítmico<figure id="attachment_1914" style="width: 341px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/10/bode_lp1.png)
+![bode](https://pybonacci.org/images/2013/10/bode_lp1.png)
 
 ¿Qué sucede si queremos acceder a las otras representaciones de nuestro sistema? Tenemos los atributos (`zeros`, `poles`, `gain`) y (`A`, `B`, `C`, `D`):
 
@@ -87,7 +87,7 @@ Otras dos herramientas que nos pueden ser útiles para analizar un sistema LTI s
     ax2.plot(sys2.zeros.real, sys2.zeros.imag, 'o')
     ax2.plot(sys2.poles.real, sys2.poles.imag, 'x')<figure id="attachment_1923" style="width: 513px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/10/nyquist_pzmap1.png)
+![nyquist](https://pybonacci.org/images/2013/10/nyquist_pzmap1.png)
 
 ### Respuesta temporal
 
@@ -97,7 +97,7 @@ $\displaystyle m \frac{d^2 x}{d t^2} = F - b v \Rightarrow m \dot{v} + b v = F$
 
 siendo $m$ la masa del vehículo.<figure id="attachment_1911" style="width: 435px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/10/lti_cruise.png)
+![lti](https://pybonacci.org/images/2013/10/lti_cruise.png)
 
 La **entrada** de nuestro sistema será la **fuerza de tracción** aplicada, y la **salida** o variable que queremos controlar será la **velocidad**. La función de transferencia será:
 
@@ -120,7 +120,7 @@ Esta función **calcula la respuesta a una entrada escalón unidad**. Como el si
     t, y = signal.step2(sys_car) # Respuesta a escalón unitario
     plt.plot(t, 2250 * y) # Equivalente a una entrada de altura 2250<figure id="attachment_1916" style="width: 394px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/10/cruise_step.png)
+![cruise](https://pybonacci.org/images/2013/10/cruise_step.png)
 
 Vemos que la velocidad va aumentando, al principio rápidamente y luego más despacio (producto de las fuerzas de resistencia), hasta llegar a un valor límite, que es 30 m/s como habíamos dicho al principio. En la gráfica hemos incluido también:
 

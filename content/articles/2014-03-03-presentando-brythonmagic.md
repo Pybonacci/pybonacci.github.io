@@ -10,7 +10,7 @@ funciona sobre el IPython notebook, es decir, está pensada para
 funcionar en un navegador. Si no sabéis muy bien que son las 
 'cell magics' (no sé muy bien como traducir esto, podría ser algo así 
 como magia que aplica sobre celdas) le podéis echar un ojo a 
-[esta entrada](http://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/) 
+[esta entrada](https://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/) 
 donde ya creamos alguna función mágica ('line magics') de ayuda. De 
 todas formas, entre mis planes está el hacer una parte de la serie 
 '157 cosas de IPython...' que hable sobre las 'cell magics'. No han 

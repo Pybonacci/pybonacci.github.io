@@ -9,7 +9,7 @@ tags: control, python, python 3, scipy, scipy.signal
 
 En esta serie de artículos vamos a estudiar **cómo podemos aplicar Python al estudio de la teoría de control**, en este caso utilizando SciPy. La teoría de control se centra en los **sistemas dinámicos** con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...
 
-  1. [Conceptos básicos](http://pybonacci.org/2013/10/10/teoria-de-control-en-python-con-scipy-i/ "Teoría de control en Python con SciPy (I): Conceptos básicos")
+  1. [Conceptos básicos](https://pybonacci.org/2013/10/10/teoria-de-control-en-python-con-scipy-i/ "Teoría de control en Python con SciPy (I): Conceptos básicos")
   2. **Control PID**
 
 En esta segunda parte, una vez vistos algunos conceptos básicos en la primera, vamos a retomar el problema del control de crucero del coche exactamente donde lo dejamos:
@@ -25,7 +25,7 @@ _**En esta entrada se han usado python 3.3.2, numpy 1.8.0, scipy 0.13.0 y matplo
 Si recordamos el modelo de nuestro coche, teníamos un sistema con una entrada (la fuerza de tracción que genera el motor) y una salida o variable a controlar (la velocidad del coche). Este tipo de sistemas se denominan **en lazo abierto** y se pueden esquematizar con un diagrama de bloques de este estilo:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1943" alt="Lazo abierto" src="http://pybonacci.org/images/2013/11/open_loop.png" width="341" height="127" srcset="https://pybonacci.org/wp-content/uploads/2013/11/open_loop.png 568w, https://pybonacci.org/wp-content/uploads/2013/11/open_loop-300x111.png 300w" sizes="(max-width: 341px) 100vw, 341px" />
+  <img class="aligncenter  wp-image-1943" alt="Lazo abierto" src="https://pybonacci.org/images/2013/11/open_loop.png" width="341" height="127" srcset="https://pybonacci.org/wp-content/uploads/2013/11/open_loop.png 568w, https://pybonacci.org/wp-content/uploads/2013/11/open_loop-300x111.png 300w" sizes="(max-width: 341px) 100vw, 341px" />
 </p>
 
 En este caso la **planta** sería el motor y el **controlador** un sistema que consiguiese esa tracción constante que consideramos en la primera parte. Este tipo de sistemas son poco útiles porque no podemos disponer de la información de la salida para controlar la entrada. No les prestaremos más atención.
@@ -33,7 +33,7 @@ En este caso la **planta** sería el motor y el **controlador** un sistema que c
 Si queremos tener en cuenta las posibles perturbaciones de la salida deberíamos medirla continuamente para comprobar que cumple con nuestros requisitos. A esto se le denomina **control en lazo cerrado** y se puede esquematizar de la siguiente manera:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1947" alt="Lazo cerrado" src="http://pybonacci.org/images/2013/11/closed_loop1.png" width="420" height="187" srcset="https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1.png 720w, https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1-300x133.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
+  <img class="aligncenter  wp-image-1947" alt="Lazo cerrado" src="https://pybonacci.org/images/2013/11/closed_loop1.png" width="420" height="187" srcset="https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1.png 720w, https://pybonacci.org/wp-content/uploads/2013/11/closed_loop1-300x133.png 300w" sizes="(max-width: 420px) 100vw, 420px" />
 </p>
 
 Ya vemos que se van complicando un poco las cosas. En este caso, la entrada de la planta la proporciona el **actuador**, y la entrada del actuador es **la diferencia entre la señal de referencia y la salida**. Esta diferencia se denomina señal **error** por razones obvias. Con este cambio de esquema y de filosofía tenemos en cada instante información sobre la salida del sistema y podemos por tanto ajustar el control del mismo. Veamos un método para llevar a cabo este control.
@@ -64,7 +64,7 @@ Cada uno de estos términos contribuye de una forma distinta al sistema de contr
 
 Lo primero que se nos puede ocurrir es hacer que la señal de control $u(t)$ (la salida del actuador y la entrada de la planta) sea **proporcional** al error entre la salida y el valor de referencia. Recuperando la función de transferencia de nuestro control de crucero, tendríamos un esquema como el siguiente:<figure id="attachment_1951" style="width: 372px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2013/11/proportional.png)
+![proportional](https://pybonacci.org/images/2013/11/proportional.png)
 
 Nótese que la naturaleza de nuestro sistema ha cambiado completamente: antes controlábamos directamente la fuerza del motor, ahora indicamos una velocidad de referencia y el sistema ajusta dicha fuerza. La nueva función de transferencia será:
 
@@ -115,7 +115,7 @@ Echemos ahora un vistazo a la respuesta unitaria del sistema, seleccionando por 
     plt.plot([0, t[-1]], [1] * 2, 'k--')
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1953" alt="k200" src="http://pybonacci.org/images/2013/11/k200.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k200.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k200-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1953" alt="k200" src="https://pybonacci.org/images/2013/11/k200.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k200.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k200-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 De acuerdo, ahora el tiempo de subida es de unos 20 segundos (en vez del minuto de antes) pero ¡la salida **no llega al nivel que queremos**! Esto es así porque los controladores proporcionales introducen un cierto **error en estado estacionario** $e_{ss}$. Para nuestro sistema, el valor de este error será:
@@ -125,7 +125,7 @@ $\displaystyle e\_{ss} = \lim\_{t \rightarrow \infty} e(t) = \frac{1}{1 + K / b}
 Parece lógico pensar que entonces debemos aumentar la $K$ para reducir el error. Si hacemos esto, tendríamos la siguiente respuesta:
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1954" alt="k2000" src="http://pybonacci.org/images/2013/11/k2000.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k2000.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k2000-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1954" alt="k2000" src="https://pybonacci.org/images/2013/11/k2000.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/k2000.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/k2000-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 Ahora el tiempo de subida es de menos de 5 segundos y el error de estado estacionario es $e_{ss} \simeq 3.6 %$. ¿Hemos conseguido ya lo que queríamos? Sobre el papel sí, pero ¿te has fijado en la pendiente de la curva en el punto inicial? **No podemos** aumentar indefinidamente la ganancia proporcional porque eso implica **aumentar indefinidamente la fuerza** del motor. Tenemos que buscar otros métodos.
@@ -134,7 +134,7 @@ Ahora el tiempo de subida es de menos de 5 segundos y el error de estado estacio
 
 La desventaja del control proporcional es que, si la señal de error tiende a cero, la señal de control también. Con el término integral podemos añadir una contribución que depende del área encerrada bajo la curva de la señal error, y por tanto **eliminamos el error en estado estacionario**. Ahora nuestro esquema quedaría de la siguiente forma:<figure id="attachment_1957" style="width: 372px" class="wp-caption aligncenter">
 
-![Control PI](http://pybonacci.org/images/2013/11/pi.png)
+![Control PI](https://pybonacci.org/images/2013/11/pi.png)
 
 Y la función de transferencia será:
 
@@ -156,7 +156,7 @@ Exacto: hemos convertido el sistema **en uno de segundo orden**. Esto tendrá al
     plt.plot([0, t[-1]], [1] * 2, 'k--')
 
 <p style="text-align:center">
-  <img class="aligncenter  wp-image-1958" alt="Control PI" src="http://pybonacci.org/images/2013/11/kp200ki50.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
+  <img class="aligncenter  wp-image-1958" alt="Control PI" src="https://pybonacci.org/images/2013/11/kp200ki50.png" width="315" height="226" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp200ki50-300x215.png 300w" sizes="(max-width: 315px) 100vw, 315px" />
 </p>
 
 Tenemos un tiempo de subida menor a 10 segundos, pero por contra **hemos introducido una oscilación en el sistema**. En algunos problemas puede ser inadmisible, pero en este caso nos lo podemos permitir. Lo único que tenemos que hacer es controlar la oscilación; para ello tenemos otras dos magnitudes interesantes:
@@ -224,7 +224,7 @@ Se comprueba que para $K\_p = 700$ y $K\_i = 100$ cumplimos:
     # Tiempo de subida: 4.22 s
     # Máxima sobreelongación: 6.3 %
 
-<img class="aligncenter size-full wp-image-1960" alt="Parámetros finales de control PI" src="http://pybonacci.org/images/2013/11/kp700ki100.png" width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />
+<img class="aligncenter size-full wp-image-1960" alt="Parámetros finales de control PI" src="https://pybonacci.org/images/2013/11/kp700ki100.png" width="394" height="283" srcset="https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100.png 394w, https://pybonacci.org/wp-content/uploads/2013/11/kp700ki100-300x215.png 300w" sizes="(max-width: 394px) 100vw, 394px" />
 
 ¡Genial!
 
@@ -244,7 +244,7 @@ Espero que nos hagáis llegar vuestros comentarios y sugerencias a través del f
 
 Aquí hemos visto que con Python hemos tenido que trabajar un poco más de lo que tendríamos que haber trabajado con MATLAB. Por un lado, hemos tenido que escribir nuestras propias funciones para operar con bloques, calcular tiempos de subida y sobreelongaciones... Y por otro lado, se echa en falta una interfaz gráfica con la que trabajar de una manera mucho más intuitiva (los diagramas del artículo están hechos con Inkscape, y ha sido un poco laborioso). En este área SciPy tiene aún mucho que mejorar, y de hecho ya hay algunas ideas.
 
-Implementar operaciones con sistemas LTI o crear una interfaz gráfica son tareas relativamente sencillas, pero requieren que alguien se ponga con ellas. Si alguno de nuestros lectores quiere dar un paso adelante, le animamos a que contacte con nosotros, haga un fork de SciPy y se ponga a trabajar. El inglés no es un problema: podemos guiarle con el proceso en [nuestro propio fork, como ya anunciamos hace unos meses](http://pybonacci.org/2013/08/23/informando-de-bugs-en-numpy-y-scipy-en-castellano-a-traves-de-pybonacci/ "Informando de bugs en NumPy y SciPy en castellano a través de Pybonacci").
+Implementar operaciones con sistemas LTI o crear una interfaz gráfica son tareas relativamente sencillas, pero requieren que alguien se ponga con ellas. Si alguno de nuestros lectores quiere dar un paso adelante, le animamos a que contacte con nosotros, haga un fork de SciPy y se ponga a trabajar. El inglés no es un problema: podemos guiarle con el proceso en [nuestro propio fork, como ya anunciamos hace unos meses](https://pybonacci.org/2013/08/23/informando-de-bugs-en-numpy-y-scipy-en-castellano-a-traves-de-pybonacci/ "Informando de bugs en NumPy y SciPy en castellano a través de Pybonacci").
 
 Como el título del artículo deja bien claro que íbamos a usar SciPy, he descartado la biblioteca [python-control](http://www.cds.caltech.edu/~murray/wiki/index.php/Python-control). En muchos sentidos está más avanzada que el paquete signal de SciPy **y proporciona compatibilidad con MATLAB**, pero no me queda claro si la están manteniendo activamente o no, y por tanto no me he decidido a utilizarla. Por si alguien tiene curiosidad, aquí hay un [ejemplo analizando el sistema de despegue y aterrizaje de un avión](http://www.cds.caltech.edu/~murray/wiki/index.php/Python-control/Example:_Vertical_takeoff_and_landing_aircraft).
 

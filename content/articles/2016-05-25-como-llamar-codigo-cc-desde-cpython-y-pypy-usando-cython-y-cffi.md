@@ -11,7 +11,7 @@ Y [la respuesta aceptada explica como hacer un wrapper sencillo usando Cython y 
 
 ## Prolegómenos
 
-Antes de empezar a leer esta entrada deberías pasar a leer la entrada que hizo Juanlu hace un tiempo sobre CFFI titulada '[como crear extensiones en C para Python usando CFFI y Numba](http://pybonacci.org/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/)' donde se dan más detalles de todo el proceso a realizar con CFFI.
+Antes de empezar a leer esta entrada deberías pasar a leer la entrada que hizo Juanlu hace un tiempo sobre CFFI titulada '[como crear extensiones en C para Python usando CFFI y Numba](https://pybonacci.org/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/)' donde se dan más detalles de todo el proceso a realizar con CFFI.
 
 Antes de probar el código de la presente entrada deberías instalar cffi y cython:
 
@@ -183,7 +183,7 @@ De igual forma, si todo ha salido bien, podemos hacer:
 
 Un esquema, grosso modo, de lo que hemos hecho:<figure id="attachment_3836" style="width: 723px" class="wp-caption aligncenter">
 
-![](http://pybonacci.org/images/2016/05/Esquema.gif)
+![esquema](https://pybonacci.org/images/2016/05/Esquema.gif)
 
 Pros y contras de cada una de las aproximaciones:
 

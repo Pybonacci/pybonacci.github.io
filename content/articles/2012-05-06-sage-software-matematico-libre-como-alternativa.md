@@ -11,9 +11,9 @@ Seguro que muchos de vosotros ya conocéis [Sage](http://sagemath.org/): un pro
 
 Desde luego hay que admitir que como declaración de intenciones no está mal. Hechas las presentaciones, ¿qué más podemos decir sobre Sage?
 
-![Logo de Sage](http://pybonacci.org/images/2012/05/sage-logo-new-l.png)
+![Logo de Sage](https://pybonacci.org/images/2012/05/sage-logo-new-l.png)
 
-Sage comenzó en 2004 como un proyecto personal de [William Stein](http://www.wstein.org/), profesor de matemáticas en la Universidad de Washington, quien, [como explica en su blog](http://sagemath.blogspot.com.es/2009/12/mathematical-software-and-me-very.html), estaba frustrado por no poder solucionar las limitaciones de Magma al no ser un programa libre. Stein se dio cuenta de que, aunque crear un sistema como Magma o Maple llevaría años con un equipo de desarrolladores voluntarios partiendo de cero, _ya había numerosos paquetes de código abierto_ escritos en diferentes lenguajes enfocados a diversas áreas matemáticas. Así que decidió unir todos estos paquetes **utilizando Python** (en este momento son [cerca de 100](http://sagemath.org/links-components.html)) para crear un enorme software matemático para crear Sage. En esto se diferencia de otros proyectos como SymPy, del que ya [hemos](http://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/) [hablado](http://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/) en este blog.
+Sage comenzó en 2004 como un proyecto personal de [William Stein](http://www.wstein.org/), profesor de matemáticas en la Universidad de Washington, quien, [como explica en su blog](http://sagemath.blogspot.com.es/2009/12/mathematical-software-and-me-very.html), estaba frustrado por no poder solucionar las limitaciones de Magma al no ser un programa libre. Stein se dio cuenta de que, aunque crear un sistema como Magma o Maple llevaría años con un equipo de desarrolladores voluntarios partiendo de cero, _ya había numerosos paquetes de código abierto_ escritos en diferentes lenguajes enfocados a diversas áreas matemáticas. Así que decidió unir todos estos paquetes **utilizando Python** (en este momento son [cerca de 100](http://sagemath.org/links-components.html)) para crear un enorme software matemático para crear Sage. En esto se diferencia de otros proyectos como SymPy, del que ya [hemos](https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/) [hablado](https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/) en este blog.
 
 <!--more-->
 
@@ -65,7 +65,7 @@ Sage dispone de una [documentación](http://sagemath.org/doc/) _enorme_ compuest
 
 ¿Alguien habló de interfaz gráfica? ¡Sí! Sage tiene una interfaz a imitación de los «notebooks» de Mathematica que funciona a través del navegador, y que además permite la edición colaborativa de documentos. Puedes utilizarla con el programa, montar tu propio servidor o crear una cuenta en el [servidor público de Sage](http://www.sagenb.org/) para empezar a experimentar.<figure id="attachment_378" style="width: 420px" class="wp-caption aligncenter">
 
-![Interfaz gráfica de Sage](http://pybonacci.org/images/2012/05/2012-05-06-195446_1366x768_scrot.png)
+![Interfaz gráfica de Sage](https://pybonacci.org/images/2012/05/2012-05-06-195446_1366x768_scrot.png)
 
 Es complicado hacer una introducción a este programa porque es bastante inabarcable, pero espero que te haya resultado interesante. Si te apetece saber más cosas sobre Sage, puedes consultar [este «notebook» público](http://www.sagenb.org/home/pub/873/) que explica algunas de sus posibilidades (e incluso editarlo tú mismo). O puedes estar atento a futuras publicaciones en Pybonacci 😉
 

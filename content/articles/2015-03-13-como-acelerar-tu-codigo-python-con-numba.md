@@ -7,7 +7,7 @@ tags: conda, numba, python, python 3, rendimiento
 
 Introducción
 
-En este artículo vamos a hacer un repaso exhaustivo de **cómo acelerar sustancialmente tu código Python usando numba**. Ya hablamos sobre [la primera versión de numba](http://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/) en el blog, allá por 2012, pero ha habido importantes cambios desde entonces y la herramienta ha cambiado muchísimo. Recientemente Continuum publicó numba 0.17 con una [nueva documentación](http://numba.pydata.org/numba-doc/0.17.0/index.html) mucho más fácil de seguir, pero aun así no siempre queda claro cuál es el camino para hacer que funcione, como quedó patente con el [artículo sobre Cython](http://pybonacci.org/2015/03/09/c-elemental-querido-cython/) de Kiko. Por ello, en este artículo voy a aclarar qué puede y qué no puede hacer numba, cómo sacarle partido y voy a detallar un par de ejemplos exitosos que he producido en los últimos meses.
+En este artículo vamos a hacer un repaso exhaustivo de **cómo acelerar sustancialmente tu código Python usando numba**. Ya hablamos sobre [la primera versión de numba](https://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/) en el blog, allá por 2012, pero ha habido importantes cambios desde entonces y la herramienta ha cambiado muchísimo. Recientemente Continuum publicó numba 0.17 con una [nueva documentación](http://numba.pydata.org/numba-doc/0.17.0/index.html) mucho más fácil de seguir, pero aun así no siempre queda claro cuál es el camino para hacer que funcione, como quedó patente con el [artículo sobre Cython](https://pybonacci.org/2015/03/09/c-elemental-querido-cython/) de Kiko. Por ello, en este artículo voy a aclarar qué puede y qué no puede hacer numba, cómo sacarle partido y voy a detallar un par de ejemplos exitosos que he producido en los últimos meses.
 
 Hablando de las nuevas versiones de numba, en su web podéis ver una [evolución temporal del rendimiento](http://numba.pydata.org/numba-benchmark/) de algunas tareas que utiliza [asv](http://spacetelescope.github.io/asv/) para la visualización.
 
@@ -670,7 +670,7 @@ La clave estuvo, una vez más, en usar numba para optimizar los bucles. En GitHu
                                        * sin(nn * pi * yy[ii, jj] / b)
                                        / (pi**4 * D)) 
 
-![](https://www.pybonacci.org/images/2015/03/solucion_placa_plana.png?style=centerme)
+![solucion](https://www.pybonacci.org/images/2015/03/solucion_placa_plana.png?style=centerme)
 
 Podéis comprobar vosotros mismos que las diferencias de rendimiento en este caso son brutales. _Y solo hemos añadido una línea a cada función_.
 

@@ -7,7 +7,7 @@ tags: cacheme, curso, python
 
 > Curso Python online y gratuito de [introducción al lenguaje de programación Python para científicos e ingenieros](http://cacheme.org/curso-online-python-cientifico-ingenieros/). Los vídeos de este curso online se dividen en dos ediciones: la primera recoge los fundamentos de Python científico y la segunda los últimos avances introducidos en el 2015 con IPython 3 (Jupyter).
 > 
-> Ambas ediciones son impartidas por Juan Luis Cano (<http://pybonacci.org>) y han sido posibles gracias a la financiación del Instituto Universitario de Ingeniería de Procesos Químicos y la Escuela Politécnica Superior (y su delegación de alumnos) dentro de la Universidad de Alicante. Los videotutoriales de este curso se han diseñado para que sea práctico, con ejemplos extraídos de asignaturas comunes en carreras científicas y de ingeniería.
+> Ambas ediciones son impartidas por Juan Luis Cano (<https://pybonacci.org>) y han sido posibles gracias a la financiación del Instituto Universitario de Ingeniería de Procesos Químicos y la Escuela Politécnica Superior (y su delegación de alumnos) dentro de la Universidad de Alicante. Los videotutoriales de este curso se han diseñado para que sea práctico, con ejemplos extraídos de asignaturas comunes en carreras científicas y de ingeniería.
 
 
 

@@ -47,7 +47,7 @@ En python, como siempre, disponemos de múltiples opciones. Si solo queréis lee
 Pues hoy no, que tengo otros quehaceres :-), pero voy a enlazar a artículos donde ya se ha visto como acceder a estos datos y a la documentación de netcdf4-python:
 
   * [Documentación de netcdf4-python en inglés](http://netcdf4-python.googlecode.com/svn/trunk/docs/netCDF4-module.html)
-  * En pybonacci: [[1]](http://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/), [[2]](http://pybonacci.org/2012/11/19/analisis-cluster-ii-clasificacion-no-supervisada-mediante-clasificacion-jerarquica-aglomerativa/). En español, por desgracia, no hay mucha cosa,...
+  * En pybonacci: [[1]](https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/), [[2]](https://pybonacci.org/2012/11/19/analisis-cluster-ii-clasificacion-no-supervisada-mediante-clasificacion-jerarquica-aglomerativa/). En español, por desgracia, no hay mucha cosa,...
   * Terceros: [[1]](http://www.esr.org/~chjiang/python.html), [[2]](http://snowball.millersville.edu/~adecaria/ESCI386P/esci386_lesson10_NetCDF-GRIB.pdf). En inglés.
 
 **¿Y ahora qué?**
