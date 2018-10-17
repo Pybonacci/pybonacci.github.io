@@ -61,6 +61,7 @@ NOTEBOOK_DIR = 'downloads/notebooks'
 THEME = './theme/'
 
 ABOUT_PAGE = '/pages/acerca-de-pybonacci.html'
+CONTRIBUTING_PAGE = '/pages/como-contribuir.html'
 TWITTER_USERNAME = 'Pybonacci'
 GITHUB_USERNAME = 'Pybonacci'
 SHOW_ARCHIVES = True
