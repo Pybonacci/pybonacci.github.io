@@ -67,7 +67,7 @@ GITHUB_USERNAME = 'Pybonacci'
 SHOW_ARCHIVES = True
 SHOW_FEED = False  # Need to address large feeds
 
-ISSO_HOST = 'localhost:1234'
+ISSO_HOST = 'https://pybocomments.runbear.webfactional.com'
 
 ENABLE_MATHJAX = True
 
