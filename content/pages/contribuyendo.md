@@ -12,7 +12,7 @@ significa que valoramos mucho más la comunidad que aportaciones individuales. S
 
 * Piensa que otros van a estar más de acuerdo que en desacuerdo con lo que comentes. Tendemos a olvidar lo que nos une, que es mucho, y a enfocarnos en unas pocas diferencias.
 * Cuando tengas alguna duda, asume que estás malinterpretando algo y pide de forma amable que te confirmen que lo que has entendido es lo correcto.
-* Cuando escribas asume que cada frase será malinterpretada. Revísa el texto y trata de reformularlo de la forma más clara posible.
+* Cuando escribas asume que cada frase será malinterpretada. Revisa el texto y trata de reformularlo de la forma más clara posible.
 * Si estás muy en desacuerdo con algún comentario (en un Pull Request, en el issue tracker, en twitter, en un correo,...), etiquétalo como importante y déjalo de lado. Léelo después de unas cuantas horas y vuelve a dejarlo de lado. Al día siguiente vuelve a leerlo y, en ese momento, será más fácil escribir algo pensado y calmado que la respuesta encendida inicial. De esta forma será más fácil ver que podemos llegar a trabajar 'con' en lugar de 'en contra de'.
 
 # Formas de contribuir a Pybonacci.
