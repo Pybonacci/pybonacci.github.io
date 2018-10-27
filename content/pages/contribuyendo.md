@@ -7,7 +7,7 @@ Template: page
 Quieres contribuir a Pybonacci, ¡genial!, pero antes de contribuir necesitamos
 comentar una serie de normas básicas de convivencia de esta comunidad.
 
-En general, nos adherimos al espíritu del [códido de conducta](http://documentos-asociacion.es.python.org/c%C3%B3digo%20de%20conducta.html#id1) elaborado por la [asociación Python España](https://es.python.org/pages/asociacion.html). Esto
+En general, nos adherimos al espíritu del [código de conducta](http://documentos-asociacion.es.python.org/c%C3%B3digo%20de%20conducta.html#id1) elaborado por la [asociación Python España](https://es.python.org/pages/asociacion.html). Esto
 significa que valoramos mucho más la comunidad que aportaciones individuales. Se espera que una comunidad fuerte sea respetuosa y un lugar divertido y seguro en el que estar. Si somos capaces de conseguir una comunidad diversa y con buena salud, esta misma comunidad sería capaz de soportar Pybonacci durante más tiempo, más allá de personas concretas que pueden estar yendo y viniendo. Para cualquier tipo de comunicación (normalmente escrita):
 
 * Piensa que otros van a estar más de acuerdo que en desacuerdo con lo que comentes. Tendemos a olvidar lo que nos une, que es mucho, y a enfocarnos en unas pocas diferencias.
@@ -34,7 +34,7 @@ También podrías:
 
 Pybonacci es un esfuerzo colaborativo entre personas de diversas industrias y ámbitos. Esto quiere decir que si crees que tienes algo interesante que aportar, seguro que podemos aprender de ti y nos encantará añadir tu artículo al blog.
 
-Los artículos se añaden al blog mediante Pull Request al repositorio (a la rama `sources`, es la rama por defecto) con el tag `[ARTICULO]` (¿no tienes ni idea de lo que significa nada en esta frase? Quizá necesitas una [Guía](#guia)). 
+Los artículos se añaden al blog mediante Pull Request al repositorio (a la rama `sources`, que es la rama por defecto) con el tag `[ARTICULO]` (¿no tienes ni idea de lo que significa nada en esta frase? Quizá necesitas una [Guía](#guia)). 
 
 Lo primero que habrá que hacer es un fork del repositorio mediante:
 
@@ -89,7 +89,7 @@ Si quieres añadir una imagen la deberás incluir en https://github.com/Pybonacc
 
 Guía será una persona que guiará a otros. Las personas guiadas serán aprendices, por llamarlos de alguna forma, y solo tienen que desear contribuir con su conocimiento a Pybonacci escribiendo algún artículo. Estos aprendices no tienen los conocimientos técnicos para manejar un sistema de control de versiones, manejar un notebook, no entienden muy bien como funciona Markdown,..., y el Guía se encargará de ayudarlos para que sean capaces de aportar a la comunidad.
 
-Cualquier persona que lo desee y tenga las conocimientos necesarios puede ser Guía y puede hacerlo una única vez o tantas veces como quiera.
+Cualquier persona que lo desee y tenga los conocimientos necesarios puede ser Guía y puede hacerlo una única vez o tantas veces como quiera.
 
 Si crees que necesitas una Guía puedes abrir un [issue añadiendo el prefijo `[GUÍA]` en el título del issue](https://github.com/Pybonacci/pybonacci.github.io/issues) o nos puedes mandar un <a href="mailto:contacto@pybonacci.org">correo</a> añadiendo en el asunto el prefijo `[GUÍA]`.
 
@@ -103,7 +103,7 @@ La versión actual del proyecto usa [Pelican](#faq-pelican) para generar el cont
 
 <h1><a name="editor">¿Quieres ser editor?</a></h1>
 
-¡Genial! Cuantos más seamos mejor. La manera de convertirse en editor es publicar al menos 3 artículos. Esta es una norma arbitraria para medir tu compromiso. Si se te ocurren mejoras formas háznoslo saber.
+¡Genial! Cuantos más seamos mejor. La manera de convertirse en editor es publicar al menos 3 artículos. Esta es una norma arbitraria para medir tu compromiso. Si se te ocurren mejoras formas/normas háznoslo saber.
 
 <h1><a name="admin">Administradores</a></h1>
 
@@ -122,7 +122,7 @@ Los principales beneficios que obtienen los administradores son:
 * Trabajar mucho.
 * Tener más dolores de cabeza.
 
-Con el tiempo cualquiera podría llegar a obtener estos beneficios.
+Con el tiempo cualquiera podría llegar a obtener estos 'beneficios'.
 
 # Notas sobre estilo
 
@@ -139,7 +139,7 @@ Por ejemplo, para que en un artículo se renderice un bloque de código de pytho
 
 # Sobre la temática y complejidad de los artículos.
 
-La gente que ha ido escribiendo en Pybonacci son físicos, ingenieros aeronáuticos, ingenieros informaticos, científicos de datos,... Obviamente no somos capaces de cubrir todas las temáticas. Échamos de menos artículos de biología, química, ciencias sociales, periodismo de datos, visualización, medicina,...
+La gente que ha ido escribiendo en Pybonacci son físicos, ingenieros aeronáuticos, ingenieros informáticos, científicos de datos,... Obviamente no somos capaces de cubrir todas las temáticas. Échamos de menos artículos de biología, química, ciencias sociales, periodismo de datos, visualización, medicina,...
 
 Los articulos pueden tener cualquier extensión, desde una [microentrada](https://www.pybonacci.org/tag/microentradas.html) que cuente algo puntual que te resulta interesante y que crees que no todo el mundo conoce, hasta un [macrotutorial](https://www.pybonacci.org/tag/tutorial-matplotlibpyplot.html) que contenga varias entradas, pasando por artículos típicos donde entramos en algo de detalle sobre un tema y cuyo objetivo es que sea algo introductorio.
 
@@ -148,7 +148,7 @@ Como lo de que sea algo introductorio es algo bastante ambiguo cualquier nivel v
 # Sobre la aceptación de artículos.
 
 En Pybonacci creemos que cualquier persona que tenga ganas de compartir su conocimiento y que haga el (a veces gran) esfuerzo de escribir un artículo merece ser publicada.
-No obstante, también debemos garantizar una cierta calidad en el blog. Por ello, una vez se ha creado una Pull Request para enviar un artículo dicho artículo deberá ser validado por al menos 2 editores y es posible que estos editores te pidan que cambies alguna cosa para que el resultado final sea mejor.
+No obstante, también debemos garantizar una cierta calidad en el blog. Por ello, una vez se ha creado una Pull Request para enviar un artículo, dicho artículo deberá ser validado por al menos 2 editores y es posible que estos editores te pidan que cambies alguna cosa para que el resultado final sea mejor.
 
 <h1><a name="faq">FAQ</a></h1>
 
