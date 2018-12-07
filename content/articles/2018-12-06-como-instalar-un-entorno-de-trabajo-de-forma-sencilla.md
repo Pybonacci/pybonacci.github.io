@@ -17,19 +17,19 @@ Sin más dilación...
 
 # Instalación de miniconda3 en Windows
 
-{% aYhlDfGhwuU %}
+{% youtube aYhlDfGhwuU %}
 
 # Instalación de anaconda3 en Windows
 
-{% MSnNTODnSBg %}
+{% youtube MSnNTODnSBg %}
 
 # Instalación de miniconda3 en Linux (y Mac)
 
-{% liqnwft_cbs %}
+{% youtube liqnwft_cbs %}
 
 # Instalación de anaconda3 en Linux (y Mac)
 
-{% b9LV1J7vPuw %}
+{% youtube b9LV1J7vPuw %}
 
 Y eso es todo, esperamos que os resulte útil cuando vayáis a empezar con Python o cuando vayas a dar esa formación a otros con menos experiencia.
 
