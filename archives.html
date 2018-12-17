@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Archivos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container list">
+    <article>
+        <h1 style="margin-bottom: 30px;">Archivos y etiquetas</h1>
+
+        <div class="meta" style="margin-bottom: 30px;">
+                <a href="http://pybonacci.github.io/tag/visualizacion.html" class="tag">visualización (3)</a>
+                <a href="http://pybonacci.github.io/tag/wms.html" class="tag">wms (1)</a>
+                <a href="http://pybonacci.github.io/tag/meteosat.html" class="tag">meteosat (1)</a>
+                <a href="http://pybonacci.github.io/tag/satelite.html" class="tag">satélite (1)</a>
+                <a href="http://pybonacci.github.io/tag/thredds.html" class="tag">thredds (2)</a>
+                <a href="http://pybonacci.github.io/tag/gfs.html" class="tag">gfs (1)</a>
+                <a href="http://pybonacci.github.io/tag/nwp.html" class="tag">nwp (1)</a>
+                <a href="http://pybonacci.github.io/tag/prediccion.html" class="tag">predicción (1)</a>
+                <a href="http://pybonacci.github.io/tag/forecasting.html" class="tag">forecasting (1)</a>
+                <a href="http://pybonacci.github.io/tag/video.html" class="tag">vídeo (5)</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib (26)</a>
+                <a href="http://pybonacci.github.io/tag/cartopy.html" class="tag">cartopy (1)</a>
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">estadística (6)</a>
+                <a href="http://pybonacci.github.io/tag/probabilidad.html" class="tag">probabilidad (1)</a>
+                <a href="http://pybonacci.github.io/tag/explicabilidad.html" class="tag">explicabilidad (1)</a>
+                <a href="http://pybonacci.github.io/tag/pdp.html" class="tag">pdp (1)</a>
+                <a href="http://pybonacci.github.io/tag/lime.html" class="tag">lime (1)</a>
+                <a href="http://pybonacci.github.io/tag/gdpr.html" class="tag">gdpr (1)</a>
+                <a href="http://pybonacci.github.io/tag/pybonacci.html" class="tag">pybonacci (2)</a>
+                <a href="http://pybonacci.github.io/tag/drama.html" class="tag">drama (1)</a>
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso (5)</a>
+                <a href="http://pybonacci.github.io/tag/data-science.html" class="tag">data science (1)</a>
+                <a href="http://pybonacci.github.io/tag/udemy.html" class="tag">udemy (1)</a>
+                <a href="http://pybonacci.github.io/tag/aemet.html" class="tag">aemet (1)</a>
+                <a href="http://pybonacci.github.io/tag/folium.html" class="tag">folium (1)</a>
+                <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis (5)</a>
+                <a href="http://pybonacci.github.io/tag/leaflet.html" class="tag">leaflet (1)</a>
+                <a href="http://pybonacci.github.io/tag/mapa.html" class="tag">mapa (3)</a>
+                <a href="http://pybonacci.github.io/tag/mapping.html" class="tag">mapping (4)</a>
+                <a href="http://pybonacci.github.io/tag/opendata.html" class="tag">opendata (2)</a>
+                <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig (4)</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython (14)</a>
+                <a href="http://pybonacci.github.io/tag/jupyter.html" class="tag">jupyter (4)</a>
+                <a href="http://pybonacci.github.io/tag/latex.html" class="tag">látex (1)</a>
+                <a href="http://pybonacci.github.io/tag/microentradas.html" class="tag">MicroEntradas (7)</a>
+                <a href="http://pybonacci.github.io/tag/til.html" class="tag">til (1)</a>
+                <a href="http://pybonacci.github.io/tag/unicode.html" class="tag">unicode (1)</a>
+                <a href="http://pybonacci.github.io/tag/base-de-datos.html" class="tag">base de datos (1)</a>
+                <a href="http://pybonacci.github.io/tag/bases-de-datos.html" class="tag">bases de datos (4)</a>
+                <a href="http://pybonacci.github.io/tag/bbdd.html" class="tag">bbdd (4)</a>
+                <a href="http://pybonacci.github.io/tag/conda.html" class="tag">conda (3)</a>
+                <a href="http://pybonacci.github.io/tag/conda-forge.html" class="tag">conda-forge (1)</a>
+                <a href="http://pybonacci.github.io/tag/pgcli.html" class="tag">pgcli (1)</a>
+                <a href="http://pybonacci.github.io/tag/postgresql.html" class="tag">postgresql (1)</a>
+                <a href="http://pybonacci.github.io/tag/psycopg2.html" class="tag">psycopg2 (1)</a>
+                <a href="http://pybonacci.github.io/tag/comunidad.html" class="tag">comunidad (3)</a>
+                <a href="http://pybonacci.github.io/tag/numfocus.html" class="tag">NumFocus (1)</a>
+                <a href="http://pybonacci.github.io/tag/packtpub.html" class="tag">packtpub (1)</a>
+                <a href="http://pybonacci.github.io/tag/psf.html" class="tag">PSF (1)</a>
+                <a href="http://pybonacci.github.io/tag/python-espana.html" class="tag">python españa (1)</a>
+                <a href="http://pybonacci.github.io/tag/r.html" class="tag">R (2)</a>
+                <a href="http://pybonacci.github.io/tag/atributos.html" class="tag">atributos (1)</a>
+                <a href="http://pybonacci.github.io/tag/deletter.html" class="tag">deletter (1)</a>
+                <a href="http://pybonacci.github.io/tag/getter.html" class="tag">getter (1)</a>
+                <a href="http://pybonacci.github.io/tag/property.html" class="tag">property (1)</a>
+                <a href="http://pybonacci.github.io/tag/propiedades.html" class="tag">propiedades (1)</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python (95)</a>
+                <a href="http://pybonacci.github.io/tag/setter.html" class="tag">setter (1)</a>
+                <a href="http://pybonacci.github.io/tag/alberto-cuevas.html" class="tag">alberto cuevas (1)</a>
+                <a href="http://pybonacci.github.io/tag/libro.html" class="tag">libro (2)</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3 (18)</a>
+                <a href="http://pybonacci.github.io/tag/ra-ma.html" class="tag">ra-ma (1)</a>
+                <a href="http://pybonacci.github.io/tag/asincronia.html" class="tag">asincronia (1)</a>
+                <a href="http://pybonacci.github.io/tag/asyncio.html" class="tag">asyncio (1)</a>
+                <a href="http://pybonacci.github.io/tag/concurrentfutures.html" class="tag">concurrent.futures (1)</a>
+                <a href="http://pybonacci.github.io/tag/deferred.html" class="tag">deferred (1)</a>
+                <a href="http://pybonacci.github.io/tag/delayed.html" class="tag">delayed (1)</a>
+                <a href="http://pybonacci.github.io/tag/futures.html" class="tag">futures (1)</a>
+                <a href="http://pybonacci.github.io/tag/multiprocessing.html" class="tag">multiprocessing (1)</a>
+                <a href="http://pybonacci.github.io/tag/promises.html" class="tag">promises (1)</a>
+                <a href="http://pybonacci.github.io/tag/stdlib.html" class="tag">stdlib (3)</a>
+                <a href="http://pybonacci.github.io/tag/threading.html" class="tag">threading (1)</a>
+                <a href="http://pybonacci.github.io/tag/libros.html" class="tag">libros (2)</a>
+                <a href="http://pybonacci.github.io/tag/menezes.html" class="tag">Menezes (1)</a>
+                <a href="http://pybonacci.github.io/tag/nilo.html" class="tag">Nilo (1)</a>
+                <a href="http://pybonacci.github.io/tag/revision.html" class="tag">revisión (1)</a>
+                <a href="http://pybonacci.github.io/tag/sorteo.html" class="tag">sorteo (1)</a>
+                <a href="http://pybonacci.github.io/tag/principiante.html" class="tag">principiante (2)</a>
+                <a href="http://pybonacci.github.io/tag/labels.html" class="tag">labels (1)</a>
+                <a href="http://pybonacci.github.io/tag/legend.html" class="tag">Legend (1)</a>
+                <a href="http://pybonacci.github.io/tag/c.html" class="tag">c (3)</a>
+                <a href="http://pybonacci.github.io/tag/cffi.html" class="tag">cffi (2)</a>
+                <a href="http://pybonacci.github.io/tag/cython.html" class="tag">cython (5)</a>
+                <a href="http://pybonacci.github.io/tag/fortran.html" class="tag">fortran (2)</a>
+                <a href="http://pybonacci.github.io/tag/pypy.html" class="tag">pypy (3)</a>
+                <a href="http://pybonacci.github.io/tag/directorios.html" class="tag">directorios (1)</a>
+                <a href="http://pybonacci.github.io/tag/ficheros.html" class="tag">ficheros (1)</a>
+                <a href="http://pybonacci.github.io/tag/path.html" class="tag">path (1)</a>
+                <a href="http://pybonacci.github.io/tag/pathlib.html" class="tag">pathlib (1)</a>
+                <a href="http://pybonacci.github.io/tag/rutas.html" class="tag">rutas (1)</a>
+                <a href="http://pybonacci.github.io/tag/collections.html" class="tag">collections (1)</a>
+                <a href="http://pybonacci.github.io/tag/contenedores.html" class="tag">contenedores (1)</a>
+                <a href="http://pybonacci.github.io/tag/secuencias.html" class="tag">secuencias (1)</a>
+                <a href="http://pybonacci.github.io/tag/eventos.html" class="tag">eventos (1)</a>
+                <a href="http://pybonacci.github.io/tag/guillem.html" class="tag">guillem (1)</a>
+                <a href="http://pybonacci.github.io/tag/pydata.html" class="tag">pydata (4)</a>
+                <a href="http://pybonacci.github.io/tag/salva.html" class="tag">salva (1)</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy (31)</a>
+                <a href="http://pybonacci.github.io/tag/numpypy.html" class="tag">numpypy (1)</a>
+                <a href="http://pybonacci.github.io/tag/pypy-portable.html" class="tag">pypy-portable (1)</a>
+                <a href="http://pybonacci.github.io/tag/virtualenv.html" class="tag">virtualenv (1)</a>
+                <a href="http://pybonacci.github.io/tag/arrays.html" class="tag">arrays (6)</a>
+                <a href="http://pybonacci.github.io/tag/cientifico.html" class="tag">científico (1)</a>
+                <a href="http://pybonacci.github.io/tag/dot.html" class="tag">dot (1)</a>
+                <a href="http://pybonacci.github.io/tag/matrices.html" class="tag">matrices (4)</a>
+                <a href="http://pybonacci.github.io/tag/matrix.html" class="tag">matrix (1)</a>
+                <a href="http://pybonacci.github.io/tag/multiplicacion.html" class="tag">multiplicación (1)</a>
+                <a href="http://pybonacci.github.io/tag/pep-465.html" class="tag">pep 465 (1)</a>
+                <a href="http://pybonacci.github.io/tag/product.html" class="tag">product (1)</a>
+                <a href="http://pybonacci.github.io/tag/python-35.html" class="tag">python 3.5 (1)</a>
+                <a href="http://pybonacci.github.io/tag/amor.html" class="tag">amor (1)</a>
+                <a href="http://pybonacci.github.io/tag/love.html" class="tag">love (1)</a>
+                <a href="http://pybonacci.github.io/tag/love-supreme.html" class="tag">Love supreme (1)</a>
+                <a href="http://pybonacci.github.io/tag/mami-je-taime.html" class="tag">mami je t'aime (1)</a>
+                <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba (5)</a>
+                <a href="http://pybonacci.github.io/tag/performance.html" class="tag">performance (3)</a>
+                <a href="http://pybonacci.github.io/tag/astronomia.html" class="tag">astronomía (2)</a>
+                <a href="http://pybonacci.github.io/tag/astropy.html" class="tag">astropy (3)</a>
+                <a href="http://pybonacci.github.io/tag/poliastro.html" class="tag">poliastro (2)</a>
+                <a href="http://pybonacci.github.io/tag/programacion-funcional.html" class="tag">programación funcional (1)</a>
+                <a href="http://pybonacci.github.io/tag/refactoring.html" class="tag">refactoring (1)</a>
+                <a href="http://pybonacci.github.io/tag/trol.html" class="tag">trol (1)</a>
+                <a href="http://pybonacci.github.io/tag/apis.html" class="tag">APIs (1)</a>
+                <a href="http://pybonacci.github.io/tag/brython.html" class="tag">brython (7)</a>
+                <a href="http://pybonacci.github.io/tag/flask.html" class="tag">flask (1)</a>
+                <a href="http://pybonacci.github.io/tag/jinja2.html" class="tag">Jinja2 (1)</a>
+                <a href="http://pybonacci.github.io/tag/map2wiki.html" class="tag">map2wiki (1)</a>
+                <a href="http://pybonacci.github.io/tag/nominatim.html" class="tag">nominatim (1)</a>
+                <a href="http://pybonacci.github.io/tag/openlayers.html" class="tag">openlayers (2)</a>
+                <a href="http://pybonacci.github.io/tag/openstreetmap.html" class="tag">openstreetmap (1)</a>
+                <a href="http://pybonacci.github.io/tag/wikipedia.html" class="tag">wikipedia (1)</a>
+                <a href="http://pybonacci.github.io/tag/pycones.html" class="tag">pycones (3)</a>
+                <a href="http://pybonacci.github.io/tag/api.html" class="tag">API (1)</a>
+                <a href="http://pybonacci.github.io/tag/heatmap.html" class="tag">heatmap (1)</a>
+                <a href="http://pybonacci.github.io/tag/murcia-que-bella-eres.html" class="tag">Murcia que bella eres (1)</a>
+                <a href="http://pybonacci.github.io/tag/twitter.html" class="tag">twitter (1)</a>
+                <a href="http://pybonacci.github.io/tag/append.html" class="tag">append (1)</a>
+                <a href="http://pybonacci.github.io/tag/cpython.html" class="tag">CPython (2)</a>
+                <a href="http://pybonacci.github.io/tag/implementacion.html" class="tag">implementación (2)</a>
+                <a href="http://pybonacci.github.io/tag/lista.html" class="tag">lista (1)</a>
+                <a href="http://pybonacci.github.io/tag/argentina-en-python.html" class="tag">Argentina en Python (1)</a>
+                <a href="http://pybonacci.github.io/tag/humitos.html" class="tag">humitos (1)</a>
+                <a href="http://pybonacci.github.io/tag/johanna.html" class="tag">Johanna (1)</a>
+                <a href="http://pybonacci.github.io/tag/kauffman.html" class="tag">Kauffman (1)</a>
+                <a href="http://pybonacci.github.io/tag/quimica-nomada.html" class="tag">Quimica & Nomada (1)</a>
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython (5)</a>
+                <a href="http://pybonacci.github.io/tag/etsiae.html" class="tag">etsiae (4)</a>
+                <a href="http://pybonacci.github.io/tag/agrupamiento-clusters.html" class="tag">agrupamiento clusters (3)</a>
+                <a href="http://pybonacci.github.io/tag/ai.html" class="tag">ai (3)</a>
+                <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático (5)</a>
+                <a href="http://pybonacci.github.io/tag/aprendizaje-no-supervisado.html" class="tag">aprendizaje no supervisado (3)</a>
+                <a href="http://pybonacci.github.io/tag/clasificacion-clustering.html" class="tag">clasificación clustering (3)</a>
+                <a href="http://pybonacci.github.io/tag/ia.html" class="tag">ia (3)</a>
+                <a href="http://pybonacci.github.io/tag/inteligencia-artificial.html" class="tag">inteligencia artificial (3)</a>
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning (7)</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy (14)</a>
+                <a href="http://pybonacci.github.io/tag/scipycluster.html" class="tag">scipy.cluster (3)</a>
+                <a href="http://pybonacci.github.io/tag/scipyspatial.html" class="tag">scipy.spatial (3)</a>
+                <a href="http://pybonacci.github.io/tag/unsupervised-learning.html" class="tag">unsupervised learning (3)</a>
+                <a href="http://pybonacci.github.io/tag/correlacion.html" class="tag">correlación (1)</a>
+                <a href="http://pybonacci.github.io/tag/intervalos-de-confianza.html" class="tag">intervalos de confianza (1)</a>
+                <a href="http://pybonacci.github.io/tag/regresion-lineal.html" class="tag">regresión lineal (2)</a>
+                <a href="http://pybonacci.github.io/tag/statsmodels.html" class="tag">statsmodels (1)</a>
+                <a href="http://pybonacci.github.io/tag/test-de-hipotesis.html" class="tag">test de hipótesis (1)</a>
+                <a href="http://pybonacci.github.io/tag/cran.html" class="tag">cran (1)</a>
+                <a href="http://pybonacci.github.io/tag/eva.html" class="tag">EVA (1)</a>
+                <a href="http://pybonacci.github.io/tag/evt.html" class="tag">EVT (1)</a>
+                <a href="http://pybonacci.github.io/tag/extremes.html" class="tag">extremes (1)</a>
+                <a href="http://pybonacci.github.io/tag/extremos.html" class="tag">extremos (1)</a>
+                <a href="http://pybonacci.github.io/tag/rpy2.html" class="tag">rpy2 (1)</a>
+                <a href="http://pybonacci.github.io/tag/regresion-logistica.html" class="tag">regresión logística (1)</a>
+                <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn (4)</a>
+                <a href="http://pybonacci.github.io/tag/argentina.html" class="tag">argentina (1)</a>
+                <a href="http://pybonacci.github.io/tag/conferencias.html" class="tag">conferencias (1)</a>
+                <a href="http://pybonacci.github.io/tag/scipyla.html" class="tag">scipyla (1)</a>
+                <a href="http://pybonacci.github.io/tag/blttlenec.html" class="tag">blttlenec (1)</a>
+                <a href="http://pybonacci.github.io/tag/numbagg.html" class="tag">numbagg (1)</a>
+                <a href="http://pybonacci.github.io/tag/rendimiento.html" class="tag">rendimiento (6)</a>
+                <a href="http://pybonacci.github.io/tag/ensenanza.html" class="tag">enseñanza (1)</a>
+                <a href="http://pybonacci.github.io/tag/pythontutor.html" class="tag">pythontutor (1)</a>
+                <a href="http://pybonacci.github.io/tag/dataanalytics.html" class="tag">dataanalytics (1)</a>
+                <a href="http://pybonacci.github.io/tag/datascience.html" class="tag">datascience (1)</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas (8)</a>
+                <a href="http://pybonacci.github.io/tag/pytables.html" class="tag">pytables (4)</a>
+                <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql (7)</a>
+                <a href="http://pybonacci.github.io/tag/sqlite.html" class="tag">sqlite (1)</a>
+                <a href="http://pybonacci.github.io/tag/cacheme.html" class="tag">cacheme (2)</a>
+                <a href="http://pybonacci.github.io/tag/estilos.html" class="tag">estilos (1)</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot (13)</a>
+                <a href="http://pybonacci.github.io/tag/styles.html" class="tag">styles (1)</a>
+                <a href="http://pybonacci.github.io/tag/ecuaciones-diferenciales.html" class="tag">ecuaciones diferenciales (5)</a>
+                <a href="http://pybonacci.github.io/tag/edps.html" class="tag">EDPs (2)</a>
+                <a href="http://pybonacci.github.io/tag/fenics.html" class="tag">fenics (1)</a>
+                <a href="http://pybonacci.github.io/tag/dataset.html" class="tag">dataset (1)</a>
+                <a href="http://pybonacci.github.io/tag/iris.html" class="tag">iris (1)</a>
+                <a href="http://pybonacci.github.io/tag/kaggle.html" class="tag">kaggle (1)</a>
+                <a href="http://pybonacci.github.io/tag/conjuntos.html" class="tag">conjuntos (1)</a>
+                <a href="http://pybonacci.github.io/tag/diferencia.html" class="tag">diferencia (1)</a>
+                <a href="http://pybonacci.github.io/tag/interseccion.html" class="tag">intersección (1)</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización (5)</a>
+                <a href="http://pybonacci.github.io/tag/set.html" class="tag">set (1)</a>
+                <a href="http://pybonacci.github.io/tag/sets.html" class="tag">sets (1)</a>
+                <a href="http://pybonacci.github.io/tag/union.html" class="tag">unión (1)</a>
+                <a href="http://pybonacci.github.io/tag/edos.html" class="tag">EDOs (3)</a>
+                <a href="http://pybonacci.github.io/tag/cursos.html" class="tag">cursos (1)</a>
+                <a href="http://pybonacci.github.io/tag/formacion.html" class="tag">formación (1)</a>
+                <a href="http://pybonacci.github.io/tag/recursos.html" class="tag">recursos (1)</a>
+                <a href="http://pybonacci.github.io/tag/tutoriales.html" class="tag">tutoriales (2)</a>
+                <a href="http://pybonacci.github.io/tag/ciencia.html" class="tag">ciencia (1)</a>
+                <a href="http://pybonacci.github.io/tag/taller.html" class="tag">taller (1)</a>
+                <a href="http://pybonacci.github.io/tag/bryplot.html" class="tag">bryplot (1)</a>
+                <a href="http://pybonacci.github.io/tag/canvas.html" class="tag">canvas (1)</a>
+                <a href="http://pybonacci.github.io/tag/html5.html" class="tag">html5 (1)</a>
+                <a href="http://pybonacci.github.io/tag/recursion.html" class="tag">recursión (1)</a>
+                <a href="http://pybonacci.github.io/tag/sierpinski.html" class="tag">sierpinski (1)</a>
+                <a href="http://pybonacci.github.io/tag/ace.html" class="tag">Ace (1)</a>
+                <a href="http://pybonacci.github.io/tag/autocompletado.html" class="tag">autocompletado (1)</a>
+                <a href="http://pybonacci.github.io/tag/pyschool.html" class="tag">pyschool (1)</a>
+                <a href="http://pybonacci.github.io/tag/resaltado-de-sintaxis.html" class="tag">resaltado de sintaxis (1)</a>
+                <a href="http://pybonacci.github.io/tag/especificacion-de-python.html" class="tag">especificación de Python (1)</a>
+                <a href="http://pybonacci.github.io/tag/basemap.html" class="tag">basemap (3)</a>
+                <a href="http://pybonacci.github.io/tag/circuitos.html" class="tag">circuitos (1)</a>
+                <a href="http://pybonacci.github.io/tag/formula-1.html" class="tag">formula 1 (1)</a>
+                <a href="http://pybonacci.github.io/tag/google-geocode.html" class="tag">google geocode (1)</a>
+                <a href="http://pybonacci.github.io/tag/etsia.html" class="tag">etsia (2)</a>
+                <a href="http://pybonacci.github.io/tag/scatter.html" class="tag">scatter (1)</a>
+                <a href="http://pybonacci.github.io/tag/scatterplots.html" class="tag">scatterplots (1)</a>
+                <a href="http://pybonacci.github.io/tag/geforce.html" class="tag">geforce (1)</a>
+                <a href="http://pybonacci.github.io/tag/gpu.html" class="tag">gpu (1)</a>
+                <a href="http://pybonacci.github.io/tag/monitor.html" class="tag">monitor (1)</a>
+                <a href="http://pybonacci.github.io/tag/nvidia.html" class="tag">nvidia (1)</a>
+                <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly (3)</a>
+                <a href="http://pybonacci.github.io/tag/streaming-api.html" class="tag">streaming api (1)</a>
+                <a href="http://pybonacci.github.io/tag/graficas.html" class="tag">gráficas (2)</a>
+                <a href="http://pybonacci.github.io/tag/tutorial.html" class="tag">tutorial (1)</a>
+                <a href="http://pybonacci.github.io/tag/embed.html" class="tag">embed (1)</a>
+                <a href="http://pybonacci.github.io/tag/brython-brythonmagic-highcharts-javascript-ipython-ipython.html" class="tag">brython brythonmagic highcharts javascript ipython IPython (1)</a>
+                <a href="http://pybonacci.github.io/tag/brythonmagic.html" class="tag">brythonmagic (2)</a>
+                <a href="http://pybonacci.github.io/tag/highcharts.html" class="tag">highcharts (1)</a>
+                <a href="http://pybonacci.github.io/tag/javascript.html" class="tag">javascript (3)</a>
+                <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos (10)</a>
+                <a href="http://pybonacci.github.io/tag/math.html" class="tag">math (2)</a>
+                <a href="http://pybonacci.github.io/tag/ipy2wp2.html" class="tag">ipy2wp2 (1)</a>
+                <a href="http://pybonacci.github.io/tag/constantes.html" class="tag">constantes (1)</a>
+                <a href="http://pybonacci.github.io/tag/constantes-fisicas.html" class="tag">constantes físicas (1)</a>
+                <a href="http://pybonacci.github.io/tag/mapas.html" class="tag">mapas (2)</a>
+                <a href="http://pybonacci.github.io/tag/mapeo.html" class="tag">mapeo (2)</a>
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data (7)</a>
+                <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata (6)</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos (8)</a>
+                <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel (6)</a>
+                <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5 (10)</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas (6)</a>
+                <a href="http://pybonacci.github.io/tag/libreria.html" class="tag">librería (1)</a>
+                <a href="http://pybonacci.github.io/tag/cliente.html" class="tag">cliente (1)</a>
+                <a href="http://pybonacci.github.io/tag/d3.html" class="tag">d3 (1)</a>
+                <a href="http://pybonacci.github.io/tag/frontend.html" class="tag">frontend (1)</a>
+                <a href="http://pybonacci.github.io/tag/numeros-complejos.html" class="tag">números complejos (1)</a>
+                <a href="http://pybonacci.github.io/tag/sympy.html" class="tag">sympy (4)</a>
+                <a href="http://pybonacci.github.io/tag/npvectorize.html" class="tag">np.vectorize (1)</a>
+                <a href="http://pybonacci.github.io/tag/numpyvectorize.html" class="tag">numpy.vectorize (1)</a>
+                <a href="http://pybonacci.github.io/tag/vectorizacion.html" class="tag">vectorización (2)</a>
+                <a href="http://pybonacci.github.io/tag/ipynb.html" class="tag">ipynb (3)</a>
+                <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook (6)</a>
+                <a href="http://pybonacci.github.io/tag/bitset.html" class="tag">bitset (1)</a>
+                <a href="http://pybonacci.github.io/tag/arduino.html" class="tag">arduino (1)</a>
+                <a href="http://pybonacci.github.io/tag/clip.html" class="tag">clip (1)</a>
+                <a href="http://pybonacci.github.io/tag/tdd.html" class="tag">TDD (3)</a>
+                <a href="http://pybonacci.github.io/tag/testing.html" class="tag">testing (3)</a>
+                <a href="http://pybonacci.github.io/tag/arange.html" class="tag">arange (1)</a>
+                <a href="http://pybonacci.github.io/tag/linspace.html" class="tag">linspace (1)</a>
+                <a href="http://pybonacci.github.io/tag/matlab.html" class="tag">matlab (1)</a>
+                <a href="http://pybonacci.github.io/tag/octave.html" class="tag">octave (1)</a>
+                <a href="http://pybonacci.github.io/tag/control.html" class="tag">control (2)</a>
+                <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal (2)</a>
+                <a href="http://pybonacci.github.io/tag/euroscipy.html" class="tag">euroscipy (3)</a>
+                <a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html" class="tag">exponenciación binaria (2)</a>
+                <a href="http://pybonacci.github.io/tag/pfs.html" class="tag">PFS (2)</a>
+                <a href="http://pybonacci.github.io/tag/potencias.html" class="tag">potencias (2)</a>
+                <a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html" class="tag">Python fuente de sabiduria (2)</a>
+                <a href="http://pybonacci.github.io/tag/github.html" class="tag">github (1)</a>
+                <a href="http://pybonacci.github.io/tag/interpolacion.html" class="tag">interpolación (1)</a>
+                <a href="http://pybonacci.github.io/tag/scipyinterpolate.html" class="tag">scipy.interpolate (1)</a>
+                <a href="http://pybonacci.github.io/tag/unravel_index.html" class="tag">unravel_index (1)</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-pytables-basico-30.html" class="tag">tutorial pytables básico 3.0 (3)</a>
+                <a href="http://pybonacci.github.io/tag/bincount.html" class="tag">bincount (1)</a>
+                <a href="http://pybonacci.github.io/tag/digitize.html" class="tag">digitize (1)</a>
+                <a href="http://pybonacci.github.io/tag/frecuencias.html" class="tag">frecuencias (1)</a>
+                <a href="http://pybonacci.github.io/tag/histogram.html" class="tag">histogram (1)</a>
+                <a href="http://pybonacci.github.io/tag/histograma.html" class="tag">histograma (1)</a>
+                <a href="http://pybonacci.github.io/tag/numpybincount.html" class="tag">numpy.bincount (1)</a>
+                <a href="http://pybonacci.github.io/tag/numpydigitize.html" class="tag">numpy.digitize (1)</a>
+                <a href="http://pybonacci.github.io/tag/numpyhistogram.html" class="tag">numpy.histogram (1)</a>
+                <a href="http://pybonacci.github.io/tag/test.html" class="tag">test (2)</a>
+                <a href="http://pybonacci.github.io/tag/bugs.html" class="tag">bugs (1)</a>
+                <a href="http://pybonacci.github.io/tag/depuracion.html" class="tag">depuración (1)</a>
+                <a href="http://pybonacci.github.io/tag/pdb.html" class="tag">pdb (1)</a>
+                <a href="http://pybonacci.github.io/tag/entrevistas.html" class="tag">entrevistas (1)</a>
+                <a href="http://pybonacci.github.io/tag/open-science.html" class="tag">open science (1)</a>
+                <a href="http://pybonacci.github.io/tag/blaze.html" class="tag">blaze (1)</a>
+                <a href="http://pybonacci.github.io/tag/nodebox.html" class="tag">nodebox (1)</a>
+                <a href="http://pybonacci.github.io/tag/videos.html" class="tag">vídeos (5)</a>
+                <a href="http://pybonacci.github.io/tag/pycon.html" class="tag">pycon (2)</a>
+                <a href="http://pybonacci.github.io/tag/pyconus.html" class="tag">pyconus (1)</a>
+                <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot (10)</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot (10)</a>
+                <a href="http://pybonacci.github.io/tag/format.html" class="tag">format (1)</a>
+                <a href="http://pybonacci.github.io/tag/formateando-texto.html" class="tag">formateando texto (1)</a>
+                <a href="http://pybonacci.github.io/tag/formato.html" class="tag">formato (1)</a>
+                <a href="http://pybonacci.github.io/tag/f2py.html" class="tag">f2py (1)</a>
+                <a href="http://pybonacci.github.io/tag/expresiones-regulares.html" class="tag">expresiones regulares (1)</a>
+                <a href="http://pybonacci.github.io/tag/re.html" class="tag">re (1)</a>
+                <a href="http://pybonacci.github.io/tag/regex.html" class="tag">regex (1)</a>
+                <a href="http://pybonacci.github.io/tag/regexp.html" class="tag">regexp (1)</a>
+                <a href="http://pybonacci.github.io/tag/browser.html" class="tag">browser (1)</a>
+                <a href="http://pybonacci.github.io/tag/grafica.html" class="tag">gráfica (1)</a>
+                <a href="http://pybonacci.github.io/tag/js.html" class="tag">js (1)</a>
+                <a href="http://pybonacci.github.io/tag/navegador.html" class="tag">navegador (1)</a>
+                <a href="http://pybonacci.github.io/tag/google-earth.html" class="tag">google earth (2)</a>
+                <a href="http://pybonacci.github.io/tag/googleearth.html" class="tag">googleearth (2)</a>
+                <a href="http://pybonacci.github.io/tag/kml.html" class="tag">kml (2)</a>
+                <a href="http://pybonacci.github.io/tag/kmz.html" class="tag">kmz (2)</a>
+                <a href="http://pybonacci.github.io/tag/pykml.html" class="tag">pykml (2)</a>
+                <a href="http://pybonacci.github.io/tag/coma-flotante.html" class="tag">coma flotante (1)</a>
+                <a href="http://pybonacci.github.io/tag/punto-flotante.html" class="tag">punto flotante (1)</a>
+                <a href="http://pybonacci.github.io/tag/aleatorio.html" class="tag">aleatorio (1)</a>
+                <a href="http://pybonacci.github.io/tag/numeros-aleatorios.html" class="tag">números aleatorios (2)</a>
+                <a href="http://pybonacci.github.io/tag/random.html" class="tag">random (1)</a>
+                <a href="http://pybonacci.github.io/tag/bdd.html" class="tag">BDD (1)</a>
+                <a href="http://pybonacci.github.io/tag/ano-nuevo.html" class="tag">año nuevo (1)</a>
+                <a href="http://pybonacci.github.io/tag/meme.html" class="tag">meme (1)</a>
+                <a href="http://pybonacci.github.io/tag/animacion.html" class="tag">animación (1)</a>
+                <a href="http://pybonacci.github.io/tag/ffmpeg.html" class="tag">ffmpeg (1)</a>
+                <a href="http://pybonacci.github.io/tag/ipynb2wp.html" class="tag">ipynb2wp (2)</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibanimation.html" class="tag">matplotlib.animation (2)</a>
+                <a href="http://pybonacci.github.io/tag/numpyrecarray.html" class="tag">numpy.recarray (1)</a>
+                <a href="http://pybonacci.github.io/tag/recarray.html" class="tag">recarray (1)</a>
+                <a href="http://pybonacci.github.io/tag/record-array.html" class="tag">record array (1)</a>
+                <a href="http://pybonacci.github.io/tag/array-oriented.html" class="tag">array-oriented (1)</a>
+                <a href="http://pybonacci.github.io/tag/hdf.html" class="tag">hdf (1)</a>
+                <a href="http://pybonacci.github.io/tag/netcdf.html" class="tag">netcdf (2)</a>
+                <a href="http://pybonacci.github.io/tag/netcdf-4.html" class="tag">netcdf-4 (1)</a>
+                <a href="http://pybonacci.github.io/tag/netcdf4-python.html" class="tag">netcdf4-python (2)</a>
+                <a href="http://pybonacci.github.io/tag/prueba-de-concepto.html" class="tag">prueba de concepto (1)</a>
+                <a href="http://pybonacci.github.io/tag/xml-rpc.html" class="tag">XML-RPC (1)</a>
+                <a href="http://pybonacci.github.io/tag/automatas-celulares.html" class="tag">autómatas celulares (1)</a>
+                <a href="http://pybonacci.github.io/tag/artificial-intelligence.html" class="tag">artificial intelligence (1)</a>
+                <a href="http://pybonacci.github.io/tag/videos-pycon-pyconca.html" class="tag">videos pycon pyconca (1)</a>
+                <a href="http://pybonacci.github.io/tag/fibonacci.html" class="tag">fibonacci (1)</a>
+                <a href="http://pybonacci.github.io/tag/fractales.html" class="tag">fractales (1)</a>
+                <a href="http://pybonacci.github.io/tag/logo.html" class="tag">logo (1)</a>
+                <a href="http://pybonacci.github.io/tag/web.html" class="tag">web (1)</a>
+                <a href="http://pybonacci.github.io/tag/pydata2012nyc.html" class="tag">pydata2012nyc (1)</a>
+                <a href="http://pybonacci.github.io/tag/pydatanyc.html" class="tag">pydatanyc (1)</a>
+                <a href="http://pybonacci.github.io/tag/algoritmos.html" class="tag">algoritmos (1)</a>
+                <a href="http://pybonacci.github.io/tag/busqueda-en-escalada.html" class="tag">búsqueda en escalada (1)</a>
+                <a href="http://pybonacci.github.io/tag/heuristica.html" class="tag">heurística (1)</a>
+                <a href="http://pybonacci.github.io/tag/hill-climbing.html" class="tag">hill-climbing (1)</a>
+                <a href="http://pybonacci.github.io/tag/cartografia.html" class="tag">cartografía (1)</a>
+                <a href="http://pybonacci.github.io/tag/geografia.html" class="tag">geografía (1)</a>
+                <a href="http://pybonacci.github.io/tag/gps.html" class="tag">gps (1)</a>
+                <a href="http://pybonacci.github.io/tag/proj.html" class="tag">proj (1)</a>
+                <a href="http://pybonacci.github.io/tag/proj4.html" class="tag">proj.4 (1)</a>
+                <a href="http://pybonacci.github.io/tag/pyproj.html" class="tag">pyproj (1)</a>
+                <a href="http://pybonacci.github.io/tag/ecuaciones-no-lineales.html" class="tag">ecuaciones no lineales (2)</a>
+                <a href="http://pybonacci.github.io/tag/scipyoptimize.html" class="tag">scipy.optimize (2)</a>
+                <a href="http://pybonacci.github.io/tag/monte-carlo.html" class="tag">monte carlo (1)</a>
+                <a href="http://pybonacci.github.io/tag/montecarlo.html" class="tag">montecarlo (1)</a>
+                <a href="http://pybonacci.github.io/tag/pi.html" class="tag">pi (1)</a>
+                <a href="http://pybonacci.github.io/tag/shapely.html" class="tag">shapely (2)</a>
+                <a href="http://pybonacci.github.io/tag/baumgartner.html" class="tag">Baumgartner (1)</a>
+                <a href="http://pybonacci.github.io/tag/stratos.html" class="tag">stratos (1)</a>
+                <a href="http://pybonacci.github.io/tag/piecewise.html" class="tag">piecewise (1)</a>
+                <a href="http://pybonacci.github.io/tag/acp.html" class="tag">acp (1)</a>
+                <a href="http://pybonacci.github.io/tag/analisis-de-componentes-principales.html" class="tag">analisis de componentes principales (1)</a>
+                <a href="http://pybonacci.github.io/tag/dimensionality-reduction.html" class="tag">dimensionality reduction (1)</a>
+                <a href="http://pybonacci.github.io/tag/pca.html" class="tag">pca (1)</a>
+                <a href="http://pybonacci.github.io/tag/principal-component-analysis.html" class="tag">principal component analysis (1)</a>
+                <a href="http://pybonacci.github.io/tag/reduccion-de-dimensiones.html" class="tag">reducción de dimensiones (1)</a>
+                <a href="http://pybonacci.github.io/tag/singular-value-decomposition.html" class="tag">singular value decomposition (1)</a>
+                <a href="http://pybonacci.github.io/tag/sklearn.html" class="tag">sklearn (1)</a>
+                <a href="http://pybonacci.github.io/tag/svd.html" class="tag">svd (1)</a>
+                <a href="http://pybonacci.github.io/tag/charlas-ted.html" class="tag">Charlas Ted (1)</a>
+                <a href="http://pybonacci.github.io/tag/francis-anscombe.html" class="tag">Francis Anscombe (1)</a>
+                <a href="http://pybonacci.github.io/tag/hans-rosling.html" class="tag">Hans Rosling (1)</a>
+                <a href="http://pybonacci.github.io/tag/representacion.html" class="tag">representación (1)</a>
+                <a href="http://pybonacci.github.io/tag/ted.html" class="tag">Ted (1)</a>
+                <a href="http://pybonacci.github.io/tag/ted-talks.html" class="tag">Ted talks (1)</a>
+                <a href="http://pybonacci.github.io/tag/cinematica.html" class="tag">cinemática (1)</a>
+                <a href="http://pybonacci.github.io/tag/fisica.html" class="tag">física (1)</a>
+                <a href="http://pybonacci.github.io/tag/movimiento-parabolico.html" class="tag">movimiento parabólico (1)</a>
+                <a href="http://pybonacci.github.io/tag/vpython.html" class="tag">vpython (1)</a>
+                <a href="http://pybonacci.github.io/tag/fft.html" class="tag">fft (1)</a>
+                <a href="http://pybonacci.github.io/tag/fftpack.html" class="tag">fftpack (1)</a>
+                <a href="http://pybonacci.github.io/tag/poligono.html" class="tag">polígono (1)</a>
+                <a href="http://pybonacci.github.io/tag/shp.html" class="tag">shp (1)</a>
+                <a href="http://pybonacci.github.io/tag/acikit-learn.html" class="tag">acikit-learn (1)</a>
+                <a href="http://pybonacci.github.io/tag/numexpr.html" class="tag">numexpr (2)</a>
+                <a href="http://pybonacci.github.io/tag/opengl.html" class="tag">opengl (1)</a>
+                <a href="http://pybonacci.github.io/tag/timeseries.html" class="tag">timeseries (1)</a>
+                <a href="http://pybonacci.github.io/tag/visvis.html" class="tag">visvis (1)</a>
+                <a href="http://pybonacci.github.io/tag/cuantiles.html" class="tag">cuantiles (1)</a>
+                <a href="http://pybonacci.github.io/tag/cuartiles.html" class="tag">cuartiles (1)</a>
+                <a href="http://pybonacci.github.io/tag/deciles.html" class="tag">deciles (1)</a>
+                <a href="http://pybonacci.github.io/tag/percentil.html" class="tag">percentil (1)</a>
+                <a href="http://pybonacci.github.io/tag/percentiles.html" class="tag">percentiles (1)</a>
+                <a href="http://pybonacci.github.io/tag/scipystats.html" class="tag">scipy.stats (1)</a>
+                <a href="http://pybonacci.github.io/tag/scoreatpercentile.html" class="tag">scoreatpercentile (1)</a>
+                <a href="http://pybonacci.github.io/tag/documentacion.html" class="tag">documentación (1)</a>
+                <a href="http://pybonacci.github.io/tag/docutils.html" class="tag">docutils (1)</a>
+                <a href="http://pybonacci.github.io/tag/rest.html" class="tag">rest (1)</a>
+                <a href="http://pybonacci.github.io/tag/entretenimiento.html" class="tag">Entretenimiento (1)</a>
+                <a href="http://pybonacci.github.io/tag/ides.html" class="tag">IDEs (2)</a>
+                <a href="http://pybonacci.github.io/tag/spyder.html" class="tag">spyder (1)</a>
+                <a href="http://pybonacci.github.io/tag/spyderlib.html" class="tag">spyderlib (1)</a>
+                <a href="http://pybonacci.github.io/tag/archivos.html" class="tag">archivos (1)</a>
+                <a href="http://pybonacci.github.io/tag/netcdf4.html" class="tag">netcdf4 (1)</a>
+                <a href="http://pybonacci.github.io/tag/editores.html" class="tag">editores (1)</a>
+                <a href="http://pybonacci.github.io/tag/instalacion.html" class="tag">instalación (1)</a>
+                <a href="http://pybonacci.github.io/tag/windows.html" class="tag">windows (1)</a>
+                <a href="http://pybonacci.github.io/tag/astrofisica.html" class="tag">astrofísica (1)</a>
+                <a href="http://pybonacci.github.io/tag/foss.html" class="tag">foss (2)</a>
+                <a href="http://pybonacci.github.io/tag/algebra-lineal.html" class="tag">álgebra lineal (1)</a>
+                <a href="http://pybonacci.github.io/tag/vectores.html" class="tag">vectores (1)</a>
+                <a href="http://pybonacci.github.io/tag/scipysparse.html" class="tag">scipy.sparse (1)</a>
+                <a href="http://pybonacci.github.io/tag/calculo-simbolico.html" class="tag">cálculo simbólico (3)</a>
+                <a href="http://pybonacci.github.io/tag/sage.html" class="tag">sage (1)</a>
+                <a href="http://pybonacci.github.io/tag/derivadas.html" class="tag">derivadas (1)</a>
+                <a href="http://pybonacci.github.io/tag/integrales.html" class="tag">integrales (1)</a>
+                <a href="http://pybonacci.github.io/tag/limites.html" class="tag">límites (1)</a>
+                <a href="http://pybonacci.github.io/tag/series.html" class="tag">series (1)</a>
+                <a href="http://pybonacci.github.io/tag/metodos-numericos.html" class="tag">métodos numéricos (1)</a>
+                <a href="http://pybonacci.github.io/tag/biseccion.html" class="tag">biseccion (1)</a>
+                <a href="http://pybonacci.github.io/tag/newton.html" class="tag">newton (1)</a>
+                <a href="http://pybonacci.github.io/tag/meteorologia.html" class="tag">meteorología (1)</a>
+                <a href="http://pybonacci.github.io/tag/cas.html" class="tag">cas (1)</a>
+                <a href="http://pybonacci.github.io/tag/mathematica.html" class="tag">mathematica (1)</a>
+                <a href="http://pybonacci.github.io/tag/mathics.html" class="tag">mathics (1)</a>
+                <a href="http://pybonacci.github.io/tag/downhill-simplex-algorithm.html" class="tag">downhill simplex algorithm (1)</a>
+                <a href="http://pybonacci.github.io/tag/integracion.html" class="tag">integración (1)</a>
+                <a href="http://pybonacci.github.io/tag/python-2.html" class="tag">python 2 (1)</a>
+        </div>
+
+        <ul class="double-list">
+            <li>
+                <a href='/2018/11/27/creacion-de-videos-en-el-notebook/'>
+                    <h2>Creación de vídeos al vuelo en el notebook</h2>
+                    <span>2018-11-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/11/17/tolonteria-de-navidad/'>
+                    <h2>TOLoNtería de Navidad</h2>
+                    <span>2018-11-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/10/14/explicando-la-explicabilidad/'>
+                    <h2>Explicando la explicabilidad</h2>
+                    <span>2018-10-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/10/06/bienvenidos-a-pybonacci-3.0/'>
+                    <h2>Bienvenidos a Pybonacci 3.0</h2>
+                    <span>2018-10-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/05/09/manejar-dependencias-python/'>
+                    <h2>Manejar dependencias y entornos de desarrollo en Python</h2>
+                    <span>2018-05-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/04/13/curso-de-datos-de-manu-garrido/'>
+                    <h2>Curso de datos de Manu Garrido: Así se hizo</h2>
+                    <span>2018-04-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2018/03/27/performance-pandas-numpy-bottleneck/'>
+                    <h2>Performance: Pandas vs NumPy (vs Bottleneck)</h2>
+                    <span>2018-03-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/09/07/como-crear-un-mapa-interactivo-con-folium/'>
+                    <h2>¿Cómo crear un mapa interactivo con Folium?</h2>
+                    <span>2017-09-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/08/02/microentradas-unicodelatex-en-la-consola-ipythonnotebook-jupyter/'>
+                    <h2>Microentradas: Unicode/látex en la consola IPython/notebook Jupyter</h2>
+                    <span>2017-08-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/07/25/instalando-postgresql-en-local-en-windows-o-linux-usando-conda/'>
+                    <h2>Instalando PostgreSQL en local en windows o linux usando conda</h2>
+                    <span>2017-07-25</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/06/03/donaciones-gracias-a-packtpub/'>
+                    <h2>Donaciones gracias a Packtpub</h2>
+                    <span>2017-06-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/04/17/como-hacer-un-mapa-muy-bonito-de-espana-en-ggplot2/'>
+                    <h2>Como hacer un mapa muy bonito de España en ggplot2</h2>
+                    <span>2017-04-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2017/01/11/manejo-de-atributos-mediante-propiedades/'>
+                    <h2>Manejo de atributos mediante propiedades.</h2>
+                    <span>2017-01-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/10/30/revision-del-libro-python-3-curso-practico-de-alberto-cuevas/'>
+                    <h2>Revisión del libro &#8220;Python 3, Curso Práctico&#8221; de Alberto Cuevas</h2>
+                    <span>2016-10-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/10/27/joyitas-en-la-stdlib-concurrent-futures/'>
+                    <h2>Joyitas en la stdlib: concurrent.futures</h2>
+                    <span>2016-10-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/09/19/revision-del-libro-introduccion-a-la-programacion-con-python-de-nilo-menezes/'>
+                    <h2>Revisión del libro &#8220;Introducción a la programación con Python&#8221; de Nilo Menezes</h2>
+                    <span>2016-09-19</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/07/11/analizando-datos-sobre-el-brexit-con-pandas/'>
+                    <h2>Analizando datos sobre el Brexit con Pandas</h2>
+                    <span>2016-07-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/06/21/como-mejorar-tu-script-facilmente/'>
+                    <h2>Como mejorar tu script fácilmente</h2>
+                    <span>2016-06-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/06/07/microentradas-evitar-ciertas-etiquetas-en-la-leyenda-en-matplotlib/'>
+                    <h2>Microentradas: Evitar ciertas etiquetas en la leyenda en Matplotlib</h2>
+                    <span>2016-06-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/05/25/como-llamar-codigo-cc-desde-cpython-y-pypy-usando-cython-y-cffi/'>
+                    <h2>Cómo llamar código C/C++ desde CPython (y Pypy) usando Cython y CFFI</h2>
+                    <span>2016-05-25</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/05/18/joyitas-en-la-stdlib-pathlib/'>
+                    <h2>Joyitas en la stdlib: pathlib</h2>
+                    <span>2016-05-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/05/08/joyitas-en-la-stdlib-collections/'>
+                    <h2>Joyitas en la stdlib: collections</h2>
+                    <span>2016-05-08</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/04/16/resaca-pydata-madrid-2016/'>
+                    <h2>Resaca PyData Madrid 2016</h2>
+                    <span>2016-04-16</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/03/13/instala-pypy-5-0-y-numpypy-en-un-virtualenv-y-juega-con-jupyter/'>
+                    <h2>Instala pypy 5.0 y numpypy en un virtualenv y juega con Jupyter</h2>
+                    <span>2016-03-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/02/22/el-producto-de-matrices-y-el-nuevo-operador/'>
+                    <h2>El producto de matrices y el nuevo operador @</h2>
+                    <span>2016-02-22</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/02/14/formula-para-el-amor/'>
+                    <h2>Fórmula para el amor</h2>
+                    <span>2016-02-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/02/13/por-que-dar-una-charla-ahora-y-no-luego/'>
+                    <h2>Por qué dar una charla *ahora* y no luego</h2>
+                    <span>2016-02-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/'>
+                    <h2>Cómo crear extensiones en C para Python usando CFFI y numba</h2>
+                    <span>2016-02-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/01/26/explorando-el-planeta-nueve-con-python-usando-poliastro/'>
+                    <h2>Explorando el Planeta Nueve con Python usando poliastro</h2>
+                    <span>2016-01-26</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2016/01/03/reglas-para-refactorizar-funciones-lambda/'>
+                    <h2>Reglas para refactorizar funciones lambda</h2>
+                    <span>2016-01-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/12/28/joyas-python-del-2015/'>
+                    <h2>Joyas Python del 2015</h2>
+                    <span>2015-12-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/12/14/the-software-sustainability-institute/'>
+                    <h2>The Software Sustainability Institute</h2>
+                    <span>2015-12-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/12/11/breve-introduccion-a-los-sistemas-de-recomendacion/'>
+                    <h2>Breve introducción a los Sistemas de Recomendación</h2>
+                    <span>2015-12-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/12/01/aprende-historia-gracias-a-geocodificacion-inversa-mapping-y-wikipedia/'>
+                    <h2>Aprende historia gracias a geocodificación inversa, mapping y wikipedia</h2>
+                    <span>2015-12-01</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/11/26/pycones-2015-cronica-de-un-evento-inolvidable/'>
+                    <h2>PyConES 2015: Crónica de un evento inolvidable</h2>
+                    <span>2015-11-26</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/11/24/como-hacer-analisis-de-sentimiento-en-espanol-2/'>
+                    <h2>Como hacer Análisis de Sentimiento en español</h2>
+                    <span>2015-11-24</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/'>
+                    <h2>Dibujando 100k tweets de mi ciudad</h2>
+                    <span>2015-11-16</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/11/12/como-funciona-el-metodo-append-de-una-lista-en-cpython/'>
+                    <h2>¿Cómo funciona el método append de una lista en CPython?</h2>
+                    <span>2015-11-12</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/11/08/vamos-a-comernos-el-mundo-y-argentina-en-python/'>
+                    <h2>Vamos a comernos el mundo y [Argentina] en Python</h2>
+                    <span>2015-11-08</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/'>
+                    <h2>Curso de Python en la ETSIAE: 4ª edición</h2>
+                    <span>2015-10-15</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/10/13/comunidades-relevo-generacional-y-la-muerte-de-python-hispano/'>
+                    <h2>Comunidades, relevo generacional y la muerte de Python Hispano</h2>
+                    <span>2015-10-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/09/28/analisis-cluster-iii-clasificacion-no-supervisada-mediante-k-medias/'>
+                    <h2>Análisis Cluster (III): Clasificación no supervisada mediante K-medias</h2>
+                    <span>2015-09-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/09/17/curso-aeropython-en-la-uc3m/'>
+                    <h2>¡Curso AeroPython en la UC3M!</h2>
+                    <span>2015-09-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/08/13/regresion-lineal-simple-explicada/'>
+                    <h2>Regresión lineal simple explicada</h2>
+                    <span>2015-08-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/06/18/trabajando-con-python-y-r/'>
+                    <h2>Trabajando con Python y R</h2>
+                    <span>2015-06-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/04/06/introduccion-a-machine-learning-con-python-parte-2/'>
+                    <h2>Introducción a Machine Learning con Python (Parte 2)</h2>
+                    <span>2015-04-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/31/scipy-latin-america-2015-en-argentina-manda-tu-charla/'>
+                    <h2>SciPy Latin America 2015 en Argentina: ¡manda tu charla!</h2>
+                    <span>2015-03-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/28/c-elemental-querido-numba/'>
+                    <h2>C elemental, querido numba</h2>
+                    <span>2015-03-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/23/jupytor-jupyter-pythontutor/'>
+                    <h2>tutormagic: Jupyter + pythontutor</h2>
+                    <span>2015-03-23</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/17/pandas-como-interfaz-sql/'>
+                    <h2>Pandas como interfaz SQL</h2>
+                    <span>2015-03-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/13/como-acelerar-tu-codigo-python-con-numba/'>
+                    <h2>Cómo acelerar tu código Python con numba</h2>
+                    <span>2015-03-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/09/introduccion-a-python-para-cientificos-e-ingenieros-2a-edicion-ya-disponible/'>
+                    <h2>&#8220;Introducción a Python para científicos e ingenieros&#8221;, 2ª edición, ¡ya disponible!</h2>
+                    <span>2015-03-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/03/09/c-elemental-querido-cython/'>
+                    <h2>C elemental, querido Cython</h2>
+                    <span>2015-03-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/01/25/realmente-es-feo-matplotlib/'>
+                    <h2>¿Realmente es feo matplotlib?</h2>
+                    <span>2015-01-25</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/01/20/fenics-resolucion-de-ecuaciones-diferenciales-en-python/'>
+                    <h2>FEniCS: Resolución de ecuaciones diferenciales en Python</h2>
+                    <span>2015-01-20</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/'>
+                    <h2>Introducción a Machine Learning con Python (Parte 1)</h2>
+                    <span>2015-01-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/01/07/comprobando-presencia-de-subconjuntos-dentro-de-conjunto-de-forma-eficiente/'>
+                    <h2>Comprobando presencia de subconjuntos dentro de conjunto de forma eficiente</h2>
+                    <span>2015-01-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2015/01/05/ecuaciones-de-lotka-volterra-modelo-presa-depredador/'>
+                    <h2>Ecuaciones de Lotka-Volterra: modelo presa depredador</h2>
+                    <span>2015-01-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/11/11/quieres-empezar-con-python/'>
+                    <h2>¿Quieres empezar con Python?</h2>
+                    <span>2014-11-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/11/05/taller-python-para-ciencia-e-ingenieria-en-la-pycones-2014/'>
+                    <h2>Taller: Python para ciencia e ingeniería en la PyConES 2014</h2>
+                    <span>2014-11-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/11/04/cursos-aeropython-algunas-conclusiones/'>
+                    <h2>Cursos #AeroPython: algunas conclusiones</h2>
+                    <span>2014-11-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/11/03/bryplot-y-el-triangulo-de-sierpinski/'>
+                    <h2>BryPlot y el triángulo de Sierpinski</h2>
+                    <span>2014-11-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/10/15/palabras-usadas-en-python-palabras-clave-y-builtins/'>
+                    <h2>Palabras usadas en Python (palabras clave y <em>builtins</em>)</h2>
+                    <span>2014-10-15</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/10/12/syntaxerror-more-than-255-arguments/'>
+                    <h2>SyntaxError: more than 255 arguments</h2>
+                    <span>2014-10-12</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/10/07/basemap-y-google-geocode-para-representar-puntos-sobre-un-mapa/'>
+                    <h2>Basemap y Google Geocode para representar puntos sobre un mapa</h2>
+                    <span>2014-10-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/'>
+                    <h2>Curso de Python en la ETSIAE: 2ª edición</h2>
+                    <span>2014-10-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/09/09/microentrada-rendimiento-de-scatterplots-en-matplotlib/'>
+                    <h2>Microentrada: Rendimiento de scatterplots en matplotlib</h2>
+                    <span>2014-09-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/08/30/graficas-de-tiempo-real-con-plotly/'>
+                    <h2>Gráficas de tiempo real con Plotly</h2>
+                    <span>2014-08-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/08/22/graficas-interactivas-con-plotly/'>
+                    <h2>Gráficas interactivas con Plotly</h2>
+                    <span>2014-08-22</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/08/16/liberado-poliastro-0-2-mecanica-orbital-y-astrodinamica-en-python/'>
+                    <h2>Liberado poliastro 0.2: Mecánica Orbital y Astrodinámica en Python</h2>
+                    <span>2014-08-16</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/08/09/anunciado-colaboratory-ipythonjupyter-google/'>
+                    <h2>Anunciado coLaboratory: IPython/Jupyter + Google</h2>
+                    <span>2014-08-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/08/05/de-matplotlib-a-la-web-con-plotly/'>
+                    <h2>De matplotlib a la web con plotly</h2>
+                    <span>2014-08-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/'>
+                    <h2>Tutorial de Highcharts usando IPython, brython y brythonmagic</h2>
+                    <span>2014-07-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/'>
+                    <h2>Dibujando una rosa de frecuencias (reloaded)</h2>
+                    <span>2014-07-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/29/pybonacci-2-0/'>
+                    <h2>Pybonacci 2.0</h2>
+                    <span>2014-07-29</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/27/bienvenidos-al-nuevo-pybonacci/'>
+                    <h2>¡Bienvenidos al nuevo Pybonacci!</h2>
+                    <span>2014-07-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/26/resena-del-libro-learning-numpy-array-de-ivan-idris/'>
+                    <h2>Reseña del libro &#8220;Learning NumPy Array&#8221; de Ivan Idris</h2>
+                    <span>2014-07-26</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/14/curso-de-python-en-la-upm-una-oportunidad-para-el-software-libre/'>
+                    <h2>Curso de Python en la UPM: una oportunidad para el software libre</h2>
+                    <span>2014-07-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/07/13/microentradas-scipy-constants/'>
+                    <h2>MicroEntradas: scipy.constants</h2>
+                    <span>2014-07-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/11/tutorial-de-openlayers-usando-ipython-brython-y-brythonmagic/'>
+                    <h2>Tutorial de OpenLayers usando IPython, Brython y brythonmagic</h2>
+                    <span>2014-06-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/10/pandas-vi/'>
+                    <h2>Pandas (VI)</h2>
+                    <span>2014-06-10</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/08/pandas-v/'>
+                    <h2>Pandas (V)</h2>
+                    <span>2014-06-08</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/06/pandas-iv/'>
+                    <h2>Pandas (IV)</h2>
+                    <span>2014-06-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/04/pandas-iii/'>
+                    <h2>Pandas (III)</h2>
+                    <span>2014-06-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/06/02/pandas-ii-2/'>
+                    <h2>Pandas (II)</h2>
+                    <span>2014-06-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/05/30/pandas-i/'>
+                    <h2>Pandas (I)</h2>
+                    <span>2014-05-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/03/18/disponible-curso-de-introduccion-a-python-para-cientificos-e-ingenieros/'>
+                    <h2>¡Disponible Curso de Introducción a Python para científicos e ingenieros!</h2>
+                    <span>2014-03-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/03/18/haz-una-libreria-de-la-que-me-pueda-fiar-o-no-la-hagas/'>
+                    <h2>Haz una librería de la que me pueda fiar… o no la hagas</h2>
+                    <span>2014-03-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/03/03/presentando-brythonmagic/'>
+                    <h2>Presentando brythonmagic</h2>
+                    <span>2014-03-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/02/04/como-separar-parte-real-e-imaginaria-en-sympy/'>
+                    <h2>¿Cómo separar parte real e imaginaria en SymPy?</h2>
+                    <span>2014-02-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/31/microentradas-numpy-vectorize/'>
+                    <h2>MicroEntradas: numpy.vectorize</h2>
+                    <span>2014-01-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/29/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-ii/'>
+                    <h2>157 cosas de IPython que no sabías y nunca preguntaste (II)</h2>
+                    <span>2014-01-29</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/'>
+                    <h2>157 cosas de IPython que no sabías y nunca preguntaste (I)</h2>
+                    <span>2014-01-24</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/23/curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid/'>
+                    <h2>Curso de Python en la ETSI Aeronáutica y del Espacio de Madrid</h2>
+                    <span>2014-01-23</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/21/como-trabajar-con-arrays-de-binarios-en-python/'>
+                    <h2>¿Cómo trabajar con arrays de binarios en Python?</h2>
+                    <span>2014-01-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/19/leer-datos-de-arduino-desde-python/'>
+                    <h2>Leer datos de Arduino desde Python</h2>
+                    <span>2014-01-19</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/14/como-borrar-por-encima-de-una-linea-en-matplotlib/'>
+                    <h2>¿Cómo borrar por encima de una línea en matplotlib?</h2>
+                    <span>2014-01-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2014/01/04/meme-python-de-ano-nuevo-2014/'>
+                    <h2>Meme Python de Año Nuevo 2014</h2>
+                    <span>2014-01-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/12/13/optimizacion-en-python-cvxopt/'>
+                    <h2>Optimización en Python: CVXOpt</h2>
+                    <span>2013-12-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/12/09/mi-primera-auditoria-de-codigo-revisando-scikit-aero/'>
+                    <h2>Mi primera auditoría de código: revisando scikit-aero</h2>
+                    <span>2013-12-09</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/12/03/desarrollo-dirigido-por-pruebas-en-python-iii-independencia-del-sistema/'>
+                    <h2>Desarrollo Dirigido por Pruebas en Python (III). Independencia del Sistema</h2>
+                    <span>2013-12-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/11/15/operador-dos-puntos-de-matlab-en-python/'>
+                    <h2>Operador dos puntos (:) de MATLAB ¿en Python?</h2>
+                    <span>2013-11-15</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/'>
+                    <h2>Teoría de control en Python con SciPy (II): Control PID</h2>
+                    <span>2013-11-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/10/10/teoria-de-control-en-python-con-scipy-i/'>
+                    <h2>Teoría de control en Python con SciPy (I): Conceptos básicos</h2>
+                    <span>2013-10-10</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/09/22/hoja-de-ruta-para-scipy-1-0/'>
+                    <h2>Hoja de ruta para SciPy 1.0</h2>
+                    <span>2013-09-22</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/09/04/pfs-multiplicacion-de-karatsuba/'>
+                    <h2>PFS: Multiplicación de Karatsuba</h2>
+                    <span>2013-09-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/08/28/pfs-exponenciacion-binaria/'>
+                    <h2>PFS: Exponenciación binaria</h2>
+                    <span>2013-08-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/08/23/informando-de-bugs-en-numpy-y-scipy-en-castellano-a-traves-de-pybonacci/'>
+                    <h2>Informando de bugs en NumPy y SciPy en castellano a través de Pybonacci</h2>
+                    <span>2013-08-23</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/'>
+                    <h2>Ajuste e interpolación unidimensionales básicos en Python con SciPy</h2>
+                    <span>2013-08-15</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/07/27/microentradas-numpy-unravel_index/'>
+                    <h2>MicroEntradas: numpy.unravel_index</h2>
+                    <span>2013-07-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/07/08/aprende-funcionalidad-basica-de-pytables-paso-a-paso-iii/'>
+                    <h2>Aprende (funcionalidad básica de) PyTables paso a paso (III)</h2>
+                    <span>2013-07-08</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/07/06/aprende-funcionalidad-basica-de-pytables-paso-a-paso-ii/'>
+                    <h2>Aprende (funcionalidad básica de) PyTables paso a paso (II)</h2>
+                    <span>2013-07-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/07/04/aprende-funcionalidad-basica-de-pytables-paso-a-paso-i/'>
+                    <h2>Aprende (funcionalidad básica de) PyTables paso a paso (I)</h2>
+                    <span>2013-07-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/06/30/microentradas-numpy-digitize/'>
+                    <h2>MicroEntradas: numpy.digitize</h2>
+                    <span>2013-06-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/06/19/desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i/'>
+                    <h2>Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)</h2>
+                    <span>2013-06-19</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/06/14/como-depurar-un-programa-python-con-pdb/'>
+                    <h2>Cómo depurar un programa Python con pdb</h2>
+                    <span>2013-06-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/05/16/entrevista-a-fernando-perez-creador-de-ipython/'>
+                    <h2>Entrevista a Fernando Pérez, creador de IPython</h2>
+                    <span>2013-05-16</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/04/05/repaso-a-pydata-2013/'>
+                    <h2>Repaso a PyData 2013</h2>
+                    <span>2013-04-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/03/27/repaso-a-la-pyconus-2013/'>
+                    <h2>Repaso a la PyConUS 2013</h2>
+                    <span>2013-03-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/03/21/revision-del-tutorial-de-matplotlib-pyplot/'>
+                    <h2>Revisión del tutorial de matplotlib.pyplot</h2>
+                    <span>2013-03-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/03/03/formateando-numeros/'>
+                    <h2>Formateando números</h2>
+                    <span>2013-03-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/02/22/integrar-fortran-con-python-usando-f2py/'>
+                    <h2>Integrar Fortran con Python usando F2PY</h2>
+                    <span>2013-02-22</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/02/21/regex-mediante-ejemplos/'>
+                    <h2>Regex mediante ejemplos</h2>
+                    <span>2013-02-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/02/17/graficas-interactivas-en-el-navegador/'>
+                    <h2>Gráficas interactivas en el navegador</h2>
+                    <span>2013-02-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/02/04/usando-google-earth-con-ayuda-de-python-y-pykml-ii/'>
+                    <h2>Usando google earth con ayuda de python y pykml (II)</h2>
+                    <span>2013-02-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/02/03/usando-google-earth-con-ayuda-de-python-y-pykml-i/'>
+                    <h2>Usando google earth con ayuda de python y pykml (I)</h2>
+                    <span>2013-02-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/01/22/presentando-la-guia-del-punto-flotante/'>
+                    <h2>Presentando «La guía del punto flotante»</h2>
+                    <span>2013-01-22</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/01/11/numeros-aleatorios-en-python-con-numpy-y-scipy/'>
+                    <h2>Números aleatorios en Python con NumPy y SciPy</h2>
+                    <span>2013-01-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/'>
+                    <h2>Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días</h2>
+                    <span>2013-01-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2013/01/05/meme-python-de-ano-nuevo-2013/'>
+                    <h2>Meme Python de Año Nuevo 2013</h2>
+                    <span>2013-01-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/12/20/un-2012-de-python-cientifico/'>
+                    <h2>Un 2012 de Python científico</h2>
+                    <span>2012-12-20</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/12/16/creando-una-animacion-con-matplotlib-y-ffmpeg/'>
+                    <h2>Creando una animación con matplotlib y ffmpeg</h2>
+                    <span>2012-12-16</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/12/14/trabajando-con-recarray-3/'>
+                    <h2>Trabajando con recarray</h2>
+                    <span>2012-12-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/12/03/por-que-usar-netcdf/'>
+                    <h2>¿Por qué usar netCDF?</h2>
+                    <span>2012-12-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/12/02/publicando-directamente-en-wordpress-com-con-python/'>
+                    <h2>Publicando directamente en wordpress.com con python</h2>
+                    <span>2012-12-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/30/juego-de-la-vida-de-conway-con-python-usando-numpy/'>
+                    <h2>Juego de la vida de Conway con Python usando NumPy</h2>
+                    <span>2012-11-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/19/analisis-cluster-ii-clasificacion-no-supervisada-mediante-clasificacion-jerarquica-aglomerativa/'>
+                    <h2>Análisis Cluster (II): Clasificación no supervisada mediante clasificación jerárquica aglomerativa</h2>
+                    <span>2012-11-19</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/18/analisis-cluster-i-introduccion/'>
+                    <h2>Análisis cluster (I): Introducción</h2>
+                    <span>2012-11-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/14/videos-interesantes-de-la-pyconca-2012/'>
+                    <h2>Videos interesantes de la PyConCa 2012</h2>
+                    <span>2012-11-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/13/visualizando-lineas-de-corriente-en-python-con-matplotlib/'>
+                    <h2>Visualizando líneas de corriente en Python con matplotlib</h2>
+                    <span>2012-11-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/07/el-pybofractal-el-nuevo-logo-de-pybonacci/'>
+                    <h2>El Pybofractal, el nuevo logo de Pybonacci</h2>
+                    <span>2012-11-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/04/hoy-celebramos-nuestro-articulo-numero/'>
+                    <h2>Hoy celebramos nuestro artículo número&#8230;</h2>
+                    <span>2012-11-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/11/02/el-notebook-de-ipython/'>
+                    <h2>El notebook de IPython</h2>
+                    <span>2012-11-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/31/recopilacion-del-pydata-nyc-2012/'>
+                    <h2>Recopilación del PyData NYC 2012</h2>
+                    <span>2012-10-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/31/nuestro-primer-algoritmo-heuristico/'>
+                    <h2>Nuestro primer algoritmo heurístico</h2>
+                    <span>2012-10-31</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/27/usando-el-gps-sin-perdernos-usando-pyproj/'>
+                    <h2>Usando el GPS sin perdernos (usando pyproj)</h2>
+                    <span>2012-10-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/25/como-resolver-ecuaciones-algebraicas-en-python-con-scipy/'>
+                    <h2>Cómo resolver ecuaciones algebraicas en Python con SciPy</h2>
+                    <span>2012-10-25</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/'>
+                    <h2>Calculando cosas mientras jugamos a la ruleta</h2>
+                    <span>2012-10-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/15/el-salto-de-felix-baumgartner-en-python/'>
+                    <h2>El salto de Felix Baumgartner en Python</h2>
+                    <span>2012-10-15</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/'>
+                    <h2>Funciones definidas a trozos con arrays de NumPy</h2>
+                    <span>2012-10-10</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/08/analisis-de-componentes-principales-con-python/'>
+                    <h2>Análisis de componentes principales con python</h2>
+                    <span>2012-10-08</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/05/la-importancia-de-inspeccionar-los-datos/'>
+                    <h2>La importancia de inspeccionar los datos</h2>
+                    <span>2012-10-05</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/10/02/lanzando-proyectiles-con-ayuda-de-vpython/'>
+                    <h2>Lanzando proyectiles (con ayuda de vpython)</h2>
+                    <span>2012-10-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/29/transformada-de-fourier-discreta-en-python-con-scipy/'>
+                    <h2>Transformada de Fourier discreta en Python con SciPy</h2>
+                    <span>2012-09-29</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/'>
+                    <h2>Buscando esa playa en la isla a mediodía (usando Shapely)</h2>
+                    <span>2012-09-20</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/17/repaso-a-la-euroscipy-2012/'>
+                    <h2>Repaso a la EuroScipy 2012</h2>
+                    <span>2012-09-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/14/calculando-cuantiles-con-python/'>
+                    <h2>Calculando cuantiles con python</h2>
+                    <span>2012-09-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/11/creacion-de-documentos-con-docutils-y-rest/'>
+                    <h2>Creación de documentos con Docutils y reST</h2>
+                    <span>2012-09-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/09/03/matropolis/'>
+                    <h2>Matrópolis</h2>
+                    <span>2012-09-03</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (IX): Miscelánea</h2>
+                    <span>2012-08-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/08/28/the-amazing-spyder-man/'>
+                    <h2>The amazing Spyder, man!!!</h2>
+                    <span>2012-08-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones</h2>
+                    <span>2012-08-24</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/'>
+                    <h2>Probando numba: compilador para Python basado en LLVM</h2>
+                    <span>2012-08-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/08/17/como-leer-y-escribir-datos-en-archivos-con-numpy/'>
+                    <h2>Cómo leer y escribir datos en archivos con NumPy</h2>
+                    <span>2012-08-17</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)</h2>
+                    <span>2012-07-29</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/07/02/introduccion-a-ipython-mucho-mas-que-un-interprete-de-python/'>
+                    <h2>Introducción a IPython: mucho más que un intérprete de Python</h2>
+                    <span>2012-07-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)</h2>
+                    <span>2012-07-01</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/27/python-en-windows-hola-mundo-en-7-minutos/'>
+                    <h2>Python en Windows: «¡Hola mundo!» en 7 minutos</h2>
+                    <span>2012-06-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/24/revisitando-python-es-lento-pequenos-trucos/'>
+                    <h2>Revisitando &#8216;python es lento&#8217;: pequeños trucos</h2>
+                    <span>2012-06-24</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)</h2>
+                    <span>2012-06-23</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/20/presentando-astropy-herramientas-basicas-para-astronomia-y-astrofisica-en-python/'>
+                    <h2>Presentando Astropy: herramientas básicas para Astronomía y Astrofísica en Python</h2>
+                    <span>2012-06-20</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/11/como-crear-matrices-en-python-con-numpy/'>
+                    <h2>Cómo crear matrices en Python con NumPy</h2>
+                    <span>2012-06-11</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/07/algebra-lineal-en-python-con-numpy-i-operaciones-basicas/'>
+                    <h2>Álgebra Lineal en Python con NumPy (I): Operaciones básicas</h2>
+                    <span>2012-06-07</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)</h2>
+                    <span>2012-06-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/06/02/pybonacci-estrena-canal-en-youtube/'>
+                    <h2>Pybonacci estrena canal en Youtube</h2>
+                    <span>2012-06-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico</h2>
+                    <span>2012-05-25</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión</h2>
+                    <span>2012-05-19</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/'>
+                    <h2>Manual de introducción a matplotlib.pyplot (I): Primeros pasos</h2>
+                    <span>2012-05-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/10/como-crear-una-matriz-tridiagonal-en-python-con-numpy-y-scipy/'>
+                    <h2>Cómo crear una matriz tridiagonal en Python con NumPy y SciPy</h2>
+                    <span>2012-05-10</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/06/sage-software-matematico-libre-como-alternativa/'>
+                    <h2>Sage: software matemático libre como alternativa</h2>
+                    <span>2012-05-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/05/01/python-es-lento/'>
+                    <h2>Python es lento</h2>
+                    <span>2012-05-01</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/'>
+                    <h2>Cómo calcular límites, derivadas, series e integrales en Python con SymPy</h2>
+                    <span>2012-04-30</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/27/regiones-de-estabilidad-de-metodos-numericos-en-python/'>
+                    <h2>Regiones de estabilidad de métodos numéricos en Python</h2>
+                    <span>2012-04-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/21/estadistica-en-python-con-scipy/'>
+                    <h2>Estadística en Python con SciPy (I)</h2>
+                    <span>2012-04-21</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/18/ecuaciones-no-lineales-metodo-de-biseccion-y-metodo-de-newton-en-python/'>
+                    <h2>Ecuaciones no lineales: método de bisección y método de Newton en Python</h2>
+                    <span>2012-04-18</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/'>
+                    <h2>Ejemplo de uso de Basemap y NetCDF4</h2>
+                    <span>2012-04-14</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/'>
+                    <h2>Dibujando líneas de nivel en Python con matplotlib</h2>
+                    <span>2012-04-13</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/06/listado-de-tutoriales-euroscipy-2012/'>
+                    <h2>Listado de tutoriales: EuroScipy 2012</h2>
+                    <span>2012-04-06</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/'>
+                    <h2>Introducción al Cálculo Simbólico en Python con SymPy</h2>
+                    <span>2012-04-04</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/02/presentando-mathics-una-alternativa-libre-y-ligera-a-mathematica/'>
+                    <h2>Presentando Mathics: una alternativa libre y ligera a Mathematica</h2>
+                    <span>2012-04-02</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/04/01/videos-interesantes-de-la-pycon-us-2012/'>
+                    <h2>Videos interesantes de la PyCon US 2012</h2>
+                    <span>2012-04-01</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/'>
+                    <h2>¿Cómo encontrar el mínimo de una función usando scipy?</h2>
+                    <span>2012-03-28</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/03/27/integrando-ecuaciones-diferenciales-metodo-leapfrog-en-python/'>
+                    <h2>Integrando ecuaciones diferenciales: método leapfrog en Python</h2>
+                    <span>2012-03-27</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/03/26/videos-del-pydata-workshop/'>
+                    <h2>Videos del PyData Workshop</h2>
+                    <span>2012-03-26</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/03/24/dibujando-una-rosa-de-frecuencias/'>
+                    <h2>Dibujando una rosa de frecuencias</h2>
+                    <span>2012-03-24</span>
+                </a>
+            </li>
+            <li>
+                <a href='/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/'>
+                    <h2>Introducción a Python para científicos e ingenieros</h2>
+                    <span>2012-03-16</span>
+                </a>
+            </li>
+        </ul>
+    </article>
+</div>
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

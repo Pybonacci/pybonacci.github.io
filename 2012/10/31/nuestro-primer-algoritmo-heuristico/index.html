@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Nuestro primer algoritmo heurístico | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Nuestro primer algoritmo heurístico</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 31 octubre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Normalmente, cuando se trata de optimizar 'algo' se pueden usar diferentes aproximaciones.</p>
+<ul>
+<li>La primera sería el uso de algoritmos de búsqueda exhaustivos como la fuerza bruta. Estos algoritmos nos dan la solución exacta pero si el <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">espacio de búsqueda es muy amplio el tiempo de cálculo necesario puede ser inabordable</a> (explosión combinatoria).</li>
+<li>Otra aproximación, que es la que veremos hoy, sería el uso de algoritmos <a href="http://es.wikipedia.org/wiki/Heur%C3%ADstica_%28inform%C3%A1tica%29">heurísticos</a>. La palabra heurística viene del griego y vendría a significar algo así como 'relativo a la búsqueda'  (recordad, <a href="http://es.wikipedia.org/wiki/%C2%A1Eureka!">eureka significa 'lo he encontrado' y tiene el mismo origen etimológico</a>). Estos algoritmos sacrifican la exactitud de la solución en favor del tiempo de respuesta, es decir, intentamos obtener soluciones lo suficientemente buenas con un tiempo de respuesta corto o aceptable.</li>
+</ul>
+<p>Vamos a proponer un problema sencillo y lo vamos a resolver de forma aproximada usando un algoritmo heurístico de 'búsqueda en escalada' o 'hill-climbing'.</p>
+<p>Vamos a ello, la resolución del problema es obvia en este caso, pero solo se trata de que veáis el funcionamiento de todo esto. Tenemos un conjunto de n números que se hallan dentro de un subconjunto de los números reales. ¿Cuál sería el conjunto de estos n números que me permiten minimizar lo siguiente?</p>
+<p>$sum_{k=1}^N k^2$</p>
+<p>Para simplificar permitiremos que los n números se puedan repetir por lo que la respuesta obvia es que el conjunto de los números sea [0, 0, 0, ..., 0] por lo que la solución exacta sería 0. Si pensamos por un momento que la solución no es obvia, la búsqueda exhaustiva nunca sería óptima puesto que estamos buscando entre los números reales. Por tanto, ¿como resolveríamos esto con una búsqueda heurística? Primero de todo pondremos un poco de código, lo explicamos y luego haremos uso del mismo para ver los resultados que obtenemos:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Busqueda</span><span class="p">:</span>
+    <span class="sa">u</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase (fea) para explicar el funcionamiento de</span>
+<span class="sd">    un algoritmo heurístico</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ngeneraciones</span><span class="p">,</span> <span class="n">ngenes</span><span class="p">,</span> <span class="n">lim_sup</span><span class="p">,</span> <span class="n">lim_inf</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ngeneraciones</span> <span class="o">=</span> <span class="n">ngeneraciones</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span> <span class="o">=</span> <span class="n">ngenes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span> <span class="o">=</span> <span class="n">lim_sup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span> <span class="o">=</span> <span class="n">lim_inf</span>
+
+    <span class="k">def</span> <span class="nf">padre</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">individuo0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span><span class="p">)</span> <span class="o">*</span>
+                          <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuo0</span>
+
+    <span class="k">def</span> <span class="nf">fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individuo</span><span class="p">):</span>
+        <span class="n">funcion</span> <span class="o">=</span> <span class="n">individuo</span> <span class="o">*</span> <span class="n">individuo</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">funcion</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hijo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">individuo</span><span class="p">):</span>
+        <span class="n">nindividuo</span> <span class="o">=</span> <span class="n">individuo</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span><span class="p">)</span>
+        <span class="n">nindividuo</span><span class="p">[</span><span class="n">nindividuo</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span>
+        <span class="n">nindividuo</span><span class="p">[</span><span class="n">nindividuo</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span>
+        <span class="k">return</span> <span class="n">nindividuo</span>
+
+    <span class="k">def</span> <span class="nf">calculos</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">fit_acum</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">individuo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuo0</span>
+        <span class="n">poblacion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">individuo0</span>
+        <span class="n">fit_acum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fit_acum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">generacion</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngeneraciones</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">nindividuo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hijo</span><span class="p">(</span><span class="n">individuo</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">(</span><span class="n">nindividuo</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">=</span> <span class="n">fit_acum</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">individuo</span> <span class="o">=</span> <span class="n">nindividuo</span>
+            <span class="n">fit_acum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fit_acum</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">(</span><span class="n">individuo</span><span class="p">))</span>
+            <span class="n">poblacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">poblacion</span><span class="p">,</span> <span class="n">individuo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">poblacion</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngeneraciones</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span><span class="p">),</span> <span class="n">fit_acum</span>
+
+    <span class="k">def</span> <span class="nf">representa_proceso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poblacion</span><span class="p">,</span> <span class="n">fitness_acumulado</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span> <span class="o">**</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">gen</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">poblacion</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">gen</span><span class="p">],</span>
+                     <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">(</span><span class="n">poblacion</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">gen</span><span class="p">]),</span>
+                     <span class="n">gen</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim_inf</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim_sup</span> <span class="o">**</span> <span class="mf">2.</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">generacion</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngeneraciones</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">gen</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ngenes</span><span class="p">):</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">poblacion</span><span class="p">[</span><span class="n">generacion</span><span class="p">,</span> <span class="n">gen</span><span class="p">],</span>
+                         <span class="bp">self</span><span class="o">.</span><span class="n">fitness</span><span class="p">(</span><span class="n">poblacion</span><span class="p">[</span><span class="n">generacion</span><span class="p">,</span> <span class="n">gen</span><span class="p">]),</span>
+                         <span class="n">gen</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ngeneraciones</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fitness_acumulado</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fitness_acumulado</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Vamos a guardar el anterior código en un fichero que se llame <em>heuristico.py</em> y vamos a abrir <strong>ipython</strong> en el mismo lugar donde se encuentra el fichero <em>heuristico.py</em>.</p>
+<p>Hemos creado una clase llamada <em>Busqueda</em> que hemos de inicializar con una serie de parámetros, el primero sería el número de iteraciones que vamos a usar en nuestra búsqueda, el segundo sería el número de miembros que vamos a usar, n, y el tercer y cuarto serían el límite superior e inferior del intervalo de números reales donde vamos a restringir la búsqueda. Dentro de ipython hacemos lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">heuristico</span> <span class="kn">import</span> <span class="n">Busqueda</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">busqueda</span> <span class="o">=</span> <span class="n">Busqueda</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Vamos a hacer una simulación que contará con 1000 generaciones (o pasos, o iteraciones, como más os guste), la solución tendrá en cuenta un conjunto de 3 números que estarán restringidos entre [-100, 100].</p>
+<p>Lo siguiente será crear la primera solución (la solución padre de la que derivarán todas las soluciones hijas siguientes) que no es más que una solución aleatoria para empezar la búsqueda. Lo hacemos de la siguiente forma:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">padre</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">56.14070247</span><span class="p">,</span>  <span class="mf">96.07815303</span><span class="p">,</span>  <span class="mf">31.11068139</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Veis que el primer miembro ha tomado un valor en torno a -56, el segundo un valor en torno a 96 y el tercero un valor en torno a 31.</p>
+<p>Ahora vamos a ver la chicha del algoritmo. El cálculo completo se realiza en el método <em>calculos</em>, que a su vez hace uso de los métodos <em>fitness</em> e <em>hijo</em>. El método <em>fitness</em> es el que calcula la solución del problema (en este caso se trata de minimizar el valor). El método <em>hijo</em> es el que crea una posible solución nueva cercana a la solución actual (solución padre). En el método <em>calculos</em> hacemos las iteraciones (1000 en este ejemplo) para comparar al padre con el hijo y ver si tiene mejor fitness y en caso de que sea así actualizamos al padre con el hijo, es decir, le pasamos los valores del hijo al padre.</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pob</span><span class="p">,</span> <span class="n">fit_acum</span> <span class="o">=</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">calculos</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Hemos calculado la población final, <em>pob</em>, el conjunto de 3 elementos que nos minimizan el resultado, y hemos obtenido el valor de la función fitness en cada iteración, <em>fit_acum</em>.</p>
+<p>Por último, vamos a hacer una representación de los resultados de la siguiente manera:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">representa_proceso</span><span class="p">(</span><span class="n">pob</span><span class="p">,</span> <span class="n">fit_acum</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Que nos mostraría la siguiente ventana:</p>
+<p><img alt="Heuristico" src="https://pybonacci.org/images/2012/10/heuristico.png"></p>
+<p>Donde el primer panel (arriba), nos muestra la posición de la primera solución aleatoria que hemos generado con el método <em>padre</em>. Como hemos visto anteriormente, el primer miembro ha tomado un valor en torno a -56, el segundo un valor en torno a 96 y el tercero un valor en torno a 31. En el segundo panel (en medio) vemos como va evolucionando la solución, cada uno de los miembros de la solución va descendiendo poco a poco hacia la solución final (cercana a cero). Por último, en el tercer panel (abajo) vemos el valor de nuestra solución y como se va a cercando a una solución cercana a 0, de hecho, vemos que a partir de las 300 iteraciones ya estaríamos cerca de 0. Aunque después de las 1000 iteraciones no hemos alcanzado la solución exacta, 0, puesto que estos algoritmos dan valores aproximados.</p>
+<p>Veamos un segundo caso:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">heuristico</span> <span class="kn">import</span> <span class="n">Busqueda</span> <span class="c1"># Solo necesario si habéis cerrado ipython</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">busqueda</span> <span class="o">=</span> <span class="n">Busqueda</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">padre</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span>  <span class="mf">71.65433435</span><span class="p">,</span>   <span class="mf">13.38201722</span><span class="p">,</span>   <span class="mf">57.30044929</span><span class="p">,</span>   <span class="mf">74.69591418</span><span class="p">,</span>
+<span class="mf">197.39440847</span><span class="p">,</span>   <span class="mf">42.3185271</span> <span class="p">,</span>   <span class="mf">69.08520774</span><span class="p">,</span>    <span class="mf">7.40961601</span><span class="p">,</span>
+<span class="mf">79.87846973</span><span class="p">,</span>  <span class="mf">161.14232418</span><span class="p">,</span>  <span class="mf">135.47599187</span><span class="p">,</span>  <span class="mf">183.17622057</span><span class="p">,</span>
+<span class="mf">30.69728341</span><span class="p">,</span>   <span class="mf">21.85297791</span><span class="p">,</span>  <span class="mf">157.85448115</span><span class="p">,</span>  <span class="mf">139.02125074</span><span class="p">,</span>
+<span class="mf">98.8888481</span> <span class="p">,</span>   <span class="mf">49.02073966</span><span class="p">,</span>   <span class="mf">46.10618954</span><span class="p">,</span>  <span class="mf">116.69194813</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">pob</span><span class="p">,</span> <span class="n">fit_acum</span> <span class="o">=</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">calculos</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">busqueda</span><span class="o">.</span><span class="n">representa_proceso</span><span class="p">(</span><span class="n">pob</span><span class="p">,</span> <span class="n">fit_acum</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Que nos daría el siguiente resultado:</p>
+<p><img alt="Heuristico_ii" src="https://pybonacci.org/images/2012/10/heuristico_ii1.png"></p>
+<p>En este caso vemos hemos usado un conjunto de 20 números y observamos que quizá serían necesarias más iteraciones para llegar a un número más aproximado.</p>
+<p>Normalmente, el algoritmo se para cuando se han superado las iteraciones o cuando la solución no ha mejorado en un número determinado de pasos (esto segundo no lo he implementado por lo que lo tenéis como ejercicio).</p>
+<p>Saludos.</p>
+<p>P.D.: Como siempre, se agradece cualquier corrección, crítica constructiva, propuesta de mejora, debate,..., en los comentarios.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/algoritmos.html" class="tag">algoritmos</a>
+                    <a href="http://pybonacci.github.io/tag/busqueda-en-escalada.html" class="tag">búsqueda en escalada</a>
+                    <a href="http://pybonacci.github.io/tag/heuristica.html" class="tag">heurística</a>
+                    <a href="http://pybonacci.github.io/tag/hill-climbing.html" class="tag">hill-climbing</a>
+                    <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

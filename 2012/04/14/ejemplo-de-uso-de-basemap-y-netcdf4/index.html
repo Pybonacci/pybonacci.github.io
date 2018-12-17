@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Ejemplo de uso de Basemap y NetCDF4 | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Ejemplo de uso de Basemap y NetCDF4</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 14 abril 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Continuando lo que enseñó Juanlu en la anterior entrada vamos a mostrar líneas de nivel y temperatura del aire en la superficie, en este caso la presión al nivel del mar del día 01 de enero de 2012 a las 00.00 UTC según los datos extraídos del <a href="http://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html">reanálisis NCEP/NCAR</a>, sobre un mapa con la ayuda de la librería <a href="http://matplotlib.github.com/basemap/">Basemap</a>.</p>
+<p>Como los datos del reanálisis NCEP/NCAR vienen en formato <a href="http://www.unidata.ucar.edu/software/netcdf/">netCDF</a> usaremos la librería <a href="https://unidata.github.io/netcdf4-python/">netcdf4-python</a>. El formato netCDF es un estándar abierto y es ampliamente usado en temas de ciencias de la tierra, atmósfera, climatología, meteorología,... No es estrictamente necesario usar netcdf4-python para acceder a ficheros netCDF puesto que desde <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/io.html#module-scipy.io.netcdf">scipy tenéis esta funcionalidad</a>. Pero bueno, yo uso esta por una serie de ventajas que veremos otro día.</p>
+<p><strong>En la presente entrada se ha usado python 2.7.2, numpy 1.6.1, matplotlib 1.1.0, netCDF4 0.9.7 y Basemap 1.0.2.</strong></p>
+<p>Primero de todo vamos a importar todo lo que necesitamos:</p>
+<div class="highlight"><pre><span></span><span class="c1">## Importamos las librerías que nos hacen falta</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="kn">as</span> <span class="nn">nc</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">basemap</span> <span class="k">as</span> <span class="n">bm</span>
+</pre></div>
+
+
+<p>Los ficheros netCDF de presión al nivel del mar y de Temperatura del aire de la superficie los podéis descargar de <a href="https://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis&amp;DB_did=192&amp;file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fslp.1948.nc+slp.%25y4.nc+102476&amp;variable=slp&amp;DB_vid=30&amp;DB_tid=66680&amp;units=Pascals&amp;longstat=Individual+Obs&amp;DB_statistic=Individual+Obs&amp;stat=&amp;lat-begin=90.00S&amp;lat-end=90.00N&amp;lon-begin=0.00E&amp;lon-end=357.50E&amp;dim0=time&amp;year_begin=2010&amp;mon_begin=Jan&amp;day_begin=1&amp;hour_begin=00+Z&amp;year_end=2010&amp;mon_end=Jan&amp;day_end=1&amp;hour_end=00+Z&amp;X=lon&amp;Y=lat&amp;output=file&amp;bckgrnd=black&amp;use_color=on&amp;fill=lines&amp;cint=&amp;range1=&amp;range2=&amp;scale=100&amp;maskf=%2FDatasets%2Fncep.reanalysis%2Fsurface_gauss%2Fland.sfc.gauss.nc&amp;maskv=Land-sea+mask&amp;submit=Create+Plot+or+Subset+of+Data">aquí</a> y <a href="https://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis&amp;DB_did=192&amp;file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+102476&amp;variable=air&amp;DB_vid=20&amp;DB_tid=66680&amp;units=degK&amp;longstat=Individual+Obs&amp;DB_statistic=Individual+Obs&amp;stat=&amp;lat-begin=90.00S&amp;lat-end=90.00N&amp;lon-begin=0.00E&amp;lon-end=357.50E&amp;dim0=time&amp;year_begin=2010&amp;mon_begin=Jan&amp;day_begin=1&amp;hour_begin=00+Z&amp;year_end=2010&amp;mon_end=Jan&amp;day_end=1&amp;hour_end=00+Z&amp;X=lon&amp;Y=lat&amp;output=file&amp;bckgrnd=black&amp;use_color=on&amp;fill=lines&amp;cint=&amp;range1=&amp;range2=&amp;scale=100&amp;maskf=%2FDatasets%2Fncep.reanalysis%2Fsurface_gauss%2Fland.sfc.gauss.nc&amp;maskv=Land-sea+mask&amp;submit=Create+Plot+or+Subset+of+Data">aquí</a>, respectivamente. Veréis un enlace que pone 'FTP a copy of the file', lo pincháis y guardáis en el mismo sitio donde tengáis el script que estamos haciendo en la presente entrada.</p>
+<p>Una vez que tenemos los ficheros los podemos abrir usando la librería netCDF4-python:</p>
+<div class="highlight"><pre><span></span><span class="c1">## Abrimos los ficheros de datos,</span>
+<span class="c1">## el nombre de los ficheros lo tendréis que cambiar</span>
+<span class="c1">## con el nombre de los ficheros que os habéis descargado</span>
+<span class="n">slp</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;X83.34.8.250.104.4.18.19.nc&#39;</span><span class="p">)</span> <span class="c1">#slp por &#39;sea level pressure&#39;</span>
+<span class="n">tsfc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;X83.34.8.250.104.4.15.31.nc&#39;</span><span class="p">)</span> <span class="c1">#tsfc &#39;por temperature at surface&#39;</span>
+</pre></div>
+
+
+<p>Para saber las variables que tenemos en cada fichero netCDF podemos escribir lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="c1">## Qué variables hay dentro de cada netCDF</span>
+<span class="k">print</span><span class="p">(</span><span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El output que veremos para slp será:</p>
+<div class="highlight"><pre><span></span><span class="n">OrderedDict</span><span class="p">([(</span><span class="sa">u</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x05F72FA8</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x0603C198</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x0603C150</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;slp&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x060A1FA8</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;)])</span>
+</pre></div>
+
+
+<p>De la misma forma, para tsfc tendremos:</p>
+<div class="highlight"><pre><span></span><span class="n">OrderedDict</span><span class="p">([(</span><span class="sa">u</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x060AE108</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x060AE030</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x060AE078</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;),</span> <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;air&#39;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">netCDF4</span><span class="o">.</span><span class="n">Variable</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x060AE150</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;)])</span>
+</pre></div>
+
+
+<p>Nos interesa acceder a las variables 'slp', 'air', 'lat'  y 'lon'. Las dos últimas variables son las mismas tanto en slp como en tsfc ya que nos hemos descargado el campo de presión y temperatura para la misma fecha y para la misma área. Por tanto, para acceder a los datos y poder dibujarlos hacemos lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">slpdata</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;slp&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en Pa</span>
+<span class="n">tsfcdata</span> <span class="o">=</span> <span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;air&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en ºK</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en º</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en º</span>
+</pre></div>
+
+
+<p>Los datos se han guardado en las variables slpdata, tsfcdata, lat y lon como numpy arrays. Para que la presión esté en hPa  o mb (hectopascales o milibares), la temperatura en ºC y las longitudes vayan en una escala de -180º a 180º hacemos lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">slpdata</span> <span class="o">=</span> <span class="n">slpdata</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">tsfcdata</span> <span class="o">=</span> <span class="n">tsfcdata</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="n">lon</span><span class="p">[</span><span class="n">lon</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">180</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span> <span class="o">-</span> <span class="mf">360.</span>
+</pre></div>
+
+
+<p>Ahora creamos una instancia a Basemap:</p>
+<div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span><span class="n">llcrnrlon</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span>
+               <span class="n">llcrnrlat</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+               <span class="n">urcrnrlon</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+               <span class="n">urcrnrlat</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span>
+               <span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;mill&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>En el anterior código hemos puesto lo siguiente:</p>
+<p>|      llcrnrlon        longitud de la esquina inferior izquierda del dominio del mapa seleccionado.</p>
+<p>|      llcrnrlat        latitud de la esquina inferior izquierda del dominio del mapa seleccionado.</p>
+<p>|      urcrnrlon        longitud de la esquina superior derecha del dominio del mapa seleccionado.</p>
+<p>|      urcrnrlat        latitud de la esquina superior derecha del dominio del mapa seleccionado.</p>
+<p>Para <em>projection</em> hemos usado <em>mill</em> que será para una proyección <a href="http://en.wikipedia.org/wiki/Miller_cylindrical_projection">Miller cylindrical</a>. Si queréis ver todas las proyecciones disponibles podéis escribir:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">supported_projections</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y veréis el siguiente output:</p>
+<div class="highlight"><pre><span></span><span class="n">aeqd</span>             <span class="n">Azimuthal</span> <span class="n">Equidistant</span>
+<span class="n">poly</span>             <span class="n">Polyconic</span>
+<span class="n">gnom</span>             <span class="n">Gnomonic</span>
+<span class="n">moll</span>             <span class="n">Mollweide</span>
+<span class="n">tmerc</span>            <span class="n">Transverse</span> <span class="n">Mercator</span>
+<span class="n">nplaea</span>           <span class="n">North</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Lambert</span> <span class="n">Azimuthal</span>
+<span class="n">gall</span>             <span class="n">Gall</span> <span class="n">Stereographic</span> <span class="n">Cylindrical</span>
+<span class="n">mill</span>             <span class="n">Miller</span> <span class="n">Cylindrical</span>
+<span class="n">merc</span>             <span class="n">Mercator</span>
+<span class="n">stere</span>            <span class="n">Stereographic</span>
+<span class="n">npstere</span>          <span class="n">North</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Stereographic</span>
+<span class="n">hammer</span>           <span class="n">Hammer</span>
+<span class="n">geos</span>             <span class="n">Geostationary</span>
+<span class="n">nsper</span>            <span class="n">Near</span><span class="o">-</span><span class="n">Sided</span> <span class="n">Perspective</span>
+<span class="n">vandg</span>            <span class="n">van</span> <span class="n">der</span> <span class="n">Grinten</span>
+<span class="n">laea</span>             <span class="n">Lambert</span> <span class="n">Azimuthal</span> <span class="n">Equal</span> <span class="n">Area</span>
+<span class="n">mbtfpq</span>           <span class="n">McBryde</span><span class="o">-</span><span class="n">Thomas</span> <span class="n">Flat</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Quartic</span>
+<span class="n">sinu</span>             <span class="n">Sinusoidal</span>
+<span class="n">spstere</span>          <span class="n">South</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Stereographic</span>
+<span class="n">lcc</span>              <span class="n">Lambert</span> <span class="n">Conformal</span>
+<span class="n">npaeqd</span>           <span class="n">North</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Azimuthal</span> <span class="n">Equidistant</span>
+<span class="n">eqdc</span>             <span class="n">Equidistant</span> <span class="n">Conic</span>
+<span class="n">cyl</span>              <span class="n">Cylindrical</span> <span class="n">Equidistant</span>
+<span class="n">omerc</span>            <span class="n">Oblique</span> <span class="n">Mercator</span>
+<span class="n">aea</span>              <span class="n">Albers</span> <span class="n">Equal</span> <span class="n">Area</span>
+<span class="n">spaeqd</span>           <span class="n">South</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Azimuthal</span> <span class="n">Equidistant</span>
+<span class="n">ortho</span>            <span class="n">Orthographic</span>
+<span class="n">cass</span>             <span class="n">Cassini</span><span class="o">-</span><span class="n">Soldner</span>
+<span class="n">splaea</span>           <span class="n">South</span><span class="o">-</span><span class="n">Polar</span> <span class="n">Lambert</span> <span class="n">Azimuthal</span>
+<span class="n">robin</span>            <span class="n">Robinson</span>
+</pre></div>
+
+
+<p>Buscamos los valores x e y que representarán a las latitudes y longitudes de la proyección del mapa seleccionada:</p>
+<div class="highlight"><pre><span></span><span class="c1">## Encontramos los valores x,y para el grid de la proyección del mapa.</span>
+<span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Vamos a representar el campo de presiones en el mapa:</p>
+<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.85</span><span class="p">])</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">slpdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span><span class="mf">1100.</span><span class="p">,</span><span class="mf">5.</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">bluemarble</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Este último código mostrará la siguiente figura:</p>
+<p><img alt="Ejemplo_BlueMarble" src="https://pybonacci.org/images/2012/04/ejemplo_bluemarble.png"></p>
+<p>En el anterior mapa hemos mostrado las líneas de nivel de la presión, hemos dibujado meridianos y paralelos y lo hemos representado con una proyección cilíndrica de Miller usando como fondo los datos <a href="http://en.wikipedia.org/wiki/The_Blue_Marble">Blue Marble de la NASA</a>.</p>
+<p>Ahora vamos a introducir también los datos de temperatura usando contourf (la f viene de fill, relleno y son contornos rellenados). Metemos lo siguiente en nuestro script:</p>
+<div class="highlight"><pre><span></span><span class="c1"># create figure.</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.85</span><span class="p">])</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">slpdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span><span class="mf">1100.</span><span class="p">,</span><span class="mf">5.</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">csf</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">tsfcdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mf">50.</span><span class="p">,</span><span class="mf">2.</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y obtenemos el siguiente resultado:</p>
+<p><img alt="Ejemplo_P_y_T" src="https://pybonacci.org/images/2012/04/ejemplo_p_y_t.png"></p>
+<p>Donde hemos representado la presión al nivel del mar (isolíneas en color negro), las temperaturas en superficie (contornos de color rellenos), las líneas de costa (líneas continuas grises), paralelos y meridianos.</p>
+<p>El script final quedaría algo así:</p>
+<div class="highlight"><pre><span></span><span class="c1">## Importamos las librerías que vamos a usar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="kn">as</span> <span class="nn">nc</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">basemap</span> <span class="k">as</span> <span class="n">bm</span>
+<span class="c1">## Abrimos los ficheros de datos</span>
+<span class="n">slp</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;X83.34.8.250.104.4.18.19.nc&#39;</span><span class="p">)</span> <span class="c1">#slp por &#39;sea level pressure&#39;</span>
+<span class="n">tsfc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;X83.34.8.250.104.4.15.31.nc&#39;</span><span class="p">)</span> <span class="c1">#tsfc &#39;por temperature at surface&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
+<span class="n">slpdata</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;slp&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en Pa</span>
+<span class="n">tsfcdata</span> <span class="o">=</span> <span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;air&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en ºK</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en º</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">slp</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][:]</span> <span class="c1">#Obtenemos los datos en º</span>
+<span class="n">slpdata</span> <span class="o">=</span> <span class="n">slpdata</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">tsfcdata</span> <span class="o">=</span> <span class="n">tsfcdata</span> <span class="o">-</span> <span class="mf">273.15</span>
+<span class="n">lon</span><span class="p">[</span><span class="n">lon</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">180</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span> <span class="o">-</span> <span class="mf">360.</span>
+<span class="c1">## Creamos una instancia a Basemap</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span><span class="n">llcrnrlon</span> <span class="o">=</span> <span class="o">-</span><span class="mi">20</span><span class="p">,</span>
+               <span class="n">llcrnrlat</span> <span class="o">=</span> <span class="mi">25</span><span class="p">,</span>
+               <span class="n">urcrnrlon</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+               <span class="n">urcrnrlat</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span>
+               <span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;mill&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">supported_projections</span><span class="p">)</span>
+<span class="c1">## Encontramos los valores x,y para el grid de la proyección del mapa.</span>
+<span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+<span class="c1"># Creamos la figura con P sobre fondo Blue Marble.</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.85</span><span class="p">])</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">slpdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span><span class="mf">1100.</span><span class="p">,</span><span class="mf">5.</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">1.25</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">bluemarble</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Creamos la figura con P y T.</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.85</span><span class="p">])</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">slpdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span><span class="mf">1100.</span><span class="p">,</span><span class="mf">5.</span><span class="p">),</span><span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
+<span class="n">csf</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">tsfcdata</span><span class="p">[</span><span class="mi">0</span><span class="p">,:,:],</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span><span class="mf">50.</span><span class="p">,</span><span class="mf">2.</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">180</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y eso es todo por hoy. En algún momento, siempre que el tiempo lo permita, veremos más en profundidad Basemap y Netcdf4-python.</p>
+<p>Saludos.</p>
+<p>P.D.: Lo de siempre, si encontráis errores, queréis criticar (constructivamente) mis bajas dotes como programador o queréis aportar alguna cosa usad los comentarios.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/basemap.html" class="tag">basemap</a>
+                    <a href="http://pybonacci.github.io/tag/mapas.html" class="tag">mapas</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/meteorologia.html" class="tag">meteorología</a>
+                    <a href="http://pybonacci.github.io/tag/netcdf.html" class="tag">netcdf</a>
+                    <a href="http://pybonacci.github.io/tag/netcdf4-python.html" class="tag">netcdf4-python</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

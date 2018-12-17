@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Revisión del libro &#8220;Introducción a la programación con Python&#8221; de Nilo Menezes | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Revisión del libro &#8220;Introducción a la programación con Python&#8221; de Nilo Menezes</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 19 septiembre 2016</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En esta entrada vamos a hablar sobre el libro <a href="https://librodepython.com/" title="El libro de Python en español">"Introducción a la programación con Python" escrito por Nilo Ney Coutinho Menezes.</a></p>
+<p>El autor del libro se puso en contacto gentilmente con la "<em>Pybonacci Crew</em>" para hacer una revisión de su libro. Nosotros, como no podía ser de otra forma, hemos intentado colaborar agradeciendo su confianza.</p>
+<p>Algunas generalidades del libro:</p>
+<ul>
+<li>Escrito en español, cosa que se agradece dentro del desierto de recursos en español.</li>
+<li>La calidad del libro en papel está muy bien y el diseño es bonito.</li>
+<li>La primera edición en español (Julio/2016), que es la que hemos revisado, tiene un total de 336 páginas. En todo el libro no hay páginas en blanco para hacer que el libro sea más gordo, las partes de códigos de ejemplo del libro se saltan la parte relevante de <a href="http://pep8.org/#blank-lines">saltos de línea del PEP-8</a> para que el libro sea más compacto incluso. Por tanto, tenemos un libro donde la mayor parte de las 336 páginas son páginas escritas y condensadas para que quepa incluso más en menos (<em>less is more</em>).</li>
+<li>El libro es una traducción de un texto escrito en portugués/brasileño que ya va por su segunda edición y que se usa como texto introductorio en algunas universidades brasileñas.</li>
+<li>Usa Python 3 en todo el libro (Python 3.4 para ser más precisos, aunque todo el código funcionará en Python 3.5 sin problemas).</li>
+<li>La <a href="https://static.nilo.pro.br/es/sumario9788575225134.pdf">tabla de contenidos está aquí</a>.</li>
+<li>Su <a href="https://www.amazon.es/Introducci%C3%B3n-Programaci%C3%B3n-Python-Coutinho-Menezes/dp/8575225138/ref=aag_m_pw_dp?ie=UTF8&amp;m=A2DTG2PF4SPBZ0">precio es inferior a los 25€</a>.</li>
+<li>Si vas a la PyConES podrás hablar con el autor en persona y pedirle que te ¡¡firme un ejemplar!!</li>
+<li>No está disponible en formato electrónico.<figure id="attachment_3909" style="width: 608px" class="wp-caption aligncenter"></li>
+</ul>
+<p><img alt="photo" src="https://pybonacci.org/images/2016/09/2016-09-08_12.43.151-1024x759.jpg"></p>
+<p>Vamos a repasar un poco la estructura del libro capítulo a capítulo:</p>
+<h2>1. Motivación</h2>
+<p>El libro empieza con una declaración de intenciones sobre las motivaciones para aprender a programar y sobre porqué programar. Me parece una buena forma de empezar y de indicarle al lector que el camino que pretende empezar no es sencillo pero sí muy interesante y motivador y que le permitirá poder aprender a hacer cosas increibles que pueden incluso hacer cambiar el mundo (no sé si a mejor o a peor).</p>
+<h2>2. Preparando el ambiente</h2>
+<p>Aquí se hace una introducción muy detallada sobre como hacer funcionar (C)Python en tu sistema operativo paso a paso (sobre todo en el caso de Windows). Es obvio que es más detallado en Windows ya que en Linux o MacOS Python suele venir preinstalado. En el caso de Windows vienen pantallazos de todo el proceso. Además, enseña cómo usar el IDLE.</p>
+<h2>3. Variables y entrada de datos</h2>
+<p>En el capítulo 3 empezamos a programar en Python y a aprender código Python. Es una introducción muy sencilla a como usar variables y como introducir valores desde el intérprete.</p>
+<h2>4. Condiciones</h2>
+<p>Como era de esperar se explican un poco de control de flujo empezando por las condiciones y como ejecutar código si se cumplen determinados requerimientos. Nuevamente, la introducción a condiciones se hace de una forma simple y directa sin perdernos en casos extremos o singulares que nos harían perder el foco del aprendizaje.</p>
+<h2>5. Repeticiones</h2>
+<p>Todo el capítulo se dedica a hablar del uso de <code>while</code> y cómo romper el bucle y usar condiciones para realizar determinadas tareas. Se introducen conceptos como <code>break.</code></p>
+<h2>6. Listas</h2>
+<p>En este momento se empieza a hablar de secuencias (listas, tuplas, diccionarios,...), sus métodos, cómo acceder a los elementos (indexación, clave),... Continuando con los bucles, que se introdujeron en el capítulo anterior, hay un pequeño apartado para hablar de <code>for</code>. Se habla de conceptos como pilas y colas de forma muy sencilla, se muestra un ejemplo del método de la burbuja para ordenación (<em>bubble sort</em>),... En fin, que mientras enseña tipos de datos muy comunes en programación, como por ejemplo las listas de python, enseña otros conceptos más generales de forma simple y amena.</p>
+<p>Una cosa que no me gusta en exceso es que en este capítulo nombra el uso de objetos y métodos sin haber, siquiera, hablado sobre programación orientada a objetos. Un novato en programación no debería entender a qué se refiere en este momento cuando se usan palabras como 'objeto' y un pequeño inciso para nombrar lo que es la programación a objetos o la eliminación total de referencias a objetos y métodos quizá sería más adecuado. Sé que no es sencillo abstraerse totalmente de algunos conceptos e incluso obviarlos llegados a determinado punto. Aún así, el capítulo se entiende completamente sin grandes problemas.</p>
+<h2>7.Trabajando con cadenas de caracteres</h2>
+<p>Este es otro capítulo muy completo donde entramos en el mundo de las cadenas de caracteres (<em>strings</em>). Se habla del trabajo típico con cadenas y de la funcionalidad más básica como contar, sustituir, eliminar,..., caracteres. Además, se hace una gran y completa introducción a como formatear cadenas usando <code>format</code> (<a href="https://pybonacci.org/2013/03/03/formateando-numeros/">muchísimo más completo que el que hicimos nosotros aquí hace un tiempo</a>). Acaba el capítulo programando un ejemplo del juego del ahorcado.</p>
+<h2>8. Funciones</h2>
+<p>El capítulo vuelve a ser una delicia de leer ya que introduce los diferentes términos poco a poco y de forma escalonada para ir de menos a más. Se habla de funciones <code>lambda</code>, del <em>scope</em> de las variables, de los argumentos, las palabras clave, argumentos opcionales,... Además, se meten otros conceptos como los módulos para ordenar nuestro código, empaquetamiento y desempaquetamiento de parámetros,...</p>
+<h2>9. Archivos</h2>
+<p>En este momento se habla sobre cómo trabajar con archivos de texto. Un capítulo siempre necesario en cualquier texto introductorio. Nuevamente, se explica todo con sencillez y de forma ordenada yendo de menos a más. También se muestra como trabajar con directorios y archivos desde Python usando el módulo <code>os.path</code>. En este punto, se usan programas donde se incluye todo lo adquirido en el resto de capítulos de forma muy natural.</p>
+<p>En este capítulo se usan ejemplos en los cuales se escriben documentos HTML los cuales los veo menos útiles que otros ejemplos típicos y, en mi opinión, más generales como usar un fichero <em>json</em> o un fichero <em>csv</em>,...</p>
+<h2>10. Clases y objetos</h2>
+<p>Ahora es cuando se muestra como usar clases y objetos. Se habla sobre herencia, métodos mágicos, sobrecarga de operadores,..., y se realiza un ejemplo muy extenso sobre una aplicación de una agenda.</p>
+<p>En este momento considero que hay un salto muy abrupto en la curva de aprendizaje del libro. Hasta el capítulo 9 todo está explicado de forma detallada y paso a paso. En este momento se introduce la explicación del uso de clases y objetos y conceptos de programación orientada a objetos de forma que la curva de aprendizaje cambia su pendiente hablando de conceptos relativamente avanzados como la sobrecarga de operadores (sin nombrar el término), se introduce el uso de decoradores sin apenas explicación, se meten conceptos como <code>super</code> sin ninguna referencia previa,... El ejemplo de aplicación que se realiza en el capítulo pienso que es un poco avanzado y la explicación de los objetos que se hace está muy enlazada a cómo son los objetos en Python y no sobre hablar de objetos en general y de forma más abstracta.</p>
+<h2>11. Banco de datos</h2>
+<p>Aquí se habla sobre SQL y SQLite con Python. Se enseñan cosas básicas del lenguaje SQL y algunas cosas específicas del uso de SQL con SQLite y Python. Se ahonda en el ejemplo del capítulo anterior de la aplicación de una agenda cambiando algunas cosas para poder trabajar con una BBDD por debajo.</p>
+<p>Este capítulo lo veo más accesorio y podría ser un apéndice o un capítulo en un libro más extenso y que entra en más profundidad en otra serie de conceptos. Dentro de un curso introductorio dónde se usa Python para aprender programación, el hecho de que se incluya un nuevo apartado con un nuevo lenguaje, SQL, con cosas específicas de SQLite no me resulta de lo más apropiado.</p>
+<h2>12. Próximos pasos</h2>
+<p>Se dan recomendaciones de por dónde seguir en este vasto mundo de la programación con enlaces a sitios y libros interesantes.</p>
+<p>El capítulo es muy cortito (4 páginas) y se podría prescindir de él sin problemas.</p>
+<h2>Apéndice A. Mensajes de Error</h2>
+<p>Una pequeña revisión sobre los mensajes de error más típicos que nos podemos encontrar cuando empezamos a programar con Python.</p>
+<p>Es muy útil tener una pequeña explicación sobre los errores más típicos que nos vamos a ir encontrando y cómo aprender a interpretarlos.</p>
+<h1>Apuntes varios sobre el libro:</h1>
+<p>Me gusta:</p>
+<ul>
+<li>Lo detallado de las explicaciones en todos los capítulos excepto en los capítulos 10 y 11. En general, todo el libro es muy sencillo de seguir, todos los ejemplos están en <a href="https://librodepython.com/listagem/index.html">formato digital para poderlos descargar</a>. Me gusta especialmente la introducción a conceptos como pilas y colas, lo detallado del uso de <code>format</code>,...</li>
+<li>Que en la página web dispones de <a href="https://librodepython.com/videos.html">varios vídeos</a> para la parte más inicial del libro.</li>
+<li>Que está en español.</li>
+<li>Que use Python 3.</li>
+<li>Que el precio del libro está bastante ajustado.</li>
+<li>La predisposición del autor a introducir mejoras en futuras ediciones del libro.</li>
+</ul>
+<p>No me gusta:</p>
+<ul>
+<li>No me gusta que use el '<em>old style formatting</em>' cuando en Python 3 se introdujo <code>format</code> y ahora se está introduciendo un nuevo formateo más potente incluso que <code>format</code>.</li>
+<li>
+<p>No me gusta que use <em>unicode</em> en la definición de variables, funciones, etcétera. Por ejemplo, 
+        def rectángulo(...):
+            ...</p>
+<p>Esta práctica puede dar lugar a errores tontos por olvidar una tilde, puede dificultar el trabajo en equipos multiculturales,...</li> </p>
+<ul>
+<li>En general, la traducción es muy mejorable. El texto se puede entender sin problemas por cualquier hispanohablante pero la traducción se puede mejorar bastante y no haría deslucir a un gran libro de introducción a la programación.</li>
+<li>El capítulo 10 es un poco errático y da un salto cuantitativo grande en lo que a complejidad se refiere.</li>
+<li>El capítulo 11 es un capítulo que está bien tener pero que eliminaría del libro si el foco del autor es ponérselo lo más fácil posible a los que se están iniciando en un lenguaje de programación. Creo que desvía un poco el foco general del libro aunque los conceptos que se expliquen en ese capítulo sean extremadamente interesantes.</li>
+<li>Me gustaría que todos los ejemplos del libro cumpliesen con el PEP-8. Cuando se está aprendiendo algo es cuando hay que introducir una serie de convenciones y buenas prácticas. Si se adquieren malos hábitos desde un principio luego es más difícil corregirlos.</li>
+<li>Me gustaría que hubiera versión electrónica.</ul> </li>
+</ul>
+<h1>¿Compraría este libro?</h1>
+<p>Si se cumple que no sé leer en inglés y no tengo nociones de programación sin duda SÍ que compraría este libro, a pesar de algunas cosas que he puesto más arriba en el 'No me gusta'. Algunos de esos 'No me gusta' hacen deslucir un poco el libro pero más a nivel formal que a nivel general y técnico. Es un libro de buena calidad a un precio ajustado pero que se puede mejorar en distintos partes de forma sencilla.</p>
+<h1>Sorteamos una copia entre nuestros lectores</h1>
+<p>El autor nos envió tres copias del libro. Dos se han usado en los PyDay de Mallorca y de Madrid. El tercero lo vamos a sortear entre todos los lectores de Pybonacci que además tengan entrada para la PyConES de este año. Para participar:</p>
+<ul>
+<li>Solo tienes que escribir un tweet indicando porqué te gustaría tener este libro incluyendo un enlace a https://librodepython.com/</li>
+<li>Una vez enviado el tweet nos lo enlazas en los comentarios de más abajo para que no se nos escape el tweet.</li>
+<li>Si no tienes cuenta en twitter, déjanos un comentario más abajo indicando porqué te gustaría tener este libro.</li>
+</ul>
+<p>Tenéis hasta el miércoles, 21 de septiembre, a las 23:59:59 par participar en el sorteo. Al día siguiente se hará público el ganador y se entregará físicamente en la PyConES de Almería.</p>
+<p><strong>[Actualización] Anoche se cerró el plazo por lo que el ganador saldrá entre:</strong></p>
+<p>Sergio, Manuti, Miguel, Aníbal, Alberto y José.</p>
+<p>Para saber quién ha ganado podréis meter el número ganador del sorteo de la ONCE de hoy (2016/09/22) en el formulario de más abajo.</p>
+<p>Nos pondremos en contacto con el ganador en breve.</p>
+<p>Saludos a todos.</p>
+</li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/libro.html" class="tag">libro</a>
+                    <a href="http://pybonacci.github.io/tag/libros.html" class="tag">libros</a>
+                    <a href="http://pybonacci.github.io/tag/menezes.html" class="tag">Menezes</a>
+                    <a href="http://pybonacci.github.io/tag/nilo.html" class="tag">Nilo</a>
+                    <a href="http://pybonacci.github.io/tag/revision.html" class="tag">revisión</a>
+                    <a href="http://pybonacci.github.io/tag/sorteo.html" class="tag">sorteo</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

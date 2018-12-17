@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>De matplotlib a la web con plotly | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>De matplotlib a la web con plotly</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 05 agosto 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>(También podéis seguir las explicaciones de este post con <a href="http://nbviewer.ipython.org/github/Pybonacci/notebooks/blob/master/plotly/Brandshatch.ipynb" target="_blank">este Notebook</a>)</p>
+<p>En esta entrada trataremos de dar a conocer <code>plotly</code>, un servicio web gratuito para generar gráficos interactivos y que permite la creación de proyectos colaborativos.</p>
+<p>Los paquetes que vamos a emplear son,</p>
+<ul>
+<li><a href="http://pandas.pydata.org/" target="_blank"><code>pandas</code></a> 0.14.0, para importar y analizar estructuras de datos en Python.</li>
+<li><a href="http://matplotlib.org/" target="_blank"><code>matplotlib</code></a> 1.3.1, para generar diversisos tipos de gráficos con calidad de imprenta.</li>
+<li><a href="https://plot.ly/" target="_blank"><code>plotly</code></a> 1.1.2, para generar gráficos interactivos para la web.</li>
+</ul>
+<p>Empezaremos por importar los datos con <code>pandas</code>. Podeis encontrar una introducción a <code>pandas</code> en <a href="https://pybonacci.org/2014/05/30/pandas-i/" target="_blank">éste</a> post de Pybonacci.</p>
+<h3>Datos</h3>
+<p>La estructura de datos con la que vamos a trajar es un <code>CSV</code> con datos de telemetría correspondientes a un BMW Z4 GT3 compitiendo en el circuito <a href="http://www.brandshatch.co.uk/circuit-information.aspx" target="_blank">Brands Hatch Indy</a>. El paquete de datos nos lo ha proporcionado Steve Barker, un mecánico que pasa la mayor parte de su tiempo en la GP2. Pero aquí sólo vamos a trabajar con los datos de la vuelta 27 de la primera carrera.</p>
+<!--more Sigue leyendo!-->
+
+<p>En el siguiente vídeo podemos ver cómo sería una vuelta a dicho circuito con el mismo modelo de coche.</p>
+<p>[youtube=http://youtu.be/puDccvGPHNU]</p>
+<p>El propio <code>pandas</code> incluye rutinas para importar datos desde diversas fuentes, ya sea un simple <code>CSV</code> o un Excel de multiples hojas.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Importamos pandas de la manera habitual</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+</pre></div>
+
+
+<p>Pero antes de proceder a cargar los datos debemos conocer un poco la estructura del archivo en cuestión del que he recortado una muestra.</p>
+<div class="highlight"><pre><span></span><span class="nt">Format</span><span class="o">;</span><span class="nt">MoTeC</span> <span class="nt">CSV</span> <span class="nt">File</span><span class="o">;;;</span><span class="nt">Workbook</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Venue</span><span class="o">;</span><span class="nt">brandshatch</span> <span class="nt">indy</span><span class="o">;;;</span><span class="nt">Worksheet</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Vehicle</span><span class="o">;</span><span class="nt">bmwz4gt3</span><span class="o">;;;</span><span class="nt">Vehicle</span> <span class="nt">Desc</span><span class="o">;</span><span class="nt">bmwz4gt3</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Driver</span><span class="o">;</span><span class="nt">Steve</span> <span class="nt">Barker</span><span class="o">;;;</span><span class="nt">Engine</span> <span class="nt">ID</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Device</span><span class="o">;</span><span class="nt">ADL</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Comment</span><span class="o">;;;;</span><span class="nt">Session</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Log</span> <span class="nt">Date</span><span class="o">;</span><span class="nt">02</span><span class="o">/</span><span class="nt">07</span><span class="o">/</span><span class="nt">2014</span><span class="o">;;;</span><span class="nt">Origin</span> <span class="nt">Time</span><span class="o">;</span><span class="nt">1196</span><span class="p">.</span><span class="nc">94</span><span class="o">;</span><span class="nt">s</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Log</span> <span class="nt">Time</span><span class="o">;</span><span class="nt">23</span><span class="p">:</span><span class="nd">05</span><span class="p">:</span><span class="nd">43</span><span class="o">;;;</span><span class="nt">Start</span> <span class="nt">Time</span><span class="o">;</span><span class="nt">1196</span><span class="p">.</span><span class="nc">95</span><span class="o">;</span><span class="nt">s</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Sample</span> <span class="nt">Rate</span><span class="o">;</span><span class="nt">60</span><span class="o">;</span><span class="nt">Hz</span><span class="o">;;</span><span class="nt">End</span> <span class="nt">Time</span><span class="o">;</span><span class="nt">1240</span><span class="p">.</span><span class="nc">017</span><span class="o">;</span><span class="nt">s</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Duration</span><span class="o">;</span><span class="nt">43</span><span class="p">.</span><span class="nc">067</span><span class="o">;</span><span class="nt">s</span><span class="o">;;</span><span class="nt">Start</span> <span class="nt">Distance</span><span class="o">;</span><span class="nt">49849</span><span class="o">;</span><span class="nt">m</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Range</span><span class="o">;</span><span class="nt">Lap</span> <span class="nt">27</span><span class="o">;;;</span><span class="nt">End</span> <span class="nt">Distance</span><span class="o">;</span><span class="nt">51765</span><span class="o">;</span><span class="nt">m</span><span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">Time</span><span class="o">;</span><span class="nt">Distance</span><span class="o">;</span><span class="nt">Gear</span><span class="o">;</span><span class="nt">Engine</span> <span class="nt">RPM</span><span class="o">;</span><span class="nt">Manifold</span> <span class="nt">Pres</span><span class="o">;</span><span class="nt">Throttle</span> <span class="nt">Pos</span><span class="o">;</span><span class="nt">Brake</span> <span class="nt">Pedal</span> <span class="nt">Pos</span><span class="o">;</span><span class="nt">Clutch</span>
+<span class="nt">s</span><span class="o">;</span><span class="nt">m</span><span class="o">;;</span><span class="nt">rpm</span><span class="o">;</span><span class="nt">kpa</span><span class="o">;%;%;%;</span><span class="nt">deg</span><span class="o">;</span><span class="nt">N</span><span class="p">.</span><span class="nc">m</span><span class="o">;;</span><span class="nt">m</span><span class="o">;</span><span class="nt">km</span><span class="o">/</span><span class="nt">h</span><span class="o">;</span><span class="nt">G</span><span class="o">;</span><span class="nt">G</span><span class="o">;</span><span class="nt">G</span><span class="o">;</span><span class="nt">deg</span><span class="o">;</span><span class="nt">deg</span><span class="o">;</span><span class="nt">deg</span><span class="o">;</span><span class="nt">deg</span><span class="o">/</span><span class="nt">s</span><span class="o">;</span><span class="nt">deg</span><span class="o">/</span><span class="nt">s</span><span class="o">;</span><span class="nt">deg</span><span class="o">/</span><span class="nt">s</span><span class="o">;</span><span class="nt">C</span><span class="o">;</span><span class="nt">kPa</span><span class="o">;</span><span class="nt">V</span><span class="o">;</span>
+<span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="o">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="nt">0</span><span class="o">;</span><span class="nt">0</span><span class="o">;</span><span class="nt">5</span><span class="o">;</span><span class="nt">8657</span><span class="o">;</span><span class="nt">0</span><span class="p">.</span><span class="nc">99752352</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">0</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">-5</span><span class="p">.</span><span class="nc">724613</span><span class="o">;</span><span class="nt">1</span><span class="p">.</span><span class="nc">5780677</span><span class="o">;</span><span class="nt">26</span><span class="o">;</span><span class="nt">0</span><span class="p">.</span><span class="nc">6267</span><span class="o">;</span><span class="nt">225</span><span class="p">.</span><span class="nc">407808</span><span class="o">;</span><span class="nt">-0</span><span class="p">.</span><span class="nc">296</span>
+<span class="nt">0</span><span class="p">.</span><span class="nc">017</span><span class="o">;</span><span class="nt">1</span><span class="o">;</span><span class="nt">5</span><span class="o">;</span><span class="nt">8658</span><span class="o">;</span><span class="nt">0</span><span class="p">.</span><span class="nc">9975208</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">0</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">-6</span><span class="p">.</span><span class="nc">10625</span><span class="o">;</span><span class="nt">1</span><span class="p">.</span><span class="nc">7365016</span><span class="o">;</span><span class="nt">26</span><span class="o">;</span><span class="nt">1</span><span class="p">.</span><span class="nc">66957</span><span class="o">;</span><span class="nt">225</span><span class="p">.</span><span class="nc">514112</span><span class="o">;</span><span class="nt">-0</span><span class="o">.</span>
+<span class="nt">0</span><span class="p">.</span><span class="nc">033</span><span class="o">;</span><span class="nt">2</span><span class="o">;</span><span class="nt">5</span><span class="o">;</span><span class="nt">8654</span><span class="o">;</span><span class="nt">0</span><span class="p">.</span><span class="nc">99751824</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">0</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">-6</span><span class="p">.</span><span class="nc">160785</span><span class="o">;</span><span class="nt">1</span><span class="p">.</span><span class="nc">929843</span><span class="o">;</span><span class="nt">26</span><span class="o">;</span><span class="nt">2</span><span class="p">.</span><span class="nc">71285</span><span class="o">;</span><span class="nt">225</span><span class="p">.</span><span class="nc">58688</span><span class="o">;</span><span class="nt">-0</span><span class="o">.</span>
+<span class="nt">0</span><span class="p">.</span><span class="nc">05</span><span class="o">;</span><span class="nt">3</span><span class="o">;</span><span class="nt">5</span><span class="o">;</span><span class="nt">8670</span><span class="o">;</span><span class="nt">0</span><span class="p">.</span><span class="nc">99751552</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">0</span><span class="o">;</span><span class="nt">100</span><span class="o">;</span><span class="nt">-6</span><span class="p">.</span><span class="nc">160785</span><span class="o">;</span><span class="nt">2</span><span class="p">.</span><span class="nc">5375902</span><span class="o">;</span><span class="nt">26</span><span class="o">;</span><span class="nt">3</span><span class="p">.</span><span class="nc">7565</span><span class="o">;</span><span class="nt">225</span><span class="p">.</span><span class="nc">653952</span><span class="o">;</span><span class="nt">-0</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Como bien podemos apreciar, las primeras 11 líneas aportan información generada por MoTeC al exportar los datos. Las cabeceras de lo que realmente nos interesa son las líneas 14 y 15, siendo la primera la descripción del parámetro y la segunda las unidades de medida. Y ya en la línea 18 empiezan los datos.</p>
+<p>Tomaremos como índice del DataFrame la variable tiempo, que sabemos que es la primera columna (aunque también podríamos haber optado por la distancia).</p>
+<div class="highlight"><pre><span></span><span class="c1"># Cargamos el archivo. Recordemos que pandas, y Python en general, es 0-indexed.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">parsers</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;brandshatch_lap27.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span>
+                              <span class="n">header</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Otra forma alternativa de leer los datos de un archivo CSV sería a través del propio <code>DataFrame</code> de <code>pandas</code>, pero éste no nos permite saltarnos filas de datos:</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_csv</span><span class="p">(</span><span class="s1">&#39;brandshatch_lap27.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Si mostramos las primeras filas del archivo con <code>data.head(5)</code>, obtendremos algo como</p>
+<div class="highlight"><pre><span></span>In [3]: data.head(5)
+Out[3]:
+Distance Gear Engine RPM Manifold Pres Throttle Pos ...
+Time
+0.000 0 5 8657 0.997524 100 ...
+0.017 1 5 8658 0.997521 100 ...
+0.033 2 5 8654 0.997518 100 ...
+0.050 3 5 8670 0.997516 100 ...
+0.067 4 5 8695 0.997512 100 ...
+[5 rows x 215 columns]
+</pre></div>
+
+
+<p>Podemos ver que el archivo es inmenso. Contiene 215 con diferentes parámetros como revoluciones del motor, posición del pedal del acelerador, velocidad, etc. Un sinfín de datos que marearían al más experto de los ingenieros de pista.</p>
+<p>De todos modos, aquí no vamos a analizar en detalle la vuelta realizada por Steve Barker, si no que nos centraremos exclusivamente en visualizar los datos.</p>
+<h3>Gráficas con <code>matplotlib</code></h3>
+<p><code>matplotlib</code> es el paquete más empleado en Python para generar diversos tipos de gráficos de alta calidad. Y es precisamente lo que utiliza <code>pandas</code> para generar sus propias gráficas como veremos a continuación.</p>
+<p>Empezamos por importar <code>matplotlib</code> y, de paso, crear un mapa de colores personalizado más vistoso que el que viene por defecto. La idea la he tomado de <a href="http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/" target="_blank">Randal S. Olson</a>.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
+<span class="c1"># Color map</span>
+<span class="n">tableau20</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="p">(</span><span class="mi">174</span><span class="p">,</span> <span class="mi">199</span><span class="p">,</span> <span class="mi">232</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="mi">120</span><span class="p">),</span>
+             <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="p">(</span><span class="mi">152</span><span class="p">,</span> <span class="mi">223</span><span class="p">,</span> <span class="mi">138</span><span class="p">),</span> <span class="p">(</span><span class="mi">214</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">150</span><span class="p">),</span>
+             <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">189</span><span class="p">),</span> <span class="p">(</span><span class="mi">197</span><span class="p">,</span> <span class="mi">176</span><span class="p">,</span> <span class="mi">213</span><span class="p">),</span> <span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="mi">86</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="mi">196</span><span class="p">,</span> <span class="mi">156</span><span class="p">,</span> <span class="mi">148</span><span class="p">),</span>
+             <span class="p">(</span><span class="mi">227</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">194</span><span class="p">),</span> <span class="p">(</span><span class="mi">247</span><span class="p">,</span> <span class="mi">182</span><span class="p">,</span> <span class="mi">210</span><span class="p">),</span> <span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">127</span><span class="p">),</span> <span class="p">(</span><span class="mi">199</span><span class="p">,</span> <span class="mi">199</span><span class="p">,</span> <span class="mi">199</span><span class="p">),</span>
+             <span class="p">(</span><span class="mi">188</span><span class="p">,</span> <span class="mi">189</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="p">(</span><span class="mi">219</span><span class="p">,</span> <span class="mi">219</span><span class="p">,</span> <span class="mi">141</span><span class="p">),</span> <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">207</span><span class="p">),</span> <span class="p">(</span><span class="mi">158</span><span class="p">,</span> <span class="mi">218</span><span class="p">,</span> <span class="mi">229</span><span class="p">)]</span>
+<span class="n">tableau10</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableau20</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="c1"># Scale the RGB values to the [0, 1] range, which is the format matplotlib accepts.</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tableau20</span><span class="p">)):</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tableau20</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">tableau20</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tableau10</span><span class="p">)):</span>
+    <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tableau10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">tableau10</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="mf">255.</span><span class="p">)</span>
+<span class="c1"># Set the default color cycle</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.color_cycle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tableau10</span>
+</pre></div>
+
+
+<h4>Va de velocidad</h4>
+<p>Una de las primeras cosas que podemos visualizar son la velocidad en función del tiempo junto con otros parámetros relaciones como son la posición de los pedales y las revoluciones del motor.</p>
+<p>Lo primero será crear un objeto <strong><code>figura</code></strong>, que necesitaremos para pasarle a <code>plotly</code>, con tres subgráficas para mostrar revoluciones del motor, velocidad del vehículo y posición de los pedales.</p>
+<div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="c1"># Revoluciones del motor</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Engine RPM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Engine RPM&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="c1"># Velocidad del vehículo</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Ground Speed&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Speed (kph)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+<span class="c1"># Pedales</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Throttle Pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Brake Pedal Pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Position (%)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">105</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;center right&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># Quitamos los bordes superior y derecho</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="c1"># Dejamos sólo los ticks abajo y a la izquierda</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_left</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="velocidades" src="https://pybonacci.files.wordpress.com/2014/07/velocidades.png"></p>
+<p>Lo que vemos en la gráfica de arriba son tres subgráficas que comparten el mismo eje <em>x</em>. De ese modo podemos ver la relación entre los diversos parámetros.</p>
+<h4>Relaciones de cambio</h4>
+<p>Otro tipo de gráfico que nos puede dar mucha información es la relación entre la velocidad del vehículo y las revoluciones del motor.</p>
+<p>Para ello podemos utilizar en <code>pandas</code> el tipo <code>scatter</code> y colorear los valores en función de la marcha engranada. Eso lo conseguimos con la herramientas <code>groupby</code> de <code>pandas</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Gear&#39;</span><span class="p">]):</span>
+    <span class="n">grp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;Ground Speed&#39;</span><span class="p">,</span> <span class="s1">&#39;Engine RPM&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span>
+             <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">tableau10</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Ground Speed (kph)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Gear&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="c1"># Quitamos los márgenes derecho y superior</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="c1"># Dejamos sólo los ticks abajo y a la izquierda</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_left</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="rpm" src="https://pybonacci.files.wordpress.com/2014/07/rpm.png"></p>
+<h4>Histograma del acelerador</h4>
+<p>Mediante un histograma podemos analizar el uso que hace el piloto del pedal del acelerador.</p>
+<div class="highlight"><pre><span></span><span class="n">fig2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Throttle Pos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Throttle position (%)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Time spent (@ 60 Hz)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># Quitamos los márgenes derecho y superior</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="c1"># Dejamos sólo los ticks abajo y a la izquierda</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_bottom</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">tick_left</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="acelerador" src="https://pybonacci.files.wordpress.com/2014/07/acelerador.png"></p>
+<p>La mayor parte del tiempo, el piloto la pasa con el pedal a fondo.</p>
+<h3>Gráficas con <code>plotly</code></h3>
+<p>Ahora que disponemos de una buena muestra podemos publicar las gráficas en la web con <code>plotly</code>. Podéis encontrar la guía oficial <a href="http://nbviewer.ipython.org/github/plotly/python-user-guide/blob/master/s6_matplotlylib/s6_matplotlylib.ipynb" target="_blank">aquí</a>.</p>
+<p><code>plotly</code> ofrece un API excelente para crear gráficas interactivas que pueden ser incluidas en webs y blogs. El paquete no viene incluido en los repositorios de Continuum Analytics (conda) pero se puede instalar de manera muy sencilla con pip:</p>
+<div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">plotly</span>
+</pre></div>
+
+
+<p>Para poder utilizar <code>plotly</code> necesitamos una credenciales. Registrarse es gratuito, y ofrecen almacenamiento ilimitado para gráficos públicos. Sin embargo, el número de archivos privados que podemos alojar es limitado en la versión gratuita.</p>
+<p>Para mayor comodidad podemos guardar nuestras credenciales en el sistema de modo siguiente,</p>
+<div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="kn">as</span> <span class="nn">tls</span>
+<span class="o">&gt;&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">tls</span><span class="o">.</span><span class="n">set_credentials_file</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s2">&quot;your_username&quot;</span><span class="p">,</span>
+                             <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;your_api_key&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>que rellenaremos con nuestros datos, que encontraremos en la sección <em>Configuration</em> de nuestra cuenta. Nuestras credenciales las podremos recuperar, a partir de entonces, de la siguiente manera.</p>
+<div class="highlight"><pre><span></span><span class="n">my_creds</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">get_credentials</span><span class="p">()</span>
+<span class="n">username</span> <span class="o">=</span> <span class="n">my_creds</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="n">my_creds</span><span class="p">[</span><span class="s1">&#39;api_key&#39;</span><span class="p">]</span>
+<span class="n">py</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">api_key</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Podemos utilizar <code>plotly</code> de dos maneras. La primera de ellas es generar las gráficas directamente con la API. La segunda, y la que resultará más cómoda para la mayoría, es convertir directamente las figuras generadas con <code>matplotlib</code>.</p>
+<p>Para transformar una figura de <code>matplotlib</code> emplearemos el comando <code>py.plot_mpl(fig, resize=True, strip_style=False, update=None, **plot_options)</code>. También podemos utilizar la versión <code>py.iplot_mpl()</code> para que nos presente el resultado directamente en el Notebook de IPython.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Publicar una figura de matplotlib en la web</span>
+<span class="n">unique_url</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">plot_mpl</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/velocidades&#39;</span><span class="p">,</span> <span class="n">strip_style</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>La URL la podemos incrustar en un blog con un <a href="https://plot.ly/python/embedding-plotly-graphs-in-HTML/" target="_blank"><code>iframe</code></a> o creando un shortcode para dicho <code>iframe</code>. Para ello, en WordPress, necesitamos crear o editar el archivo <code>functions.php</code> dentro de la carpeta de nuestro tema de WP e incluir las siguientes líneas de código</p>
+<div class="highlight"><pre><span></span><span class="x">function plotly_shortcode($atts, $content=null){</span>
+<span class="x">    extract(shortcode_atts(array(</span>
+<span class="x">        &#39;id&#39; =&amp;gt; &#39;igraph&#39;,</span>
+<span class="x">        &#39;height&#39; =&amp;gt; 400,</span>
+<span class="x">    ), $atts));</span>
+<span class="x">    return &#39;&amp;lt;iframe height=&quot;&#39; . $height . &#39;&quot; id=&quot;&#39; . $id . &#39;&quot; scrolling=&quot;no&quot; seamless=&quot;seamless&quot; src=&quot;&#39; . $content . &#39;&quot; width=&quot;100%&quot;&amp;gt;&amp;lt;/iframe&amp;gt;&#39;;</span>
+<span class="x">}</span>
+<span class="x">add_shortcode(&#39;plotly&#39;, &#39;plotly_shortcode&#39;);</span>
+</pre></div>
+
+
+<p>que emplearíamos de las siguientes maneras</p>
+<ul>
+<li>
+<p><code>&amp;#091;plotly&amp;#093;https://plot.ly/~pfsq/138&amp;#091;/plotly&amp;#093;</code></p>
+</li>
+<li>
+<p><code>&amp;#091;plotly height=500&amp;#093;https://plot.ly/~pfsq/139&amp;#091;/plotly&amp;#093;</code></p>
+</li>
+<li>
+<p><code>&amp;#091;plotly height=450 id=2&amp;#093;https://plot.ly/~pfsq/140&amp;#091;/plotly&amp;#093;</code></p>
+</li>
+</ul>
+<p>Hasta donde tengo conocimiento, un blog alojado en WordPress.com no permite incrustar <code>iframe</code>, lo cual es una verdadera pena. Sin embargo, como podéis ver en los enlaces, seguimos contando con un enlace a un gráfico interactivo al que podríamos redirigir pinchando en la imagen generada por <code>matplotlib</code> como hemos hecho con las imágenes arriba.</p>
+<h3>Retocar <code>plotly</code></h3>
+<p>Como podemos ver en las gráficas superiores, la conversión a <code>plotly</code> todavía no es perfecta. El conversor interpreta las leyendas de <code>matplotlib</code> como anotaciones de texto. Por suerte, eso lo podemos subsanar fácilmente.</p>
+<p>Necesitaremos importar una serie de paquetes adicionales, disponibles en las versiones &gt;1 de <code>plotly</code>.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Herramientas Python/Plotly</span>
+<span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="kn">as</span> <span class="nn">tls</span>
+<span class="c1"># Objetos para componer Leyendas</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="kn">import</span> <span class="n">Legend</span>
+</pre></div>
+
+
+<p>Convertimos la figura de <code>matplotlib</code> a una figura de <code>plotly</code>,</p>
+<div class="highlight"><pre><span></span><span class="n">py_fig</span> <span class="o">=</span> <span class="n">tls</span><span class="o">.</span><span class="n">mpl_to_plotly</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">strip_style</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>y eliminamos todas las anotaciones de texto y añadimos una leyenda en la esquina superior derecha.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Borrar anotaciones</span>
+<span class="n">py_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;annotations&#39;</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+<span class="c1"># Añadir leyenda</span>
+<span class="n">py_fig</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">showlegend</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Ya podemos publicar la nueva gráfica, ésta vez sólo con <code>py.plot()</code> o <code>py.iplot()</code> pues ya hemos hecho la conversión a <code>plotly</code> unos pasos atrás.</p>
+<div class="highlight"><pre><span></span><span class="n">unique_url3</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">py_fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/velocidades_edit&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Podéis ver el resultado sin anotaciones en <a href="https://plot.ly/~pfsq/141" target="_blank">https://plot.ly/~pfsq/141</a>.</p>
+<p>Repetimos el procedimiento para la segunda gráfica, pero en esta ocasión colocaremos la leyenda arriba a la izquierda y cambiamos el <code>hovermode</code> a <code>closest</code>.</p>
+<p>Con <code>hovermode</code> controlamos cómo se comporta <code>plotly</code> al pasar el ratón por encima de la gráfica. En modo <code>closest</code> nos resaltará el valor más cercano al ratón, y en modo <code>compare</code>, para cada <em>x</em> nos mostrará los diferentes valores que toma la variable.</p>
+<div class="highlight"><pre><span></span><span class="n">py_fig1</span> <span class="o">=</span> <span class="n">tls</span><span class="o">.</span><span class="n">mpl_to_plotly</span><span class="p">(</span><span class="n">fig1</span><span class="p">,</span> <span class="n">strip_style</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># Borrar anotaciones</span>
+<span class="n">py_fig1</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;annotations&#39;</span><span class="p">,</span><span class="bp">None</span><span class="p">)</span>
+<span class="c1"># Añadir leyenda</span>
+<span class="n">py_fig1</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">showlegend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                              <span class="n">legend</span><span class="o">=</span><span class="n">Legend</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                              <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Pero esta vez tenemos que editar los nombres de los puntos que se muestran en la leyenda.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Editar leyenda</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Gear&#39;</span><span class="p">]):</span>
+    <span class="n">py_fig1</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Gear {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">)))</span>
+    <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+
+
+<p>y ya podemos crear la gráfica,</p>
+<div class="highlight"><pre><span></span><span class="n">unique_url4</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">py_fig1</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/rpm_edit&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>que podéis ver en <a href="https://plot.ly/~pfsq/142" target="_blank">https://plot.ly/~pfsq/142</a></p>
+<p>Por último nos falta retocar el histograma de posiciones del pedal del acelerador. En ésta gráfica no quedan anotaciones, pero tampoco necesitamos mostrar la leyenda. Aprovechamos también para hacer las barras más anchar reduciendo el <code>bargap</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">py_fig2</span> <span class="o">=</span> <span class="n">tls</span><span class="o">.</span><span class="n">mpl_to_plotly</span><span class="p">(</span><span class="n">fig2</span><span class="p">,</span> <span class="n">strip_style</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1"># Borrar leyenda</span>
+<span class="n">py_fig2</span><span class="p">[</span><span class="s1">&#39;layout&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">showlegend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                              <span class="n">bargap</span><span class="o">=</span><span class="mf">0.01</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Publicamos la gráfica</p>
+<div class="highlight"><pre><span></span><span class="n">unique_url5</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">py_fig2</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/acelerador_edit&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>y podemos disfrutar del resultado en <a href="https://plot.ly/~pfsq/143" target="_blank">https://plot.ly/~pfsq/143</a></p>
+<h3>Próximamente</h3>
+<p>En una próxima entrega daremos a conocer más en detalle <code>plotly</code>. Explicaremos su estructura de datos, basada en <code>JSON</code>, y enseñaremos a crear gráficas directamente con su API.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/embed.html" class="tag">embed</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

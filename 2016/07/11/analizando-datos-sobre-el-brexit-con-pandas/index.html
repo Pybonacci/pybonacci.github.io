@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Analizando datos sobre el Brexit con Pandas | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Analizando datos sobre el Brexit con Pandas</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 11 julio 2016</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/bob-belderbos.html">Bob Belderbos</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p><a href="http://bobbelderbos.com/2016/06/analyzing-brexit-data-with-pandas/" target="_blank">Esta entrada apareció en inglés en mi blog.</a></p>
+<p>Desde hace tiempo quería aprender <a href="http://pandas.pydata.org">Pandas</a>. Por fin llegó la oportunidad: Brexit = datos.</p>
+<p>Como siempre empecé con un ejercicio / objetivo práctico, en este caso procesar los datos del referéndum. Usé Pandas para analizar los datos (CSV) publicados por <a href="http://www.electoralcommission.org.uk/find-information-by-subject/elections-and-referendums/upcoming-elections-and-referendums/eu-referendum/electorate-and-count-information">electoralcommission.org.uk</a>.</p>
+<p>Aunque quería responder a más preguntas este CSV era suficiente para estrenarme con Pandas (¡es inmenso!). Además aprendí a usar <a href="http://jupyter.readthedocs.io/en/latest/">Jupyter notebook</a> para documentar todo. El notebook lo <a href="https://github.com/bbelderbos/brexit-pandas/blob/master/Analyze_Brexit_Pandas_ES.ipynb">puedes ver / bajar desde Github</a>.</p>
+<p>Consegui mi objetivo de representar los datos mostrados <a href="https://ig.ft.com/sites/elections/2016/uk/eu-referendum/index.html">aquí</a>. Aquí algunos pantallazos del notebook:</p>
+<p>&nbsp;</p>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/notebook_screenshot1.png" alt="" width="745" height="260" /></p>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/notebook_screenshot2.png" alt="" width="592" height="429" /></p>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/notebook_screenshot3.png" alt="" width="615" height="465" /></p>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/notebook_screenshot4.png" alt="" width="935" height="443" /></p>
+<h3>Añadiendo datos demográficos</h3>
+<p>Vinculé los datos del voto con los <a href="http://www.ons.gov.uk/census/2011census/2011censusdata">datos de censo</a> públicamente disponibles (como sugirió <a href="https://twitter.com/Pybonacci">Pybonacci</a>), gracias). Encontré unas correlaciones interesantes (y aprendí algunas cosas de matplotlib usándolo), puedes ver el notebook <a href="https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb">aquí</a>:</p>
+<h4>¿Cómo influye la edad en el voto por salir / quedar?</h4>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/median_age.png" alt="" width="432" height="432" /></p>
+<h4>¿Cómo influye el porcentaje de paro?</h4>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/perc_unemployed.png" alt="" width="432" height="432" /></p>
+<h4>¿Cómo influye un nivel más alto de estudios (educación)?</h4>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/perc_high_education.png" alt="" width="432" height="432" /></p>
+<h4>Y, ¿cómo influye el porcentaje de gente nacida fuera de Inglaterra?</h4>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/perc_born_outside_uk.png" alt="" width="432" height="432" /></p>
+<p>Claramente, áreas con una población mayor y una tasa de paro más alta votan por salir. Por otro lado, áreas con un alto porcentaje de estudios superiores, y regiones donde más gente nacieron fuera de Inglaterra prefieren (por lo general) que Inglaterra se quede en la unión.</p>
+<p>Lo dicho, para ver como llegué a estos resultados con Pandas el notebook está <a href="https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb">aquí</a>.</p>
+<h3>Y por último: datos de ingresos por región</h3>
+<p>Los datos de ingresos (sueldo) eran más dificiles de obtener en <a href="http://webarchive.nationalarchives.gov.uk/20160105160709/http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-286262">los datos del censo</a> entonces usé <a href="https://www.gov.uk/government/statistics/income-and-tax-by-county-and-region-2010-to-2011">este enlace</a> para comprobar la relación entre la mediana de ingresos y el voto. Encontré un patrón interesante:</p>
+<p><img class="alignnone" src="http://bobbelderbos.com/assets/median_income.png" alt="" width="720" height="720" /></p>
+<p>(el parsing de los datos está documentado en el <a href="https://github.com/bbelderbos/brexit-pandas/blob/master/brexit_demographics.ipynb">mismo notebook</a>)</p>
+<p>Se ve claramente que regiones con una mediana de ingresos más baja prefieren salir de la unión, aunque no es 100% consistente: Irlanda tiene una mediana relativamente baja pero vota por quedarse, y South East tiene un sueldo mediano más alto y, no obstante, vota por salir. Es interesante como se ve este tipo de tendencias combinando varias fuentes de datos.</p>
+<h3>Enlaces de referencia para aprender Pandas</h3>
+<ul>
+<li>
+<p><a href="http://pandas.pydata.org">Pandas home y docs</a></p>
+</li>
+<li>
+<p><a href="https://www.oreilly.com/learning/pythons-pandas-make-data-analysis-easy-and-powerful-with-a-few-lines-of-code?imm_mid=0e520d&amp;cmp=em-prog-na-na-newsltr_20160625">Python’s pandas make data analysis easy and powerful with a few lines of code</a> - tutorial breve y fácil para empezar.</p>
+</li>
+<li>
+<p><a href="https://www.safaribooksonline.com/library/view/python-for-data/9781449323592/">Python for Data Analysis</a> - libro del creador de Pandas Wes McKinney.</p>
+</li>
+<li>
+<p><a href="https://www.safaribooksonline.com/library/view/introduction-to-pandas/9781771375764/">Introduction to Pandas for Developers</a> / <a href="https://www.safaribooksonline.com/library/view/data-wrangling-and/9781491960820/">Data Wrangling and Analysis with Python</a> - ya he visto algunos videos, son buenos.</p>
+</li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

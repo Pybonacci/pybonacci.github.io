@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Regiones de estabilidad de métodos numéricos en Python | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Regiones de estabilidad de métodos numéricos en Python</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 27 abril 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Hoy veremos cómo computar con Python la <strong>región de estabilidad absoluta</strong> de un método numérico para resolver problemas de valores iniciales en ecuaciones diferenciales ordinarias, una herramienta muy importante a la hora de escoger un método numérico adecuado para integrar nuestro problema concreto. Se trata simplemente de otro ejemplo aplicado de lo que publicamos hace unos días sobre <a href="https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/">cómo pintar curvas de nivel con matplotlib</a>; si quieres ver otro más, puedes leer nuestro <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">ejemplo de uso de Basemap y NetCDF4</a>, donde vimos cómo representar datos climatológicos.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3, numpy 1.6.1 y matplotlib 1.1.0.</strong></em></p>
+<!--more-->
+
+<h2>Región de estabilidad absoluta</h2>
+<p>A la hora de integrar numéricamente un problema diferencial del tipo</p>
+<p>$\frac{d U}{d t} = A U$</p>
+<p>nos interesa que la solución numérica tenga el mismo carácter de estabilidad que la solución analítica y saber para qué valores del paso de integración podemos conseguir esto [Hernández]. Mediante los autovalores $\lambda$ de la matriz del sistema o los de la matriz jacobiana que resulta de linealizar el sistema [LeVeque], podemos definir la</p>
+<blockquote>
+<p><strong>Región de estabilidad absoluta</strong>: región del plano complejo $\mathcal{R} \subset \mathbb{C}$ tal que el método es estable $\forall \, \omega = \lambda \Delta t \in \mathcal{R}$.</p>
+</blockquote>
+<p>Si la solución de la ecuación en diferencias resultante de discretizar el problema diferencial es de la forma</p>
+<p>$u^n = {\displaystyle \sum_k c_k r_k^n},$</p>
+<p>entonces los $r_k$ deben ser raíces del <strong>polinomio característico de estabilidad</strong> del método numérico:</p>
+<p>$\pi(r) |&#095;{\omega} = {\displaystyle \sum_{j = 0}^p (\alpha_j - \omega \beta_j) r^{p - j}}$</p>
+<p>que no depende del problema que estamos integrando. Si se cumple que el mayor de los valores absolutos de las raíces es menor o igual que 1 entonces la solución numérica será estable (asintóticamente estable en el caso estrictamente menor), e inestable si hay alguna raíz mayor que 1 en valor absoluto. Con esta información, vamos a computar la región de estabilidad absoluta siguiendo el algoritmo que propone [Hernández]:</p>
+<h3>Algoritmo</h3>
+<blockquote>
+<ol>
+<li>Discretizar una región del plano complejo $(x_i, y_j)$.</li>
+<li>Sea $rho$ una matriz. Para cada $\omega_{ij} \leftarrow x_i + i y_j$, <ol>
+<li>Obtener las raíces $r_k \quad (k = 1, \, \dots, p)$ de $\pi(r) |_{\omega_{ij}}$.</li>
+<li>$\rho_{ij} \leftarrow \max(|r_k|)$</li>
+</ol>
+</li>
+<li>Representar las curvas de nivel de $\rho$. La $\rho = 1$ será la frontera de la región de estabilidad absoluta y las $\rho &lt; 1$ serán el interior de la misma.</li>
+</ol>
+</blockquote>
+<h2>Código y representación</h2>
+<p>Vamos a incluir el código en un módulo para poder acceder a esta funcionalidad más fácilmente. El código completo, añadiendo documentación y ejemplos con el <a href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">estándar de documentación de NumPy/SciPy</a>, quedaría así:</p>
+<div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Región de estabilidad absoluta</span>
+<span class="c1"># Juan Luis Cano Rodríguez</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">region_estabilidad</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Región de estabilidad absoluta</span>
+<span class="sd">    Computa la región de estabilidad absoluta de un método numérico, dados</span>
+<span class="sd">    los coeficientes de su polinomio característico de estabilidad.</span>
+<span class="sd">    Argumentos</span>
+<span class="sd">    ----------</span>
+<span class="sd">    p : function</span>
+<span class="sd">        Acepta un argumento w y devuelve una lista de coeficientes</span>
+<span class="sd">    X, Y : numpy.ndarray</span>
+<span class="sd">        Rejilla en la que evaluar el polinomio de estabilidad generada por</span>
+<span class="sd">        numpy.meshgrid</span>
+<span class="sd">    Devuelve</span>
+<span class="sd">    --------</span>
+<span class="sd">    Z : numpy.ndarray</span>
+<span class="sd">        Para cada punto de la malla, máximo de los valores absolutos de las</span>
+<span class="sd">        raíces del polinomio de estabilidad</span>
+<span class="sd">    Ejemplos</span>
+<span class="sd">    --------</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; import numpy as np</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; x = np.linspace(-3.0, 1.5)</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; y = np.linspace(-3.0, 3.0)</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; X, Y = np.meshgrid(x, y)</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; Z = region_estabilidad(lambda w: [1,</span>
+<span class="sd">    ... -1 - w - w ** 2 / 2 - w ** 3 / 6 - w ** 4 / 24], X, Y)  # RK4</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; cs = plt.contour(X, Y, Z, np.linspace(0.05, 1.0, 9))</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; plt.clabel(cs, inline=1, fontsize=10)  # Para etiquetar los contornos</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; plt.show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">X</span> <span class="o">+</span> <span class="n">Y</span> <span class="o">*</span> <span class="mi">1j</span>
+   
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)):</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">p</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]))</span>
+            <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">r</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Z</span>
+</pre></div>
+
+
+<p>Como sucede casi siempre en Python, el código es casi una traducción literal del algoritmo. Vamos a explicar un poco el código:</p>
+<ol>
+<li>Obtenemos los coeficientes del polinomio para <code>w[i, j]</code>.</li>
+<li>Calculamos las raíces de dicho polinomio con <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.roots.html"><code>np.roots</code></a>, que acepta un array de rango 1 o equivalente (por esto no se puede vectorizar el bucle) y devuelve un array con las raíces del polinomio.</li>
+<li>
+<p>La expresión <code>r if np.any(r) else 0</code> es un <a href="http://docs.python.org/reference/expressions.html#conditional-expressions">condicional ternario</a>, y tiene la misión de devolver un 0 si el polinomio no tiene raíces (porque todos los coeficientes se han hecho nulos, por ejemplo) para que la función <code>np.max</code> no reciba un array vacío. Es equivalente a</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>if np.any(r):
+    return r
+else:
+    return 0</p>
+</li>
+<li>
+<p>Calculamos el valor absoluto de estas raíces.</p>
+</li>
+<li>Con la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.amax.html#numpy.amax"><code>np.max</code></a> calculamos el mayor de estos valores.</li>
+<li>Lo asignamos a <code>Z[i, j]</code>.</li>
+</ol>
+<h2>Resultados</h2>
+<p>Una vez tenemos esto en un archivo <code>region_estabilidad.py</code>, si abrimos un intérprete de IPython en el mismo directorio será tan sencillo como</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="k">def</span> <span class="nf">p</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="s2">&quot;&quot;&quot;Polinomio de estabilidad del método RK4.&quot;&quot;&quot;</span>
+   <span class="o">...</span><span class="p">:</span>     <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="n">w</span> <span class="o">-</span> <span class="n">w</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">w</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">6</span> <span class="o">-</span> <span class="n">w</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">/</span> <span class="mi">24</span><span class="p">]</span>
+   <span class="o">...</span><span class="p">:</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">region_estabilidad</span> <span class="kn">import</span> <span class="n">region_estabilidad</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">region_estabilidad</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>El segundo argumento de <code>plt.contour</code> es para especificar los niveles que queremos pintar (normalmente sólo nos interesará hasta el 1.0). Podemos obtener resultados similares a estos:<figure id="attachment_327" style="width: 350px" class="wp-caption aligncenter"></p>
+<p><img alt="Adams-Bashfort 3" src="https://pybonacci.org/images/2012/04/ab3.png"></p>
+<p style="text-align:left">
+  Y hasta aquí llega el artículo de hoy. Espero que os haya resultado interesante y útil, no olvidéis difundir y comentar 🙂
+</p>
+
+<p style="text-align:left">
+  ¡Un saludo!
+</p>
+
+<h2>Referencias</h2>
+<ul>
+<li>HERNÁNDEZ, Juan A. <em>Cálculo Numérico en Ecuaciones Diferenciales Ordinarias</em>. ADI, 2001.</li>
+<li>LEVEQUE, Randall J. <em>Finite Difference Methods for Ordinary and Partial Differential Equations</em>. Society for Industrial and Applied Mathematics, 2007.</li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/ecuaciones-diferenciales.html" class="tag">ecuaciones diferenciales</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/metodos-numericos.html" class="tag">métodos numéricos</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

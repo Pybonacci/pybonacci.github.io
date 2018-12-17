@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Tags | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+    <h1>Tags for Pybonacci</h1>        <li><a href="http://pybonacci.github.io/tag/ace.html">Ace</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/acikit-learn.html">acikit-learn</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/acp.html">acp</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/aemet.html">aemet</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/aeropython.html">#aeropython</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/agrupamiento-clusters.html">agrupamiento clusters</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/ai.html">ai</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/alberto-cuevas.html">alberto cuevas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/aleatorio.html">aleatorio</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/algebra-lineal.html">álgebra lineal</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/algoritmos.html">algoritmos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/amor.html">amor</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/analisis-de-componentes-principales.html">analisis de componentes principales</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/animacion.html">animación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ano-nuevo.html">año nuevo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/api.html">API</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/apis.html">APIs</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/append.html">append</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html">aprendizaje automático</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/aprendizaje-no-supervisado.html">aprendizaje no supervisado</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/arange.html">arange</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/archivos.html">archivos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/arduino.html">arduino</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/argentina.html">argentina</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/argentina-en-python.html">Argentina en Python</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/array-oriented.html">array-oriented</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/arrays.html">arrays</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/artificial-intelligence.html">artificial intelligence</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/asincronia.html">asincronia</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/astrofisica.html">astrofísica</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/astronomia.html">astronomía</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/astropy.html">astropy</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/asyncio.html">asyncio</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/atributos.html">atributos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/autocompletado.html">autocompletado</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/automatas-celulares.html">autómatas celulares</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/base-de-datos.html">base de datos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/basemap.html">basemap</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/bases-de-datos.html">bases de datos</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/baumgartner.html">Baumgartner</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/bbdd.html">bbdd</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/bdd.html">BDD</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/big-data.html">big data</a> (7)</li>
+        <li><a href="http://pybonacci.github.io/tag/bigdata.html">bigdata</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/bincount.html">bincount</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/biseccion.html">biseccion</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/bitset.html">bitset</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/blaze.html">blaze</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/blttlenec.html">blttlenec</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/browser.html">browser</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/bryplot.html">bryplot</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/brython.html">brython</a> (7)</li>
+        <li><a href="http://pybonacci.github.io/tag/brython-brythonmagic-highcharts-javascript-ipython-ipython.html">brython brythonmagic highcharts javascript ipython IPython</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/brythonmagic.html">brythonmagic</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/bugs.html">bugs</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/busqueda-en-escalada.html">búsqueda en escalada</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/c.html">c</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/cacheme.html">cacheme</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/calculo-simbolico.html">cálculo simbólico</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/canvas.html">canvas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cartografia.html">cartografía</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cartopy.html">cartopy</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cas.html">cas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cffi.html">cffi</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/charlas-ted.html">Charlas Ted</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ciencia.html">ciencia</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cientifico.html">científico</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cinematica.html">cinemática</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/circuitos.html">circuitos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/clasificacion-clustering.html">clasificación clustering</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/cliente.html">cliente</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/clip.html">clip</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/collections.html">collections</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/coma-flotante.html">coma flotante</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/comunidad.html">comunidad</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/concurrentfutures.html">concurrent.futures</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/conda.html">conda</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/conda-forge.html">conda-forge</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/conferencias.html">conferencias</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/conjuntos.html">conjuntos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/constantes.html">constantes</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/constantes-fisicas.html">constantes físicas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/contenedores.html">contenedores</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/control.html">control</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/correlacion.html">correlación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cpython.html">CPython</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/cran.html">cran</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cuantiles.html">cuantiles</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cuartiles.html">cuartiles</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/curso.html">curso</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/cursos.html">cursos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/cython.html">cython</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/d3.html">d3</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/data-science.html">data science</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/dataanalytics.html">dataanalytics</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/datascience.html">datascience</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/dataset.html">dataset</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/datos.html">datos</a> (8)</li>
+        <li><a href="http://pybonacci.github.io/tag/deciles.html">deciles</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/deferred.html">deferred</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/delayed.html">delayed</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/deletter.html">deletter</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/depuracion.html">depuración</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/derivadas.html">derivadas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/diferencia.html">diferencia</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/digitize.html">digitize</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/dimensionality-reduction.html">dimensionality reduction</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/directorios.html">directorios</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/documentacion.html">documentación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/docutils.html">docutils</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/dot.html">dot</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/downhill-simplex-algorithm.html">downhill simplex algorithm</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/drama.html">drama</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ecuaciones-diferenciales.html">ecuaciones diferenciales</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/ecuaciones-no-lineales.html">ecuaciones no lineales</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/editores.html">editores</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/edos.html">EDOs</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/edps.html">EDPs</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/embed.html">embed</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ensenanza.html">enseñanza</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/entretenimiento.html">Entretenimiento</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/entrevistas.html">entrevistas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/especificacion-de-python.html">especificación de Python</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/estadistica.html">estadística</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/estilos.html">estilos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/etsia.html">etsia</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/etsiae.html">etsiae</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/euroscipy.html">euroscipy</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/eva.html">EVA</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/eventos.html">eventos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/evt.html">EVT</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/excel.html">excel</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/explicabilidad.html">explicabilidad</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html">exponenciación binaria</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/expresiones-regulares.html">expresiones regulares</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/extremes.html">extremes</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/extremos.html">extremos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/f2py.html">f2py</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fenics.html">fenics</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ffmpeg.html">ffmpeg</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fft.html">fft</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fftpack.html">fftpack</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fibonacci.html">fibonacci</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ficheros.html">ficheros</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fisica.html">física</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/flask.html">flask</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/folium.html">folium</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/forecasting.html">forecasting</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/formacion.html">formación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/format.html">format</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/formateando-texto.html">formateando texto</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/formato.html">formato</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/formula-1.html">formula 1</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/fortran.html">fortran</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/foss.html">foss</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/fractales.html">fractales</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/francis-anscombe.html">Francis Anscombe</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/frecuencias.html">frecuencias</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/frontend.html">frontend</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/futures.html">futures</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/gdpr.html">gdpr</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/geforce.html">geforce</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/geografia.html">geografía</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/getter.html">getter</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/gfs.html">gfs</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/gis.html">gis</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/github.html">github</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/google-earth.html">google earth</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/google-geocode.html">google geocode</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/googleearth.html">googleearth</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/gps.html">gps</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/gpu.html">gpu</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/grafica.html">gráfica</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/graficas.html">gráficas</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/graficos.html">gráficos</a> (10)</li>
+        <li><a href="http://pybonacci.github.io/tag/guillem.html">guillem</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/hans-rosling.html">Hans Rosling</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/hdf.html">hdf</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/hdf5.html">hdf5</a> (10)</li>
+        <li><a href="http://pybonacci.github.io/tag/heatmap.html">heatmap</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/heuristica.html">heurística</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/highcharts.html">highcharts</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/hill-climbing.html">hill-climbing</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/histogram.html">histogram</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/histograma.html">histograma</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/html5.html">html5</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/humitos.html">humitos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ia.html">ia</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/ides.html">IDEs</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/implementacion.html">implementación</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/instalacion.html">instalación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/integracion.html">integración</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/integrales.html">integrales</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/inteligencia-artificial.html">inteligencia artificial</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/interpolacion.html">interpolación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/interseccion.html">intersección</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/intervalos-de-confianza.html">intervalos de confianza</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ipy2wp2.html">ipy2wp2</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ipynb.html">ipynb</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/ipynb2wp.html">ipynb2wp</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/ipython.html">ipython</a> (14)</li>
+        <li><a href="http://pybonacci.github.io/tag/iris.html">iris</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/javascript.html">javascript</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/jinja2.html">Jinja2</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/johanna.html">Johanna</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/js.html">js</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/jupyter.html">jupyter</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/kaggle.html">kaggle</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/kauffman.html">Kauffman</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/kml.html">kml</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/kmz.html">kmz</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/labels.html">labels</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/latex.html">látex</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/leaflet.html">leaflet</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/legend.html">Legend</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/libreria.html">librería</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/libro.html">libro</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/libros.html">libros</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/lime.html">lime</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/limites.html">límites</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/linspace.html">linspace</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/lista.html">lista</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/logo.html">logo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/love.html">love</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/love-supreme.html">Love supreme</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/machine-learning.html">machine learning</a> (7)</li>
+        <li><a href="http://pybonacci.github.io/tag/mami-je-taime.html">mami je t'aime</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/map2wiki.html">map2wiki</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/mapa.html">mapa</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/mapas.html">mapas</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/mapeo.html">mapeo</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/mapping.html">mapping</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/math.html">math</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/mathematica.html">mathematica</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/mathics.html">mathics</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/matlab.html">matlab</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/matplotlib.html">matplotlib</a> (26)</li>
+        <li><a href="http://pybonacci.github.io/tag/matplotlibanimation.html">matplotlib.animation</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/matplotlibpyplot.html">matplotlib.pyplot</a> (13)</li>
+        <li><a href="http://pybonacci.github.io/tag/matrices.html">matrices</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/matrix.html">matrix</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/meme.html">meme</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/menezes.html">Menezes</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/meteorologia.html">meteorología</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/meteosat.html">meteosat</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/metodos-numericos.html">métodos numéricos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/microentradas.html">MicroEntradas</a> (7)</li>
+        <li><a href="http://pybonacci.github.io/tag/monitor.html">monitor</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/monte-carlo.html">monte carlo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/montecarlo.html">montecarlo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/movimiento-parabolico.html">movimiento parabólico</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/multiplicacion.html">multiplicación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/multiprocessing.html">multiprocessing</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/murcia-que-bella-eres.html">Murcia que bella eres</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/navegador.html">navegador</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/netcdf.html">netcdf</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/netcdf-4.html">netcdf-4</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/netcdf4.html">netcdf4</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/netcdf4-python.html">netcdf4-python</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/newton.html">newton</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/nilo.html">Nilo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/nodebox.html">nodebox</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/nominatim.html">nominatim</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/notebook.html">notebook</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/npvectorize.html">np.vectorize</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numba.html">numba</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/numbagg.html">numbagg</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numeros-aleatorios.html">números aleatorios</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/numeros-complejos.html">números complejos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numexpr.html">numexpr</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/numfocus.html">NumFocus</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpy.html">numpy</a> (31)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpybincount.html">numpy.bincount</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpydigitize.html">numpy.digitize</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpyhistogram.html">numpy.histogram</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpypy.html">numpypy</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpyrecarray.html">numpy.recarray</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/numpyvectorize.html">numpy.vectorize</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/nvidia.html">nvidia</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/nwp.html">nwp</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/octave.html">octave</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/open-science.html">open science</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/opendata.html">opendata</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/opengl.html">opengl</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/openlayers.html">openlayers</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/openstreetmap.html">openstreetmap</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/optimizacion.html">optimización</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/packtpub.html">packtpub</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pandas.html">pandas</a> (8)</li>
+        <li><a href="http://pybonacci.github.io/tag/path.html">path</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pathlib.html">pathlib</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pca.html">pca</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pdb.html">pdb</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pdp.html">pdp</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pep-465.html">pep 465</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/percentil.html">percentil</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/percentiles.html">percentiles</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/performance.html">performance</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/pfs.html">PFS</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/pgcli.html">pgcli</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pi.html">pi</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/piecewise.html">piecewise</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/plotly.html">plotly</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/poliastro.html">poliastro</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/poligono.html">polígono</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/postgresql.html">postgresql</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/potencias.html">potencias</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/prediccion.html">predicción</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/principal-component-analysis.html">principal component analysis</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/principiante.html">principiante</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/probabilidad.html">probabilidad</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/product.html">product</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/programacion-funcional.html">programación funcional</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/proj.html">proj</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/proj4.html">proj.4</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/promises.html">promises</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/property.html">property</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/propiedades.html">propiedades</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/prueba-de-concepto.html">prueba de concepto</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/psf.html">PSF</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/psycopg2.html">psycopg2</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/punto-flotante.html">punto flotante</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pybonacci.html">pybonacci</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/pycon.html">pycon</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/pycones.html">pycones</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/pyconus.html">pyconus</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pydata.html">pydata</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/pydata2012nyc.html">pydata2012nyc</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pydatanyc.html">pydatanyc</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pykml.html">pykml</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/pyplot.html">pyplot</a> (10)</li>
+        <li><a href="http://pybonacci.github.io/tag/pyproj.html">pyproj</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pypy.html">pypy</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/pypy-portable.html">pypy-portable</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pyschool.html">pyschool</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/pytables.html">pytables</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/python.html">python</a> (95)</li>
+        <li><a href="http://pybonacci.github.io/tag/python-2.html">python 2</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/python-3.html">python 3</a> (18)</li>
+        <li><a href="http://pybonacci.github.io/tag/python-35.html">python 3.5</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/python-espana.html">python españa</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html">Python fuente de sabiduria</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/pythontutor.html">pythontutor</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/quimica-nomada.html">Quimica & Nomada</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/r.html">R</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/ra-ma.html">ra-ma</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/random.html">random</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/re.html">re</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/recarray.html">recarray</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/record-array.html">record array</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/recursion.html">recursión</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/recursos.html">recursos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/reduccion-de-dimensiones.html">reducción de dimensiones</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/refactoring.html">refactoring</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/regex.html">regex</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/regexp.html">regexp</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/regresion-lineal.html">regresión lineal</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/regresion-logistica.html">regresión logística</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/rendimiento.html">rendimiento</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/representacion.html">representación</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/resaltado-de-sintaxis.html">resaltado de sintaxis</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/rest.html">rest</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/revision.html">revisión</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/rpy2.html">rpy2</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/rutas.html">rutas</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sage.html">sage</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/salva.html">salva</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/satelite.html">satélite</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scatter.html">scatter</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scatterplots.html">scatterplots</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scikit-learn.html">scikit-learn</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipy.html">scipy</a> (14)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipycluster.html">scipy.cluster</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipyinterpolate.html">scipy.interpolate</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipyla.html">scipyla</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipyoptimize.html">scipy.optimize</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipysignal.html">scipy.signal</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipysparse.html">scipy.sparse</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipyspatial.html">scipy.spatial</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/scipystats.html">scipy.stats</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/scoreatpercentile.html">scoreatpercentile</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/secuencias.html">secuencias</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/series.html">series</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/set.html">set</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sets.html">sets</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/setter.html">setter</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/shapely.html">shapely</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/shp.html">shp</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sierpinski.html">sierpinski</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sig.html">sig</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/singular-value-decomposition.html">singular value decomposition</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sklearn.html">sklearn</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sorteo.html">sorteo</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/spyder.html">spyder</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/spyderlib.html">spyderlib</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sql.html">sql</a> (7)</li>
+        <li><a href="http://pybonacci.github.io/tag/sqlite.html">sqlite</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/statsmodels.html">statsmodels</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/stdlib.html">stdlib</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/stratos.html">stratos</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/streaming-api.html">streaming api</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/styles.html">styles</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/svd.html">svd</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/sympy.html">sympy</a> (4)</li>
+        <li><a href="http://pybonacci.github.io/tag/taller.html">taller</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/tdd.html">TDD</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/ted.html">Ted</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/ted-talks.html">Ted talks</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/test.html">test</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/test-de-hipotesis.html">test de hipótesis</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/testing.html">testing</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/threading.html">threading</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/thredds.html">thredds</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/til.html">til</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/timeseries.html">timeseries</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/trol.html">trol</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/tutorial.html">tutorial</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html">Tutorial de pandas</a> (6)</li>
+        <li><a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html">tutorial matplotlib.pyplot</a> (10)</li>
+        <li><a href="http://pybonacci.github.io/tag/tutorial-pytables-basico-30.html">tutorial pytables básico 3.0</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/tutoriales.html">tutoriales</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/twitter.html">twitter</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/udemy.html">udemy</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/unicode.html">unicode</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/union.html">unión</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/unravel_index.html">unravel_index</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/unsupervised-learning.html">unsupervised learning</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/vectores.html">vectores</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/vectorizacion.html">vectorización</a> (2)</li>
+        <li><a href="http://pybonacci.github.io/tag/video.html">vídeo</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/videos.html">vídeos</a> (5)</li>
+        <li><a href="http://pybonacci.github.io/tag/videos-pycon-pyconca.html">videos pycon pyconca</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/virtualenv.html">virtualenv</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/visualizacion.html">visualización</a> (3)</li>
+        <li><a href="http://pybonacci.github.io/tag/visvis.html">visvis</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/vpython.html">vpython</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/web.html">web</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/wikipedia.html">wikipedia</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/windows.html">windows</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/wms.html">wms</a> (1)</li>
+        <li><a href="http://pybonacci.github.io/tag/xml-rpc.html">XML-RPC</a> (1)</li>
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

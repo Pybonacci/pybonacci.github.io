@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Python es lento | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Python es lento</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 01 mayo 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/davidmh.html">Davidmh</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>La programación científica consiste, en su mayor parte, en cálculos numéricos intensos. CPU en estado puro. Un lenguaje interpretado es, por construcción, más lento que su homólogo compilado, por lo que puede parecer un contrasentido usar Python para aplicaciones «pesadas».  Estamos perdiendo el tiempo, ¿o no?</p>
+<p>Muchos programas científicos se ejecutan sólo una vez, son un cálculo concreto que no hará falta repetir. La mayor parte del tiempo del cálculo no es la ejecución del programa, sino escribirlo, trabajo de un humano. Aquí es donde entran las bondades de Python: es sencillo, rápido de escribir, y potente como el que más. Y, por lo sencillo que eso, aunque sea de naturaleza lenta (o precisamente por eso), se han creado muchas herramientas para mejorar su eficiencia de formas elegantes y pythónicas.</p>
+<p>Muchas críticas sobre la lentitud de Python adolecen de alguno de estos problemas:</p>
+<ul>
+<li><em>Benchmarks</em> irreales o incorrectos: ¿quién necesita un programa para imprimir <a href="http://theunixgeek.blogspot.com.es/2008/09/c-vs-python-speed.html">el primer millón de números naturales</a>?</li>
+<li><a href="http://stackoverflow.com/questions/6964392/speed-comparison-with-project-euler-c-vs-python-vs-erlang-vs-haskell">Desconocimiento del lenguaje.</a> A veces hay formas mejores de hacer las cosas, más sencillas y óptimas.</li>
+<li>Se limitan a la biblioteca estándar, que se queda coja para el cálculo numérico (como veremos más adelante).</li>
+<li>No tienen en cuenta el tiempo necesario para escribirlo y depurarlo. Cuanto más largo sea el programa, más difícil será encontrar los problemas o añadirle nuevas funcionalidades (tiempo del programador).</li>
+<li>Por lo tanto, usar un lenguaje de más alto nivel permite, a igualdad de inteligencia, tiempo y habilidad, crear un programa potencialmente más complejo y eficiente.</li>
+<li>No son guays (pero nosotros sí).<!--more--></li>
+</ul>
+<p>En este artículo pretendo hacer un repaso no exhaustivo y no muy riguroso de las principales formas de acelerar código Python para un científico. La mayoría requieren la instalación de bibliotecas específicas, y algunas de ellas, una configuración cuidadosa, por lo que no todas son adecuadas para distribuir un producto al público general. Vamos allá:</p>
+<h2></h2>
+<h2>Optimiza, que algo queda.</h2>
+<p>Antes de empezar a pensar en optimizar debemos saber <em>qué</em> optimizar. Si tenemos una rutina simple, es obvio, pero si el programa es complejo, no es trivial ver por dónde atacarlo. Podemos tirarnos horas tratando de mejorar el tiempo de una función que, de varias horas de simulación, sólo se lleva cinco minutos, mientras que cambiando una línea, podemos obtener una mejora del 33% (historia real).</p>
+<p>Por lo tanto, antes de meter la zarpa de optimización debemos saber dónde se está empleando nuestro tiempo. Eso se hace con sistemas de <em>profiling</em> (<a href="http://docs.python.org/library/profile.html">véanse</a> <a href="https://code.google.com/p/jrfonseca/wiki/Gprof2Dot#Examples">algunos</a> <a href="http://wiki.jrfonseca.googlecode.com/git/gprof2dot.png">ejemplos</a>). Otro día trataremos este tema.</p>
+<h2></h2>
+<h2><strong>Conociendo el lenguaje: <em>list comprehension</em></strong></h2>
+<p>Como decía al principio, conocer el lenguaje es importante a la hora de escribir código eficiente, y Python guarda algunas sorpresas. Por ejemplo, sacar cosas por pantalla es lento, no imprimas todo lo que va haciendo, será más rápido (y más útil) imprimir sólo una docena de marcas clave, para saber por dónde va.</p>
+<p>Otro de los pozos de tiempo son los bucles. La mayoría de las veces son inevitables, pero a veces hay opciones más rápidas. Imagina que queremos construir una lista resultado de aplicar una función a todos los elementos de una lista. Una forma obvia de hacerlo es:</p>
+<div class="highlight"><pre><span></span><span class="n">lis2</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">lis</span><span class="p">:</span>
+   <span class="n">lis2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Pero la opción idiomática, usando list comprehensions, es:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Una list comprehension básica:</span>
+<span class="n">lis2</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">lis</span><span class="p">]</span>
+</pre></div>
+
+
+<p>O incluso, restringiendo el dominio:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Sólo a los elementos positivos.</span>
+<span class="n">lis2</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">lis</span> <span class="k">if</span> <span class="n">element</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Que es substancialmente más rápido.</p>
+<p style="text-align:right;">
+  # Sugerencia avanzada: los comandos map y filter.
+</p>
+
+<h2></h2>
+<h2>Optimización automágica: Psyco</h2>
+<p><a href="http://psyco.sourceforge.net/">Psyco</a> es un compilador JIT (<em>just in time</em>, «en tiempo real»), que optimiza en tiempo de ejecución el código.</p>
+<blockquote>
+<p>Cuando el compilador JIT detecta un bucle [función] en el código [...] se le hace un seguimiento.  Cuando esa función sea ejecutada, el intérprete la inspecciona y registra todas las instrucciones ejecutadas.</p>
+<p>Cuando ha finalizado, el seguimiento se detiene y el registro es mandado a un optimizador, y de ahí a un ensamblador que genera código máquina optimizado. La próxima vez que se ejecute esa pieza de código, se usará esta versión mejorada.</p>
+<p>(El código) depende de varias suposiciones sobre el código que van incluidas en la versión optimizada. Si alguna de esas suposiciones falla, la ejecución pasa de nuevo a la versión original.</p>
+<p><p style="text-align:right;">
+  <em>(Extraído del blog de <a href="http://www.huyng.com/posts/so-thats-how-tracing-jits-work/">Huy Nguyen </a>citando a su vez <a href="http://morepypy.blogspot.com.es/2011/04/tutorial-part-2-adding-jit.html">el blog de PyPy</a>)</em>
+</p></p>
+</blockquote>
+<p>El uso no podría ser más sencillo. Símplemente añade al principio de tu programa:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">psyco</span>
+<span class="n">psyco</span><span class="o">.</span><span class="n">full</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y obtiene una aceleración de un factor 2-3, que puede llegar hasta un factor 10 para el cálculo numérico puro. La gran ventaja de Psyco es que no requiere hacer modificaciones específicas en el código: añádelo y funciona. En casi todas partes. Y ya.</p>
+<p>Pero no es siempre útil. Por ejemplo, cuando hacemos uso intensivo de NumPy, el código ya está optimizado, así que Psyco poco puede rascar, y su único efecto es ralentizar el programa (en cantidades inapreciables, eso sí). Además, tras años en los que sólo ha recibido mantenimiento básico (nadie llegó a portarlo a Python 2.7 ni a las versiones de 64 bits), desde el 12 de marzo está definitivamente muerto.  Hubo en algún momento una distribución de la Psyco 2, prometiendo una página web y nuevas características, pero nunca más se supo, y hace que otras bibliotecas como Matplotlib dejen de funcionar. Es mejor quedarse con la vieja versión 1.7.</p>
+<p>Espera, ¿he dicho NumPy? ¿qué es NumPy?</p>
+<h2></h2>
+<h2>NumPy y SciPy</h2>
+<p><a href="http://scipy.org/">La Biblia</a> cuando hablamos de cálculo numérico en Python. Su mayor contribución es una nueva estructura de datos: el array. Una lista (multidimensional) homogénea, en la que todos sus elementos han de ser del mismo tipo: entero, decimal en precisión arbitraria, complejo... y sobre la que se puede aplicar una gran cantidad de funciones. Veamos un ejemplo: ¿cuál es la suma de las raíces cuadradas de los diez primeros números y los senos de esos mismos números?</p>
+<div class="highlight"><pre><span></span><span class="c1"># Implementación estándar</span>
+<span class="kn">import</span> <span class="nn">psyco</span>
+<span class="n">psyco</span><span class="o">.</span><span class="n">full</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="n">numbers</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">result</span><span class="o">=</span><span class="p">[</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">+</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">]</span>
+</pre></div>
+
+
+<p>&nbsp;</p>
+<div class="highlight"><pre><span></span><span class="c1"># Implementación con NumPy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">numbers</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">result</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Como vemos, ya no hace falta ir elemento a elemento, sino que le podemos dar la lista completa, y él solo hace la iteración. Esto no es sólo una cuestión de conveniencia, sino que también permite incrementar la velocidad de ejecución. En algunas operaciones, como las matriciales, esto es incluso más interesante, ya que de forma completamente transparente y automática, ejecuta el código en paralelo, mandando cada número a un núcleo del procesador, ahorrando mucho tiempo.</p>
+<p>Y, por supuesto, NumPy y SciPy tienen muchísimas funciones muy potentes, como rutinas para integrar, interpolaciones, regresiones, funciones de Bessel, convoluciones, transformadas diversas... Prácticamente toda la matemática genérica que uno puede necesitar.</p>
+<p>¿Cómo funciona? Np y Sc son una gran interfaz para bibliotecas matemáticas en C, por lo que, tu código Python no hace más que llamar la ejecución de código C compilado.</p>
+<h2></h2>
+<h2>Paralelizando: Numexpr</h2>
+<p>La paralelización es una buena forma de acelerar la ejecución de un programa, siempre que sea suficientemente separable. El caso extremo son los problemas vergonzosamente paralelizables, en los que podemos dividir el espacio de parámetros a estudiar en suficientes compartimentos estancos. En este caso, la paralelización es tan fácil como lanzar tantos programas como núcleos tengamos, cada uno estudiando una parte. Ejemplo: colisiones de un acelerador de partículas, cada evento es completamente independiente de los demás.</p>
+<p>Otras veces no tenemos tanta suerte y sólo podemos paralelizar algunas partes de nuestro programa. Python ofrece los módulos <em>threading</em> y <em>multiprocessing</em>, pero su uso es más sutil y complicado de lo que quiero tratar en este artículo.</p>
+<p>No obstante, no está todo perdido. Si queremos aplicar funciones básicas sobre grandes conjuntos de números y NumPy se nos queda corto, podemos usar <a href="https://code.google.com/p/numexpr/">Numexpr</a>. Nuestro viejo código quedaría:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Implementación con NumPy y Numexpr</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numexpr</span> <span class="kn">as</span> <span class="nn">ne</span>
+<span class="n">numbers</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">result</span><span class="o">=</span><span class="n">ne</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s1">&#39;sqrt(numbers)+sin(numbers)&#39;</span><span class="p">)</span> <span class="c1"># Nótese que va como texto</span>
+</pre></div>
+
+
+<p>Numexpr tiene varias estrategias para acelerar el código. En primer lugar, cuando NumPy ejecuta el código, primero calcula las raíces y las guarda en memoria, después los senos y los guarda en memoria, y por último, los suma ambos y guarda el resultado final en memoria. Esto supone triplicar la memoria necesaria, y por tanto, el tráfico de datos entre la CPU y la RAM.</p>
+<p>Podemos ahorrar memoria haciendo la cuenta elemento a elemento,  calculando la raíz y el seno del primero y sumarlos, etc. Esto fuerza a Python a comprobar qué tipo de dato es en cada momento para saber cómo hacer la cuenta, y esto ha de hacerse cada vez. Numexpr, en cambio, divide la operación en trozos manejables, que no castiguen mucho la memoria, y que eviten comprobaciones redundantes.</p>
+<p>Además, incluye su propio compilador JIT, que genera código muy eficiente, y además intenta usar varios núcleos allí donde NumPy no sabe. Para tamaños suficientemente grandes de datos, podemos llegar a alcanzar la velocidad límite que da la memoria del ordenador, ¡y sin haber escrito una sola línea fuera de Python!</p>
+<h1>Magia arcana: <em>blitz</em></h1>
+<p>Llegamos a un problema en el que nada de lo anterior ha sido suficiente, sigue siendo demasiado lento. En realidad, sabemos que la causa son sólo unas pocas líneas de código... es la hora de la magia misteriosa.</p>
+<p><em>weave</em> es un módulo dentro de NumPy para comunicar Python y C. Una de sus funciones es <em><a href="http://www.scipy.org/PerformancePython#head-cafc55bbf8fd74071b2c2ebcfb6f24ed1989d540">blitz</a></em>, que toma una línea de Python, la traduce de forma transparente a C, y cada vez que la llames se ejecutará esta versión optimizada. En hacer esta primera conversión necesita entorno a un segundo, pero consigue velocidades generalmente superiores a todas las opciones anteriores. Ya no es <em>bytecode</em> como Numexpr o Psyco, o una interfaz a C como NumPy, sino tu propia función escrita directamente en C y completamente compilada y optimizada.</p>
+<p>Nota: aunque en Linux y Mac funciona según se instala, en Windows no he sido capaz de hacerlo funcionar nunca.</p>
+<h1>Rindiéndonos al compilador</h1>
+<p>Está bien, vamos a compilar algo de código.Una opción previa es <a href="http://cython.org/">Cython</a>, una versión del lenguaje Python con declaración de variables opcional (pero recomendada) que puede ser compilada a código C y luego llamado desde Python. La gran ventaja es que este código es plenamente funcional dentro de Python, incluso antes del compilado. Además, soporta arrays de NumPy. Sin embargo, está limitado a tipos estáticos y el proceso de generar el código es un tanto complejo/pesado.</p>
+<p>Otro proyecto interesante es <a href="http://shed-skin.blogspot.com.es/">Shedskin</a>. En este caso, toma código Python puro (con algunas restricciones, como el tipado estático) y genera código C++ (ilegible, pero funcional) optimizado. El proyecto parece ser llevado por una sola persona, y va lento, pero el resultado promete interesante y más sencillo que Cython. Como principal desventaja es que no soporta estructuras de NumPy o similares.</p>
+<p>Podemos seguir aprovechando <em>weave</em> a través de su función <a href="http://www.scipy.org/PerformancePython#head-a3f4dd816378d3ba4cbdd3d23dc98529e8ad7087"><em>inline</em></a>.  Ésta toma como argumento código C dentro del programa Python. Al igual que blitz, la primera ejecución es la más lenta, pues tiene que compilarlo, pero las siguientes son mucho más rápidas. Su principal inconveniente es que requiere <em>escribir</em> código en otro lenguaje... a menos que uses lo que te ha dado Shedskin, por ejemplo. También puede ser usado como método de inserción de piezas sencillas de código de un colaborador.</p>
+<p>Por último, los de la vieja escuela quizá gusten de <a href="http://www.scipy.org/F2py">F2py</a> para llamar a código Fortran desde Python.</p>
+<h1>El futuro: PyPy.</h1>
+<p><a href="http://pypy.org/">PyPy</a> es un intérprete de Python... escrito en Python. Usando un lenguaje de mucho más alto nivel son capaces de optimizar ese mismo lenguaje. Es un gran proyecto aún en desarrollo, en el que se está invirtiendo mucho esfuerzo, pero que ha obtenido algunos <a href="http://speed.pypy.org/">resultados impresionantes</a>. ¡En un <em>benchmark</em> se llega a una aceleración del 98%!</p>
+<p>No es una opción todavía porque todavía le faltan muchas cosas, como soporte para bibliotecas externas como NumPy, aunque estamos <a href="http://morepypy.blogspot.com.es/2012/04/numpy-on-pypy-progress-report.html">cerca</a>. Ignoro si hay algún problema más allá de las bibliotecas.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

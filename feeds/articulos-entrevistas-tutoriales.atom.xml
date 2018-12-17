@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pybonacci - Artículos, Entrevistas, Tutoriales</title><link href="http://pybonacci.github.io/" rel="alternate"></link><link href="http://pybonacci.github.io/feeds/articulos-entrevistas-tutoriales.atom.xml" rel="self"></link><id>http://pybonacci.github.io/</id><updated>2018-04-13T08:02:00+02:00</updated><entry><title>Curso de datos de Manu Garrido: Así se hizo</title><link href="http://pybonacci.github.io/2018/04/13/curso-de-datos-de-manu-garrido/" rel="alternate"></link><published>2018-04-13T08:02:00+02:00</published><updated>2018-04-13T08:02:00+02:00</updated><author><name>kiario</name></author><id>tag:pybonacci.github.io,2018-04-13:2018/04/13/curso-de-datos-de-manu-garrido/</id><summary type="html">&lt;p&gt;Hoy hablamos entre pybonaccis para saber como, nuestro sospechoso
+habitual, &lt;a href="http://manugarri.com/"&gt;Manu Garrido&lt;/a&gt;, ha ideado su &lt;a href="https://www.udemy.com/aprende-data-science-y-machine-learning-con-python/"&gt;curso
+sobre ciencia de datos, disponible para todos en
+Udemy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.udemy.com/aprende-data-science-y-machine-learning-con-python/?couponCode=PYBONACCI"&gt;Manu ha creado un cupón de descuento del 90% para todos los lectores
+de
+pybonacci&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;La idea de la entrada de hoy no es hablar del curso, el curso habla por
+si mismo, sino saber un poco más sobre lo que hay detrás de un curso tan
+elaborado como este.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;KC: Manu, ¿cuéntanos tus motivaciones para meterte en semejante
+embrollo, hacer un curso&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;en vídeo, con 23 horas de vídeos, y en
+español, limitando considerablemente la cantidad&lt;/em&gt;&lt;/strong&gt; &lt;strong&gt;&lt;em&gt;de público?&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;MG: Bueno, estuve unos años viviendo en Nueva York, y allí fue donde
+aprendí sobre este mundo tan apasionante. Al volver a España, me di
+cuenta de que el nivel de conocimiento sobre Data Science estaba …&lt;/em&gt;&lt;/p&gt;</summary><category term="curso"></category><category term="data science"></category><category term="udemy"></category></entry></feed>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Teoría de control en Python con SciPy (I): Conceptos básicos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Teoría de control en Python con SciPy (I): Conceptos básicos</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 10 octubre 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En esta serie de artículos vamos a estudiar <strong>cómo podemos aplicar Python al estudio de la teoría de control</strong>, en este caso utilizando SciPy. La teoría de control se centra en los <strong>sistemas dinámicos</strong> con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...</p>
+<ol>
+<li><strong>Conceptos básicos</strong></li>
+<li><a href="https://pybonacci.org/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/" title="Teoría de control en Python con SciPy (II): Control PID">Control PID</a></li>
+</ol>
+<p>En esta primera parte vamos a hacer una breve introducción matemática para centrar el tema y vamos a ver el manejo básico de sistemas LTI.</p>
+<p>Cuando uno piensa en estudiar sistemas dinámicos con un ordenador, automáticamente se le viene a la cabeza <strong>MATLAB</strong>, y no sin motivo. Este programa tiene unas capacidades extraordinarias en este campo, y aunque nos duela decirlo <em>Python no está al mismo nivel</em>. Sin embargo, queremos mostrar en este artículo que Python tiene el potencial de ser una alternativa real a MATLAB, enseñando los fundamentos del análisis de sistemas dinámicos utilizando el paquete <code>scipy.signal</code>. Yo mismo he trabajado un poco en este paquete en los últimos meses, así que he tenido la oportunidad de ver cómo funciona y también de conocer sus carencias; algunas de mis contribuciones han visto la luz en la recién liberada versión 0.13 de SciPy, pero aún queda mucho por mejorar.<figure id="attachment_1904" style="width: 418px" class="wp-caption aligncenter"></p>
+<p><img alt="lti_laplace" src="https://pybonacci.org/images/2013/10/lti_laplace.png"></p>
+<p>Los ejemplos para este artículo los he sacado de [Sedra y Smith, 2004], un excelente libro de electrónica, y de [Messner et al. 2011], unos tutoriales para MATLAB y Simulink. Para la teoría, recomiendo el excelente [Gil y Rubio 2009], un libro editado por la Universidad de Navarra y disponible para visualización, impresión y copia para uso personal sin fines de lucro (¡gracias @Alex__S12!).</p>
+<p><em><strong>En esta entrada se han usado python 3.3.2, numpy 1.8.0, scipy 0.13.0 y matplotlib 1.3.0.</strong></em></p>
+<h2>Sistemas lineales invariantes en el tiempo o LTI</h2>
+<p>Vamos a centrarnos en los <strong>sistemas lineales e invariantes en el tiempo</strong> (en inglés, sistemas <em>LTI</em>), que como su propio nombre indica tienen estas propiedades:</p>
+<ul>
+<li><strong>Linealidad</strong>: el sistema cumple el principio de superposición.</li>
+<li><strong>Invarianza en el tiempo</strong>: el comportamiento del sistema no varía con el tiempo: una misma entrada en dos instantes de tiempo diferentes siempre producirá la misma salida.</li>
+</ul>
+<p>Concretamente, muchos de estos sistemas pueden modelarse como un sistema de ecuaciones diferenciales ordinarias lineales de coeficientes constantes. Restringiendo aún más nuestro objeto de estudio, para <strong>sistemas de una sola entrada y una sola salida</strong> (<em>SISO</em> en inglés) tendremos:</p>
+<p>$\displaystyle a_n \frac{d^n y}{dt^n} + a_{n-1} \frac{d^{n-1} y}{dt^{n-1}} + \dots + y(t) = b_m \frac{d^m x}{dt^m} + b_{m-1} \frac{d^{m-1} x}{dt^{m-1}} + \dots + x(t)$</p>
+<p>donde $y(t)$ es la respuesta del sistema y $x(t)$ es la entrada, conocida. Aplicando la <strong>transformada de Laplace</strong> a la ecuación tendremos:</p>
+<p>$\displaystyle Y(s) = \frac{b_m s^m + b_{m-1} s^{m-1} + \dots + 1}{a_n s^n + a_{n-1} s^{n-1} + \dots + 1} X(s) = H(s) X(s) $</p>
+<p>siendo $Y(s)$ y $X(s)$ las transformadas de laplace de $y(t)$ y $x(t)$ y $H(s)$ la <strong>función de transferencia del sistema</strong>. Vemos que la ecuación resultante es algebraica y por tanto muy fácil de resolver.</p>
+<!--more-->
+
+<p>Precisamente la función de transferencia es una de las formas que tenemos de definir un sistema LTI en Python. Para ello simplemente tenemos que usar la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.lti.html"><code>signal.lti</code></a>, que acepta como argumento una tupla de dos, tres o cuatro elementos:</p>
+<ul>
+<li>Si damos <strong>dos</strong> elementos, deberán ser dos listas con los coeficientes de los polinomios del numerador y del denominador, <strong>siguiendo la convención antigua de coeficientes decrecientes</strong> (la convención contraria a la usada en nuestro <a href="https://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/" title="Ajuste e interpolación unidimensionales básicos en Python con SciPy">artículo sobre ajuste e interpolación</a>).</li>
+<li>Si damos <strong>tres</strong> elementos, deberán ser los ceros, polos y ganancia del sistema (ver más adelante).</li>
+<li>Si damos <strong>cuatro</strong> elementos, deberán ser las matrices de espacio de estado A, B, C y D (ver más adelante).</li>
+</ul>
+<p>En la siguiente sección veremos cómo se utiliza.</p>
+<h3>Respuesta en frecuencia</h3>
+<p>Por ejemplo, representemos la respuesta en frecuencia de un <strong>filtro pasabajos</strong> sencillo:</p>
+<p>$\displaystyle H(s) = \frac{K}{(s / omega_0) + 1}$</p>
+<p>usando el diagrama de Bode. Este es el código:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">w0</span> <span class="o">=</span> <span class="mf">1e3</span> <span class="c1"># rad / s</span>
+<span class="n">sys1</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">([</span><span class="n">K</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">w0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="c1"># Creamos el sistema</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">phase</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">bode</span><span class="p">(</span><span class="n">sys1</span><span class="p">)</span> <span class="c1"># Diagrama de bode: frecuencias, magnitud y fase</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span> <span class="c1"># Eje x logarítmico</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">phase</span><span class="p">)</span> <span class="c1"># Eje x logarítmico&lt;figure id=&quot;attachment_1914&quot; style=&quot;width: 341px&quot; class=&quot;wp-caption aligncenter&quot;&gt;</span>
+</pre></div>
+
+
+<p><img alt="bode" src="https://pybonacci.org/images/2013/10/bode_lp1.png"></p>
+<p>¿Qué sucede si queremos acceder a las otras representaciones de nuestro sistema? Tenemos los atributos (<code>zeros</code>, <code>poles</code>, <code>gain</code>) y (<code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>):</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">sys1</span><span class="o">.</span><span class="n">zeros</span><span class="p">,</span> <span class="n">sys1</span><span class="o">.</span><span class="n">poles</span><span class="p">,</span> <span class="n">sys1</span><span class="o">.</span><span class="n">gain</span><span class="p">)</span> <span class="c1"># [] [-1000.] 1000.0</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sys1</span><span class="o">.</span><span class="n">A</span><span class="p">,</span> <span class="n">sys1</span><span class="o">.</span><span class="n">B</span><span class="p">,</span> <span class="n">sys1</span><span class="o">.</span><span class="n">C</span><span class="p">,</span> <span class="n">sys1</span><span class="o">.</span><span class="n">D</span><span class="p">)</span> <span class="c1"># [[-1000.]] [[ 1.]] [[ 1000.]] [ 0.]</span>
+</pre></div>
+
+
+<p>Otras dos herramientas que nos pueden ser útiles para analizar un sistema LTI son su <strong>diagrama de Nyquist</strong> y su <strong>mapa de ceros-polos</strong>. Para el primero podemos valernos de la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.freqresp.html"><code>signal.freqresp</code></a>, que devuelve la respuesta compleja en frecuencia de un sistema, y representar la parte imaginaria respecto a la parte real. Para el segundo, lo que hemos visto en el párrafo anterior:</p>
+<div class="highlight"><pre><span></span><span class="n">sys2</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">25</span><span class="p">])</span> <span class="c1"># H(s) = (s + 2) / (s ** 2 + 6 * s + 25)</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">freqresp</span><span class="p">(</span><span class="n">sys2</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">H</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">H</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="o">-</span><span class="n">H</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sys2</span><span class="o">.</span><span class="n">zeros</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">sys2</span><span class="o">.</span><span class="n">zeros</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sys2</span><span class="o">.</span><span class="n">poles</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">sys2</span><span class="o">.</span><span class="n">poles</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="n">figure</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;attachment_1923&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width: 513px&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;wp-caption aligncenter&quot;</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><img alt="nyquist" src="https://pybonacci.org/images/2013/10/nyquist_pzmap1.png"></p>
+<h3>Respuesta temporal</h3>
+<p>Vamos a trabajar ahora sobre un ejemplo más elaborado: <strong>el control de velocidad de crucero de un coche</strong>. El objetivo es mantener constante la velocidad frente a perturbaciones externas, como por ejemplo cambios en la pendiente o ráfagas de viento. Si asumimos que las fuerzas de resistencia varían linealmente con la velocidad, tendremos:</p>
+<p>$\displaystyle m \frac{d^2 x}{d t^2} = F - b v \Rightarrow m \dot{v} + b v = F$</p>
+<p>siendo $m$ la masa del vehículo.<figure id="attachment_1911" style="width: 435px" class="wp-caption aligncenter"></p>
+<p><img alt="lti" src="https://pybonacci.org/images/2013/10/lti_cruise.png"></p>
+<p>La <strong>entrada</strong> de nuestro sistema será la <strong>fuerza de tracción</strong> aplicada, y la <strong>salida</strong> o variable que queremos controlar será la <strong>velocidad</strong>. La función de transferencia será:</p>
+<p>$\displaystyle H(s) = frac{V(s)}{F(s)} = \frac{1}{m s + b}$</p>
+<p>Ya podemos definir el sistema:</p>
+<div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">1200</span>  <span class="c1"># kg</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">75</span>  <span class="c1"># Ns / m</span>
+<span class="n">sys_car</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lti</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Con estos datos, necesitaría una fuerza de 2250 N para conseguir una velocidad de 30 m/s. Podemos ver cómo será la respuesta del sistema utilizando la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.step2.html"><code>signal.step2</code></a>.</p>
+<p><em><strong>Nota</strong></em>: La función <del><code>signal.step</code></del> <a href="https://github.com/scipy/scipy/issues/1104">tiene</a> <a href="https://github.com/scipy/scipy/issues/2652">problemas</a> y se escribió <code>signal.step2</code> como reemplazo. En un futuro estas dos funciones se fusionarán bajo el mismo nombre, pero mientras tanto se recomienda usar <code>signal.step2</code>.</p>
+<p>Esta función <strong>calcula la respuesta a una entrada escalón unidad</strong>. Como el sistema es lineal, podemos multiplicar la salida por el valor de la fuerza y este resultado será igual a la respuesta a un escalón de altura ese valor:</p>
+<div class="highlight"><pre><span></span><span class="n">t</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">step2</span><span class="p">(</span><span class="n">sys_car</span><span class="p">)</span> <span class="c1"># Respuesta a escalón unitario</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">2250</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="c1"># Equivalente a una entrada de altura 2250&lt;figure id=&quot;attachment_1916&quot; style=&quot;width: 394px&quot; class=&quot;wp-caption aligncenter&quot;&gt;</span>
+</pre></div>
+
+
+<p><img alt="cruise" src="https://pybonacci.org/images/2013/10/cruise_step.png"></p>
+<p>Vemos que la velocidad va aumentando, al principio rápidamente y luego más despacio (producto de las fuerzas de resistencia), hasta llegar a un valor límite, que es 30 m/s como habíamos dicho al principio. En la gráfica hemos incluido también:</p>
+<ul>
+<li>El <strong>tiempo de subida</strong> (<em>rising time</em>), definido como el tiempo necesario para pasar de un 5 % a un 95 % de la solución estacionaria, y</li>
+<li>el <strong>tiempo de establecimiento</strong> (<em>settling time</em>), definido como el tiempo necesario para que la respuesta se mantenga dentro de un margen del 2 % de la solución estacionaria.</li>
+</ul>
+<p>La conclusión que podemos extraer de este gráfico es que <strong>para pasar de 0 a 100 km/h, nuestro coche necesita casi un minuto</strong>. ¡Fatal! ¿Cómo arreglamos esto? Aquí entra la belleza de la teoría de control, pero lo vamos a dejar para la segunda parte 🙂</p>
+<p>Este artículo ha sido muy difícil de escribir, y el siguiente probablemente también lo será. Por eso os pedimos que <strong>nos contéis en los comentarios</strong> qué os ha parecido, qué partes se podrían mejorar, y puesto que hemos reconocido la debilidad de SciPy en este campo, qué cosas positivas podría tomar de MATLAB.</p>
+<p>¡Un saludo!</p>
+<h2>Referencias</h2>
+<ol>
+<li>SEDRA, Adel S.; SMITH, Kenneth C. <em>Microelectronic circuits</em>. Oxford University Press, 2004.</li>
+<li>MESSNER, Bill et al. <em>Control Tutorials for MATLAB and Simulink</em> [en línea]. 2011. Disponible en web: &lt;<a href="http://ctms.engin.umich.edu/">http://ctms.engin.umich.edu/</a>&gt;. [Consulta: 10 de octubre de 2013]</li>
+<li>GIL, Jorge Juan; RUBIO, Ángel. <em>Fundamentos de Control Automático de Sistemas Continuos y Muestreados</em>. Universidad de Navarra, 2009.</li>
+</ol>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/control.html" class="tag">control</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                    <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

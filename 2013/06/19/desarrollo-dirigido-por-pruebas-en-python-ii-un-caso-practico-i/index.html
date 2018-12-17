@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 19 junio 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/javierjus.html">javierjus</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>A principios de año escribimos una entrada que puedes leer <a href="https://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/" title="Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días">aquí</a>. Después de un parón más largo de lo previsto, volvemos a la carga con el desarrollo dirigido por pruebas en Python.</p>
+<p>Vamos a utilizar TDD y el módulo unittest para crear una aplicación que se conecte a twitter, recupere los mensajes de un hashtag y almacene parte de los mensajes en un fichero. El nombre del fichero será la fecha actual y el hashtag. El fichero contendrá la información de cada tweet separada por comas.</p>
+<p>Dividiremos este ejemplo en varias entradas. En cada entrada, desarrollaremos una parte de la aplicación a medida que aprendemos distintas técnicas y buenas prácticas para aplicar TDD. En la primera entrada empezaremos con la aplicación y veremos algunos aspectos clave de la aplicación de TDD.</p>
+<h2><strong>El diario de diseño</strong></h2>
+<p>Vamos  comenzar creando el diario de diseño. Este diario es la lista de tareas que tenemos pendientes (una to-do list) de hacer cómo código a escribir o funcionalidad a implementar y nos va a servir para mantenernos en todo momento con el foco centrado. Utilizamos el diario cuando ya tengamos una funcionalidad implementada (y gracias a TDD probada) para decir la siguiente y cuando, durante un ciclo de TDD, se nos ocurra nueva funcionalidad o nuevas condiciones a implementar en nuestro código. Vamos a ver las tareas que tenemos que hacer en el cuadro 1.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" width="576">
+      <b>Cuadro 1. Diario de diseño.</b>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" width="576">
+      1) Conectarse a Internet y obtener los mensajes que contengan un tag concreto.<br /> 2) Procesar los tweets para obtener el nombre y dirección twitter del autor, la fecha y el contenido del tweet.<br /> 3) Guardar la información anterior en un nuevo fichero.<br /> 4) Crear una interfaz de usuario por línea de comandos.
+    </td>
+  </tr>
+</table>
+
+<p>Para empezar a escribir código elegimos una de las tareas anteriores, la que queramos. No tenemos que imponernos un orden ni pensar que tenemos dependencias. En su lugar elegimos la tarea que consideremos más importante, más arriesgada, más rápida de implementar, etc.</p>
+<!--more-->
+
+<h2><strong>Procesar mensajes </strong></h2>
+<p>Elegimos la tarea 2 y empezamos preguntándonos: ¿cómo queremos que sea el código para procesar los tweets? ¿Cuál es el código más sencillo que podemos escribir. Un ciclo de TDD siempre comienza escribiendo una prueba que falla, por lo que escribimos las respuestas de estas preguntas en una prueba que defina qué es el procesado de mensajes, cómo queremos hacerlo y qué resultado queremos obtener. Esta prueba nos permite centrar el foco de lo que implementaremos a continuación.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TestFactoriaTweets</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testProcesaTweets_ConUnTweetsObtengoListaConUnElemento</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tweetDePrueba</span> <span class="o">=</span> <span class="p">[{}]</span>
+        <span class="n">factoria</span> <span class="o">=</span> <span class="n">FactoriaTweets</span><span class="p">()</span>
+        <span class="n">listaDeTweets</span> <span class="o">=</span> <span class="n">factoria</span><span class="o">.</span><span class="n">procesaTweets</span><span class="p">(</span><span class="n">tweetDePrueba</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">listaDeTweets</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Con esta prueba hemos establecido que, el mecanismo para procesar los tweets es el método procesaTweets de la clase FactoriaTweets y que recibe como parámetro una lista de tweets traídos de Twitter y reduce. Después de ejecutar la prueba y comprobar que falla, vamos a implementar la FactoriaTweet y el método procesaTweets más sencillos posible.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TweetInfo</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">FactoriaTweets</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">procesaTweets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mensajes</span><span class="p">):</span>
+        <span class="n">resultado</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mensajes</span><span class="p">:</span>
+            <span class="n">resultado</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TweetInfo</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">resultado</span>
+</pre></div>
+
+
+<p>TweetInfo es la clase dónde almacenaremos la información relevante de cada tweet. Ahora es una clase vacía porque aún hay ninguna prueba que obligue a implementarla. Antes de continuar vamos a actualizar el diario de diseño. A partir de esa prueba descubrimos más tareas que anotamos en el diario de diseño.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" width="576">
+      <b>Cuadro 2. Diario de diseño.</b>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" width="576">
+      1) Conectarse a Internet y obtener los mensajes que contengan un tag concreto.<br /> 2) Procesar los tweets para obtener el nombre y dirección Twitter del autor, la fecha y el contenido del tweet.</p> 
+
+      <ul>
+        <ul>
+          2.1) Definir el contenido de tweetDePrueba
+        </ul>
+      </ul>
+
+      <ul>
+        2.2) Lo elementos de la lista resultante deben tener el nombre y dirección Twitter del autor, la fecha y el contenido del tweet.
+      </ul>
+
+      <p>
+        3) Guardar la información anterior en un nuevo fichero<br /> 4) Crear una interfaz de usuario por línea de comandos.</td> </tr> </tbody> </table>
+
+<div class="highlight"><pre><span></span>    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">continuar</span> <span class="nx">con</span> <span class="nx">estas</span> <span class="nx">dos</span> <span class="nx">nuevas</span> <span class="nx">tareas</span><span class="p">.</span> <span class="nx">Necesitamos</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">de</span> <span class="nx">entrada</span> <span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span> <span class="nx">para</span> <span class="nx">poder</span> <span class="nx">ejecutar</span> <span class="nx">la</span> <span class="nx">prueba</span><span class="p">.</span> <span class="nx">Twitter</span> <span class="nx">nos</span> <span class="nx">responde</span> <span class="nx">una</span> <span class="nx">cadena</span> <span class="nx">de</span> <span class="nx">texto</span> <span class="nx">en</span> <span class="nx">formato</span> <span class="nx">JSon</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">tanto</span><span class="p">,</span> <span class="nx">después</span> <span class="nx">de</span> <span class="nx">procesar</span> <span class="nx">dicha</span> <span class="nx">cadena</span><span class="p">,</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">tendremos</span> <span class="nx">es</span> <span class="nx">una</span> <span class="nx">lista</span> <span class="nx">de</span> <span class="nx">dicts</span><span class="p">.</span> <span class="nx">Cada</span> <span class="nx">dict</span> <span class="nx">representará</span> <span class="nx">un</span> <span class="nx">tweet</span> <span class="nx">y</span> <span class="nx">las</span> <span class="nx">claves</span> <span class="nx">de</span> <span class="nx">dicho</span> <span class="nx">dict</span> <span class="nx">serán</span> <span class="nx">los</span> <span class="nx">campos</span> <span class="nx">de</span> <span class="nx">un</span> <span class="nx">tweet</span> <span class="nx">como</span> <span class="nx">la</span> <span class="nx">persona</span> <span class="nx">que</span> <span class="nx">lo</span> <span class="nx">escribió</span><span class="p">,</span> <span class="nx">el</span> <span class="nx">contenido</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span><span class="p">,</span> <span class="nx">etc</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">plasmar</span> <span class="nx">lo</span> <span class="nx">anterior</span> <span class="nx">en</span> <span class="nx">una</span> <span class="nx">nueva</span> <span class="nx">prueba</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoUnTwwetInfo</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="err">#</span> <span class="nx">asserts</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">En</span> <span class="nx">este</span> <span class="nx">caso</span><span class="p">,</span> <span class="nx">para</span> <span class="nx">simular</span> <span class="nx">un</span> <span class="nx">mensaje</span> <span class="nx">podría</span> <span class="nx">haber</span> <span class="nx">puesto</span> <span class="nx">un</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">dict</span><span class="o">&lt;</span><span class="err">/i&gt; con los pares clave-valor que devuelve JSon, pero me ha sido más cómodo modificar la cadena devuelta por Twitter y llamar al procesador de JSon de Python.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Esta</span> <span class="nx">prueba</span> <span class="nx">no</span> <span class="nx">está</span> <span class="nx">completa</span> <span class="nx">porque</span> <span class="nx">no</span> <span class="nx">tenemos</span> <span class="nx">nada</span> <span class="nx">que</span> <span class="nx">comprobar</span> <span class="nx">con</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">de</span> <span class="nx">entrada</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">implementar</span> <span class="nx">el</span> <span class="nx">paso</span> <span class="mf">2.3</span><span class="p">.</span> <span class="nx">Para</span> <span class="nx">ello</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">definir</span><span class="p">,</span> <span class="nx">con</span> <span class="nx">una</span> <span class="nx">prueba</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">clase</span> <span class="nx">que</span> <span class="nx">contendrá</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">que</span> <span class="nx">queremos</span> <span class="nx">de</span> <span class="nx">cada</span> <span class="nx">tweet</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestTweetInfo</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">testCreateTweetInfoAndStoreInformation</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">ti</span> <span class="o">=</span> <span class="nx">TweetInfo</span><span class="p">(</span><span class="s2">&quot;DireccionTwitter&quot;</span><span class="p">,</span> <span class="s2">&quot;NombreUsuario&quot;</span><span class="p">,</span> <span class="s2">&quot;Texto&quot;</span><span class="p">,</span> <span class="s2">&quot;FechaCreacion&quot;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">ti</span><span class="p">.</span><span class="nx">direccionOrigen</span><span class="p">,</span> <span class="s2">&quot;DireccionTwitter&quot;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">ti</span><span class="p">.</span><span class="nx">usuarioOrigen</span><span class="p">,</span> <span class="s2">&quot;NombreUsuario&quot;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">ti</span><span class="p">.</span><span class="nx">contenido</span><span class="p">,</span> <span class="s2">&quot;Texto&quot;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">ti</span><span class="p">.</span><span class="nx">fechaCreacion</span><span class="p">,</span> <span class="s2">&quot;FechaCreacion&quot;</span><span class="p">)</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Puede</span> <span class="nx">parecer</span> <span class="nx">un</span> <span class="nx">desperdicio</span> <span class="nx">de</span> <span class="nx">tiempo</span> <span class="nx">escribir</span> <span class="nx">una</span> <span class="nx">prueba</span> <span class="nx">para</span> <span class="nx">verificar</span> <span class="nx">una</span> <span class="nx">clase</span> <span class="nx">tan</span> <span class="nx">sencilla</span> <span class="nx">como</span> <span class="nx">TweetInfo</span><span class="p">,</span> <span class="nx">y</span> <span class="nx">es</span> <span class="nx">cierto</span><span class="p">.</span> <span class="nx">Sin</span> <span class="nx">embargo</span> <span class="nx">no</span> <span class="nx">hay</span> <span class="nx">que</span> <span class="nx">olvidar</span> <span class="nx">que</span> <span class="nx">en</span> <span class="nx">TDD</span> <span class="nx">escribimos</span> <span class="nx">pruebas</span> <span class="nx">para</span> <span class="nx">implementar</span> <span class="nx">código</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">tanto</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">anterior</span> <span class="nx">tiene</span> <span class="nx">la</span> <span class="nx">misión</span> <span class="nx">de</span> <span class="nx">empujarnos</span> <span class="nx">implementar</span> <span class="nx">la</span> <span class="nx">clase</span> <span class="nx">TweetInfo</span> <span class="nx">y</span> <span class="nx">también</span> <span class="nx">a</span> <span class="nx">valorar</span> <span class="nx">cómo</span> <span class="nx">pasarle</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">que</span> <span class="nx">almacena</span> <span class="nx">y</span> <span class="nx">cómo</span> <span class="nx">recuperarla</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">incorporar</span> <span class="nx">nuestra</span> <span class="nx">reciente</span> <span class="nx">clase</span> <span class="nx">TweetInfo</span> <span class="nx">a</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">del</span> <span class="nx">código</span> <span class="mi">3</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">resultado</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoListaConUnElemento</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">len</span><span class="p">(</span><span class="nx">listaDeTweets</span><span class="p">))</span>
+    <span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoUnTweetInfo</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">tweetInfo</span> <span class="o">=</span> <span class="nx">listaDeTweets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">direccionOrigen</span><span class="p">,</span>
+                          <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">usuarioOrigen</span><span class="p">,</span>
+                          <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user_name&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">contenido</span><span class="p">,</span> <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">fechaCreacion</span><span class="p">,</span> <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Las</span> <span class="nx">pruebas</span> <span class="nx">fallan</span> <span class="nx">porque</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">producción</span> <span class="nx">no</span> <span class="nx">está</span> <span class="nx">utilizando</span> <span class="nx">TweetInfo</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">añadirlo</span> <span class="nx">tal</span> <span class="nx">y</span> <span class="nx">como</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">FactoriaTweets</span>:
+    <span class="kt">def</span> <span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">mensajes</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="nx">m</span> <span class="k">in</span> <span class="nx">mensajes</span>:
+            <span class="kt">resultado.append</span><span class="p">(</span><span class="nx">TweetInfo</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="nx">u</span><span class="s1">&#39;from_user&#39;</span><span class="p">],</span> <span class="nx">m</span><span class="p">[</span><span class="s2">&quot;from_user_name&quot;</span><span class="p">],</span>
+                                       <span class="nx">m</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="nx">m</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nx">resultado</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Verificamos</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">y</span> <span class="nx">ambas</span> <span class="nx">pasan</span><span class="p">.</span> <span class="nx">Ya</span> <span class="nx">podemos</span> <span class="nx">tachar</span> <span class="nx">ambas</span> <span class="nx">tareas</span> <span class="nx">en</span> <span class="nx">nuestro</span> <span class="nx">diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">table</span> <span class="nx">border</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nx">cellspacing</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nx">cellpadding</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Cuadro</span> <span class="mi">3</span><span class="p">.</span> <span class="nx">Diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+        <span class="o">&lt;</span><span class="err">/td&gt;</span>
+      <span class="o">&lt;</span><span class="err">/tr&gt;</span>
+
+      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+          <span class="mi">1</span><span class="p">)</span> <span class="nx">Conectarse</span> <span class="nx">a</span> <span class="nx">Internet</span> <span class="nx">y</span> <span class="nx">obtener</span> <span class="nx">los</span> <span class="nx">mensajes</span> <span class="nx">que</span> <span class="nx">contengan</span> <span class="nx">un</span> <span class="nx">tag</span> <span class="nx">concreto</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="mi">2</span><span class="p">)</span> <span class="nx">Procesar</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">para</span> <span class="nx">obtener</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">dirección</span> <span class="nx">twitter</span> <span class="nx">del</span> <span class="nx">autor</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">y</span> <span class="nx">el</span> <span class="nx">contenido</span> <span class="nx">del</span> <span class="nx">tweet</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/span&gt;&lt;span style=&quot;text-decoration:line-through;&quot;&gt;2.1) Definir el contenido de tweetDePrueba&lt;/span&gt;&lt;br /&gt; &lt;span style=&quot;text-decoration:line-through;&quot;&gt;2.2) Los elementos de la lista resultante deben tener el nombre y dirección twitter del autor, la fecha y el contenido del tweet. &lt;/span&gt;3) Guardar la información anterior en un nuevo fichero.&lt;br /&gt; 4) Crear una interfaz de usuario por línea de comandos.</span>
+        <span class="o">&lt;</span><span class="err">/td&gt;</span>
+      <span class="o">&lt;</span><span class="err">/tr&gt;</span>
+    <span class="o">&lt;</span><span class="err">/table&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">La</span> <span class="nx">primera</span> <span class="nx">refactorización</span><span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="o">&lt;</span><span class="err">/b&gt;</span>
+    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Un</span> <span class="nx">ciclo</span> <span class="nx">de</span> <span class="nx">TDD</span> <span class="nx">no</span> <span class="nx">está</span> <span class="nx">terminado</span> <span class="nx">sin</span> <span class="nx">una</span> <span class="nx">refactorización</span> <span class="nx">tanto</span> <span class="nx">del</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">producción</span> <span class="nx">como</span> <span class="nx">del</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">pruebas</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Cuando</span> <span class="nx">aplicamos</span> <span class="nx">TDD</span> <span class="nx">solemos</span> <span class="nx">hacer</span> <span class="nx">ciclos</span> <span class="nx">muy</span> <span class="nx">cortos</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="nx">a</span> <span class="nx">código</span> <span class="nx">y</span> <span class="nx">vuelta</span> <span class="nx">a</span> <span class="nx">la</span> <span class="nx">prueba</span><span class="p">.</span> <span class="nx">Con</span> <span class="nx">esto</span> <span class="nx">buscamos</span>  <span class="nx">la</span> <span class="nx">seguridad</span> <span class="nx">de</span> <span class="nx">que</span> <span class="nx">todos</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">implementamos</span> <span class="nx">funciona</span> <span class="nx">antes</span> <span class="nx">de</span> <span class="nx">escribir</span> <span class="nx">nuevo</span> <span class="nx">código</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">también</span> <span class="nx">hace</span> <span class="nx">que</span> <span class="nx">estemos</span> <span class="nx">muy</span> <span class="nx">centrados</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">fragmento</span> <span class="nx">de</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">estemos</span> <span class="nx">trabajando</span> <span class="nx">y</span> <span class="nx">que</span> <span class="nx">perdamos</span> <span class="nx">de</span> <span class="nx">vista</span> <span class="nx">la</span> <span class="nx">visión</span> <span class="nx">global</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">En</span> <span class="nx">la</span> <span class="nx">refactorización</span> <span class="nx">vemos</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">manera</span> <span class="nx">global</span> <span class="nx">y</span> <span class="nx">en</span> <span class="nx">modificar</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">sea</span> <span class="nx">más</span> <span class="nx">sencillo</span> <span class="nx">de</span> <span class="nx">entender</span> <span class="nx">y</span> <span class="nx">cambiar</span><span class="p">.</span> <span class="nx">TDD</span> <span class="nx">nos</span> <span class="nx">hace</span> <span class="nx">a</span> <span class="nx">escribir</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">manera</span> <span class="nx">incremental</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">si</span> <span class="nx">nuestra</span> <span class="nx">base</span> <span class="nx">no</span> <span class="nx">está</span> <span class="nx">bien</span> <span class="nx">diseñada</span> <span class="nx">ni</span> <span class="nx">es</span> <span class="nx">fácil</span> <span class="nx">de</span> <span class="nx">entender</span><span class="p">,</span> <span class="nx">el</span> <span class="nx">trabajo</span> <span class="nx">de</span> <span class="nx">añadir</span> <span class="nx">nuevo</span> <span class="nx">código</span> <span class="nx">se</span> <span class="nx">hará</span> <span class="nx">cada</span> <span class="nx">vez</span> <span class="nx">más</span> <span class="nx">lento</span> <span class="nx">y</span> <span class="nx">difícil</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">comenzar</span> <span class="nx">refactorizando</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">pruebas</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">en</span> <span class="nx">concreto</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">la</span> <span class="nx">clase</span> <span class="nx">TestFactoriaTweets</span> <span class="nx">que</span> <span class="nx">contiene</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">de</span> <span class="nx">FactoriaTweets</span><span class="p">.</span> <span class="nx">Aunque</span> <span class="nx">lo</span> <span class="nx">hemos</span> <span class="nx">visto</span> <span class="nx">antes</span><span class="p">,</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">mostrar</span> <span class="nx">todo</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">prueba</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestFactoriaTweets</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoListaConUnElemento</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">len</span><span class="p">(</span><span class="nx">listaDeTweets</span><span class="p">))</span>
+    <span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoUnTweetInfo</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">tweetInfo</span> <span class="o">=</span> <span class="nx">listaDeTweets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">direccionOrigen</span><span class="p">,</span>
+                          <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">usuarioOrigen</span><span class="p">,</span>
+                          <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user_name&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">contenido</span><span class="p">,</span> <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">fechaCreacion</span><span class="p">,</span> <span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Podemos</span> <span class="nx">ver</span> <span class="nx">varias</span> <span class="nx">líneas</span> <span class="nx">repetidas</span> <span class="nx">entre</span> <span class="nx">las</span> <span class="nx">dos</span> <span class="nx">pruebas</span><span class="p">,</span> <span class="nx">así</span> <span class="nx">que</span> <span class="nx">nuestra</span> <span class="nx">primera</span> <span class="nx">refactorización</span> <span class="nx">va</span> <span class="nx">a</span> <span class="nx">ir</span> <span class="nx">a</span> <span class="nx">evitarlas</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">las</span> <span class="nx">herramientas</span> <span class="nx">XUnit</span><span class="p">,</span> <span class="nx">como</span> <span class="nx">unittest</span><span class="p">,</span> <span class="nx">se</span> <span class="nx">puede</span> <span class="nx">definir</span> <span class="nx">un</span> <span class="nx">método</span> <span class="nx">setUp</span> <span class="nx">que</span> <span class="nx">se</span> <span class="nx">ejecuta</span> <span class="nx">automáticamente</span> <span class="nx">andes</span> <span class="nx">de</span> <span class="nx">cada</span> <span class="nx">prueba</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">es</span> <span class="nx">el</span> <span class="nx">sitio</span> <span class="nx">ideal</span> <span class="nx">para</span> <span class="nx">crear</span> <span class="nx">el</span> <span class="nx">tweet</span> <span class="nx">de</span> <span class="nx">prueba</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">En</span> <span class="nx">la</span> <span class="nx">segunda</span> <span class="nx">prueba</span> <span class="nx">vemos</span> <span class="nx">que</span> <span class="nx">necesitamos</span> <span class="nx">varios</span> <span class="nx">asserts</span> <span class="nx">para</span> <span class="nx">comprobar</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">mensaje</span> <span class="nx">coincide</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">tweet</span> <span class="nx">de</span> <span class="nx">entrada</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">aplicar</span> <span class="nx">otra</span> <span class="nx">refactorización</span> <span class="nx">y</span> <span class="nx">extraer</span> <span class="nx">estos</span> <span class="nx">asserts</span> <span class="nx">a</span> <span class="nx">un</span> <span class="nx">método</span> <span class="nx">auxiliar</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">objetivo</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">quede</span> <span class="nx">más</span> <span class="nx">claro</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">resultado</span> <span class="kr">final</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestFactoriaTweets</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">setUp</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">rawTweet</span> <span class="o">=</span> <span class="nx">u</span><span class="s2">&quot;&quot;&quot;[{&quot;</span><span class="nx">created_at</span><span class="s2">&quot;:&quot;</span><span class="nx">FechaCreacion</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user</span><span class="s2">&quot;:&quot;</span><span class="nx">DireccionTwitter</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">from_user_name</span><span class="s2">&quot;:&quot;</span><span class="nx">NombreUsuario</span><span class="s2">&quot;,</span>
+<span class="s2">                        &quot;</span><span class="nx">text</span><span class="s2">&quot;:&quot;</span><span class="nx">Texto</span><span class="s2">&quot;}]&quot;&quot;&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">loads</span><span class="p">(</span><span class="nx">rawTweet</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">factoria</span> <span class="o">=</span> <span class="nx">FactoriaTweets</span><span class="p">()</span>
+    <span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoListaConUnElemento</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">len</span><span class="p">(</span><span class="nx">listaDeTweets</span><span class="p">))</span>
+    <span class="nx">def</span> <span class="nx">testProcesaTweets_ConUnTweetsObtengoUnTweetInfo</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEqualsToTweetDePrueba</span><span class="p">(</span><span class="nx">listaDeTweets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nx">def</span> <span class="nx">assertEqualsToTweetDePrueba</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">tweetInfo</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">direccionOrigen</span><span class="p">,</span>
+                          <span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">usuarioOrigen</span><span class="p">,</span>
+                          <span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;from_user_name&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">contenido</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">tweetInfo</span><span class="p">.</span><span class="nx">fechaCreacion</span><span class="p">,</span>
+                          <span class="nx">self</span><span class="p">.</span><span class="nx">tweetDePrueba</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Pasamos</span> <span class="nx">ahora</span> <span class="nx">refactorizamos</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">producción</span><span class="p">,</span> <span class="nx">siempre</span> <span class="nx">asegurándonos</span> <span class="nx">de</span> <span class="nx">que</span> <span class="nx">después</span> <span class="nx">de</span> <span class="nx">cada</span> <span class="nx">cambio</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">siguen</span> <span class="nx">funcionando</span> <span class="nx">correctamente</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">br</span> <span class="o">/&gt;</span> <span class="nx">Aunque</span> <span class="nx">por</span> <span class="nx">la</span> <span class="nx">brevedad</span> <span class="nx">del</span> <span class="nx">código</span> <span class="nx">podríamos</span> <span class="nx">pensar</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">es</span> <span class="nx">necesaria</span> <span class="nx">una</span> <span class="nx">refactorización</span><span class="p">,</span> <span class="nx">sí</span> <span class="nx">que</span> <span class="nx">existe</span> <span class="nx">un</span> <span class="nx">mal</span> <span class="nx">olor</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">código</span><span class="p">.</span> <span class="nx">Si</span> <span class="nx">nos</span> <span class="nx">fijamos</span><span class="p">,</span> <span class="nx">el</span> <span class="nx">método</span> <span class="nx">procesaTweets</span> <span class="nx">tiene</span> <span class="nx">dos</span> <span class="nx">responsabilidades</span> <span class="nx">distintas</span> <span class="nx">que</span> <span class="nx">son</span> <span class="nx">procesar</span> <span class="nx">toda</span> <span class="nx">la</span> <span class="nx">lista</span> <span class="nx">de</span> <span class="nx">tweets</span> <span class="nx">y</span> <span class="nx">crear</span> <span class="nx">un</span> <span class="nx">objeto</span> <span class="nx">TweetInfo</span> <span class="nx">por</span> <span class="nx">cada</span> <span class="nx">tweet</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">separar</span> <span class="nx">ambas</span> <span class="nx">funcionalidades</span> <span class="nx">en</span> <span class="nx">dos</span> <span class="nx">métodos</span> <span class="nx">aparte</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">código</span> <span class="nx">resultante</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">FactoriaTweets</span>:
+    <span class="kt">def</span> <span class="nx">procesaTweets</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">mensajes</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">resultado</span> <span class="o">=</span> <span class="nx">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="nx">m</span> <span class="k">in</span> <span class="nx">mensajes</span>:
+            <span class="kt">resultado.append</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">_creaTweetInfo</span><span class="p">(</span><span class="nx">m</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nx">resultado</span>
+    <span class="nx">def</span> <span class="nx">_creaTweetInfo</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">tweetDict</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">TweetInfo</span><span class="p">(</span><span class="nx">tweetDict</span><span class="p">[</span><span class="nx">u</span><span class="s1">&#39;from_user&#39;</span><span class="p">],</span> <span class="nx">tweetDict</span><span class="p">[</span><span class="s2">&quot;from_user_name&quot;</span><span class="p">],</span>
+                         <span class="nx">tweetDict</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span> <span class="nx">tweetDict</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">En</span> <span class="nx">este</span> <span class="nx">caso</span><span class="p">,</span> <span class="nx">hemos</span> <span class="nx">creado</span> <span class="nx">un</span> <span class="nx">nuevo</span> <span class="nx">método</span> <span class="nx">pero</span> <span class="nx">no</span> <span class="nx">hemos</span> <span class="nx">escrito</span> <span class="nx">una</span> <span class="nx">prueba</span> <span class="nx">antes</span><span class="p">.</span> <span class="nx">Veamos</span> <span class="nx">el</span> <span class="nx">por</span> <span class="nx">qué</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">este</span> <span class="nx">método</span> <span class="nx">no</span> <span class="nx">escribimos</span> <span class="nx">nuevo</span> <span class="nx">código</span><span class="p">,</span> <span class="nx">solo</span> <span class="nx">cambiamos</span> <span class="nx">un</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">ya</span> <span class="nx">funciona</span> <span class="nx">de</span> <span class="nx">sitio</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">nuevo</span> <span class="nx">método</span> <span class="nx">está</span> <span class="nx">siendo</span> <span class="nx">probado</span> <span class="nx">por</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">que</span> <span class="nx">tenemos</span><span class="p">.</span> <span class="nx">Además</span><span class="p">,</span> <span class="nx">al</span> <span class="nx">ser</span> <span class="nx">privado</span> <span class="nx">pedimos</span> <span class="nx">que</span> <span class="nx">nos</span> <span class="nx">e</span> <span class="nx">acceda</span> <span class="nx">directamente</span> <span class="nx">a</span> <span class="err">é</span><span class="nx">l</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">strong</span><span class="o">&gt;</span><span class="nx">Pruebas</span> <span class="nx">cómo</span> <span class="nx">documentación</span><span class="o">&lt;</span><span class="err">/strong&gt;</span>
+    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">También</span> <span class="nx">podemos</span> <span class="nx">utilizar</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">para</span> <span class="nx">documentar</span> <span class="nx">el</span> <span class="nx">funcionamiento</span> <span class="nx">del</span> <span class="nx">código</span> <span class="nx">aunque</span> <span class="nx">no</span> <span class="nx">realicemos</span> <span class="nx">un</span> <span class="nx">ciclo</span> <span class="nx">TDD</span><span class="p">.</span> <span class="nx">Por</span> <span class="nx">ejemplo</span><span class="p">,</span> <span class="err">¿</span><span class="nx">qué</span> <span class="nx">sucede</span> <span class="nx">si</span> <span class="nx">nuestra</span> <span class="nx">entrada</span> <span class="nx">no</span> <span class="nx">contiene</span> <span class="nx">ningún</span> <span class="nx">tweet</span> <span class="nx">nuestra</span> <span class="nx">salida</span> <span class="nx">será</span> <span class="nx">una</span> <span class="nx">lista</span> <span class="nx">vacía</span><span class="o">?</span><span class="p">.</span> <span class="nx">Definamos</span> <span class="nx">este</span> <span class="nx">escenario</span> <span class="nx">con</span> <span class="nx">una</span> <span class="nx">prueba</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testProcesaTweets_SinTweetsObtengoListaConUnElemento</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">listaDeTweets</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">factoria</span><span class="p">.</span><span class="nx">procesaTweets</span><span class="p">([])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">len</span><span class="p">(</span><span class="nx">listaDeTweets</span><span class="p">))</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Al</span> <span class="nx">ejecutar</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">comprobamos</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">resultado</span> <span class="nx">es</span> <span class="nx">el</span> <span class="nx">esperado</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">es</span> <span class="nx">necesario</span> <span class="nx">implementar</span> <span class="nx">nada</span><span class="p">.</span> <span class="nx">Antes</span> <span class="nx">de</span> <span class="nx">añadir</span> <span class="nx">pruebas</span> <span class="nx">adicionales</span> <span class="nx">hemos</span> <span class="nx">de</span> <span class="nx">tener</span> <span class="nx">en</span> <span class="nx">cuenta</span> <span class="nx">el</span> <span class="nx">ost</span> <span class="nx">de</span> <span class="nx">su</span> <span class="nx">mantenimiento</span><span class="p">.</span> <span class="nx">Demasiadas</span> <span class="nx">pruebas</span> <span class="nx">puede</span> <span class="nx">ser</span> <span class="nx">contraproducentes</span> <span class="nx">pro</span> <span class="nx">dedicar</span> <span class="nx">un</span> <span class="nx">esfuerzo</span> <span class="nx">innecesario</span><span class="p">.</span> <span class="nx">Además</span><span class="p">,</span> <span class="nx">un</span> <span class="nx">código</span> <span class="nx">con</span> <span class="nx">demasiadas</span> <span class="nx">pruebas</span> <span class="nx">puede</span> <span class="nx">ofrecer</span> <span class="nx">resistencia</span> <span class="nx">al</span> <span class="nx">cambio</span> <span class="nx">por</span> <span class="nx">la</span> <span class="nx">gran</span> <span class="nx">cantidad</span> <span class="nx">de</span> <span class="nx">pruebas</span> <span class="nx">afectadas</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Conclusiones</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Hemos</span> <span class="nx">visto</span> <span class="nx">algunos</span> <span class="nx">aspectos</span> <span class="nx">muy</span> <span class="nx">interesantes</span> <span class="nx">sobre</span> <span class="nx">cómo</span> <span class="nx">aplicar</span> <span class="nx">TDD</span> <span class="nx">como</span> <span class="nx">no</span> <span class="nx">preocuparnos</span> <span class="nx">de</span> <span class="nx">algo</span> <span class="nx">hasta</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">lo</span> <span class="nx">necesitamos</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">darles</span> <span class="nx">un</span> <span class="err">ú</span><span class="nx">ltimo</span> <span class="nx">repaso</span> <span class="nx">ya</span> <span class="nx">que</span> <span class="nx">seguiremos</span> <span class="nx">aplicándolos</span> <span class="nx">en</span> <span class="nx">las</span> <span class="nx">próximas</span> <span class="nx">entregas</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Hemos</span> <span class="nx">intentado</span> <span class="nx">escribir</span> <span class="nx">sólo</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">necesitamos</span><span class="p">.</span> <span class="nx">Por</span> <span class="nx">ejemplo</span><span class="p">,</span> <span class="nx">en</span> <span class="nx">la</span> <span class="nx">primera</span> <span class="nx">prueba</span> <span class="nx">no</span> <span class="nx">hemos</span> <span class="nx">indicado</span> <span class="nx">ni</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">del</span> <span class="nx">tweet</span> <span class="nx">ni</span> <span class="nx">la</span> <span class="nx">información</span> <span class="nx">de</span> <span class="nx">salida</span><span class="p">,</span> <span class="nx">porque</span> <span class="nx">no</span> <span class="nx">era</span> <span class="nx">necesario</span> <span class="nx">aún</span><span class="p">.</span> <span class="nx">Esto</span> <span class="nx">nos</span> <span class="nx">ha</span> <span class="nx">permitido</span> <span class="nx">empezar</span> <span class="nx">a</span> <span class="nx">codificar</span> <span class="nx">más</span> <span class="nx">rápido</span> <span class="nx">y</span> <span class="nx">centrarnos</span> <span class="nx">solo</span> <span class="nx">en</span> <span class="nx">cómo</span> <span class="nx">procesar</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">recibidos</span><span class="p">.</span> <span class="nx">También</span> <span class="nx">hemos</span> <span class="nx">refactorizado</span> <span class="nx">para</span> <span class="nx">evitar</span> <span class="nx">duplicación</span> <span class="nx">de</span> <span class="nx">código</span> <span class="nx">y</span> <span class="nx">para</span> <span class="nx">mejorar</span> <span class="nx">la</span> <span class="nx">legibilidad</span> <span class="nx">escondiendo</span> <span class="nx">detalles</span> <span class="nx">detrás</span> <span class="nx">de</span> <span class="nx">métodos</span><span class="p">.</span> <span class="nx">Por</span> <span class="err">ú</span><span class="nx">ltimo</span><span class="p">,</span> <span class="nx">hemos</span> <span class="nx">hecho</span> <span class="nx">ciclos</span> <span class="nx">rápidos</span> <span class="nx">con</span> <span class="nx">poco</span> <span class="nx">código</span> <span class="nx">y</span> <span class="nx">pruebas</span> <span class="nx">pequeñas</span> <span class="nx">para</span> <span class="nx">tener</span> <span class="nx">la</span> <span class="nx">tranquilidad</span> <span class="nx">de</span> <span class="nx">que</span> <span class="nx">todo</span> <span class="nx">lo</span> <span class="nx">anterior</span> <span class="nx">funciona</span> <span class="nx">antes</span> <span class="nx">de</span> <span class="nx">empezar</span> <span class="nx">a</span> <span class="nx">programar</span> <span class="nx">algo</span> <span class="nx">nuevo</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Y</span> <span class="nx">aquí</span> <span class="nx">terminamos</span> <span class="nx">esta</span> <span class="nx">primera</span> <span class="nx">entrega</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">la</span> <span class="nx">próxima</span><span class="p">,</span> <span class="nx">en</span> <span class="nx">una</span> <span class="nx">o</span> <span class="nx">dos</span> <span class="nx">semanas</span><span class="p">,</span> <span class="nx">implementaremos</span> <span class="nx">una</span> <span class="nx">nueva</span> <span class="nx">tarea</span> <span class="nx">del</span> <span class="nx">diario</span> <span class="nx">de</span> <span class="nx">diseño</span> <span class="nx">aplicando</span> <span class="nx">TDD</span><span class="p">.</span> <span class="nx">Continuaremos</span> <span class="nx">aplicando</span> <span class="nx">todo</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">hemos</span> <span class="nx">aprendido</span> <span class="nx">en</span> <span class="nx">esta</span> <span class="nx">entrega</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">además</span> <span class="nx">presentaremos</span> <span class="nx">los</span> <span class="nx">dobles</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="p">(</span><span class="nx">también</span> <span class="nx">llamados</span> <span class="nx">test</span> <span class="nx">doubles</span><span class="p">).</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Hasta</span> <span class="nx">pronto</span><span class="p">.</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;background-color:#eee;padding:.5em 1em .15em;margin-bottom:1em;&quot;</span><span class="o">&gt;</span>
+      <span class="nx">Este</span> <span class="nx">artículo</span> <span class="nx">es</span> <span class="nx">fruto</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">colaboración</span> <span class="nx">entre</span> <span class="nx">Javier</span> <span class="nx">Gutiérrez</span> <span class="nx">y</span> <span class="nx">Juan</span> <span class="nx">Luis</span> <span class="nx">Cano</span><span class="p">,</span> <span class="nx">que</span> <span class="nx">aportó</span> <span class="nx">sugerencias</span> <span class="nx">y</span> <span class="nx">correcciones</span> <span class="nx">al</span> <span class="nx">original</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</pre></div>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/tdd.html" class="tag">TDD</a>
+                    <a href="http://pybonacci.github.io/tag/test.html" class="tag">test</a>
+                    <a href="http://pybonacci.github.io/tag/testing.html" class="tag">testing</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

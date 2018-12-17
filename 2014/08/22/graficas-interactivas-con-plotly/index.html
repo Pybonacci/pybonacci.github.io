@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Gráficas interactivas con Plotly | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Gráficas interactivas con Plotly</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 22 agosto 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Podéis conseguir el <a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/plotly/Heathrow.ipynb">notebook</a> y los archivos asociados en <a href="https://github.com/Pybonacci/notebooks/tree/master/plotly">GitHub</a>.</p>
+<p>En un <a href="https://pybonacci.org/2014/08/05/de-matplotlib-a-la-web-con-plotly/">artículo anterior</a> ya vimos como pasar las gráficas creadas con <code>matplotlib</code> a <code>plotly</code> para obtener cierto nivel de interacción con los datos en la web. Ahora, lo que vamos a ver es cómo crear gráficas directamente con <code>plotly</code>. Para ello vamos a utilizar:</p>
+<ul>
+<li><code>pandas 0.14.1</code>, para trabajar con tablas de datos.</li>
+<li><code>plotly 1.2.6</code>, para crear las gráficas.</li>
+</ul>
+<p>Importamos los paquetes de la manera habitual en cada caso.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+
+<p>En el caso de Plotly hemos importado además unos objetos <code>graph_objs</code> que nos serán de ayuda a la hora de crear las gráficas. Trabajar con la API de Plotly en Python se resume en trabajar con <em>listas y diccionarios</em> de Python. Los <code>graph_objs</code> de Plotly nos ayudarán a trabajar con estas listas y diccionarios proporcionando ayuda y validando los datos y parámetros introducidos.</p>
+<p>Entre los objetos que importamos tenemos los bloques principales de trabajo:</p>
+<ul>
+<li><strong>Figure</strong>, diccionario que representa la figura a representar en <code>plotly</code>.</li>
+<li><strong>Data</strong>, lista para englobar todos los trazos a representar en una gráfica, ya sean tipo <em>Scatter</em>, <em>Heatmap</em>, <em>Box</em>, etc.</li>
+<li><strong>Layout</strong>, diccionario que define los detalles de la disposición de la figura.</li>
+</ul>
+<!--more Sigue leyendo-->
+
+<div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">Figure</span><span class="p">)</span>
+
+<span class="n">Help</span> <span class="n">on</span> <span class="k">class</span> <span class="nc">Figure</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">plotly</span><span class="o">.</span><span class="n">graph_objs</span><span class="o">.</span><span class="n">graph_objs</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Figure</span><span class="p">(</span><span class="n">PlotlyDict</span><span class="p">)</span>
+ <span class="o">|</span>  <span class="n">A</span> <span class="n">dictionary</span><span class="o">-</span><span class="n">like</span> <span class="nb">object</span> <span class="n">representing</span> <span class="n">a</span> <span class="n">figure</span> <span class="n">to</span> <span class="n">be</span> <span class="n">rendered</span> <span class="ow">in</span> <span class="n">plotly</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">container</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">things</span> <span class="n">to</span> <span class="n">be</span> <span class="n">rendered</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">figure</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">For</span> <span class="n">help</span> <span class="k">with</span> <span class="n">setting</span> <span class="n">up</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">run</span><span class="p">:</span>
+ <span class="o">|</span>      <span class="o">&amp;</span><span class="c1">#096;help(plotly.tools.get_subplots)&amp;#096;</span>
+ <span class="o">|</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Quick</span> <span class="n">method</span> <span class="n">reference</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">changes</span><span class="p">)</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">strip_style</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">to_graph_objs</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Figure</span><span class="o">.</span><span class="n">force_clean</span><span class="p">()</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Valid</span> <span class="n">keys</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">data</span> <span class="p">[</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">]</span> <span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">Data</span> <span class="nb">object</span> <span class="o">|</span> <span class="n">array</span><span class="o">-</span><span class="n">like</span> <span class="n">of</span> <span class="n">one</span> <span class="ow">or</span> <span class="n">several</span>
+ <span class="o">|</span>      <span class="n">dictionaries</span><span class="p">):</span>
+ <span class="o">|</span>          <span class="n">A</span> <span class="nb">list</span><span class="o">-</span><span class="n">like</span> <span class="n">array</span> <span class="n">of</span> <span class="n">the</span> <span class="n">data</span> <span class="n">trace</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">that</span> <span class="ow">is</span><span class="o">/</span><span class="n">are</span> <span class="n">to</span> <span class="n">be</span> <span class="n">visualized</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>          <span class="n">For</span> <span class="n">more</span><span class="p">,</span> <span class="n">run</span> <span class="o">&amp;</span><span class="c1">#096;help(plotly.graph_objs.Data)&amp;#096;</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">layout</span> <span class="p">[</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">]</span> <span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">Layout</span> <span class="nb">object</span> <span class="o">|</span> <span class="n">dictionary</span><span class="o">-</span><span class="n">like</span><span class="p">):</span>
+ <span class="o">|</span>          <span class="n">A</span> <span class="n">dictionary</span><span class="o">-</span><span class="n">like</span> <span class="nb">object</span> <span class="n">that</span> <span class="n">contains</span> <span class="n">the</span> <span class="n">layout</span> <span class="n">parameters</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span>
+ <span class="o">|</span>          <span class="n">information</span> <span class="n">about</span> <span class="n">the</span> <span class="n">axis</span><span class="p">,</span> <span class="k">global</span> <span class="n">settings</span> <span class="ow">and</span> <span class="n">layout</span> <span class="n">information</span>
+ <span class="o">|</span>          <span class="n">related</span> <span class="n">to</span> <span class="n">the</span> <span class="n">rendering</span> <span class="n">of</span> <span class="n">the</span> <span class="n">figure</span><span class="p">)</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>          <span class="n">For</span> <span class="n">more</span><span class="p">,</span> <span class="n">run</span> <span class="o">&amp;</span><span class="c1">#096;help(plotly.graph_objs.Layout)&amp;#096;</span>
+ <span class="o">|</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">help</span><span class="p">(</span><span class="n">Data</span><span class="p">)</span>
+
+<span class="n">Help</span> <span class="n">on</span> <span class="k">class</span> <span class="nc">Data</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">plotly</span><span class="o">.</span><span class="n">graph_objs</span><span class="o">.</span><span class="n">graph_objs</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Data</span><span class="p">(</span><span class="n">PlotlyList</span><span class="p">)</span>
+ <span class="o">|</span>  <span class="n">A</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">traces</span> <span class="n">to</span> <span class="n">be</span> <span class="n">shown</span> <span class="n">on</span> <span class="n">a</span> <span class="n">plot</span><span class="o">/</span><span class="n">graph</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Any</span> <span class="n">operation</span> <span class="n">that</span> <span class="n">can</span> <span class="n">be</span> <span class="n">done</span> <span class="k">with</span> <span class="n">a</span> <span class="n">standard</span> <span class="nb">list</span> <span class="n">may</span> <span class="n">be</span> <span class="n">used</span> <span class="k">with</span> <span class="n">Data</span><span class="o">.</span>
+ <span class="o">|</span>      <span class="n">Instantiation</span> <span class="n">requires</span> <span class="n">an</span> <span class="n">iterable</span> <span class="p">(</span><span class="n">just</span> <span class="n">like</span> <span class="nb">list</span> <span class="n">does</span><span class="p">),</span> <span class="k">for</span> <span class="n">example</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Data</span><span class="p">([</span><span class="n">Scatter</span><span class="p">(),</span> <span class="n">Heatmap</span><span class="p">(),</span> <span class="n">Box</span><span class="p">()])</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Valid</span> <span class="n">entry</span> <span class="n">types</span><span class="p">:</span> <span class="p">(</span><span class="nb">dict</span> <span class="ow">or</span> <span class="nb">any</span> <span class="n">subclass</span> <span class="n">of</span> <span class="n">Trace</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="p">,</span> <span class="n">Scatter</span><span class="p">,</span> <span class="n">Box</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span><span class="p">)</span>
+ <span class="o">|</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">help</span><span class="p">(</span><span class="n">Layout</span><span class="p">)</span>
+
+<span class="n">Help</span> <span class="n">on</span> <span class="k">class</span> <span class="nc">Layout</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">plotly</span><span class="o">.</span><span class="n">graph_objs</span><span class="o">.</span><span class="n">graph_objs</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Layout</span><span class="p">(</span><span class="n">PlotlyDict</span><span class="p">)</span>
+ <span class="o">|</span>  <span class="n">A</span> <span class="n">dictionary</span><span class="o">-</span><span class="n">like</span> <span class="nb">object</span> <span class="n">holding</span> <span class="n">plot</span> <span class="n">settings</span> <span class="k">for</span> <span class="n">plotly</span> <span class="n">figures</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Quick</span> <span class="n">method</span> <span class="n">reference</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">changes</span><span class="p">)</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">strip_style</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">to_graph_objs</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Layout</span><span class="o">.</span><span class="n">force_clean</span><span class="p">()</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Valid</span> <span class="n">keys</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">title</span> <span class="p">[</span><span class="n">required</span><span class="o">=</span><span class="bp">False</span><span class="p">]</span> <span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">string</span><span class="p">):</span>
+ <span class="o">|</span>          <span class="n">The</span> <span class="n">title</span> <span class="n">of</span> <span class="n">the</span> <span class="n">figure</span><span class="o">.</span>
+ <span class="o">|</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Como vemos, <code>Figure</code> y <code>Layout</code> son objetos de tipo diccionario y <code>Data</code> es un objeto de tipo lista. En el caso de <code>Data</code>, el orden es importante pues determina el orden de composición de los trazos, empezando por el primero objeto en <code>Data</code>. Por ejemplo, representar una línea sobre una barras no produce, normalmente, el mismo resultado que representar unas barras sobre una línea.</p>
+<p>En Plotly cada tipo de gráfica tiene su propio objeto (<em>trace graph object</em>) como son <code>Scatter</code>, <code>Bar</code> o <code>Histogram</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">Scatter</span><span class="p">)</span>
+
+<span class="n">Help</span> <span class="n">on</span> <span class="k">class</span> <span class="nc">Scatter</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">plotly</span><span class="o">.</span><span class="n">graph_objs</span><span class="o">.</span><span class="n">graph_objs</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Scatter</span><span class="p">(</span><span class="n">PlotlyTrace</span><span class="p">)</span>
+ <span class="o">|</span>  <span class="n">A</span> <span class="n">dictionary</span><span class="o">-</span><span class="n">like</span> <span class="nb">object</span> <span class="k">for</span> <span class="n">representing</span> <span class="n">a</span> <span class="n">scatter</span> <span class="n">plot</span> <span class="ow">in</span> <span class="n">plotly</span><span class="o">.</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Example</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>          <span class="n">py</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">Scatter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;;tacters&#39;</span><span class="p">;,</span> <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">])])</span>
+ <span class="o">|</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Quick</span> <span class="n">method</span> <span class="n">reference</span><span class="p">:</span>
+ <span class="o">|</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">changes</span><span class="p">)</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">strip_style</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">to_graph_objs</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span>
+ <span class="o">|</span>      <span class="n">Scatter</span><span class="o">.</span><span class="n">force_clean</span><span class="p">()</span>
+ <span class="o">|</span>
+ <span class="o">|</span>  <span class="n">Valid</span> <span class="n">keys</span><span class="p">:</span>
+ <span class="o">|</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+
+
+<h2 id="ejemplo-práctico-aeropuerto-de-heathrow">Ejemplo práctico: aeropuerto de Heathrow</h2>
+<p>Hecha la presentación de Plotly pasamos a un ejemplo práctico de uso de la herramienta. Para ello tomaremos datos de <a href="http://www.heathrowairport.com/about-us/investor-centre/results-and-performance/traffic-statistics">estadísticas de tráfico</a> del aeropuerto de Heathrow, el tercer mayor del mundo por tráfico de pasajeros.</p>
+<h3 id="datos-estadísticos">Datos estadísticos</h3>
+<p>Los datos son proporcionados en un fichero Excel que podemos importar con Pandas.</p>
+<div class="highlight"><pre><span></span><span class="n">pasajeros</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">excel</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls&#39;</span><span class="p">,</span>
+                                   <span class="n">sheetname</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="c1"># tomamos la primera hoja del archivo</span>
+                                   <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># la cebecera empieza en la fila 3</span>
+                                   <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># empleamos las fechas como indices</span>
+<span class="n">pasajeros</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="output_wrapper">
+  <div class="output">
+    <div class="output_html rendered_html output_subarea output_pyout">
+      <div style="overflow:auto">
+        <table border="1" class="dataframe">
+          <tr style="text-align: right">
+            <th>
+            </th>
+
+            <th>
+              Heathrow
+            </th>
+
+            <th>
+              Southampton
+            </th>
+
+            <th>
+              Glasgow
+            </th>
+
+            <th>
+              Aberdeen
+            </th>
+
+            <th>
+              Non-London Airports
+            </th>
+
+            <th>
+              UK Total
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              Month
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              2005-01-01
+            </th>
+
+            <td>
+              5141123
+            </td>
+
+            <td>
+              99945
+            </td>
+
+            <td>
+              504138
+            </td>
+
+            <td>
+              186378
+            </td>
+
+            <td>
+              790461
+            </td>
+
+            <td>
+              5931584
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-02-01
+            </th>
+
+            <td>
+              4753591
+            </td>
+
+            <td>
+              109120
+            </td>
+
+            <td>
+              506851
+            </td>
+
+            <td>
+              189925
+            </td>
+
+            <td>
+              805896
+            </td>
+
+            <td>
+              5559487
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-03-01
+            </th>
+
+            <td>
+              5708627
+            </td>
+
+            <td>
+              131983
+            </td>
+
+            <td>
+              603225
+            </td>
+
+            <td>
+              227621
+            </td>
+
+            <td>
+              962829
+            </td>
+
+            <td>
+              6671456
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-04-01
+            </th>
+
+            <td>
+              5573022
+            </td>
+
+            <td>
+              145749
+            </td>
+
+            <td>
+              641107
+            </td>
+
+            <td>
+              232191
+            </td>
+
+            <td>
+              1019047
+            </td>
+
+            <td>
+              6592069
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-05-01
+            </th>
+
+            <td>
+              5636621
+            </td>
+
+            <td>
+              168971
+            </td>
+
+            <td>
+              795732
+            </td>
+
+            <td>
+              242493
+            </td>
+
+            <td>
+              1207196
+            </td>
+
+            <td>
+              6843817
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="highlight"><pre><span></span><span class="n">mercancias</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">excel</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;07-Heathrow_Monthly_Traffic_Statistics_(Jan_2005-Jul_2014).xls&#39;</span><span class="p">,</span>
+                                    <span class="n">sheetname</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="c1"># tomamos la sexta hoja del archivo</span>
+                                    <span class="n">header</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># la cebecera empieza en la fila 3</span>
+                                    <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># empleamos las fechas como indices</span>
+<span class="n">mercancias</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="output_wrapper">
+  <div class="output">
+    <div class="output_html rendered_html output_subarea output_pyout">
+      <div style="overflow:auto">
+        <table border="1" class="dataframe">
+          <tr style="text-align: right">
+            <th>
+            </th>
+
+            <th>
+              Heathrow
+            </th>
+
+            <th>
+              Southampton
+            </th>
+
+            <th>
+              Glasgow
+            </th>
+
+            <th>
+              Aberdeen
+            </th>
+
+            <th>
+              Non-London Airports
+            </th>
+
+            <th>
+              UK Total
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              Month
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              2005-01-01
+            </th>
+
+            <td>
+              98781.175
+            </td>
+
+            <td>
+              16.237
+            </td>
+
+            <td>
+              491.582
+            </td>
+
+            <td>
+              304.274
+            </td>
+
+            <td>
+              812.093
+            </td>
+
+            <td>
+              99593.268
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-02-01
+            </th>
+
+            <td>
+              99555.454
+            </td>
+
+            <td>
+              16.554
+            </td>
+
+            <td>
+              545.170
+            </td>
+
+            <td>
+              310.282
+            </td>
+
+            <td>
+              872.006
+            </td>
+
+            <td>
+              100427.460
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-03-01
+            </th>
+
+            <td>
+              109387.896
+            </td>
+
+            <td>
+              18.830
+            </td>
+
+            <td>
+              578.286
+            </td>
+
+            <td>
+              368.156
+            </td>
+
+            <td>
+              965.272
+            </td>
+
+            <td>
+              110353.168
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-04-01
+            </th>
+
+            <td>
+              108057.553
+            </td>
+
+            <td>
+              18.277
+            </td>
+
+            <td>
+              569.431
+            </td>
+
+            <td>
+              321.004
+            </td>
+
+            <td>
+              908.712
+            </td>
+
+            <td>
+              108966.265
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-05-01
+            </th>
+
+            <td>
+              110612.691
+            </td>
+
+            <td>
+              17.466
+            </td>
+
+            <td>
+              661.753
+            </td>
+
+            <td>
+              369.324
+            </td>
+
+            <td>
+              1048.543
+            </td>
+
+            <td>
+              111661.234
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>Como podemos ver, se trata de una serie temporal. Y puesto que los datos se proporcionan mes a mes, podríamos deshacernos del día del mes indicandole a Pandas que se trata de un periodo de frecuencia mensual con <code>to_period</code>. Pero no es necesario, pues como veremos más adelante, Plotly es capaz de <em>intuir</em> que queremos representar los datos mes a mes.</p>
+<div class="highlight"><pre><span></span><span class="n">pasajeros</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="output_wrapper">
+  <div class="output">
+    <div class="output_html rendered_html output_subarea output_pyout">
+      <div style="overflow:auto">
+        <table border="1" class="dataframe">
+          <tr style="text-align: right">
+            <th>
+            </th>
+
+            <th>
+              Heathrow
+            </th>
+
+            <th>
+              Southampton
+            </th>
+
+            <th>
+              Glasgow
+            </th>
+
+            <th>
+              Aberdeen
+            </th>
+
+            <th>
+              Non-London Airports
+            </th>
+
+            <th>
+              UK Total
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              Month
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+
+            <th>
+            </th>
+          </tr>
+
+          <tr>
+            <th>
+              2005-01
+            </th>
+
+            <td>
+              5141123
+            </td>
+
+            <td>
+              99945
+            </td>
+
+            <td>
+              504138
+            </td>
+
+            <td>
+              186378
+            </td>
+
+            <td>
+              790461
+            </td>
+
+            <td>
+              5931584
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              2005-02
+            </th>
+
+            <td>
+              4753591
+            </td>
+
+            <td>
+              109120
+            </td>
+
+            <td>
+              506851
+            </td>
+
+            <td>
+              189925
+            </td>
+
+            <td>
+              805896
+            </td>
+
+            <td>
+              5559487
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="representación-gráfica-de-los-datos">Representación gráfica de los datos</h3>
+<p>Si ya hemos guardado nuestras credenciales de Plotly en el ordenador, al importar el paquete como</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+</pre></div>
+
+
+<p>ya nos <em>logueamos</em> automáticamente en el servidor sin tener que acceder mediante</p>
+<div class="highlight"><pre><span></span><span class="n">py</span><span class="o">.</span><span class="n">sign_in</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;api_key&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Una figura (<code>Figure</code>) Plotly se compone de los datos a representar (<code>Data</code>) y de un formato (<code>Layout</code>), y estos a su vez no son más que un conjunto de listas y diccionarios que Plotly se encargará de convertir a un formato <a href="http://en.wikipedia.org/wiki/Json">JSON</a>. Como hemos mencionado arriba, Plotly proporciona una serie de <code>graph_objs</code> que nos facilitarán la tarea de componer gráficas interactivas y que veremos a continuación.</p>
+<h4 id="data">Data</h4>
+<p>Empezamos por el conjunto de datos a representar. En este caso vamos a representar el tráfico mensual de pasajeros en los aeropuertos británicos del grupo <a href="http://en.wikipedia.org/wiki/Heathrow_Airport_Holdings">Heathrow</a>, participada al 25% por <a href="http://es.wikipedia.org/wiki/Ferrovial">Ferrovial</a>, que incluye los aeropuertos de:</p>
+<ul>
+<li>London Heathrow Airport</li>
+<li>Southampton Airport</li>
+<li>Glasgow Airport</li>
+<li>Aberdeen Airport</li>
+</ul>
+<p>Para representar estos datos nos valdremos de la herramienta <code>Data</code> que, como hemos visto anteriormente, admite una lista de objetos. En nuestro caso, líneas. Para ello nos valdremos de <code>Scatter</code> (<em>dispersión</em>) al cual pasaremos los siguentes parámetros:</p>
+<ul>
+<li><code>name</code>, nombre que damos a la línea, en nuestro caso, el nombre del aeropuerto.</li>
+<li><code>x</code>, array con los meses del año que corresponden al <em>index</em> de nuestro <code>DataFrame</code>.</li>
+<li><code>y</code>, array con el número de pasajeros correspondientes a cada aeropuerto.</li>
+<li><code>mode</code>, cadena de texto que indica el tipo de representación que queremos, ya sea <code>'lines'</code>, <code>'markers'</code>, <code>'text'</code> o una combinación de ellos como podría ser <code>'lines+markers'</code>.</li>
+</ul>
+<p>Puesto que se trata de una lista con cuatro líneas a representar, haremos uso de las <a href="https://docs.python.org/3.4/tutorial/datastructures.html#list-comprehensions">list comprehensions</a> de Python.</p>
+<div class="highlight"><pre><span></span><span class="n">p_data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">Scatter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+                       <span class="n">x</span><span class="o">=</span><span class="n">pasajeros</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                       <span class="n">y</span><span class="o">=</span><span class="n">pasajeros</span><span class="p">[</span><span class="n">col</span><span class="p">],</span>
+                       <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">pasajeros</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+
+
+<h4 id="layout">Layout</h4>
+<p>Ya con los datos a representar definidos, ahora podemos pasar a retocar el <em>layout</em> de la figura. Para ello vamos a añadir un título a la gráfica y a los ejes <em>x</em> e <em>y</em>. Otra cosa que haremos también es encuadrar la gráfica con</p>
+<div class="highlight"><pre><span></span><span class="n">showline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;ticks&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+
+
+<p>y reducir los margenes derecho <code>r</code> y superior <code>t</code> para aprovechar mejor el espacio.</p>
+<div class="highlight"><pre><span></span><span class="n">p_layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tráfico mensual de pasajeros en aeropuertos del grupo Heathrow&#39;</span><span class="p">,</span>
+                  <span class="n">xaxis</span><span class="o">=</span><span class="n">XAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mes&#39;</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">showline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;ticks&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                  <span class="n">yaxis</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pasajeros&#39;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">showline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;ticks&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                  <span class="n">margin</span><span class="o">=</span><span class="n">Margin</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">80</span><span class="p">))</span>
+</pre></div>
+
+
+<h4 id="figure">Figure</h4>
+<p>Una vez ya tenemos los datos y el <em>layout</em> podemos pasar a componer la figura y subirla al servidor.</p>
+<div class="highlight"><pre><span></span><span class="n">p_fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">p_data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">p_layout</span><span class="p">)</span>
+<span class="n">p_plot</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">p_fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/heathrow-pasajeros&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="diccionarios-y-listas">Diccionarios y listas</h3>
+<p>Tanto <code>Figure</code> como <code>Layout</code>, <code>XAxis</code>, <code>YAxis</code> y <code>Margin</code> se podrían substituir por la expresión <code>dict()</code> pues, como ya hemos mencionados, Plotly trabaja con diccionarios y listas de Python. Sin embargo, el utilizar estas herramientas de <code>plotly.graph_objs</code> nos da acceso a la ayuda, y nos permite validar los parámetros introducidos.</p>
+<div class="highlight"><pre><span></span><span class="n">m_data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">Scatter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">col</span><span class="p">,</span>
+                       <span class="n">x</span><span class="o">=</span><span class="n">mercancias</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+                       <span class="n">y</span><span class="o">=</span><span class="n">mercancias</span><span class="p">[</span><span class="n">col</span><span class="p">],</span>
+                       <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">pasajeros</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>Podemos hacer lo mismo con <code>dict()</code>, pero cualquier error pasará desapercibido hasta el final.</p>
+<div class="highlight"><pre><span></span><span class="n">m_layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tráfico mensual de mercancías en aeropuertos del grupo Heathrow&#39;</span><span class="p">,</span>
+                <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mes&#39;</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">showline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;ticks&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mercancías (t)&#39;</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">showline</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">mirror</span><span class="o">=</span><span class="s1">&#39;ticks&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
+                <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">80</span><span class="p">))</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">m_fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">m_data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">m_layout</span><span class="p">)</span>
+<span class="n">m_plot</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">m_fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/heathrow-mercancias&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="interpretación-de-los-datos">Interpretación de los datos</h3>
+<p>Disponemos de una muestra lo suficientemente grande como desaprovechar la oportunidad de extraer alguna conclusión al respecto. Y contamos con la ventaja de poder hacer zoom en los datos, lo cual resulta especialmente útil en le tráfico de mercancías, donde el aeropuerto de Heathrow está varios órdenes de magnitud por encima del resto.</p>
+<h4 id="pasajeros">Pasajeros</h4>
+<p>Vemos claramente que en los meses de verano hay un aumento del número de pasajeros en todos los aeropuertos del grupo. También se aprecia un ligero repunte en el mes de diciembre con motivo, previsiblemente, de las vacaciones de navidad. Esto lo podemos visualizar de otra manera mediante un <code>Heatmap</code> del aeropuerto de Heathrow.</p>
+<p>Para ello vamos a utilizar el paquete <code>calendar</code> que nos permitirá crear una lista con los nombres de los meses; y Numpy para crear una lista con los años.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">calendar</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+
+<p>Para representar el <code>Heatmap</code> necesitaremos agrupar los datos por años o meses, en función del eje <em>y</em> que tomemos. En este caso hemos decido representar los meses en el eje de ordenadas, por lo tanto agruparemos los datos por meses. Para ello nos valdremos de una <a href="https://docs.python.org/3.4/reference/expressions.html#lambda">función anónima</a>.</p>
+<div class="highlight"><pre><span></span><span class="n">gb</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">Heatmap</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2005</span><span class="p">,</span><span class="mi">2015</span><span class="p">),</span>
+                     <span class="n">y</span><span class="o">=</span><span class="n">calendar</span><span class="o">.</span><span class="n">month_abbr</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+                     <span class="n">z</span><span class="o">=</span><span class="p">[</span><span class="n">grp</span><span class="p">[</span><span class="s1">&#39;Heathrow&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">pasajeros</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">gb</span><span class="p">)],</span>
+                     <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;Portland&#39;</span><span class="p">)])</span>
+</pre></div>
+
+
+<p>En el eje <em>x</em> hemos colocado los años, en el eje <em>y</em> los meses, y la intensidad del color viene determinada por el número de pasajeros.</p>
+<p>Con <code>Layout</code> añadimos el título de la gráfica y los nombres de los ejes, y también podemos especificar el tamaño de la gráfica deshabilitando el <code>autosize</code> y definiendo nuestro propio ancho y alto.</p>
+<div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tráfico de pasajeros en el aeropuerto de Heathrow&#39;</span><span class="p">,</span>
+                <span class="n">autosize</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span>
+                <span class="n">xaxis</span><span class="o">=</span><span class="n">XAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Año&#39;</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">yaxis</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mes&#39;</span><span class="p">,</span> <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Ya podemos publicar nuestra gráfica de la manera habitual.</p>
+<div class="highlight"><pre><span></span><span class="n">heatmap_plot</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">),</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/heathrow-heatmap&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h4 id="mercancías">Mercancías</h4>
+<p>Si en el transporte de pasajeros hay un patrón claro, el transporte de mercancías por avión no muestra signos de estacionalidad. Para verlo mejor podríamos volver a emplear un <code>Heatmap</code>, pero vamos a hacerlo con un <a href="http://es.wikipedia.org/wiki/Diagrama_de_caja">diagrama de caja</a> <code>Box</code> para el aeropuerto de Heathrow.</p>
+<p>Aprovecharemos nuevamente la agrupación por meses que hemos empleado para el <code>Heatmap</code> de pasajeros. Nuevamente hacemos uso de las list comprehensions de Python para crear una lista de bloques, cada uno correspondiente a un mes. Lo mismo podríamos conseguirlo sin crear una lista y sin necesidad de agrupar si en vez de asignar un <code>name</code> asignamos un único array <code>x</code> con el valor del mes correspondiente a cada <code>y</code>. Con <code>boxpoints='all'</code> lo que hacemos es mostrar los puntos de la muestra al lado de cada bloque.</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">Box</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">calendar</span><span class="o">.</span><span class="n">month_abbr</span><span class="p">[</span><span class="n">key</span><span class="p">],</span>
+                 <span class="n">y</span><span class="o">=</span><span class="n">grp</span><span class="p">[</span><span class="s1">&#39;Heathrow&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
+                 <span class="n">boxpoints</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">mercancias</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">gb</span><span class="p">)])</span>
+</pre></div>
+
+
+<p>Añadimos, como es costumbre, un título a la gráfica y aprovechamos para ocultar la leyenda y ajustar los margenes.</p>
+<div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tráfico de mercancías en el aeropuerto de Heathrow (2005-2014)&#39;</span><span class="p">,</span>
+                <span class="n">showlegend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">margin</span><span class="o">=</span><span class="n">Margin</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">90</span><span class="p">))</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">box_plot</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">),</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/heathrow-box&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h4 id="pasajeros-vs-mercancías">Pasajeros vs mercancías</h4>
+<p>Hasta ahora hemos visto por separado los datos de pasajeros y mercancías. Compararemos en una única gráfica los datos del aeropuerto de Glasgow. Para facilitar la visualización y compensar la diferencia de magnitud utilizaremos múltiples ejes y, de paso, emplearemos diferentes representaciones para el tráfico de pasajeros y el de mercancías.</p>
+<p>Los pasajeros los representaremos mediante líneas y puntos <code>'lines+markers'</code> y le asignamos el segundo eje <em>y</em> <code>'y2'</code>, pues vamos a querer que nos lo represente por encima de las barras de tráfico de mercancías. El orden en Plotly es importante. Vamos a representar las lineas de color dorado primero como horizontales y luego verticales de un valor a otro con <code>shape='hv'</code>. Los puntos serán de un color dorado más claro con el borde también dorado.</p>
+<div class="highlight"><pre><span></span><span class="n">pas</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Pasajeros&#39;</span><span class="p">,</span>
+              <span class="n">x</span><span class="o">=</span><span class="n">pasajeros</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+              <span class="n">y</span><span class="o">=</span><span class="n">pasajeros</span><span class="p">[</span><span class="s1">&#39;Glasgow&#39;</span><span class="p">],</span>
+              <span class="n">yaxis</span><span class="o">=</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span>
+              <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+              <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="s1">&#39;hv&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgoldenrod&#39;</span><span class="p">),</span>
+              <span class="n">marker</span><span class="o">=</span><span class="n">Marker</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;goldenrod&#39;</span><span class="p">,</span>
+                            <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkgoldenrod&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>Por su parte, el tráfico de mercancías lo representaremos como barras verticales de color gris claro. Por defecto se le asigna el primer eje <em>y</em>.</p>
+<div class="highlight"><pre><span></span><span class="n">mer</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Mercancías&#39;</span><span class="p">,</span>
+          <span class="n">x</span><span class="o">=</span><span class="n">pasajeros</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+          <span class="n">y</span><span class="o">=</span><span class="n">mercancias</span><span class="p">[</span><span class="s1">&#39;Glasgow&#39;</span><span class="p">],</span>
+          <span class="n">marker</span><span class="o">=</span><span class="n">Marker</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Creamos la lista con los elementos a representar.</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">mer</span><span class="p">,</span> <span class="n">pas</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Por último configuramos el <em>layout</em> añadiendo un título a la gráfica y configurando los ejes.</p>
+<div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Tráfico de pasajeros y mercancías en el aeropuerto de Glasgow&#39;</span><span class="p">,</span>
+                <span class="n">showlegend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">xaxis</span><span class="o">=</span><span class="n">XAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mes&#39;</span><span class="p">),</span>
+                <span class="n">yaxis</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Mercancías (t)&#39;</span><span class="p">,</span>
+                            <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">yaxis2</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Pasajeros&#39;</span><span class="p">,</span>
+                             <span class="n">showgrid</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                             <span class="n">overlaying</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span>
+                             <span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Incluimos también una nota de texto indicando la fuente de los datos. Plotly nos permite untilizar un subconjunto de etiquetas HTML para dar formato a los textos para por ejemplo incluir nuevas líneas (<code>&lt;br&gt;</code>) o añadir hipervínculos (<code>&lt;a href='...'&gt;&lt;/a&gt;</code>) que podremos utilizar en cualquier texto de la gráfica (títulos y anotaciones).</p>
+<div class="highlight"><pre><span></span><span class="n">fuente</span> <span class="o">=</span> <span class="n">Annotation</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&quot;Fuente: LHR Airports Limited&quot;</span><span class="p">,</span>
+                    <span class="n">xref</span><span class="o">=</span><span class="s1">&#39;paper&#39;</span><span class="p">,</span> <span class="c1"># empleamos coordenadas &#39;paper&#39;, con ello la nota no se moverá al mover los ejes.</span>
+                    <span class="n">yref</span><span class="o">=</span><span class="s1">&#39;paper&#39;</span><span class="p">,</span>
+                    <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">y</span><span class="o">=-</span><span class="mf">0.15</span><span class="p">,</span>
+                    <span class="n">showarrow</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Actualizamos el diccionario de <em>layout</em> de la gráfica.</p>
+<div class="highlight"><pre><span></span><span class="n">layout</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">annotations</span><span class="o">=</span><span class="n">Annotations</span><span class="p">([</span><span class="n">fuente</span><span class="p">]))</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">ma_plot</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">),</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;pybonacci/heathrow-multipleaxis&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="mucho-más">Mucho más</h2>
+<p>Aquí sólo hemos mostrado una pequeña parte del potencial de Plotly. Todo aquel que quiere ampliar detalles encontrará mucha más información en el <a href="https://plot.ly/python/">API library</a> de Plotly. También se pueden sacar buenas ideas del <a href="https://plot.ly/">graphing news feed</a> viendo lo que publican otros usuarios.</p>
+<p>No dudeis en contactar con nosotros o el equipo de Plotly por <a href="mailto:feedback@plot.ly">email</a> o <a href="https://twitter.com/plotlygraphs">Twitter</a> para cualquier duda o sugerencia.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/graficas.html" class="tag">gráficas</a>
+                    <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial.html" class="tag">tutorial</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

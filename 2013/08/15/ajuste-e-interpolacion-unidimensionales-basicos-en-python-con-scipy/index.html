@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Ajuste e interpolación unidimensionales básicos en Python con SciPy | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Ajuste e interpolación unidimensionales básicos en Python con SciPy</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 15 agosto 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En este artículo vamos a ver una introducción a <strong>cómo hacer ajustes e interpolaciones en Python</strong> utilizando NumPy y los módulos <code>interpolate</code> y <code>optimize</code> de SciPy.</p>
+<p>Ajustes de curvas e interpolaciones son <strong>dos tareas básicas que realizaremos con mucha frecuencia</strong>. Por ejemplo, cuando recojamos los datos de un experimento: sabemos que se tienen que comportar como una parábola, pero obviamente por errores de medición u otro tipo no obtenemos una parábola exactamente. En este caso necesitaremos realizar un <strong>ajuste de los datos</strong>, conocido el modelo (una curva de segundo grado en este caso).</p>
+<p>En otras ocasiones dispondremos de una serie de puntos y <strong>querremos construir una curva que pase por todos ellos</strong>. En este caso lo que queremos es realizar una <strong>interpolación</strong>: si tenemos pocos puntos podremos usar un polinomio, y en caso contrario habrá que usar trazadores (<em>splines</em> en inglés). Vamos a empezar por este último método.</p>
+<p>Si deseas consultar el código completo (incluyendo el que genera las figuras) puedes ver <a href="http://nbviewer.ipython.org/6245476">el notebook que usé</a> para redactar el artículo.</p>
+<p><strong><em>En esta entrada se han usado python 3.3.2, numpy 1.7.1, scipy 0.12.0 y matplotlib 1.3.0.</em></strong></p>
+<h2>Interpolación</h2>
+<h3>Polinomios no, ¡gracias!</h3>
+<p>Lo primero que vamos a hacer va a ser desterrar la idea de que, sea cual sea el número de puntos que tengamos, podemos construir un polinomio que pase por todos ellos «y que lo haga bien». Si tenemos $N$ puntos nuestro polinomio tendrá que ser de grado menor o igual que $N - 1$, pero cuando $N$ empieza a ser grande (del orden de 10 o más) a menos que los puntos estén muy cuidadosamente elegidos el polinomio oscilará salvajemente. Esto se conoce como <a href="http://es.wikipedia.org/wiki/Fen%C3%B3meno_de_Runge">fenómeno de Runge</a>.</p>
+<!--more-->
+
+<p>Para ver esto podemos estudiar el clásico ejemplo que dio Runge: tenemos la función</p>
+<p>$\displaystyle f(x) = \frac{1}{1 + x^2}$</p>
+<p>veamos qué sucede si la interpolamos en nodos equiespaciados. Para ello vamos a usar la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.barycentric_interpolate.html"><code>barycentric_interpolate</code></a> (según Berrut y Trefethen [II] «[El método de interpolación baricéntrica] merece ser conocido como el método estándar de interpolación polinómica»). Esta función recibe tres argumentos:</p>
+<ul>
+<li>una lista de coordenadas <code>x_i</code> de los nodos,</li>
+<li>una lista de coordenadas <code>y_i</code> de los nodos, y</li>
+<li>un array <code>x</code> donde evaluar el polinomio interpolante que resulta.</li>
+</ul>
+<p>El código será este:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">barycentric_interpolate</span>
+<span class="k">def</span> <span class="nf">runge</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Función de Runge.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">11</span>  <span class="c1"># Nodos de interpolación</span>
+<span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span>  <span class="c1"># -5, -4, -3, ..., 3, 4, 5</span>
+<span class="n">fp</span> <span class="o">=</span> <span class="n">runge</span><span class="p">(</span><span class="n">xp</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">barycentric_interpolate</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y este es el resultado:<figure id="attachment_1754" style="width: 380px" class="wp-caption aligncenter"></p>
+<p><img alt="fenomeno_runge" src="https://pybonacci.org/images/2013/08/fenomeno_runge.png"></p>
+<p>Y no os quiero contar nada si escogemos 20 o 100 puntos.</p>
+<p>Existe una forma de mitigar este problema, que es, como ya hemos dicho, «escogiendo los puntos cuidadosamente». Una de las formas es elegir las raíces de los <a href="http://es.wikipedia.org/wiki/Polinomios_de_Chebyshev">polinomios de Chebyshev</a>, que podemos construir en NumPy usando el módulo <a href="http://docs.scipy.org/doc/numpy/reference/routines.polynomials.chebyshev.html"><code>polynomial.chebyshev</code></a>. Por ejemplo, si queremos como antes 11 nodos tendremos que escoger el polinomio de Chebyshev de grado 11:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.polynomial</span> <span class="kn">import</span> <span class="n">chebyshev</span>
+<span class="n">coeffs_cheb</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">11</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Solo queremos el elemento 11 de la serie</span>
+<span class="n">T11</span> <span class="o">=</span> <span class="n">chebyshev</span><span class="o">.</span><span class="n">Chebyshev</span><span class="p">(</span><span class="n">coeffs_cheb</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="n">xp_ch</span> <span class="o">=</span> <span class="n">T11</span><span class="o">.</span><span class="n">roots</span><span class="p">()</span>
+<span class="c1"># -4.949, -4.548, -3.779, -2.703, ..., 4.548, 4.949</span>
+</pre></div>
+
+
+<p>Utilizando estos puntos, la cosa no queda tan mal:<figure id="attachment_1759" style="width: 603px" class="wp-caption aligncenter"></p>
+<p><img alt="chebyshev" src="https://pybonacci.org/images/2013/08/chebyshev1.png"></p>
+<p>Aun así, aún tenemos varios problemas:</p>
+<ul>
+<li>El polinomio sigue oscilando, y esto puede no ser deseable.</li>
+<li>No siempre podemos escoger los puntos como nosotros queramos.</li>
+</ul>
+<p>Por tanto, desde ya vamos a abandonar la idea de usar polinomios y vamos a hablar de <strong>trazadores</strong> (<em>splines</em> en inglés).</p>
+<h3>Trazadores</h3>
+<p>Los <a href="http://es.wikipedia.org/wiki/Spline">trazadores</a> o <em>splines</em> no son más que curvas polinómicas <em>definidas a trozos</em>, normalmente de grado 3 (casi nunca mayor de 5). Al ser cada uno de los trozos de grado pequeño se evita el fenómeno de Runge, y si se «empalman» los trozos inteligentemente la curva resultante será suave (matemáticamente: diferenciable) hasta cierto punto. Cuando queremos una curva que pase por todos los puntos disponibles un trazador es justamente lo que necesitamos.</p>
+<p>El trazador más elemental, el lineal (grado 1), se puede construir rápidamente en NumPy usando <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.interp.html"><code>np.interp</code></a>. El más común, el trazador cúbico (grado 3) se puede construir con la clase <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.InterpolatedUnivariateSpline.html"><code>scipy.interpolate.InterpolatedUnivariateSpline</code></a>. Si pasamos a esta clase un argumento <code>k</code> podemos especificar el grado del trazador (entre 1 y 5). Como ejemplo vamos a tomar los datos de la silueta del pato de Villafuerte [III].</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span>
+<span class="c1"># Pato</span>
+<span class="n">P</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">2.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.6</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">),</span> <span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">),</span>
+     <span class="p">(</span><span class="mf">3.9</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">),</span> <span class="p">(</span><span class="mf">4.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">),</span> <span class="p">(</span><span class="mf">4.8</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.1</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">),</span> <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">),</span> <span class="p">(</span><span class="mf">11.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span> <span class="p">(</span><span class="mf">11.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">),</span>
+     <span class="p">(</span><span class="mf">12.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="p">(</span><span class="mf">13.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)]</span>
+<span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">P</span><span class="p">)</span>  <span class="c1"># 21 puntos de interpolación</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">xi</span><span class="p">),</span> <span class="n">num</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span>  <span class="c1"># Dominio</span>
+<span class="n">y1d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+<span class="c1">#y1d = InterpolatedUnivariateSpline(xi, yi, k=1)(x)  # Mismo resultado</span>
+<span class="n">ysp</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Llamamos a la clase con x</span>
+</pre></div>
+
+
+<p><strong><em>Nota</em></strong>: ¿<a href="https://pybonacci.org/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/#comment-509">Quieres saber el truco de <code>zip(*P)</code></a>? 😉</p>
+<p>Y si representamos el resultado obtenemos esto:<figure id="attachment_1767" style="width: 375px" class="wp-caption aligncenter"></p>
+<p><img alt="trazadores" src="https://pybonacci.org/images/2013/08/trazadores.png"></p>
+<p><strong>¿Alguien se anima a enviarnos una gráfica de cómo quedaría la interpolación si usásemos un polinomio de grado 20? 😉</strong></p>
+<!-- Ojalá en SciPy existiera la función spline de MATLAB http://www.mathworks.es/es/help/matlab/ref/spline.html pero claro, si no me contestan qué visión tienen para el paquete no sé por dónde tirar http://mail.scipy.org/pipermail/scipy-dev/2013-August/019087.html -->
+
+<p>En ocasiones, sin embargo, puede que no necesitemos un trazador que pase por todos los puntos, sino una curva o un modelo más sencillo que <em>aproxime</em> una serie de puntos, tratando de cometer el mínimo error posible. Si quieres saber cómo hacer esto, ¡sigue leyendo!</p>
+<h2>Ajuste de curvas</h2>
+<h3>Ajuste polinómico</h3>
+<p>El <strong>ajuste</strong> más básico en el que podemos pensar es el ajuste polinómico: buscamos un polinomio que aproxime los datos con el menor error posible. Para ello utilizaremos la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyfit.html"><code>polynomial.polyfit</code> del paquete <code>polynomial</code> de NumPy</a>.</p>
+<p><em><strong>Nota</strong></em>: La función <del><code>np.polyfit</code></del> es <strong>diferente</strong> a la que vamos a usar aquí y está <strong>obsoleta</strong>, aparte de que tiene el convenio contrario para los coeficientes. Se recomienda no usarla. Ya sé que la otra tiene un nombre un poco largo y que los ejemplos de la documentación tienen fallos, pero <a href="https://github.com/numpy/numpy/issues/3615">es lo que hay</a>.</p>
+<p>Esta función recibe tres argumentos obligatorios:</p>
+<ul>
+<li>una lista de coordenadas <code>x</code> de los puntos,</li>
+<li>una lista de coordenadas <code>y</code> de los puntos, y</li>
+<li>el grado <code>deg</code> del polinomio interpolante.</li>
+</ul>
+<p>Vamos a ver un ejemplo real con el que me encontré hace unos meses: hallar la polar parabólica aproximada de un avión. Para ello podéis utilizar <a href="https://gist.github.com/Juanlu001/6240182">estos datos</a>.</p>
+<p>La polar de un avión es la relación entre la sustentación y la resistencia aerodinámica del mismo. Su forma teórica es:</p>
+<p>$\displaystyle C_D = C_{D0} + k C_L^2$</p>
+<p>podríamos estar tentados de intentar un ajuste parabólico, pero vemos que en realidad no aparece término lineal. Si llamamos $y = C_D$ y $x = C_L^2$ tenemos:</p>
+<p>$\displaystyle y = y_0 + k x$</p>
+<p>con lo que podemos realizar un ajuste lineal. Por otro lado, tengo que descartar los puntos que están más allá de la condición de entrada en pérdida (después del máximo del coeficiente de sustentación), porque esos no cuadran con el modelo teórico. Este es el código:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy.polynomial</span> <span class="kn">as</span> <span class="nn">P</span>
+<span class="c1"># Cargamos los datos</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;polar.dat&quot;</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">C_L</span><span class="p">,</span> <span class="n">C_D</span> <span class="o">=</span> <span class="n">data</span>
+<span class="c1"># Descarto los datos que no me sirven</span>
+<span class="n">stall_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">C_L</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">C_D</span><span class="p">[:</span><span class="n">stall_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">C_L</span><span class="p">[:</span><span class="n">stall_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="c1"># Ajuste lineal, devuelve los coeficientes en orden creciente</span>
+<span class="n">C_D0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">C_D0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Una vez hemos obtenido los dos coeficientes, no hay más que evaluar el polinomio en un cierto dominio usando la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.polynomial.polynomial.polyval.html"><code>polynomial.polyval</code></a>, que acepta como argumentos</p>
+<ul>
+<li>el dominio donde queremos evaluar la función y</li>
+<li>una lista de coeficientes de grado creciente, tal y como los devuelve polyfit.</li>
+</ul>
+<p>El código es simplemente:</p>
+<div class="highlight"><pre><span></span><span class="n">C_L_dom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">C_L</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">C_L</span><span class="p">[</span><span class="n">stall_idx</span><span class="p">],</span> <span class="n">num</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span>
+<span class="n">C_D_int</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">polynomial</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">C_L_dom</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">C_D0</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Y este es el resultado que obtenemos:<figure id="attachment_1776" style="width: 407px" class="wp-caption aligncenter"></p>
+<p><img alt="polar" src="https://pybonacci.org/images/2013/08/polar.png"></p>
+<p>En la figura se aprecia perfectamente cómo he descartado los puntos más allá del máximo y cómo la parábola, aun no pasando por todos los puntos (tal vez no pase por ninguno) aproxima bastante bien los datos que tenemos. ¡Bien!</p>
+<h3>General</h3>
+<p>En ocasiones las cosas son más complicadas que un polinomio (sí lectores, así es la vida). Pero no pasa nada, porque con la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html"><code>scipy.optimize.curve_fit</code></a> podemos ajustar una serie de datos a cualquier modelo que se nos ocurra, no importa qué tan complicado sea. Sin ir más lejos, tomando el ejemplo de la documentación, supongamos que tenemos unos datos que se ajustan al modelo</p>
+<p>$\displaystyle A e^{-B x^2} + C$</p>
+<p>en Python nuestro modelo será una función que recibirá como primer argumento x y el resto serán los parámetros del mismo:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Modelo para nuestros datos.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">B</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">C</span>
+</pre></div>
+
+
+<p>Ahora solo necesitamos algunos datos (añadiremos un poco de ruido gaussiano para que tenga más gracia) y podemos probar el ajuste. La función <code>scipy.optimize.curve_fit</code> recibe como argumentos:</p>
+<ul>
+<li>el modelo <code>func</code> para los datos,</li>
+<li>una lista de coordenadas <code>xdata</code> de los puntos, y</li>
+<li>una lista de coordenadas <code>ydata</code> de los puntos.</li>
+</ul>
+<p>Así realizamos el ajuste:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="n">Adat</span><span class="p">,</span> <span class="n">Bdat</span><span class="p">,</span> <span class="n">Cdat</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.3</span><span class="p">,</span> <span class="mf">0.5</span>
+<span class="n">xdat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">ydat</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">xdat</span><span class="p">,</span> <span class="n">Adat</span><span class="p">,</span> <span class="n">Bdat</span><span class="p">,</span> <span class="n">Cdat</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">xdat</span><span class="p">))</span>
+<span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">xdat</span><span class="p">,</span> <span class="n">ydat</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y el resultado queda así:<figure id="attachment_1779" style="width: 372px" class="wp-caption aligncenter"></p>
+<p><img alt="curve_fit" src="https://pybonacci.org/images/2013/08/curve_fit.png"></p>
+<p>Fácil, ¿no?</p>
+<h3>Mínimos cuadrados</h3>
+<p>Todas estas funciones emplean la solución por mínimos cuadrados de un sistema lineal. Nosotros podemos acceder a esta solución utilizando la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.leastsq.html">scipy.optimize.leastsq</a>, pero como es más general y este artículo ya se ha extendido bastante lo vamos a dejar aquí, de momento 😉</p>
+<p><strong>Y tú, ¿te animas ya a realizar ajustes e interpolaciones con Python? ¿Qué dificultades ves? ¿Cómo piensas que podríamos mejorar el artículo? ¡Cuéntanoslo en los comentarios! 🙂</strong></p>
+<h2>Referencias</h2>
+<ol>
+<li>RIVAS, Damián; VÁZQUEZ, Carlos. <em>Elementos de Cálculo Numérico</em>. ADI, 2010.</li>
+<li>BERRUT, Jean-Paul; TREFETHEN, Lloyd N. <em>Barycentric lagrange interpolation</em>. <em>Siam Review</em>, 2004, vol. 46, no 3, p. 501-517.</li>
+<li>VILLAFUERTE, Héctor F. <em>Guías para Métodos Numéricos, parte 2</em> [en línea]. 2010. Disponible en web: &lt;<a href="http://uvgmm2010.wordpress.com/guias/">http://uvgmm2010.wordpress.com/guias/</a>&gt;. [Consulta: 15 de agosto de 2013]</li>
+</ol>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/interpolacion.html" class="tag">interpolación</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                    <a href="http://pybonacci.github.io/tag/scipyinterpolate.html" class="tag">scipy.interpolate</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

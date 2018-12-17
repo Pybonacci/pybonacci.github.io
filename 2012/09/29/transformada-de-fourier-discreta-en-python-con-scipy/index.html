@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Transformada de Fourier discreta en Python con SciPy | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Transformada de Fourier discreta en Python con SciPy</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 29 septiembre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En este artículo vamos a ver <strong>cómo calcular la transformada de Fourier discreta</strong> (o DFT) de una señal en Python utilizando la <strong>transformada rápida de Fourier</strong> (o FFT) implementada en SciPy. El análisis de Fourier es la herramienta fundamental en procesamiento de señales y resulta útil en otras áreas como en la resolución de ecuaciones diferenciales o en el tratamiento de imágenes.</p>
+<p><ins datetime="2012-10-02T13:51:56+00:00"><strong>Nota</strong>: Puedes <a href="http://nbviewer.ipython.org/3804365/">ver el artículo en forma de notebook de IPython</a> mediante la herramienta nbviewer.</ins></p>
+<p>La transformada rápida de Fourier o FFT es en realidad una familia de algoritmos muy eficientes ($O(n \log n)$) para calcular la DFT de una señal discreta, de los cuales el más utilizado es el algoritmo de Cooley-Tukey. Este es el que está implementado en SciPy a través de las subrutinas FFTPACK, escritas en FORTRAN 77, y es el que vamos a utilizar. También podríamos haber utilizado la biblioteca FFTW, más moderna y escrita en C, o la implementación presente en NumPy, que es una traducción a C de FFTPACK y que funciona igual que la de SciPy, pero no lo vamos a hacer.</p>
+<p>Nótese que estos métodos no nos permiten calcular ni la serie de Fourier de una función periódica ni la transformada de Fourier de una función no periódica. Estas operaciones forman parte del cálculo simbólico y deben llevarse a cabo con otro tipo de programas, como SymPy o Sage. En Pybonacci puedes leer una <a href="https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/" title="Introducción al Cálculo Simbólico en Python con SymPy">introducción a SymPy</a> y <a href="https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/" title="Cómo calcular límites, derivadas, series e integrales en Python con SymPy">cómo calcular series con SymPy</a>, así como una <a href="https://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/" title="Sage: software matemático libre como alternativa">reseña sobre Sage</a>.</p>
+<p>En este artículo nos vamos a centrar en el caso unidimensional, aunque el código es fácilmente extrapolable al caso de dos y más dimensiones.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3, numpy 1.6.2, scipy 0.10.1 y matplotlib 1.1.1.</strong></em></p>
+<h2>Definiciones</h2>
+<p>Antes de empezar de lleno con las FFTs vamos a hacer una brevísima introducción matemática. He intentado que esto no se convierta en una larga introducción al procesamiento de señales digitales, pero si te interesa el tema y quieres más rigor puedes acudir a cualquiera de las referencias que doy más abajo además de la <a href="http://docs.scipy.org/doc/numpy/reference/routines.fft.html">documentación de <code>scipy.fftpack</code></a>.</p>
+<!--more-->
+
+<p>En este artículo vamos a manejar <strong>señales discretas reales</strong>, bien creadas por nosotros o procedentes de <em>muestrear</em> una señal analógica a una frecuencia de muestreo fs. La <strong>transformada discreta de Fourier</strong> o DFT de la señal de entrada, que diremos que está <em>en el dominio del tiempo</em>, será otra señal discreta, n general <em>compleja</em>, cuyos coeficientes vienen definidos en SciPy por la expresión</p>
+<p style="text-align: center">
+  $ \displaystyle A_k = \sum_{m=0}^{n-1} a_m \exp\left(-2\pi j{mk \over n}\right) \qquad k = 0,\ldots,n-1,$
+</p>
+
+<p>siendo $a_n$ los coeficientes de la señal de entrada y $A_k$ los de la señal obtenida. Diremos que $A_k$ está <em>en el dominio de la frecuencia</em> y que es el <strong>espectro</strong> o <strong>transformada</strong> de $a_n$. La resolución en frecuencia será mayor cuanto mayor sea el número de intervalos $n$ de la señal de entrada. La DFT se calcula con el algoritmo de la <strong>transformada rápida de Fourier</strong> o FFT, que es más eficiente si $n$ es una potencia entera de 2.</p>
+<p>Cada uno de los componentes de frecuencia se puede expresar en forma compleja como $A \exp(j \omega t)$. El espectro complejo de una función seno, por ejemplo, se obtiene directamente de su expresión en forma compleja</p>
+<p style="text-align: center">
+  $ \displaystyle A \sin(\omega t) = A \frac{e^{j \omega t} - e^{-j \omega t}}{2 j} = -j \frac{A}{2} e^{j \omega t} + j \frac{A}{2} e^{-j \omega t}$
+</p>
+
+<p>y tendrá, por tanto, una raya espectral a la frecuencia $\omega$ y otra a la frecuencia $-\omega$, como ya comprobaremos.</p>
+<p>La DFT de una señal <em>siempre</em> asume que la señal de entrada es <strong>un período de una secuencia periódica</strong>. Esto será importante por lo que luego veremos. Sería, por tanto, el equivalente en tiempo discreto a las series de Fourier.</p>
+<h2>FFT de una función senoidal sencilla</h2>
+<p>Vamos a <strong>calcular la FFT de una función senoidal en Python utilizando SciPy</strong>. Para que sea verdaderamente sencilla tenemos que preparar un poco los datos, o si no acabaremos observando efectos adversos. Estos los estudiaremos más adelante.</p>
+<p>Para manejar números redondos, vamos a recrear una señal con un armónico de $f = 400~Hz$ y otro del doble de frecuencia:</p>
+<p style="text-align: center">
+  $ \displaystyle y(t) = \sin(2 \pi f) - \frac{1}{2} \sin(2 \pi \cdot 2 f)$
+</p>
+
+<p>donde $2 \pi f = \omega$. Nótese que, por lo que hemos visto en el apartado anterior, veremos cuatro rayas en el espectro de esta función: dos para la frecuencia $f$ y otras dos para la $2 f$. Vamos a imponer a priori el número de intervalos y la distancia entre ellos y de ahí vamos a calcular el intervalo de tiempo. Evidentemente así no se funciona cuando muestreamos un archivo de audio, pongo por caso, pero como digo así obtendremos el resultado exacto. El código y la salida serían las siguientes:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">6</span>  <span class="c1"># Número de intervalos</span>
+<span class="n">f</span> <span class="o">=</span> <span class="mf">400.0</span>  <span class="c1"># Hz</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="mi">16</span><span class="p">)</span>  <span class="c1"># Espaciado, 16 puntos por período</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>  <span class="c1"># Intervalo de tiempo en segundos</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># Señal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y(t)$&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Señal 1" src="https://pybonacci.org/images/2012/09/sec3b1al1.png"></p>
+<p>Esta es la señal que vamos a transformar. Fijáos en el último punto representado. Como el intervalo va desde 0 hasta <code>n - 1</code>, los trozos «empalman» perfectamente. Ahora vamos a hallar la DFT de la señal <code>y</code>. Para ello necesitamos dos funciones, que se importan del paquete scipy.fftpack:</p>
+<ul>
+<li>La función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft.html"><code>fft</code></a>, que devuelve la DFT de la señal de entrada. Si queremos que esté normalizada, tenemos que dividir después por el número de intervalos N.</li>
+<li>La función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fftfreq.html"><code>fftfreq</code></a>, que devuelve las frecuencias a las que corresponde cada punto de la DFT. Se usa conjuntamente con la función anterior y acepta dos argumentos: el número de elementos n y el espacio entre intervalos dt, que ya hemos calculado antes.</li>
+</ul>
+<p>Como en este caso solo hay dos frecuencias fundamentales, vamos a representarlas utilizando la función vlines de matplotlib. El código y la salida quedarían así:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.fftpack</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">fftfreq</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>  <span class="c1"># Normalizada</span>
+<span class="n">frq</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Recuperamos las frecuencias</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">frq</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>  <span class="c1"># Representamos la parte imaginaria</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;f = 400 Hz&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">400.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">400.0</span> <span class="o">+</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s2">&quot;-&amp;gt;&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;f = -400 Hz&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">400.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">400.0</span> <span class="o">-</span> <span class="mf">2000.0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s2">&quot;-&amp;gt;&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;f = 800 Hz&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">800.0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">800.0</span> <span class="o">+</span> <span class="mf">600.0</span><span class="p">,</span> <span class="mf">0.25</span> <span class="o">+</span> <span class="mf">0.35</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s2">&quot;-&amp;gt;&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;f = -800 Hz&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">800.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">800.0</span> <span class="o">-</span> <span class="mf">1000.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.25</span> <span class="o">-</span> <span class="mf">0.35</span><span class="p">),</span> <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span> <span class="o">=</span> <span class="s2">&quot;-&amp;gt;&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Im($Y$)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Transformada 1" src="https://pybonacci.org/images/2012/09/transformada1.png"></p>
+<p><strong>Nota</strong>: Si quieres leer más sobre añadir texto y anotaciones a una gráfica en matplotlib, puedes leer la parte VIII del nuestro <a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">magnífico tutorial de matplotlib</a> por Kiko 🙂</p>
+<p>¡Y ya hemos hecho nuestra primera transformada discreta de Fourier con el algoritmo FFT! Pero las cosas en la realidad son bastante más complicadas. Vamos a ver algunos de los problemas que apareceran con frecuencia.</p>
+<h2>Fuga, «zero-padding» y funciones ventana</h2>
+<p>Vamos a analizar el ejemplo anterior, pero en esta ocasión vamos a poner menos cuidado con la preparación de los datos. Veamos qué ocurre:</p>
+<div class="highlight"><pre><span></span><span class="n">n2</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">5</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">,</span> <span class="n">n2</span><span class="p">)</span>  <span class="c1"># Intervalo de tiempo en segundos</span>
+<span class="n">dt2</span> <span class="o">=</span> <span class="n">t2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t2</span><span class="p">)</span>  <span class="c1"># Señal</span>
+<span class="n">Y2</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span> <span class="o">/</span> <span class="n">n2</span>  <span class="c1"># Transformada normalizada</span>
+<span class="n">frq2</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">dt2</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo (s)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y_2(t)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">frq2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Y2</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Im($Y_2$)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Señal 2" src="https://pybonacci.org/images/2012/09/sec3b1al2.png"></p>
+<p>Como se puede ver, el fenómeno no es extremadamente importante pero han aparecido otras rayas espectrales que no esperábamos. Esto se conoce como «leaking» (y yo lo voy a traducir por fuga) y es debido a que, en este caso, los trozos «no empalman exactamente». Recuerda que la DFT, y por extensión la FFT asume que estamos transformando un período de una señal periódica. Si utilizamos más puntos y extendemos la señal con ceros (esto se conoce como «zero-padding») la DFT da más resolución en frecuencia pero la fuga se magnifica:</p>
+<div class="highlight"><pre><span></span><span class="n">t3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.012</span> <span class="o">+</span> <span class="mi">9</span> <span class="o">*</span> <span class="n">dt2</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">n2</span><span class="p">)</span>  <span class="c1"># Intervalo de tiempo en segundos</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">9</span> <span class="o">*</span> <span class="n">n2</span><span class="p">))</span>  <span class="c1"># Señal</span>
+<span class="n">Y3</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">n2</span><span class="p">)</span>  <span class="c1"># Transformada normalizada</span>
+<span class="n">frq3</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">n2</span><span class="p">,</span> <span class="n">dt2</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t3</span><span class="p">,</span> <span class="n">y3</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Tiempo (s)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$y_3(t)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">frq3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Y3</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Im($Y_3$)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Señal 3" src="https://pybonacci.org/images/2012/09/sec3b1al3.png"></p>
+<p>Existe una manera de reducir la fuga y es mediante el uso de <strong>funciones ventana</strong>. Las funciones ventana no son más que funciones que valen cero fuera de un cierto intervalo, y que en procesamiento de señales digitales se utilizan para «suavizar» o filtrar una determinada señal. NumPy trae <a href="http://docs.scipy.org/doc/numpy/reference/routines.window.html">unas cuantas funciones ventana</a> por defecto; por ejemplo, la ventana de Blackman tiene este aspecto:</p>
+<p><img alt="Ventana de Blackman" src="https://pybonacci.org/images/2012/09/blackman.png"></p>
+<p>Como se puede ver, en los extremos del intervalo es nula. Las funciones ventana reciben un único argumento que es el número de puntos. Si multiplicamos la ventana por la señal, obtenemos una nueva señal que vale cero en los extremos. Comprobemos el resultado, representando ahora el espectro de amplitud y comparando cómo es el resultado si aplicamos o no la ventana de Blackman:</p>
+<div class="highlight"><pre><span></span><span class="n">n4</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">8</span>
+<span class="n">t4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">n4</span><span class="p">)</span>
+<span class="n">dt4</span> <span class="o">=</span> <span class="n">t4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t4</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f</span> <span class="o">*</span> <span class="n">t4</span><span class="p">)</span>
+<span class="n">y5</span> <span class="o">=</span> <span class="n">y4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">blackman</span><span class="p">(</span><span class="n">n4</span><span class="p">)</span>
+<span class="n">t4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.12</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">dt4</span><span class="p">,</span> <span class="mi">5</span> <span class="o">*</span> <span class="n">n4</span><span class="p">)</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y4</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n4</span><span class="p">))</span>
+<span class="n">y5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y5</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">n4</span><span class="p">))</span>
+<span class="n">Y4</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y4</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">n4</span><span class="p">)</span>
+<span class="n">Y5</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">y5</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">n4</span><span class="p">)</span>
+<span class="n">frq4</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">n4</span><span class="p">,</span> <span class="n">dt4</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">411</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t4</span><span class="p">,</span> <span class="n">y4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y_4(t)$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">412</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">frq4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Y4</span><span class="p">))</span>  <span class="c1"># Espectro de amplitud</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Abs($Y_4$)&#39;</span><span class="p">)</span>
+<span class="n">ax3</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">413</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t4</span><span class="p">,</span> <span class="n">y5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$y_5(t)$&#39;</span><span class="p">)</span>
+<span class="n">ax4</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">414</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">frq4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Y5</span><span class="p">))</span>  <span class="c1"># Espectro de amplitud</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Abs($Y_5$)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Aplicación de la ventana de Blackman" src="https://pybonacci.org/images/2012/09/windowing.png"></p>
+<p>Esto ya ha sido más interesante, ¿no? 🙂</p>
+<h2>Otros ejemplos: procesamiento de audio, espectrogramas</h2>
+<p>Para acabar de manera triunfal, vamos a ver <strong>cómo representar el espectrograma de un fragmento de audio</strong>, utilizando la función <a href="http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.specgram"><code>specgram</code></a> de matplotlib. El espectrograma se obtiene de aplicar la transformada corta de Fourier (STFT) a una señal, que es como aplicar una DFT a pequeños fragmentos de la misma, para ver la evolución de las frecuencias a lo largo del tiempo. Para ello, vamos a usar este <a href="http://commons.wikimedia.org/wiki/File:Violin_for_spectrogram.ogg">fragmento de una melodía tocada con un violín</a>, disponible libremente en Wikimedia Commons y que está muestreado a 44,1 kHz:</p>
+<p style="text-align:center">
+</p>
+
+<p>Al tratarse de un archivo OGG, vamos a utilizar el <a href="http://scikits.appspot.com/audiolab">SciKit audiolab</a>.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scikits.audiolab</span> <span class="kn">as</span> <span class="nn">audiolab</span>
+<span class="n">sound</span> <span class="o">=</span> <span class="n">audiolab</span><span class="o">.</span><span class="n">sndfile</span><span class="p">(</span><span class="s1">&#39;Violin_for_spectrogram.ogg&#39;</span><span class="p">,</span> <span class="s1">&#39;read&#39;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sound</span><span class="o">.</span><span class="n">read_frames</span><span class="p">(</span><span class="n">sound</span><span class="o">.</span><span class="n">get_nframes</span><span class="p">())</span>
+<span class="n">Pxx</span><span class="p">,</span> <span class="n">freqs</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">im</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="mi">44100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mf">44100.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">22050.0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Intensidad (dB)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Tiempo (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Frecuencia (Hz)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Espectrograma" src="https://pybonacci.org/images/2012/09/specgram.png"></p>
+<p>Se puede apreciar cómo va cambiando la frecuencia fundamental (barras horizontales inferiores) y los armónicos (todas las que están encima, cada vez más débiles) a medida que el intérprete toca una nota distinta. En definitiva, una preciosidad 😛</p>
+<p>Espero que te haya gustado el artículo. Más abajo tienes las referencias en las que me he basado y unos cuantos enlaces que me han sido muy útiles para aprender procesamiento de señales digitales, porque cuando empecé a escribir el artículo no sabía nada sobre el tema. Sobre todo he aprendido la teoría con [II] y los ejemplos están inspirados en el capítulo «Example Applications of the DFT» de [I]. Si ves algún error o quieres apuntar alguna sugerencia, no dudes en decirlo en los comentarios.</p>
+<p>¡Un saludo desde Milano! 🙂</p>
+<h2>Referencias</h2>
+<ol>
+<li>SMITH, Julius O. <em>Mathematics of the discrete Fourier transform (DFT) with audio applications</em> [en línea]. Segunda edición. Disponible en Web: &lt;<a href="https://ccrma.stanford.edu/~jos/mdft/mdft.html">https://ccrma.stanford.edu/~jos/mdft/mdft.html</a>&gt;. [Consulta: 28 de septiembre de 2012]</li>
+<li>LOPEZ-LEZCANO, Fernando; CACERES, Juan-Pablo. <em>Introducción al Procesamiento Digital de Señales y a la Música por Computador</em> [en línea]. Disponible en Web: &lt;<a href="https://ccrma.stanford.edu/~jos/mdft/mdft.html">https://ccrma.stanford.edu/workshops/cm2007/index.shtml</a>&gt;. [Consulta: 28 de septiembre de 2012]</li>
+</ol>
+<h2>Enlaces</h2>
+<ul>
+<li>Análisis espectral de una sinusoide <a href="https://ccrma.stanford.edu/%7Ejos/mdft/Spectrum_Analysis_Sinusoid_Windowing.html" target="_blank">https://ccrma.stanford.edu/~jos/mdft/Spectrum_Analysis_Sinusoid_Windowing.html</a></li>
+<li>Teoría general <a href="http://paulbourke.net/miscellaneous/dft/" target="_blank">http://paulbourke.net/miscellaneous/dft/</a></li>
+<li>NumPy no es adecuado para <em>series de Fourier</em> <a href="http://stackoverflow.com/questions/4258106/how-to-calculate-a-fourier-series-in-numpy" target="_blank">http://stackoverflow.com/questions/4258106/how-to-calculate-a-fourier-series-in-numpy</a></li>
+<li>Reconstrucción de la señal a partir de algunos términos calculados con fft <a href="http://stackoverflow.com/questions/5843085/fourier-series-in-numpy-question-about-previous-answer" target="_blank">http://stackoverflow.com/questions/5843085/fourier-series-in-numpy-question-about-previous-answer</a></li>
+<li>Uso de fftfreq <a href="http://stackoverflow.com/questions/9456037/scipy-numpy-fft-frequency-analysis" target="_blank">http://stackoverflow.com/questions/9456037/scipy-numpy-fft-frequency-analysis</a></li>
+<li>Unidades de fftfreq <a href="http://stackoverflow.com/questions/8573702/units-of-frequency-when-using-fft-in-numpy" target="_blank">http://stackoverflow.com/questions/8573702/units-of-frequency-when-using-fft-in-numpy</a></li>
+<li>Frecuencias de fftfreq <a href="http://stackoverflow.com/questions/3694918/how-to-extract-frequency-associated-with-fft-values-in-python" target="_blank">http://stackoverflow.com/questions/3694918/how-to-extract-frequency-associated-with-fft-values-in-python</a></li>
+<li>Artículo de The Glowing Python <a href="http://glowingpython.blogspot.com.es/2011/08/how-to-plot-frequency-spectrum-with.html" target="_blank">http://glowingpython.blogspot.com.es/2011/08/how-to-plot-frequency-spectrum-with.html</a></li>
+<li>Demo de MathWorks <a href="http://www.mathworks.es/products/matlab/examples.html?file=/products/demos/shipping/matlab/fftdemo.html" target="_blank">http://www.mathworks.es/products/matlab/examples.html?file=/products/demos/shipping/matlab/fftdemo.html</a></li>
+<li>Documentación de MATLAB <a href="http://www.mathworks.es/help/matlab/ref/fft.html" target="_blank">http://www.mathworks.es/help/matlab/ref/fft.html</a></li>
+<li>Diferencias entre NumPy y SciPy <a href="http://stackoverflow.com/questions/6363154/what-is-the-difference-between-numpy-fft-and-scipy-fftpack" target="_blank">http://stackoverflow.com/questions/6363154/what-is-the-difference-between-numpy-fft-and-scipy-fftpack</a></li>
+<li>Zero-padding of a signal <a href="http://dsp.stackexchange.com/questions/741/why-should-i-zero-pad-a-signal-before-taking-the-fourier-transform" target="_blank">http://dsp.stackexchange.com/questions/741/why-should-i-zero-pad-a-signal-before-taking-the-fourier-transform</a></li>
+<li>Uso de funciones ventana <a href="https://docs.google.com/open?id=1FliaqX0ModFkrPEvCtconY4vNlzU0r3luLkSl9Zk3WB48YyyAd12oD-Pw9IQ" target="_blank">https://docs.google.com/open?id=1FliaqX0ModFkrPEvCtconY4vNlzU0r3luLkSl9Zk3WB48YyyAd12oD-Pw9IQ</a></li>
+<li>Para ampliar: DSP con SciPy <a href="http://docs.scipy.org/doc/scipy/reference/signal.html" target="_blank">http://docs.scipy.org/doc/scipy/reference/signal.html</a></li>
+<li>Python para procesamiento de audio <a href="http://lac.linuxaudio.org/2011/papers/40.pdf" target="_blank">http://lac.linuxaudio.org/2011/papers/40.pdf</a></li>
+<li>Definición de intervalos de frecuencia <a href="http://www.maximintegrated.com/glossary/definitions.mvp/term/frequency_bin/gpk/136" target="_blank">http://www.maximintegrated.com/glossary/definitions.mvp/term/frequency_bin/gpk/136</a></li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/fft.html" class="tag">fft</a>
+                    <a href="http://pybonacci.github.io/tag/fftpack.html" class="tag">fftpack</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Python en Windows: «¡Hola mundo!» en 7 minutos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Python en Windows: «¡Hola mundo!» en 7 minutos</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 27 junio 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Cómo instalar Python en Windows</h2>
+<p>En lugar de escribir un tutorial para todos, este asume dos cosas:</p>
+<ul>
+<li>Eres un usuario de Windows curioso acerca de la programación, y</li>
+<li>Te gustaría instalar el lenguaje de programación Python en tu ordenador con Windows, lanzar el intérprete de Python y ejecutar el clásico programa «¡Hola mundo!».</li>
+</ul>
+<p>Si tienes preguntas del tipo «¿Qué es Python y por qué debería instalarlo en mi ordenador con Windows?» lee el principio de <a href="https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/" title="Introducción a Python para científicos e ingenieros">Introducción a Python para científicos e ingenieros</a>. Y si quieres instalar Python, vuelve.</p>
+<p>¿Ya estás de vuelta? ¿No te habías ido? Vale. Seguimos.</p>
+<p>De la <a href="http://python.org/">web oficial de Python</a> podemos descargar directamente un sencillo instalador para poder utilizar Python en Windows.</p>
+<p>¿Listo? Suponiendo que tienes una conexión de banda ancha, ya te quedan menos de siete minutos para tener Python instalado en tu ordenador y escribir tu primer comando en el intérprete. ¡Vamos!</p>
+<!--more-->
+
+<ul>
+<li>Abre otra pestaña (para poder seguir leyendo esta) haciendo Ctrl+clic en la <a href="http://python.org/download/">página de descargas de Python</a> o en la imagen.</li>
+</ul>
+<p style="text-align:center;">
+  <a href="http://python.org/download/"><img class=" wp-image-9 aligncenter" title="Python" alt="Página de descargas de Python" src="https://pybonacci.org/images/2012/03/python-logo-master-v3-tm-flattened.png" width="385" height="130" srcset="https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened.png 601w, https://pybonacci.org/wp-content/uploads/2012/03/python-logo-master-v3-tm-flattened-300x101.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></a>
+</p>
+
+<ul>
+<li>El primer párrafo habla sobre implementaciones alternativas de Python. Ignóralo: vamos a instalar la «tradicional».</li>
+<li>Python funciona en Windows, Mac y Linux así que hay varios enlaces para todos esos sistemas operativos. A nosotros nos interesa el de Windows.</li>
+<li><ins datetime="2013-12-23T10:39:18+00:00">Haz clic en «Python 3.3.3 Windows x86 MSI Installer» o «Python 3.3.3 Windows X86-64 MSI Installer» dependiendo de si tu procesador es de 32 bit o de 64 bit. Si no estás seguro, los ordenadores medianamente modernos son de 64 bit.</ins></li>
+<li>Cuando hagas clic en el enlace, Python se debería empezar a descargar.</li>
+<li>Apunta dónde se va a guardar el archivo. Lleva algunos minutos completar la descarga, así que mientras puedes ver <a href="http://youtu.be/O-El43VKZCw">la escena de la bruja de «Los caballeros de la Mesa Cuadrada»</a>. ¿Ya? Bien, busca el archivo en tu ordenador.</li>
+<li>En el momento de escribir esto, el archivo que has descargado se llama <ins datetime="2013-12-23T10:39:18+00:00"><code>python-3.3.3.msi</code> y pesa más o menos 20.1 MiB</ins>, que es más o menos lo que ocupa una docena de fotos de tu últimas vacaciones.</li>
+<li>Abre el archivo <ins datetime="2013-12-23T10:39:18+00:00"><code>python-3.3.3.msi</code></ins>. Windows te preguntará si estás seguro de que quieres ejecutar el archivo. Dile que sí.</li>
+<li>Sale la ventana de Python y te dice que se va a instalar Python. Siguiente.</li>
+<li>Te pide que elijas una carpeta. Déjalo como está y Siguiente.</li>
+<li>Te ofrece la opción de personalizar la instalación. Déjalo como está y Siguiente: se va a instalar Python.</li>
+<li>Se empiezan a copiar los nuevos archivos.</li>
+<li>¡Ya está! Dale a Finalizar.</li>
+<li>Ahora ve a Inicio -&gt; Todos los programas -&gt; <ins datetime="2013-12-23T10:39:18+00:00">Python 3.3</ins>.</li>
+<li>Aparecen otros submenús. Te interesa el que pone «IDLE (Python GUI)». Haz clic.</li>
+<li>Ya estás en la línea de comandos del intérprete de Python listo para hablar <a href="http://es.wikipedia.org/wiki/P%C3%A1rsel">Pársel</a>.</li>
+<li>El cursor estará parpadeando justo a la derecha de algo como esto: &gt;&gt;&gt;.</li>
+<li>Escribe el siguiente comando, asegurándote de que "¡Hola, mundo!" está entre comillas:</li>
+</ul>
+<p><code>&gt;&gt;&gt;print("¡Hola mundo!")</code></p>
+<ul>
+<li>Presiona Enter. Deberías ver «¡Hola mundo!» en un color diferente en la línea inferior.</li>
+<li>Si es así, ¡ya está!</li>
+<li>Si ves un mensaje de error que dice: "SyntaxError: invalid syntax" entonces te has olvidado de las comillas. <strong><em>En versiones antiguas de Python (Python 2.x) no hacían falta paréntesis. Te recomendamos que aprendas Python 3, pero si quieres puedes instalar también Python 2.7 porque no todas las bibliotecas están disponibles en las nuevas versiones.</em></strong></li>
+</ul>
+<p><img alt="python3" src="https://pybonacci.org/images/2013/12/python3.png?style=centerme"></p>
+<p>Estás dentro de la ventana del IDE (Integrated Development Environment) IDLE. Deja el intérprete de Python abierto, listo y esperando recibir tus comandos. ¡Ahora sólo tienes que aprender Python! Para eso, tienes varios recursos. Algunos los hemos sacado de la <a href="http://wiki.python.org/moin/SpanishLanguage">página de lengua española de la wiki oficial de Python</a>, y otros del sitio de P&amp;R <a href="http://python.majibu.org/preguntas/154/libros-recomendados-de-programacion-en-python">Python Majibu</a>.</p>
+<ul>
+<li>En la Universidad Jaume I tienen publicado un curso de Python titulado «<a href="http://www.uji.es/bin/publ/edicions/ippython.pdf">Introducción a la programación con Python</a>» [PDF] que cuenta con explicaciones muy detalladas y numerosos ejemplos.</li>
+<li>En Mundo geek tienes «<a href="http://mundogeek.net/tutorial-python/">Python para todos</a>», un libro escrito por Raúl González Duque y que puedes leer en PDF. También muy recomendable.</li>
+<li>La comunidad de Python Argentina PyAr tradujo el <a href="http://docs.python.org.ar/tutorial/">tutorial oficial de Python</a> a nuestro idioma.</li>
+<li>Si te interesa aplicar Python en ciencia o ingeniería, tal vez te interese «<a href="http://picachu.dmt.upm.es/python/">Introducción a Python para ingenieros</a>», apuntes incompletos escritos por Guillem Borrell en proceso de revisión. O este blog 😉</li>
+</ul>
+<p>Cuando empieces a trabajar con el lenguaje y te surjan dudas, siempre puedes preguntar en el sitio de preguntas y respuestas <a href="http://python.majibu.org/">Python Majibu</a>, al estilo Stack Overflow.</p>
+<p><strong>Si has llegado hasta aquí, ¿por qué no <a href="#commentform">nos cuentas qué te ha parecido el artículo</a>? ¿Te ha ayudado a empezar con Python en tu sistema? ¿Ha ido todo bien o has tenido que cambiar algún paso? ¡<a href="#commentform">Déjanos un comentario</a>! 🙂</strong></p>
+<p><strong><em>Nota: Actualizado el artículo para los nuevos tiempos: ahora instalamos Python 3 por defecto. ¡Ya va siendo hora! 😉</em></strong></p>
+<p><em>Esta es una traducción y adaptación del artículo <a href="http://www.richarddooling.com/index.php/2006/03/14/python-on-xp-7-minutes-to-hello-world/">Python On XP: 7 Minutes To “Hello World!”</a>, por Richard Dooling. Thank you RD!</em></p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/instalacion.html" class="tag">instalación</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/windows.html" class="tag">windows</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

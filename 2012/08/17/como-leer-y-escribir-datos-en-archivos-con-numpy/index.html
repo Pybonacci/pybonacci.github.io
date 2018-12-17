@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Cómo leer y escribir datos en archivos con NumPy | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Cómo leer y escribir datos en archivos con NumPy</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 17 agosto 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Hoy vamos a ver rápidamente <strong>cómo leer datos desde un archivo con NumPy</strong> y también <strong>cómo escribirlos</strong>. Es algo a lo que tendremos que recurrir con mucha frecuencia, ya sea porque hemos recogido nuestros datos de un experimento y los tenemos almacenados en un fichero de texto, porque los hemos recibido por otras fuentes o porque queremos separar lo que es la lógica del programa de los datos con los que opera.</p>
+<p>Ya comentamos hace tiempo <a href="https://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/" title="Cómo crear matrices en Python con NumPy">cómo crear matrices en Python</a> a partir de listas, utilizando rangos numéricos, etc. Lo bueno que tienen las funciones de NumPy que nos ayudan a desempeñar estas tareas es que no tenemos que preocuparnos por el manejo de ficheros con Python, así que leer o escribir será tan fácil como invocar una función.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3 y numpy 1.6.2 </strong></em><strong>y es compatible con </strong><strong>python 3.2.3</strong></p>
+<h2>Lectura</h2>
+<p>NumPy nos ofrece varias funciones para cargar datos en forma matricial, pero la que usaremos con más frecuencia es la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html"><code>loadtxt</code></a>. Su único argumento obligatorio es un nombre de archivo o un objeto <code>file</code> desde el que leer los datos.</p>
+<!--more-->
+
+<p>El comportamiento por defecto de <code>loadtxt</code> será:</p>
+<ul>
+<li>Leer <strong>todas las líneas</strong> (se pueden saltar las <code>n</code> primeras utilizando el argumento <code>skiprows</code>,</li>
+<li>salvo las que empiecen por <code>#</code> (se puede cambiar esto utilizando el argumento <code>comments</code>),</li>
+<li>esperará que los datos estén separados por espacios (se puede cambiar utilizando el argumento <code>delimiter</code>),</li>
+<li>y devolverá un array de NumPy de tipo <code>float</code> (el tipo se puede asignar con el argumento <code>dtype</code>).</li>
+</ul>
+<p>Veamos algunos ejemplos sencillos:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="err">!</span><span class="n">cat</span> <span class="n">matriz_a</span><span class="o">.</span><span class="n">dat</span> <span class="c1"># Evidentemente, tengo el archivo creado de antes... ¿magia?</span>
+<span class="mf">1.0000e+00</span> <span class="mf">2.0000e+00</span>
+<span class="o">-</span><span class="mf">1.0000e+00</span> <span class="mf">0.0000e+00</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;matriz_a.dat&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">1.</span><span class="p">,</span>  <span class="mf">2.</span><span class="p">],</span>
+<span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="err">!</span><span class="n">cat</span> <span class="n">matriz_b</span><span class="o">.</span><span class="n">dat</span> <span class="c1"># Nótese la primera línea</span>
+<span class="c1"># Datos del experimento</span>
+<span class="mf">1.0000e+00</span> <span class="mf">2.0000e+00</span>
+<span class="o">-</span><span class="mf">1.0000e+00</span> <span class="mf">0.0000e+00</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;matriz_b.dat&#39;</span><span class="p">)</span> <span class="c1"># NumPy la ignora sin más</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="n">B</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">18</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span>
+<span class="p">[</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>Otras funciones que también sirven para leer datos son:</p>
+<ul>
+<li>La función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.load.html"><code>load</code></a> sirve para leer datos en el formato comprimido de NumPy, que suele tener las extensiones <code>.npy</code> o <code>.npz</code>.</li>
+<li>La función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html"><code>fromfile</code></a> sirve para leer datos en formato binario.</li>
+<li>La función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.genfromtxt.html"><code>genfromtxt</code></a> es mucho más flexible que <code>loadtxt</code>, y es crucial cuando el archivo está mal formateado o faltan valores en los datos. En la gran mayoría de los casos es suficiente con usar <code>loadtxt</code>.</li>
+</ul>
+<h2>Escritura</h2>
+<p>Ya que hemos visto cómo leer archivos con NumPy, es lógico que aprendamos también cómo guardar nuestros datos en ficheros de texto. La contrapartida de la función <code>loadtxt</code> para escritura es, ¡sorpresa! la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.savetxt.html"><code>savetxt</code></a>. Tiene dos argumentos obligatorios: el nombre del archivo y el array que se guardará. Su comportamiento por defecto es guardar los datos con 18 cifras decimales, pero esto se puede cambiar con el argumento <code>fmt</code>.</p>
+<p>Para guardar nuestro array en un archivo, simplemente tendremos que hacer:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">A</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s1">&#39;matriz_a.dat&#39;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%.4e</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="err">!</span><span class="n">cat</span> <span class="n">matriz_a</span><span class="o">.</span><span class="n">dat</span>
+<span class="mf">1.0000e+00</span> <span class="mf">2.0000e+00</span>
+<span class="o">-</span><span class="mf">1.0000e+00</span> <span class="mf">0.0000e+00</span>
+</pre></div>
+
+
+<p>¡Y esto es todo por hoy! No dudes en dejarnos tus comentarios <a href="#respond">en el blog</a>, <a href="https://twitter.com/Pybonacci">en Twitter</a> o <a href="https://www.facebook.com/Pybonacci">en Facebook</a>. ¡Un saludo!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/archivos.html" class="tag">archivos</a>
+                    <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

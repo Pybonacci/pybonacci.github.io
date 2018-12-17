@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Un 2012 de Python científico | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Un 2012 de Python científico</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 20 diciembre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Primero de todo, lo más importante, ¡¡¡ha nacido Pybonacci!!!! Un blog dedicado a hablar del uso de Python en el ámbito científico y en español. Si no lo conocéis aún, podéis visitarlo en <a href="https://pybonacci.org">https://pybonacci.org</a> 🙂</p>
+<ul>
+<li>Blog (+Twitter, +Fb, +G+) nacido en marzo de 2012</li>
+<li>Más de 60 artículos publicados</li>
+<li>Más de 30.000 visitas recibidas</li>
+<li>Tres autores (esperamos que aumenten en el 2013)</li>
+<li>Más de 2000 tuits</li>
+</ul>
+<p>Venga, hablando en serio, os resumo lo que ha sido este año. Primero veamos las novedades de la base de lo que es Python en el entorno científico, la trinidad: NumPy, matplotlib y SciPy:</p>
+<p><strong>NUMPY</strong></p>
+<ul>
+<li>Ha salido la versión 1.6.2 de NumPy y se <a href="https://github.com/numpy/numpy/issues/milestones?state=open&amp;with_issues=yes">espera que en breve salga la versión 1.7.0 que ahora mismo está en beta</a>. La versión 1.6.2 de NumPy es compatible con Python 3.2 y la 1.7.0 será compatible con Python 3.3.</li>
+</ul>
+<p><strong>MATPLOTLIB</strong></p>
+<ul>
+<li>Lo más destacable, por desgracia, fue la <a href="http://numfocus.org/johnhunter/">muerte de John Hunter</a>, creador de matplotlib, de forma rápida y repentina. Por otra parte, este año salió la versión 1.2 totalmente compatible con Python 3.x, <a href="http://matplotlib.org/1.2.0/users/whats_new.html#new-in-matplotlib-1-2">entre otras muchas novedades</a>. Ya hablamos sobre matplotlib 1.2 en nuestro artículo sobre <a href="https://pybonacci.org/2012/11/13/visualizando-lineas-de-corriente-en-python-con-matplotlib/" title="Visualizando líneas de corriente en Python con matplotlib">líneas de corriente en Python</a>.</li>
+</ul>
+<p><strong>SCIPY</strong></p>
+<ul>
+<li>Ha salido la <a href="http://sourceforge.net/projects/scipy/files/scipy/0.11.0/">versión 0.11</a> que también es compatible con Python 3.2. Se ha incluido un submódulo dentro de scipy.sparse, se han introducido mejoras en scipy.optimize, scipy.linalg, scipy.interpolate, ...</li>
+</ul>
+<p>Los tres proyectos se han movido a GitHub, junto con otros, y el desarrollo ha crecido exponencialmente. ¡¡Esto son buenas noticias!!</p>
+<!--more-->
+
+<p>El creador de numpy, Travis Oliphant, ha creado <a href="http://www.continuum.io/">Continuum</a> que están dando un gran espaldarazo a la comunidad científica creando una <a href="http://continuum.io/developer-resources.html">serie de herramientas</a> que son más que interesantes y que durante el 2013 darán mucho que hablar. <a href="https://github.com/ContinuumIO/blaze">Blaze</a>, por ejemplo, acaba de recibir una <a href="http://technicaldiscovery.blogspot.com.es/2012/12/passing-torch-of-numpy-and-moving-on-to.html">inversión de $3.000.000</a> por parte de la <a href="www.darpa.mil/">DARPA</a>. <a href="https://github.com/numba/numba">numba</a> parece algo excitante para gente que necesita acelerar sus cálculos, y de hecho en Pybonacci puedes leer nuestro <a href="https://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/" title="Probando numba: compilador para Python basado en LLVM">artículo sobre numba</a>.</p>
+<p>Siguiendo con otras herramientas:</p>
+<p><strong>IPYTHON</strong></p>
+<p>Sin duda, este ha sido un año muy importante para <a href="http://ipython.org/">IPython</a>:</p>
+<ul>
+<li>
+<p>Ha salido la versión 0.13 siendo totalmente funcional con Python 3.</p>
+</li>
+<li>
+<p>Acaban de recibir una <a href="http://ipython.org/sloan-grant.html">donación de 1.15 millones de dólares de la Sloan Foundation</a>.</p>
+</li>
+<li>
+<p><a href="http://software-carpentry.org/">Software Carpentry</a> ha adoptado el IPython notebook para todos sus cursos.</p>
+</li>
+<li>
+<p>Su notebook está revolucionando el modo de crear ciencia (entre otras cosas) y se esperan muchísimas novedades para el 2013 como introducir gráficos interactivos con <a href="http://www.flotcharts.org/">flot</a> o <a href="http://d3js.org/">D3</a> <modo pataleta ON>¿por qué solo existe JS para el navegador? No quiero aprender JS para hacer esas cosas tan chulas que se hacen con JS en el navegador<modo pataleta OFF>.</p>
+</li>
+</ul>
+<p>¿Que aun no has probado IPython? Lo puedes probar online desde <a href="https://www.pythonanywhere.com/try-ipython/">PythonAnywhere</a>. Puedes leer nuestra <a href="https://pybonacci.org/2012/07/02/introduccion-a-ipython-mucho-mas-que-un-interprete-de-python/" title="Introducción a IPython: mucho más que un intérprete de Python">introducción a IPython</a> o nuestro artículo sobre <a href="https://pybonacci.org/2012/11/02/el-notebook-de-ipython/" title="El notebook de IPython">el notebook de IPython</a>.</p>
+<p><strong>PANDAS</strong></p>
+<p><a href="https://github.com/pydata/pandas">Pandas</a> se está mostrando muy capaz para añadir cosas que existen en R y que Python no tenía como el DataFrame.</p>
+<ul>
+<li>Esta semana ha salido la versión 0.10, también compatible con Python 3 (por lo menos hasta 3.2, 3.3 no estoy muy seguro).</li>
+<li>Se ha publicado un <a href="http://shop.oreilly.com/product/0636920023784.do">libro en O'Reilly</a> donde se da buena cuenta de la librería además de mostrar el uso de Python como herramienta de análisis de datos.</li>
+</ul>
+<p><strong>SYMPY</strong></p>
+<p>La biblioteca para cálculo simbólico también pasa por un buen momento. Para mí ha sido un descubrimiento de este año, después de no tocar cosas de estas desde mis estudios usando, en aquellos momentos, los inefables maple o mathematica.</p>
+<ul>
+<li>Ha salido la versión 0.7.2 hace apenas un par de meses.</li>
+<li>Ya es <a href="https://github.com/sympy/sympy/wiki/Release-Notes-for-0.7.2">compatible con Python 3.3 y con PyPy 1.9</a>. ¡¡¡La combinación pypy + sympy puede ser algo muy interesante!!!</li>
+</ul>
+<p>¿Has leído ya nuestra <a href="https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/" title="Introducción al Cálculo Simbólico en Python con SymPy">introducción a SymPy</a> o nuestro tutorial sobre <a href="https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/" title="Cómo calcular límites, derivadas, series e integrales en Python con SymPy">cómo calcular límites, derivadas, series e integrales con SymPy</a>?</p>
+<p><strong>CONFERENCIAS</strong></p>
+<p>Ha habido muchas este año y parece que va en aumento el interés por hacer más:</p>
+<ul>
+<li>La presencia de la rama científica de Python en la PyCon US de este año ha sido muy notable.</li>
+<li>Este año se ha alcanzado la 11ª SciPy en los EEUU, la 5ª EuroScipy y la 3ª Scipy.in.</li>
+<li>Se han organizado dos talleres sobre Python en el ámbito del «big data» (nueva «buzzword»), uno hospedado por Google en su sede de Mountain View y otro en NY que, por lo visto, ha sido un tremendo éxito.</li>
+<li>Existen conferencias más focalizadas que ya empiezan a ser «veteranas» como la que organiza la <a href="http://annual.ametsoc.org/2013/index.cfm/programs-and-events/conferences-and-symposia/third-symposium-on-advances-in-modeling-and-analysis-using-python/">American Meteorological Society</a>, o la <a href="http://www.dlr.de/sc/desktopdefault.aspx/tabid-8028/13765_read-34936/">pyHPC</a>, ...</li>
+<li>Habrá una PyData dentro de la PyCon US del 2013.</li>
+</ul>
+<p>En Pybonacci hemos hecho resúmenes o listados de vídeos de muchas de estas conferencias: puedes leer por ejemplo nuestro <a href="https://pybonacci.org/2012/09/17/repaso-a-la-euroscipy-2012/" title="Repaso a la EuroScipy 2012">repaso a la EuroSciPy 2012</a> o la <a href="https://pybonacci.org/2012/10/31/recopilacion-del-pydata-nyc-2012/" title="Recopilación del PyData NYC 2012">recopilación de vídeos del PyData NYC</a>, entre otros 🙂</p>
+<p><strong>Libros</strong></p>
+<p>Este ha sido un año de gran proliferación de libros hablando sobre bibliotecas del ecosistema científico pythonico:</p>
+<ul>
+<li><a href="http://www.amazon.com/SciPy-NumPy-Developers-Eli-Bressert/dp/1449305466/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1355998493&amp;sr=1-1">SciPy and NumPy</a></li>
+<li><a href="http://www.amazon.com/Machine-Learning-Action-Peter-Harrington/dp/1617290181/ref=la_B0088R1OMA_1_1?ie=UTF8&amp;qid=1355998558&amp;sr=1-1">Machine learning in action</a></li>
+<li><a href="http://www.amazon.com/Think-Complexity-Science-Computational-Modeling/dp/1449314635/ref=sr_1_2?s=books&amp;ie=UTF8&amp;qid=1355998637&amp;sr=1-2">Think complexity</a></li>
+<li><a href="http://www.amazon.com/Practical-Computer-Vision-SimpleCV-Technology/dp/1449320368/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1355998843&amp;sr=1-1">Practical Computer Vision with SimpleCV: The Simple Way to Make Technology See</a></li>
+<li><a href="http://www.amazon.com/NumPy-Cookbook-Ivan-Idris/dp/1849518920/ref=sr_1_3?s=books&amp;ie=UTF8&amp;qid=1355998888&amp;sr=1-3&amp;keywords=numpy">NumPy Cookbook</a></li>
+<li><a href="http://www.amazon.com/Python-Data-Analysis-Wes-McKinney/dp/1449319793/ref=sr_1_4?s=books&amp;ie=UTF8&amp;qid=1355998888&amp;sr=1-4&amp;keywords=numpy">Python for data analysis</a></li>
+<li><a href="http://www.amazon.com/Programming-Computer-Vision-Python-algorithms/dp/1449316549/ref=sr_1_7?s=books&amp;ie=UTF8&amp;qid=1355998888&amp;sr=1-7&amp;keywords=numpy">Programming Computer Vision with Python: Tools and algorithms for analyzing images</a></li>
+<li><a href="http://www.greenteapress.com/thinkbayes/thinkbayes.pdf">Think Bayes</a></li>
+</ul>
+<p><strong>Otras historias</strong></p>
+<ul>
+<li>Se ha creado la fundación NumFocus con el propósito de promocionar el uso de cálculos accesibles y reproducibles en entornos científicos y tecnológicos.</li>
+<li>Salen cosas nuevas interesantes como <a href="http://julialang.org/">Julia</a>, de las que se pueden aprender cosas nuevas.</li>
+<li>La velocidad del lenguaje resulta crítica en ciertos momentos y, por suerte, tenemos herramientas que permiten seguir disfrutando de la simplicidad de la sintaxis de Python con velocidades cercanas a Fortran y/o C como cython, theano, numpypy, numexpr, el ya citado numba, <a href="http://www.mypy-lang.org/">mypy</a> (algunas muy experimentales y que ya veremos en qué acaban).</li>
+<li>Este año ha habido una explosión de cursos online de todo tipo (Coursera, Khan Academy, Udacity, edX, ...) y en muchos de ellos se ha elegido Python para dar las lecciones.</li>
+<li>También, páginas más dedicadas a programación como <a href="http://www.codecademy.com/">Codeacademy</a> han empezado a incluir Python entre sus cursos.</li>
+<li>Herramientas como SAGE, Python(x,y), <a href="http://code.google.com/p/winpython/">WinPython</a>, Spyder, <a href="http://code.enthought.com/projects/">ETS</a>, ... están ahí para ayudar a que cualquiera se pueda iniciar en el cálculo científico con Python y siguen evolucionando formidablemente.</li>
+<li>Python es el lenguaje más ampliamente usado en el mundo GIS pudiendo hacer cualquier cosa dentro o fuera de paquetes como arcGIS o Qgis.</li>
+</ul>
+<p><strong>2013</strong></p>
+<p>Parece que el 2013 será un buen año para Python. Aparte de los grandes paquetes, hay tantas cosas que conocer, revisar, de las que hablar, picar código, ... AYUDADNOS:</p>
+<p>Hay muchos <a href="http://scikits.appspot.com/scikits">scikits</a> pululando, incluyendo <a href="https://github.com/Juanlu001/scikit-aero">scikit-aero</a>, <a href="https://github.com/luispedro/milk/">milk</a>, <a href="https://github.com/nryoung/algorithms">algorithms</a>, <a href="http://www.pymvpa.org/">pyMVPA</a>, <a href="https://github.com/simon-r/PyParticles">PyParticles</a>, <a href="https://github.com/sgillies/fiona">Fiona</a>, <a href="http://astroml.github.com/">AstroML</a>, <a href="http://pycogent.sourceforge.net/">PyCogent</a>,  <a href="https://github.com/pymc-devs/pymc">PyMC</a>, <a href="https://github.com/tlecomte/friture">friture</a>, <a href="http://manns.github.com/pyspread/">PySpread</a>, <a href="http://kartograph.org/">Kartograph</a>,   <a href="http://code.enthought.com/chaco/">Chaco</a>, <a href="http://www.mcs.anl.gov/petsc/">PETSc</a>, <a href="http://www.sunpy.org/">SunPy</a>, <a href="http://code.google.com/p/python-graph/">python-graph</a>, <a href="https://github.com/benma/pysph">pysph</a>, <a href="http://databrewery.org/">databrewery</a>, <a href="http://networkx.lanl.gov/">networkX</a>, <a href="http://patsy.readthedocs.org/en/latest/overview.html">patsy</a>, <a href="http://pytables.org/">PyTables</a>, <a href="http://code.enthought.com/projects/mayavi/">Mayavi</a>, <a href="http://www.jmodelica.org/assimulo">Assimulo</a>, <a href="http://matplotlib.github.com/basemap/">Basemap</a>, <a href="http://www.biopython.org">Biopython</a>, <a href="http://www.blender.org/documentation/blender_python_api_2_65_release/mathutils.html">Blender-mathutils</a>, <a href="http://pypi.python.org/pypi/blist/">Blist</a>, <a href="http://pypi.python.org/pypi/Bottleneck">Bottleneck</a>, <a href="https://github.com/FrancescAlted/carray">Carray</a>, <a href="http://www.cellcognition.org/">CellCognition</a>, <a href="http://www.cellprofiler.org">CellProfiler</a>, <a href="http://cgal-python.gforge.inria.fr/">CGAL-Python</a>, <a href="http://abel.ee.ucla.edu/cvxopt/">CVXOPT</a>, <a href="http://pypi.python.org/pypi/Delny">Delny</a>, <a href="http://nipy.org/dipy">Dipy</a>, <a href="http://ffnet.sourceforge.net/">Ffnet</a>, <a href="http://www.ctcms.nist.gov/fipy/">FiPy,</a> <a href="http://www.gdal.org/">GDAL</a>, <a href="http://code.google.com/p/h5py/">H5py</a>, <a href="http://liblas.org/">LibLAS</a>, <a href="http://www.csie.ntu.edu.tw/%7Ecjlin/liblinear/">LIBLINEAR</a>, <a href="http://sbml.org/Software/libSBML">libSBML</a>, <a href="http://www.csie.ntu.edu.tw/%7Ecjlin/libsvm/">LIBSVM</a>, <a href="http://pypi.python.org/pypi/libtfr">Libtfr</a>, <a href="http://cars9.uchicago.edu/software/python/lmfit/">Lmfit</a>, <a href="http://mdp-toolkit.sourceforge.net/">MDP</a>, <a href="http://mathema.tician.de/software/meshpy">MeshPy</a>, <a href="http://pymmlib.sourceforge.net/">mmLib</a>, <a href="http://dirac.cnrs-orleans.fr/MMTK">MMTK</a>, <a href="http://matplotlib.sourceforge.net/users/toolkits.html#natgrid">Natgrid</a>, <a href="http://code.google.com/p/netcdf4-python/">NetCDF4</a>, <a href="http://nipy.org/">NIPY</a>, <a href="http://ab-initio.mit.edu/nlopt">NLopt</a>, <a href="http://www.nltk.org/">NLTK</a>, <a href="http://dirac.cnrs-orleans.fr/plone/software/nmoldyn/">nMOLDYN</a>, <a href="http://www.ode.org/">ODE</a>, <a href="http://opencv.org/">OpenCV</a>, <a href="http://orange.biolab.si/">Orange</a>, <a href="http://www.j-raedler.de/projects/polygon">Polygon</a>, <a href="http://www.psychopy.org/">PsychoPy</a>, <a href="http://code.google.com/p/pyamg/">PyAMG</a>, <a href="http://code.google.com/p/pybox2d/">PyBox2D</a>, <a href="http://rhodesmill.org/pyephem/">PyEphem</a>, <a href="https://launchpad.net/pyfftw/">PyFFTW</a>, <a href="http://www.stsci.edu/resources/software_hardware/pyfits">PyFITS</a>, <a href="http://pyfltk.sourceforge.net/">pyFLTK</a>, <a href="http://pysclint.sourceforge.net/pyhdf/">PyHDF</a>, <a href="http://www.pymix.org">PyMix</a>, <a href="http://www.pymol.org/">PyMOL</a>, <a href="http://code.google.com/p/pymutt/">Pymutt</a>, <a href="http://www.pymvpa.org/">PyMVPA</a>, <a href="http://code.google.com/p/pyproj/">Pyproj</a>, <a href="http://pysparse.sourceforge.net/">PySparse</a>, <a href="http://code.google.com/p/pyspharm">Pyspharm</a>, <a href="https://github.com/nlehuen/pytst">PyTST</a>, <a href="http://pypi.python.org/pypi/PyWavelets/">PyWavelets</a>, <a href="https://trac.assembla.com/astrolib">PyWCS</a>, <a href="http://quantlib.org">QuantLib</a>, <a href="http://toblerity.github.com/rtree/">Rtree</a>, <a href="http://sfepy.org">SfePy</a>, <a href="https://github.com/sgillies/shapely">Shapely</a>, <a href="http://home.gna.org/veusz/">Veusz</a>, <a href="http://hci.iwr.uni-heidelberg.de/vigra/">VIGRA</a>, <a href="http://www.visionegg.org/">VisionEgg</a>, <a href="http://code.google.com/p/visvis/">Visvis</a>, <a href="http://vitables.org/">ViTables</a>, <a href="http://www.lfd.uci.edu/%7Egohlke/#python">vLFD</a>, <a href="http://vpython.org/">VPython</a>, <a href="http://www.vtk.org">VTK</a>, ...</p>
+<p><strong>Pensamientos finales (y puntos negativos)</strong></p>
+<p>Parece que el «núcleo duro» de ciencia con Python ya ha portado a Python 3, ¿y tú? Este es uno de mis primeros deberes para el 2013.</p>
+<p>Por otra parte, siempre hemos de ser críticos para mejorar. En este sentido, la mayor crítica (autocrítica también) que encuentro es que el mundo hispano está muy poco representado, salvo honrosísimas excepciones como Fernando Pérez, Francesc Alted, Sebastian Bassi, ... Y, por lo menos en España, parece que seguimos anclados en el lapidario <a href="http://es.wikipedia.org/wiki/%C2%A1Que_inventen_ellos!">¡que inventen ellos!</a> de Unamuno.</p>
+<p>Como parte negativa de Pybonacci habría que nombrar el sesgo del blog debido a la formación de sus autores. Ninguno somos expertos en biología, finanzas, química,..., y algunos temas están mal representados. Pero eso tiene fácil solución, esperamos vuestras aportaciones 😛</p>
+<p>Y, por mi parte, me despido hasta el año que viene. Espero que tengáis una excelente entrada en el 2013.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 23 junio 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).</p>
+<ol>
+<li><a href="https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/" title="Manual de introducción a matplotlib.pyplot (I): Primeros pasos">Primeros pasos</a></li>
+<li><a href="https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/" title="Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión">Creando ventanas, manejando ventanas y configurando la sesión</a></li>
+<li><a href="https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/" title="Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico">Configuración del gráfico</a></li>
+<li><a href="https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/" title="Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)">Tipos de gráfico I</a></li>
+<li><strong><a href="https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/" title="Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)">Tipos de gráfico II</a></strong></li>
+<li><a href="https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/" title="Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)">Tipos de gráfico III</a></li>
+<li><a href="https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" title="Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)">Tipos de gráfico IV</a></li>
+<li><a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">Texto y anotaciones (arrow, annotate, table, text...)</a></li>
+<li><del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del></li>
+<li><del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del></li>
+<li><a href="https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" title="Manual de introducción a matplotlib.pyplot (IX): Miscelánea">Miscelánea</a></li>
+</ol>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0]</strong></p>
+<p>[DISCLAIMER: Muchos de los gráficos que vamos a representar no tienen ningún sentido físico y los resultados solo pretenden mostrar el uso de la librería].</p>
+<p>En todo momento supondremos que se ha iniciado la sesión y se ha hecho</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+
+<p>Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en los gráficos de barras.</p>
+<p>Para dibujar un <a href="http://es.wikipedia.org/wiki/Histograma">histograma</a> podemos hacer uso de plt.hist. Un histograma suele ser un gráfico de barras donde se representa la ocurrencia de datos (frecuencia) en intervalos definidos. Lo que hace plt.hist es dibujar el histograma de un vector en función del número de intervalos (bins) que definamos. Como siempre, vamos a ver esto con un ejemplo:</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># Definimos un vector de números aleatorios de una distribución normal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Dibuja un histograma dividiendo el vector x en 20 intervalos del mismo ancho</span>
+</pre></div>
+
+
+<p>El resultado sería el siguiente, donde se representa el cálculo que haría la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html">np.histogram</a> gráficamente y en un solo paso:</p>
+<p><img alt="histograma" src="https://pybonacci.org/images/2012/06/histograma.png"></p>
+<p>Podéis jugar también con <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram2d.html#numpy.histogram2d">np.histogram2d</a>, <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.histogramdd.html#numpy.histogramdd">np.histogramdd</a> y <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.bincount.html#numpy.bincount">np. bincount</a></p>
+<p>Si en lugar de dibujar histogramas queremos dibujar gráficos de barras para representar, que se yo, la evolución de la prima de riesgo en los últimos días podemos usar plt.bar<!--more--></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>  <span class="c1"># Importamos el módulo datetime</span>
+<span class="n">prima</span> <span class="o">=</span> <span class="mi">600</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>  <span class="c1"># Valores inventados para la prima de riesgo</span>
+<span class="n">fechas</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">-</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># generamos las fechas de los últimos cinco días</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">((</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">))</span>  <span class="c1"># Definimos la posición de los ejes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">prima</span><span class="p">)</span>  <span class="c1"># Dibujamos el gráfico de barras</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">550</span><span class="p">,</span><span class="mi">650</span><span class="p">)</span>  <span class="c1"># Limitamos los valores del eje y al range definido [450, 550]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;prima de riesgo&#39;</span><span class="p">)</span>  <span class="c1"># Colocamos el título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">fechas</span><span class="p">,</span> <span class="n">rotation</span> <span class="o">=</span> <span class="mi">45</span><span class="p">)</span>  <span class="c1"># Colocamos las etiquetas del eje x, en este caso, las fechas</span>
+</pre></div>
+
+
+<p>Obtendríamos un resultado como este:</p>
+<p><img alt="prima" src="https://pybonacci.org/images/2012/06/prima.png"></p>
+<p>Si las barras las queréis dibujar en dirección horizontal en lugar de vertical podéis echarle un ojo a matplotlib.pyplot.barh. Siguiendo con los gráficos de barras vamos a ver un caso un poco más especial haciendo uso de matplotlib.pyplot.broken_barh. Queremos representar el tipo de nubosidad que ha habido en un día concreto para saber cuando juanlu ha podido mirar las estrellas con su telescopio. El tipo de nubosidad lo vamos a desglosar en nubes bajas, medias y altas.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">((</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.8</span><span class="p">))</span>  <span class="c1"># Creamos los ejes en la posición que queremos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Evolución para hoy de los tipos de nubosidad&#39;</span><span class="p">)</span>  <span class="c1"># Ponemos un título al gráfico</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">broken_barh</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">3</span><span class="p">)],</span> <span class="p">(</span><span class="mi">9500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>  <span class="c1"># Dibujamos los momentos en que ha habido nubes altas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">broken_barh</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">)],</span> <span class="p">(</span><span class="mi">4500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>  <span class="c1"># Dibujamos los momentos en que ha habido nubes medias</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">broken_barh</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">)],</span> <span class="p">(</span><span class="mi">1500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>  <span class="c1"># Dibujamos los momentos en que ha habido nubes bajas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span>  <span class="c1"># Limitamos el rango de valores del eje x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">2000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;nubes bajas&#39;</span><span class="p">,</span> <span class="s1">&#39;nubes medias&#39;</span><span class="p">,</span><span class="s1">&#39;nubes altas&#39;</span><span class="p">])</span>  <span class="c1"># Colocamos etiquetas en el eje y</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t(h)&#39;</span><span class="p">)</span>  <span class="c1"># Y finalmente ponemos un título al eje x, el eje de tiempos</span>
+</pre></div>
+
+
+<p>Además de poder ver que juanlu no ha podido usar su telescopio más que para mirar a la piscina de los vecinos porque el cielo estaba tapado, obtendríamos un resultado como este:</p>
+<p><img alt="nubes" src="https://pybonacci.org/images/2012/06/nubes1.png"></p>
+<p>En plt.broken_barh se define primero los valores de x donde irá una barra y la longitud de esta barra y luego se pone el rango de valores de y para todas las barras definidas en x (además de poder cambiar colores y demás de las barras):</p>
+<p><em>plt.broken_barh([(x0+longitud para la barra que empieza en x0), (x1+ longitud para la barra que empieza en x1), ..., (tantos x como queramos)], (valor mínimo del rango para y, longitud del rango de y desde el y mínimo), <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.broken_barh">demás etiquetas que queramos incluir</a>)</em></p>
+<p>Por último para hoy y siguiendo con los gráficos de barras vamos a ver <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.step">plt.step</a>. Esta función nos permite dibujar un gráfico de 'escaleras'. Viendo esto en acción entenderéis mejor a lo que me refiero:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">where</span> <span class="o">=</span> <span class="s1">&#39;mid&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Gráfico ejemplo de &#39;escaleras&#39;&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El where sirve para situar el centro de la escalera (trastead con ello, que es gratis). El resultado sería:</p>
+<p><img alt="step" src="https://pybonacci.org/images/2012/06/step.png"></p>
+<p>Y, de momento, hemos acabado por hoy. El próximo día veremos más tipos de gráfico que podemos hacer con matplotlib.pyplot. Si quieres ver las <a href="https://pybonacci.org/tag/tutorial-matplotlib-pyplot/">anteriores entregas del tutorial pulsa aquí</a>. Y si quieres ver la nueva entrega tendrás que esperar que encontremos un ratico para poder hacerla.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                    <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

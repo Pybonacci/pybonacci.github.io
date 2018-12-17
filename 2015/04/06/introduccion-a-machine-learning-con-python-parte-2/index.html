@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Introducción a Machine Learning con Python (Parte 2) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Introducción a Machine Learning con Python (Parte 2)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 06 abril 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En la entrada anterior, <a href="https://pybonacci.org/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/" title="Introducción a Machine Learning con Python (Parte 1)">Introducción a Machine Learning con Python (Parte 1)</a>, di unas pequeñas pinceladas sobre lo que es el Aprendizaje Automático con algunos ejemplos prácticos. Ahora vamos a adentrarnos en materia de un modo más estructurado viendo paso a paso algunas de las técnicas que podemos emplear en Python.</p>
+<p>Podemos dividir los problemas de aprendizaje automático en dos grandes categorías (Pedregosa et al., 2011):</p>
+<ul>
+<li><strong>Aprendizaje supervisado</strong>, cuando el conjunto de datos viene con los atributos adicionales que queremos predecir. El problema puede clasificarse en dos categorías: <ul>
+<li>Regresión: los valores de salida consisten en una o más variables continuas. Un ejemplo es la predicción del valor de una casa en función de su superficie útil, número de habitaciones, cuartos de baños, etc.</li>
+<li>Clasificación: las muestras pertenecen a dos o más clases y queremos aprender a partir de lo que ya conocemos cómo clasificar nuevas muestras. Tenemos como ejemplo el <em>Iris dataset</em> que ya mostramos en la entrada anterior</li>
+</ul>
+</li>
+<li><strong>Aprendizaje no supervisado</strong>, cuando no hay un conocimiento a priori de las salidas que corresponden al conjunto de datos de entrada. En estos casos el objetivo es encontrar grupos mediante <em><a title="Cluster analysis" href="https://en.wikipedia.org/wiki/Cluster_analysis" target="_blank">clustering</a></em> o determinar una distribución de probabilidad sobre un conjunto de entrada.</li>
+</ul>
+<p>Como vemos, en ambos casos el aprendizaje automático trata de aprender una serie de propiedades del conjunto de datos y aplicarlos a nuevos datos.</p>
+<p>Ésta entrada se la vamos a dedicar al aprendizaje supervisado, acompañando cada una de las técnica que veamos con un Notebook de <a href="https://jupyter.org">Jupyter</a></p>
+<h2>Aprendizaje supervisado</h2>
+<p>Empezaremos por el principio, y lo más sencillo, que es ajustar los datos a una línea para pasar luego a ver diferentes modelos de clasificación en orden creciente de complejidad en subsiguientes entradas.</p>
+<!--more Sigue leyendo...-->
+
+<h3><a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/Machine%20Learning/Regresión%20lineal.ipynb" target="_blank">Regresión lineal</a></h3>
+<p>Los modelos lineales son fundamentales tanto en estadística como en el aprendizaje automático, pues muchos métodos se apoyan en la combinación lineal de variables que describen los datos. Lo más sencillo es ajustar una línea recta con <code>LinearRegression</code>.</p>
+<p>Para mostrar cómo funcionan estos modelos vamos a emplear uno de los <a title="Dataset loading utilities" href="http://scikit-learn.org/stable/datasets/index.html" target="_blank">dataset</a> que ya incorpora scikit-learn.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="n">boston</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_boston</span><span class="p">()</span>
+</pre></div>
+
+
+<p>El Boston dataset es un conjunto de datos para el análisis de los precios de las viviendas en la región de Boston. Con <code>boston.DESCR</code> podemos obtener una descripción del dataset, con información sobre el mismo, como el tipo de atributos.</p>
+<div class="highlight"><pre><span></span><span class="n">Boston</span> <span class="n">House</span> <span class="n">Prices</span> <span class="n">dataset</span>
+<span class="n">Notes</span>
+------
+<span class="n">Data</span> <span class="nb">Set</span> <span class="n">Characteristics:</span>   
+    :<span class="n">Number</span> <span class="k">of</span> <span class="n">Instances:</span> <span class="mi">506</span> 
+    :<span class="n">Number</span> <span class="k">of</span> <span class="n">Attributes:</span> <span class="mi">13</span> <span class="n">numeric</span><span class="o">/</span><span class="n">categorical</span> <span class="n">predictive</span>
+    :<span class="n">Median</span> <span class="n">Value</span> (<span class="n">attribute</span> <span class="mi">14</span>) <span class="k">is</span> <span class="n">usually</span> <span class="n">the</span> <span class="n">target</span>
+    :<span class="n">Attribute</span> <span class="n">Information</span> (<span class="n">in</span> <span class="n">order</span>):
+    - <span class="n">CRIM</span>     <span class="n">per</span> <span class="n">capita</span> <span class="n">crime</span> <span class="n">rate</span> <span class="nb">by</span> <span class="n">town</span>
+    - <span class="n">ZN</span>       <span class="n">proportion</span> <span class="k">of</span> <span class="n">residential</span> <span class="n">land</span> <span class="n">zoned</span> <span class="k">for</span> <span class="n">lots</span> <span class="n">over</span> <span class="mi">25</span>,<span class="mo">000</span> <span class="n">sq</span>.<span class="n">ft</span>.
+    - <span class="n">INDUS</span>    <span class="n">proportion</span> <span class="k">of</span> <span class="n">non-retail</span> <span class="n">business</span> <span class="n">acres</span> <span class="n">per</span> <span class="n">town</span>
+    - <span class="n">CHAS</span>     <span class="n">Charles</span> <span class="n">River</span> <span class="n">dummy</span> <span class="n">variable</span> (= <span class="mi">1</span> <span class="k">if</span> <span class="n">tract</span> <span class="n">bounds</span> <span class="n">river</span>; <span class="mi">0</span> <span class="n">otherwise</span>)
+    - <span class="n">NOX</span>      <span class="n">nitric</span> <span class="n">oxides</span> <span class="n">concentration</span> (<span class="n">parts</span> <span class="n">per</span> <span class="mi">10</span>  <span class="n">million</span>)
+    - <span class="n">RM</span>       <span class="n">average</span> <span class="n">number</span> <span class="k">of</span> <span class="n">rooms</span> <span class="n">per</span> <span class="n">dwelling</span>
+    - <span class="n">AGE</span>      <span class="n">proportion</span> <span class="k">of</span> <span class="n">owner-occupied</span> <span class="n">units</span> <span class="n">built</span> <span class="n">prior</span> <span class="nb">to</span> <span class="mi">1940</span>
+    - <span class="n">DIS</span>      <span class="n">weighted</span> <span class="n">distances</span> <span class="nb">to</span> <span class="n">five</span> <span class="n">Boston</span> <span class="n">employment</span> <span class="n">centres</span>
+    - <span class="n">RAD</span>      <span class="nb">index</span>  <span class="k">of</span> <span class="n">accessibility</span> <span class="nb">to</span> <span class="n">radial</span> <span class="n">highways</span>
+    - <span class="n">TAX</span>      <span class="n">full-value</span> <span class="n">property-tax</span>  <span class="n">rate</span> <span class="n">per</span> <span class="nv">$10</span>,<span class="mo">000</span>
+    - <span class="n">PTRATIO</span>  <span class="n">pupil-teacher</span> <span class="n">ratio</span> <span class="nb">by</span> <span class="n">town</span>
+    - <span class="n">B</span>        <span class="mi">1000</span>(<span class="n">Bk</span> - <span class="mf">0.63</span>)^<span class="mi">2</span> <span class="k">where</span> <span class="n">Bk</span> <span class="k">is</span> <span class="n">the</span> <span class="n">proportion</span> <span class="k">of</span> <span class="n">blacks</span> <span class="nb">by</span> <span class="n">town</span>
+    - <span class="n">LSTAT</span>    % <span class="n">lower</span> <span class="n">status</span> <span class="k">of</span> <span class="n">the</span> <span class="n">population</span>
+    - <span class="n">MEDV</span>     <span class="n">Median</span> <span class="nb">value</span> <span class="k">of</span> <span class="n">owner-occupied</span> <span class="n">homes</span> <span class="n">in</span> <span class="nv">$1000&#39;s</span>
+    :<span class="n">Missing</span> <span class="n">Attribute</span> <span class="n">Values:</span> <span class="n">None</span>
+</pre></div>
+
+
+<p>Vemos que tenemos 506 muestras con 13 atributos que nos ayudarán a predecir el precio medio de la vivienda. Ahora bien, no todos los atributos serán significativos ni todos tendrán el mismo peso a la hora de determinar el precio de la vivienda; pero eso es algo que iremos viendo conforme adquiramos experiencia e intuición.</p>
+<p>Ya tenemos los datos, vamos a ajustar una línea recta para ver cuál es la tendencia que siguen los precios en función del atributo.</p>
+<p>Lo primero es importar <code>LinearRegression</code> y crear un objeto.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Una vez tenemos claro el modelo a emplear, el siguiente paso es entrenarlo con los datos de variables independientes y variables dependientes que tenemos. Para ello, en scikit-learn tenemos funciones del tipo <code>modelo.fit(X, y)</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Éste, al tratarse de un modelo sencillo y con muy pocas muestra tardará muy poco en entrenarse. Una vez completado el proceso podemos ver los coeficientes que ha asignado a cada atributo y así ver de qué manera contribuyen al precio final de la vivienda.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">coef</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">lr</span><span class="o">.</span><span class="n">coef_</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{:&amp;gt;7}: {: 9.5f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="n">coef</span><span class="p">))</span>
+
+<span class="n">CRIM</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.10717</span>
+     <span class="n">ZN</span><span class="p">:</span>   <span class="mf">0.04640</span>
+  <span class="n">INDUS</span><span class="p">:</span>   <span class="mf">0.02086</span>
+   <span class="n">CHAS</span><span class="p">:</span>   <span class="mf">2.68856</span>
+    <span class="n">NOX</span><span class="p">:</span> <span class="o">-</span><span class="mf">17.79576</span>
+     <span class="n">RM</span><span class="p">:</span>   <span class="mf">3.80475</span>
+    <span class="n">AGE</span><span class="p">:</span>   <span class="mf">0.00075</span>
+    <span class="n">DIS</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.47576</span>
+    <span class="n">RAD</span><span class="p">:</span>   <span class="mf">0.30566</span>
+    <span class="n">TAX</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.01233</span>
+<span class="n">PTRATIO</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.95346</span>
+      <span class="n">B</span><span class="p">:</span>   <span class="mf">0.00939</span>
+  <span class="n">LSTAT</span><span class="p">:</span>  <span class="o">-</span><span class="mf">0.52547</span>
+</pre></div>
+
+
+<p>Con esto ya tendríamos una pequeña idea de cuales son los factores que más contribuyen a incrementar o disminuir el precio de la vivienda. Pero no vayamos a sacar conclusiones precipitadas como han hecho en su día <a href="http://www.bbc.com/news/magazine-22223190" target="_blank">Reinhart y Rogoff</a> y visualicemos los datos primero.</p>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">plot_feature</span><span class="p">(</span><span class="n">feature</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">feature_names</span> <span class="o">==</span> <span class="n">feature</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="n">f</span><span class="p">],</span> <span class="n">boston</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="n">f</span><span class="p">],</span> <span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="n">f</span><span class="p">]</span><span class="o">*</span><span class="n">lr</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">+</span> <span class="n">lr</span><span class="o">.</span><span class="n">intercept_</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Predicted value&#39;</span><span class="p">,</span> <span class="s1">&#39;Actual value&#39;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Median value in $1000&#39;s&quot;</span><span class="p">)</span>
+<span class="n">plot_feature</span><span class="p">(</span><span class="s1">&#39;AGE&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="age" src="https://pybonacci.org/images/2015/04/age.png"></p>
+<p>En este caso hemos representado el precio medio la vivienda frente a la proporción de viviendas anteriores a 1940 que hay en la zona. Y como poder ver cláramente, emplear sólo un parámetro (AGE) para determinar el precio de la vivienda mediante una línea recta no parece lo ideal. Pero si tomamos en cuenta todas las variables las predicciones posiblemente mejoren.</p>
+<p>Por tanto vamos a utilizar el modelo ya entrenado para predecir los precios de las viviendas. Aunque en este caso no vamos a utilizar datos nuevos, sino los mismos datos que hemos empleado para entrenar el modelo y así ver las diferencias.</p>
+<div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">target</span> <span class="o">-</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Histograma de residuales&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="s1">&#39;Media de residuales: {:.3e}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">boston</span><span class="o">.</span><span class="n">target</span> <span class="o">-</span> <span class="n">predictions</span><span class="p">)),</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="hist" src="https://pybonacci.org/images/2015/04/hist.png"></p>
+<p>Podemos ver que el error medio es despreciable y que la mayoría de los valores se concentran entorno al 0. Pero, ¿cómo hemos llegado a esos valores?</p>
+<p>La idea detrás de la regresión lineal es encontrar unos coeficientes $\beta$ que satisfagan</p>
+<p>$$y = X\beta,$$</p>
+<p>donde $X$ es nuestra matriz de datos e $y$ son nuestros valores objetivo. Puesto que es muy poco probable que a partir de nuestros valores de $X$ obtengamos los coeficientes que plenamente satisfagan la ecuación, es necesario añadir un término de error $\varepsilon$, tal que</p>
+<p>$$y = X\beta + \varepsilon.$$</p>
+<p>Con el fin de obtener ese conjunto de coeficientes $\beta$ que relacionan $X$ con $y$, <code>LinearRegression</code> recurre al método de mínimos cuadrados</p>
+<p>$$\underset{\beta}{min\,} {|| X \beta - y||_2}^2.$$</p>
+<p>Para éste problema también existe una solución analítica,</p>
+<p>$$\beta = (X^T X)^{-1}X^Ty,$$</p>
+<p>pero, ¿qué ocurre si nuestros datos no son independientes? En ese caso, $X^T X$ no es invertible y si contamos con columnas que son función de otras, o están de alguna manera correlacionadas, la estimación por mínimos cuadrados se vuelve altamente sensible a errores aleatorios incrementándose la varianza.</p>
+<h4>Regularización</h4>
+<p>Para esos casos emplearemos el modelo <code>Ridge</code> que añade un factor de regularización $\alpha$ que en español se conoce como <a href="http://es.wikipedia.org/wiki/Regularización_de_Tíjonov" target="_blank">factor de Tíjinov</a>.</p>
+<p>$$\underset{\beta}{min\,} {{|| X \beta - y||_2}^2 + \alpha {||\beta||_2}^2},$$</p>
+<p>y así la solución analítica queda como</p>
+<p>$$\beta = (X^T X + \alpha^2I)^{-1}X^Ty.$$</p>
+<p>Veamos un ejemplo. Para ello, en vez de cargar un dataset crearemos nosotros uno con tres atributos, y donde sólo dos sean linealmente independientes. Para ello utilizamos la función <a href="http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_regression.html" target="_blank"><code>make_regression</code></a>.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="n">reg_data</span><span class="p">,</span> <span class="n">reg_target</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">effective_rank</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Nos interesará también optimizar el valor de $\alpha$. Eso lo haremos con la validación cruzada mediante el objeto <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeCV.html" target="_blank"><code>RidgeCV</code></a> que emplea una técnica similar al <em>leave-one-out cross-validation</em> (LOOCV), i.e., dejando uno fuera para test mientras entrena con el resto de las muestras.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">RidgeCV</span>
+</pre></div>
+
+
+<p>A la hora de crear el objeto le vamos a indicar los valores de $\alpha$ a evaluar. También guardamos los datos que obtenemos al realizar la validación cruzada con <code>store_cv_values=True</code> para representarlos gráficamente.</p>
+<div class="highlight"><pre><span></span><span class="c1"># creamos un numpy array con los valores de alpha que queremos evaluar</span>
+<span class="n">alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># que pasamos a nuestro modelo RidgeCV, guardando los resultados</span>
+<span class="n">rcv</span> <span class="o">=</span> <span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">,</span> <span class="n">store_cv_values</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">rcv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">reg_data</span><span class="p">,</span> <span class="n">reg_target</span><span class="p">)</span>
+<span class="c1"># representamos gráficamente el error en función de alpha</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">rcv</span><span class="o">.</span><span class="n">cv_values_</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="s1">&#39;alpha que minimiza el error: {:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rcv</span><span class="o">.</span><span class="n">alpha_</span><span class="p">),</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="ridgecv" src="https://pybonacci.org/images/2015/04/ridgecv.png"></p>
+<p>Con <code>rcv.alpha_</code> obtenemos el valor de $\alpha$ que nuestro método <code>RidgeCV</code> ha considerado minimiza el error, lo cual también acabamos de comprobar gráficamente.</p>
+<p>Pero métodos para regresión lineal hay muchos, y en la <a href="http://scikit-learn.org/stable/modules/linear_model.html#" target="_blank">documentación de scikit-learn</a> podréis encontrar una descripción bastante completa de cada alternativa.</p>
+<h3><a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/Machine%20Learning/Regresión%20lineal.ipynb#Regresión-no-lineal" target="_blank">Regresión no lineal</a></h3>
+<p>Ahora bien, ¿qué hacer cuando la relación no es lineal y creemos que un polinomio haría un mejor ajuste? Si tomamos como ejemplo una función $f$ que toma la forma</p>
+<p>$$f(x) = a + bx + cx^2 $$</p>
+<p>la función $f$ es no lineal en función de $x$ pero si es lineal en función de los parámetros desconocidos $a$, $b$, y $c$. O visto de otra manera: podemos sustituir nuestras variables $x$ por un array $z$ tal que</p>
+<p>$$ z = [1, x, x^2] $$</p>
+<p>con el que podríamos reescribir nuestra función $f$ como</p>
+<p>$$ f(z) = az_0 + bz_1 + cz_2$$</p>
+<p>Para ello en <code>scikit-learn</code> contamos con la herramienta <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html" target="_blank"><code>PolynomialFeatures</code></a>. Veamos un ejemplo.</p>
+<p>En este caso vamos a tomar la función <em>seno</em> entre 0 y 2$\pi$ a la que añadiremos un poco de ruido.</p>
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sin ruido&#39;</span><span class="p">)</span>
+<span class="c1"># añadimos algo de ruido</span>
+<span class="n">xr</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">yr</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;con ruido&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="seno" src="https://pybonacci.org/images/2015/04/seno.png"></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">Ridge</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+</pre></div>
+
+
+<p>Scikit-learn tiene un objeto <a href="http://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html" target="_blank"><code>PolynomialFeatures</code></a> que nos va a servir para convertir nuestra variable $x$ en un array $z$ del tipo $z = [1, x, x^2, \ldots, n^n]$, que es lo que nos interesa.</p>
+<p>El resultado de esa transformación se la pasamos a nuestro modelo <code>Ridge</code>. Para facilitar la tarea en este tipo de casos —donde se realizan varios pasos que van desde el pre-tratamiento de los datos hasta un posible post-tratamiento pasando por el entrenamiento—, podemos hacer uso de las <a href="http://scikit-learn.org/stable/modules/pipeline.html" target="_blank"><code>Pipeline</code></a> que nos permiten encadenar multiples estimadores en uno. Esto es especialmente útil cuando hay secuencia de pasos predefinidos en el procesado de datos con, por ejemplo, selección de atributos, normalización y clasificación.</p>
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sin ruido&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;con ruido&#39;</span><span class="p">)</span>
+<span class="c1"># convertimos nuestro array en un vector columna</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">xr</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="c1"># utilizamos un bucle para probar polinomios de diferente grado</span>
+<span class="k">for</span> <span class="n">degree</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="c1"># utilizamos Pipeline para crear una secuencia de pasos</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="p">),</span> <span class="n">Ridge</span><span class="p">())</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;degree </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">degree</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="senoridge" src="https://pybonacci.org/images/2015/04/senoridge.png"></p>
+<p>Acabamos de utilizar un modelo <code>Ridge</code> que implementa regularización, pero sin optimizar. ¿Qué pasaría si optimizamos el parámetro de regularización $alpha \alpha$ con <code>RidgeCV</code>?</p>
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sin ruido&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;con ruido&#39;</span><span class="p">)</span>
+<span class="c1"># convertimos nuestro array en un vector columna</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">xr</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="c1"># utilizamos un bucle para probar polinomios de diferente grado</span>
+<span class="k">for</span> <span class="n">degree</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]:</span>
+    <span class="c1"># utilizamos Pipeline para crear una secuencia de pasos</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="p">),</span> <span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span><span class="o">=</span><span class="n">alphas</span><span class="p">))</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;degree </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">degree</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Si comparamos esta última gráfica con la anterior vemos que ahora las predicciones se han igualado entre si ofreciendo los polinomios de diferente grado predicciones prácticamente idénticas. Eso es porque la regularización tiende a penalizar la complejidad de los modelos tratando de evitar el sobreajuste (<em>overfitting</em>).</p>
+<h3><a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/Machine%20Learning/Regresión%20logística.ipynb" target="_blank">Regresión logística</a></h3>
+<p>Podemos clasificar de dos formas, mediante discriminación o asignando probabilidades. Discriminando, asignamos a cada $x$ una de las $K$ clases $C_k$. Por contra, desde un punto de vista probabilístico, lo que haríamos es asignar a cada $x$ la probabilidad de pertenecer a la clase $C_k$. El tipo de clasificación que realicemos es a discreción del usuario y muchas veces dependerá de la distribución de los datos o de los requisitos que nos imponga el cliente. Por ejemplo, hay campeonatos en Kaggle donde lo que se pide es identificar la clase —<a href="http://www.kaggle.com/c/digit-recognizer/data" target="_blank">Digit Recognizer</a>—, pero también puede ser un requisito el determinar la probabilidad de pertecer a una clase determinada —<a href="http://www.kaggle.com/c/otto-group-product-classification-challenge/details/evaluation" target="_blank">Otto Group Product Classification Challenge</a>.</p>
+<p>En scikit-learn podemos obtener clasificaciones de ambas maneras una vez entrenado el modelo.</p>
+<ul>
+<li><code>modelo.predict()</code>, para asignar una categoría.</li>
+<li><code>modelo.predict_proba()</code>, para determinar la probabilidad de pertenencia.</li>
+</ul>
+<p>Aquí nos centraremos en la parte probabilística, que espero nos dé una visión más ampliar, y a su vez nos servirá para asignar una categoría si definimos un <a href="https://es.wikipedia.org/wiki/Hiperplano">hiperplano</a>.</p>
+<p>Para modelos probabilísticos lo más conveniente, en el caso de contar con dos categorías, es la representación binaria donde contamos con una única variable objetivo $t \in &#123;0,1&#125;$ tal que $t=0$ representa la clase $C_1$ y $t=1$ representa la clase $C_2$. Podemos considerar que el valor de $t$ representa la probabilidad de que la clase sea $C_2$, con los valores de probabilidad tomando valores entre $0$ y $1$.</p>
+<p>Veamos un ejemplo.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+
+<p>Con la función <code>make_classification</code> de scikit-learn, creamos un conjunto de datos para clasificar. Para empezar vamos a contar con sólo un atributo o </em>feature</em> y dos clases o categorías. Los categorías van a estar separadas, pero permitiremos un cierto grado de solapamiento a través del parámetro <code>class_sep</code>; así, la clasificación probabilística cobra más sentido.</p>
+<div class="highlight"><pre><span></span><span class="c1"># con el parámetro random_state nos aseguramos obtener siempre lo mismo</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">class_sep</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">27</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="class" src="https://pybonacci.org/images/2015/04/class.png"></p>
+<p>En regresión logística los que vamos a hacer es calcular las probabilidades $p(C_k|x)$. La función logística o <a href="http://es.wikipedia.org/wiki/Función_sigmoide">sigmoide</a> nos va a permitir definir esas probabilidades y viene definida como</p>
+<p>$$f(x) = \frac{1}{1 + \exp(-k(x-x_0))} $$</p>
+<p>Como veremos a continuación, la sigmoide tiene forma de <em>S</em> y la función logística juega un papel muy importante en muchos algoritmos de clasificación. Pero no es la única función de ese tipo; también podemos encontrarnos las función arcotangente, tangente hiperbólica o <a href="https://en.wikipedia.org/wiki/Softmax_function">softmax</a> entre otras.</p>
+<p>Como es costumbre en scikit-learn, primero definimos el modelo que vamos a emplear que será <code>LogisticRegression</code>. Lo cargamos con los parámetros por defecto y lo entrenamos.</p>
+<div class="highlight"><pre><span></span><span class="n">lr</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Por defecto, en Jupyter, nos va a imprimir los parámetros con los que se ha entrenado el modelo. Una vez entrenado podemos predecir las probabilidades de pertenencia a cada categoría. Para ello, como ya hemos dicho, utilizaremos la función <code>predict_proba()</code> que toma como datos de entrada los atributos $X$.</p>
+<p>Lo que nos devuelve la función <code>predict_proba()</code> es un array de dimensiones (n atributos, n clases). A nosotros sólo nos va a interesar representar la segunda columna, es decir, $p(C_1|x)$, pues sabemos que $p(C_1|x) = 1 - p(C_0|x)$.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sigmoide&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="sigmoide" src="https://pybonacci.org/images/2015/04/sigmoide.png"></p>
+<p>Se aprecia claramente la curva en forma de <em>S</em> de la función logística que es lo que estábamos buscando. Esto nos dice que un punto con $x=0$ tiene aproximadamente un 50 % de probabilidades de pertenecer a cualquiera de las dos categorías.</p>
+<p>Si a partir de las probabilidades quisiesemos hacer una clasificación por categorías no tendríamos más que definir un valor umbral. Es decir, cuando la función logística asigna una probabilidad mayor a, por ejemplo, 0.5 entonces asignamos esa categoría. Eso es básicamente lo que hace <code>predict()</code> tal y como podemos ver a continuación.</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;real&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;categoría&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="sigmoideumbral" src="https://pybonacci.org/images/2015/04/sigmoideumbral.png"></p>
+<h2>Conclusión</h2>
+<p>Los métodos que hemos visto en ésta segunda parte son de los más sencillos que hay, pero son la base fundamental sobre la que se asientan otros métodos mucho más complejos. Por ejemplo, dentro de una red neuronal, cada neurona representa una función logística, y el conjunto de ellas es capaz de reconocer objetos en imágenes. Sencillamente impresionante.</p>
+<p>En la tercera entrega de ésta serie seguiremos viendo métodos de aprendizaje supervisado pero con un enfoque ya más práctico. También veremos cómo competir en Kaggle a través de sus tutoriales; y una vez hayamos adquirido algo de confianza, pasar a las competiciones. La dinámica es la misma, lo que cambia es el premio.</p>
+<p><img alt="mnist" src="https://pybonacci.org/images/2015/04/mnist.png"></p>
+<p>Espero que os haya gustado. Cualquier comentario o sugerencia es bienvenido.</p>
+<h2>Referencias</h2>
+<p>Bishop, C. (2006). <em>Pattern recognition and machine learning</em>. New York: Springer.</p>
+<p>Hauck, T. (2014). <em>Scikit-learn Cookbook</em>. Birmingham, U.K.: Packt Publishing.</p>
+<p>Pedregosa, F., Varoquaux, G., Gramfort, A. et al. (2011). Scikit-learn: Machine Learning in Python. <em>Journal of Machine Learning Research</em>, 12, pp. 2825-2830.</p>
+<p>Richert, W. and Coelho, L. (2013). <em>Building Machine Learning Systems with Python</em>. Birmingham: Packt Publishing.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/regresion-lineal.html" class="tag">regresión lineal</a>
+                    <a href="http://pybonacci.github.io/tag/regresion-logistica.html" class="tag">regresión logística</a>
+                    <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

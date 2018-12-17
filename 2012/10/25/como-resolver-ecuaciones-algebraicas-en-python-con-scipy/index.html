@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Cómo resolver ecuaciones algebraicas en Python con SciPy | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Cómo resolver ecuaciones algebraicas en Python con SciPy</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 25 octubre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En este artículo vamos a utilizar las rutinas de búsqueda de raíces ya disponibles en el módulo <a href="http://docs.scipy.org/doc/scipy/reference/optimize.html#root-finding"><code>scipy.optimize</code></a> para <strong>resolver ecuaciones algebraicas con Python</strong>. Ya vimos hace tiempo <a href="https://pybonacci.org/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/" title="¿Cómo encontrar el mínimo de una función usando scipy?">cómo encontrar el mínimo de una función con SciPy</a>, y también <a href="https://pybonacci.org/2012/04/18/ecuaciones-no-lineales-metodo-de-biseccion-y-metodo-de-newton-en-python/" title="Ecuaciones no lineales: método de bisección y método de Newton en Python">cómo implementar los métodos de la bisección y de Newton en Python</a>. Ahora, además, exploraremos el caso de <strong>sistemas de ecuaciones</strong>.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3, numpy 1.6.2 y scipy 0.11.</strong></em></p>
+<h2>Ejemplo básico: métodos de Brent y de Newton</h2>
+<p>Aunque el método de la bisección es muy conocido porque conceptualmente es muy sencillo de entender, nos vamos a olvidar de él y vamos a utilizar en su lugar el <strong>método de Brent</strong>, que viene implementado en SciPy en la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.brentq.html"><code>scipy.optimize.brentq</code></a>, ya que <a href="http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html#scalar-functions">según la documentación</a> es la mejor opción. El <a href="http://en.wikipedia.org/wiki/Brent%27s_method">método de Brent</a> es un algoritmo complicado que combina el método de la bisección, el de la secante e interpolación cuadrática inversa: como el método de la bisección, tiene convergencia garantizada siempre que demos un intervalo $[a, b]$ donde $f(a) f(b) &lt; 0$; es decir, que haya un cambio de signo en el intervalo.</p>
+<!--more-->
+
+<p>En el caso en que conozcamos un valor próximo a la solución, seguiremos utilizando el método de Newton o el de la secante a través de la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.newton.html"><code>scipy.optimize.newton</code></a>, que selecciona uno u otro en el caso de que le pasemos la función derivada o no. Vamos a resolver este ejemplo que me acabo de inventar:</p>
+<p style="text-align:center">
+  $\displaystyle e^{x / 3} \cos{x} + 10 \sin{3 x} = x^2 / 4$
+</p>
+
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="Ecuación 1" src="https://pybonacci.org/images/2012/10/ecuacion1.png"></p>
+<p>Antes que nada debemos definir la función que va a representar la ecuación. Todas las subrutinas de búsqueda de raíces en realidad buscan ceros de funciones, así que debemos escribir</p>
+<p>$f(x) \equiv \displaystyle e^{x / 3} \cos{x} + 10 \sin{3 x} - x^2 / 4 = 0$</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ecuación no lineal.</span>
+<span class="sd">    Asume que se ha importado NumPy de la forma</span>
+<span class="sd">      import numpy as np</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">4</span>
+</pre></div>
+
+
+<p>Vamos a buscar primero la solución que vemos que está entre 4 y 5. Para ello, utilizamos el método de Brent:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">brentq</span>
+<span class="n">sol1</span> <span class="o">=</span> <span class="n">brentq</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">sol1</span>  <span class="c1"># 4.40989799172</span>
+</pre></div>
+
+
+<p>Sencillo, ¿no? Ahora si queremos buscar la solución que está cerca de 2, podemos probar el método de la secante:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">newton</span>
+<span class="n">sol2</span> <span class="o">=</span> <span class="n">newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">sol2</span>  <span class="c1"># 2.17349784856</span>
+</pre></div>
+
+
+<p>Más sencillo todavía 😉 estas son las dos soluciones:<figure id="attachment_1088" style="width: 374px" class="wp-caption aligncenter"></p>
+<p><img alt="Soluciones de la ecuación 1" src="https://pybonacci.org/images/2012/10/ecuacion1_soluciones.png"></p>
+<p style="text-align:center">
+  <h2>
+    Aplicación: funciones implícitas
+  </h2>
+
+  <p>
+    Podemos utilizar estos métodos de búsqueda de raíces de ecuaciones algebraicas para <strong>representar funciones implícitas</strong>. Mientras que las funciones explícitas vienen dadas de la forma $y = f(x)$, las implícitas están expresadas como $F(x, y) = 0$, de tal forma que no es posible «despejar» una variable en función de la otra. Sin embargo, podemos obtener una representación siguiendo el siguiente método:
+  </p>
+
+  <ol>
+    <li>
+      Discretizamos el intervalo $[x_0, x_{N - 1}]$ en $N$ elementos.
+    </li>
+    <li>
+      Para cada valor $\tilde{x}_i$ con $i \in 0, ..., N - 1$ resolvemos la ecuación $F(\tilde{x}_i, y) = 0$ y almacenamos la solución en $y_i$.
+    </li>
+    <li>
+      Proseguimos hasta que tengamos la lista de valores $y_0, y_1, ..., y_{N - 1}$.
+    </li>
+  </ol>
+
+  <p>
+    Lo bueno de este algoritmo es que, una vez dado el primer paso, para el siguiente tenemos un valor muy cerca de la solución, por lo que podemos usar métodos de convergencia rápida como el de Newton.
+  </p>
+
+  <p>
+    Vamos a tomar un ejemplo con el que me encontré el otro día mientras estudiaba Aerotermodinámica. Tenemos una tobera cuya área transversal viene definida, en función de la coordenada &#040;x&#041; sobre el eje, por
+  </p>
+
+  <p>
+    $A(x) = \begin{cases} 2 x^3 - 3 x^2 + 2 & 0 \leq x \le 1 &#092;\ -\frac{3}{8} x^3 + \frac{9}{4} x^2 - \frac{27}{8} x + \frac{5}{2} & 1 \leq x \le 3 \end{cases}$
+  </p>
+
+  <p>
+    y que tiene esta pinta:
+  </p>
+
+    :::python
+    x = np.linspace(0, 3, 151)
+    def A(x):
+        """Área transversal de la tobera.
+
+        """
+        def A1(x):
+            return 2.0 * x ** 3 - 3.0 * x ** 2 + 2.0
+
+        def A2(x):
+            return -3.0 * x ** 3 / 8.0 + 9.0 * x ** 2 / 4.0 - 27.0 * x / 8.0 + 5.0 / 2.0
+
+        return np.piecewise(x, [(0.0 &lt;= x) & (x &lt; 1.0), (1.0 &lt;= x) & (x &lt;= 3.0)], [A1, A2])
+
+    plt.fill_between(x, np.sqrt(A(x) / np.pi), -np.sqrt(A(x) / np.pi), facecolor="#eebb22")
+    plt.xlim((0, 3))
+    plt.title("Tobera")
+    plt.xlabel("x (m)")
+    plt.ylabel("Radio (dm)")
+
+    <p>
+        <a href="https://pybonacci.org/images/2012/10/tobera.png"><img class="aligncenter size-full wp-image-1089" title="Tobera" alt="" src="https://pybonacci.org/images/2012/10/tobera.png" height="279" width="397" srcset="https://pybonacci.org/wp-content/uploads/2012/10/tobera.png 397w, https://pybonacci.org/wp-content/uploads/2012/10/tobera-300x210.png 300w" sizes="(max-width: 397px) 100vw, 397px" /></a>
+      </p>
+
+      <p>
+        <strong>Nota</strong>: Recuerda que puedes leer en Pybonacci <a href="https://pybonacci.org/2012/10/10/funciones-definidas-a-trozos-con-arrays-de-numpy/">cómo definir funciones definidas a trozos en NumPy</a>.
+      </p>
+
+      <p>
+        Y quiero conocer la distribución del número de Mach $M$ a lo largo de la misma, utilizando la ecuación
+      </p>
+
+      <p>
+        $\displaystyle \frac{A(x)}{A^*} = \frac{1}{M(x)} \left( \frac{2}{1 + \gamma} \left( 1 + \frac{\gamma - 1}{2} M(x)^2 \right) \right)^{\frac{\gamma + 1}{2 (\gamma - 1)}}$
+      </p>
+
+      <p>
+        donde $A^*$ es el área crítica y $\gamma = 1.4$ para el caso del aire. Date cuenta de que es imposible despejar $x$ en función de $M$ o viceversa, de tal forma que tenemos que resolver la relación implícita que existe entre estas variables. Este es el código:
+    </p>
+
+    :::python
+    from scipy.optimize import brentq, newton
+    def rel(M, gamma=1.4):
+        """Parte derecha de la relación entre el número de Mach $M$
+        y la relación de áreas $A / A^*$.
+        """
+        return (2 * (1 + (gamma - 1) * M ** 2 / 2) / (gamma + 1)) ** ((gamma + 1) / 2 / (gamma - 1)) / M
+    def eq(M, A):
+        """Función implícita entre el número de Mach y la relación
+        de áreas.
+        """
+        return rel(M) - A
+    # Para cada valor de x resolvemos la ecuación en M
+    M = np.empty_like(x)
+    # El primer paso lo damos con el método de Brent
+    M[0] = brentq(eq, 0.001, 1, args=(A(x[0:1]),))
+    # Comenzamos a iterar
+    for i in xrange(1, len(x)):
+        # El valor inicial para el método de Newton es la solución del
+        # paso anterior
+        M[i] = newton(eq, M[i - 1], args=(A(x[i - 1:i]),))
+    # Representamos la solución
+    plt.plot(x, M)
+    plt.plot(x, np.ones_like(x), 'k--')
+    plt.title(u"Distribución de $M$ a lo largo del eje de la tobera")
+    plt.ylabel("M")
+    plt.xlabel("x (m)")
+    plt.annotate(s=u"Garganta", xy=(1.0, 1.0), xytext=(0.5, 1.6), arrowprops=dict(arrowstyle = "-&gt;"))
+
+  <p>
+    <a href="https://pybonacci.org/images/2012/10/distribucion_mach.png"><img class="aligncenter size-full wp-image-1087" title="Distribución número de Mach" alt="" src="https://pybonacci.org/images/2012/10/distribucion_mach.png" height="281" width="388" srcset="https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach.png 388w, https://pybonacci.org/wp-content/uploads/2012/10/distribucion_mach-300x217.png 300w" sizes="(max-width: 388px) 100vw, 388px" /></a>
+  </p>
+
+  <p>
+    Otra cosa buena de este método es que, en relalidad, este tipo de funciones implícitas definen curvas con más de una «rama», pero físicamente para la solución de nuestro problema solo una suele ser la correcta, como es este caso. Si resolvemos la ecuación de esta manera podemos solucionar la rama que nos interesa.
+  </p>
+
+  <h2>
+    Sistemas de ecuaciones no lineales
+  </h2>
+
+  <p>
+    Si estamos en el caso de tener un sistema de ecuaciones no lineales, SciPy también tiene métodos para resolverlos, a través del paquete MINPACK. Utilizaremos la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root.html"><code>root</code></a>, que además soporta varios métodos de resolución en función de si proporcionamos el jacobiano del sistema o no.
+  </p>
+
+  <p>
+    Vamos a resolver este ejemplo extraído de la documentación de SciPy:
+  </p>
+
+  <p>
+    $\begin{cases} x \cos{y} & = 4 &#092;\ x y - y & = 5 \end{cases}$
+  </p>
+
+  <p>
+    Una vez más, tenemos que transformar este sistema en $\vec{f}(\vec{x}) = \vec{0}$, donde las flechas indican vectores. En este caso,
+  </p>
+
+  <p>
+    $\vec{x} = \begin{pmatrix} x &#092;\ y \end{pmatrix}$
+  </p>
+
+  <p>
+    $\vec{f}(\vec{x}) \equiv \begin{pmatrix} x \cos{y} - 4 &#092;\ x y - y - 5 \end{pmatrix} = \vec{0}$
+  </p>
+
+  <p>
+    El código en Python será:
+  </p>
+
+    :::python
+    from scipy.optimize import root
+    def f(x):
+        """Sistema de dos ecuaciones con dos incógnitas.
+        """
+        return [
+            x[0] * np.cos(x[1]) - 4,
+            x[1]*x[0] - x[1] - 5
+        ]
+    sol = root(f, [1, 1], jac=False)  # Devuelve objecto Result
+    print sol.x  # Result.x contiene la solución
+
+  <p>
+    Y esto ha sido todo, no olvides hacernos llegar tus sugerencias y comentarios. ¡Un saludo!
+  </p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/ecuaciones-no-lineales.html" class="tag">ecuaciones no lineales</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                    <a href="http://pybonacci.github.io/tag/scipyoptimize.html" class="tag">scipy.optimize</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

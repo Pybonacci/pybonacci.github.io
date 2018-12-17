@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Estadística en Python con SciPy (I) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Estadística en Python con SciPy (I)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 21 abril 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Hoy vamos a ver cómo trabajar con variable aleatoria con el módulo <code>stats</code> de la biblioteca Scipy. Scipy viene con numerosas <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">distribuciones de probabilidad</a>, tanto discretas como continuas, y además pone a nuestra disposición herramientas para crear nuestras propias distribuciones y multitud de herramientas para hacer cálculos estadísticos. En esta primera parte nos centraremos en cómo manejar esas distribuciones y sus funciones de distribución, cómo representarlas con matplotlib y cómo definir nuevas distribuciones.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3, numpy 1.6.1, matplotlib 1.1.0 y scipy 0.10.1.</strong></em></p>
+<!--more-->
+
+<p><strong>Nota:</strong> En mi opinión la documentación de este módulo deja un poco que desear. No resulta demasiado didáctica, hay algunas imprecisiones y cosas que directamente no tienen sentido o están mal. En cuanto sepas manejarlo un poco puedes usar de referencia en primer enlace de la entrada.</p>
+<h2>Distribuciones de variable continua</h2>
+<p>Entre las muchas <a href="http://docs.scipy.org/doc/scipy/reference/stats.html#continuous-distributions">distribuciones continuas</a> que tiene SciPy vamos a ver un ejemplo de cómo manejar la distribución normal o gaussiana. Primero vamos a importar un par de módulos</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="kn">as</span> <span class="nn">st</span>
+</pre></div>
+
+
+<p>Todas las distribuciones continuas están definidas en función de dos <strong>parámetros</strong>: <code>loc</code> y <code>scale</code>, que juegan distinto papel en función de la distribución que manejemos. Por ejemplo, para la normal, <code>loc</code> es la media y por tanto el centro de la distribución y <code>scale</code> es la desviación típica y puede verse como un factor de escala (de ahí los nombres de los parámetros). Por otro lado, para la distribución uniforme, <code>loc</code> y <code>scale</code> son los extremos del intervalo en el que toma valores la variable.</p>
+<p>Tenemos dos formas de manejar las distribuciones: una de ellas es crear un objeto que represente a <strong>la distribución con los parámetros fijados</strong>, y acceder después a todos sus métodos («frozen distribution»), de esta manera:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">rv1</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>  <span class="c1"># Normal estándar</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">rv1</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Evaluamos la función de distribución en 0.5</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mf">0.69146246127401312</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">rv1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Densidad de probabilidad en el intervalo [0.0, 1.0]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.39894228</span><span class="p">,</span>  <span class="mf">0.39885921</span><span class="p">,</span>  <span class="mf">0.39861011</span><span class="p">,</span>  <span class="mf">0.39819528</span><span class="p">,</span>  <span class="mf">0.39761524</span><span class="p">,</span>
+        <span class="mf">0.39687072</span><span class="p">,</span>  <span class="mf">0.39596264</span><span class="p">,</span>  <span class="mf">0.39489214</span><span class="p">,</span>  <span class="mf">0.39366054</span><span class="p">,</span>  <span class="mf">0.39226937</span><span class="p">,</span>
+        <span class="mf">0.39072035</span><span class="p">,</span>  <span class="mf">0.38901539</span><span class="p">,</span>  <span class="mf">0.38715659</span><span class="p">,</span>  <span class="mf">0.38514623</span><span class="p">,</span>  <span class="mf">0.38298676</span><span class="p">,</span>
+        <span class="mf">0.38068082</span><span class="p">,</span>  <span class="mf">0.37823119</span><span class="p">,</span>  <span class="mf">0.37564085</span><span class="p">,</span>  <span class="mf">0.37291289</span><span class="p">,</span>  <span class="mf">0.37005059</span><span class="p">,</span>
+        <span class="mf">0.36705736</span><span class="p">,</span>  <span class="mf">0.36393672</span><span class="p">,</span>  <span class="mf">0.36069236</span><span class="p">,</span>  <span class="mf">0.35732807</span><span class="p">,</span>  <span class="mf">0.35384775</span><span class="p">,</span>
+        <span class="mf">0.35025541</span><span class="p">,</span>  <span class="mf">0.34655518</span><span class="p">,</span>  <span class="mf">0.34275126</span><span class="p">,</span>  <span class="mf">0.33884794</span><span class="p">,</span>  <span class="mf">0.33484957</span><span class="p">,</span>
+        <span class="mf">0.3307606</span> <span class="p">,</span>  <span class="mf">0.3265855</span> <span class="p">,</span>  <span class="mf">0.32232884</span><span class="p">,</span>  <span class="mf">0.31799518</span><span class="p">,</span>  <span class="mf">0.31358916</span><span class="p">,</span>
+        <span class="mf">0.30911541</span><span class="p">,</span>  <span class="mf">0.30457861</span><span class="p">,</span>  <span class="mf">0.29998342</span><span class="p">,</span>  <span class="mf">0.29533453</span><span class="p">,</span>  <span class="mf">0.29063661</span><span class="p">,</span>
+        <span class="mf">0.28589432</span><span class="p">,</span>  <span class="mf">0.28111231</span><span class="p">,</span>  <span class="mf">0.27629519</span><span class="p">,</span>  <span class="mf">0.27144753</span><span class="p">,</span>  <span class="mf">0.26657387</span><span class="p">,</span>
+        <span class="mf">0.26167871</span><span class="p">,</span>  <span class="mf">0.25676648</span><span class="p">,</span>  <span class="mf">0.25184154</span><span class="p">,</span>  <span class="mf">0.24690821</span><span class="p">,</span>  <span class="mf">0.24197072</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">rv2</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># Normal (2.0, 0.0)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">rv3</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>  <span class="c1"># Media -1.0 y varianza 0.5</span>
+</pre></div>
+
+
+<p>La otra manera sería llamar en cada momento a la función que queramos evaluar, pasando los parámetros correspondientes, de manera que no se crea una distribución concreta:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Función de distribución de una normal estándar en 0.5</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="mf">0.69146246127401312</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>  <span class="c1"># Densidad de una normal (-1.0, 0.5) en [0.0, 1.0]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.20755375</span><span class="p">,</span>  <span class="mf">0.19916976</span><span class="p">,</span>  <span class="mf">0.1909653</span> <span class="p">,</span>  <span class="mf">0.18294635</span><span class="p">,</span>  <span class="mf">0.17511819</span><span class="p">,</span>
+        <span class="mf">0.16748543</span><span class="p">,</span>  <span class="mf">0.16005198</span><span class="p">,</span>  <span class="mf">0.15282109</span><span class="p">,</span>  <span class="mf">0.14579538</span><span class="p">,</span>  <span class="mf">0.13897686</span><span class="p">,</span>
+        <span class="mf">0.13236692</span><span class="p">,</span>  <span class="mf">0.12596638</span><span class="p">,</span>  <span class="mf">0.11977553</span><span class="p">,</span>  <span class="mf">0.11379411</span><span class="p">,</span>  <span class="mf">0.10802137</span><span class="p">,</span>
+        <span class="mf">0.10245611</span><span class="p">,</span>  <span class="mf">0.09709665</span><span class="p">,</span>  <span class="mf">0.09194093</span><span class="p">,</span>  <span class="mf">0.08698648</span><span class="p">,</span>  <span class="mf">0.08223049</span><span class="p">,</span>
+        <span class="mf">0.0776698</span> <span class="p">,</span>  <span class="mf">0.07330098</span><span class="p">,</span>  <span class="mf">0.0691203</span> <span class="p">,</span>  <span class="mf">0.06512379</span><span class="p">,</span>  <span class="mf">0.06130727</span><span class="p">,</span>
+        <span class="mf">0.05766636</span><span class="p">,</span>  <span class="mf">0.05419651</span><span class="p">,</span>  <span class="mf">0.05089303</span><span class="p">,</span>  <span class="mf">0.04775112</span><span class="p">,</span>  <span class="mf">0.04476588</span><span class="p">,</span>
+        <span class="mf">0.04193231</span><span class="p">,</span>  <span class="mf">0.0392454</span> <span class="p">,</span>  <span class="mf">0.03670008</span><span class="p">,</span>  <span class="mf">0.03429126</span><span class="p">,</span>  <span class="mf">0.03201387</span><span class="p">,</span>
+        <span class="mf">0.02986284</span><span class="p">,</span>  <span class="mf">0.02783314</span><span class="p">,</span>  <span class="mf">0.0259198</span> <span class="p">,</span>  <span class="mf">0.02411789</span><span class="p">,</span>  <span class="mf">0.02242256</span><span class="p">,</span>
+        <span class="mf">0.02082904</span><span class="p">,</span>  <span class="mf">0.01933266</span><span class="p">,</span>  <span class="mf">0.01792884</span><span class="p">,</span>  <span class="mf">0.01661312</span><span class="p">,</span>  <span class="mf">0.01538113</span><span class="p">,</span>
+        <span class="mf">0.01422864</span><span class="p">,</span>  <span class="mf">0.01315155</span><span class="p">,</span>  <span class="mf">0.01214588</span><span class="p">,</span>  <span class="mf">0.01120776</span><span class="p">,</span>  <span class="mf">0.01033349</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Esto será útil cuando queramos hacer ajustes o estimaciones sobre los parámetros de la distribución, como veremos en la próxima entrega.</p>
+<p>Para quien no conozca los nombres en inglés, los métodos más importantes son</p>
+<ul>
+<li>Salida pseudoaleatoria («random variates» <code>rvs</code>)</li>
+<li>Función densidad de probabilidad («probability density function» <code>pdf</code>)</li>
+<li>Función de distribución («cumulative distribution function» <code>cdf</code>)</li>
+</ul>
+<p>y todos ellos, y alguno más, están <strong>vectorizados</strong>, lo que significa que les podemos pasar un array de NumPy y obtendremos un array de valores.</p>
+<h3>Representación gráfica</h3>
+<p>Como los métodos básicos están vectorizados, es muy sencillo representarlos gráficamente en la manera a la que estamos acostumbrados, utilizando arrays de NumPy. Simplemente tenemos que escribir</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="p">[]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y podemos obtener bonitas figuras como esta.<figure id="attachment_217" style="width: 448px" class="wp-caption aligncenter"></p>
+<p><img alt="Distribuciones normales" src="https://pybonacci.org/images/2012/04/normal_pdf1.png"></p>
+<h3>Definir distribuciones</h3>
+<p>La manera de crear nuestras propias distribuciones continuas con SciPy es extender la clase <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rv_continuous.html"><code>rv_continuous</code></a> y definir o bien su función de densidad o su función de distribución. Las clases y la herencia son conceptos de la <a href="http://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">Programación Orientada a Objetos</a>, pero no es nuestra intención meternos a fondo en estos temas. De igual manera que hemos hecho <code>rv = st.norm()</code> para crear un objeto distribución al que manipular, queremos un mecanismo parecido para hacer <code>rv = nueva_dist()</code>, y para eso hemos de definir <code>nueva_dist</code> primero.</p>
+<p>Por ejemplo, supongamos que queremos definir una distribución uniforme cuya función de densidad es</p>
+<p>$f(x) = -ln{x} quad x in (0, 1],$</p>
+<p>el código sería el siguiente</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">rv_continuous</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="k">class</span> <span class="nc">variable_gen</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+   <span class="o">....</span><span class="p">:</span>     <span class="s2">&quot;&quot;&quot;Variable aleatoria continua de distribución logarítmica.&quot;&quot;&quot;</span>
+   <span class="o">....</span><span class="p">:</span>     <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+   <span class="o">....</span><span class="p">:</span>         <span class="k">return</span> <span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+   <span class="o">....</span><span class="p">:</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">variable_gen</span><span class="err">?</span>
+<span class="n">Type</span><span class="p">:</span>       <span class="nb">type</span>
+<span class="n">Base</span> <span class="n">Class</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="nb">type</span> <span class="s1">&#39;type&#39;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+<span class="n">String</span> <span class="n">Form</span><span class="p">:</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">variable_gen</span><span class="s1">&#39;&amp;gt;</span>
+<span class="n">Namespace</span><span class="p">:</span>  <span class="n">Interactive</span>
+<span class="n">Definition</span><span class="p">:</span> <span class="n">variable_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="n">Docstring</span><span class="p">:</span>  <span class="n">Variable</span> <span class="n">aleatoria</span> <span class="n">continua</span> <span class="n">de</span> <span class="n">distribución</span> <span class="n">logarítmica</span><span class="o">.</span>
+<span class="n">Constructor</span> <span class="n">information</span><span class="p">:</span>
+ <span class="n">Definition</span><span class="p">:</span><span class="n">variable_gen</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">momtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">xa</span><span class="o">=-</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">xb</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span> <span class="n">badvalue</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">longname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">extradoc</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">variable_gen</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;variable&quot;</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">variable</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ipython2</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span> <span class="ne">RuntimeWarning</span><span class="p">:</span> <span class="n">divide</span> <span class="n">by</span> <span class="n">zero</span> <span class="n">encountered</span> <span class="ow">in</span> <span class="n">log</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">inf</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">quad</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">inf</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">22</span><span class="p">]:</span> <span class="n">quad</span><span class="p">(</span><span class="n">variable</span><span class="o">.</span><span class="n">pdf</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="n">inf</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">22</span><span class="p">]:</span> <span class="p">(</span><span class="mf">0.9999999999999962</span><span class="p">,</span> <span class="mf">6.149525333398742e-12</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Lo que hemos hecho ha sido</p>
+<ol>
+<li>Definir la clase <code>variable_gen</code>, que hereda las propiedades de <code>rv_continuous</code>.</li>
+<li>Escribir la cadena de documentación de la clase.</li>
+<li>Definir su función de densidad de probabilidad.</li>
+<li>Crear una nueva variable, <code>variable</code>, en la que guardamos un objeto distribución cuya variable recorre el intervalo $[0.0, 1.0]$ (nótese que es cerrado).</li>
+<li>Comprobar qué pasa en 0. Nada que no supiéramos.</li>
+<li>Comprobar que la función densidad está normalizada integrándola sobre la recta real (el primer número es el valor de la integral y el segundo una estimación del error, como podemos ver en la documentación de la función <code>&lt;a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.quad.html"&gt;quad&lt;/a&gt;)</code>.</li>
+</ol>
+<p>A partir de ahora podemos hacer lo mismo que hemos hecho antes: o bien crear una distribución fija o acceder a los métodos de la misma directamente. Aunque sólo hemos dado la función de densidad, comprobamos que también podemos llamar al resto:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">23</span><span class="p">]:</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">variable</span><span class="p">()</span>  <span class="c1"># Nótense los paréntesis</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">24</span><span class="p">]:</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">24</span><span class="p">]:</span> <span class="mf">0.84657359027997248</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">25</span><span class="p">]:</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">25</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>        <span class="p">,</span>  <span class="mf">0.09983307</span><span class="p">,</span>  <span class="mf">0.17137441</span><span class="p">,</span>  <span class="mf">0.23223723</span><span class="p">,</span>  <span class="mf">0.28616538</span><span class="p">,</span>
+        <span class="mf">0.33493698</span><span class="p">,</span>  <span class="mf">0.37959929</span><span class="p">,</span>  <span class="mf">0.42084431</span><span class="p">,</span>  <span class="mf">0.45916388</span><span class="p">,</span>  <span class="mf">0.49492574</span><span class="p">,</span>
+        <span class="mf">0.52841535</span><span class="p">,</span>  <span class="mf">0.55986072</span><span class="p">,</span>  <span class="mf">0.58944824</span><span class="p">,</span>  <span class="mf">0.61733311</span><span class="p">,</span>  <span class="mf">0.64364656</span><span class="p">,</span>
+        <span class="mf">0.66850105</span><span class="p">,</span>  <span class="mf">0.69199398</span><span class="p">,</span>  <span class="mf">0.71421058</span><span class="p">,</span>  <span class="mf">0.73522599</span><span class="p">,</span>  <span class="mf">0.75510704</span><span class="p">,</span>
+        <span class="mf">0.77391348</span><span class="p">,</span>  <span class="mf">0.79169908</span><span class="p">,</span>  <span class="mf">0.8085125</span> <span class="p">,</span>  <span class="mf">0.82439796</span><span class="p">,</span>  <span class="mf">0.83939582</span><span class="p">,</span>
+        <span class="mf">0.8535431</span> <span class="p">,</span>  <span class="mf">0.86687383</span><span class="p">,</span>  <span class="mf">0.87941944</span><span class="p">,</span>  <span class="mf">0.89120902</span><span class="p">,</span>  <span class="mf">0.90226958</span><span class="p">,</span>
+        <span class="mf">0.91262628</span><span class="p">,</span>  <span class="mf">0.92230257</span><span class="p">,</span>  <span class="mf">0.93132042</span><span class="p">,</span>  <span class="mf">0.93970041</span><span class="p">,</span>  <span class="mf">0.94746188</span><span class="p">,</span>
+        <span class="mf">0.95462303</span><span class="p">,</span>  <span class="mf">0.961201</span>  <span class="p">,</span>  <span class="mf">0.96721201</span><span class="p">,</span>  <span class="mf">0.97267137</span><span class="p">,</span>  <span class="mf">0.97759362</span><span class="p">,</span>
+        <span class="mf">0.98199253</span><span class="p">,</span>  <span class="mf">0.98588117</span><span class="p">,</span>  <span class="mf">0.98927201</span><span class="p">,</span>  <span class="mf">0.99217689</span><span class="p">,</span>  <span class="mf">0.99460713</span><span class="p">,</span>
+        <span class="mf">0.9965735</span> <span class="p">,</span>  <span class="mf">0.99808632</span><span class="p">,</span>  <span class="mf">0.99915544</span><span class="p">,</span>  <span class="mf">0.99979032</span><span class="p">,</span>  <span class="mf">1.</span>        <span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">26</span><span class="p">]:</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">26</span><span class="p">]:</span> <span class="mf">0.11391190950607678</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">27</span><span class="p">]:</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">27</span><span class="p">]:</span> <span class="mf">0.41700479602973284</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="mf">0.00019824204606004107</span>
+</pre></div>
+
+
+<h2>Distribuciones de variable discreta</h2>
+<p>Scipy también trae unas cuantas <a href="http://docs.scipy.org/doc/scipy/reference/stats.html#discrete-distributions">distribuciones discretas</a> para que no las tengamos que definir nosotros, y se usan de manera similar a las continuas. Por ejemplo, la distribución binomial:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">29</span><span class="p">]:</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># Experimento de Bernoulli 5 veces con probabilidad 0.5</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">30</span><span class="p">]:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">31</span><span class="p">]:</span> <span class="n">pk</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">32</span><span class="p">]:</span> <span class="n">pk</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">32</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.03125</span><span class="p">,</span>  <span class="mf">0.15625</span><span class="p">,</span>  <span class="mf">0.3125</span> <span class="p">,</span>  <span class="mf">0.3125</span> <span class="p">,</span>  <span class="mf">0.15625</span><span class="p">,</span>  <span class="mf">0.03125</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Para el caso de distribuciones discretas, la función de densidad se distribuye por la función de probabilidad («probability mass function» <code>pmf</code>).</p>
+<h3>Representación gráfica</h3>
+<p>Ahora representar gráficamente una distribución discreta tiene un poco más de enjundia que en el caso de distribuciones continuas. Para la función de probabilidad hay al menos dos opciones, en función de los gustos de cada cual: hacer un diagrama de barras con <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.bar"><code>bar</code></a> o uno de líneas verticales con <a href="http://matplotlib.sourceforge.net/api/pyplot_api.html#matplotlib.pyplot.vlines"><code>vlines</code></a>, como vemos en este fragmento de código:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">33</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pk</span><span class="p">)</span>  <span class="c1"># El segundo argumento da el extremo inferior de las líneas</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">33</span><span class="p">]:</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">34</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">pk</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">)</span>  <span class="c1"># Añadimos puntos en los extremos</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">34</span><span class="p">]:</span> <span class="p">[]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">35</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">_81</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># Se resta 0.5 para que las barras estén centradas</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">36</span><span class="p">]:</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Se obtienen resultados similares a estos:<figure id="attachment_232" style="width: 300px" class="wp-caption aligncenter"></p>
+<p><img alt="Binomial (5, 1/2)" src="https://pybonacci.org/images/2012/04/binomial5_05_pmf.png?w=300"></p>
+<p>Para la función de distribución, sabemos que en el caso discreto esta tiene discontinuidades de salto. Para no obtener una gráfica horrible con puntos unidos que no deberían estarlo, o bien hacemos otro diagrama de barras o utilizamos <strong>arrays enmascarados</strong> («masked arrays» suena menos chistoso). Los <a href="http://docs.scipy.org/doc/numpy/reference/maskedarray.generic.html#what-is-a-masked-array">masked arrays</a> con arrays de NumPy en los que, bien manualmente o bien siguiendo alguna regla o patrón, hemos marcado algunas entradas como inválidas. Son de utilidad cuando, por ejemplo, estamos recogiendo datos y queremos descartar los que sean erróneos o se alejen demasiado de la media.</p>
+<p>Si representamos gráficamente arrays enmascarados, matplotlib <em>no</em> unirá los puntos correspondientes a entradas inválidas, que es exactamente lo que queremos (como podemos leer <a href="http://stackoverflow.com/a/2543391/554319">en esta respuesta de StackOverflow</a>). Los elementos que queremos marcar como inválidos son aquellos en los que la función da un salto, por lo que comprobaremos la diferencia entre un elemento y el siguiente del array. Para ello usaremos la función <code>roll</code> de NumPy:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">40</span><span class="p">]:</span> <span class="n">cdf</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">41</span><span class="p">]:</span> <span class="n">deltas</span> <span class="o">=</span> <span class="n">cdf</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">cdf</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Array de diferencias</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">42</span><span class="p">]:</span> <span class="n">deltas</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">42</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.03125</span><span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.15625</span><span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.3125</span> <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.3125</span> <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.15625</span><span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.03125</span><span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">,</span>
+        <span class="mf">0.</span>     <span class="p">,</span>  <span class="mf">0.</span>     <span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">43</span><span class="p">]:</span> <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ma</span><span class="o">.</span><span class="n">masked_where</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">deltas</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">tol</span><span class="p">,</span> <span class="n">cdf</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">44</span><span class="p">]:</span> <span class="n">cdf</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">44</span><span class="p">]:</span>
+<span class="n">masked_array</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="o">--</span> <span class="mf">0.0</span> <span class="mf">0.0</span> <span class="mf">0.0</span> <span class="mf">0.0</span> <span class="o">--</span> <span class="mf">0.03125</span> <span class="mf">0.03125</span> <span class="mf">0.03125</span> <span class="mf">0.03125</span> <span class="mf">0.03125</span> <span class="mf">0.03125</span>
+ <span class="mf">0.03125</span> <span class="o">--</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="mf">0.1875</span> <span class="o">--</span> <span class="mf">0.5</span> <span class="mf">0.5</span> <span class="mf">0.5</span>
+ <span class="mf">0.5</span> <span class="mf">0.5</span> <span class="mf">0.5</span> <span class="mf">0.5</span> <span class="o">--</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="mf">0.8125</span> <span class="o">--</span>
+ <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="mf">0.96875</span> <span class="o">--</span> <span class="mf">1.0</span> <span class="mf">1.0</span> <span class="mf">1.0</span> <span class="mf">1.0</span><span class="p">],</span>
+             <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span> <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>
+ <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span>
+ <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>
+ <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span> <span class="bp">False</span>  <span class="bp">True</span> <span class="bp">False</span> <span class="bp">False</span>
+ <span class="bp">False</span> <span class="bp">False</span><span class="p">],</span>
+       <span class="n">fill_value</span> <span class="o">=</span> <span class="mf">1e+20</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y se obtiene un diagrama similar a este:<figure id="attachment_237" style="width: 300px" class="wp-caption aligncenter"></p>
+<p><img alt="Distribución binomial (5, 1/2)" src="https://pybonacci.org/images/2012/04/binomial5_05_cdf.png?w=300"></p>
+<h3>Definir distribuciones</h3>
+<p>Definir nuevas distribuciones discretas es aún más sencillo que en el caso continuo. Igual que antes, podemos crear una clase que extienda de, en este caso, <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rv_discrete.html"><code>rv_discrete</code></a>, pero ahora demás podemos construir la distribución directamente pasando los $(x_k, p_k)$ al constructor. Por ejemplo, si queremos construir una distribución discreta con los siguientes datos:</p>
+<table>
+  <tr>
+    <th>
+      $x_k$
+    </th>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      2
+    </td>
+
+    <td>
+      3
+    </td>
+
+    <td>
+      4
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      $p_k$
+    </th>
+
+    <td>
+      0.1
+    </td>
+
+    <td>
+      0.4
+    </td>
+
+    <td>
+      0.2
+    </td>
+
+    <td>
+      0.3
+    </td>
+  </tr>
+</table>
+
+<p>el código será el siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">45</span><span class="p">]:</span> <span class="n">xk</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">46</span><span class="p">]:</span> <span class="n">pk</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">47</span><span class="p">]:</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">rv_discrete</span><span class="p">(</span><span class="n">xk</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xk</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="p">(</span><span class="n">xk</span><span class="p">,</span> <span class="n">pk</span><span class="p">))</span>
+</pre></div>
+
+
+<p>y ya podemos acceder a todos los métodos que hemos visto anteriormente con normalidad.</p>
+<p>Aquí se termina la primera parte de esta introducción al cálculo estadístico con SciPy. Espero que te haya resultado útil; no olvides difundirlo en las redes sociales y comentar lo que te apetezca.</p>
+<p>¡Un saludo!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

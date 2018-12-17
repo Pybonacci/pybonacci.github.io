@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Como hacer un mapa muy bonito de España en ggplot2 | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Como hacer un mapa muy bonito de España en ggplot2</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 17 abril 2017</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p><em>(Este post apareció originalmente en <a href="http://blog.manugarri.com/making-a-beautiful-map-of-spain-in-ggplot2/" target="_blank">mi blog</a>).</em></p>
+<p>Hace unas semanas leí un artículo en el cual Timo Grossenbacher mostraba como consiguió hacer, en mi opinión, <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/" target="_blank">uno de los mapas más bonitos que he visto nunca</a>. Timo empleó la que es, en mi opinión, una de las librerias más expresivas y bellas que hay para hacer gráficos, <a href="http://ggplot2.org/" target="_blank">ggplot2</a>. La versión original de ggplot2 es para R, pero existe una versión de python no exhaustiva gracias a la buena gente de <a href="http://ggplot.yhathq.com/" target="_blank">Yhat</a>.</p>
+<p>Asi que por supuesto, tenía que replicarlo.</p>
+<p>Antes que nada, aquí está el mapa.</p>
+<p><img alt="Mapilla" src="http://i.imgur.com/MrNL3bE.png"></p>
+<p>El código empleado para hacer el mapa lo podeis descargar en <a href="https://github.com/manugarri/spain_census_map" target="_blank">github</a>. He compartido varias versiones del mapa para que se pueda observar como los diferentes cambios en las escalas afectan a la visualización.</p>
+<h1>Código.</h1>
+<p>Para empezar, importamos las librerías necesarias:</p>
+<div class="highlight"><pre><span></span><span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;/DIRECTORIO_DE_TRABAJO/&quot;</span><span class="p">)</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">rgdal</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;rgdal&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">rgeos</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;rgeos&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">rgdal</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;rgdal&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">raster</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;raster&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;http://cran.us.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;ggplot2&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="o">=</span><span class="s">&quot;http://cloud.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">viridis</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">repos</span><span class="o">=</span><span class="s">&quot;http://cloud.r-project.org&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">dplyr</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;dplyr&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;https://cloud.r-project.org/&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">gtable</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;gtable&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;https://cloud.r-project.org/&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">gtable</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">grid</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;grid&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;https://cloud.r-project.org/&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="nf">require</span><span class="p">(</span><span class="n">tidyr</span><span class="p">))</span> <span class="p">{</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;tidyr&quot;</span><span class="p">,</span> <span class="n">repos</span> <span class="o">=</span> <span class="s">&quot;https://cloud.r-project.org/&quot;</span><span class="p">)</span>
+<span class="nf">require</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>El siguiente paso es importar los datos. Tras mucho buscar, encontré un archivo shapefile con los municipios españoles en <a href="http://www.arcgis.com/home/item.html?id=2e47bb12686d4b4b9d4c179c75d4eb78" target="_blank">ArcGis</a>, sin ninguna atribución que pudiera encontrar.</p>
+<p>Para obtener los datos del censo español, hice uso de la *fantástica* herramienta de <a href="http://www.ine.es/censos2011_datos/cen11_datos_detallados.htm" target="_blank">extracción de datos</a> proporcionada por el Instituto Nacional de Estadística. La herramienta es una pesadilla en términos de usabilidad, así que si queréis simplemente hacer el mapa he compartido los datos en el repositorio.</p>
+<div class="highlight"><pre><span></span><span class="n">data_spain</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;Censuses2011_2.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span>  
+<span class="n">data_spain</span><span class="o">$</span><span class="n">municipality_code</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="nf">separate</span><span class="p">(</span><span class="n">data_spain</span><span class="p">,</span> <span class="n">Municipality.of.residence</span><span class="p">,</span> <span class="s">&quot;municipality_code&quot;</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)</span><span class="o">$</span><span class="n">municipality_code</span><span class="p">)</span>  
+<span class="n">data_spain</span><span class="o">$</span><span class="n">People</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">data_spain</span><span class="o">$</span><span class="n">People</span><span class="p">)</span>  
+<span class="n">data_spain</span><span class="o">$</span><span class="n">Average.age</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">data_spain</span><span class="o">$</span><span class="n">Average.age</span><span class="p">)</span>
+
+<span class="c1">#Cargamos el shapefile y lo convertimos en un dataframe</span>
+<span class="n">municipalities_spain</span> <span class="o">&lt;-</span> <span class="nf">readOGR</span><span class="p">(</span><span class="s">&quot;Municipios_ETRS89_30N/Municipios_ETRS89_30N.shp&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s">&quot;Municipios_ETRS89_30N&quot;</span><span class="p">)</span>  
+<span class="n">map_data_fortified_spain</span> <span class="o">&lt;-</span> <span class="nf">fortify</span><span class="p">(</span><span class="n">municipalities_spain</span><span class="p">,</span> <span class="n">region</span> <span class="o">=</span> <span class="s">&quot;Codigo&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+
+<span class="c1">#Ahora unimos los datos del censo con los datos geométricos usando municipality_code como clave</span>
+<span class="n">map_data_spain</span> <span class="o">% left_join(data_spain, by = c(&quot;id&quot; = &quot;municipality_code&quot;)) %&amp;</span><span class="n">gt</span><span class="p">;</span>% <span class="nf">fill</span><span class="p">(</span><span class="n">Average.age</span><span class="p">)</span>
+<span class="nf">rm</span><span class="p">(</span><span class="n">data_spain</span><span class="p">)</span>
+<span class="nf">rm</span><span class="p">(</span><span class="n">map_data_fortified_spain</span><span class="p">)</span>
+<span class="nf">rm</span><span class="p">(</span><span class="n">municipalities_spain</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Finalmente, el código para hacer el mapa en sí. Hay muchísima lógica en dicho código orientada a hacer el mapa más bonito, os recomiendo mirar el artículo original para ver la evolución de los parámetros del gráfico, en particular todo lo relativo a la escala de colores.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Aquí hacemos que los saltos de la escala de edades sean más bonitos e informativos visualmente</span>
+<span class="n">pretty_breaks</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">40</span><span class="p">,</span><span class="m">44</span><span class="p">,</span><span class="m">48</span><span class="p">,</span><span class="m">52</span><span class="p">,</span><span class="m">56</span><span class="p">)</span>
+
+<span class="c1"># encontramos los extremos del rango de edad</span>
+<span class="n">minVal</span> <span class="o">&lt;-</span> <span class="nf">min</span><span class="p">(</span><span class="n">map_data_spain</span><span class="o">$</span><span class="n">Average.age</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>  
+<span class="n">maxVal</span> <span class="o">&lt;-</span> <span class="nf">max</span><span class="p">(</span><span class="n">map_data_spain</span><span class="o">$</span><span class="n">Average.age</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+
+<span class="c1"># calculamos los valores de las etiquetas de los rangos de edad</span>
+<span class="n">labels</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">()</span>  
+<span class="n">brks</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">minVal</span><span class="p">,</span> <span class="n">pretty_breaks</span><span class="p">,</span> <span class="n">maxVal</span><span class="p">)</span>
+
+<span class="c1"># Redondeamos los extremos del rango de edad</span>
+<span class="nf">for</span><span class="p">(</span><span class="n">idx</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">brks</span><span class="p">)){</span>  
+  <span class="n">labels</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span><span class="nf">round</span><span class="p">(</span><span class="n">brks[idx</span> <span class="o">+</span> <span class="m">1</span><span class="n">]</span><span class="p">,</span> <span class="m">2</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="n">labels</span> <span class="o">&lt;-</span> <span class="n">labels[1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span><span class="m">-1</span><span class="n">]</span>
+
+<span class="c1"># definimos una nueva variable con los datos de la escala de edad</span>
+<span class="n">map_data_spain</span><span class="o">$</span><span class="n">brks</span> <span class="o">&lt;-</span> <span class="nf">cut</span><span class="p">(</span><span class="n">map_data_spain</span><span class="o">$</span><span class="n">Average.age</span><span class="p">,</span>  
+                          <span class="n">breaks</span> <span class="o">=</span> <span class="n">brks</span><span class="p">,</span> 
+                          <span class="n">include.lowest</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> 
+                          <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">)</span>
+
+<span class="n">brks_scale</span> <span class="o">&lt;-</span> <span class="nf">levels</span><span class="p">(</span><span class="n">map_data_spain</span><span class="o">$</span><span class="n">brks</span><span class="p">)</span>  
+<span class="n">labels_scale</span> <span class="o">&lt;-</span> <span class="nf">rev</span><span class="p">(</span><span class="n">brks_scale</span><span class="p">)</span>
+
+<span class="n">theme_map</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="kc">...</span><span class="p">)</span> <span class="p">{</span>  
+  <span class="nf">theme_minimal</span><span class="p">()</span> <span class="o">+</span>
+    <span class="nf">theme</span><span class="p">(</span>
+      <span class="n">text</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">family</span> <span class="o">=</span> <span class="s">&quot;Ubuntu Regular&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#22211d&quot;</span><span class="p">),</span>
+      <span class="n">axis.line</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">axis.text.x</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">axis.text.y</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">axis.ticks</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">axis.title.x</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">axis.title.y</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="c1"># panel.grid.minor = element_line(color = &quot;#ebebe5&quot;, size = 0.2),</span>
+      <span class="n">panel.grid.major</span> <span class="o">=</span> <span class="nf">element_line</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#ebebe5&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">0.2</span><span class="p">),</span>
+      <span class="n">panel.grid.minor</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="n">plot.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;#f5f5f2&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">),</span> 
+      <span class="n">panel.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;#f5f5f2&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">),</span> 
+      <span class="n">legend.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="s">&quot;#f5f5f2&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="kc">NA</span><span class="p">),</span>
+      <span class="n">panel.border</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">(),</span>
+      <span class="kc">...</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="c1">#Esta función simplemente extiende los extremos de la escala de edad para llegar al mínimo y el máximo</span>
+<span class="n">extendLegendWithExtremes</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">p</span><span class="p">){</span>  
+  <span class="n">p_grob</span> <span class="o">&lt;-</span> <span class="nf">ggplotGrob</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+  <span class="n">legend</span> <span class="o">&lt;-</span> <span class="nf">gtable_filter</span><span class="p">(</span><span class="n">p_grob</span><span class="p">,</span> <span class="s">&quot;guide-box&quot;</span><span class="p">)</span>
+  <span class="n">legend_grobs</span> <span class="o">&lt;-</span> <span class="n">legend</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">grobs[[1]]</span>
+  <span class="c1"># grab the first key of legend</span>
+  <span class="n">legend_first_key</span> <span class="o">&lt;-</span> <span class="nf">gtable_filter</span><span class="p">(</span><span class="n">legend_grobs</span><span class="p">,</span> <span class="s">&quot;key-3-1-1&quot;</span><span class="p">)</span>
+  <span class="n">legend_first_key</span><span class="o">$</span><span class="n">widths</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+  <span class="c1"># modify its width and x properties to make it longer</span>
+  <span class="n">legend_first_key</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">width</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+  <span class="n">legend_first_key</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">0.15</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+
+<span class="c1"># último valor de la leyenda</span>
+<span class="n">legend_last_key</span> <span class="o">&lt;-</span> <span class="nf">gtable_filter</span><span class="p">(</span><span class="n">legend_grobs</span><span class="p">,</span> <span class="s">&quot;key-3-6-1&quot;</span><span class="p">)</span>
+  <span class="n">legend_last_key</span><span class="o">$</span><span class="n">widths</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+
+<span class="n">legend_last_key</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">width</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+  <span class="n">legend_last_key</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">1.02</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+
+<span class="c1"># cambiamos también la posición de la última etiqueta para que no se superponga a la anterior</span>
+  <span class="n">legend_last_label</span> <span class="o">&lt;-</span> <span class="nf">gtable_filter</span><span class="p">(</span><span class="n">legend_grobs</span><span class="p">,</span> <span class="s">&quot;label-5-6&quot;</span><span class="p">)</span>
+  <span class="n">legend_last_label</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Insertamos el nuevo color de la leyenda en la leyenda combinada</span>
+<span class="n">legend_grobs</span><span class="o">$</span><span class="n">grobs[legend_grobs</span><span class="o">$</span><span class="n">layout</span><span class="o">$</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;key-3-1-1&quot;</span><span class="n">][[1]]</span> <span class="o">&lt;-</span> 
+    <span class="n">legend_first_key</span><span class="o">$</span><span class="n">grobs[[1]]</span>
+  <span class="n">legend_grobs</span><span class="o">$</span><span class="n">grobs[legend_grobs</span><span class="o">$</span><span class="n">layout</span><span class="o">$</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;key-3-6-1&quot;</span><span class="n">][[1]]</span> <span class="o">&lt;-</span> 
+    <span class="n">legend_last_key</span><span class="o">$</span><span class="n">grobs[[1]]</span>
+  <span class="n">legend_grobs</span><span class="o">$</span><span class="n">grobs[legend_grobs</span><span class="o">$</span><span class="n">layout</span><span class="o">$</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;label-5-6&quot;</span><span class="n">][[1]]</span> <span class="o">&lt;-</span> 
+    <span class="n">legend_last_label</span><span class="o">$</span><span class="n">grobs[[1]]</span>
+
+<span class="c1"># Ahora lo mismo para el valor mínimo de la leyenda</span>
+<span class="n">new_first_label</span> <span class="o">&lt;-</span> <span class="n">legend_last_label</span><span class="o">$</span><span class="n">grobs[[1]]</span>
+  <span class="n">new_first_label</span><span class="o">$</span><span class="n">label</span> <span class="o">&lt;-</span> <span class="nf">round</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">map_data_spain</span><span class="o">$</span><span class="n">avg_age_15</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span> <span class="m">2</span><span class="p">)</span>
+  <span class="n">new_first_label</span><span class="o">$</span><span class="n">x</span> <span class="o">&lt;-</span> <span class="nf">unit</span><span class="p">(</span><span class="m">-0.15</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;cm&quot;</span><span class="p">)</span>
+  <span class="n">new_first_label</span><span class="o">$</span><span class="n">hjust</span> <span class="o">&lt;-</span> <span class="m">1</span>
+
+  <span class="n">legend_grobs</span> <span class="o">&lt;-</span> <span class="nf">gtable_add_grob</span><span class="p">(</span><span class="n">legend_grobs</span><span class="p">,</span> 
+                                  <span class="n">new_first_label</span><span class="p">,</span> 
+                                  <span class="n">t</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> 
+                                  <span class="n">l</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span> 
+                                  <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;label-5-0&quot;</span><span class="p">,</span> 
+                                  <span class="n">clip</span> <span class="o">=</span> <span class="s">&quot;off&quot;</span><span class="p">)</span>
+  <span class="n">legend</span><span class="o">$</span><span class="n">grobs[[1]]</span><span class="o">$</span><span class="n">grobs[1][[1]]</span> <span class="o">&lt;-</span> <span class="n">legend_grobs</span>
+  <span class="n">p_grob</span><span class="o">$</span><span class="n">grobs[p_grob</span><span class="o">$</span><span class="n">layout</span><span class="o">$</span><span class="n">name</span> <span class="o">==</span> <span class="s">&quot;guide-box&quot;</span><span class="n">][[1]]</span> <span class="o">&lt;-</span> <span class="n">legend</span>
+
+<span class="c1"># se usa esta función para dibujar la escala</span>
+<span class="nf">grid.newpage</span><span class="p">()</span>
+  <span class="nf">grid.draw</span><span class="p">(</span><span class="n">p_grob</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">p</span> <span class="o">&lt;-</span> <span class="nf">ggplot</span><span class="p">()</span> <span class="o">+</span>  
+  <span class="nf">geom_polygon</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">map_data_spain</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">brks</span><span class="p">,</span> 
+                                         <span class="n">x</span> <span class="o">=</span> <span class="n">long</span><span class="p">,</span> 
+                                         <span class="n">y</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> 
+                                         <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">))</span> <span class="o">+</span>
+  <span class="c1"># municipality outline</span>
+  <span class="nf">geom_path</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">map_data_spain</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">long</span><span class="p">,</span> 
+                                      <span class="n">y</span> <span class="o">=</span> <span class="n">lat</span><span class="p">,</span> 
+                                      <span class="n">group</span> <span class="o">=</span> <span class="n">group</span><span class="p">),</span> 
+            <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;white&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">0.1</span><span class="p">)</span> <span class="o">+</span>
+  <span class="nf">coord_equal</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme_map</span><span class="p">()</span> <span class="o">+</span>
+  <span class="nf">theme</span><span class="p">(</span>
+    <span class="n">legend.position</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">0.7</span><span class="p">,</span> <span class="m">0.03</span><span class="p">),</span>
+    <span class="n">legend.text.align</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    <span class="n">legend.background</span> <span class="o">=</span> <span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="nf">alpha</span><span class="p">(</span><span class="s">&#39;white&#39;</span><span class="p">,</span> <span class="m">0.0</span><span class="p">)),</span>
+    <span class="n">legend.text</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">14</span><span class="p">,</span> <span class="n">hjust</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#4e4d47&quot;</span><span class="p">),</span>
+    <span class="n">legend.title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">20</span><span class="p">),</span>
+    <span class="n">plot.title</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">28</span><span class="p">,</span> <span class="n">hjust</span> <span class="o">=</span> <span class="m">0.8</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#4e4d47&quot;</span><span class="p">),</span>
+    <span class="n">plot.subtitle</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">20</span><span class="p">,</span> <span class="n">hjust</span> <span class="o">=</span> <span class="m">0.8</span><span class="p">,</span> <span class="n">face</span> <span class="o">=</span> <span class="s">&quot;italic&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#4e4d47&quot;</span><span class="p">),</span>
+    <span class="n">plot.caption</span> <span class="o">=</span> <span class="nf">element_text</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="m">14</span><span class="p">,</span> <span class="n">hjust</span> <span class="o">=</span> <span class="m">0.95</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s">&quot;#4e4d47&quot;</span><span class="p">),</span>
+    <span class="n">plot.margin</span> <span class="o">=</span> <span class="nf">unit</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">.5</span><span class="p">,</span><span class="m">.5</span><span class="p">,</span><span class="m">.2</span><span class="p">,</span><span class="m">.5</span><span class="p">),</span> <span class="s">&quot;cm&quot;</span><span class="p">),</span>
+    <span class="n">panel.border</span> <span class="o">=</span> <span class="nf">element_blank</span><span class="p">()</span>
+  <span class="p">)</span> <span class="o">+</span>
+  <span class="nf">labs</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> 
+       <span class="n">y</span> <span class="o">=</span> <span class="kc">NULL</span><span class="p">,</span> 
+       <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Spain&#39;s regional demographics&quot;</span><span class="p">,</span> 
+       <span class="n">subtitle</span> <span class="o">=</span> <span class="s">&quot;Average age in Spanish municipalities, 2011&quot;</span><span class="p">,</span> 
+       <span class="n">caption</span> <span class="o">=</span> <span class="s">&quot;Author: Manuel Garrido (@manugarri) Original Idea: Timo Grossenbacher (@grssnbchr), Geometries: ArcGis Data: INE, 2011;&quot;</span><span class="p">)</span> <span class="o">+</span> 
+  <span class="nf">scale_fill_manual</span><span class="p">(</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="nf">rev</span><span class="p">(</span><span class="nf">magma</span><span class="p">(</span><span class="m">8</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="m">0.8</span><span class="p">)</span><span class="n">[2</span><span class="o">:</span><span class="m">7</span><span class="n">]</span><span class="p">),</span>
+    <span class="n">breaks</span> <span class="o">=</span> <span class="nf">rev</span><span class="p">(</span><span class="n">brks_scale</span><span class="p">),</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Average age&quot;</span><span class="p">,</span>
+    <span class="n">drop</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">labels_scale</span><span class="p">,</span>
+    <span class="n">guide</span> <span class="o">=</span> <span class="nf">guide_legend</span><span class="p">(</span>
+      <span class="n">direction</span> <span class="o">=</span> <span class="s">&quot;horizontal&quot;</span><span class="p">,</span>
+      <span class="n">keyheight</span> <span class="o">=</span> <span class="nf">unit</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;mm&quot;</span><span class="p">),</span>
+      <span class="n">keywidth</span> <span class="o">=</span> <span class="nf">unit</span><span class="p">(</span><span class="m">70</span><span class="o">/</span><span class="nf">length</span><span class="p">(</span><span class="n">labels</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&quot;mm&quot;</span><span class="p">),</span>
+      <span class="n">title.position</span> <span class="o">=</span> <span class="s">&#39;top&#39;</span><span class="p">,</span>
+      <span class="n">title.hjust</span> <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>
+      <span class="n">label.hjust</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+      <span class="n">nrow</span> <span class="o">=</span> <span class="m">1</span><span class="p">,</span>
+      <span class="n">byrow</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span>
+      <span class="n">reverse</span> <span class="o">=</span> <span class="bp">T</span><span class="p">,</span>
+      <span class="n">label.position</span> <span class="o">=</span> <span class="s">&quot;bottom&quot;</span>
+    <span class="p">)</span>
+  <span class="p">)</span>
+<span class="nf">extendLegendWithExtremes</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Este código está diseñado muy cuidadosamente para exportar una imagen con un ancho de 2400 píxeles.</p>
+<p>Dado que las islas Canarias estan muy alejadas de la península, una práctica común es desplazar las islas más cerca de España, esto lo he hecho en Gimp.</p>
+<h1>Notas.</h1>
+<ul>
+<li>
+<p>Yo sabía que España tenía un problema poblacional, pero ¡madre mía! El noroeste del pais parece un gran asilo. El mapa original de Suiza tenia una escala de edad en el rango 40-52 años, pero he tenido que expandirlo a 40-56 debido al envejecimiento poblacional español.</p>
+</li>
+<li>
+<p>Una vez más, me he dado cuenta de lo mal que está el movimiento Open Data en España:</p>
+</li>
+<li>
+<p>La herramienta de extracción de datos del INE parece que se hizo en los años 90 (tanto en usabilidad como en velocidad).</p>
+</li>
+<li>
+<p>La información del censo de España se actualiza, ¡cada 10 años!. Esto significa que este mapa está usando la información más actualizada que existe de la población española, y es de 2011. Estos datos deberían actualizarse más frecuentemente en un mundo en el que todo cambia más rápido.</p>
+</li>
+<li>
+<p>Si vais al mapa del artículo original, vereis que su mapa tiene una capa de topografía muy bonita encima de los municipios. Timo usó una imagen ráster a escala 1:1.000.000 con información topográfica proporcionada por la oficina federal de topografía suiza.
+    Yo me tiré un dia entero buscando algo similar para España, y según parece el Centro Nacional de Información Geográfica sólo proporciona mapas ráster <a href="http://centrodedescargas.cnig.es/CentroDescargas/buscadorCatalogo.do" target="_blank">en la escala de 25 y 50 metros</a> lo que obliga a descargarte cientos de archivos de imagen y unirlos luego. De verdad que yo no tenía ganas de hacer eso para hacer un mapa a escala tan pequeña. Al final, me hice mi propia imágen topográfica raster tomando imágenes de internet que procesé en Gimp. No incluyo el relieve en el mapa por que, al contrario que con Suiza (donde no hay municipios en la región de los Alpes), en España mostrar el relieve ocultaría la información de los municipios por debajo.</p>
+</li>
+<li>
+<p>Aunque tengo que decir que la cantidad de esfuerzo y dedicación que ha llevado realizar este mapa es impresionante (una de las principales razones por las cuales yo quería replicarlo), creo que debería haber una manera mejor de hacer gráficas customizadas en ggplot2. El código actual solo funciona con una resolución específica en mente, y se necesitan un montón de pruebas hasta llegar a encontrar los tamaños de fuentes que hacen que todo encaje. Idealmente ggplot2 usaría un sistema de referencia variable (algo como los <em>em</em> en css) que cambiara en funcion del tamaño del mapa.</p>
+</li>
+</ul>
+<p>Eso es todo por hoy, muchas gracias por vuestra atención 🙂</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                    <a href="http://pybonacci.github.io/tag/mapa.html" class="tag">mapa</a>
+                    <a href="http://pybonacci.github.io/tag/mapping.html" class="tag">mapping</a>
+                    <a href="http://pybonacci.github.io/tag/opendata.html" class="tag">opendata</a>
+                    <a href="http://pybonacci.github.io/tag/r.html" class="tag">R</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/manuel-garrido.png alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Manuel ha estado 4 años en Nueva York, primero trabajando como Senior Analyst para la NBC y luego como Data Scientist. Tras trabajar en varias empresas, ahora trabaja como Data Scientist Consultant, tanto para clientes españoles como extranjeros. Si necesitas ayuda, no dudes en contactarle!
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

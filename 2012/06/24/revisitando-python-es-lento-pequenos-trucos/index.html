@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Revisitando &#8216;python es lento&#8217;: pequeños trucos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Revisitando &#8216;python es lento&#8217;: pequeños trucos</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 24 junio 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Hace un tiempo <a href="https://www.pybonacci.org/2012/05/01/python-es-lento/">David os habló sobre acelerar vuestros cálculos hechos con python (si no los has leído aún a qué esperas :-)).</a> Hoy vamos a revisitar sus textos enfocándonos en pequeñas cositas que podemos hacer sin tener que usar algo que no sea programar en python.</p>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y numexpr 1.4.2]</strong></p>
+<p>[DISCLAIMER: Por favor, no hagáis caso a los tiempos absolutos. Estos valores dependen mucho de lo que uséis para hacer los cálculos (32bits o 64bits, Sistema operativo, procesador,...). He usado distintas máquinas para hacer las pruebas y los resultados están mezclados. Fijaos mejor en las conclusiones.]</p>
+<p>En todo momento supondremos que se ha iniciado la sesión en ipython y se ha hecho</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numexpr</span> <span class="kn">as</span> <span class="nn">ne</span>
+</pre></div>
+
+
+<blockquote>
+<p><strong><em>Intenta usar (casi) siempre las funciones de numpy en lugar de las de python</em></strong></p>
+</blockquote>
+<p>El siguiente cálculo es 112 veces más rápido usando numpy.min en lugar de usar la función min de python para este ejemplo concreto y en mi portátil.</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">timeit</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Sin embargo puede suceder que, dependiendo como hagamos el cálculo, no siempre resulte más rápido usar la función en numpy que la función en python. Lo mismo, vemos un ejemplo concreto y no generalizable en mi portátil:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>  <span class="c1"># Creamos un numpy array de enteros (int32)</span>
+<span class="n">xl</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>  <span class="c1"># Creamos una lista de enteros (int)</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 10000 loops, best of 3: 115 us per loop</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span>  <span class="c1"># 10 loops, best of 3: 23.1 ms per loop</span>
+<span class="n">timeit</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 10 loops, best of 3: 76.5 ms per loop</span>
+<span class="n">timeit</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span>  <span class="c1"># 100 loops, best of 3: 6.32 ms per loop</span>
+</pre></div>
+
+
+<p>Si hago la suma sobre un numpy array es más rápido usando la suma de numpy, si hago la suma sobre una lista, es más rápida la suma de python. Es decir, con excepciones, numpy funciona más rápido sobre numpy arrays y python funciona más rápido sobre listas. Numpy sobre un numpy array es, en este caso concreto en el portátil, 55 veces más rápido que la suma de python sobre una lista.</p>
+<p>Veamos otro ejemplo similar para ver si os convence (ahora estoy usando otro PC):</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>  <span class="c1"># Creamos un numpy array de enteros (int32)</span>
+<span class="n">xl</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>  <span class="c1"># Creamos una lista de enteros (int)</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">timeit</span> <span class="p">[</span><span class="n">kk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dato</span><span class="p">))</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">xl</span><span class="p">]</span>  <span class="c1"># 10 loops, best of 3: 184 ms per loop</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">timeit</span> <span class="p">[</span><span class="n">kk</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">dato</span><span class="p">))</span> <span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>  <span class="c1"># 1 loops, best of 3: 251 ms per loop</span>
+<span class="n">timeit</span> <span class="n">kk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span>  <span class="c1"># 10 loops, best of 3: 117 ms per loop</span>
+<span class="n">timeit</span> <span class="n">kk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 10 loops, best of 3: 31.4 ms per loop</span>
+</pre></div>
+
+
+<p>Si vuestros cálculos se hacen sobre vectores/matrices más pequeños puede que los resultados sean diferentes pero en general se cumple lo anterior.</p>
+<blockquote>
+<p><em><strong>Sí o sí usa numexpr cuando hagas cálculos sobre <a href="http://code.google.com/p/numexpr/wiki/UsersGuide#Supported_operators">funciones trascendentes o las operaciones que permite numexpr</a> (y/o tienes varios núcleos en el/los procesador/es</strong></em>)</p>
+</blockquote>
+<p>Veamos algo un poco marciano:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">timeit</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span>  <span class="c1"># 10 loops, best of 3: 76.1 ms per loop</span>
+<span class="n">timeit</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>  <span class="c1"># 100 loops, best of 3: 4.32 ms per loop</span>
+</pre></div>
+
+
+<p>¿Y esto por qué sucede así?. En el primer caso (<em>y = x**4</em>) numpy usa la función numpy.power para hacer el cálculo. Esta es una función trascendente y no puede ser evaluada en un solo ciclo de procesador. Si vais a la explicación en la wikipedia en versión inglesa entenderéis mejor lo que es una <a href="http://en.wikipedia.org/wiki/Transcendental_function">función trascendente</a>. Además de la explicación de la wikipedia os recomiendo que le echéis un ojo a este <a href="http://www.youtube.com/watch?v=J3-oN_TulTg">video</a> donde uno de los desarrolladores de numexpr y creador de PyTables, Francesc Alted, habla sobre el tema.</p>
+<p>Si repetimos el cálculo anterior usando numexpr, que además permite, en ciertos casos, optimizar el uso de memoria, obtenemos lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">ne</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Hacemos que solo use un thread para poder comparar iguales con respecto a lo anterior</span>
+<span class="n">timeit</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ne</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s1">&#39;x**4&#39;</span><span class="p">)</span>  <span class="c1"># 1000 loops, best of 3: 1.57 ms per loop</span>
+</pre></div>
+
+
+<p>Para este caso concreto es 48.5 veces más rápido que numpy puro y 2.75 veces más rápido que el python 'optimizado' anterior (recordad que el numpy 'optimizado' no usa la función numpy.power).</p>
+<p><em>(*) Si alguien se anima a explicar más detalladamente el tema de las funciones trascendentes y su cálculo lo puede hacer en los comentarios y lo podemos incluir en el post.</em></p>
+<p>Para rizar el rizo, imaginad que tenéis un buen cacharro en casa (en este caso uso un intel i7 2600 que me permite usar hasta 8 threads). Con numexpr podéis hacer uso de la paralelización del cálculo y obtener aún más ganancia. Veamos un cálculo donde se pueda ver esto de forma muy clara:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">timeit</span> <span class="n">resultado</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mf">3.</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">z</span>  <span class="c1"># 10 loops, best of 3: 92.2 ms per loop</span>
+<span class="n">ne</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Hacemos que solo use un thread para poder comparar iguales con respecto a lo anterior</span>
+<span class="n">timeit</span> <span class="n">resultado</span> <span class="o">=</span> <span class="n">ne</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s1">&#39;x**3 + 2. * y**2 - 3. * x / z&#39;</span><span class="p">)</span>  <span class="c1"># 100 loops, best of 3: 10.6 ms per loop</span>
+<span class="n">ne</span><span class="o">.</span><span class="n">set_num_threads</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Hacemos que use todos los threads</span>
+<span class="n">timeit</span> <span class="n">resultado</span> <span class="o">=</span> <span class="n">ne</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s1">&#39;x**3 + 2. * y**2 - 3. * x / z&#39;</span><span class="p">)</span>  <span class="c1"># 100 loops, best of 3: 2.6 ms per loop</span>
+</pre></div>
+
+
+<p>Sin hacer gran cosa y sin salir de python obtenemos una ganancia sobre numpy de 35.5x (recordad, como siempre, el resultado es para este caso concreto). Haced la prueba usando solo python (sin numpy) para hacer el mismo cálculo y os asombrará el tiempo que os sale.</p>
+<blockquote>
+<p><strong><em>Otras pequeñas chorraditas que podemos hacer</em></strong></p>
+</blockquote>
+<p>Cuando creamos un numpy array que vamos a rellenar con valores en cálculos posteriores se suele usar numpy.zeros o numpy.ones. Si sabéis que todos los elementos serán rellenados podéis usar np.empty que siempre será más veloz.</p>
+<div class="highlight"><pre><span></span><span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>  <span class="c1"># 1 loops, best of 3: 266 ms per loop</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>  <span class="c1"># 1 loops, best of 3: 226 ms per loop</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">))</span>  <span class="c1"># 100000 loops, best of 3: 5.85 us per loop</span>
+</pre></div>
+
+
+<p>La tercera opción es ¿¿40.000?? veces más rápida.</p>
+<p><em>(*) Si alguien sabe porque numpy.zeros tarda más que numpy.ones que lo explique en los comentarios que me he quedado con la duda</em>.</p>
+<p>Numpy.where es una función que uso mucho pero que es extremadamente lenta en algunos casos. Para evitar su uso podéis intentar encontrar alternativas.</p>
+<p>Ejemplo, queremos buscar los índices donde se encuentra el máximo de nuestro numpy array. Con numpy.where haríamos lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">timeit</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>  <span class="c1"># 100 loops, best of 3: 8 ms per loop</span>
+<span class="n">timeit</span> <span class="nb">divmod</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">argmax</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># 1000 loops, best of 3: 638 us per loop</span>
+</pre></div>
+
+
+<p>Este es un ejemplo donde python puede ser más rápido que numpy. Este ejemplo lo he sacado de <a href="https://scipy.github.io/old-wiki/pages/PerformanceTips.html">esta página</a> donde he cambiado el ejemplo del mínimo por la localización del máximo para que no me acusen de plagio :-). En esa página/enlace tenéis más ejemplos de como optimizar un poco vuestro código.</p>
+<p>Imaginad ahora que queréis hacer operaciones sobre una serie de valores del array que cumplen unas ciertas condiciones. Esto se puede hacer de forma más eficiente y legible sin usar numpy.where de la siguiente forma:</p>
+<p>Vamos a buscar todos los elementos que estén entre 0 y 1 y vamos a asignarles el valor -999.</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[(</span><span class="n">x</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+</pre></div>
+
+
+<p>Vamos a buscar todos los elementos que estén por debajo de 0 o por encima de 2 y los vamos a dividir por 10 (por decir algo):</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[(</span><span class="n">x</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="mf">10.</span>
+</pre></div>
+
+
+<p>Espero que alguna de estas cosita os resulte útil en vuestro día a día. Si veis algún error en el texto anterior os agradecemos que nos lo hagáis saber para poder corregirlo y mejorar. Si tienes pequeñas recetas que usas y que están relacionadas con lo anterior, ponlo en los comentarios para  aprendamos y para que lo incluyamos como parte del texto.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/numexpr.html" class="tag">numexpr</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/performance.html" class="tag">performance</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/rendimiento.html" class="tag">rendimiento</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

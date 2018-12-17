@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Gráficas de tiempo real con Plotly | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Gráficas de tiempo real con Plotly</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 30 agosto 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Y aquí llega otra nueva entrada dedicada a Plotly, ésta vez sin notebook, para hacer una aplicación de «tiempo-real» que monitorice nuestra tarjeta gráfica. Por ahora, el código, que tenéis <a href="https://github.com/pfsq/gpu-monitor" title="gpu-monitor" target="_blank">disponible en GitHub</a>, hace uso de los datos que proporciona la <a href="https://developer.nvidia.com/nvidia-system-management-interface" title="NVIDIA System Management Interface" target="_blank">NVIDIA System Management Interface</a>. Pero éste método tiene un pega, y es que el SMI está pensado para la familia de gráficas Tesla&#153; y Quadro&#153;, con el soporte a la gama GeForce&#153; está limitado a un par de parámetros. En éste caso aprovecharemos sólo temperatura y velocidad del ventilador.</p>
+<p>Si abrimos una ventana de comandos y ejecutamos <code>nvidia-smi</code> nos debería aparecer una tabla como ésta ---es posible que tengamos que <a href="http://furniman.blogspot.com.es/2012/02/anadir-un-directorio-al-path-del.html" title="Añadir un directorio al PATH del sistema" target="_blank">añadir la ruta al ejecutable a nuestro PATH</a>, en mi caso 'C:\Program Files\NVIDIA Corporation\NVSMI'.</p>
+<div class="highlight"><pre><span></span>+------------------------------------------------------+
+| NVIDIA-SMI 340.62     Driver Version: 340.62         |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name            TCC/WDDM | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 460    WDDM  | 0000:01:00.0     N/A |                  N/A |
+| 40%   45C   P12    N/A /  N/A |    986MiB /  1023MiB |     N/A      Default |
++-------------------------------+----------------------+----------------------+
++-----------------------------------------------------------------------------+
+| Compute processes:                                               GPU Memory |
+|  GPU       PID  Process name                                     Usage      |
+|=============================================================================|
+|    0            Not Supported                                               |
++-----------------------------------------------------------------------------+
+</pre></div>
+
+
+<!--more ¡No te quedes sin ver el resto de la entrada!-->
+
+<h2>Monitor</h2>
+<p>Para monitorizar la tarjeta gráfica he tomado el módulo <code>gpuwatch.py</code>, de <a href="http://blog.erdemagaoglu.com/post/3074180322/monitoring-nvidia-gpu-metrics-with-ganglia" title="Monitoring nVidia GPU metrics with Ganglia" target="_blank">H. Çağlar Bilir</a>, modificando algunas partes para que casasen con la salida de mi <em>query</em> a <code>nvidia-smi</code>. Si revisamos el código encontraremos, entre otras, estas tres funciones:</p>
+<ul>
+<li>
+<p><code>getString</code></p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>import subprocess as sub
+def getString():
+    test_file = "nvidia-smi -q --gpu=0"
+    try:
+        p = sub.Popen(test_file, stdout=sub.PIPE, stderr=sub.PIPE)
+        out, err = p.communicate()
+        return out
+    except IOError:
+        return "Error" que nos devuelve la salida del </p>
+<p><em>query</em> a <code>nvidia-smi</code>;
+  * <code>readl</code></p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>def readl(key):
+    output=str(getString(), encoding='utf8')
+    splittedoutput=output.split('\n')
+    for line in splittedoutput:
+        line=line.strip()
+        if line.startswith(key):
+            line=line.split(':')[1].strip()
+            if key=='GPU Current Temp':
+                return line.split('C')[0].strip()
+            elif key=='Fan Speed':
+                return line.split('%')[0].strip()
+            else:
+                return line[:-1] que leerá cada línea de texto hasta encontrar lo que buscamos; y</p>
+</li>
+<li>
+<p><code>Gpu_Temp</code></p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<p>def Gpu_Temp():
+    return int(readl('GPU Current Temp')) que nos devuelve el valor de la temperatura actual de la tarjeta gráfica.</p>
+</li>
+</ul>
+<h2>Streaming API de Plotly</h2>
+<p>La Streaming API de Plotly nos permite actualizar nuestras gráficas en tiempo real, sin necesidad de refrescar nuestro navegador. En otras palabras, los usuarios envían datos continuamente a los servidores de Plotly para visualizarlos en <em>tiempo real</em>. Y muy rápido. Las gráficas se pueden actualizar hasta 20 veces por segundo.</p>
+<p>Esto nos permitiría, entre otras muchas cosas, monitorizar las lecturas de un termómetro conectado a un Arduino en nuestro ático desde nuestro portátil en cualquier otro lugar.</p>
+<p>En palabras de Plotly:</p>
+<blockquote>
+<p>Everyone looking at a Plotly streaming plot sees the same data, updating at the same time. Like all Plotly plots, Plotly streaming plots are immediately shareable, by shortlink or as embedded in website or an IPython notebook. Owners of Plotly plot can edit their with the Plotly web GUI while all of the viewers of the plot will see the changes update live.</p>
+</blockquote>
+<h3>Dependencias</h3>
+<p>Todo lo que tratemos a partir de este punto estará relacionado con el fichero <code>gpu-monitor.pyw</code>. La extensión PYW permite ejecutar scripts de Python en segundo plano sin que se abra el terminal ---al tratarse de un bucle infinito necesitaremos matar el proceso desde el Administrador de tareas.</p>
+<p>El primer paso, como es costumbre, es importar los paquetes:</p>
+<ul>
+<li><code>gpuwatch</code>, para las funciones que leen los valores de la gráfica.</li>
+<li>
+<p>Plotly, para generar las gráficas</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<h1>(*) Para comunicarse con los servidores y loguearse</h1>
+<p>import plotly.plotly as py  </p>
+<h1>(*) Herramientas útiles</h1>
+<p>import plotly.tools as tls   </p>
+<h1>(*) Objetos para componer gráficas</h1>
+<p>from plotly.graph_objs import *</p>
+</li>
+<li>
+<p><code>datetime</code>, para crear las marcas temporales.</p>
+</li>
+<li><code>time.sleep</code>, para pausar la ejecución un intervalo de tiempo.</li>
+</ul>
+<p>Aquellos que no estén familiarizados con las credenciales pueden dirigirse a la <a href="https://plot.ly/python/user-guide/#Step-6" title="User Guide, step 6" target="_blank">Guía de Usuario</a>.</p>
+<h3>Stream tokens</h3>
+<p>Crear gráficas en tiempo real con Plotly no cambia en lo esencial con respecto al modo tradicional; sin embargo, será necesario <a href="https://plot.ly/python/streaming-tutorial/#Get-your-stream-tokens" target="_blank">generar un <em>token</em></a> o <em>id</em> por cada trazo.</p>
+<p>Para ello, una vez nos hemos logueado en plot.ly, nos dirigimos a <em>Settings</em>, en la esquina superior derecha de la ventana. Bajo la pestaña <em>Stream Tokens</em> encontraremos el botón <em>Generate Token</em>. Recordad que debemos generar <strong>un <em>stream token</em> por trazo</strong> por cada gráfica. Aunque podemos reutilizar los <em>tokens</em> en diferentes gráficas siempre que no vayamos a actualizarlas a la vez.</p>
+<p>En nuestro caso vamos a necesitar dos <em>stream tokens</em>, uno para la temperatura y otro para la velocidad del ventilador.</p>
+<div class="highlight"><pre><span></span><span class="n">stream_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lj8k5sz7sx&quot;</span><span class="p">,</span> <span class="s2">&quot;upxpfny8c1&quot;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>¡Ya podemos empezar!</p>
+<h3>Data</h3>
+<p>La metodología a seguir es la misma que hemos empleado en tutorial <a href="https://pybonacci.org/2014/08/22/graficas-interactivas-con-plotly/" title="Gráficas interactivas con Plotly" target="_blank">Gráficas interactivas con Plotly</a>.</p>
+<p>Inicializamos las líneas a representar. Para ello, el objeto <code>Scatter</code> tomará arrays vacíos para las variables <code>x</code> e <code>y</code>. La temperatura la representaremos como líneas y puntos (<code>'lines+markers'</code>) de color verde lima y con un ajuste de tipo spline. Por su parte, la velocidad del ventilador, de color cyan y líneas verticales y horizontales (<code>'vh'</code>) utilizará el segundo eje <em>y</em> <code>'y2'</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">trace1</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[],</span>
+                 <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
+                 <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+                 <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="s1">&#39;spline&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">),</span>
+                 <span class="n">marker</span><span class="o">=</span><span class="n">Marker</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)),</span>
+                 <span class="n">stream</span><span class="o">=</span><span class="n">Stream</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">stream_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">maxpoints</span><span class="o">=</span><span class="mi">60</span><span class="p">))</span>
+<span class="n">trace2</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[],</span>
+                 <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
+                 <span class="n">yaxis</span><span class="o">=</span><span class="s1">&#39;y2&#39;</span><span class="p">,</span>
+                 <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">,</span>
+                 <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="s1">&#39;vh&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">),</span>
+                 <span class="n">stream</span><span class="o">=</span><span class="n">Stream</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">stream_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">maxpoints</span><span class="o">=</span><span class="mi">60</span><span class="p">))</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">Data</span><span class="p">([</span><span class="n">trace1</span><span class="p">,</span> <span class="n">trace2</span><span class="p">])</span>
+</pre></div>
+
+
+<p>La única novedad que introducimos en éste punto es el objeto <code>Stream</code> con el que identificamos cada trazo con su <em>token</em>. Éste objeto también nos permite limitar el número de punto a representar en la gráfica definiendo <code>maxpoints</code>.</p>
+<p>Por ahora no hemos introducido ningún valor; ni temperatura ni velocidad del ventilador.</p>
+<h3>Layout</h3>
+<p>Con <code>Layout</code> vamos a configurar la estética de la gráfica. Ponemos un título a la gráfica <code>'GeForce GTX460 GPU real-time monitor'</code> y definimos el color del texto como blanco con el objeto <code>Font</code>. En este punto también podríamos definir el tipo de letra con <code>family</code> y el tamaño con <code>size</code>.</p>
+<p>Le damos un color verde oscuro a la rejilla con <code>gridcolor</code> y ajustamos nuestros dos ejes <em>y</em>. Puesto que hemos deshabilitado la leyenda (<code>showlegend=False</code>) damos a cada eje <em>y</em> el color de la línea asociada. Cambiamos el color del nombre del eje con <code>titlefont</code> y el color de los números con <code>tickfont</code>. Para equilibrar el gráfico colocamos el segundo eje <em>y</em> a la derecha, <code>side='right'</code>.</p>
+<p>El color de fondo de la gráfica y el margen serán negros. Ello lo logramos con <code>plot_bgcolor</code> y <code>paper_bgcolor</code> respectivamente.</p>
+<div class="highlight"><pre><span></span><span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;GeForce GTX460 GPU real-time monitor&#39;</span><span class="p">,</span>
+                <span class="n">font</span><span class="o">=</span><span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">),</span>
+                <span class="n">showlegend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">xaxis</span><span class="o">=</span><span class="n">XAxis</span><span class="p">(</span><span class="n">gridcolor</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">),</span>
+                <span class="n">yaxis</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Temperature (C)&#39;</span><span class="p">,</span>
+                            <span class="n">titlefont</span><span class="o">=</span><span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">),</span>
+                            <span class="n">tickfont</span><span class="o">=</span><span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">),</span>
+                            <span class="n">gridcolor</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">),</span>
+                <span class="n">yaxis2</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Fan speed (%)&#39;</span><span class="p">,</span>
+                             <span class="n">overlaying</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span>
+                             <span class="n">side</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span>
+                             <span class="n">titlefont</span><span class="o">=</span><span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">),</span>
+                             <span class="n">tickfont</span><span class="o">=</span><span class="n">Font</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">),</span>
+                             <span class="n">gridcolor</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">),</span>
+                <span class="n">paper_bgcolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+                <span class="n">plot_bgcolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Plot</h3>
+<p>Ya tenemos listos los datos y el layout para crear nuestra figura.</p>
+<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+</pre></div>
+
+
+<p>y enviarla a Plotly:</p>
+<div class="highlight"><pre><span></span><span class="n">unique_url</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;streaming/gpu-monitor&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Stream</h3>
+<p>Para actualizar la gráfica creamos un objeto Stream por cada trazo a representar. Identificamos cada stream con el <em>stream token</em> correspondiente,</p>
+<div class="highlight"><pre><span></span><span class="c1"># Make 1st instance of the stream link object</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">stream_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1"># Make 2nd instance of the stream link object</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">py</span><span class="o">.</span><span class="n">Stream</span><span class="p">(</span><span class="n">stream_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+
+
+<p>y los abrimos,</p>
+<div class="highlight"><pre><span></span><span class="c1"># Open both streams</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+<span class="n">s2</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Ya podemos entrar al <a href="http://es.wikipedia.org/wiki/Bucle_infinito" target="_blank">bucle infinito</a>. Claro que en este caso es intencionado, y no un error de programación.</p>
+<p>Asignamos al eje <em>x</em> la hora actual y para los ejes <em>y</em> empleamos dos funciones de las funciones que tenemos en <code>gpuwatch.py</code> que toman los valores proporcionados por el System Management Interface de NVIDIA. Por último escribimos cada uno de estos valores en el Stream de Plotly.</p>
+<div class="highlight"><pre><span></span><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="c1"># Hora actual en eje x, temperatura GPU en eje y, velocidad ventilador en eje y2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">gpuwatch</span><span class="o">.</span><span class="n">Gpu_Temp</span><span class="p">()</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">gpuwatch</span><span class="o">.</span><span class="n">Fan_Speed</span><span class="p">()</span>
+    <span class="c1"># Escribe al stream de Plotly</span>
+    <span class="n">s1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y1</span><span class="p">))</span>
+    <span class="n">s2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y2</span><span class="p">))</span>
+    <span class="c1"># Esperar intervalo en segundos</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>Muy importante</strong>: hay que esperar un intervalo entre bucle y bucle. En éste caso he optado por 10 segundos. Por varios motivos: Plotly trabaja como mucho a 20 actualizaciones por segundo, pero si no esperamos un intervalo razonable, el gasto de CPU se nos irá al 100 % y nos petará la máquina. Y eso, con el agravante de utilizar un bucle infinito, sería una catástrofe. Pero nada que no se solucione matando el proceso.</p>
+<h2>Resultado</h2>
+<p>Una de las ventajas de la Streaming API de Plotly es que permite ver la gráfica en tiempo real desde cualquier navegador, además de permitir compartirla con cualquier usuario de la red.</p>
+<p>Junto con un smartphone o table se convierte en el compañero perfecto para las tardes/noches de juego. Como se puede ver en el video a continuación, utilizo mi iPad para visualizar la gráfica en tiempo real. Lo que se ve en pantalla es una prueba inicial; y al volver a ejecutar el script desde la línea de comandos se aprecia como se reinicia automáticamente. Para probarlo en funcionamiento inicio un juego para apreciar cómo, conforme avanza, la temperatura y la velocidad del ventilador van ascendiendo. Aunque en un momento de despiste se bloquea el iPad y hasta que no vuelvo a actualizar la ventana no sigue con el <em>stream</em>.</p>
+<p>&nbsp;</p>
+<p>La gráfica guarda únicamente los últimos 10 minutos de streaming: <code>maxpoints=60</code> a una actualización cada 10 segundos. Y cada vez que ejecutamos el script se resetea la gráfica. Si no queremos que se borren los últimos puntos, podríamos incluir un <code>fileopt="extend"</code> cuando llamamos a la función <code>py.plot()</code>.</p>
+<p>Esperamos que haya sido instructivo y nos sorprendáis con vuestras propias gráficas. Cualquier sugerencia o aporte al código en <a href="https://github.com/pfsq/gpu-monitor" target="_blank">GitHub</a> será bien recibida.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/geforce.html" class="tag">geforce</a>
+                    <a href="http://pybonacci.github.io/tag/gpu.html" class="tag">gpu</a>
+                    <a href="http://pybonacci.github.io/tag/monitor.html" class="tag">monitor</a>
+                    <a href="http://pybonacci.github.io/tag/nvidia.html" class="tag">nvidia</a>
+                    <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+                    <a href="http://pybonacci.github.io/tag/streaming-api.html" class="tag">streaming api</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

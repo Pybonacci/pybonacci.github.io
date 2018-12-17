@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Comunidades, relevo generacional y la muerte de Python Hispano | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Comunidades, relevo generacional y la muerte de Python Hispano</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 13 octubre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Hace muchos meses que no escribo un artículo técnico, y me temo que este tampoco va a serlo. Lo que es peor: hace aún más meses que no escribo un artículo triste, y lamentablemente ha llegado el momento de poner algunas ideas negro sobre blanco. Este texto, como su propio título indica, trata de comunidades, de relevo generacional y de la muerte de Python Hispano.</p>
+<p>Primero, un poco de contexto. <a href="https://groups.google.com/d/msg/clases-2009-2010/2ZBNzZKfypk/6ai711EZE94J">Descubrí Python en 2010</a> buscando en Google "free alternative to Mathematica" y accediendo al proyecto Sage, en diciembre de 2011 creé un blog llamado <a href="http://web.archive.org/web/20120505160240/http://juanlu001.github.com/">"Dead Epsilon"</a>, en enero de 2012 fui a <a href="http://python-madrid.es/meetings/reunion-enero-2012-python-madrid/">mi primera reunión de Python Madrid</a> y en marzo de 2012 maté Dead Epsilon y <a href="https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/">creamos Pybonacci</a>. Eso significa que pronto va a hacer 4 años que formo parte de esta comunidad: <strong>la comunidad Python</strong>.<figure id="attachment_3485" style="width: 253px" class="wp-caption aligncenter"></p>
+<p><img alt="cami_white" src="https://pybonacci.org/images/2015/10/cami_white-253x300.jpg"></p>
+<p>La intersección entre «usuarios de Python» y «gente que pertenece a la comunidad de Python» es mucho más pequeña de lo que uno pensaría. ¿O alguien cree que Python solo lo usan en España las 350 personas que caben en una PyConES? Una <em>comunidad</em> es algo que va mucho más allá de ser simplemente un usuario. Cada uno podría dar una definición, pero para mí es <em>algo</em> que tiene que ver con divulgar, con ayudar a los demás, con defender una herramienta frente a otras <em>por los motivos que sean</em> y con <strong>establecer lazos</strong>.</p>
+<!--more-->
+
+<p>El asunto es que cuando yo llegué en 2012 <em>ya existía una comunidad de Python en España</em>. No había PyConES ni muchas otras cosas geniales que tenemos ahora, pero existían listas de correo, proyectos, iniciativas y reuniones locales. En particular, había dos que me producían especial admiración:</p>
+<ul>
+<li><a href="http://web.archive.org/web/20131205095450/http://python.majibu.org/">Python Majibu</a>, un sitio de preguntas y respuestas tipo Stack Overflow sobre Python en español mantenido por <a href="http://joedicastro.com/">joe di castro</a>.</li>
+<li><a href="http://web.archive.org/web/20140212200352/http://python-hispano.org/">Python Hispano</a>, una web (o proyecto, o idea) que aglutinaba tutoriales e información sobre el lenguaje en español</li>
+</ul>
+<p>La vocación de estos dos proyectos era evidente: tender puentes entre España y América Latina, unificando el conocimiento existente y propiciando el intercambio de información entre personas que compartían un mismo idioma (por mucho que en España digamos «ordenador» y en Argentina digan «computadora»). Una idea apasionante que me encendió el ánimo durante años, pero que ha fallado.</p>
+<p>Python Majibu nunca llegó a adquirir la masa crítica necesaria para despegar. Además, si bien en Stack Overflow, su inspiración, se persigue que las preguntas fuesen concisas, autocontenidas, bien formuladas y concretas, en Majibu parecía imposible imponer un <em>mínimo</em> de calidad entre la gente que acudía. Gente que no entendía la mecánica del sitio, o que hacía preguntas ininteligibles, terminaron por desmoralizar a aquellos que supuestamente deberían responderlas. <a href="https://twitter.com/chemacortes/status/599121137935736832">Python Majibu fue cerrado de manera abrupta y definitiva</a> hace unos meses, y este escueto tuit es todo lo que he podido recuperar al respecto.</p>
+<blockquote class="twitter-tweet" width="550">
+  <p lang="es" dir="ltr">
+    Muchas gracias, <a href="https://twitter.com/hashtag/Python?src=hash">#Python</a> Majibú, por estos años creando comunidad: <a href="http://t.co/AxsJtnIQ0M">http://t.co/AxsJtnIQ0M</a> ¿A dónde se ha ido la comunidad hispana?
+  </p>
+
+  <p>
+    &mdash; Chema Cortés (@chemacortes) <a href="https://twitter.com/chemacortes/status/599121137935736832">May 15, 2015</a>
+  </p>
+</blockquote>
+
+<p>Python Hispano, por otro lado, era una idea más ambiciosa: <strong>pretendía nada menos que aglutinar y conectar todas las comunidades de Python hispanohablantes</strong>. La lógica es aplastante: una pregunta sobre el lenguaje puede responderla igual de bien un venezolano, un mexicano o un argentino, mientras que asuntos que tienen un contenido más localizado se puede hablar en listas de correo específicas.</p>
+<p>Sin embargo, esta convergencia nunca se consiguió. Estamos hablando de unos años en los que prácticamente el único país que tenía un evento nacional de Python era Argentina, y en general dudo que muchos pythonistas de países diferentes se conociesen en persona (no digamos ya de continentes diferentes). Python Hispano estaba condenado a morir de ambición.</p>
+<p>En 2013 sus promotores nos traspasaron las cuentas de Twitter y Facebook, los dominios y los alojamientos, con la esperanza de que pudiésemos hacer algo con todo ello. El alojamiento no se renovó en 2014 y en todo ese tiempo no sé de nadie que me haya preguntado: «¿qué ha pasado?». Mientras tanto, aunque tengo un perfil «pythonista» muy activo en las redes sociales, desde un punto de vista personal cada vez me iba alejando más de ellas. Así que anoche escribí a <a href="http://ch3m4.org">Chema Cortés</a> y le dije que iba a dejar morir el proyecto. Adiós, Python Hispano.</p>
+<p>No todo son malas noticias, eso sí. Antes de que acabe el año saldrá a la luz <a href="http://area51.stackexchange.com/proposals/42810/stack-overflow-in-spanish">la versión en español de Stack Overflow</a>, una oportunidad de oro para construir una repositorio de conocimiento de calidad en nuestro idioma (y a quien no le guste la idea ya lo discutiremos en otro artículo). La gente se empieza a organizar para que la PyCon (<strong><em>la</em></strong> PyCon) ocurra en Cuba, que no solo es una idea con una fuerte carga política sino que puede suponer un gran empujón para la comunidad en Centroamérica. Además, empieza a haber lazos entre las comunidades española y argentina cada vez más fuertes 🙂</p>
+<p>La cuestión es que a veces un proyecto muere y otro nace para reemplazarlo, pero... ¿Qué pasa cuando no se produce ese reemplazo? Volvemos a España en 2015 y me encuentro con que soy, aparte de redactor ocasional en Pybonacci, presidente de Python España, organizador de la PyConES y cada vez más organizador de Python Madrid. Y la única razón por la que he podido hacer todas estas cosas es porque he pospuesto la finalización de mis estudios otros cuatro meses más, con el coste económico y de oportunidad que eso me va a acarrear.</p>
+<p>Cuando comí con Ian Ozsvald, el organizador principal del Meetup de PyData London, en Estocolmo, le pregunté: «Ian, ¿qué demonios haces para que haya más de 2000 miembros en tu Meetup? Me niego a creer que solo es porque estás en Londres». A lo que contestó algo así como: «Los tres trucos son asustar a la gente con que se queda sin sitio, seleccionar muy cuidadosamente la agenda y los ponentes para que la reunión merezca la pena y dar pizza gratis al terminar». Me encargué de poner en práctica los dos primeros el mes pasado y pasamos de 20-30 personas a <a href="http://www.meetup.com/Madrid-Python-Meetup/events/224611384/">llenar hasta la bandera el auditorio de Campus Madrid</a>. Y eso que aún no damos pizza gratis.</p>
+<p>No he escrito 1000 palabras para echarme flores y decir lo encantado que estoy de conocerme, sino para moverte a la reflexión <em>a ti</em>, que me estás leyendo. Hacer las cosas bien requiere tiempo, hacerlas muy bien requiere mucho tiempo y hacerlas lo mejor posible requiere una cantidad inimaginable de horas, emails, llamadas y noches sin dormir. <strong>Tú</strong> que estás leyendo esto seguro que tienes personas a tu alrededor rebosantes de energía y con ganas de cambiar el mundo, o al menos una pequeña porción de mundo sobre la que tienen influencia. Pero si nadie ayuda a esas personas, llegará un momento en el que se cansarán, desaparecerán y todo su saber hacer se perderá. Esto se llama <strong>falta de relevo generacional</strong>.</p>
+<p><strong>Si estás leyendo esto formas parte de esta comunidad</strong>. Tus motivos tendrás para ello: quieres devolver lo que has aprendido, tienes vocación de ayudar a los demás, buscas notoriedad. Las razones no importan, lo importante es que te involucres y eches una mano a esa persona que todos los meses pregunta en la lista de correo: «¿Alguien quiere dar una charla este mes? ¿Contamos con el bar de siempre?» (como ha hecho Pablo Lobariñas en Python Madrid desde que tengo uso de razón) antes de que se canse y no haya nadie que quiera hacerlo. A veces son cosas sencillas, como ayudar con un par de correos o contactar con esa persona que te dijeron que a lo mejor podría dar una charla.</p>
+<p><strong><em>Me encanta esta comunidad</em></strong>. Si no fuese cierto no llevaría en ella cuatro años. En ella he aprendido muchísimo sin pagar nada, he viajado, he ganado notoriedad, me he rodeado de gente extremadamente interesante y, por si fuera poco, me he enamorado. Mi vida no sería la misma de no ser porque un día me armé de valor y me fui a una reunión de <em>frikis</em> (con todo el cariño) en la que no conocía a nadie. Pero esta comunidad es una iniciativa sin ánimo de lucro y por amor al arte que necesita que gente nueva se involucre, aprenda cómo hacer las cosas y lleve adelante más proyectos y más ideas. <strong>Las comunidades necesitan un relevo generacional constante e ininterrumpido</strong>.</p>
+<p>Y tú, ¿eres el próximo presidente de Python España?</p>
+<p>Gracias por leer.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

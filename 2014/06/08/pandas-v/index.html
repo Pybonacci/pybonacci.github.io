@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pandas (V) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Pandas (V)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 08 junio 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo 
+siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta quinta parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Unir (merge/join)</strong></p>
+<p>Pandas dispone de la función <code>merge</code> 
+(<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.tools.merge.merge.html#pandas.tools.merge.merge">documentación oficial</a>) 
+que permite 'unir' datos al estilo de como se hace con bases de datos 
+relacionales (usando SQL). También se puede acceder al método <code>merge</code> 
+disponible en las instancias a un Dataframe.</p>
+<p>Por su parte, <code>join</code> es un método disponible en un DataFrame y sirve 
+para hacer uniones de índices sobre índices o de índices sobre columnas. 
+Las uniones que hace <code>join</code> las hace sobre los índices, en lugar de 
+hacerlo sobre columnas comunes como se hace con <code>merge</code>. A ver si 
+viendo los ejemplos queda un poco mejor este último párrafo y las 
+diferencias entre <code>join</code> y <code>merge</code>.</p>
+<p>Las uniones pueden ser uno-a-uno, muchos-a-uno o muchos-a-muchos.</p>
+<p>Una unión uno-a-uno sería cuando unimos dos tablas (DataFrames) con 
+índices únicos como hemos hecho en la entrega anterior con las 
+concatenaciones.</p>
+<div class="highlight"><pre><span></span><span class="n">datos1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;columna1&#39;</span><span class="p">])</span>
+<span class="n">datos2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">14</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;columna2&#39;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">datos1j</span> <span class="o">=</span> <span class="n">datos1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos2</span><span class="p">)</span>
+<span class="n">datos2j</span> <span class="o">=</span> <span class="n">datos2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos1j n{}n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos1j</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos2j n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos2j</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos1j</span> 
+   <span class="n">columna1</span>  <span class="n">columna2</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">0.209303</span>       <span class="n">NaN</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">0.430892</span>  <span class="mf">1.052453</span>
+<span class="mi">2</span>  <span class="mf">0.766200</span> <span class="o">-</span><span class="mf">0.346896</span>
+<span class="mi">3</span>  <span class="mf">1.773694</span> <span class="o">-</span><span class="mf">0.249700</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">2.259187</span> <span class="o">-</span><span class="mf">0.588739</span>
+<span class="mi">5</span> <span class="o">-</span><span class="mf">0.930647</span>  <span class="mf">0.160590</span>
+<span class="mi">6</span>  <span class="mf">0.029990</span>  <span class="mf">0.421446</span>
+<span class="mi">7</span>  <span class="mf">0.812770</span> <span class="o">-</span><span class="mf">0.315913</span>
+<span class="mi">8</span>  <span class="mf">0.681786</span>  <span class="mf">0.256745</span>
+<span class="mi">9</span> <span class="o">-</span><span class="mf">0.115109</span>  <span class="mf">0.524278</span>
+
+<span class="p">[</span><span class="mi">10</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">datos2j</span> 
+    <span class="n">columna2</span>  <span class="n">columna1</span>
+<span class="mi">1</span>   <span class="mf">1.052453</span> <span class="o">-</span><span class="mf">0.430892</span>
+<span class="mi">2</span>  <span class="o">-</span><span class="mf">0.346896</span>  <span class="mf">0.766200</span>
+<span class="mi">3</span>  <span class="o">-</span><span class="mf">0.249700</span>  <span class="mf">1.773694</span>
+<span class="mi">4</span>  <span class="o">-</span><span class="mf">0.588739</span> <span class="o">-</span><span class="mf">2.259187</span>
+<span class="mi">5</span>   <span class="mf">0.160590</span> <span class="o">-</span><span class="mf">0.930647</span>
+<span class="mi">6</span>   <span class="mf">0.421446</span>  <span class="mf">0.029990</span>
+<span class="mi">7</span>  <span class="o">-</span><span class="mf">0.315913</span>  <span class="mf">0.812770</span>
+<span class="mi">8</span>   <span class="mf">0.256745</span>  <span class="mf">0.681786</span>
+<span class="mi">9</span>   <span class="mf">0.524278</span> <span class="o">-</span><span class="mf">0.115109</span>
+<span class="mi">10</span> <span class="o">-</span><span class="mf">1.707269</span>       <span class="n">NaN</span>
+<span class="mi">11</span> <span class="o">-</span><span class="mf">1.140342</span>       <span class="n">NaN</span>
+<span class="mi">12</span> <span class="o">-</span><span class="mf">1.751337</span>       <span class="n">NaN</span>
+<span class="mi">13</span> <span class="o">-</span><span class="mf">0.481319</span>       <span class="n">NaN</span>
+<span class="mi">14</span>  <span class="mf">1.604800</span>       <span class="n">NaN</span>
+
+<span class="p">[</span><span class="mi">14</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>En los anteriores ejemplos, <code>datos1j</code> es el resultado de unir los datos 
+<code>datos2</code> a los datos <code>datos1</code> en todos los índices comunes que tienen 
+ambos teniendo solo en cuenta el rango de índices definido en <code>datos1</code>. 
+Si algún dato en <code>datos2</code> no tiene un índice presente en <code>datos1</code> se 
+rellenará con un <code>NaN</code>. Con <code>datos2j</code> sucede lo mismo que con <code>datos1j</code> 
+lo que el índice que tiene relevancia ahora es el perteneciente a 
+<code>datos2j</code>. No sé si habrá quedado más o menos claro.</p>
+<p>Ahora vamos a unir pero usando la palabra clave <code>how</code> que nos permite 
+decir como se van a tener en cuenta los índices. Normalmente le 
+pasaremos el parámetro <code>outer</code> o <code>inner</code>. El primero, <code>outer</code>, indica 
+que los índices de los DataFrames se unen como en una unión de 
+conjuntos, el segundo, <code>inner</code>, une los índices como si hiciéramos una 
+intersección de conjuntos. Veamos un par de ejemplos para que se vea de 
+forma práctica, el primero usando <code>outer</code> y el segundo usando <code>inner</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">datos3j1</span> <span class="o">=</span> <span class="n">datos1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos2</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+<span class="n">datos3j2</span> <span class="o">=</span> <span class="n">datos2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos1</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos3j1 n{}n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos3j1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos3j2 recolocadosn{}n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos3j2</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;columna1&#39;</span><span class="p">,</span><span class="s1">&#39;columna2&#39;</span><span class="p">]]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos3j2 n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos3j2</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos3j1</span> 
+    <span class="n">columna1</span>  <span class="n">columna2</span>
+<span class="mi">0</span>  <span class="o">-</span><span class="mf">0.209303</span>       <span class="n">NaN</span>
+<span class="mi">1</span>  <span class="o">-</span><span class="mf">0.430892</span>  <span class="mf">1.052453</span>
+<span class="mi">2</span>   <span class="mf">0.766200</span> <span class="o">-</span><span class="mf">0.346896</span>
+<span class="mi">3</span>   <span class="mf">1.773694</span> <span class="o">-</span><span class="mf">0.249700</span>
+<span class="mi">4</span>  <span class="o">-</span><span class="mf">2.259187</span> <span class="o">-</span><span class="mf">0.588739</span>
+<span class="mi">5</span>  <span class="o">-</span><span class="mf">0.930647</span>  <span class="mf">0.160590</span>
+<span class="mi">6</span>   <span class="mf">0.029990</span>  <span class="mf">0.421446</span>
+<span class="mi">7</span>   <span class="mf">0.812770</span> <span class="o">-</span><span class="mf">0.315913</span>
+<span class="mi">8</span>   <span class="mf">0.681786</span>  <span class="mf">0.256745</span>
+<span class="mi">9</span>  <span class="o">-</span><span class="mf">0.115109</span>  <span class="mf">0.524278</span>
+<span class="mi">10</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.707269</span>
+<span class="mi">11</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.140342</span>
+<span class="mi">12</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.751337</span>
+<span class="mi">13</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">0.481319</span>
+<span class="mi">14</span>       <span class="n">NaN</span>  <span class="mf">1.604800</span>
+
+<span class="p">[</span><span class="mi">15</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">datos3j2</span> <span class="n">recolocados</span>
+    <span class="n">columna1</span>  <span class="n">columna2</span>
+<span class="mi">0</span>  <span class="o">-</span><span class="mf">0.209303</span>       <span class="n">NaN</span>
+<span class="mi">1</span>  <span class="o">-</span><span class="mf">0.430892</span>  <span class="mf">1.052453</span>
+<span class="mi">2</span>   <span class="mf">0.766200</span> <span class="o">-</span><span class="mf">0.346896</span>
+<span class="mi">3</span>   <span class="mf">1.773694</span> <span class="o">-</span><span class="mf">0.249700</span>
+<span class="mi">4</span>  <span class="o">-</span><span class="mf">2.259187</span> <span class="o">-</span><span class="mf">0.588739</span>
+<span class="mi">5</span>  <span class="o">-</span><span class="mf">0.930647</span>  <span class="mf">0.160590</span>
+<span class="mi">6</span>   <span class="mf">0.029990</span>  <span class="mf">0.421446</span>
+<span class="mi">7</span>   <span class="mf">0.812770</span> <span class="o">-</span><span class="mf">0.315913</span>
+<span class="mi">8</span>   <span class="mf">0.681786</span>  <span class="mf">0.256745</span>
+<span class="mi">9</span>  <span class="o">-</span><span class="mf">0.115109</span>  <span class="mf">0.524278</span>
+<span class="mi">10</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.707269</span>
+<span class="mi">11</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.140342</span>
+<span class="mi">12</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">1.751337</span>
+<span class="mi">13</span>       <span class="n">NaN</span> <span class="o">-</span><span class="mf">0.481319</span>
+<span class="mi">14</span>       <span class="n">NaN</span>  <span class="mf">1.604800</span>
+
+<span class="p">[</span><span class="mi">15</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">datos3j2</span> 
+    <span class="n">columna2</span>  <span class="n">columna1</span>
+<span class="mi">0</span>        <span class="n">NaN</span> <span class="o">-</span><span class="mf">0.209303</span>
+<span class="mi">1</span>   <span class="mf">1.052453</span> <span class="o">-</span><span class="mf">0.430892</span>
+<span class="mi">2</span>  <span class="o">-</span><span class="mf">0.346896</span>  <span class="mf">0.766200</span>
+<span class="mi">3</span>  <span class="o">-</span><span class="mf">0.249700</span>  <span class="mf">1.773694</span>
+<span class="mi">4</span>  <span class="o">-</span><span class="mf">0.588739</span> <span class="o">-</span><span class="mf">2.259187</span>
+<span class="mi">5</span>   <span class="mf">0.160590</span> <span class="o">-</span><span class="mf">0.930647</span>
+<span class="mi">6</span>   <span class="mf">0.421446</span>  <span class="mf">0.029990</span>
+<span class="mi">7</span>  <span class="o">-</span><span class="mf">0.315913</span>  <span class="mf">0.812770</span>
+<span class="mi">8</span>   <span class="mf">0.256745</span>  <span class="mf">0.681786</span>
+<span class="mi">9</span>   <span class="mf">0.524278</span> <span class="o">-</span><span class="mf">0.115109</span>
+<span class="mi">10</span> <span class="o">-</span><span class="mf">1.707269</span>       <span class="n">NaN</span>
+<span class="mi">11</span> <span class="o">-</span><span class="mf">1.140342</span>       <span class="n">NaN</span>
+<span class="mi">12</span> <span class="o">-</span><span class="mf">1.751337</span>       <span class="n">NaN</span>
+<span class="mi">13</span> <span class="o">-</span><span class="mf">0.481319</span>       <span class="n">NaN</span>
+<span class="mi">14</span>  <span class="mf">1.604800</span>       <span class="n">NaN</span>
+
+<span class="p">[</span><span class="mi">15</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos4j1</span> <span class="o">=</span> <span class="n">datos1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos2</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="n">datos4j2</span> <span class="o">=</span> <span class="n">datos2</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos1</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos4j1 n{}n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos4j1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos4j2 recolocadosn{}n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos4j2</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,</span> <span class="p">[</span><span class="s1">&#39;columna1&#39;</span><span class="p">,</span><span class="s1">&#39;columna2&#39;</span><span class="p">]]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos4j2 n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos4j2</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos4j1</span> 
+   <span class="n">columna1</span>  <span class="n">columna2</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">0.430892</span>  <span class="mf">1.052453</span>
+<span class="mi">2</span>  <span class="mf">0.766200</span> <span class="o">-</span><span class="mf">0.346896</span>
+<span class="mi">3</span>  <span class="mf">1.773694</span> <span class="o">-</span><span class="mf">0.249700</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">2.259187</span> <span class="o">-</span><span class="mf">0.588739</span>
+<span class="mi">5</span> <span class="o">-</span><span class="mf">0.930647</span>  <span class="mf">0.160590</span>
+<span class="mi">6</span>  <span class="mf">0.029990</span>  <span class="mf">0.421446</span>
+<span class="mi">7</span>  <span class="mf">0.812770</span> <span class="o">-</span><span class="mf">0.315913</span>
+<span class="mi">8</span>  <span class="mf">0.681786</span>  <span class="mf">0.256745</span>
+<span class="mi">9</span> <span class="o">-</span><span class="mf">0.115109</span>  <span class="mf">0.524278</span>
+
+<span class="p">[</span><span class="mi">9</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">datos4j2</span> <span class="n">recolocados</span>
+   <span class="n">columna1</span>  <span class="n">columna2</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">0.430892</span>  <span class="mf">1.052453</span>
+<span class="mi">2</span>  <span class="mf">0.766200</span> <span class="o">-</span><span class="mf">0.346896</span>
+<span class="mi">3</span>  <span class="mf">1.773694</span> <span class="o">-</span><span class="mf">0.249700</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">2.259187</span> <span class="o">-</span><span class="mf">0.588739</span>
+<span class="mi">5</span> <span class="o">-</span><span class="mf">0.930647</span>  <span class="mf">0.160590</span>
+<span class="mi">6</span>  <span class="mf">0.029990</span>  <span class="mf">0.421446</span>
+<span class="mi">7</span>  <span class="mf">0.812770</span> <span class="o">-</span><span class="mf">0.315913</span>
+<span class="mi">8</span>  <span class="mf">0.681786</span>  <span class="mf">0.256745</span>
+<span class="mi">9</span> <span class="o">-</span><span class="mf">0.115109</span>  <span class="mf">0.524278</span>
+
+<span class="p">[</span><span class="mi">9</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">datos4j2</span> 
+   <span class="n">columna2</span>  <span class="n">columna1</span>
+<span class="mi">1</span>  <span class="mf">1.052453</span> <span class="o">-</span><span class="mf">0.430892</span>
+<span class="mi">2</span> <span class="o">-</span><span class="mf">0.346896</span>  <span class="mf">0.766200</span>
+<span class="mi">3</span> <span class="o">-</span><span class="mf">0.249700</span>  <span class="mf">1.773694</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">0.588739</span> <span class="o">-</span><span class="mf">2.259187</span>
+<span class="mi">5</span>  <span class="mf">0.160590</span> <span class="o">-</span><span class="mf">0.930647</span>
+<span class="mi">6</span>  <span class="mf">0.421446</span>  <span class="mf">0.029990</span>
+<span class="mi">7</span> <span class="o">-</span><span class="mf">0.315913</span>  <span class="mf">0.812770</span>
+<span class="mi">8</span>  <span class="mf">0.256745</span>  <span class="mf">0.681786</span>
+<span class="mi">9</span>  <span class="mf">0.524278</span> <span class="o">-</span><span class="mf">0.115109</span>
+
+<span class="p">[</span><span class="mi">9</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Todo lo anterior se puede hacer también usando la función o método 
+<code>merge</code> pero encuentro que es una forma un poco más rebuscada por lo 
+que no la vamos a mostrar aquí ya que añade complejidad. Veremos usos de 
+<code>merge</code> más adelante.</p>
+<p>Ahora vamos a mostrar una unión muchos-a-uno. Estas uniones se hacen 
+sobre una o más columnas como referencia, no a partir de índices, por 
+lo que los valores contenidos pueden no ser únicos. Como siempre, vamos 
+a ver un poco de código para ver si clarifica un poco más la teoría:</p>
+<div class="highlight"><pre><span></span><span class="n">datos1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;columna1&#39;</span><span class="p">])</span>
+<span class="n">datos1</span><span class="p">[</span><span class="s1">&#39;otra_columna&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;mundo&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>
+<span class="n">datos2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2&#39;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;mundo&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos1 n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos2 n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Unión de datos n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datos2</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;otra_columna&#39;</span><span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos1</span> 
+    <span class="n">columna1</span> <span class="n">otra_columna</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">2.086230</span>         <span class="n">hola</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">1.015736</span>        <span class="n">mundo</span>
+<span class="mi">2</span> <span class="o">-</span><span class="mf">0.919460</span>         <span class="n">hola</span>
+<span class="mi">3</span>  <span class="mf">0.923531</span>        <span class="n">mundo</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">0.445977</span>         <span class="n">hola</span>
+<span class="mi">5</span>  <span class="mf">0.719787</span>        <span class="n">mundo</span>
+<span class="mi">6</span>  <span class="mf">1.064480</span>         <span class="n">hola</span>
+<span class="mi">7</span> <span class="o">-</span><span class="mf">0.235803</span>        <span class="n">mundo</span>
+<span class="mi">8</span>  <span class="mf">1.395844</span>         <span class="n">hola</span>
+<span class="mi">9</span>  <span class="mf">1.492875</span>        <span class="n">mundo</span>
+
+<span class="p">[</span><span class="mi">10</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">datos2</span> 
+            <span class="n">col1</span>      <span class="n">col2</span>
+<span class="n">hola</span>   <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+
+<span class="p">[</span><span class="mi">2</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">Unión</span> <span class="n">de</span> <span class="n">datos</span> 
+    <span class="n">columna1</span> <span class="n">otra_columna</span>      <span class="n">col1</span>      <span class="n">col2</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">2.086230</span>         <span class="n">hola</span>  <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mf">1.015736</span>        <span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+<span class="mi">2</span> <span class="o">-</span><span class="mf">0.919460</span>         <span class="n">hola</span>  <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="mi">3</span>  <span class="mf">0.923531</span>        <span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">0.445977</span>         <span class="n">hola</span>  <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="mi">5</span>  <span class="mf">0.719787</span>        <span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+<span class="mi">6</span>  <span class="mf">1.064480</span>         <span class="n">hola</span>  <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="mi">7</span> <span class="o">-</span><span class="mf">0.235803</span>        <span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+<span class="mi">8</span>  <span class="mf">1.395844</span>         <span class="n">hola</span>  <span class="mf">0.400267</span> <span class="o">-</span><span class="mf">0.678126</span>
+<span class="mi">9</span>  <span class="mf">1.492875</span>        <span class="n">mundo</span>  <span class="mf">0.855735</span>  <span class="mf">0.619193</span>
+
+<span class="p">[</span><span class="mi">10</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Estamos uniendo sobre los valores de la columna del DataFrame <code>datos1</code> 
+que presenta valores presentes en los índices del DataFrame <code>datos2</code>. En 
+el anterior ejemplo hemos unido teniendo en cuenta una única columna, si 
+queremos unir teniendo en cuenta varias columnas, el DataFrame que se le 
+pase deberá presentar un MultiÍndice con tantos índices como columnas 
+usemos (<a href="http://pandas.pydata.org/pandas-docs/stable/indexing.html#hierarchical-indexing-multiindex">ver documentación sobre MultiÍndices</a> 
+y <a href="http://pandas.pydata.org/pandas-docs/stable/merging.html#joining-key-columns-on-an-index">sobre unión con ellos</a>).</p>
+<p>Para hacer uniones de muchos-a-muchos usaremos <code>merge</code> que ofrece mayor 
+libertad para poder hacer uniones de cualquier tipo (también las que 
+hemos visto hasta ahora de uno-a-uno y de muchos-a-uno).</p>
+<p>En el siguiente ejemplo vamos a hacer una unión de dos DataFrames usando 
+<code>merge</code> y luego iremos explicando lo que hemos estado haciendo poco a 
+poco para ver si se entiende un poco mejor.</p>
+<div class="highlight"><pre><span></span><span class="n">datos_dcha</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;clave&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;valor_dcha&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)})</span>
+<span class="n">datos_izda</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;clave&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;valor_izda&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)})</span>
+<span class="n">datos_unidos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">datos_izda</span><span class="p">,</span> <span class="n">datos_dcha</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;clave&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_dcha n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_dcha</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_izda n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_izda</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_unidos n {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_unidos</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos_dcha</span> 
+   <span class="n">clave</span>  <span class="n">valor_dcha</span>
+<span class="mi">0</span>   <span class="n">foo</span>           <span class="mi">0</span>
+<span class="mi">1</span>   <span class="n">foo</span>           <span class="mi">1</span>
+<span class="mi">2</span>   <span class="n">foo</span>           <span class="mi">2</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">datos_izda</span> 
+   <span class="n">clave</span>  <span class="n">valor_izda</span>
+<span class="mi">0</span>   <span class="n">foo</span>           <span class="mi">5</span>
+<span class="mi">1</span>   <span class="n">foo</span>           <span class="mi">6</span>
+<span class="mi">2</span>   <span class="n">foo</span>           <span class="mi">7</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">datos_unidos</span> 
+   <span class="n">clave</span>  <span class="n">valor_izda</span>  <span class="n">valor_dcha</span>
+<span class="mi">0</span>   <span class="n">foo</span>           <span class="mi">5</span>           <span class="mi">0</span>
+<span class="mi">1</span>   <span class="n">foo</span>           <span class="mi">5</span>           <span class="mi">1</span>
+<span class="mi">2</span>   <span class="n">foo</span>           <span class="mi">5</span>           <span class="mi">2</span>
+<span class="mi">3</span>   <span class="n">foo</span>           <span class="mi">6</span>           <span class="mi">0</span>
+<span class="mi">4</span>   <span class="n">foo</span>           <span class="mi">6</span>           <span class="mi">1</span>
+<span class="mi">5</span>   <span class="n">foo</span>           <span class="mi">6</span>           <span class="mi">2</span>
+<span class="mi">6</span>   <span class="n">foo</span>           <span class="mi">7</span>           <span class="mi">0</span>
+<span class="mi">7</span>   <span class="n">foo</span>           <span class="mi">7</span>           <span class="mi">1</span>
+<span class="mi">8</span>   <span class="n">foo</span>           <span class="mi">7</span>           <span class="mi">2</span>
+
+<span class="p">[</span><span class="mi">9</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Vemos que si hacemos una unión de la anterior forma, a cada valor de 
+<code>datos_dcha</code> le 'asocia' cada uno de los valores de <code>datos_izda</code> que 
+tengan la misma clave. En la siquiente celda de código vemos otro 
+ejemplo de lo anterior un poco más completo teniendo en cuenta dos 
+columnas de claves y usando el método <code>outer</code> de 'unión':</p>
+<div class="highlight"><pre><span></span><span class="n">datos_dcha</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;clave1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span>
+                           <span class="s1">&#39;clave2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">],</span>
+                           <span class="s1">&#39;val_dcha&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]})</span>
+<span class="n">datos_izda</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;clave1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span>
+                           <span class="s1">&#39;clave2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">],</span>
+                           <span class="s1">&#39;val_izda&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="n">datos_unidos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">datos_izda</span><span class="p">,</span> <span class="n">datos_dcha</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_dcha n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_dcha</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_izda n {} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_izda</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_unidos n {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_unidos</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">datos_dcha</span> 
+   <span class="n">clave1</span> <span class="n">clave2</span>  <span class="n">val_dcha</span>
+<span class="mi">0</span>    <span class="n">foo</span>    <span class="n">one</span>         <span class="mi">4</span>
+<span class="mi">1</span>    <span class="n">foo</span>    <span class="n">one</span>         <span class="mi">5</span>
+<span class="mi">2</span>    <span class="n">bar</span>    <span class="n">one</span>         <span class="mi">6</span>
+<span class="mi">3</span>    <span class="n">bar</span>    <span class="n">two</span>         <span class="mi">7</span>
+
+<span class="p">[</span><span class="mi">4</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">datos_izda</span> 
+   <span class="n">clave1</span> <span class="n">clave2</span>  <span class="n">val_izda</span>
+<span class="mi">0</span>    <span class="n">foo</span>    <span class="n">one</span>         <span class="mi">1</span>
+<span class="mi">1</span>    <span class="n">foo</span>    <span class="n">two</span>         <span class="mi">2</span>
+<span class="mi">2</span>    <span class="n">bar</span>    <span class="n">one</span>         <span class="mi">3</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span> 
+
+<span class="n">datos_unidos</span> 
+   <span class="n">clave1</span> <span class="n">clave2</span>  <span class="n">val_izda</span>  <span class="n">val_dcha</span>
+<span class="mi">0</span>    <span class="n">foo</span>    <span class="n">one</span>         <span class="mi">1</span>         <span class="mi">4</span>
+<span class="mi">1</span>    <span class="n">foo</span>    <span class="n">one</span>         <span class="mi">1</span>         <span class="mi">5</span>
+<span class="mi">2</span>    <span class="n">foo</span>    <span class="n">two</span>         <span class="mi">2</span>       <span class="n">NaN</span>
+<span class="mi">3</span>    <span class="n">bar</span>    <span class="n">one</span>         <span class="mi">3</span>         <span class="mi">6</span>
+<span class="mi">4</span>    <span class="n">bar</span>    <span class="n">two</span>       <span class="n">NaN</span>         <span class="mi">7</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Otra vez hemos llegado al final. ¡¡Estad atentos a la última entrega!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                    <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                    <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                    <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                    <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                    <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

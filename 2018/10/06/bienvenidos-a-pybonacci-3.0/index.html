@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Bienvenidos a Pybonacci 3.0 | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Bienvenidos a Pybonacci 3.0</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 06 octubre 2018</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Inauguramos hoy la nueva versión de Pybonacci, la tercera ya, después de años de camino de amor y odio con wordpress. No vamos a hablar mal de wordpress. Nos ha permitido llegar hasta vosotros durante todos estos años pero ya no encajaba con nuestra forma de trabajar en el 2018. Es por ello que en esta nueva etapa vamos a usar herramientas que nos permitan poder crear contenido de forma más fácil y que el paso desde un Jupyter notebook de nuestro PC a la pybonaccisfera sea lo más rápida y automática posible y que sea más fácil para cualquiera de vosotros poder colaborar en compartir el conocimiento de forma libre y accesible.</p>
+<p>En esta entrada vamos a hacer un repaso a lo que hemos hecho durante estos años, lo que hemos conseguido, cómo lo hemos conseguido, cómo lo queremos seguir consiguiendo y lo que esperamos para el pybonacci del futuro.</p>
+<h1>Origenes</h1>
+<p>Kiko, después de darle vueltas durante un tiempo pensó </p>
+<blockquote>
+<p>Python y ciencia en español está poco representado, en inglés hay mucho y muy bueno, hagamos lo mismo para gente que no conoce el inglés... Pero no puedo hacer esto solo, con mis compromisos, mis motivaciones, mis puntas de trabajo,..., si lo empiezo por mi cuenta va a morir a los pocos meses, necesito otros <em>motivados</em> como yo,...</p>
+<p>-- <cite>Kiko Correoso</cite></p>
+</blockquote>
+<p>Y así es como llegamos a Juanlu y a David. Fundadores de Pybonacci.</p>
+<h1>Fundación</h1>
+<p>En un meetup de <a href="https://python-madrid.es/">Python Madrid</a> allá por el año 2012 Kiko les comentó a los otros cientófilos habituales del meetup, Juanlu y David, lo de montar en blog para hablar sobre python científico en español y ambos abrazaron la idea entusiasmadamente. En marzo de 2012 empezamos a discutir por correo cómo abrirnos al mundo y <a href="https://pybonacci.wordpress.com/">wordpress.com</a> fue el medio elegido. Hicimos tormenta de ideas y barajamos varios nombres para esta nueva aventura:</p>
+<ul>
+<li>numeropy </li>
+<li>numero-py</li>
+<li>cientifipy</li>
+<li>Ciencipy</li>
+<li>Eulerpy</li>
+<li>Cientifi.py</li>
+<li>Cientify-py</li>
+<li>PyGauss</li>
+<li>Pyubble</li>
+<li>Pyuler</li>
+<li>Pywton</li>
+</ul>
+<p>El último, Pywton, ganó adeptos hasta que a última hora Kiko puso sobre la mesa Pybonacci y hasta hoy.</p>
+<p>Muy bien, ya tenemos una identidad, una finalidad, página, twitter,... Todo esto, ¿para qué?</p>
+<h1>Qué hemos conseguido</h1>
+<ul>
+<li>Hemos publicado casi 200 entradas.</li>
+<li>Hemos recibido más de 1000 comentarios.</li>
+<li>Hemos tenido cientos de miles de visitas desde España, Estados Unidos, México, Argentina, Reino Unido, Colombia, Ecuador, Alemania, Francia, Chile, Brasil, Portugal, Costa Rica, Venezuela, Italia, China, Japón,... Prácticamente todo el mundo pero con más presencia en Europa y América.</li>
+<li>Hemos entrevistado a gente increible como Fernando Pérez o Manuel Kaufmann,...</li>
+<li>Hemos viajado.</li>
+<li>Han participado escribiendo entradas 8 <del>motivados</del>personas: Alberto, Álex, Bob, David Pérez, Javier, Jorge, Pablo, Manu, además de los tres fundadores, David, Juanlu y Kiko.</li>
+<li>Hemos sorteado libros.</li>
+<li>Hemos sorteado entradas de eventos.</li>
+<li>Hemos conseguido/promovido donaciones para Python España, para Argentina en Python, para NumFocus,...</li>
+<li>A nivel personal no como pybonacci, hemos participado en crear Python España, Python Madrid,... Hemos participado en organizar diferentes PyConES, PyDataMadrid. Hemos formado o formamos parte de la junta directiva de Python España. Hemos gestionado y/o participamos activamente en meetups como el de Python Madrid, PyDataMallorca,... Hemos organizado cursos totalmente disponibles de forma gratuita,...</li>
+<li>¡Hemos hecho camisetas!</li>
+</ul>
+<h1>¿Cómo hemos conseguido todo lo anterior?</h1>
+<p>No os vamos a mentir, con mucha dedicación y con mucha motivación:</p>
+<ul>
+<li>La dedicación nos sale de dentro. Nos hemos juntado una serie de personas a las que nos gusta compartir lo que aprendemos. Y lo que sabemos lo hemos podido aprender porque otros compartieron antes. Y, sin duda, esperamos que haya más pybonacci's por ahí a los que sirvamos de motivación y/o inspiración.</li>
+<li>La motivación nos viene de todos vosotros, de ver que con pequeños pasitos hemos conseguido cosas muy interesantes, a nuestro modesto modo de ver, de ver que reaccionáis positivamente a muchas de las cosas que hemos hecho.</li>
+</ul>
+<p>Todo lo anterior no es gratis, tiene una deuda personal y económica. El tiempo se lo quitamos a otras cosas que también amamos, nuestras familias, nuestro ocio,... Los servidores, dominios, algunos envíos de libros de los sorteos,..., los pagamos de nuestro bolsillo. Ya que hemos llegado hasta aquí y hemos puesto todo lo anterior a vuestra disposición os pedimos/informamos una vez más que os animéis a colaborar con nosotros.</p>
+<h1>¿Qué no hemos conseguido?</h1>
+<p>Sin duda algo que no hemos conseguido es ser regulares. En estos 6 años de existencia nuestras vidas han sufrido muchos cambios y, a pesar de que nuestra motivación sigue intacta o incluso más fortalecida, nuestra dedicación es diferente. Es por ello que hemos invertido algo de tiempo en cambiar nuestra infraestructura para llegar a la versión 3.0.0 de pybonacci y que nos resulte más fácil poder llegar de nuestro escritorio a tu pantalla. Esperamos poder solventar algo el tema de no publicar durante largos periodos de tiempo.</p>
+<p>Tampoco hemos conseguido tener diversidad. Todos somos ciudadanos del mundo pero no todos los ciudadanos del mundo son físicos/ingenieros españoles y varones como los que han participado publicando algo en pybonacci hasta ahora. En esta nueva etapa nos gustaría conseguir que el mundo que nos gusta esté mejor representado también en pybonacci. Que todos sigamos siendo ciudadanos del mundo pero que podamos disfrutar de las visiones particulares de cada colectivo como algo que nos enriquece y que adoptamos para mejorar en lugar de como algo que nos separa y nos diferencia.</p>
+<p>No hemos conseguido involucrar a muchos otros y desconocemos los motivos. Pybonacci está totalmente abierto a todo el que quiera participar independientemente del conocimiento que tenga. Con los nuevos cambios introducidos esperamos que esto sea mucho más sencillo para todos y nos lleguen avalanchas de aportaciones de todos vosotros.</p>
+<p>Y no habremos conseguido muchas otras cosas que esperamos que nos contéis por el medio que consideréis para intentar aprender y hacer las cosas mejor.</p>
+<h1>Nueva etapa 3.0.0</h1>
+<p>Empezamos nueva etapa usando Pelican. Esperamos introducir mejoras poco a poco para que lo que hacemos sea cada vez más usable.</p>
+<p>Hemos decidido usar Github Pages como nuestro hosting, esto permite que cualquier persona interesada en escribir un artículo pueda hacerlo de forma sencilla.</p>
+<p>En esta nueva etapa esperamos escribir más, mucho más. Esperamos que participe mucha más gente compartiendo su conocimiento. Esperamos que los campos estén más abiertos y hablemos no solo de ciencia establecida como la química, biología, matemáticas, física, ingeniería,..., sino también de periodismo de datos, sociología, procesamiento del lenguaje natural o cualquier otro campo que se esté revolucionando con esta explosión de datos y conocimiento libre y colaborativo.</p>
+<p>Asi que, ¿a qué esperas para publicar tu primer artículo en Pybonacci? Sólo tienes que echarle un ojo a las instrucciones para contribuidores <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/CONTRIBUTING.md">aquí</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/pybonacci.html" class="tag">pybonacci</a>
+                    <a href="http://pybonacci.github.io/tag/drama.html" class="tag">drama</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

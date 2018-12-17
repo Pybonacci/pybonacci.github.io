@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 01 julio 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).</p>
+<ol>
+<li><a href="https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/" title="Manual de introducción a matplotlib.pyplot (I): Primeros pasos">Primeros pasos</a></li>
+<li><a href="https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/" title="Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión">Creando ventanas, manejando ventanas y configurando la sesión</a></li>
+<li><a href="https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/" title="Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico">Configuración del gráfico</a></li>
+<li><a href="https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/" title="Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)">Tipos de gráfico I</a></li>
+<li><a href="https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/" title="Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)">Tipos de gráfico II</a></li>
+<li><strong><a href="https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/" title="Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)">Tipos de gráfico III</a></strong></li>
+<li><a href="https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" title="Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)">Tipos de gráfico IV</a></li>
+<li><a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">Texto y anotaciones (arrow, annotate, table, text...)</a></li>
+<li><del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del></li>
+<li><del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del></li>
+<li><a href="https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" title="Manual de introducción a matplotlib.pyplot (IX): Miscelánea">Miscelánea</a></li>
+</ol>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0]</strong></p>
+<p>[DISCLAIMER: Muchos de los gráficos que vamos a representar no tienen ningún sentido físico y los resultados solo pretenden mostrar el uso de la librería].</p>
+<p>En todo momento supondremos que se ha iniciado la sesión y se ha hecho</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+
+<p>Hasta ahora hemos visto como configurar las ventanas, manejo de las mismas, definir áreas de gráfico, algunos tipos de gráficos... Ahora vamos a continuar viendo tipos de gráficos disponibles desde matplotlib.pyplot. En este caso nos vamos a centrar en otros gráficos que, quizá, sean menos usados que los vistos hasta ahora. Algunos ya los hemos visto en otras entradas, como <a href="https://pybonacci.org/2012/03/24/dibujando-una-rosa-de-frecuencias/">gráficos polares</a>, gráficos de contornos <a href="https://pybonacci.org/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/">[1]</a> <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">[2]</a>,...</p>
+<p>Vamos a empezar por ver un gráfico tipo tarta de quesitos o tipo tarta o como lo queráis traducir (en inglés se llama pie chart). Estos son los típicos gráficos que ponen en los periódicos con los resultados de elecciones o cosas así. En este caso vamos a ver un ejemplo real a partir de los datos de las visitas por países a este humilde blog:</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">visitas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">43.97</span><span class="p">,</span> <span class="mf">9.70</span><span class="p">,</span> <span class="mf">7.42</span><span class="p">,</span> <span class="mf">6.68</span><span class="p">,</span> <span class="mf">3.91</span><span class="p">,</span> <span class="mf">3.85</span><span class="p">,</span> <span class="mf">3.62</span><span class="p">,</span> <span class="mf">3.43</span><span class="p">,</span> <span class="mf">3.16</span><span class="p">,</span> <span class="mf">3.04</span><span class="p">]</span> <span class="c1"># Definimos un vector con el % de visitas del top ten de países</span>
+<span class="n">visitas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">visitas</span><span class="p">,</span> <span class="mf">100.</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">visitas</span><span class="p">))</span> <span class="c1"># Introducimos un último elemento que recoge el % de visitas de otros países fuera del top ten</span>
+<span class="n">paises</span> <span class="o">=</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;España&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;México&#39;</span><span class="p">,</span> <span class="s1">&#39;Chile&#39;</span><span class="p">,</span> <span class="s1">&#39;Argentina&#39;</span><span class="p">,</span> <span class="s1">&#39;Colombia&#39;</span><span class="p">,</span> <span class="s1">&#39;Ecuador&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;Perú&#39;</span><span class="p">,</span> <span class="s1">&#39;USA&#39;</span><span class="p">,</span> <span class="s1">&#39;Islandia&#39;</span><span class="p">,</span> <span class="s1">&#39;Venezuela&#39;</span><span class="p">,</span> <span class="s1">&#39;Otros&#39;</span><span class="p">]</span>  <span class="c1"># Etiquetas para los quesitos</span>
+<span class="n">explode</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Esto nos ayudará a destacar algunos quesitos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">visitas</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">paises</span><span class="p">,</span> <span class="n">explode</span> <span class="o">=</span> <span class="n">explode</span><span class="p">)</span>  <span class="c1"># Dibuja un gráfico de quesitos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Porcentaje de visitas por país&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El resultado se puede ver en el gráfico siguiente. Como habréis adivinado, explode sirve para separar quesitos del centro de la tarta. En este caso hemos separado los quesitos de USA e Islandia para destacar los países no hispanohablantes:</p>
+<p><img alt="quesitos" src="https://pybonacci.org/images/2012/06/quesitos.png"></p>
+<!--more-->
+
+<p>Como ya hemos comentado anteriormente, ejemplos de gráficos de contornos ya hemos visto varios. Esos gráficos de contornos se hacen a partir de datos de mallas regulares. Pero, ¿qué sucede si tenemos datos que están repartidos de forma irregular? En este caso podemos hacer uso de plt.tricontour y de plt.tricontourf. Existen unas pocas diferencias de uso con respecto a plt.contour y plt.contourf. En este caso, el valor de Z no tiene que ser 2D. Para ver su funcionamiento pensemos en un caso real. Imaginad que tenéis una red de medidas (por ejemplo, temperaturas) repartidas geográficamente en una zona (AVISO, como siempre, los datos que vamos a representar no tienen ningún sentido físico ni pretender representar una situación real y solo se usan para ver el funcionamiento de tricontour y tricontourf, en este caso).</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># posiciones X de nuestra red de medidas</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># posiciones Y de nuestra red de medidas</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">*</span><span class="mi">3000</span>  <span class="c1"># valores de Temperatura (ºK) en las posiciones (X, Y)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tricontourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>  <span class="c1"># Pintamos las triangulaciones con contornos de color</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tricontour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  <span class="c1"># Pintamos las líneas de contorno en color negro</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># Pintamos la posición de las estaciones de medida.</span>
+</pre></div>
+
+
+<p>El resultado se puede ver en la siguiente figura. Se ha usado plt.scatter para representar la posición de las estaciones de medida:</p>
+<p><img alt="tricontornos" src="https://pybonacci.org/images/2012/07/tricontornos.png"></p>
+<p>Por defecto usa una <a href="http://es.wikipedia.org/wiki/Triangulaci%C3%B3n_de_Delaunay">triangulación de Delaunay</a> pero se puede definir la triangulación que queramos haciendo uso de matplotlib.tri.triangulation.</p>
+<p>Todo esto está metido dentro del paquete matplotlib.tri, donde también podréis encontrar tripcolor y  triplot. Probad con todo ello y mandadnos ejemplos para saber como lo usáis y aprender.</p>
+<p>También podemos dibujar cuadros de valores que correspondan a una matriz en lugar de interpolar los valores mediante contornos. Puede suceder que, en muchos casos, el número de datos que tengamos en una malla regular sea bajo y una interpolación (usando contour, por ejemplo) dé resultados que pueden quedar feos y no representan fielmente lo que queremos representar. En esos casos podemos usar plt.matshow, que lo que hace es dibujar una matriz con cuadros de colores en función del valor de cada uno de los elementos de la matriz. Vamos a hacer otro ejemplo para que se entienda mejor:</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>  <span class="c1"># Valores de x que vamos a usar posteriormente para crear la matriz</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>  <span class="c1"># Valores de y que vamos a usar posteriormente para crear la matriz</span>
+<span class="n">mat1</span><span class="p">,</span> <span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># Creamos dos matrices cuadradas que vamos a cruzar</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">mat1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">mat2</span> <span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Creamos una matriz final a partir de las dos anteriores</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>  <span class="c1"># Representamos la última matriz con matshow</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">mat</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  <span class="c1"># Colocamos líneas de contorno para la matriz mat</span>
+</pre></div>
+
+
+<p>El resultado lo podemos ver en el siguiente ejemplo. En la imagen de la izquierda vemos que las líneas de contorno, en este caso, quedan mal en los bordes y la representación solo usando matshow (imagen de la derecha) sería más adecuada (repito, todos los ejemplos no tienen más sentido que el de explicar el uso de matplotlib.pyplot).</p>
+<p><img alt="matcont" src="https://pybonacci.org/images/2012/07/matcont.png?style=centerme"></p>
+<p>Podéis echarle un ojo a plt.pcolor, plt.pcolomesh y plt.tripcolor que permiten hacer cosas similares a estas.</p>
+<p><code>plt.hexbin</code> hace algo parecido a lo anterior pero teniendo en cuenta la ocurrencia en los intervalos que determinemos (esto mismo lo podemos hacer, por ejemplo, con plt.matshow aunque tendremos que calcular previamente las frecuencias para cada recuadro). Vamos a representar el número de veces que los valores de dos series (x e y) se encuentran en determinado intervalo de datos. Para ello vamos a recurrir, como siempre, a np.random.randn:</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># Creamos un vector de 10000 elementos distribuidos de forma normal</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>  <span class="c1"># Creamos un vector de 10000 elementos distribuidos de forma normal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">gridsize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Representamos como están distribuidos bidimensionalmente con ayuda de hexbin, en este caso definimos un tamaño del grid de 20 (esto se puede elegir como se prefiera)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>  <span class="c1"># Colocamos una barra de colores para saber a qué valor corresponden los colores</span>
+</pre></div>
+
+
+<p style="text-align:left;">
+  El resultado es el siguiente:
+</p>
+
+<p style="text-align:left;">
+  <a href="https://pybonacci.org/images/2012/07/hexbin.png"><img class="aligncenter size-full wp-image-684" title="hexbin" src="https://pybonacci.org/images/2012/07/hexbin.png" alt="" width="652" height="553" srcset="https://pybonacci.org/wp-content/uploads/2012/07/hexbin.png 652w, https://pybonacci.org/wp-content/uploads/2012/07/hexbin-300x254.png 300w" sizes="(max-width: 652px) 100vw, 652px" /></a>
+</p>
+
+<p style="text-align:left;">
+  Por último por hoy vamos a dibujar gráficos de flechas. Esto se suele usar para dibujar viento, el movimiento de un fluido, movimiento de partículas, ... En este caso vamos usar plt.quiver (echadle un ojo también a plt.quiverkey y a plt.barbs). Vamos a dibujar flechas de un viento un poco loco en las latitudes y longitudes de la Península Ibérica (no voy a usar un mapa por debajo, si queréis completar el ejemplo usando un mapa podéis echarle un ojo a <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">este ejemplo</a>):
+</p>
+
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>  <span class="c1"># Ponemos el modo interactivo</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">-</span> <span class="mf">10.</span>  <span class="c1"># Creamos un vector de longitudes</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">+</span> <span class="mf">30.</span>  <span class="c1"># Creamos un vector de latitudes</span>
+<span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>  <span class="c1"># Creamos un array 2D para las longitudes y latitudes</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">15</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># Componente x del vector viento que partirá desde una lon y una lat determinada</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">15</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># Componente y del vector viento que partirá desde una lon y una lat determinada</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;gray&#39;</span><span class="p">]</span>  <span class="c1">#  Definimos una serie de colores para las flechas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Flechas de un viento un poco loco&#39;</span><span class="p">)</span>  <span class="c1"># Colocamos un título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;longitud&#39;</span><span class="p">)</span>  <span class="c1"># Colocamos la etiqueta para el efe x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;latitud&#39;</span><span class="p">)</span>  <span class="c1"># Colocamos la etiqueta para el eje y</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">colores</span><span class="p">)</span>  <span class="c1"># Dibujamos las flechas &#39;locas&#39;</span>
+</pre></div>
+
+
+<p>El resultado es el siguiente:</p>
+<p><img alt="quiver" src="https://pybonacci.org/images/2012/07/quiver.png"></p>
+<p>Los colores los hemos colocado de forma aleatoria solo definiendo ocho colores.</p>
+<p>Y, de momento, hemos acabado por hoy. El próximo día veremos algún gráfico que no ha entrado dentro de los anteriores capítulos. Si quieres ver las <a href="https://pybonacci.org/tag/tutorial-matplotlib-pyplot/">anteriores entregas del tutorial pulsa aquí</a>. Y si quieres ver la nueva entrega tendrás que esperar que encontremos un ratico para poder hacerla.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                    <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

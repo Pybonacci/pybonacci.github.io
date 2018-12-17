@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Desarrollo Dirigido por Pruebas en Python (III). Independencia del Sistema | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Desarrollo Dirigido por Pruebas en Python (III). Independencia del Sistema</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 03 diciembre 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/javierjus.html">javierjus</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En esta entrega continuamos aplicando desarrollo dirigido por pruebas (o Test-Driven Development en inglés) para implementar una aplicación que busque tweets con un hashtag concreto y los guarde en un archivo. En concreto nos centraremos en el código que construye el nombre del fichero con la fecha actual y el hashtag buscado.</p>
+<p>Nos enfrentaremos con el problema de depender de la fecha del sistema por lo que el resultado esperado de la pruebas cambiará cada día. Para solucionarlo, veremos cómo podemos independizar nuestro código de detalles del sistema y hacerlo más fácil de probar. Esto nos dará pie a presentar los dobles de prueba.</p>
+<p>Las entregas anteriores de esta serie son:</p>
+<p><a href="https://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/#more-1352" title="Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días">Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días</a></p>
+<p><a href="https://pybonacci.org/2013/06/19/desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i/" title="Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)">Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)</a></p>
+<p>Aunque la aplicación es la misma en todas las entregas, en cada una nos centramos en un problema concreto, así que puedes leer esta entrega aunque no hayas leído las dos anteriores.</p>
+<h2><strong>El diario de diseño</strong></h2>
+<p>Vamos a recuperar nuestro diario de diseño de la entrega anterior para ver en qué estado se encuentra el desarrollo de nuestra aplicación.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td valign="top" width="576">
+      <b>Diario de diseño.</b>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" width="576">
+      1) Conectarse a Internet y obtener los mensajes que contengan un tag concreto.<span style="text-decoration:line-through;">2) Procesar los tweets para obtener el nombre y dirección twitter del autor, la fecha y el contenido del tweet.</span></p> 
+
+      <p style="padding-left:30px;">
+        <span style="text-decoration:line-through;">2.1) Definir el contenido de tweetDePrueba</span>
+      </p>
+
+      <p style="padding-left:30px;">
+        <span style="text-decoration:line-through;">2.2) Los elementos de la lista resultante deben tener el nombre y dirección twitter del autor, la fecha y el contenido del tweet. </span>
+      </p>
+
+      <p>
+        3) Guardar la información anterior en un nuevo fichero
+      </p>
+
+      <p>
+        4) Crear una interfaz de usuario por línea de comandos.</td> </tr> </tbody> </table>
+
+<div class="highlight"><pre><span></span>    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+      <span class="nx">Ya</span> <span class="nx">hemos</span> <span class="nx">terminado</span> <span class="nx">la</span> <span class="nx">funcionalidad</span> <span class="mi">2</span><span class="p">.</span> <span class="nx">Ahora</span> <span class="nx">podemos</span> <span class="nx">elegir</span> <span class="nx">la</span> <span class="nx">tarea</span> <span class="nx">que</span> <span class="nx">quieras</span> <span class="nx">implementar</span><span class="p">.</span> <span class="nx">Para</span> <span class="nx">esta</span> <span class="nx">entrada</span><span class="p">,</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">elegir</span> <span class="nx">la</span> <span class="nx">tarea</span> <span class="mi">3</span><span class="p">.</span> <span class="nx">Al</span> <span class="nx">igual</span> <span class="nx">que</span> <span class="nx">hicimos</span> <span class="nx">en</span> <span class="nx">la</span> <span class="nx">entrega</span> <span class="nx">anterior</span><span class="p">,</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">descomponer</span> <span class="nx">esta</span> <span class="err">á</span><span class="nx">rea</span> <span class="nx">en</span> <span class="nx">otras</span> <span class="nx">más</span> <span class="nx">pequeñas</span><span class="o">:</span>
+    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+    <span class="o">&lt;</span><span class="nx">table</span> <span class="nx">border</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nx">cellspacing</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nx">cellpadding</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+        <span class="o">&lt;</span><span class="err">/td&gt;</span>
+      <span class="o">&lt;</span><span class="err">/tr&gt;</span>
+
+      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+          <span class="mi">1</span><span class="p">)</span> <span class="nx">Conectarse</span> <span class="nx">a</span> <span class="nx">Internet</span> <span class="nx">y</span> <span class="nx">obtener</span> <span class="nx">los</span> <span class="nx">mensajes</span> <span class="nx">que</span> <span class="nx">contengan</span> <span class="nx">un</span> <span class="nx">tag</span> <span class="nx">concreto</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">)</span> <span class="nx">Procesar</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">para</span> <span class="nx">obtener</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">dirección</span> <span class="nx">twitter</span> <span class="nx">del</span> <span class="nx">autor</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">y</span> <span class="nx">el</span> <span class="nx">contenido</span> <span class="nx">del</span> <span class="nx">tweet</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/span&gt;3) Guardarlos tweets procesados en un nuevo fichero&lt;/p&gt;</span>
+
+          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+            <span class="mf">3.1</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">de</span> <span class="nx">fichero</span> <span class="nx">siguiendo</span> <span class="nx">este</span> <span class="nx">formato</span><span class="o">:</span> <span class="err">“</span><span class="nx">año</span><span class="o">-</span><span class="nx">mes</span><span class="o">-</span><span class="nx">dia</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">txt</span><span class="err">”</span>
+          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+            <span class="mf">3.2</span><span class="p">)</span> <span class="nx">Cada</span> <span class="nx">tweet</span> <span class="nx">se</span> <span class="nx">guarda</span> <span class="nx">en</span> <span class="nx">una</span> <span class="nx">línea</span> <span class="nx">con</span> <span class="nx">los</span> <span class="nx">valores</span> <span class="nx">separados</span> <span class="nx">por</span> <span class="nx">comas</span><span class="p">.</span>
+          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+            <span class="mf">3.3</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">el</span> <span class="nx">fichero</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">contenido</span> <span class="nx">indicados</span> <span class="nx">en</span> <span class="mf">3.1</span> <span class="nx">y</span> <span class="mf">3.2</span>
+          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+          <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+            <span class="mi">4</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">una</span> <span class="nx">interfaz</span> <span class="nx">de</span> <span class="nx">usuario</span> <span class="nx">por</span> <span class="nx">línea</span> <span class="nx">de</span> <span class="nx">comandos</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Como</span> <span class="nx">se</span> <span class="nx">describe</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">,</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">crear</span> <span class="nx">un</span> <span class="nx">fichero</span> <span class="nx">cuyo</span> <span class="nx">nombre</span> <span class="nx">contenga</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">del</span> <span class="nx">sistema</span><span class="p">.</span> <span class="nx">A</span> <span class="nx">continuación</span> <span class="nx">empezamos</span> <span class="nx">a</span> <span class="nx">implementar</span> <span class="nx">nuestra</span> <span class="nx">nueva</span> <span class="nx">funcionalidad</span> <span class="nx">escribiendo</span> <span class="nx">pruebas</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">La</span> <span class="nx">primera</span> <span class="nx">prueba</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+            <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Una</span> <span class="nx">vez</span> <span class="nx">qué</span> <span class="nx">tenemos</span> <span class="nx">claro</span> <span class="nx">qué</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">hacer</span><span class="p">,</span> <span class="nx">el</span> <span class="nx">primer</span> <span class="nx">paso</span> <span class="nx">es</span> <span class="nx">escribir</span> <span class="nx">una</span> <span class="nx">prueba</span> <span class="nx">para</span> <span class="nx">expresar</span> <span class="nx">el</span> <span class="nx">resultado</span> <span class="nx">esperado</span> <span class="nx">del</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">escribir</span><span class="p">.</span> <span class="nx">Empezamos</span> <span class="nx">generando</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">adecuado</span> <span class="nx">de</span> <span class="nx">un</span> <span class="nx">fichero</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">para</span> <span class="nx">ello</span><span class="p">,</span> <span class="nx">escribiremos</span> <span class="nx">una</span> <span class="nx">prueba</span> <span class="nx">que</span> <span class="nx">exponga</span> <span class="nx">cómo</span> <span class="nx">lo</span> <span class="nx">queremos</span> <span class="nx">obtener</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestTweetsEnFichero</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">testCreaNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">()</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-03-30 PyConEs.txt&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">tef</span><span class="p">.</span><span class="nx">crearNombreFichero</span><span class="p">(</span><span class="s2">&quot;PyConEs&quot;</span><span class="p">))</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Para</span> <span class="nx">que</span> <span class="nx">esta</span> <span class="nx">prueba</span> <span class="nx">pase</span><span class="p">,</span> <span class="nx">creamos</span> <span class="nx">una</span> <span class="nx">nueva</span> <span class="nx">clase</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">TweetsEnFichero</span><span class="o">&lt;</span><span class="err">/em&gt;, que contendrá todo lo necesario para almacenar el contenido de los tweets en un fichero. Suponemos que escribimos y ejecutamos esta prueba el 30/03/2013. La implementación más sencilla para que esta prueba pase es:</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">crearNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">tag</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>  <span class="s2">&quot;2013-03-30 PyConEs.txt&quot;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Con</span> <span class="nx">esta</span> <span class="nx">implementación</span> <span class="nx">tenemos</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">más</span> <span class="nx">sencillo</span> <span class="nx">que</span> <span class="nx">hace</span> <span class="nx">que</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">pase</span> <span class="nx">con</span> <span class="err">é</span><span class="nx">xito</span><span class="p">.</span> <span class="nx">Ahora</span> <span class="nx">que</span> <span class="nx">ya</span> <span class="nx">tenemos</span> <span class="nx">algo</span> <span class="nx">que</span> <span class="nx">funciona</span> <span class="nx">y</span> <span class="nx">que</span> <span class="nx">nos</span> <span class="nx">muestra</span> <span class="nx">cómo</span> <span class="nx">trabajar</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">mejorarlo</span><span class="p">.</span> <span class="nx">Podemos</span> <span class="nx">hacer</span> <span class="nx">algunas</span> <span class="nx">refactorizaciones</span> <span class="nx">al</span> <span class="nx">código</span> <span class="nx">anterior</span><span class="p">.</span> <span class="nx">Por</span> <span class="nx">ejemplo</span><span class="p">,</span> <span class="nx">ya</span> <span class="nx">que</span> <span class="nx">tenemos</span> <span class="nx">el</span> <span class="nx">hashtag</span><span class="p">,</span> <span class="nx">podemos</span> <span class="nx">utilizarlo</span> <span class="nx">y</span> <span class="nx">comprobar</span> <span class="nx">que</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">sigue</span> <span class="nx">funcionando</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">crearNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">tag</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span>  <span class="s2">&quot;2013-03-30 “+tag+”.txt&quot;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Veamos</span> <span class="nx">a</span> <span class="nx">continuación</span> <span class="nx">cómo</span> <span class="nx">podemos</span> <span class="nx">independizarnos</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">actual</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="err">¡</span><span class="nx">Independencia</span><span class="o">!</span><span class="p">...</span> <span class="nx">del</span> <span class="nx">día</span> <span class="nx">y</span> <span class="nx">la</span> <span class="nx">hora</span>                      <span class="o">&lt;</span><span class="err">/b&gt;</span>
+            <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Comenzamos</span> <span class="nx">separando</span> <span class="nx">la</span> <span class="nx">responsabilidad</span> <span class="nx">de</span> <span class="nx">obtener</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">darle</span> <span class="nx">el</span> <span class="nx">formato</span> <span class="nx">adecuado</span> <span class="nx">del</span> <span class="nx">resto</span> <span class="nx">del</span> <span class="nx">código</span><span class="p">.</span> <span class="nx">Para</span> <span class="nx">ello</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">escribir</span> <span class="nx">un</span> <span class="nx">nuevo</span> <span class="nx">método</span> <span class="nx">y</span> <span class="nx">nuestro</span> <span class="nx">primer</span> <span class="nx">paso</span><span class="p">,</span> <span class="nx">lógicamente</span><span class="p">,</span> <span class="nx">será</span> <span class="nx">escribir</span> <span class="nx">primero</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">que</span> <span class="nx">nos</span> <span class="nx">defina</span> <span class="nx">qué</span> <span class="nx">debe</span> <span class="nx">hacer</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">vamos</span> <span class="nx">a</span> <span class="nx">escribir</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testGetFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">()</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-03-30&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">tef</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">())</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Una</span> <span class="nx">vez</span> <span class="nx">que</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">falla</span> <span class="nx">pasamos</span> <span class="nx">a</span> <span class="nx">la</span> <span class="nx">implementación</span><span class="p">.</span> <span class="nx">Veamos</span> <span class="nx">el</span> <span class="nx">código</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">datetime</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Sin</span> <span class="nx">embargo</span> <span class="nx">con</span> <span class="nx">la</span> <span class="nx">implementación</span> <span class="nx">anterior</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">falla</span> <span class="nx">porque</span> <span class="nx">el</span> <span class="nx">mes</span> <span class="nx">es</span> <span class="mi">3</span> <span class="nx">en</span> <span class="nx">vez</span> <span class="nx">de</span> <span class="mi">03</span><span class="p">.</span> <span class="nx">Esto</span> <span class="nx">también</span> <span class="nx">pasará</span> <span class="nx">cuando</span> <span class="nx">el</span> <span class="nx">día</span> <span class="nx">sea</span> <span class="nx">menor</span> <span class="nx">de</span> <span class="mi">10</span><span class="p">.</span> <span class="nx">Como</span> <span class="nx">esta</span> <span class="nx">prueba</span> <span class="nx">no</span> <span class="nx">pasa</span> <span class="nx">con</span> <span class="err">é</span><span class="nx">xito</span> <span class="nx">no</span> <span class="nx">podemos</span> <span class="nx">dar</span> <span class="nx">por</span> <span class="nx">terminada</span> <span class="nx">la</span> <span class="nx">implementación</span><span class="p">.</span> <span class="nx">La</span> <span class="nx">solución</span> <span class="nx">más</span> <span class="nx">rápida</span> <span class="nx">es</span> <span class="nx">añadir</span> <span class="nx">el</span> <span class="err">“</span><span class="mi">0</span><span class="err">”</span> <span class="nx">que</span> <span class="nx">falta</span><span class="p">,</span> <span class="nx">como</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">siguiente</span> <span class="nx">código</span><span class="p">.</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">datetime</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="err">“</span><span class="mi">0</span><span class="err">”</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+
+            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+              <span class="nx">Ahora</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">pasa</span> <span class="nx">con</span> <span class="err">é</span><span class="nx">xito</span><span class="p">.</span> <span class="nx">Además</span><span class="p">,</span> <span class="nx">hemos</span> <span class="nx">descubierto</span> <span class="nx">una</span> <span class="nx">nueva</span> <span class="nx">tarea</span> <span class="nx">que</span> <span class="nx">necesitamos</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">se</span> <span class="nx">genere</span> <span class="nx">correctamente</span><span class="p">,</span> <span class="nx">y</span> <span class="nx">que</span> <span class="nx">añadimos</span> <span class="nx">a</span> <span class="nx">nuestro</span> <span class="nx">diario</span> <span class="p">(</span><span class="nx">tarea</span> <span class="mf">3.4</span><span class="p">).</span>
+            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+            <span class="o">&lt;</span><span class="nx">table</span> <span class="nx">border</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nx">cellspacing</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nx">cellpadding</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+                  <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                <span class="o">&lt;</span><span class="err">/td&gt;</span>
+              <span class="o">&lt;</span><span class="err">/tr&gt;</span>
+
+              <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+                  <span class="mi">1</span><span class="p">)</span> <span class="nx">Conectarse</span> <span class="nx">a</span> <span class="nx">Internet</span> <span class="nx">y</span> <span class="nx">obtener</span> <span class="nx">los</span> <span class="nx">mensajes</span> <span class="nx">que</span> <span class="nx">contengan</span> <span class="nx">un</span> <span class="nx">tag</span> <span class="nx">concreto</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">)</span> <span class="nx">Procesar</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">para</span> <span class="nx">obtener</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">dirección</span> <span class="nx">twitter</span> <span class="nx">del</span> <span class="nx">autor</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">y</span> <span class="nx">el</span> <span class="nx">contenido</span> <span class="nx">del</span> <span class="nx">tweet</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/span&gt;3) Guardarlos tweets procesados en un nuevo fichero3.1) Crear el nombre de fichero siguiendo este formato: “año-mes-día tag.txt”&lt;/p&gt;</span>
+
+                  <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                    <span class="mf">3.2</span><span class="p">)</span> <span class="nx">Cada</span> <span class="nx">tweet</span> <span class="nx">se</span> <span class="nx">guarda</span> <span class="nx">en</span> <span class="nx">una</span> <span class="nx">línea</span> <span class="nx">con</span> <span class="nx">los</span> <span class="nx">valores</span> <span class="nx">separados</span> <span class="nx">por</span> <span class="nx">comas</span><span class="p">.</span>
+                  <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                  <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                    <span class="mf">3.3</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">el</span> <span class="nx">fichero</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">contenido</span> <span class="nx">indicados</span> <span class="nx">en</span> <span class="mf">3.1</span> <span class="nx">y</span> <span class="mf">3.2</span>
+                  <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                  <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                    <span class="mf">3.4</span><span class="p">)</span> <span class="nx">Añadir</span> <span class="nx">un</span> <span class="err">“</span><span class="mi">0</span><span class="err">”</span> <span class="nx">cuando</span> <span class="nx">el</span> <span class="nx">mes</span> <span class="nx">o</span> <span class="nx">el</span> <span class="nx">día</span> <span class="nx">sean</span> <span class="nx">menores</span> <span class="nx">de</span> <span class="mi">10</span><span class="p">.</span>
+                  <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                  <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                    <span class="mi">4</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">una</span> <span class="nx">interfaz</span> <span class="nx">de</span> <span class="nx">usuario</span> <span class="nx">por</span> <span class="nx">línea</span> <span class="nx">de</span> <span class="nx">comandos</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Este</span> <span class="nx">es</span> <span class="nx">un</span> <span class="nx">buen</span> <span class="nx">momento</span> <span class="nx">para</span> <span class="nx">refactorizar</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">refactorizar</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">para</span> <span class="nx">evitar</span> <span class="nx">código</span> <span class="nx">duplicado</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">concreto</span> <span class="nx">sacamos</span> <span class="nx">la</span> <span class="nx">creación</span> <span class="nx">del</span> <span class="nx">objeto</span> <span class="nx">bajo</span> <span class="nx">prueba</span> <span class="nx">al</span> <span class="nx">método</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">setUp</span><span class="o">&lt;</span><span class="err">/i&gt; tal y como se muestra a continuación.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestTweetsEnFichero</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">setUp</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">()</span>
+    <span class="nx">def</span> <span class="nx">testCreaNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-03-30 PyConEs.txt&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span><span class="p">.</span><span class="nx">crearNombreFichero</span><span class="p">(</span><span class="s2">&quot;PyConEs&quot;</span><span class="p">))</span>
+    <span class="nx">def</span> <span class="nx">testGetFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-03-30&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">())</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">También</span> <span class="nx">refactorizamos</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">aplicación</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">utilice</span> <span class="nx">el</span> <span class="nx">método</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">getFechaActual</span><span class="o">&lt;</span><span class="err">/i&gt; en vez de la fecha incrustada como cadena de texto y el parámetro &lt;em&gt;hashtag&lt;/em&gt;.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">crearNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">hashtag</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="nx">hashtag</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Podríamos</span> <span class="nx">continuar</span> <span class="nx">escribiendo</span> <span class="nx">pruebas</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">añada</span> <span class="nx">un</span> <span class="nx">cero</span> <span class="nx">delante</span> <span class="nx">del</span> <span class="nx">mes</span> <span class="nx">y</span> <span class="nx">del</span> <span class="nx">día</span> <span class="nx">cuando</span> <span class="nx">haga</span> <span class="nx">falta</span><span class="p">,</span> <span class="nx">pero</span> <span class="nx">nuestro</span> <span class="nx">código</span> <span class="nx">aún</span> <span class="nx">depende</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">actual</span> <span class="nx">del</span> <span class="nx">sistema</span> <span class="p">(</span><span class="nx">llamada</span> <span class="nx">a</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">::</span><span class="nx">now</span><span class="o">&lt;</span><span class="err">/i&gt;) lo que aumenta la dificultad de implementar esta funcionalidad. Por ello, nuestro siguiente paso será independizarnos de la fecha del sistema.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Funciona</span> <span class="nx">hoy</span><span class="p">,</span> <span class="nx">funciona</span> <span class="nx">mañana</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Las</span> <span class="nx">pruebas</span> <span class="nx">anteriores</span> <span class="nx">solo</span> <span class="nx">funcionarán</span> <span class="nx">hoy</span><span class="p">,</span> <span class="nx">mañana</span> <span class="nx">será</span> <span class="nx">otro</span> <span class="nx">día</span><span class="p">,</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">::</span><span class="nx">now</span><span class="o">&lt;</span><span class="sr">/i&gt; devolverá otra fecha y las pruebas fallarán. El problema es que hemos incrustado una dependencia con &lt;i&gt;datetime::now&lt;/i</span><span class="o">&gt;</span> <span class="nx">en</span> <span class="nx">nuestro</span> <span class="nx">código</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">depende</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">llamada</span> <span class="nx">al</span> <span class="nx">sistema</span> <span class="nx">que</span> <span class="nx">devuelve</span> <span class="nx">la</span> <span class="nx">fecha</span><span class="p">.</span> <span class="nx">Necesitamos</span> <span class="nx">una</span> <span class="nx">manera</span> <span class="nx">de</span> <span class="nx">romper</span> <span class="nx">esa</span> <span class="nx">dependencia</span> <span class="nx">para</span> <span class="nx">poder</span> <span class="nx">controlar</span> <span class="nx">el</span> <span class="nx">código</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">El</span> <span class="nx">primer</span> <span class="nx">paso</span> <span class="nx">es</span> <span class="nx">refactorizar</span> <span class="nx">para</span> <span class="nx">proporcionar</span> <span class="nx">el</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">&lt;</span><span class="err">/i&gt; a utilizar desde el exterior. El código resultante se muestra a continuación.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">timeProvider</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span> <span class="o">=</span> <span class="nx">timeProvider</span>
+    <span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Después</span><span class="p">,</span> <span class="nx">modificamos</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">que</span> <span class="nx">tenemos</span> <span class="nx">que</span> <span class="nx">usen</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">&lt;</span><span class="err">/i&gt; y todo sigue funcionando. Como al final de la sección anterior refactorizamos el código para evitar el código duplicado, solo hemos tenido que modificar una única línea. Si no hubiéramos refactorizado tendríamos que cambiar todas las pruebas. Recuerda, evitar el código duplicado hace tu código más sencillo de cambiar y mejorar.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestTweetsEnFichero</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">setUp</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">(</span><span class="nx">datetime</span><span class="p">)</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="p">;</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">continuar</span> <span class="nx">modificando</span> <span class="nx">las</span> <span class="nx">pruebas</span><span class="p">.</span> <span class="nx">Como</span> <span class="nx">podemos</span> <span class="nx">indicar</span> <span class="nx">desde</span> <span class="nx">el</span> <span class="nx">exterior</span> <span class="nx">el</span> <span class="nx">encargado</span> <span class="nx">de</span> <span class="nx">devolver</span> <span class="nx">la</span> <span class="nx">fecha</span><span class="p">,</span> <span class="nx">podemos</span> <span class="nx">crear</span> <span class="nx">un</span> <span class="err">“</span><span class="nx">doble</span><span class="err">”</span> <span class="nx">que</span> <span class="nx">devuelva</span> <span class="nx">siempre</span> <span class="nx">la</span> <span class="nx">misma</span> <span class="nx">fecha</span><span class="p">.</span> <span class="nx">Así</span> <span class="nx">podremos</span> <span class="nx">saber</span> <span class="nx">cuál</span> <span class="nx">serán</span> <span class="nx">los</span> <span class="nx">resultados</span> <span class="nx">esperados</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">pruebas</span><span class="p">.</span> <span class="nx">Nuestro</span> <span class="nx">doble</span> <span class="nx">de</span> <span class="nx">pruebas</span> <span class="nx">se</span> <span class="nx">llama</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">DatetimeStub</span><span class="o">&lt;</span><span class="sr">/i&gt; y su misión es reemplazar al &lt;i&gt;Datetime&lt;/i</span><span class="o">&gt;</span> <span class="nx">del</span> <span class="nx">sistema</span> <span class="nx">para</span> <span class="nx">devolver</span> <span class="nx">siempre</span> <span class="nx">la</span> <span class="nx">misma</span> <span class="nx">fecha</span><span class="p">.</span> <span class="nx">Así</span><span class="p">,</span> <span class="nx">podemos</span> <span class="nx">predecir</span> <span class="nx">los</span> <span class="nx">resultados</span> <span class="nx">esperados</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">y</span> <span class="nx">hacer</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">cambien</span> <span class="nx">de</span> <span class="nx">un</span> <span class="nx">día</span> <span class="nx">para</span> <span class="nx">otro</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">DatetimeStub</span> <span class="p">()</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">now</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="mi">2013</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">month</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">day</span> <span class="o">=</span> <span class="mi">29</span>
+        <span class="k">return</span> <span class="nx">self</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Los</span> <span class="nx">dobles</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="nx">son</span> <span class="nx">un</span> <span class="nx">elemento</span> <span class="nx">muy</span> <span class="nx">poderoso</span> <span class="nx">a</span> <span class="nx">la</span> <span class="nx">hora</span> <span class="nx">de</span> <span class="nx">escribir</span> <span class="nx">pruebas</span><span class="p">.</span> <span class="nx">Al</span> <span class="kr">final</span> <span class="nx">de</span> <span class="nx">este</span> <span class="nx">artículo</span> <span class="nx">tienes</span> <span class="nx">más</span> <span class="nx">información</span> <span class="nx">sobre</span> <span class="nx">dobles</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">modificar</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">que</span> <span class="nx">hemos</span> <span class="nx">escrito</span> <span class="nx">para</span> <span class="nx">utilizar</span> <span class="nx">nuestro</span> <span class="nx">doble</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TestTweetsEnFichero</span><span class="p">(</span><span class="nx">unittest</span><span class="p">.</span><span class="nx">TestCase</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">setUp</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">(</span><span class="nx">DatetimeStub</span> <span class="p">())</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Todas</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">siguen</span> <span class="nx">funcionando</span> <span class="nx">correctamente</span><span class="p">.</span> <span class="nx">Ya</span> <span class="nx">estamos</span> <span class="nx">independizados</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">y</span> <span class="nx">hora</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Hazlo</span> <span class="nx">pero</span> <span class="nx">no</span> <span class="nx">me</span> <span class="nx">digas</span> <span class="nx">cómo</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Por</span> <span class="nx">comodidad</span><span class="p">,</span> <span class="nx">podemos</span> <span class="nx">hacer</span> <span class="nx">que</span><span class="p">,</span> <span class="nx">si</span> <span class="nx">no</span> <span class="nx">se</span> <span class="nx">indica</span> <span class="nx">ningún</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">&lt;</span><span class="sr">/i&gt; concreto, se utilice el &lt;i&gt;datetime&lt;/i</span><span class="o">&gt;</span> <span class="nx">del</span> <span class="nx">sistema</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">escribir</span> <span class="nx">una</span> <span class="nx">prueba</span> <span class="nx">que</span> <span class="nx">lo</span> <span class="nx">ponga</span> <span class="nx">de</span> <span class="nx">manifiesto</span><span class="o">:</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testGetFechaActual_DatetimePorDefecto</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">()</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">datetime</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">)</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Y</span> <span class="nx">ahora</span> <span class="nx">implementamos</span> <span class="nx">el</span> <span class="o">&lt;</span><span class="nx">em</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">&lt;</span><span class="sr">/em&gt; del sistema por defecto en el constructor  lo utilizamos en el método &lt;i&gt;getFechaActual&lt;/i</span><span class="o">&gt;</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">timeProvider</span> <span class="o">=</span> <span class="nx">datetime</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span> <span class="o">=</span> <span class="nx">timeProvider</span>
+    <span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Una</span> <span class="nx">vez</span> <span class="nx">que</span> <span class="nx">todo</span> <span class="nx">funciona</span><span class="p">,</span> <span class="nx">continuamos</span> <span class="nx">con</span> <span class="nx">la</span> <span class="nx">siguiente</span> <span class="nx">funcionalidad</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Un</span> <span class="nx">cero</span> <span class="nx">a</span> <span class="nx">la</span> <span class="nx">izquierda</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                    <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Tenemos</span> <span class="nx">pendiente</span> <span class="nx">en</span> <span class="nx">nuestro</span> <span class="nx">diario</span> <span class="nx">de</span> <span class="nx">diseño</span> <span class="nx">añadir</span> <span class="nx">un</span> <span class="err">“</span><span class="mi">0</span><span class="err">”</span> <span class="nx">cuando</span> <span class="nx">el</span> <span class="nx">mes</span> <span class="nx">y</span> <span class="nx">día</span> <span class="nx">sean</span> <span class="nx">menores</span> <span class="nx">de</span> <span class="mi">10</span><span class="p">.</span> <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">escribir</span> <span class="nx">nuevas</span> <span class="nx">pruebas</span> <span class="nx">que</span> <span class="nx">nos</span> <span class="nx">empujen</span> <span class="nx">a</span> <span class="nx">implementar</span> <span class="nx">esta</span> <span class="nx">funcionalidad</span><span class="p">,</span> <span class="nx">por</span> <span class="nx">ejemplo</span> <span class="nx">la</span> <span class="nx">siguiente</span><span class="o">:</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">(</span><span class="nx">DatetimeStub</span><span class="p">(</span><span class="s2">&quot;12-10-2013&quot;</span><span class="p">))</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-10-12&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">())</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Como</span> <span class="nx">se</span> <span class="nx">ve</span> <span class="nx">en</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">anterior</span><span class="p">,</span> <span class="nx">necesitamos</span> <span class="nx">usar</span> <span class="nx">otras</span> <span class="nx">fechas</span> <span class="nx">distintas</span> <span class="nx">que</span> <span class="nx">la</span> <span class="nx">incluida</span> <span class="nx">en</span> <span class="nx">nuestro</span> <span class="nx">doble</span> <span class="nx">de</span> <span class="nx">pruebas</span> <span class="p">(</span><span class="nx">clase</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">DatetimeStub</span><span class="o">&lt;</span><span class="err">/i&gt;). Vamos a modificarlo para que pueda aceptar cualquier fecha como se muestra a continuación.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">DatetimeStub</span><span class="p">()</span><span class="o">:</span>
+    <span class="nx">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">date</span> <span class="o">=</span> <span class="s2">&quot;30-3-2013&quot;</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">fields</span> <span class="o">=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="kr">int</span><span class="p">(</span><span class="nx">fields</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">month</span> <span class="o">=</span> <span class="kr">int</span><span class="p">(</span><span class="nx">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">day</span> <span class="o">=</span> <span class="kr">int</span><span class="p">(</span><span class="nx">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nx">def</span> <span class="nx">now</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Recuerda</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="p">(</span><span class="nx">casos</span> <span class="nx">de</span> <span class="nx">prueba</span><span class="p">,</span> <span class="nx">dobles</span><span class="p">,</span> <span class="nx">etc</span><span class="p">.)</span> <span class="nx">debe</span> <span class="nx">ser</span> <span class="nx">lo</span> <span class="nx">más</span> <span class="nx">sencillo</span> <span class="nx">posible</span> <span class="nx">por</span> <span class="nx">dos</span> <span class="nx">motivos</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">primero</span> <span class="nx">es</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">escribimos</span> <span class="nx">pruebas</span> <span class="nx">para</span> <span class="nx">verificar</span> <span class="nx">pruebas</span> <span class="p">(</span><span class="nx">ni</span> <span class="nx">dobles</span><span class="p">)</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">tienen</span> <span class="nx">que</span> <span class="nx">ser</span> <span class="nx">simples</span> <span class="nx">y</span> <span class="nx">de</span> <span class="nx">pocas</span> <span class="nx">líneas</span> <span class="nx">para</span> <span class="nx">evitar</span> <span class="nx">fallos</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">segundo</span> <span class="nx">es</span> <span class="nx">que</span><span class="p">,</span> <span class="nx">cuando</span> <span class="nx">haya</span> <span class="nx">un</span> <span class="nx">error</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">código</span><span class="p">,</span> <span class="nx">una</span> <span class="nx">o</span> <span class="nx">varias</span> <span class="nx">pruebas</span> <span class="nx">fallarán</span><span class="p">.</span> <span class="nx">Queremos</span> <span class="nx">entender</span> <span class="nx">rápidamente</span> <span class="nx">qué</span> <span class="nx">hace</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">para</span> <span class="nx">que</span> <span class="nx">nos</span> <span class="nx">dirijan</span> <span class="nx">hacia</span> <span class="nx">el</span> <span class="nx">error</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">código</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Una</span> <span class="nx">vez</span> <span class="nx">que</span> <span class="nx">hemos</span> <span class="nx">modificado</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">DatetimeStub</span><span class="o">&lt;</span><span class="sr">/i&gt; y ejecutamos la prueba esta falla, ya que siempre añadimos un “0” delante del mes. Añadimos un if al método &lt;i&gt;getFechaActual&lt;/i</span><span class="o">&gt;</span> <span class="nx">y</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">funciona</span> <span class="p">(</span><span class="nx">veremos</span> <span class="nx">este</span> <span class="nx">código</span> <span class="nx">un</span> <span class="nx">poco</span> <span class="nx">más</span> <span class="nx">adelante</span><span class="p">).</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Vamos</span> <span class="nx">a</span> <span class="nx">escribir</span> <span class="nx">una</span> <span class="nx">segunda</span> <span class="nx">prueba</span> <span class="nx">que</span> <span class="nx">ponga</span> <span class="nx">un</span> <span class="mi">0</span> <span class="nx">delante</span> <span class="nx">del</span> <span class="nx">día</span><span class="p">.</span> <span class="nx">Esta</span> <span class="nx">prueba</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testGetFechaActual_ConDiaMenorQue10SeIncluyeUnCero</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">(</span><span class="nx">DatetimeStub</span><span class="p">(</span><span class="s2">&quot;7-10-2013&quot;</span><span class="p">))</span>
+        <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-10-07&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">tef</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">())</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">La</span> <span class="nx">prueba</span> <span class="nx">falla</span> <span class="nx">así</span> <span class="nx">que</span> <span class="nx">podemos</span> <span class="nx">añadir</span> <span class="nx">más</span> <span class="nx">código</span><span class="p">.</span> <span class="nx">Añadimos</span> <span class="nx">otro</span> <span class="k">if</span> <span class="nx">para</span> <span class="nx">controlar</span> <span class="nx">si</span> <span class="nx">le</span> <span class="nx">ponemos</span> <span class="nx">el</span> <span class="mi">0</span> <span class="nx">al</span> <span class="nx">día</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">con</span> <span class="nx">eso</span><span class="p">,</span> <span class="nx">todas</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">funcionan</span> <span class="nx">ya</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">método</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">getFechaActual</span><span class="o">&lt;</span><span class="err">/i&gt; (con el cambio de añadir un 0 al mes y al día) ha quedado así.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="nx">month</span> <span class="o">=</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">now</span><span class="p">.</span><span class="nx">month</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">10</span>:
+            <span class="kt">month</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nx">month</span>
+        <span class="nx">day</span> <span class="o">=</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nx">now</span><span class="p">.</span><span class="nx">day</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">10</span>:
+            <span class="kt">day</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nx">day</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">month</span>  <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">day</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Toca</span> <span class="nx">refactorizar</span><span class="p">.</span> <span class="nx">Vemos</span> <span class="nx">que</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">para</span> <span class="nx">añadir</span> <span class="nx">un</span> <span class="mi">0</span> <span class="nx">es</span> <span class="nx">el</span> <span class="nx">mismo</span> <span class="nx">y</span> <span class="nx">que</span> <span class="nx">solo</span> <span class="nx">cambia</span> <span class="nx">el</span> <span class="nx">valor</span> <span class="p">(</span><span class="nx">mes</span> <span class="nx">o</span> <span class="nx">día</span><span class="p">).</span> <span class="nx">Para</span> <span class="nx">evitar</span> <span class="nx">duplicar</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">extraemos</span> <span class="nx">un</span> <span class="nx">método</span> <span class="nx">auxiliar</span><span class="p">,</span> <span class="nx">al</span> <span class="nx">que</span> <span class="nx">llamamos</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">cadenaDosDigitos</span><span class="o">&lt;</span><span class="err">/i&gt;, tal y como se muestra a continuación.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                        <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">cadenaDosDigitos</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">num</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">10</span>:
+            <span class="kt">return</span> <span class="s2">&quot;0&quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+        <span class="k">return</span>  <span class="nx">str</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+    <span class="nx">def</span> <span class="nx">getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span>
+               <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">cadenaDosDigitos</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span>
+               <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">cadenaDosDigitos</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+
+                    <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                      <span class="nx">Todas</span> <span class="nx">las</span> <span class="nx">pruebas</span> <span class="nx">funcionan</span> <span class="nx">por</span> <span class="nx">lo</span> <span class="nx">que</span> <span class="nx">damos</span> <span class="nx">por</span> <span class="nx">cerrada</span> <span class="nx">esta</span> <span class="nx">funcionalidad</span><span class="p">.</span> <span class="nx">Repasemos</span> <span class="nx">el</span> <span class="nx">diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span>
+                    <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                    <span class="o">&lt;</span><span class="nx">table</span> <span class="nx">border</span><span class="o">=</span><span class="s2">&quot;1&quot;</span> <span class="nx">cellspacing</span><span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="nx">cellpadding</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">&gt;</span>
+                      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+                          <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Diario</span> <span class="nx">de</span> <span class="nx">diseño</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                        <span class="o">&lt;</span><span class="err">/td&gt;</span>
+                      <span class="o">&lt;</span><span class="err">/tr&gt;</span>
+
+                      <span class="o">&lt;</span><span class="nx">tr</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="nx">td</span> <span class="nx">valign</span><span class="o">=</span><span class="s2">&quot;top&quot;</span> <span class="nx">width</span><span class="o">=</span><span class="s2">&quot;576&quot;</span><span class="o">&gt;</span>
+                          <span class="mi">1</span><span class="p">)</span> <span class="nx">Conectarse</span> <span class="nx">a</span> <span class="nx">Internet</span> <span class="nx">y</span> <span class="nx">obtener</span> <span class="nx">los</span> <span class="nx">mensajes</span> <span class="nx">que</span> <span class="nx">contengan</span> <span class="nx">un</span> <span class="nx">tag</span> <span class="nx">concreto</span><span class="p">.</span><span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">)</span> <span class="nx">Procesar</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">para</span> <span class="nx">obtener</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">dirección</span> <span class="nx">twitter</span> <span class="nx">del</span> <span class="nx">autor</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">y</span> <span class="nx">el</span> <span class="nx">contenido</span> <span class="nx">del</span> <span class="nx">tweet</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/span&gt;3) Guardarlos tweets procesados en un nuevo fichero&lt;/p&gt;</span>
+
+                          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;</span><span class="mf">3.1</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">de</span> <span class="nx">fichero</span> <span class="nx">siguiendo</span> <span class="nx">este</span> <span class="nx">formato</span><span class="o">:</span> <span class="err">“</span><span class="nx">año</span><span class="o">-</span><span class="nx">mes</span><span class="o">-</span><span class="nx">día</span> <span class="nx">tag</span><span class="p">.</span><span class="nx">txt</span><span class="err">”</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+                          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+                            <span class="mf">3.2</span><span class="p">)</span> <span class="nx">Cada</span> <span class="nx">tweet</span> <span class="nx">se</span> <span class="nx">guarda</span> <span class="nx">en</span> <span class="nx">una</span> <span class="nx">línea</span> <span class="nx">con</span> <span class="nx">los</span> <span class="nx">valores</span> <span class="nx">separados</span> <span class="nx">por</span> <span class="nx">comas</span><span class="p">.</span>
+                          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+                            <span class="mf">3.3</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">el</span> <span class="nx">fichero</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">y</span> <span class="nx">contenido</span> <span class="nx">indicados</span> <span class="nx">en</span> <span class="mf">3.1</span> <span class="nx">y</span> <span class="mf">3.2</span>
+                          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                          <span class="o">&lt;</span><span class="nx">p</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;padding-left:30px;&quot;</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;text-decoration:line-through;&quot;</span><span class="o">&gt;</span><span class="mf">3.4</span><span class="p">)</span> <span class="nx">Añadir</span> <span class="nx">un</span> <span class="err">“</span><span class="mi">0</span><span class="err">”</span> <span class="nx">cuando</span> <span class="nx">el</span> <span class="nx">mes</span> <span class="nx">o</span> <span class="nx">el</span> <span class="nx">día</span> <span class="nx">sean</span> <span class="nx">menores</span> <span class="nx">de</span> <span class="mi">10</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+                          <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                          <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                            <span class="mi">4</span><span class="p">)</span> <span class="nx">Crear</span> <span class="nx">una</span> <span class="nx">interfaz</span> <span class="nx">de</span> <span class="nx">usuario</span> <span class="nx">por</span> <span class="nx">línea</span> <span class="nx">de</span> <span class="nx">comandos</span><span class="p">.</span><span class="o">&lt;</span><span class="err">/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Hasta</span> <span class="nx">aquí</span> <span class="nx">llegamos</span> <span class="nx">en</span> <span class="nx">esta</span> <span class="nx">entrada</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">la</span> <span class="nx">siguiente</span> <span class="nx">escribiremos</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">que</span> <span class="nx">guarde</span> <span class="nx">los</span> <span class="nx">tweets</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">fichero</span><span class="p">,</span> <span class="nx">ya</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">nombre</span> <span class="nx">correcto</span><span class="p">.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                              <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Dobles</span> <span class="nx">de</span> <span class="nx">prueba</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                            <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Para</span> <span class="nx">escribir</span> <span class="nx">buenas</span> <span class="nx">pruebas</span> <span class="nx">unitarias</span> <span class="nx">rompemos</span> <span class="nx">las</span> <span class="nx">dependencias</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">clase</span> <span class="nx">bajo</span> <span class="nx">prueba</span><span class="p">.</span> <span class="nx">Así</span><span class="p">,</span> <span class="nx">centramos</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">en</span> <span class="nx">un</span> <span class="err">ú</span><span class="nx">nico</span> <span class="nx">fragmento</span> <span class="nx">de</span> <span class="nx">código</span> <span class="nx">y</span> <span class="nx">podemos</span> <span class="nx">controlar</span> <span class="nx">todas</span> <span class="nx">sus</span> <span class="nx">interacciones</span> <span class="nx">con</span> <span class="nx">el</span> <span class="nx">entorno</span><span class="p">,</span> <span class="nx">como</span> <span class="nx">por</span> <span class="nx">ejemplo</span><span class="p">,</span> <span class="nx">con</span> <span class="nx">la</span> <span class="nx">fecha</span> <span class="nx">del</span> <span class="nx">sistema</span><span class="p">.</span> <span class="nx">Sabremos</span> <span class="nx">que</span><span class="p">,</span> <span class="nx">si</span> <span class="nx">la</span> <span class="nx">prueba</span> <span class="nx">falla</span><span class="p">,</span> <span class="nx">el</span> <span class="nx">fallo</span> <span class="nx">estará</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">bajo</span> <span class="nx">prueba</span><span class="p">,</span> <span class="nx">no</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">código</span> <span class="nx">de</span> <span class="nx">los</span> <span class="nx">métodos</span> <span class="nx">auxiliares</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">diseño</span> <span class="nx">queda</span> <span class="nx">más</span> <span class="nx">flexible</span> <span class="nx">ya</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">incrustamos</span> <span class="nx">dependencias</span> <span class="nx">con</span> <span class="nx">otras</span> <span class="nx">clases</span> <span class="nx">dentro</span> <span class="nx">de</span> <span class="nx">nuestro</span> <span class="nx">código</span><span class="p">.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Para</span> <span class="nx">conseguir</span> <span class="nx">esta</span> <span class="nx">independencia</span><span class="p">,</span> <span class="nx">podemos</span> <span class="nx">utilizar</span> <span class="nx">versiones</span> <span class="nx">ficticias</span> <span class="nx">de</span> <span class="nx">las</span> <span class="nx">clases</span> <span class="nx">colaboradoras</span> <span class="nx">que</span> <span class="nx">devuelvan</span> <span class="nx">valores</span> <span class="nx">predecibles</span><span class="p">.</span> <span class="nx">Con</span> <span class="nx">ello</span> <span class="nx">podremos</span> <span class="nx">definir</span> <span class="nx">los</span> <span class="nx">resultados</span> <span class="nx">esperados</span> <span class="nx">para</span> <span class="nx">la</span> <span class="nx">prueba</span><span class="p">.</span>  <span class="nx">Estas</span> <span class="nx">clases</span> <span class="nx">ficticias</span> <span class="nx">son</span> <span class="nx">dobles</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="p">(</span><span class="nx">o</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">test</span> <span class="nx">doubles</span><span class="o">&lt;</span><span class="err">/i&gt; en inglés). A veces también se llaman  mocks, fakes, spies pero en la actualidad dichos nombres se utilizan para indicar dobles de prueba con algunas características especiales.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Antes</span> <span class="nx">hemos</span> <span class="nx">creado</span> <span class="nx">nuestro</span> <span class="nx">propio</span> <span class="nx">doble</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="p">(</span><span class="nx">la</span> <span class="nx">clase</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">DatetimeStub</span><span class="o">&lt;</span><span class="err">/i&gt;), pero existen herramientas que nos facilitan la creación e dobles. Para saber más sobre dobles de prueba consulta la sección logro desbloqueado un poco más adelante.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                              <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Conclusiones</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                            <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">En</span> <span class="nx">esta</span> <span class="nx">segunda</span> <span class="nx">entrega</span> <span class="nx">nos</span> <span class="nx">hemos</span> <span class="nx">encontrado</span> <span class="nx">el</span> <span class="nx">problema</span> <span class="nx">de</span> <span class="nx">depender</span> <span class="nx">de</span> <span class="nx">una</span> <span class="nx">característica</span> <span class="nx">del</span> <span class="nx">sistema</span> <span class="nx">que</span> <span class="nx">no</span> <span class="nx">podíamos</span> <span class="nx">controlar</span><span class="p">,</span> <span class="nx">la</span> <span class="nx">fecha</span><span class="p">,</span> <span class="nx">y</span> <span class="nx">cómo</span> <span class="nx">hemos</span> <span class="nx">evolucionado</span> <span class="nx">nuestro</span> <span class="nx">diseño</span><span class="p">.</span> <span class="nx">El</span> <span class="nx">código</span> <span class="nx">resultante</span> <span class="nx">que</span> <span class="nx">hemos</span> <span class="nx">creado</span> <span class="nx">en</span> <span class="nx">esta</span> <span class="nx">entrada</span> <span class="nx">se</span> <span class="nx">muestra</span> <span class="nx">a</span> <span class="nx">continuación</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                                <span class="o">:::</span><span class="nx">python</span>
+<span class="kr">class</span> <span class="nx">TweetsEnFichero</span>:
+    <span class="kt">def</span> <span class="nx">__init__</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">timeProvider</span> <span class="o">=</span> <span class="nx">datetime</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span> <span class="o">=</span> <span class="nx">timeProvider</span>
+    <span class="nx">def</span> <span class="nx">_getFechaActual</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">now</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">timeProvider</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">year</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_cadenaDosDigitos</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">month</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_cadenaDosDigitos</span><span class="p">(</span><span class="nx">now</span><span class="p">.</span><span class="nx">day</span><span class="p">)</span>
+    <span class="nx">def</span> <span class="nx">_cadenaDosDigitos</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">pre</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="nx">num</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span> <span class="nx">10</span>:
+            <span class="kt">pre</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+        <span class="k">return</span>  <span class="nx">pre</span><span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+    <span class="nx">def</span> <span class="nx">crearNombreFichero</span><span class="p">(</span><span class="nx">self</span><span class="p">,</span> <span class="nx">hashtag</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_getFechaActual</span><span class="p">()</span> <span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span> <span class="nx">hashtag</span> <span class="o">+</span> <span class="s2">&quot;.txt&quot;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Test</span><span class="o">-</span><span class="nx">Driven</span> <span class="nx">Development</span> <span class="nx">nos</span> <span class="nx">ha</span> <span class="nx">ayudado</span> <span class="nx">a</span> <span class="nx">llegar</span> <span class="nx">hasta</span> <span class="nx">un</span> <span class="nx">mejor</span> <span class="nx">diseño</span> <span class="nx">al</span> <span class="nx">detectar</span> <span class="nx">la</span> <span class="nx">necesidad</span> <span class="nx">de</span> <span class="nx">extraer</span> <span class="nx">la</span> <span class="nx">dependencia</span> <span class="nx">del</span> <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">datetime</span><span class="o">&lt;</span><span class="err">/i&gt; del sistema para poder escribir pruebas. Nos vemos en la próxima entrada.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span>
+                              <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">Logro</span> <span class="nx">desbloqueado</span><span class="o">&lt;</span><span class="err">/b&gt;</span>
+                            <span class="o">&lt;</span><span class="err">/h2&gt;</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">En</span> <span class="nx">este</span> <span class="nx">ejemplo</span> <span class="nx">hemos</span> <span class="nx">creado</span> <span class="nx">nuestros</span> <span class="nx">propios</span> <span class="nx">dobles</span> <span class="nx">de</span> <span class="nx">prueba</span><span class="p">,</span> <span class="nx">pero</span> <span class="nx">existen</span> <span class="nx">varias</span> <span class="nx">librerías</span> <span class="nx">que</span> <span class="nx">automatizan</span> <span class="nx">este</span> <span class="nx">trabajo</span> <span class="nx">por</span> <span class="nx">nosotros</span><span class="p">.</span> <span class="nx">En</span> <span class="nx">Python</span><span class="p">,</span> <span class="nx">a</span> <span class="nx">partir</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">versión</span> <span class="mf">3.3</span><span class="p">,</span> <span class="nx">incorpora</span> <span class="nx">una</span> <span class="nx">librería</span> <span class="nx">de</span> <span class="nx">mocks</span> <span class="nx">llamada</span> <span class="nx">MagicMocks</span> <span class="nx">y</span> <span class="nx">que</span> <span class="nx">también</span> <span class="nx">se</span> <span class="nx">puede</span> <span class="nx">utilizar</span> <span class="nx">de</span> <span class="nx">manera</span> <span class="nx">independiente</span><span class="p">.</span> <span class="nx">Utilizando</span> <span class="nx">esta</span> <span class="nx">librería</span><span class="p">,</span> <span class="nx">nuestro</span> <span class="nx">ejemplo</span> <span class="nx">quedaría</span> <span class="nx">de</span> <span class="nx">la</span> <span class="nx">siguiente</span> <span class="nx">manera</span><span class="p">.</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+
+                                <span class="o">:::</span><span class="nx">python</span>
+<span class="nx">def</span> <span class="nx">testGetFechaActual_ConMesMayorQue10NoSeIncluyeElCero</span><span class="p">(</span><span class="nx">self</span><span class="p">)</span><span class="o">:</span>
+        <span class="nx">datetimeStub</span> <span class="o">=</span> <span class="nx">Mock</span><span class="p">()</span>
+        <span class="nx">datetimeStub</span><span class="p">.</span><span class="nx">year</span> <span class="o">=</span> <span class="mi">2013</span>
+        <span class="nx">datetimeStub</span><span class="p">.</span><span class="nx">month</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="nx">datetimeStub</span><span class="p">.</span><span class="nx">day</span> <span class="o">=</span> <span class="mi">30</span>
+        <span class="nx">datetimeStub</span><span class="p">.</span><span class="nx">now</span> <span class="o">=</span> <span class="nx">Mock</span><span class="p">(</span><span class="nx">return_value</span><span class="o">=</span><span class="nx">datetimeStub</span><span class="p">)</span>
+        <span class="nx">tef</span> <span class="o">=</span> <span class="nx">TweetsEnFichero</span><span class="p">(</span><span class="nx">datetimeStub</span><span class="p">)</span>
+           <span class="nx">esperado</span> <span class="o">=</span> <span class="s2">&quot;2013-03-30&quot;</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">assertEquals</span><span class="p">(</span><span class="nx">esperado</span><span class="p">,</span> <span class="nx">tef</span><span class="p">.</span><span class="nx">getFechaActual</span><span class="p">())</span>
+
+                            <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+                              <span class="nx">Y</span> <span class="nx">ya</span> <span class="nx">no</span> <span class="nx">es</span> <span class="nx">necesario</span> <span class="nx">crear</span> <span class="nx">la</span> <span class="nx">clase</span> <span class="nx">DatetimeStub</span><span class="p">.</span> <span class="nx">Puedes</span> <span class="nx">leer</span> <span class="nx">más</span> <span class="nx">sobre</span> <span class="nx">dobles</span> <span class="nx">de</span> <span class="nx">prueba</span> <span class="nx">y</span> <span class="nx">Python</span> <span class="nx">en</span> <span class="nx">el</span> <span class="nx">blog</span> <span class="nx">del</span> <span class="nx">autor</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">a</span> <span class="nx">title</span><span class="o">=</span><span class="s2">&quot;Un ejemplo de Mocks en Python (con Mockito y MagicMock)&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;http://iwt2-javierj.tumblr.com/post/36695988608/mocks-en-python-previa-python-tdd&quot;</span><span class="o">&gt;</span><span class="nx">Un</span> <span class="nx">ejemplo</span> <span class="nx">de</span> <span class="nx">Mocks</span> <span class="nx">en</span> <span class="nx">Python</span> <span class="p">(</span><span class="nx">con</span> <span class="nx">Mockito</span> <span class="nx">y</span> <span class="nx">MagicMock</span><span class="p">)</span><span class="o">&lt;</span><span class="sr">/a&gt;.  También puedes encontrar más teoría (muy resumida y con ejemplos en Java) sobre el mundo de los dobles de prueba en el libro inconcluso &lt;a title=&quot;Desarrollo Dirigido por Pruebas Práctico&quot; href=&quot;http:/</span><span class="o">/</span><span class="nx">www</span><span class="p">.</span><span class="nx">iwt2</span><span class="p">.</span><span class="nx">org</span><span class="o">/</span><span class="nx">web</span><span class="o">/</span><span class="nx">opencms</span><span class="o">/</span><span class="nx">IWT2</span><span class="o">/</span><span class="nx">comunidad</span><span class="o">/</span><span class="nx">LibroTDD</span><span class="o">/?</span><span class="nx">locale</span><span class="o">=</span><span class="nx">es</span><span class="s2">&quot;&gt;Desarrollo Dirigido por Pruebas Práctico&lt;/a&gt;. Por último, tienes otro ejemplo de cómo aislarte de la dependencia de la fecha del sistema en Python aquí: &lt;a title=&quot;</span><span class="nx">Cómo</span> <span class="nx">aislarnos</span> <span class="nx">de</span> <span class="nx">las</span> <span class="nx">dependencias</span> <span class="nx">del</span> <span class="nx">sistema</span><span class="p">.</span> <span class="nx">Un</span> <span class="nx">caso</span> <span class="nx">práctico</span> <span class="nx">con</span> <span class="nx">Python</span><span class="p">,</span> <span class="nx">MagicMock</span> <span class="nx">y</span> <span class="nx">TDD</span><span class="s2">&quot; href=&quot;</span><span class="nx">http</span><span class="o">:</span><span class="c1">//iwt2-javierj.tumblr.com/post/67646801575/como-aislarnos-de-las-dependencias-del-sistema-un-caso&quot;&gt;Cómo aislarnos de las dependencias del sistema. Un caso práctico con Python, MagicMock y TDD&lt;br /&gt; &lt;/a&gt;</span>
+                            <span class="o">&lt;</span><span class="err">/p&gt;</span>
+</pre></div>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

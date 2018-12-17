@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Análisis Cluster (III): Clasificación no supervisada mediante K-medias | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Análisis Cluster (III): Clasificación no supervisada mediante K-medias</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 28 septiembre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p><em>(Este es el tercer capítulo de la mini-serie de artículos sobre análisis cluster que estamos haciendo en pybonacci, si todavía no has leído <a href="https://pybonacci.org/tag/agrupamiento-clusters/">los anteriores artículos les puedes echar un ojo ahora</a>. Escribir esta tercera parte solo ha tardado ¡¡¡tres años en salir!!!).</em></p>
+<p>El algoritmo de k-medias es uno de los algoritmos más sencillos de agrupamiento dentro del campo del aprendizaje automático (<em>machine learning</em> para los <em>hipsters</em>). Sirve para agrupar $N$-elementos en $K$-grupos distintos.</p>
+<h1>Agrupamiento</h1>
+<p><em>(Breve resumen de lo visto en anteriores artículos).</em></p>
+<p>Las técnicas de <a href="https://en.wikipedia.org/wiki/Cluster_analysis">agrupamiento o análisis <em>Cluster</em></a> son un tipo de aprendizaje no supervisado ya que no requieren un aprendizaje previo a partir de los datos.<br>
+Son métodos para agrupar datos sin etiqueta en subgrupos. Estos subgrupos pretenden reflejar algún tipo de estructura interna.</p>
+<h1>K-medias</h1>
+<p>El algoritmo de <a href="https://en.wikipedia.org/wiki/K-means_clustering">K-medias</a> es un algoritmo de agrupamiento particional que nos crea $K$ particiones de los $N$ datos (con $N \geqslant K$). El algoritmo se puede resumir en los siguientes pasos:</p>
+<ul>
+<li>Seleccionar $K$ puntos de forma aleatoria en un dominio que comprende todos los puntos del conjunto de datos. estos $K$ puntos representan los centros iniciales de los grupos (lo veremos en el método <code>_init_centroids</code> de la clase <code>KMeans</code> que luego explicaremos más en detalle). No vamos a implementar ningún método de posicionamiento inicial complejo, los centros iniciales serán valores aleatorios colocados entre los umbrales mínimos y máximos del conjunto de puntos (entre las $x$, $y$ mínimas y máximas). El problema que resolveremos será en dos dimensiones, como ya podéis intuir.</li>
+<li>Asignar cada punto del conjunto de datos al grupo con el centro más próximo (lo veremos en el método <code>_assign_centroids</code> de la clase <code>KMeans</code>, llegaremos en breve).</li>
+<li>Recalculamos los centros de los grupos a partir de todos los datos asignados a cada grupo, es decir, calculamos el <a href="https://es.wikipedia.org/wiki/Centroide">centroide</a> de cada grupo método <code>_recalculate_centroids</code> de la clase (<code>KMeans</code>).</li>
+<li>Repetir los dos pasos anteriores hasta que se cumpla un condición que puede ser:</li>
+<li>Se ha alcanzado un número máximo de iteraciones (no deseable).</li>
+<li>Los centroides ya no cambian más allá de un rango.</li>
+</ul>
+<p>Nosotros solo comprobaremos el segundo ya que solo vamos a manejar conjuntos pequeños de datos. Le pondremos un límite de variación a nuestra clase <code>KMeans</code> que deberán cumplir todos los centroides. La comprobación sobre si parar las iteraciones se realizarán en el método <code>_check_stop</code> de la clase KMeans.</p>
+<h1>Todo esto pretende ser más educativo que riguroso</h1>
+<p>La implementación que vamos a hacer será en Python puro ya que pretende ser educativa de cara a ayudar a conocer el funcionamiento del algoritmo paso a paso. Tenéis implementaciones mucho más desarrolladas, precisas, con mejor rendimiento,..., en paquetes como <a href="http://docs.scipy.org/doc/scipy/reference/cluster.vq.html">scipy</a>, <a href="http://scikit-learn.org/stable/modules/clustering.html#k-means">scikit-learn</a> u <a href="https://pypi.python.org/pypi?%3Aaction=search&amp;term=kmeans&amp;submit=search">otros</a>.</p>
+<h1>La implementación</h1>
+<p><strong>AVISO PARA NAVEGANTES</strong>: Todo el código está pensado para funcionar en Python 3. Si usas Python 2 deberías empezar a pensar en actualizarte.</p>
+<p>Primero escribo la clase a capón y luego la voy desgranando poco a poco. La he escrito como un iterador de forma que nos permita iterar fácilmente paso a paso (la iteración paso a paso la veremos de forma visual para intentar aportar aun mayor claridad). Para ver más sobre iteradores podéis DuckDuckGoear o ver este <a href="http://www.diveintopython3.net/iterators.html">enlace</a>.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">KMeans</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_centroids</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_init_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;rgb({0},{1},{2})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_assign_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Maximum possible distance to a centroid</span>
+        <span class="n">dmax</span>  <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">d0</span> <span class="o">=</span> <span class="n">dmax</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">xi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                         <span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">d0</span><span class="p">:</span>
+                    <span class="n">cluster</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="n">d0</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_recalculate_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[:]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="n">x0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">cont</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">x0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">y0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">/</span> <span class="n">cont</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">/</span> <span class="n">cont</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_check_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_centroids</span><span class="p">()</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+
+
+<p>La clase anterior paso a paso:</p>
+<h1>Metodo <code>__init__</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_centroids</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>Inicializamos la clase con los valores <code>xg de los puntos, los valores</code>y</code> de los puntos, el número de grupos a usar, <code>n_clusters&lt;/code&gt; y el límite del desplazamiento de los grupos a partir del cual consideraremos que podemos parar de iterar,</code>limit</code>.<br /> Además, a partir del los valores introducidos, extraemos las ventana umbral donde se colocan los puntos (atributos <code>x_min&lt;/code&gt;,</code>x_max</code>, <code>y_min&lt;/code&gt; e</code>y_max</code>) que después usaremos para inicializar los centroides (mediante `_init_centroids</code>).</p>
+<h1>Metodo <code>_init_centroids</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_init_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;rgb({0},{1},{2})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Mediante este método, que se usa al inicializar la clase, creamos los centroides iniciales a partir de valores aleatorios situados entre los valores de <code>x_min</code>, <code>x_max</code>, <code>y_min</code> e <code>y_max</code>. Además, asignamos unos colores aleatorios a cada centroide (que luego usaremos en la visualización). Pensándolo fríamente, ahora que estoy escribiendo esto, la verdad que <code>colors</code> podría estar fuera de esta clase pero lo vamos a dejar así.</p>
+<p>Una vez que se han creado los centroides hacemos la asignación de cada punto del conjunto de puntos $x$ e $y$ a cada centroide mediante el método <code>_assign_centroids</code>.</p>
+<h1>Metodo <code>assign_centroids</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_assign_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Maximum possible distance to a centroid</span>
+    <span class="n">dmax</span>  <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">d0</span> <span class="o">=</span> <span class="n">dmax</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">xi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                     <span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">d0</span><span class="p">:</span>
+                <span class="n">cluster</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">d0</span> <span class="o">=</span> <span class="n">d</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+</pre></div>
+
+
+<p>en el atributo <code>c</code> (que es una lista) almacenamos el valor del grupo al que pertenece cada punto del conjunto de datos $x$ e $y$. Para ello, primero tenemos que calcular la distancia de cada punto a cada centroide y el que centroide que tenga menos distancia al punto será el asignado. Por tanto, en este paso, hemos de calcular $N \cdot K$ distancias.</p>
+<h1>Metodo <code>_recalculate_centroids</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_recalculate_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[:]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[:]</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">cont</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">x0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">y0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">/</span> <span class="n">cont</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">/</span> <span class="n">cont</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+</pre></div>
+
+
+<p>En este paso, recalculamos los centroides. Cada nuevo centroide será el centroide de los puntos asignados a ese centroide. Los antiguos centroides los conservamos para poder compararlos con los nuevos y ver si han variado poco o mucho las nuevas posiciones de los centroides. Una vez que hemos calculado los nuevos centroides y que mantenemos los antiguos asignamos los puntos a los nuevos centroides mediante el método <code>_assign_centroids</code> explicado anteriormente.</p>
+<h1>Metodo <code>_check_stop</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_check_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</pre></div>
+
+
+<p>En este método calculamos si la diferencia entre la posición de los centroides antiguos y de los nuevos es superior o inferior al límite o umbral que hemos definido al instanciar la clase. Si cualquiera de los centroides se ha movido más del umbral definido seguiremos iterando (<code>_check_stop</code> devolverá <code>False</code>), si ninguno supera el umbral le diremos que pare de iterar (<code>_check_stop</code> devolverá <code>True</code>).</p>
+<h1>Metodo <code>__iter__</code> y <code>__next__</code></h1>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span>
+
+<span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_centroids</span><span class="p">()</span>
+    <span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stop</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">stop</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">StopIteration</span>
+    <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+
+
+<p>Si os habéis leído el enlace sobre iteradores que he dejado más arriba espero que esto sea sencillo de entender.</p>
+<ul>
+<li>El método <code>__iter__</code> no necesita mayor explicación.</li>
+<li>El método <code>__next__</code> incrementa el atributo <code>iterations</code>, que no vamos a usar pero que podríamos usar para limitar, por ejemplo, el número de iteraciones, os lo dejo como ejercicio :-D, cada vez que damos un nuevo paso recalculamos los centroides y chequeamos si hay que parar la iteración porque hemos cumplido las condiciones fijadas (sí, el <code>stop == True</code> es redundante pero he pretendido que sea lo más claro posible).</li>
+</ul>
+<h1>Visualización</h1>
+<p>El hecho de crear la clase como un iterador es porque he pensado que podríamos iterar en cada paso y hacer una visualización interactiva. Como la visualizazión quiero que funciones cuando el notebook está estático he recurrido a usar <a href="https://github.com/kikocorreoso/brythonmagic">Brythonmagic</a>.<br>
+Si queréis saber más sobre Brythonmagic podéis leer el README del enlace anterior o ver <a href="https://pybonacci.org/2014/03/03/presentando-brythonmagic/">esta entrada</a> con vídeo y todo que muestra el funcionamiento.<br>
+Como resumen, básicamente es una <em>magic function</em> para el notebook que nos permite usar brython (una implementación de Python 3 hecha en javascript que funciona en el navegador sin necesidad de ningún kernel detrás).<br>
+Si no lo tienes instalado lo puedes instalar mediante <code>pip</code>.</p>
+<div class="highlight"><pre><span></span>Downloading/unpacking brythonmagic
+Downloading brythonmagic-0.1.1.tar.gz
+Running setup.py (path:/home/kiko/pyprojs/venv-scipy/build/brythonmagic/setup.py) egg_info for package brythonmagic
+
+Requirement already satisfied (use --upgrade to upgrade): ipython&amp;gt;=1.0 in /home/kiko/pyprojs/venv-scipy/lib/python3.4/site-packages (from brythonmagic)
+Installing collected packages: brythonmagic
+Running setup.py install for brythonmagic
+
+Successfully installed brythonmagic
+Cleaning up...
+</pre></div>
+
+
+<p>Para poder hacer uso de la extensión la hemos de cargar mediante:</p>
+<p><code>%load_ext brythonmagic</code></p>
+<p>El paso siguiente nos permite usar toda la maquinaria de brython en el navegador dentro del notebook y es el último paso para que todo funcione.</p>
+<div class="highlight"><pre><span></span>%%HTML
+<span class="nt">&lt;script</span> <span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;http://brython.info/src/brython\_dist.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>Podemos comprobar si funciona con el siguiente ejemplo. Después de ejecutar la celda debrías de ver un mensaje en pantalla (esto seré un poco enojante cuando lo veamos en estático puesto que siempre saltará esta ventana...):</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">brython</span>
+<span class="kn">from</span> <span class="nn">browser</span> <span class="kn">import</span> <span class="n">alert</span>
+<span class="n">alert</span><span class="p">(</span><span class="s1">&#39;it works!&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>A continuación metemos el código de la clase <code>KMeans</code> que ya hemos detallado más arriba y la llamaremos desde otras celdas brython a partir del nombre que le hemos dado en esta celda (<code>kmeans_class</code>, ver primera línea de la celda)</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="k">class</span> <span class="nc">KMeans</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span> <span class="o">=</span> <span class="n">n_clusters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init_centroids</span><span class="p">()</span>        
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_init_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">)</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="o">&amp;</span><span class="c1">#39;rgb({0},{1},{2})&amp;#39;.format(r, g, b)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_assign_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Maximum possible distance to a centroid</span>
+        <span class="n">dmax</span>  <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">d0</span> <span class="o">=</span> <span class="n">dmax</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">xi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> 
+                         <span class="p">(</span><span class="n">yi</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">d0</span><span class="p">:</span>
+                    <span class="n">cluster</span> <span class="o">=</span> <span class="n">i</span>
+                    <span class="n">d0</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_recalculate_centroids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[:]</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="n">x0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">cont</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="n">cont</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">x0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">y0</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">/</span> <span class="n">cont</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">/</span> <span class="n">cont</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_assign_centroids</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_check_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_clusters</span><span class="p">):</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_centroids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">d</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iterations</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recalculate_centroids</span><span class="p">()</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_stop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+
+
+<p>El código que figura a continuación es parte de <a href="https://bitbucket.org/kikocorreoso/brython-bryplot/src">una librería que empecé hace un tiempo para hacer gráficos en el canvas del navegador de forma simple a partir de Brython</a>. La funcionalidad básica está en el módulo <a href="https://bitbucket.org/kikocorreoso/brython-bryplot/src/528fa4116d1f8fd1f2ab44feb537d63778edb5d5/bryplot/base.py?at=default&amp;fileviewer=file-view-default"><em>base.py</em></a> y lo que figura a continuación es parte de ese módulo modificado en algún sitio.<br>
+NO VOY A EXPLICAR ESTE CÓDIGO EN DETALLE PUESTO QUE NO ES PARTE DEL PROPÓSITO DE LA ENTRADA Y NO QUIERO DESVIAR LA ATENCIÓN. SI TENÉIS ALGUNA DUDA O INTERÉS PODÉIS USAR LOS COMENTARIOS DEL BLOG PARA ELLO.<br>
+El código a continuación permite dibujar sobre un <a href="http://www.html5canvastutorials.com/">canvas HTML5</a> diferentes formas. Solo vamos a definir formas para dibujar círculos, para los puntos y los centroides de los grupos, y líneas, para mostrar qué puntos se asignan a qué centroide en cada paso.</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">brython</span> <span class="o">-</span><span class="n">s</span> <span class="n">canvas_utils</span>
+<span class="kn">from</span> <span class="nn">browser</span> <span class="kn">import</span> <span class="n">document</span> <span class="k">as</span> <span class="n">doc</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1"># Base classes for higher level objects</span>
+<span class="k">class</span> <span class="nc">Figure</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class to create other elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">canvasid</span><span class="p">,</span> 
+                       <span class="n">facecolor</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> 
+                       <span class="n">edgecolor</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> 
+                       <span class="n">borderwidth</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *canvasid*: String</span>
+<span class="sd">            String indicating the canvas id where the image should be </span>
+<span class="sd">            rendered.</span>
+<span class="sd">        *facecolor*: String</span>
+<span class="sd">            String value containing a valid HTML color</span>
+<span class="sd">        *edgecolor*: String</span>
+<span class="sd">            String value containing a valid HTML color</span>
+<span class="sd">        *borderwidth*: Integer</span>
+<span class="sd">            Value indicating the width of the border in pixels.</span>
+<span class="sd">            If not provided it will 0 and the edgecolor will not be</span>
+<span class="sd">            visible</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">canvasid</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">canvasid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;The canvasid parameter should be a string&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">doc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No HTML element with id=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_W</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">width</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_H</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">height</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;You must provide the ID of a &amp;lt;canvas&amp;gt; element&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span> <span class="o">=</span> <span class="n">facecolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span> <span class="o">=</span> <span class="n">borderwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span> <span class="o">=</span> <span class="n">edgecolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">clf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&quot;clear the figure&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># The following line should clear the canvas but I found a</span>
+        <span class="c1"># problem when I use beginPath ¿¿¿???</span>
+        <span class="c1">#self._ctx.clearRect(0, 0, self._W, self._H)</span>
+        <span class="c1"># So I use the following line that is less performant but</span>
+        <span class="c1"># this operation shouldn&amp;#39;t be done very often...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">width</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">strokeRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_W</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_H</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">Shape</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class to create other elements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span>
+                       <span class="n">facecolor</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span> 
+                       <span class="n">edgecolor</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                       <span class="c1">#alpha = 1,</span>
+                       <span class="n">borderwidth</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *context*: a canvas context</span>
+<span class="sd">            a valid canvas context where the text will be rendered</span>
+<span class="sd">        *x*: int or float</span>
+<span class="sd">            x value for location in pixels</span>
+<span class="sd">        *y*: int or float</span>
+<span class="sd">            y value for location in pixels</span>
+<span class="sd">        *facecolor*: String</span>
+<span class="sd">            String value containing a valid HTML color</span>
+<span class="sd">        *edgecolor*: String</span>
+<span class="sd">            String value containing a valid HTML color</span>
+<span class="sd">        *alpha*: int or float</span>
+<span class="sd">            Value between 0 (transparent) and 1 (opaque) to set the</span>
+<span class="sd">            transparency of the text</span>
+<span class="sd">        *borderwidth*: Integer</span>
+<span class="sd">            Value indicating the width of the border in pixels.</span>
+<span class="sd">            If not provided it will 0 and the edgecolor will not be</span>
+<span class="sd">            visible</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span> <span class="o">=</span> <span class="n">facecolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span> <span class="o">=</span> <span class="n">borderwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span> <span class="o">=</span> <span class="n">edgecolor</span>
+        <span class="c1">#self.alpha = alpha</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *radius*: int or float</span>
+<span class="sd">            radius of the circle in pixels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Shape</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="c1">#self._ctx.globalAlpha = self.alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">arc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">closePath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Line</span><span class="p">(</span><span class="n">Shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">polygon</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">Shape</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span> <span class="o">=</span> <span class="n">borderwidth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span> <span class="o">=</span> <span class="n">polygon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="c1">#self._ctx.globalAlpha = self.alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">beginPath</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">lineTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">polygon</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">closePath</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">facecolor</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fill</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">lineWidth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">borderwidth</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">strokeStyle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">edgecolor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">stroke</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+</pre></div>
+
+
+<p>El siguiente código solo nos va a valer para establecer una mínima disposición de los elementos contenidos en la visualización.<br>
+Se incluye un canvas, donde se dibujarán las cosas, y un botón, para poder iterar el algoritmo.</p>
+<div class="highlight"><pre><span></span>html = &quot;&quot;&quot;
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;cnvs01&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">500</span> <span class="na">height</span><span class="o">=</span><span class="s">500</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+     <span class="p">&lt;</span><span class="nt">button</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn&quot;</span><span class="p">&gt;</span>Next step<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+     <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+&quot;&quot;&quot;
+</pre></div>
+
+
+<p>Por último, este es el código que realiza todo a partir de los demás. Voy a intentar explicarlo un poco más en detalle:</p>
+<div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="s1">&#39;cnvs01&#39;</span><span class="p">,</span> <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">n_points</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">fig</span><span class="o">.</span><span class="n">_W</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_points</span><span class="p">)]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">fig</span><span class="o">.</span><span class="n">_H</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_points</span><span class="p">)]</span>
+
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span><span class="o">=</span> <span class="s2">&quot;#ffffff&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">globalAlpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_W</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_H</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">colors</span>
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x_centroids</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y_centroids</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">c</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">):</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="n">Line</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span>
+             <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">)</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+               <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+               <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> 
+               <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+               <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">ev</span><span class="p">):</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">kmeans</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1">#doc[&#39;button&#39;].disabled = True</span>
+        <span class="k">del</span> <span class="n">doc</span><span class="p">[</span><span class="s1">&#39;button&#39;</span><span class="p">]</span>
+
+<span class="n">doc</span><span class="p">[</span><span class="s1">&#39;button&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">update</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li><code>fig = Figure('cnvs01', borderwidth = 2)</code> inicializamos el canvas con un borde negro usando la clase Figure creada más arriba.</li>
+<li>Definimos el número de puntos a usar y las posiciones de los puntos.</li>
+<li>Inicializamos el objeto mediante <code>kmeans = KMeans(x, y, n_clusters = 4, limit = 1)g. En este caso queremos que tenga 4 clusters (</code>n_clusters<code>) y que el límite (</code>limit`) para dejar de iterar sea cuando los centroides se muevan un pixel o menos.</li>
+</ul>
+<p>La función `plotg hace varias cosas.</p>
+<p>Primero suaviza los colores de la imagen previa antes de la actual iteración (esto está más relacionado con el canvas HTML5 y con javascript y no hace falta entenderlo mucho más allá de lo comentado en esta línea)</p>
+<div class="highlight"><pre><span></span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span><span class="o">=</span> <span class="s2">&quot;#ffffff&quot;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">globalAlpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_W</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_H</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Después extraemos todos los datos del objeto (`kmeansg) que vamos a usar dentro de la función.</p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span>
+<span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">colors</span>
+<span class="n">xc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x_centroids</span>
+<span class="n">yc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y_centroids</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+
+
+<p>Dibujamos las líneas entre los puntos y los centroides y los puntos con colores asociados a cada grupo</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">):</span>
+   <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+   <span class="n">Line</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span>
+        <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">)</span>
+   <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+          <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+          <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y finalmente se dibujan los centroides de cada grupo con un círculo un poco más grande que los propios puntos:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+   <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> 
+          <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span>
+          <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Creamos, además, una función <code>updateg que será la que llama a la función</code>plot</code> y la que llama a una nueva iteración. El código que figura en el bloque <code>except</code>, <code>del</code>doc['button']`, es más de la parte de brython y sirve para que el botón desaparezca una vez que el iterador ha quedado exhausto (se han agotado las iteraciones).</p>
+<p>La última línea de código, <code>doc['button'].bind('click', update)</code>, asocia el evento <code>click</code> del botón a la función <code>update</code> que he comentado anteriormente.</p>
+<p>Si ahora ejecutamos la siguiente celda de código deberíamos ver un canvas de 500px x 500px con un botón debajo. Si vamos pulsando al botón veremos como nueva iteración en acción, además de ver las anteriores iteraciones de forma difuminada. Una vez que hemos alcanzado la condición de que los centroides no se mueven más desaparecerá el botón (para no teneros ahí pulsando y que me digáis que eso no sigue funcionando...).</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">brython</span> <span class="o">-</span><span class="n">S</span> <span class="n">kmeans_class</span> <span class="n">canvas_utils</span> <span class="o">-</span><span class="n">h</span> <span class="n">html</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="o">&amp;</span><span class="c1">#39;cnvs01&amp;#39;, borderwidth = 2)</span>
+
+<span class="n">n_points</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">fig</span><span class="o">.</span><span class="n">_W</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_points</span><span class="p">)]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">fig</span><span class="o">.</span><span class="n">_H</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_points</span><span class="p">)]</span>
+
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillStyle</span><span class="o">=</span> <span class="s2">&quot;#ffffff&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">globalAlpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">fillRect</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_W</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="n">fig</span><span class="o">.</span><span class="n">_H</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span>
+    <span class="n">npoints</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">colors</span>
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">x_centroids</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">y_centroids</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">c</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npoints</span><span class="p">):</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="n">Line</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">yc</span><span class="p">[</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]]],</span>
+             <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">)</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+               <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="o">&amp;</span><span class="c1">#39;black&amp;#39;,</span>
+               <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">_ctx</span><span class="p">,</span> <span class="n">xci</span><span class="p">,</span> <span class="n">yci</span><span class="p">,</span> 
+               <span class="n">facecolor</span> <span class="o">=</span> <span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span> <span class="o">=</span> <span class="o">&amp;</span><span class="c1">#39;black&amp;#39;,</span>
+               <span class="n">borderwidth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">ev</span><span class="p">):</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">kmeans</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">kmeans</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1">#doc[&amp;#39;button&amp;#39;].disabled = True</span>
+        <span class="k">del</span> <span class="n">doc</span><span class="p">[</span><span class="o">&amp;</span><span class="c1">#39;button&amp;#39;]</span>
+
+<span class="n">doc</span><span class="p">[</span><span class="s1">&#39;button&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">update</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Podéis ver todo el código contenido en una página web <a href="http://kikocorreoso.bitbucket.org/kmeans/">aquí</a> </p>
+<h1>Conclusiones</h1>
+<p>Espero que haya quedado claro el funcionamiento básico del algoritmo K-Medias. También espero que si veis alguna errata en el código me aviséis o hagáis un <strong>Pull Request</strong> a nuestro repositorio de notebooks.</p>
+<p>Podéis ver este notebook funcionando incluso en estático en <a href="http://nbviewer.jupyter.org/github/Pybonacci/notebooks/blob/master/K-Medias.ipynb">el siguiente enlace</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/agrupamiento-clusters.html" class="tag">agrupamiento clusters</a>
+                    <a href="http://pybonacci.github.io/tag/ai.html" class="tag">ai</a>
+                    <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                    <a href="http://pybonacci.github.io/tag/aprendizaje-no-supervisado.html" class="tag">aprendizaje no supervisado</a>
+                    <a href="http://pybonacci.github.io/tag/clasificacion-clustering.html" class="tag">clasificación clustering</a>
+                    <a href="http://pybonacci.github.io/tag/ia.html" class="tag">ia</a>
+                    <a href="http://pybonacci.github.io/tag/inteligencia-artificial.html" class="tag">inteligencia artificial</a>
+                    <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                    <a href="http://pybonacci.github.io/tag/scipycluster.html" class="tag">scipy.cluster</a>
+                    <a href="http://pybonacci.github.io/tag/scipyspatial.html" class="tag">scipy.spatial</a>
+                    <a href="http://pybonacci.github.io/tag/unsupervised-learning.html" class="tag">unsupervised learning</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h2>Articles in the articles category</h2>
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/09/17/repaso-a-la-euroscipy-2012/">Repaso a la EuroScipy 2012</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-09-17T08:27:34+00:00" pubdate>lun 17 septiembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/acikit-learn.html" class="tag">acikit-learn</a>
+                <a href="http://pybonacci.github.io/tag/cython.html" class="tag">cython</a>
+                <a href="http://pybonacci.github.io/tag/euroscipy.html" class="tag">euroscipy</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/numexpr.html" class="tag">numexpr</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/opengl.html" class="tag">opengl</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/timeseries.html" class="tag">timeseries</a>
+                <a href="http://pybonacci.github.io/tag/visvis.html" class="tag">visvis</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Como todos sabéis, hace un par de semanas se celebró la <a href="http://www.euroscipy.org/conference/euroscipy2012">Euroscipy 2012 con mucho material interesante que repasar</a>. Voy a hablar de los que tienen algo de material para poder juzgar sobre algo.</p>
+<p>Tutoriales básicos para científicos (o no):</p>
+<ul>
+<li><a href="http://www.euroscipy.org/talk/6563">Introduction to python for scientist</a> (<a href="http://www.euroscipy.org/file/9018?vid=download">material del curso</a>): Le he echado un ojo por encima y me parece un buen curso para empezar en el mundo python</li>
+<li><a href="http://www.euroscipy.org/talk/6573">Scientific plotting with matplotlib</a> (<a href="http://webloria.loria.fr/~rougier/teaching/matplotlib/">Curso</a> y <a href="https://github.com/rougier/scipy-lecture-notes/tree/euroscipy-2012/intro/matplotlib">código del curso</a>): El curso está genial para ver matplotlib por encima, donde todo se ve con ejemplos y donde la documentación completa de cada una de las cosas que se usan la tienes disponible a un click. Si el inglés no es lo tuyo puedes echarle un ojo a nuestro tutorial de matplotlib (<a href="https://pybonacci.org/tag/tutorial-matplotlib-pyplot/">en el blog</a> o todo junto <a href="https://pybonacci.org/images/2012/08/tutorial-de-matplotlib-pyplotv0-1-201208311.pdf">en pdf</a>).</li>
+<li><a href="http://www.euroscipy.org/talk/6578">Introducción a la computación científica …</a></li></ul>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/09/17/repaso-a-la-euroscipy-2012/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/09/14/calculando-cuantiles-con-python/">Calculando cuantiles con python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-09-14T05:59:40+00:00" pubdate>vie 14 septiembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cuantiles.html" class="tag">cuantiles</a>
+                <a href="http://pybonacci.github.io/tag/cuartiles.html" class="tag">cuartiles</a>
+                <a href="http://pybonacci.github.io/tag/deciles.html" class="tag">deciles</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/percentil.html" class="tag">percentil</a>
+                <a href="http://pybonacci.github.io/tag/percentiles.html" class="tag">percentiles</a>
+                <a href="http://pybonacci.github.io/tag/scipystats.html" class="tag">scipy.stats</a>
+                <a href="http://pybonacci.github.io/tag/scoreatpercentile.html" class="tag">scoreatpercentile</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Como sabiamente dice la wikipedia, los cuantiles son <a href="http://es.wikipedia.org/wiki/Medidas_de_posici%C3%B3n_no_central">medidas de posición no central</a> que permiten conocer otros puntos característicos de la distribución. El cuantil de orden <em>p</em> de una distribución (con 0 &lt; p &lt; 1) es el valor de la variable $x_p$ que marca un corte de modo que una proporción p de valores de la población es menor o igual que $x_p$. Por ejemplo, el cuantil de orden 0.36 dejaría un 36% de valores por debajo y el cuantil de orden 0.50 se corresponde con la <a href="http://es.wikipedia.org/wiki/Mediana_%28estad%C3%ADstica%29" title="Mediana (estadística)">mediana</a> de la distribución.</p>
+<p>Vale, esto es un resumen de la teoría, pero vayamos a practicar un poco con nuestras amadas herramientas (en este caso numpy 1.6.1, matplotlib 1.1.1rc, scipy 0.9.0 y ipython 0.12.1 sobre python 2.7.3).</p>
+<p>Iniciamos haciendo lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="kn">import …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/09/14/calculando-cuantiles-con-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/09/11/creacion-de-documentos-con-docutils-y-rest/">Creación de documentos con Docutils y reST</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-09-11T13:14:52+00:00" pubdate>mar 11 septiembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/documentacion.html" class="tag">documentación</a>
+                <a href="http://pybonacci.github.io/tag/docutils.html" class="tag">docutils</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/rest.html" class="tag">rest</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Hoy vamos a ver una introducción a cómo <strong>crear documentos</strong> utilizando <strong>Docutils</strong> y el lenguaje de marcado <strong>reStructuredText</strong>, o simplemente <strong>reST</strong>. <a href="http://docutils.sourceforge.net/">El proyecto Docutils</a> nació en la década de los años 2000 como parte del esfuerzo para <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html#history">mejorar la documentación del lenguaje Python</a>, y en los últimos años tanto el lenguaje reST como las herramientas para procesarlo se han convertido en una manera excelente no sólo de documentar proyectos en Python, sino también en otros lenguajes o para escribir documentos que nada tienen que ver con la programación.</p>
+<p>Docutils es compatible con Python 2.4 en adelante y funciona en Windows, Mac OS X y Linux. Para instalarlo en cualquiera de estos sistemas operativos, no tienes más que seguir el procedimiento habitual para instalar paquetes Python:</p>
+<ol>
+<li>Descargar el código fuente desde <a href="http://sourceforge.net/projects/docutils/files/docutils/">la web de Docutils</a> y extraerlo.</li>
+<li>Escribir desde …</li></ol>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/09/11/creacion-de-documentos-con-docutils-y-rest/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/09/03/matropolis/">Matrópolis</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-09-03T23:23:58+00:00" pubdate>lun 03 septiembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/entretenimiento.html" class="tag">Entretenimiento</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Aquí siempre andamos trasteando con código. Para relajar un poco el lado técnico del blog hoy os traemos una frikada que sabemos os gustará. Ya lo puso Juanlu hace unos días por nuestro twitter pero si no lo has visto aún, aquí lo tienes: "Matropolis: Científicos del mundo uníos (también conocido como las guerras Matlab/Python".</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/1lBeungEnx4'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>No pretendemos tener razón, pero <a href="http://guillemborrell.es/blog/carta-abierta-a-mathworks/">sí daros razones</a> 😉</p>
+<p>Saludos.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/09/03/matropolis/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/">Manual de introducción a matplotlib.pyplot (IX): Miscelánea</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-08-30T16:18:55+00:00" pubdate>jue 30 agosto 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).</p>
+<ol>
+<li><a href="https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/" title="Manual de introducción a matplotlib.pyplot (I): Primeros pasos">Primeros pasos</a></li>
+<li><a href="https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/" title="Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión">Creando ventanas, manejando ventanas y configurando la sesión</a></li>
+<li><a href="https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/" title="Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico">Configuración del gráfico</a></li>
+<li><a href="https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/" title="Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)">Tipos de gráfico I</a></li>
+<li><a href="https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/" title="Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)">Tipos de gráfico II</a></li>
+<li><a href="https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/" title="Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)">Tipos de gráfico III</a></li>
+<li><a href="https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" title="Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)">Tipos de gráfico IV</a></li>
+<li><a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">Texto y anotaciones (arrow, annotate, table, text...)</a></li>
+<li><del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del></li>
+<li><del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del></li>
+<li><strong><a href="https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" title="Manual de introducción a matplotlib.pyplot (IX): Miscelánea">Miscelánea</a></strong></li>
+</ol>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0 ]</strong></p>
+<p>[DISCLAIMER: Muchos de los gráficos que vamos a representar no tienen ningún sentido físico y los resultados solo pretenden mostrar el uso de la librería].</p>
+<p>En todo momento supondremos que se ha iniciado la sesión y …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/08/28/the-amazing-spyder-man/">The amazing Spyder, man!!!</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-08-28T18:11:06+00:00" pubdate>mar 28 agosto 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ides.html" class="tag">IDEs</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/spyder.html" class="tag">spyder</a>
+                <a href="http://pybonacci.github.io/tag/spyderlib.html" class="tag">spyderlib</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Spyder es la abreviación de Scientific PYthon Development EnviRonment. Según la documentación oficial, Spyder es un potente entorno de desarrollo interactivo para Python con edición avanzada, ‘testeo’ interactivo y capacidades de introspección y depuración (debugging) y, esto es lo que nos interesa, un entorno de computación numérica gracias al soporte de IPython y de populares librerías como numpy, scipy y matplotlib (todas conocidas ya por aquí).</p>
+<p>Se puede instalar tanto en Linux como en Windows (y en Mac para los amantes de Alcatraz). En el siguiente enlace podéis ver <a href="http://pythonhosted.org/spyder/installation.html">documentación para la instalación y los requerimientos</a> previos para poder instalarlo.</p>
+<p>En un vistazo general podemos ver que es muy adaptable a nuestras necesidades (o manías) permitiendo:</p>
+<ul>
+<li>definir accesos rápidos,</li>
+<li>Gestionar el PYTHONPATH de manera visual</li>
+</ul>
+<p><img alt="pythonpath" src="https://pybonacci.org/images/2012/08/pythonpath.png"></p>
+<ul>
+<li>Acceso a la documentación de las librerías más importantes (Numpy, Scipy, Matplotlib,...) desde la ayuda …</li></ul>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/08/28/the-amazing-spyder-man/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/">Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-08-24T20:19:21+00:00" pubdate>vie 24 agosto 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).</p>
+<ol>
+<li><a href="https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/" title="Manual de introducción a matplotlib.pyplot (I): Primeros pasos">Primeros pasos</a></li>
+<li><a href="https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/" title="Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión">Creando ventanas, manejando ventanas y configurando la sesión</a></li>
+<li><a href="https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/" title="Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico">Configuración del gráfico</a></li>
+<li><a href="https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/" title="Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)">Tipos de gráfico I</a></li>
+<li><a href="https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/" title="Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)">Tipos de gráfico II</a></li>
+<li><a href="https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/" title="Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)">Tipos de gráfico III</a></li>
+<li><a href="https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" title="Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)">Tipos de gráfico IV</a></li>
+<li><strong><a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">Texto y anotaciones (arrow, annotate, table, text...)</a></strong></li>
+<li><del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del></li>
+<li><del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del></li>
+<li><a href="https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" title="Manual de introducción a matplotlib.pyplot (IX): Miscelánea">Miscelánea</a></li>
+</ol>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1 y matplotlib 1.1.0 ]</strong></p>
+<p>[DISCLAIMER: Muchos de los gráficos que vamos a representar no tienen ningún sentido físico y los resultados solo pretenden mostrar el uso de la librería].</p>
+<p>En todo momento supondremos que se ha iniciado la sesión y …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/">Probando numba: compilador para Python basado en LLVM</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-08-21T15:28:03+00:00" pubdate>mar 21 agosto 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cython.html" class="tag">cython</a>
+                <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/rendimiento.html" class="tag">rendimiento</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Hace unos días <a href="http://continuum.io/our-team.html#travis">Travis E. Oliphant</a>, creador de NumPy e importante contribuidor de SciPy entre otras muchas cosas, anunciaba <a href="https://twitter.com/teoliphant/status/235789560678858752">en su Twitter</a> y <a href="http://technicaldiscovery.blogspot.com.es/2012/08/numba-and-llvmpy.html">en su blog</a> la liberación de <a href="http://numba.pydata.org/">numba 0.1</a>, un proyecto que <strong>pretende ser el mejor compilador orientado a arrays</strong> del mundo, como puedes ver en la presentación que dio en la conferencia SciPy 2012 celebrada en Austin, Texas (<a href="http://youtu.be/WYi1cymszqY">vídeo</a> y <a href="http://www.slideshare.net/teoliphant/numba">diapositivas</a>).</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    Just released Numba 0.1. Thanks Jon Riehl from Resilient Science for all the hard work. Binaries to follow. <a href="http://t.co/o80rn7By">http://t.co/o80rn7By</a>
+  </p>
+
+  <p>
+    &mdash; Travis Oliphant (@teoliphant) <a href="https://twitter.com/teoliphant/statuses/235789560678858752">August 15, 2012</a>
+  </p>
+</blockquote>
+
+<p>Aunque el proyecto está en una fase bastante precaria todavía y hay unos cuantos fallos pendientes de solucionar todavía, hemos hecho algunas pruebas y los resultados son impresionantes. Vamos a hablar un poco de numba y a explicar cómo puedes probarlo tú mismo.</p>
+<!--more-->
+
+<h2>Motivación</h2>
+<p>Ya …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/08/17/como-leer-y-escribir-datos-en-archivos-con-numpy/">Cómo leer y escribir datos en archivos con NumPy</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-08-17T23:21:55+00:00" pubdate>vie 17 agosto 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/archivos.html" class="tag">archivos</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Hoy vamos a ver rápidamente <strong>cómo leer datos desde un archivo con NumPy</strong> y también <strong>cómo escribirlos</strong>. Es algo a lo que tendremos que recurrir con mucha frecuencia, ya sea porque hemos recogido nuestros datos de un experimento y los tenemos almacenados en un fichero de texto, porque los hemos recibido por otras fuentes o porque queremos separar lo que es la lógica del programa de los datos con los que opera.</p>
+<p>Ya comentamos hace tiempo <a href="https://pybonacci.org/2012/06/11/como-crear-matrices-en-python-con-numpy/" title="Cómo crear matrices en Python con NumPy">cómo crear matrices en Python</a> a partir de listas, utilizando rangos numéricos, etc. Lo bueno que tienen las funciones de NumPy que nos ayudan a desempeñar estas tareas es que no tenemos que preocuparnos por el manejo de ficheros con Python, así que leer o escribir será tan fácil como invocar una función.</p>
+<p><em><strong>En esta entrada se ha usado python 2.7.3 …</strong></em></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/08/17/como-leer-y-escribir-datos-en-archivos-con-numpy/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/">Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-07-29T10:36:08+00:00" pubdate>dom 29 julio 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/basemap.html" class="tag">basemap</a>
+                <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                <a href="http://pybonacci.github.io/tag/netcdf4.html" class="tag">netcdf4</a>
+                <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/thredds.html" class="tag">thredds</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esto pretende ser un tutorial del módulo pyplot de la librería matplotlib. El tutorial lo dividiremos de la siguiente forma (que podrá ir cambiando a medida que vayamos avanzando).</p>
+<ol>
+<li><a href="https://pybonacci.org/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/" title="Manual de introducción a matplotlib.pyplot (I): Primeros pasos">Primeros pasos</a></li>
+<li><a href="https://pybonacci.org/2012/05/19/manual-de-introduccion-a-matplotlib-pyplot-ii-creando-y-manejando-ventanas-y-configurando-la-sesion/" title="Manual de introducción a matplotlib.pyplot (II): Creando y manejando ventanas y configurando la sesión">Creando ventanas, manejando ventanas y configurando la sesión</a></li>
+<li><a href="https://pybonacci.org/2012/05/25/manual-de-introduccion-a-matplotlib-pyplot-iii-configuracion-del-grafico/" title="Manual de introducción a matplotlib.pyplot (III): Configuración del gráfico">Configuración del gráfico</a></li>
+<li><a href="https://pybonacci.org/2012/06/04/manual-de-introduccion-a-matplotlib-pyplot-iv-tipos-de-grafico-i/" title="Manual de introducción a matplotlib.pyplot (IV): Tipos de gráfico (I)">Tipos de gráfico I</a></li>
+<li><a href="https://pybonacci.org/2012/06/23/manual-de-introduccion-a-matplotlib-pyplot-v-tipos-de-grafico-ii/" title="Manual de introducción a matplotlib.pyplot (V): Tipos de gráfico (II)">Tipos de gráfico II</a></li>
+<li><a href="https://pybonacci.org/2012/07/01/manual-de-introduccion-a-matplotlib-pyplot-vi-tipos-de-grafico-iii/" title="Manual de introducción a matplotlib.pyplot (VI): Tipos de gráfico (III)">Tipos de gráfico III</a></li>
+<li><strong><a href="https://pybonacci.org/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" title="Manual de introducción a matplotlib.pyplot (VII): Tipos de gráfico (IV)">Tipos de gráfico IV</a></strong></li>
+<li><a href="https://pybonacci.org/2012/08/24/manual-de-introduccion-a-matplotlib-pyplot-viii-texto-y-anotaciones/" title="Manual de introducción a matplotlib.pyplot (VIII): Texto y anotaciones">Texto y anotaciones (arrow, annotate, table, text...)</a></li>
+<li><del>Herramientas estadísticas (acorr, cohere, csd, psd, specgram, spy, xcorr, ...)</del></li>
+<li><del>Eventos e interactividad (connect, disconnect, ginput, waitforbuttonpress...)</del></li>
+<li><a href="https://pybonacci.org/2012/08/30/manual-de-introduccion-a-matplotlib-pyplot-ix-miscelanea/" title="Manual de introducción a matplotlib.pyplot (IX): Miscelánea">Miscelánea</a></li>
+</ol>
+<p><strong>[Para este tutorial se ha usado python 2.7.1, ipython 0.11, numpy 1.6.1, matplotlib 1.1.0, netcdf4-python 0.9.9 y Basemap 1.0.2]</strong></p>
+<p>[DISCLAIMER: Muchos de los gráficos que vamos a representar no tienen ningún sentido físico y los resultados solo pretenden mostrar el uso de la librería].</p>
+<p>En todo momento …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/07/29/manual-de-introduccion-a-matplotlib-pyplot-vii-tipos-de-grafico-iv/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/category/articles17.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/category/articles15.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h2>Articles in the articles category</h2>
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/">Ejemplo de uso de Basemap y NetCDF4</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-14T12:14:50+00:00" pubdate>sáb 14 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/basemap.html" class="tag">basemap</a>
+                <a href="http://pybonacci.github.io/tag/mapas.html" class="tag">mapas</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/meteorologia.html" class="tag">meteorología</a>
+                <a href="http://pybonacci.github.io/tag/netcdf.html" class="tag">netcdf</a>
+                <a href="http://pybonacci.github.io/tag/netcdf4-python.html" class="tag">netcdf4-python</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Continuando lo que enseñó Juanlu en la anterior entrada vamos a mostrar líneas de nivel y temperatura del aire en la superficie, en este caso la presión al nivel del mar del día 01 de enero de 2012 a las 00.00 UTC según los datos extraídos del <a href="http://www.esrl.noaa.gov/psd/data/gridded/data.ncep.reanalysis.html">reanálisis NCEP/NCAR</a>, sobre un mapa con la ayuda de la librería <a href="http://matplotlib.github.com/basemap/">Basemap</a>.</p>
+<p>Como los datos del reanálisis NCEP/NCAR vienen en formato <a href="http://www.unidata.ucar.edu/software/netcdf/">netCDF</a> usaremos la librería <a href="https://unidata.github.io/netcdf4-python/">netcdf4-python</a>. El formato netCDF es un estándar abierto y es ampliamente usado en temas de ciencias de la tierra, atmósfera, climatología, meteorología,... No es estrictamente necesario usar netcdf4-python para acceder a ficheros netCDF puesto que desde <a href="https://docs.scipy.org/doc/scipy/reference/tutorial/io.html#module-scipy.io.netcdf">scipy tenéis esta funcionalidad</a>. Pero bueno, yo uso esta por una serie de ventajas que veremos otro día.</p>
+<p><strong>En la presente entrada se ha usado python 2.7.2 …</strong></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/">Dibujando líneas de nivel en Python con matplotlib</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-13T12:08:04+00:00" pubdate>vie 13 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/vectorizacion.html" class="tag">vectorización</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a ver cómo representar en Python un mapa de <em>curvas de nivel</em> o de <em>isolíneas</em>, esto es, curvas que conectan los puntos en los que una función tiene un mismo valor constante, utilizando NumPy y matplotlib. Los mapas de curvas de nivel («contour lines» en inglés) son muy útiles, porque ayudan a ver la información de una manera mucho más cómoda que las representaciones de superficies en tres dimensiones, por muy espectaculares que estas últimas puedan quedar. Un ejemplo muy cotidiano es el mapa de isobaras que nos dan en la predicción del tiempo como el que se ve en la imagen: los puntos que están sobre la misma línea están todos a la misma presión.<figure id="attachment_156" style="width: 448px" class="wp-caption aligncenter"></p>
+<p><img alt="Mapa de isobaras" src="https://pybonacci.org/images/2012/04/2012041300006_ww_i1x0w006.gif"></p>
+<!--more-->
+
+<p>En este artículo nos ceñiremos a funciones</p>
+<p>$f: D \longrightarrow \mathbb{R}, D \subset \mathbb{R}^2,$</p>
+<p>es decir …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/13/dibujando-lineas-de-nivel-en-python-con-matplotlib/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/06/listado-de-tutoriales-euroscipy-2012/">Listado de tutoriales: EuroScipy 2012</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-06T19:26:49+00:00" pubdate>vie 06 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/euroscipy.html" class="tag">euroscipy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/tutoriales.html" class="tag">tutoriales</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>La EuroScipy de 2012 se celebrará los días 23 y 24 de agosto en Bruselas (Bélgica). Ya han sido publicado el listado de tutoriales que se impartirán. Si tenéis la posibilidad de acercaros podréis disfrutar de tutoriales impartidos por gente muy importante del mundillo 'python científico'.</p>
+<p><a href="http://www.euroscipy.org/conference/euroscipy2012">Aquí podéis acceder al listado</a>. Si tuviera la posibilidad de ir no me gustaría perderme:</p>
+<p><a href="http://www.euroscipy.org/talk/6607">Numpy + Cython</a></p>
+<p><a href="http://www.euroscipy.org/talk/6602">Beyond NumPy: Numexp, Blosc and CArray</a></p>
+<p><a href="http://www.euroscipy.org/talk/6612">Parallel computing with Multiprocessing, ParallelPython and Ipython</a></p>
+<p><a href="http://www.euroscipy.org/talk/6617">Better numerics with SciPy</a></p>
+<p><a href="http://www.euroscipy.org/talk/6629">Statistics with Pandas</a></p>
+<p>Sin, por supuesto, despreciar al resto de charlas, que también serán realmente interesantes.</p>
+<p>Seguiremos informando.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/06/listado-de-tutoriales-euroscipy-2012/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/">Introducción al Cálculo Simbólico en Python con SymPy</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-04T10:00:04+00:00" pubdate>mié 04 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/calculo-simbolico.html" class="tag">cálculo simbólico</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/sympy.html" class="tag">sympy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo voy a hacer una introducción a <a href="http://sympy.org/" title="SymPy">SymPy</a>, una biblioteca para hacer Cálculo Simbólico en Python a la vez que un <a href="http://es.wikipedia.org/wiki/Sistema_algebraico_computacional" title="Sistema de álgebra computacional">sistema de álgebra computacional</a> (o CAS en inglés) muy prometedor. Si alguna vez te has preguntado cómo hacer derivadas y resolver ecuaciones con Python o conoces ya sistemas como Mathematica o Maple pero prefieres utilizar una solución libre, has venido al sitio correcto.</p>
+<p>Actualmente <a href="https://github.com/sympy/sympy">el desarrollo de SymPy</a> está muy activo: a pesar de ser un CAS bastante completo, todavía tiene algunas cosas que sus desarrolladores piensan pulir a lo largo de los próximos meses y están trabajando duro para ello. Personalmente es uno de mis proyectos de software libre favoritos, por la buenísima documentación que escriben, por lo elegante que queda el código y por lo bonita que es su web 😛</p>
+<p>SymPy tiene una característica …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/02/presentando-mathics-una-alternativa-libre-y-ligera-a-mathematica/">Presentando Mathics: una alternativa libre y ligera a Mathematica</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-02T15:42:02+00:00" pubdate>lun 02 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cas.html" class="tag">cas</a>
+                <a href="http://pybonacci.github.io/tag/foss.html" class="tag">foss</a>
+                <a href="http://pybonacci.github.io/tag/mathematica.html" class="tag">mathematica</a>
+                <a href="http://pybonacci.github.io/tag/mathics.html" class="tag">mathics</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/sympy.html" class="tag">sympy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>A través de la lista de correo sage-dev acabo de descubrir hace un momento <a href="http://www.mathics.org/">Mathics</a>: un sistema de álgebra computacional (CAS) libre y gratuito con una interfaz web y basado en SymPy y Sage.<figure id="attachment_126" style="width: 560px" class="wp-caption aligncenter"></p>
+<p><img alt="Interfaz web de Mathics" src="https://pybonacci.org/images/2012/04/2012-04-02-161414_1366x768_scrot.png"></p>
+<p>En el momento de escribir estas líneas se trata de un proyecto personal de <a href="http://www.poeschko.com/">Jan Pöschko</a>, un estudiante austríaco. Me parece impresionante que <a href="http://www.mathics.net/doc/manual/introduction/who-is-behind-it/">una sola persona haya llevado esto adelante</a>: este hombre tiene mi más sincera admiración.</p>
+<p>Aunque está basado en SymPy y tiene soporte para Sage también, Mathics toma la sintaxis de Mathematica, el popular CAS de Wolfram Research. Como se menciona en la <a href="http://www.mathics.net/doc/manual/introduction/">introducción</a>, Mathics busca parecerse a Mathematica lo máximo posible. Puedes leer <a href="http://www.mathics.net/doc/manual/introduction/why-yet-another-cas/">las motivaciones del proyecto</a> <del datetime="2012-04-02T17:12:32+00:00">(hay por ahí quien dice que tienen un punto de ironía, cada uno que lo interprete a su manera :P)</del>.</p>
+<p>Al contrario que CAS como Mathematica …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/02/presentando-mathics-una-alternativa-libre-y-ligera-a-mathematica/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/04/01/videos-interesantes-de-la-pycon-us-2012/">Videos interesantes de la PyCon US 2012</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-04-01T14:21:47+00:00" pubdate>dom 01 abril 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/pycon.html" class="tag">pycon</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/videos.html" class="tag">vídeos</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Ya se ha celebrado la PyCon US de este año con una gran presencia de videos relacionados directamente con el uso de python para tareas de ciencia. Podéis encontrar tutoriales de iniciación a <a href="http://pyvideo.org/video/617/plotting-with-matplotlib">Matplotlib</a>, análisis de datos (estadística , análisis de datos, aprendizaje automático,...[<a href="http://pyvideo.org/video/611/data-analysis-in-python-with-pandas">1</a>], [<a href="http://pyvideo.org/video/608/bayesian-statistics-made-as-simple-as-possible">2</a>], [<a href="http://pyvideo.org/video/622/introduction-to-interactive-predictive-analytics">3</a>], [<a href="http://pyvideo.org/video/636/practical-machine-learning-in-python">4</a>], [<a href="http://pyvideo.org/video/696/pandas-powerful-data-analysis-tools-for-python">5</a>], [<a href="http://pyvideo.org/video/947/storing-manipulating-and-visualizing-timeseries">6</a>], [<a href="http://pyvideo.org/video/676/python-for-data-lovers-explore-it-analyze-it-m">7</a>],...), <a href="http://pyvideo.org/video/670/python-and-hdf5-fast-storage-for-large-data">almacenamiento de datos usando HDF5 y PyTables</a>, mapeo y SIG (Sistemas de Información Geográfica o GIS por sus siglas en inglés, Geographical Information Systems, [<a href="http://pyvideo.org/video/887/a-gentle-introduction-to-gis">1</a>], [<a href="http://pyvideo.org/video/672/making-maps-with-python">2</a>], [<a href="http://pyvideo.org/video/680/spatial-data-and-web-mapping-with-python">3</a>], [<a href="http://pyvideo.org/video/623/making-interactive-maps-for-the-web">4</a>],...), uso de Ipython ([<a href="http://pyvideo.org/video/640/ipython-python-at-your-fingertips">1</a>], [<a href="http://pyvideo.org/video/605/ipython-in-depth-high-productivity-interactive-a">2</a>]), <a href="http://pyvideo.org/video/652/sage-open-source-math-in-python">SAGE</a>,...</p>
+<p>Todos los videos de las charlas, tutoriales, sesión de posters,..., los podéis encontrar en:</p>
+<p><a href="http://pyvideo.org/events/pycon-us-2012.html">http://pyvideo.org/events/pycon-us-2012.html</a></p>
+<p>Viendo la gran presencia que ha tenido la ciencia este año en la PyCon US podría decirse que el presente y futuro de python en este campo parece muy prometedor.</p>
+<p>Debido a la gran cantidad de …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/04/01/videos-interesantes-de-la-pycon-us-2012/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/">¿Cómo encontrar el mínimo de una función usando scipy?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-03-28T11:55:12+00:00" pubdate>mié 28 marzo 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/downhill-simplex-algorithm.html" class="tag">downhill simplex algorithm</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scipyoptimize.html" class="tag">scipy.optimize</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><em><strong>NOTICE: Esta entrada es una traducción libre (algunas cosas no serán traducidas por no existir una traducción sencilla en castellano) de un artículo publicado en <a href="http://glowingpython.blogspot.com.es/2011/04/how-to-find-minimum-of-function-using.html">The Glowing Python</a> con permiso de su autor.</strong></em></p>
+<p><em><strong>Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, scipy 0.9.0 y matplotlib 1.1.0</strong></em></p>
+<p>En este ejemplo veremos como usar la función <strong>fmin</strong> para minimizar una función. La función <strong>fmin</strong> se encuentra en el módulo optimize de la librería scipy. La función <strong>fmin</strong> usa el algoritmo <em>downhill simplex</em> para encontrar el mínimo de la función objetivo empezando por un punto inicial dado por el usuario. En el ejemplo emezaremos a partir de dos puntos iniciales diferentes para comparar los resultados.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fmin</span>
+<span class="c1"># Función objetivo</span>
+<span class="n">rsinc</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/03/28/como-encontrar-el-minimo-de-una-funcion-usando-scipy/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/03/27/integrando-ecuaciones-diferenciales-metodo-leapfrog-en-python/">Integrando ecuaciones diferenciales: método leapfrog en Python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-03-27T10:06:27+00:00" pubdate>mar 27 marzo 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ecuaciones-diferenciales.html" class="tag">ecuaciones diferenciales</a>
+                <a href="http://pybonacci.github.io/tag/integracion.html" class="tag">integración</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En Python tenemos numerosas herramientas listas para que podamos integrar ecuaciones diferenciales ordinarias sin tener que preocuparnos en implementar un esquema numérico. Sin ir más lejos, en el módulo integrate de <a href="http://scipy.org/" title="SciPy">SciPy</a> existen varias funciones a tal efecto. La función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.odeint.html" title="Función odeint">odeint</a> es una interfraz en Python a la biblioteca ODEPACK, escrita en Fortran. Sin embargo, con un propósito didáctico vamos a estudiar cómo programaríamos la solución a un problema de ecuaciones diferenciales, en este caso utilizando la regla del punto medio o método leapfrog[1].</p>
+<p><strong><em>Para esta entrada se ha utilizado python 2.7.2, numpy 1.6.1 y matplotlib 1.1.0.</em></strong></p>
+<h2>Enunciado</h2>
+<blockquote>
+<p>Problema de Cauchy: integrar la siguiente ecuación diferencial</p>
+<p>$\frac{d^2 x}{d t^2} + x = 0$</p>
+<p>Con las condiciones iniciales $x(0) = 1, \dot{x}(0) = 0$.</p>
+</blockquote>
+<!--more-->
+
+<h2>Tratamiento matemático</h2>
+<p>Sabemos que la solución …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/03/27/integrando-ecuaciones-diferenciales-metodo-leapfrog-en-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/03/26/videos-del-pydata-workshop/">Videos del PyData Workshop</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-03-26T13:29:49+00:00" pubdate>lun 26 marzo 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                <a href="http://pybonacci.github.io/tag/pydata.html" class="tag">pydata</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/videos.html" class="tag">vídeos</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hace unas pocas semanas se celebró el <a href="http://pydataworkshop.eventbrite.com/">taller PyData en las oficinas de Google en Mountain View</a>. Por supuesto, se grabaron las charlas/presentaciones y están <a href="http://marakana.com/s/2012_pydata_workshop,1090/index.html">disponibles en el siguiente enlace</a> (si falta alguna charla las irán ir añadiendo poco a poco).</p>
+<p>Aquí os dejamos uno de los videos: <em>Python in Big Data with an overview of NumPy &amp; SciPy</em> (Python en <a href="http://www.enriquedans.com/2011/10/big-data-una-pequena-introduccion.html">Big Data</a> con un vistazo a Numpy y Scipy) por Travis Oliphant (creador de Numpy)</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/i0FCn889ucs'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Espero que os resulte interesante.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/03/26/videos-del-pydata-workshop/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/03/24/dibujando-una-rosa-de-frecuencias/">Dibujando una rosa de frecuencias</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-03-24T13:46:44+00:00" pubdate>sáb 24 marzo 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/graficos.html" class="tag">gráficos</a>
+                <a href="http://pybonacci.github.io/tag/math.html" class="tag">math</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-2.html" class="tag">python 2</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><strong><a href="https://pybonacci.org/2014/07/31/dibujando-una-rosa-de-frecuencias-reloaded-3/">Este post ha sido actualizado para usar nuevas funcionalidades de matplotlib. Pincha sobre este enlace para ver la nueva versión.</a></strong></p>
+<p><em><strong>Para la siguiente entrada se ha usado python 2.7.2, math (de la librería estándar), numpy 1.6.1 y matplotlib 1.1.0</strong></em></p>
+<p>Imaginaos que estáis de vacaciones en Agosto en la playa y la única preocupación que tenéis es observar las nubes. Como sois un poco frikis y no podéis desconectar de vuestra curiosidad científica decidís apuntar las ocurrencias de la procedencia de las nubes y al final de las vacaciones decidís representar esos datos. La forma más normal de hacerlo sería usando una rosa de frecuencias.</p>
+<p>Primero de todo vamos a importar los módulos que nos harán falta:</p>
+<div class="highlight"><pre><span></span><span class="c1">## De la librería estándar</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="c1">## De librerías de terceros</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/03/24/dibujando-una-rosa-de-frecuencias/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/category/articles20.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/category/articles18.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Operador dos puntos (:) de MATLAB ¿en Python? | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Operador dos puntos (:) de MATLAB ¿en Python?</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 15 noviembre 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Hoy que es viernes os traemos un artículo un poco más relajado (y atípico): vamos a hablar sobre el operador dos puntos (:) de MATLAB, o más bien <strong>de su ausencia en Python</strong>. Tal vez algunos de quienes estáis ya considerando Python como una opción seria frente a MATLAB os estaréis preguntando: ¿qué hay de esta magnífica sintaxis para crear secuencias?</p>
+<div class="highlight"><pre><span></span>$ octave -q
+octave:1&gt; <span class="m">0</span>:0.1:1
+<span class="nv">ans</span> <span class="o">=</span>
+<span class="m">0</span>.000 <span class="m">0</span>.100 <span class="m">0</span>.200 <span class="m">0</span>.300 <span class="m">0</span>.400 <span class="m">0</span>.500 <span class="m">0</span>.600 <span class="m">0</span>.700 <span class="m">0</span>.800 <span class="m">0</span>.900 <span class="m">1</span>.000
+</pre></div>
+
+
+<p>Pues, como indican en el <a href="http://mathesaurus.sourceforge.net/matlab-numpy.html">mathesaurus</a> y en otros sitios, tendré que usar la función <code>np.arange</code>:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">q</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="kp">array</span><span class="p">([</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">])</span>
+</pre></div>
+
+
+<p>¿Ein? ¿Solo me llega hasta 0.9? ¿Qué está pasando aquí? Voy a ver si lo consigo arreglar un poco:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; np.arange(0, 1.01, 0.1)
+array([ 0. , 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ])
+</pre></div>
+
+
+<p>Pffff... ¡Menuda chapuza! «¿En qué hora haría yo caso a la gente esta de Pybonacci?» En fin, a ver si dicen algo en la <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arange.html">documentación de <code>np.arange</code></a>:</p>
+<blockquote>
+<p>When using a non-integer step, such as 0.1, the results will often not be consistent. It is better to use <tt>linspace</tt> for these cases.</p>
+</blockquote>
+<p>Rayos... ¿Tengo que usar <code>np.linspace</code> entonces? Pero este iba con el número de intervalos, no con el espaciado entre los puntos...</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; np.linspace(0, 1, 10) # &gt;&gt; np.linspace(0, 1, 11) # &lt;-- Nótese el 11
+array([ 0. , 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ])
+</pre></div>
+
+
+<p>Esto es un poco frustrante, me estoy empezando a arrepentir de haberme pasado a Python. ¿No habrá una forma un poco mejor de hacer esto? Veamos, parece que alguien más se ha hecho esta pregunta antes que yo: "<a href="http://scicomp.stackexchange.com/questions/2336/python-syntax-for-matlab-octave-colon-operator-adxb">Python syntax for MATLAB/Octave colon operator a:dx:b</a>". Y el código sería algo así:</p>
+<div class="highlight"><pre><span></span>def lrange(r1, inc, r2):
+    &quot;&quot;&quot;Provide spacing as an input and receive samples back by wrapping `numpy.linspace`&quot;&quot;&quot;
+    n = ((r2-r1)+2*np.spacing(r2-r1))//inc
+return np.linspace(r1,r1+inc*n,n+1)
+</pre></div>
+
+
+<p>Anda ya, ¿en MATLAB tan fácil y en Python tan enrevesado? Pybonaccis, aquí os he pillado...</p>
+<p>Vale vale, un poco de calma. ¡Que hoy es viernes, y hay que mantener el buen humor!</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    Python llegaste al mundo para cagarme la vida! Odio programar!!!
+  </p>
+
+  <p>
+    &mdash; Martín Alejandro (@MScarlatto) <a href="https://twitter.com/MScarlatto/statuses/398948679903494144">November 8, 2013</a>
+  </p>
+</blockquote>
+
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    Definitivamente, odio integrales y el puto python
+  </p>
+
+  <p>
+    &mdash; Patricia (@PatriciaPG94) <a href="https://twitter.com/PatriciaPG94/statuses/399631260508647424">November 10, 2013</a>
+  </p>
+</blockquote>
+
+<p>https://twitter.com/MarinaKevlar/status/399723875413413888</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    PUTA MIERDA PYTHON TE ODIO
+  </p>
+
+  <p>
+    &mdash; Lady Musi (@slashina13) <a href="https://twitter.com/slashina13/statuses/400604133150838785">November 13, 2013</a>
+  </p>
+</blockquote>
+
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    Odio python, odio python, odio python,odio python, odio python, odio pythonn, odio python...
+  </p>
+
+  <p>
+    &mdash; Criis. (@Criis_glez) <a href="https://twitter.com/Criis_glez/statuses/267271751472386048">November 10, 2012</a>
+  </p>
+</blockquote>
+
+<p>Sí sí, ¡también os lo digo a vosotros! Respirad hondo, contad hasta cinco (no queremos que nadie se ahogue) y vamos a estudiar despacio este problema para que veamos cómo solucionarlo 🙂</p>
+<!--more-->
+
+<h2>Siempre es el punto flotante</h2>
+<p>Ah, ¡ya sabía yo que algo no iba bien aquí! El punto flotante no nos trae más que sorpresas, y esta es otra de ellas.</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    Some programmers, when confronted with a problem, think "I know, I'll use floating point arithmetic." Now they have 1.999999999997 problems.
+  </p>
+
+  <p>
+    &mdash; Tom Scott (@tomscott) <a href="https://twitter.com/tomscott/statuses/174143430170120192">February 27, 2012</a>
+  </p>
+</blockquote>
+
+<p>Es raro que estés leyendo este blog y no estés familiarizado con los problemas del punto flotante, pero si es tu caso, por favor no tardes en ejecutar este código:</p>
+<div class="highlight"><pre><span></span>&gt;&gt;&gt; 0.1 + 0.2
+0.30000000000000004
+</pre></div>
+
+
+<p>Si tu reacción al ver esto ha sido «WTF?» te recomiendo que leas <a href="http://puntoflotante.org">La guía del punto flotante</a>.</p>
+<p>Pero ¿qué es exactamente lo que está sucediendo aquí? Es difícil decirlo a simple vista, pero podemos pedir a Python y a Octave que nos saquen más decimales, y entonces veremos la luz:</p>
+<div class="highlight"><pre><span></span><span class="n">octave</span><span class="o">:</span><span class="mi">1</span><span class="o">&gt;</span> <span class="n">output_precision</span><span class="o">(</span><span class="mi">18</span><span class="o">)</span>
+<span class="n">octave</span><span class="o">:</span><span class="mi">2</span><span class="o">&gt;</span> <span class="mf">0.1</span>
+<span class="n">ans</span> <span class="o">=</span> <span class="mf">1.00000000000000006</span><span class="n">e</span><span class="o">-</span><span class="mi">01</span>
+</pre></div>
+
+
+<p>Vamos, que 0.1 no es 0.1, sino un poquito más. Esto es así en MATLAB, Octave, Python, C, FORTRAN y en todas partes<a href="http://puntoflotante.org/formats/exact/">*</a>. Ya vemos entonces que, por ejemplo, empezar en el punto inicial e ir sumando repetidamente 0.1 podría fallar de muchas maneras diferentes. Esto, unido a que np.arange <em>no</em> incluye el punto final <em>salvo errores de punto flotante</em> nos da los resultados que hemos visto antes en Python. Pero entonces, ¿cómo lo hacen MATLAB y Octave? El caso de MATLAB lo analizó más detenidamente el gran Mike Croucher de Walking Randomly en su artículo "<a href="http://www.walkingrandomly.com/?p=789">Fun with linspace and the colon operator in MATLAB</a>", y el código fuente correspondiente, obtenido de los foros de soporte de este programa, es el siguiente:</p>
+<p>https://gist.github.com/Juanlu001/7383894</p>
+<p>Caramba, no es un problema tan fácil como parece, ¿no?</p>
+<p>(El código fuente correspondiente de Octave está cerca de <a href="http://hg.savannah.gnu.org/hgweb/octave/file/11a6c7445a71/liboctave/array/idx-vector.h#l482">aquí</a>, pero C++ me resulta un <a href="https://twitter.com/Pybonacci/status/399105227728494592">monstruo infumable</a>)</p>
+<h2>Cambio de filosofía</h2>
+<p>Si nos damos cuenta, estamos intentando forzar dos cosas que normalmente serán incompatibles entre sí: los puntos inicial y final del intervalo y el espaciado. ¿Qué debería devolver el ordenador si pido un intervalo de 0 a 1.2, con un espaciado de 1.0? Pues ya sabemos que o bien no incluye el 1.2, o bien me cambia el espaciado:</p>
+<div class="highlight"><pre><span></span><span class="n">octave</span><span class="o">:</span><span class="mi">1</span><span class="o">&gt;</span> <span class="mi">0</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="mf">1.2</span>
+<span class="n">ans</span> <span class="o">=</span>
+<span class="mi">0</span> <span class="mi">1</span>
+
+
+
+
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="na">arange</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mf">1.2</span><span class="o">,</span> <span class="mf">1.0</span><span class="o">)</span>
+<span class="n">array</span><span class="o">([</span> <span class="mi">0</span><span class="o">.,</span> <span class="mi">1</span><span class="o">.])</span>
+</pre></div>
+
+
+<p>Tanto Octave como Python me devuelven intervalos que no incluyen el punto final. Es ahora cuando tenemos que pensar: si especifico el espaciado, ¿es realmente tan importante para mí el punto final? Y si me interesa que los puntos inicial y final delimiten exactamente el intervalo, ¿es tan importante el espaciado?</p>
+<p>Podemos extraer entonces estas conclusiones:</p>
+<ul>
+<li>Las funciones para crear secuencias (<code>:</code> en MATLAB/Octave y <code>np.arange</code> en Python) funcionan sin problemas con enteros.</li>
+<li>Cuando manejamos números de punto flotante, <strong>las condiciones de especificar el punto final y el espaciado normalmente son incompatibles</strong>.</li>
+<li>Si lo más importante para nosotros es mantener un valor del espaciado, seguramente la exactitud del punto final es secundaria. En estos casos podemos usar la función <code>np.arange</code>, teniendo en cuenta que el punto final puede o no entrar.</li>
+<li>Si lo más importante es que se mantengan los puntos inicial y final, seguramente el valor del espaciado nos importa menos. En este caso usaremos la función <code>np.linspace</code>, eligiendo primero un número de puntos adecuado a nuestras necesidades.</li>
+<li>Siempre podremos construir una secuencia de enteros y luego dividir por un número para conseguir resultados más predecibles.</li>
+</ul>
+<p>Sirva este post como referencia a toda la gente frustrada cuando viene de MATLAB y no encuentra el operador <code>:</code> y una luz al final del túnel para aquellos que odian Python con todo su ser, para que les ayude a superar su odio y a alcanzar la felicidad 🙂</p>
+<p>¡Un saludo, buen fin de semana y nos vemos en la <a href="http://2013.es.pycon.org/">PyConES</a>!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/arange.html" class="tag">arange</a>
+                    <a href="http://pybonacci.github.io/tag/linspace.html" class="tag">linspace</a>
+                    <a href="http://pybonacci.github.io/tag/matlab.html" class="tag">matlab</a>
+                    <a href="http://pybonacci.github.io/tag/octave.html" class="tag">octave</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

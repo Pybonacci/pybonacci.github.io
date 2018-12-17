@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Usando google earth con ayuda de python y pykml (II) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Usando google earth con ayuda de python y pykml (II)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 04 febrero 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Esta es la segunda parte de la entrada 'Usando google earth con ayuda de python y pykml (I)'. En el ejemplo de hoy vamos a ver algo más relacionado con la ciencia que lo visto anteriormente, que no era más que un aburrido ejemplo para introduciros en google earth, kml/kmz y pykml.</p>
+<p><strong>[Para esta entrada se ha usado numpy 1.6.1, matplotlib 1.1.1rc, netCDF4 1.0.2, pykml 0.1.0, lxml 2.3.2 (es un prerrequisito de pykml) en el notebook de IPython 0.13 corriendo todo sobre python 2.7.3]</strong></p>
+<p>Primero importamos una serie de cosas que usaremos.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="kn">as</span> <span class="nn">nc</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</pre></div>
+
+
+<p>En este caso vamos a representar el huracán Iván, que se generó en 2004 en el Atlántico occidental y llegó a convertirse en un huracán muy potente. Vamos a representar la evolución de la presión al nivel del mar y las zonas de viento superiores a 50 km/h a medida que vamos viendo la trayectoria del huracán. El valor de viento se obtiene según los datos que vamos a usar, estos datos no son muy rigurosos en este sentido por lo que esto solo sirve como ejemplo.</p>
+<p><a href="http://data-portal.ecmwf.int/data/d/interim_full_daily/" target="_blank">Descargaremos datos</a> de <a href="http://es.wikipedia.org/wiki/Centro_Europeo_de_Previsiones_Meteorol%C3%B3gicas_a_Plazo_Medio" target="_blank">reanálisis del centro europeo de predicción a medio plazo (ECMWF, por sus siglas en inglés, European Center for Medium-range Weather Forecasts)</a> para las fechas de ocurrencia del huracán. Los datos usados en el ejemplo los podéis <a href="http://wp.me/a2hEpj-p8">descargar de aquí (al fichero le he puesto extensión .gif para poder subirlo a wordpress pero es un fichero netcdf, para que funcione el ejemplo deberéis quitar la extensión gif o cambiar el nombre del fichero en el código)</a>.</p>
+<p>Ahora importamos todo lo necesario de pykml para este ejemplo:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">nsmap</span>
+<span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">KML_ElementMaker</span> <span class="k">as</span> <span class="n">KML</span>
+<span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">GX_ElementMaker</span> <span class="k">as</span> <span class="n">GX</span>
+</pre></div>
+
+
+<p>Ahora vamos a detallar la trayectoria del huracán con su posición, fecha y en qué categoría se encontraba en cada fecha. La categoría del huracán puede ser de 1 a 5 siendo el 5 el más extremo, según la <a href="http://www.nhc.noaa.gov/aboutsshws.php" target="_blank">escala Saffir-Simpson</a>. En la categoría del huracán también vamos a detallar también los momentos en que no es huracán como tal sino que es tormenta tropical o depresión tropical.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Desde la versión 5.0, google ha añadido una serie de extensiones</span>
+<span class="c1"># a kml que lo hacen más potente e interactivo</span>
+<span class="c1"># https://developers.google.com/kml/documentation/kmlreference?hl=es#kmlextensions</span>
+<span class="c1"># Definimos una variable para el espacio de nombres de las</span>
+<span class="c1"># extensiones de google que vamos a usar.</span>
+<span class="n">gxns</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">nsmap</span><span class="p">[</span><span class="s1">&#39;gx&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+<span class="c1"># Ponemos la información referente al  huracán:</span>
+<span class="c1"># La posición en longitud cada 6h desde que es tormenta tropical</span>
+<span class="n">lon_hur</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">30.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">32.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">33.6</span><span class="p">,</span> <span class="o">-</span><span class="mi">35</span><span class="p">,</span> <span class="o">-</span><span class="mf">36.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">38.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">39.9</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">41.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">43.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">45.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">46.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">48.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">50.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">52.5</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">54.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">56.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">57.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">59.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">61.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">62.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">64.1</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">65.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">67</span><span class="p">,</span> <span class="o">-</span><span class="mf">68.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">69.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">70.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">71.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">72.8</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">73.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">76.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">77.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">78.4</span><span class="p">,</span> <span class="o">-</span><span class="mi">79</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">79.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">81.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">82.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">82.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">83.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.1</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">84.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">85.6</span><span class="p">,</span> <span class="o">-</span><span class="mi">86</span><span class="p">,</span> <span class="o">-</span><span class="mf">86.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">87</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.4</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">87.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">88.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">88.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">86.5</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">85.7</span><span class="p">,</span> <span class="o">-</span><span class="mi">84</span><span class="p">,</span> <span class="o">-</span><span class="mf">82.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">78.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">76.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.5</span><span class="p">,</span>
+           <span class="o">-</span><span class="mi">74</span><span class="p">,</span> <span class="o">-</span><span class="mi">74</span><span class="p">,</span> <span class="o">-</span><span class="mf">74.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">75.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">77.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">78.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">78.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">79.1</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">79.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">80.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">81.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">82.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">84.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">86.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.3</span><span class="p">,</span>
+           <span class="o">-</span><span class="mf">88.6</span><span class="p">,</span> <span class="o">-</span><span class="mf">89.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">91</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">92.7</span><span class="p">,</span> <span class="o">-</span><span class="mf">93.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">94.2</span><span class="p">]</span>
+<span class="c1"># La posición en latitud cada 6h desde que es tormenta tropical</span>
+<span class="n">lat_hur</span> <span class="o">=</span> <span class="p">[</span><span class="mf">9.7</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">9.1</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span>
+          <span class="mf">10.2</span><span class="p">,</span> <span class="mf">10.6</span><span class="p">,</span> <span class="mf">10.8</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mf">11.3</span><span class="p">,</span> <span class="mf">11.2</span><span class="p">,</span> <span class="mf">11.3</span><span class="p">,</span> <span class="mf">11.6</span><span class="p">,</span>
+          <span class="mf">11.8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">12.3</span><span class="p">,</span> <span class="mf">12.6</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mf">13.3</span><span class="p">,</span> <span class="mf">13.7</span><span class="p">,</span> <span class="mf">14.2</span><span class="p">,</span> <span class="mf">14.7</span><span class="p">,</span>
+          <span class="mf">15.2</span><span class="p">,</span> <span class="mf">15.7</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">16.8</span><span class="p">,</span> <span class="mf">17.3</span><span class="p">,</span> <span class="mf">17.4</span><span class="p">,</span> <span class="mf">17.7</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span>
+          <span class="mf">18.2</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">,</span> <span class="mf">19.1</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">,</span> <span class="mf">19.9</span><span class="p">,</span> <span class="mf">20.4</span><span class="p">,</span> <span class="mf">20.9</span><span class="p">,</span>
+          <span class="mf">21.6</span><span class="p">,</span> <span class="mf">22.4</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mf">23.7</span><span class="p">,</span> <span class="mf">24.7</span><span class="p">,</span> <span class="mf">25.6</span><span class="p">,</span> <span class="mf">26.7</span><span class="p">,</span> <span class="mf">27.9</span><span class="p">,</span>
+          <span class="mf">28.9</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">31.4</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">,</span> <span class="mf">34.7</span><span class="p">,</span> <span class="mf">35.4</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">,</span>
+          <span class="mi">37</span><span class="p">,</span> <span class="mf">37.7</span><span class="p">,</span> <span class="mf">38.4</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">,</span> <span class="mf">32.8</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span>
+          <span class="mi">29</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">,</span> <span class="mf">26.4</span><span class="p">,</span> <span class="mf">26.1</span><span class="p">,</span> <span class="mf">25.9</span><span class="p">,</span> <span class="mf">25.8</span><span class="p">,</span> <span class="mf">25.2</span><span class="p">,</span> <span class="mf">24.8</span><span class="p">,</span>
+          <span class="mf">25.1</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">,</span> <span class="mf">27.1</span><span class="p">,</span> <span class="mf">27.9</span><span class="p">,</span> <span class="mf">28.9</span><span class="p">,</span> <span class="mf">29.2</span><span class="p">,</span> <span class="mf">29.6</span><span class="p">,</span> <span class="mf">30.1</span><span class="p">]</span>
+<span class="c1"># El estado del huracan cada 6h</span>
+<span class="n">tipo</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;H1&#39;</span><span class="p">,</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H5&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H3&#39;</span><span class="p">,</span><span class="s1">&#39;H1&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TS&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">,</span><span class="s1">&#39;TD&#39;</span><span class="p">]</span>
+<span class="c1"># La fecha cada 6h desde el 21/09/1998 a las 18Z</span>
+<span class="n">fecha_inicial</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2004</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">deltat</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">fechas</span> <span class="o">=</span> <span class="p">[</span><span class="n">fecha_inicial</span> <span class="o">+</span> <span class="n">deltat</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tipo</span><span class="p">))]</span>
+<span class="c1"># El icono que vamos a asignar a cada 6h, en función del estado de la tormenta.</span>
+<span class="n">iconos</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TD&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/td.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;TS&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/ts.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;H1&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h1.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;H2&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h2.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;H3&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h3.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;H4&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h4.gif&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;H5&#39;</span><span class="p">:</span><span class="s1">&#39;http://www.srh.noaa.gov/gis/kml/hurricanetrack/hurrhttps://pybonacci.org/images/h5.gif&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Ahora vamos a definir una función que es la que usaremos para dibujar los datos de presión y viento que luego irán en el fichero kml/kmz</p>
+<div class="highlight"><pre><span></span><span class="c1"># Función que crea las imágenes</span>
+<span class="k">def</span> <span class="nf">pinta_mapas</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">mslp</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">loni</span><span class="p">,</span> <span class="n">lati</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">8.</span> <span class="o">*</span> <span class="n">lat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">lon</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">mslp</span> <span class="o">/</span> <span class="mf">100.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">900</span><span class="p">,</span><span class="mf">1100.</span><span class="p">,</span><span class="mf">2.</span><span class="p">),</span>
+               <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+    <span class="n">wspd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">u</span> <span class="o">*</span> <span class="n">u</span> <span class="o">+</span> <span class="n">v</span> <span class="o">*</span> <span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="mf">3.6</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">wspd</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+                <span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hot</span><span class="p">(),</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">dpi</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y ahora vamos a leer los datos que os hayáis descargado:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Leemos los datos de presión, velocidad, latitud y longitud.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;Usando google earth con ayuda de python y pykml (II)/data.nc&#39;</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">][:]</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">][:]</span>
+<span class="c1"># presión = mslp por mean sea level pressure,</span>
+<span class="c1"># presión media al nivel del mar</span>
+<span class="n">mslp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;msl&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">,:,:]</span>
+<span class="n">lon</span><span class="p">[</span><span class="n">lon</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">180</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span> <span class="o">-</span> <span class="mi">360</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;u10&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">,:,:]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;v10&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">,:,:]</span>
+</pre></div>
+
+
+<p>Y ahora es cuando vamos a crear el fichero kml haciendo un bucle donde se van a ir añadiendo cosas tanto a la carpeta (folder) como al Tour. Voy explicándo lo que hace cada cosa mediante comentarios en el código:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Como vamos a crear un fichero kmz que incluirá todas las imágenes</span>
+<span class="c1"># abrimos el fichero kmz donde iremos guardándolo todo</span>
+<span class="n">fich_kmz</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;HuracanIvan.kmz&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="c1"># Desde la versión 5.0, google ha añadido una serie de extensiones</span>
+<span class="c1"># a kml que lo hacen más potente e interactivo</span>
+<span class="c1"># https://developers.google.com/kml/documentation/kmlreference?hl=es#kmlextensions</span>
+<span class="c1"># Definimos una variable para el espacio de nombres de las</span>
+<span class="c1"># extensiones de google que vamos a usar.</span>
+<span class="n">gxns</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">nsmap</span><span class="p">[</span><span class="s1">&#39;gx&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+<span class="c1"># start with a base KML tour and playlist</span>
+<span class="n">fich_kml</span> <span class="o">=</span> <span class="n">KML</span><span class="o">.</span><span class="n">kml</span><span class="p">(</span>
+    <span class="n">KML</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">Tour</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;¡Reprodúceme!&quot;</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">Playlist</span><span class="p">(),</span>
+      <span class="p">),</span>
+      <span class="n">KML</span><span class="o">.</span><span class="n">Folder</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;Ruta del huracan Ivan&#39;</span><span class="p">),</span>
+        <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;lugares&#39;</span><span class="p">,</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="c1"># Hacemos un bucle para recorrer todos los &#39;momentos&#39;</span>
+<span class="c1"># del huracán definidos en el bloque de código anterior</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tipo</span><span class="p">)):</span>
+    <span class="c1"># Primero volamos hasta cada posición del huracán (cada 6h)</span>
+    <span class="c1"># y nos quedamos observándolo desde el espacio</span>
+    <span class="c1"># A unos 2000 km de altura.</span>
+    <span class="c1"># Para ello usamos FlyTo donde especificamos</span>
+    <span class="c1"># La duración en segundos, si queremos que vaya más rápido o más</span>
+    <span class="c1"># lento, el modo de vuelo, que puede ser más suave (smooth) o</span>
+    <span class="c1"># más rápido (bounce) y la posición.</span>
+    <span class="c1"># La posición la determinan longitude, latitude y altitude,</span>
+    <span class="c1"># tilt es el ángulo desde la vertical (en este caso lo vemos</span>
+    <span class="c1"># verticalmente (0º)) y range es la distancia desde la posición</span>
+    <span class="c1"># determinada por longitude, latitude y altitude, teniendo en</span>
+    <span class="c1"># cuenta el ángulo tilt (en este caso hemos puesto 2.000 km)</span>
+    <span class="c1"># Las unidades para latitude y longitude son grados, para altitude</span>
+    <span class="c1"># y range son metros y para tilt son grados desde la vertical.</span>
+    <span class="c1"># En el gráfico de este enlace se verá mejor:</span>
+    <span class="c1"># https://developers.google.com/kml/documentation/https://pybonacci.org/images/lookAt.gif</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">FlyTo</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">flyToMode</span><span class="p">(</span><span class="s2">&quot;bounce&quot;</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">LookAt</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">longitude</span><span class="p">(</span><span class="n">lon_hur</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">latitude</span><span class="p">(</span><span class="n">lat_hur</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitude</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">tilt</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mf">10000000.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)))</span>
+    <span class="c1"># Añadimos información de cada lugar en la carpeta</span>
+    <span class="c1"># como &#39;placemarks&#39; o marcas de posición. En el nombre y en la descripción</span>
+    <span class="c1"># del placemark se puede meter HTML y CSS, por si queréis ser un poco más</span>
+    <span class="c1"># creativos y dejar la información de una forma visible y bonita.</span>
+    <span class="c1"># extrude == 1 indica que el nombre del lugar se hará visible. Si queremos</span>
+    <span class="c1"># hacerlo visible solo cuando lo seleccionemos pues le ponemos el valor 0</span>
+    <span class="n">desc</span> <span class="o">=</span> <span class="s1">&#39;&amp;lt;![CDATA[{0}</span>
+<span class="n">lon</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">lat</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">}</span>
+<span class="n">Estado</span> <span class="k">del</span> <span class="n">huracan</span><span class="p">:</span> <span class="p">{</span><span class="mi">3</span><span class="p">}]]</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="s1">&#39;</span>
+    <span class="n">desc</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">],</span> <span class="n">lon_hur</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lat_hur</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tipo</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="o">.</span><span class="n">Folder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">description</span><span class="p">(</span>
+            <span class="s2">&quot;{0}&amp;lt;br/&amp;gt;{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;IVAN&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="p">,)</span>
+        <span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">Style</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">IconStyle</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span><span class="n">KML</span><span class="o">.</span><span class="n">href</span><span class="p">(</span><span class="n">iconos</span><span class="p">[</span><span class="n">tipo</span><span class="p">[</span><span class="n">i</span><span class="p">]]),)</span>
+          <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">coordinates</span><span class="p">(</span><span class="s2">&quot;{0},{1},0&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lon_hur</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                             <span class="n">lat_hur</span><span class="p">[</span><span class="n">i</span><span class="p">],)</span>
+          <span class="p">),</span>
+        <span class="p">),</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Aquí le indicamos a la reproducción que nos</span>
+    <span class="c1"># muestre el &#39;globo&#39; o &#39;viñeta&#39; con la información del sitio,</span>
+    <span class="c1"># nombre y descripción. Visibility a 1 para</span>
+    <span class="c1"># hacerlo visible.</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+                <span class="n">KML</span><span class="o">.</span><span class="n">visibility</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">GX</span><span class="o">.</span><span class="n">balloonVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># creamos el mapa</span>
+    <span class="n">nombre</span> <span class="o">=</span> <span class="s1">&#39;{0}.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">])</span>
+    <span class="n">pinta_mapas</span><span class="p">(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">mslp</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:],</span> <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:],</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,:,:],</span> <span class="n">lon_hur</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lat_hur</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="c1"># añadimos el mapa al fichero kmz</span>
+    <span class="n">fich_kmz</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+    <span class="c1"># y eliminamos el fichero png</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">nombre</span><span class="p">)</span>
+    <span class="c1"># añadimos la ruta de las imágenes en el</span>
+    <span class="c1"># fichero kml (que estará contenido dentro</span>
+    <span class="c1"># del fichero kmz.</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="o">.</span><span class="n">Folder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">KML</span><span class="o">.</span><span class="n">GroundOverlay</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">nombre</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">visibility</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">Icon</span><span class="p">(</span><span class="n">KML</span><span class="o">.</span><span class="n">href</span><span class="p">(</span><span class="n">nombre</span><span class="p">)),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">LatLonBox</span><span class="p">(</span><span class="n">KML</span><span class="o">.</span><span class="n">north</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lat</span><span class="p">)),</span>
+                      <span class="n">KML</span><span class="o">.</span><span class="n">south</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lat</span><span class="p">)),</span>
+                      <span class="n">KML</span><span class="o">.</span><span class="n">east</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lon</span><span class="p">)),</span>
+                      <span class="n">KML</span><span class="o">.</span><span class="n">west</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lon</span><span class="p">)),</span>
+        <span class="p">),</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">nombre</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)))</span>
+    <span class="c1"># Aquí le indicamos a la reproducción que nos</span>
+    <span class="c1"># muestre el &#39;mapa&#39;. Visibility a 1 para</span>
+    <span class="c1"># hacerlo visible.</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">GroundOverlay</span><span class="p">(</span>
+                <span class="n">KML</span><span class="o">.</span><span class="n">visibility</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                <span class="c1">#GX.balloonVisibility(1),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">nombre</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Esta parte de código hará que desaparezca el &#39;globo&#39;</span>
+    <span class="c1"># con la información así no tendremos el &#39;globo&#39;</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+                <span class="n">GX</span><span class="o">.</span><span class="n">balloonVisibility</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">fechas</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Esta parte de código hará que desaparezca el &#39;mapa&#39;</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">GroundOverlay</span><span class="p">(</span>
+                <span class="n">KML</span><span class="o">.</span><span class="n">visibility</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">nombre</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+</pre></div>
+
+
+<p>En el siguiente código lo que hacemos es guardar el fichero kml final. Si os acordáis, en algún momento hemos puesto algunas etiquetas HTML. Algunos símbolos especiales se han transformado por lo que los volvemos a dejar como estaban ya que si no google earth no entenderá ese kml correctamente.</p>
+<div class="highlight"><pre><span></span><span class="c1"># guardamos toda la información</span>
+<span class="c1"># del kml en un fichero kml</span>
+<span class="n">outfile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;HuracanIvan.kml&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">salida</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">fich_kml</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">salida</span> <span class="o">=</span> <span class="n">salida</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;lt;code&amp;gt;&amp;lt;&amp;lt;/code&amp;gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;lt;&#39;</span><span class="p">)</span> <span class="n">salida</span> <span class="o">=</span> <span class="n">salida</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;lt;code&amp;gt;&amp;gt;&amp;lt;/code&amp;gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;gt;&#39;</span><span class="p">)</span>
+<span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">salida</span><span class="p">)</span>
+<span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># guardamos el fichero kml dentro del</span>
+<span class="c1"># fichero kmz</span>
+<span class="n">fich_kmz</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;HuracanIvan.kml&#39;</span><span class="p">)</span>
+<span class="c1"># Eliminamos el fichero kml</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;HuracanIvan.kml&#39;</span><span class="p">)</span>
+<span class="c1"># Cerramos el fichero kmz</span>
+<span class="n">fich_kmz</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Por último, lanzamos google earth con el fichero que acabamos de crear. Las siguientes tres líneas funcionan en linux. Ahora mismo no tengo un windows cerca pero creo que deberéis cambiar googleearth por googleearth.exe y tener en cuenta los '' en lugar de '/' en la ruta al fichero.</p>
+<div class="highlight"><pre><span></span><span class="n">ruta</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">rutafich</span> <span class="o">=</span> <span class="n">ruta</span> <span class="o">+</span> <span class="s1">&#39;/HuracanIvan.kmz&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;googleearth {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rutafich</span><span class="p">))</span>
+</pre></div>
+
+
+<p>A la izquierda de la pantalla de google earth, en mis 'lugares', dentro de 'lugares temporales' podréis ver 'HuracanIvan.kmz'. Si lo desplegáis veréis 'Reprodúceme'. Si hacéis doble click sobre 'Reprodúceme' podréis ver algo parecido a lo siguiente:</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/TPKZo4ez1V0'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>El resultado tampoco es maravilloso pero la idea no era el resultado, la idea era mostrar el uso de pykml e introducir un poco de kml/kmz a los que les pueda resultar útil.</p>
+<p>Por último, como comenté en el anterior capítulo, os dejo un enlace con un uso creativo de google earth <a href="http://www.fosslc.org/drupal/content/pykml-python-kml-library">1</a>.</p>
+<p>P.D.: Como puede que wordpress me haya 'estropeado' algo al hacer copy&amp;paste os dejo el enlace al <a href="https://gist.github.com/4708735">ipython notebook</a> o lo podéis visualizar directamente en <a href="http://nbviewer.ipython.org/4708735/">nbviewer</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                    <a href="http://pybonacci.github.io/tag/google-earth.html" class="tag">google earth</a>
+                    <a href="http://pybonacci.github.io/tag/googleearth.html" class="tag">googleearth</a>
+                    <a href="http://pybonacci.github.io/tag/kml.html" class="tag">kml</a>
+                    <a href="http://pybonacci.github.io/tag/kmz.html" class="tag">kmz</a>
+                    <a href="http://pybonacci.github.io/tag/pykml.html" class="tag">pykml</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Usando google earth con ayuda de python y pykml (I) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Usando google earth con ayuda de python y pykml (I)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 03 febrero 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>El tema de la visualización de datos es extremadamente importante puesto que te ayuda a comprender mejor al información que estás procesando. Si, además, esos datos se pueden ver de forma 'natural' en el medio donde suceden, donde se registran o donde se simulan pues mucho mejor. Por ejemplo, no tiene nada que ver el hecho de mirar por la tele un tornado o el verlo en vivo, de ver a una leona cazando en un documental o verlo en el cráter del Ngorongoro.</p>
+<p>Los sistemas de información geográfica (SIG o GIS por sus sigles en inglés) permiten mostrar información georeferenciada. <a href="http://www.google.com/earth/index.html" target="_blank">Google Earth</a> permite ver información georeferenciada permitiendo verlo, además, de forma tridimensional por lo que, para determinados fenómenos, podemos ser conscientes de como se relacionan con su entorno. No es igual a verlo en vivo pero puede ser algo más cercano.</p>
+<p>Hoy vamos a ver como usar <a href="http://pypi.python.org/pypi/pykml" target="_blank">pykml</a> para crear ficheros kml (o kmz) para, posteriormente, ver el resultado en Google Earth. Los ficheros <a href="http://en.wikipedia.org/wiki/Keyhole_Markup_Language" target="_blank">kml</a> (pongo el enlace a la wikipedia en inglés puesto que en español la información es bastante limitada) no son más que ficheros basados en la sintáxis xml para mostrar información geográfica. Google compró la empresa que estaba detrás de ello y más tarde, en 2008, se hizo estándar de la Open Geospatial Consortium (OGC). Un fichero kmz no es más que un fichero kml comprimido y que puede contener otra información relacionada con el kml, por ejemplo, una imagen en formato jpeg georeferenciada. El fichero kmz es útil cuando queremos distribuir la información de forma autocontenida (aunque la imagen georeferenciada siempre podría estar en un disco duro local, en un servidor accesible a través de la red, etc).</p>
+<p>Vamos a ver varios ejemplos. En el primero daremos una vuelta por el mundo visitando diferentes sitios interesantes y en el siguiente ejemplo veremos la evolución del huracán Ivan (2004) que llegó hasta huracán de categoría 5 en la escala <a href="http://www.nhc.noaa.gov/aboutsshws.php" target="_blank">Saffir-Simpson</a>.</p>
+<p><strong>[Para esta entrada se ha usado pykml 0.1.0, lxml 2.3.2 (es un prerrequisito de pykml) en el notebook de IPython 0.13 corriendo todo sobre python 2.7.3]</strong></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</pre></div>
+
+
+<p>En un documento kml podemos tener 'carpetas' para organizar jerárquicamente nuestra información. Dentro de las 'carpetas' podemos meter 'marcas de posición', 'capas', otras 'carpetas', geometrías,... Aquí no voy a explicar mucho más puesto que nos desviamos de python. Si queréis algo concreto usad los comentarios o podéis ver toda la referencia de kml <a href="https://developers.google.com/kml/documentation/kmlreference?hl=es">aquí</a>.</p>
+<p>También podemos hacer cosas muy potentes como mostrar líneas de tiempo y reproducir fenómenos de forma que podemos ver su evolución en el tiempo, mostrar modelos 3D,... Al final del segundo capítulo enlazaré una forma creativa de usar también google earth <a href="https://new.pybonacci.org/2013/02/04/usando-google-earth-con-ayuda-de-python-y-pykml-ii/">1</a> pero no nos adelantemos.</p>
+<p>Como he comentado, íbamos a ver dos ejemplos, Empecemos por el primero. Este primer ejemplo es un plagio remozado de un <a href="http://packages.python.org/pykml/examples/tour_examples.html">ejemplo de la documentación</a> de pykml.</p>
+<p>Primero importamos todo lo necesario de pykml para este ejemplo:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">nsmap</span>
+<span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">KML_ElementMaker</span> <span class="k">as</span> <span class="n">KML</span>
+<span class="kn">from</span> <span class="nn">pykml.factory</span> <span class="kn">import</span> <span class="n">GX_ElementMaker</span> <span class="k">as</span> <span class="n">GX</span>
+</pre></div>
+
+
+<p>Y ahora, con la ayuda de python, vamos a empezar a ir creando cosas en el documento kml y a explicarlas poco a poco:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Desde la versión 5.0, google ha añadido una serie de extensiones</span>
+<span class="c1"># a kml que lo hacen más potente e interactivo</span>
+<span class="c1"># https://developers.google.com/kml/documentation/kmlreference?hl=es#kmlextensions</span>
+<span class="c1"># Definimos una variable para el espacio de nombres de las</span>
+<span class="c1"># extensiones de google que vamos a usar.</span>
+<span class="n">gxns</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="n">nsmap</span><span class="p">[</span><span class="s1">&#39;gx&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span>
+<span class="c1"># Ponemos un listado de sitios que vamos a visitar</span>
+<span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&amp;lt;![CDATA[</span>
+<span class="s2">PyCon Spain 2013</span>
+<span class="s2">&amp;lt;H3&amp;gt;Visitanos!!!&amp;lt;/h3&amp;gt;</span>
+<span class="s2">&amp;lt;img src=&quot;http://www.python.org/community/logos/python-logo-master-v3-TM.png&quot;/&amp;gt;</span>
+<span class="s2">]]&amp;gt;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">lugares</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;LHC&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="s1">&#39;En algun lugar ahi abajo esta el Gran Colisionador de Hadrones&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="mf">6.053295</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="mf">46.235339</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;VLT&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="s1">&#39;ESO Very Large Telescope - VLT&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">70.4042</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">24.6275</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;Rapa Nui&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="s1">&#39;Ahu Akivi&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">109.395</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">27.115</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;Osaka Science Museum&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="s1">&#39;Museo de ciencia de Osaka&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="mf">135.4915</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="mf">34.6912</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;IMAX&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="s1">&#39;Cine IMAX de Glasgow&#39;</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">4.2939</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="mf">55.8581</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">45</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">300</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,},</span>
+    <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="s2">&quot;PyConES&quot;</span><span class="p">,</span>
+     <span class="s1">&#39;desc&#39;</span><span class="p">:</span><span class="n">desc</span><span class="p">,</span>
+     <span class="s1">&#39;lon&#39;</span><span class="p">:</span><span class="o">-</span><span class="mf">3.7</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span><span class="mf">40.4165</span><span class="p">,</span> <span class="s1">&#39;tilt&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span>
+     <span class="s1">&#39;range&#39;</span><span class="p">:</span><span class="mi">15000</span><span class="p">,</span> <span class="s1">&#39;range2&#39;</span><span class="p">:</span><span class="mf">10000.0</span><span class="p">,</span> <span class="s1">&#39;vis&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,},</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>En la anterior porción de código solo hemos detallado una serie de características de lugares que vamos a visitar. Ahora vamos a crear el esqueleto del documento que contendrá una carpeta (folder) donde se guardará información de los lugares que vamos a visitar (posición, descripción, nombre) y un elemento <code>gx:Tour</code> que hace uso de las extensiones de Google:</p>
+<div class="highlight"><pre><span></span><span class="c1"># start with a base KML tour and playlist</span>
+<span class="n">fich_kml</span> <span class="o">=</span> <span class="n">KML</span><span class="o">.</span><span class="n">kml</span><span class="p">(</span>
+    <span class="n">KML</span><span class="o">.</span><span class="n">Document</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">Tour</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;¡Reprodúceme!&quot;</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">Playlist</span><span class="p">(),</span>
+      <span class="p">),</span>
+      <span class="n">KML</span><span class="o">.</span><span class="n">Folder</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;Lugares visitados&#39;</span><span class="p">),</span>
+        <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;lugares&#39;</span><span class="p">,</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Y ahora vamos a hacer un bucle donde se van a ir añadiendo cosas tanto a la carpeta (folder) como al Tour. Voy explicándo lo que hace cada cosa mediante comentarios en el código:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Hacemos un bucle para recorrer todos los lugares definidos en</span>
+<span class="c1"># el bloque de código anterior</span>
+<span class="k">for</span> <span class="n">lugar</span> <span class="ow">in</span> <span class="n">lugares</span><span class="p">:</span>
+    <span class="c1"># Primero volamos hasta cada lugar (transición entre lugares)</span>
+    <span class="c1"># y nos quedamos observándolo desde el espacio.</span>
+    <span class="c1"># Para ello usamos FlyTo donde especificamos</span>
+    <span class="c1"># La duración en segundos, si queremos que vaya más rápido o más</span>
+    <span class="c1"># lento, el modo de vuelo, que puede ser más suave (smooth) o</span>
+    <span class="c1"># más rápido (bounce) y la posición.</span>
+    <span class="c1"># La posición la determinan longitude, latitude y altitude,</span>
+    <span class="c1"># tilt es el ángulo desde la vertical (en este caso lo vemos</span>
+    <span class="c1"># verticalmente (0º)) y range es la distancia desde la posición</span>
+    <span class="c1"># determinada por longitude, latitude y altitude, teniendo en</span>
+    <span class="c1"># cuenta el ángulo tilt (en este caso hemos puesto 10.000 km)</span>
+    <span class="c1"># Las unidades para latitude y longitude son grados, para altitude</span>
+    <span class="c1"># y range son metros y para tilt son grados desde la vertical.</span>
+    <span class="c1"># En el gráfico de este enlace se verá mejor:</span>
+    <span class="c1"># https://developers.google.com/kml/documentation/https://pybonacci.org/images/lookAt.gif</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">FlyTo</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">flyToMode</span><span class="p">(</span><span class="s2">&quot;bounce&quot;</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">LookAt</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">longitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">latitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitude</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">tilt</span><span class="p">(</span><span class="mi">45</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="mf">10000000.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># Volamos desde el punto anterior (que estaba a 10.000 km</span>
+    <span class="c1"># de altura) hasta el punto de vista desde donde queremos</span>
+    <span class="c1"># visualizar cada lugar. Vamos a ver todos los lugares con un</span>
+    <span class="c1"># ángulo (tilt) de 45º y a una altura de unos 300m de altura</span>
+    <span class="c1"># Altura relativa al suelo, no al nivel del mar), excepto para</span>
+    <span class="c1"># el caso de Rapa Nui, que bajaremos un poco más para que se vea mejor.</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">FlyTo</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">flyToMode</span><span class="p">(</span><span class="s2">&quot;bounce&quot;</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">LookAt</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">longitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">latitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitude</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">tilt</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># Damos una pequeña vuelta alrededor del lugar</span>
+    <span class="c1"># en el que nos encontremos, para ello usamos</span>
+    <span class="c1"># heading, que indica la dirección (azimut) de la</span>
+    <span class="c1"># cámara</span>
+    <span class="k">for</span> <span class="n">aspect</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">360</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+        <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">FlyTo</span><span class="p">(</span>
+            <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span>
+            <span class="n">GX</span><span class="o">.</span><span class="n">flyToMode</span><span class="p">(</span><span class="s2">&quot;bounce&quot;</span><span class="p">),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">LookAt</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">longitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">latitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">altitude</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="n">aspect</span><span class="p">),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">tilt</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;tilt&#39;</span><span class="p">]),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]),</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)))</span>
+    <span class="c1"># Añadimos información de cada lugar en la carpeta</span>
+    <span class="c1"># como &#39;placemarks&#39; o marcas de posición. En el nombre y en la descripción</span>
+    <span class="c1"># del placemark se puede meter HTML y CSS, por si queréis ser un poco más</span>
+    <span class="c1"># creativos y dejar la información de una forma visible y bonita.</span>
+    <span class="c1"># extrude == 1 indica que el nombre del lugar se hará visible. Si queremos</span>
+    <span class="c1"># hacerlo visible solo cuando lo seleccionemos pues le ponemos el valor 0</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="o">.</span><span class="n">Folder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">description</span><span class="p">(</span>
+            <span class="s2">&quot;{name}&amp;lt;br/&amp;gt;{desc}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                    <span class="n">desc</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;desc&#39;</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">extrude</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">coordinates</span><span class="p">(</span><span class="s2">&quot;{lon},{lat},{alt}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                  <span class="n">lon</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">],</span>
+                  <span class="n">lat</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span>
+                  <span class="n">alt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+              <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="nb">id</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+      <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Aquí le indicamos a la reproducción que en el</span>
+    <span class="c1"># momento que haya dado la vuelta al lugar nos</span>
+    <span class="c1"># muestre el &#39;globo&#39; o &#39;viñeta&#39; con la información del sitio,</span>
+    <span class="c1"># nombre y descripción. Visibility a 1 para</span>
+    <span class="c1"># hacerlo visible.</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+                <span class="n">KML</span><span class="o">.</span><span class="n">visibility</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">GX</span><span class="o">.</span><span class="n">balloonVisibility</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">Wait</span><span class="p">(</span><span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)))</span>
+    <span class="c1"># Esta parte de código hará que desaparezca el &#39;globo&#39;</span>
+    <span class="c1"># con la información así no tendremos el &#39;globo&#39;</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">AnimatedUpdate</span><span class="p">(</span>
+          <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">Update</span><span class="p">(</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">targetHref</span><span class="p">(),</span>
+            <span class="n">KML</span><span class="o">.</span><span class="n">Change</span><span class="p">(</span>
+              <span class="n">KML</span><span class="o">.</span><span class="n">Placemark</span><span class="p">(</span>
+                <span class="n">GX</span><span class="o">.</span><span class="n">balloonVisibility</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;vis&#39;</span><span class="p">]),</span>
+                <span class="n">targetId</span><span class="o">=</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+              <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Finalmente, esta parte nos separa de la tierra</span>
+    <span class="c1"># para que tengamos una vista privilegiada del</span>
+    <span class="c1"># planeta azul a 10.000 km de altura</span>
+    <span class="n">fich_kml</span><span class="o">.</span><span class="n">Document</span><span class="p">[</span><span class="n">gxns</span><span class="o">+</span><span class="s2">&quot;Tour&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">Playlist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+      <span class="n">GX</span><span class="o">.</span><span class="n">FlyTo</span><span class="p">(</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+        <span class="n">GX</span><span class="o">.</span><span class="n">flyToMode</span><span class="p">(</span><span class="s2">&quot;bounce&quot;</span><span class="p">),</span>
+        <span class="n">KML</span><span class="o">.</span><span class="n">LookAt</span><span class="p">(</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">longitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">latitude</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitude</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">heading</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">tilt</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">range</span><span class="p">(</span><span class="n">lugar</span><span class="p">[</span><span class="s1">&#39;range2&#39;</span><span class="p">]),</span>
+          <span class="n">KML</span><span class="o">.</span><span class="n">altitudeMode</span><span class="p">(</span><span class="s2">&quot;relativeToGround&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+      <span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+
+<p>En el siguiente código lo que hacemos es guardar el fichero kml final. Si os acordáis, en algún momento hemos puesto algunas etiquetas HTML. Algunos símbolos especiales se han transformado por lo que los volvemos a dejar como estaban ya que si no google earth no entenderá ese kml correctamente.</p>
+<div class="highlight"><pre><span></span><span class="c1"># output a KML file (named based on the Python script)</span>
+<span class="n">outfile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s1">&#39;VolandoVoy.kml&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">salida</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">fich_kml</span><span class="p">,</span> <span class="n">pretty_print</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">salida</span> <span class="o">=</span> <span class="n">salida</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;lt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;lt;&#39;</span><span class="p">)</span> <span class="n">salida</span> <span class="o">=</span> <span class="n">salida</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&amp;gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&amp;gt;&#39;</span><span class="p">)</span>
+<span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">salida</span><span class="p">)</span>
+<span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Por último, lanzamos google earth con el fichero que acabamos de crear. Las siguientes tres líneas funcionan en linux. Ahora mismo no tengo un windows cerca pero creo que deberéis cambiar `googleearth` por `googleearth.exe` y tener en cuenta los '' en lugar de '/' en la ruta al fichero.</p>
+<div class="highlight"><pre><span></span><span class="n">ruta</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">rutafich</span> <span class="o">=</span> <span class="n">ruta</span> <span class="o">+</span> <span class="s1">&#39;/VolandoVoy.kml&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;googleearth {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rutafich</span><span class="p">))</span>
+</pre></div>
+
+
+<p>A la izquierda de la pantalla de google earth, en mis 'lugares', dentro de 'lugares temporales' podréis ver 'VolandoVoy.kml'. Si lo desplegáis veréis 'Reprodúceme'. Si hacéis doble click sobre 'Reprodúceme' podréis ver algo parecido a lo siguiente:</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/P-0mn_9ixjk'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>No es un maravilla de vídeo pero solo es para que veáis un ejemplo en vivo del resultado.</p>
+<p>AVISO: el otro día estuve probando todo el código anterior en un windows XP y me daba un error extraño. Cuando introducía la etiqueta <code>description</code> en el kml se escribía en mayúscula y google earth no entendía bien el kml y no me mostraba la información de la descripción... Estuve una hora larga con ello intentando adivinar qué es lo que estaba mal ya que el fichero kml se creaba sin problemas y google earth lo abría sin errores (pero no mostraba correctamente la descripción). Si a alguno le pasa, antes de guardar el fichero puede hacer <code>salida = salida.replace('&lt;Description&gt;', '&lt;description&gt;')</code>.</p>
+<p>Y esto es todo por hoy, en 24h tendréis la segunda parte disponible.</p>
+<p>P.D.: Como puede que wordpress me haya 'estropeado' algo al hacer copy&amp;paste os dejo el enlace al <a href="https://gist.github.com/4703577">ipython notebook</a> o lo podéis visualizar directamente en <a href="http://nbviewer.ipython.org/4703577/">nbviewer</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                    <a href="http://pybonacci.github.io/tag/google-earth.html" class="tag">google earth</a>
+                    <a href="http://pybonacci.github.io/tag/googleearth.html" class="tag">googleearth</a>
+                    <a href="http://pybonacci.github.io/tag/kml.html" class="tag">kml</a>
+                    <a href="http://pybonacci.github.io/tag/kmz.html" class="tag">kmz</a>
+                    <a href="http://pybonacci.github.io/tag/pykml.html" class="tag">pykml</a>
+                    <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Artículos por Juan Luis Cano | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h1>Artículos por Juan Luis Cano</h1>
+
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/23/curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid/">Curso de Python en la ETSI Aeronáutica y del Espacio de Madrid</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-23T18:24:24+00:00" pubdate>jue 23 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython</a>
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso</a>
+                <a href="http://pybonacci.github.io/tag/etsia.html" class="tag">etsia</a>
+                <a href="http://pybonacci.github.io/tag/etsiae.html" class="tag">etsiae</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><ins datetime="2014-10-03T14:28:17+00:00"><strong>Nota</strong>: Esta entrada se refiere a una edición pasada del curso. Puedes leer los detalles sobre la <a href="https://pybonacci.org/2014/10/03/curso-de-python-en-la-etsiae-2a-edicion/" title="Curso de Python en la ETSIAE: 2ª edición">segunda edición del curso de Python</a> en el blog.</ins></p>
+<p>Ya tenemos lista la información sobre el <strong>curso de Python</strong> que celebraremos para los <strong>estudiantes de Ingeniería Aeronáutica</strong> de la Universidad Politécnica de Madrid. Durará <strong>18 horas</strong>, <ins datetime="2014-01-27T21:57:15+00:00">será gratuito</ins> y el temario será:</p>
+<ol>
+<li>Introducción a la sintaxis de <strong>Python</strong></li>
+<li>Uso del Notebook de <strong>IPython</strong></li>
+<li>Arrays de <strong>NumPy</strong></li>
+<li>Representación gráfica con <strong>matplotlib</strong></li>
+<li>Análisis numérico con <strong>SciPy</strong></li>
+<li>Cálculo simbólico con <strong>SymPy</strong></li>
+<li>Depuración con <strong>pdb</strong>, testing y buenas prácticas</li>
+</ol>
+<p style="font-size:1.5em;font-weight:bold">
+  Día 2: jueves 6 de marzo, 16:30, aula B107
+</p>
+
+<p>Los materiales del curso se pueden encontrar en <a href="https://github.com/AeroPython/Curso_AeroPython">https://github.com/AeroPython/Curso_AeroPython</a> (o <a href="http://bit.ly/notebooksaeropython">http://bit.ly/notebooksaeropython</a>).</p>
+<p>Lo impartiremos Juan Luis Cano (@Pybonacci) y mi compañero Álex Sáez (@Alex__S12). Estará pensado para que sea un curso eminentemente …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/23/curso-de-python-en-la-etsi-aeronautica-y-del-espacio-de-madrid/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/21/como-trabajar-con-arrays-de-binarios-en-python/">¿Cómo trabajar con arrays de binarios en Python?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-21T19:00:31+00:00" pubdate>mar 21 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/arrays.html" class="tag">arrays</a>
+                <a href="http://pybonacci.github.io/tag/bitset.html" class="tag">bitset</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esta semana vamos con una pregunta de Gonzalo, que nos dice por email:</p>
+<blockquote>
+<p>Saludos. Últimamente he estado trabajado en python y me gusta mucho. En estos momentos estoy haciendo un algoritmo genético con codificación en numeros binarios utilizando bitset de C++. ¿Tendran información acerca de como trabajar con cadenas de binarios en python? Gracias y Felicidades por el blog.</p>
+</blockquote>
+<p>He investigado un poco <a href="http://www.cplusplus.com/reference/bitset/bitset/">acerca de bitset en la referencia de C++</a>, y leo que se trata básicamente de un <strong>array de valores booleanos</strong>, optimizados para su almacenamiento en memoria.</p>
+<!--more-->
+
+<p>Esto es exactamente lo que puedes conseguir con los arrays de NumPy: son contenedores de datos homogéneos, que se almacenan eficientemente en memoria e implementados en C para que su manejo sea mucho más rápido. En nuestro blog tienes muchos artículos sobre NumPy, como por ejemplo este tutorial sobre los distintos …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/21/como-trabajar-con-arrays-de-binarios-en-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/19/leer-datos-de-arduino-desde-python/">Leer datos de Arduino desde Python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-19T21:50:05+00:00" pubdate>dom 19 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/arduino.html" class="tag">arduino</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a ver <strong>cómo leer datos procedentes de una plataforma Arduino con Python.</strong> Para quienes no lo conozcáis, <a href="http://www.arduino.cc/">Arduino</a> es una plataforma de <em>hardware libre</em> concebida para crear prototipos de manera rápida y fácil usando componentes electrónicos. Gracias a Arduino vamos a alejarnos un poco de lo que solemos ver en este blog, que es solo software, y vamos a poder interactuar con el mundo real de una manera más directa.</p>
+<p><img src="https://pybonacci.org/images/2014/01/arduino_uno_-_r3.jpg" alt="Arduino Uno" width="560" height="400" class="aligncenter size-full wp-image-2165" srcset="https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3.jpg 560w, https://pybonacci.org/wp-content/uploads/2014/01/arduino_uno_-_r3-300x214.jpg 300w" sizes="(max-width: 560px) 100vw, 560px" /></p>
+<p>Este artículo nace gracias a mi reciente incorporación a <a href="http://aerobot.org.es/">Aerobot</a>, el club de robótica de mi escuela, donde iré explorando las posibilidades de Arduino y Python 🙂</p>
+<p><em><strong>En esta entrada se han usado python 3.3.3, numpy 1.8.0, pyserial 2.7 y matplotlib 1.3.1.</strong></em></p>
+<h3>Prefacio: ¿cómo funciona?</h3>
+<p>En este artículo no vamos a ver en detalle qué es Arduino o el …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/19/leer-datos-de-arduino-desde-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/14/como-borrar-por-encima-de-una-linea-en-matplotlib/">¿Cómo borrar por encima de una línea en matplotlib?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-14T13:18:01+00:00" pubdate>mar 14 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/clip.html" class="tag">clip</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Inauguramos sección nueva en el 2014 con <strong>las preguntas que nos llegan de nuestros lectores</strong> por las redes sociales o el correo electrónico 🙂 Nos llegan unas cuantas, ¡así que tenemos material para al menos una pregunta semanal! Estas serán entradas breves que publicaremos cada martes y que tratarán de responder vuestras dudas sin rodeos. ¡Si queréis mandar las vuestras no dudéis en <a href="https://pybonacci.org/contacto/" title="Contacto">contactar con nosotros</a>!</p>
+<p>Empezamos con Alberto, que me comenta:</p>
+<blockquote>
+<p>¿Cómo puedo «borrar» lo que tengo por encima de una línea en matplotlib? He intentado con <code>fill_between</code> entre la línea de estabilidad funcional (línea roja) pero solo rellena con color, no sobreescribe que es lo que pretendo. ¿Se te ocurre alguna forma?</p>
+</blockquote>
+<p><img alt="Mapa compresor - Primera versión" src="https://pybonacci.org/images/2014/01/compmap_nozorder.png?style=centerme"></p>
+<p>Alberto está escribiendo un programa para dibujar <a href="http://en.wikipedia.org/wiki/Compressor_map">mapas de actuaciones de turbomáquinas</a> en Python, similares a los que producen programas privativos como GSP (<a href="http://www.gspteam.com/GSPsupport/OnlineHelp/index.html?compressor_map.htm">ejemplos</a>) o GasTurb (<a href="http://www.gasturb.de/check-the-map.html">ejemplos …</a></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/14/como-borrar-por-encima-de-una-linea-en-matplotlib/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/04/meme-python-de-ano-nuevo-2014/">Meme Python de Año Nuevo 2014</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-04T11:55:01+00:00" pubdate>sáb 04 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¡Feliz año a todo el mundo! Hoy queremos celebrar que ha empezado el 2014 ¡<strong>con nuestro artículo número 100</strong>! 😀 Para ello y como es costumbre desde el año pasado vamos con el Meme Python de Año Nuevo de Tarek Ziadé.</p>
+<h2>1. ¿Cuál es la aplicación, framework o biblioteca Python más interesante que has descubierto en el 2013?</h2>
+<p>He seguido utilizando mucho el notebook de IPython, y Anaconda me ha facilitado mucho la vida cuando me las he tenido que ver en Windows. La biblioteca que más me ha gustado usar ha sido <a href="http://pytest.org">pytest</a>, porque hace escribir tests y medir cobertura de código extremadamente sencillo.</p>
+<h2>2. ¿Qué nueva técnica de programación aprendiste en el 2013?</h2>
+<p>Progresé bastante con el desarrollo dirigido por tests (puedes leer cómo fue <a href="https://pybonacci.org/2013/12/09/mi-primera-auditoria-de-codigo-revisando-scikit-aero/" title="Mi primera auditoría de código: revisando scikit-aero">mi primera auditoría de código</a>) y utilicé por primera vez un servidor de integración …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/04/meme-python-de-ano-nuevo-2014/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/12/09/mi-primera-auditoria-de-codigo-revisando-scikit-aero/">Mi primera auditoría de código: revisando scikit-aero</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-12-09T16:59:34+00:00" pubdate>lun 09 diciembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/tdd.html" class="tag">TDD</a>
+                <a href="http://pybonacci.github.io/tag/testing.html" class="tag">testing</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Como ya sabéis Javier Gutiérrez, profesor de la Universidad de Sevilla, está escribiendo una serie de entradas en Pybonacci sobre <a href="https://pybonacci.org/author/javierjus/">desarrollo dirigido por pruebas en Python</a>, que os animo a leer si no lo habéis hecho todavía. Pues bien, después de conocernos en la PyConES rescatamos la idea de aplicar estos conceptos a problemas no tan genéricos y más cercanos al software científico que escribimos nosotros. Fruto de esta idea Javier se ha tomado la molestia de revisar nuestra biblioteca scikit-aero, y ha escrito <a href="http://iwt2-javierj.tumblr.com/post/69258809610/analizando-scikit-aero-en-python-2-x">una entrada en su blog sobre el proceso</a>:</p>
+<blockquote>
+<p>Como comenté en la entrada <a href="http://iwt2-javierj.tumblr.com/post/64940568924/auditorias-de-codigo-o-aprendamos-juntos-a-ser-mejores" title="Auditorias de código o aprendamos juntos a ser mejores">Auditorias de código o aprendamos juntos a ser mejores</a>, una de las cosas que más me gusta hacer es analizar código de otras personas para aprender y también para aplicar la <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule" title="regla del buen boy scout">regla del buen boy scout</a> e intentar contribuir a que ese …</p></blockquote>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/12/09/mi-primera-auditoria-de-codigo-revisando-scikit-aero/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/11/15/operador-dos-puntos-de-matlab-en-python/">Operador dos puntos (:) de MATLAB ¿en Python?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-11-15T13:00:25+00:00" pubdate>vie 15 noviembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/arange.html" class="tag">arange</a>
+                <a href="http://pybonacci.github.io/tag/linspace.html" class="tag">linspace</a>
+                <a href="http://pybonacci.github.io/tag/matlab.html" class="tag">matlab</a>
+                <a href="http://pybonacci.github.io/tag/octave.html" class="tag">octave</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Hoy que es viernes os traemos un artículo un poco más relajado (y atípico): vamos a hablar sobre el operador dos puntos (:) de MATLAB, o más bien <strong>de su ausencia en Python</strong>. Tal vez algunos de quienes estáis ya considerando Python como una opción seria frente a MATLAB os estaréis preguntando: ¿qué hay de esta magnífica sintaxis para crear secuencias?</p>
+<div class="highlight"><pre><span></span>$ octave -q
+octave:1&gt; <span class="m">0</span>:0.1:1
+<span class="nv">ans</span> <span class="o">=</span>
+<span class="m">0</span>.000 <span class="m">0</span>.100 <span class="m">0</span>.200 <span class="m">0</span>.300 <span class="m">0</span>.400 <span class="m">0</span>.500 <span class="m">0</span>.600 <span class="m">0</span>.700 <span class="m">0</span>.800 <span class="m">0</span>.900 <span class="m">1</span>.000
+</pre></div>
+
+
+<p>Pues, como indican en el <a href="http://mathesaurus.sourceforge.net/matlab-numpy.html">mathesaurus</a> y en otros sitios, tendré que usar la función <code>np.arange</code>:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">q</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="kp">array</span><span class="p">([</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0 …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/11/15/operador-dos-puntos-de-matlab-en-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/">Teoría de control en Python con SciPy (II): Control PID</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-11-06T20:37:07+00:00" pubdate>mié 06 noviembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/control.html" class="tag">control</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En esta serie de artículos vamos a estudiar <strong>cómo podemos aplicar Python al estudio de la teoría de control</strong>, en este caso utilizando SciPy. La teoría de control se centra en los <strong>sistemas dinámicos</strong> con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...</p>
+<ol>
+<li><a href="https://pybonacci.org/2013/10/10/teoria-de-control-en-python-con-scipy-i/" title="Teoría de control en Python con SciPy (I): Conceptos básicos">Conceptos básicos</a></li>
+<li><strong>Control PID</strong></li>
+</ol>
+<p>En esta segunda parte, una vez vistos algunos conceptos básicos en la primera, vamos a retomar el problema del control de crucero del coche exactamente donde lo dejamos:</p>
+<blockquote>
+<p>La conclusión que podemos extraer de este gráfico es que <strong>para pasar de 0 a 100 km/h, nuestro coche necesita casi un minuto …</strong></p></blockquote>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/10/10/teoria-de-control-en-python-con-scipy-i/">Teoría de control en Python con SciPy (I): Conceptos básicos</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-10-10T19:45:23+00:00" pubdate>jue 10 octubre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/control.html" class="tag">control</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En esta serie de artículos vamos a estudiar <strong>cómo podemos aplicar Python al estudio de la teoría de control</strong>, en este caso utilizando SciPy. La teoría de control se centra en los <strong>sistemas dinámicos</strong> con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...</p>
+<ol>
+<li><strong>Conceptos básicos</strong></li>
+<li><a href="https://pybonacci.org/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/" title="Teoría de control en Python con SciPy (II): Control PID">Control PID</a></li>
+</ol>
+<p>En esta primera parte vamos a hacer una breve introducción matemática para centrar el tema y vamos a ver el manejo básico de sistemas LTI.</p>
+<p>Cuando uno piensa en estudiar sistemas dinámicos con un ordenador, automáticamente se le viene a la cabeza <strong>MATLAB</strong>, y no sin motivo. Este programa tiene unas capacidades …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/10/10/teoria-de-control-en-python-con-scipy-i/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/09/22/hoja-de-ruta-para-scipy-1-0/">Hoja de ruta para SciPy 1.0</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-09-22T14:52:43+00:00" pubdate>dom 22 septiembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/euroscipy.html" class="tag">euroscipy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Los desarrolladores de SciPy han anunciado, a través de la lista de correo, que se ha preparado un borrador con <strong>la hoja de ruta hacia la consolidación de SciPy 1.0</strong>.</p>
+<p>Hoja de ruta:</p>
+<p>https://github.com/rgommers/scipy/blob/roadmap/doc/ROADMAP.rst.txt</p>
+<p>Anuncio en la lista de correo:</p>
+<p>http://mail.scipy.org/pipermail/scipy-dev/2013-September/019237.html</p>
+<p>Ralf Gommers, Pauli Virtanen y David Cournapeau se reunieron en la <a href="https://pybonacci.org/tag/euroscipy/">EuroSciPy</a> que se celebró en Bruselas en agosto y han redactado un documento donde se recogen los pasos necesarios en términos de nueva funcionalidad, solución de fallos, etc. para llegar a SciPy 1.0. Cuando esto se consiga, significará que SciPy contiene lo esencial y que tiene una API y un código de buena calidad.</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    <a href="https://twitter.com/hashtag/scipy?src=hash">#scipy</a> 1.0 roadmap on github: here's your chance to influence the future direction …</p></blockquote>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/09/22/hoja-de-ruta-para-scipy-1-0/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/author/juan-luis-cano4.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/author/juan-luis-cano2.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

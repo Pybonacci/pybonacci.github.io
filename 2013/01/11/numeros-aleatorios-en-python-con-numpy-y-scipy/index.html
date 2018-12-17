@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Números aleatorios en Python con NumPy y SciPy | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Números aleatorios en Python con NumPy y SciPy</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 11 enero 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En este artículo vamos a hacer un repaso de algunos métodos que tenemos para <strong>generar números aleatorios en Python</strong>. Los números aleatorios son importantísimos en computación: aquí en Pybonacci ya los hemos aplicado en nuestra <a href="https://pybonacci.org/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/" title="Calculando cosas mientras jugamos a la ruleta">simulación de Monte Carlo para calcular áreas de polígonos</a> y en nuestro artículo sobre <a href="https://pybonacci.org/2012/10/31/nuestro-primer-algoritmo-heuristico/" title="Nuestro primer algoritmo heurístico">algoritmos heurísticos en Python</a>. Como veremos, NumPy ofrece funciones para generar datos aleatorios simples y algunas distribuciones estadísticas, que luego amplía SciPy.</p>
+<p>Vamos a mencionar sin explicar las distribuciones uniforme y normal, así que si quieres una explicación más detallada te recomiendo que leas nuestro artículo sobre <a href="https://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/" title="Estadística en Python con SciPy (I)">estadística en Python con SciPy</a>. Haremos referencia a él más adelante.</p>
+<p><em><strong>En esta entrada se han usado python 3.3.0, numpy 1.7.0rc1 y scipy 0.11.0.</strong></em></p>
+<h2>¿Aleatorios?</h2>
+<p>Antes que nada, hay algo importante que tenemos que aclarar. En realidad, no hay algoritmos que generen números puramente aleatorios y que sean deterministas, por lo que usando solamente software es imposible obtener números verdaderamente aleatorios. Como dicen en Ask SciPy, para generar números aleatorios con un ordenador necesitas muestrear algún proceso físico real: por ejemplo, en <a href="http://www.random.org">www.random.org</a> utilizan ruido atmosférico, y en <a href="http://www.fourmilab.ch/hotbits/">www.fourmilab.ch/hotbits/</a> desintegración radiactiva.</p>
+<p>En computación realmente se dispone de <strong>números pseudoaleatorios</strong>, que son secuencias determinadas a partir de unos ciertos datos iniciales que se parecen <em>bastante</em> a una aleatoria. NumPy utiliza un algoritmo llamado "<a href="http://en.wikipedia.org/wiki/Mersenne_twister">Mersenne twister</a>", creado por dos matemáticos japoneses y que utilizan otros programas como MATLAB.</p>
+<p>Ahora que ya hemos hecho esta aclaración, en adelante llamaremos <strong>aleatorios</strong> a los números pseudoaleatorios - por brevedad 🙂</p>
+<!--more-->
+
+<p>En la librería estándar de Python viene ya incluido el módulo <a href="http://docs.python.org/3.3/library/random.html"><code>random</code></a>, con funciones pensadas para trabajar con valores escalares y listas. Las que vamos a ver ahora pueden trabajar con arrays de NumPy.</p>
+<p><strong>Nota</strong>: Algunas de estas funciones tenían (o tienen) una documentación un poco deficiente pero afortunadamente están recibiendo algo del amor que necesitan. Voy a enlazar a la <a href="http://docs.scipy.org/doc/numpy-dev/reference/index.html"><em>versión de desarrollo</em> de la referencia</a>, que es la que ha incorporado esos cambios, y lo dejaré así hasta que salga NumPy 1.7.0 final.</p>
+<h2>Datos aleatorios simples con NumPy</h2>
+<h3>Generación de datos aleatorios</h3>
+<p>En el paquete <a href="http://docs.scipy.org/doc/numpy-dev/reference/routines.random.html"><code>random</code></a> de NumPy encontramos varias funciones para generar datos aleatorios de manera sencilla. La primera es <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.rand.html"><code>np.random.rand</code></a>, que devuelve un número aleatorio procedente de una distribución uniforme en el intervalo $[0, 1)$. Admite como argumentos opcionales la forma del array de salida:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>  <span class="c1"># Sin argumentos devuelve escalar</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mf">0.3409858521482125</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="mf">0.5945242017333028</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mf">0.32207347448156687</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># Un array de 4 elementos</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.72096635</span><span class="p">,</span>  <span class="mf">0.02161625</span><span class="p">,</span>  <span class="mf">0.20592277</span><span class="p">,</span>  <span class="mf">0.05077326</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">0.30227189</span><span class="p">,</span>  <span class="mf">0.66391029</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.30811439</span><span class="p">,</span>  <span class="mf">0.58359128</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.06957095</span><span class="p">,</span>  <span class="mf">0.86740448</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>La función <code>np.random.random_sample</code> hace lo mismo, pero recibe el argumento en forma de tupla. Tiene cuatro alias: <code>random</code>, <code>sample</code> y <code>ranf</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">28</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">29</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">29</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">0.5488135</span> <span class="p">,</span>  <span class="mf">0.71518937</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.60276338</span><span class="p">,</span>  <span class="mf">0.54488318</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">30</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">31</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Se desempaqueta la tupla</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">31</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">0.5488135</span> <span class="p">,</span>  <span class="mf">0.71518937</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.60276338</span><span class="p">,</span>  <span class="mf">0.54488318</span><span class="p">]])</span>
+</pre></div>
+
+
+<p>Antes de seguir, ¿recordáis que hemos dicho que estos números son pseudoaleatorios? A veces nos puede interesar, por ejemplo para pruebas, utilizar siempre una misma secuencia pseudoaleatoria. Utilizando la función <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.seed.html"><code>np.random.seed</code></a> imponemos las condiciones iniciales del generador; si no se llama (como hemos hecho antes), NumPy escoge la hora como semilla, de tal forma que cada programa utilice secuencias diferentes:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Ponemos la semilla a 0 (puede ser cualquier número)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mf">0.5488135039273248</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.71518937</span><span class="p">,</span>  <span class="mf">0.60276338</span><span class="p">,</span>  <span class="mf">0.54488318</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Ponemos la semilla a 0 otra vez</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>  <span class="c1"># El mismo número</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="mf">0.5488135039273248</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># ¡Y el mismo array!</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.71518937</span><span class="p">,</span>  <span class="mf">0.60276338</span><span class="p">,</span>  <span class="mf">0.54488318</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Si queremos generar datos enteros entonces tenemos que usar la función <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.randint.html"><code>np.random.randint</code></a>, que admite un argumento obligatorio y dos opcionales:</p>
+<ul>
+<li>Si se llama con un argumento, <code>np.random.randint(a)</code> devuelve una muestra de la distribución uniforme discreta en $[0, a)$.</li>
+<li>Si se llama con dos argumentos, <code>np.random.randint(a, b)</code> devuelve una muestra de la distribución uniforme discreta en $[a, b)$.</li>
+<li>
+<p>Si se llama con tres argumentos, <code>np.random.randint(a, b, size)</code> devuelve un array de muestras en $[a, b)$ y de tamaño <code>size</code>.</p>
+<p>:::python
+In [33]: np.random.randint(10)
+Out[33]: 3
+In [34]: np.random.randint(10)
+Out[34]: 5
+In [35]: np.random.randint(100, 200)
+Out[35]: 136
+In [36]: np.random.randint(100, 200)
+Out[36]: 187
+In [37]: np.random.randint(100, 200)
+Out[37]: 170
+In [38]: np.random.randint(100, 1000, (3, 2))
+Out[38]:
+array([[572, 700],
+       [496, 414],
+       [805, 586]])
+In [39]: np.random.randint(100, 1000, (3, 2))
+Out[39]:
+array([[651, 187],
+       [274, 700],
+       [949, 777]])</p>
+</li>
+</ul>
+<h3>Mezclas y elecciones aleatorias</h3>
+<p>NumPy también nos permite, dado un array de datos ya existente, mezclarlo de manera aleatoria (como barajar un mazo de cartas) o escoger un elemento al azar.</p>
+<p>La función <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.choice.html"><code>np.random.choice</code></a> (nueva en NumPy 1.7.0) recibe cuatro argumentos (uno obligatorio y tres opcionales) que dan bastante juego:</p>
+<ul>
+<li>El argumento <code>a</code> es o bien el array del que vamos a extraer los elementos o un entero. En este último caso se utiliza <code>np.arange(a)</code>.</li>
+<li>El argumento <code>size</code> es un entero o tupla de enteros y es el tamaño del array de salida. Por defecto es <code>None</code> (<a href="https://github.com/numpy/numpy/commit/acf7421128b9d974d5153759650b7aaee3c2efec#commitcomment-2382830">y no 1 como indica la cadena de documentación de la función</a>), y en este caso se devuelve un escalar.</li>
+<li>El argumento <code>replace</code> es un valor booleano que indica si se toma la muestra con reposición o sin ella, esto es, si se pueden repetir los elementos o no. Si se escoge muestra sin reposición, evidentemente la salida no puede tener más elementos que el array de partida. Por defecto se toma con reposición (<code>True</code>)</li>
+<li>El argumento <code>p</code> es una lista de las probabilidades asociadas a cada elemento. Por defecto se asume que todos tienen la misma probabilidad de aparecer.</li>
+</ul>
+<p>Vamos a ver algunos ejemplos:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Entero aleatorio entre 0 y 9</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="mi">2</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Exactamente lo mismo</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">18</span><span class="p">]:</span> <span class="mi">6</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Tres enteros</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">20</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">20</span><span class="p">]:</span>
+<span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># Por defecto</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">21</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">22</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  <span class="c1"># Simplemente una ordenación</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">22</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">23</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  <span class="c1"># Esto falla</span>
+<span class="o">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span>                                <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+ <span class="ow">in</span> <span class="p">()</span>
+<span class="o">----&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">1</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>  <span class="c1"># Esto falla</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">juanlu</span><span class="o">/.</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="n">random</span><span class="o">/</span><span class="n">mtrand</span><span class="o">.</span><span class="n">cpython</span><span class="o">-</span><span class="mi">33</span><span class="n">m</span><span class="o">.</span><span class="n">so</span> <span class="ow">in</span> <span class="n">mtrand</span><span class="o">.</span><span class="n">RandomState</span><span class="o">.</span><span class="n">choice</span> <span class="p">(</span><span class="n">numpy</span><span class="o">/</span><span class="n">random</span><span class="o">/</span><span class="n">mtrand</span><span class="o">/</span><span class="n">mtrand</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">7513</span><span class="p">)()</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">take</span> <span class="n">a</span> <span class="n">larger</span> <span class="n">sample</span> <span class="n">than</span> <span class="n">population</span> <span class="n">when</span> <span class="s1">&#39;replace=False&#39;</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">24</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># Pero esto no</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">24</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">33</span><span class="p">]:</span> <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">34</span><span class="p">]:</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.9</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">35</span><span class="p">]:</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="n">p</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">36</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span> <span class="mf">0.9</span><span class="p">,</span>  <span class="mf">0.1</span><span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.</span> <span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>  <span class="c1"># El 0 es mucho más probable</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">37</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Por último en este apartado tenemos dos funciones que reordenan de manera aleatoria los elementos de un array: <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.shuffle.html"><code>shuffle</code></a> y <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.permutation.html"><code>permutation</code></a>. La primera lo hace <em>in situ</em>, y la segunda devuelve el array desordenado:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="n">a</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">38</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># Se devuelve una copia desordenada</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">39</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">40</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># In situ, no se devuelve nada</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">41</span><span class="p">]:</span> <span class="n">a</span>  <span class="c1"># Pero el array ha cambiado</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">41</span><span class="p">]:</span> <span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+</pre></div>
+
+
+<h2>Distribuciones estadísticas</h2>
+<p>Hasta ahora hemos manejado básicamente distribuciones uniformes, pero NumPy incluye otras distribuciones estadísticas continuas y SciPy amplía con muchas más, añadiendo también distribuciones discretas. Estas se encuentran en el paquete <a href="http://docs.scipy.org/doc/scipy/reference/stats.html"><code>scipy.stats</code></a>. Usando las distribuciones de NumPy:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">129</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">()</span>  <span class="c1"># Muestra de una distribución de Poisson con lambda=1</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">129</span><span class="p">]:</span> <span class="mi">1</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">130</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">()</span>  <span class="c1"># Normal estándar</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">130</span><span class="p">]:</span> <span class="o">-</span><span class="mf">0.10313902268607797</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">132</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>  <span class="c1"># Lo mismo que lo anterior</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">132</span><span class="p">]:</span> <span class="o">-</span><span class="mf">1.425703117101493</span>
+</pre></div>
+
+
+<p>Date cuenta de que se proporciona la función <a href="http://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.random.randn.html"><code>randn</code></a> como atajo a la normal estándar, por ser enormemente común.</p>
+<p>Si se utiliza SciPy, hay que llamar a la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.rv_continuous.rvs.html"><code>rvs</code></a> de la distribución:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">138</span><span class="p">]:</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chi</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>  <span class="c1"># Chi de dos grados de libertad</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">138</span><span class="p">]:</span> <span class="mf">0.52309303659860873</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">139</span><span class="p">]:</span> <span class="n">sp</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">expon</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">()</span>  <span class="c1"># Exponencial de lambda = 1.5</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">139</span><span class="p">]:</span> <span class="mf">2.8403282013254163</span>
+</pre></div>
+
+
+<p>Si quieres más información o utilizar el resto de funciones estadísticas que ofrece SciPy, puedes leer nuestro artículo sobre <a href="https://pybonacci.org/2012/04/21/estadistica-en-python-con-scipy/">estadística en Python con SciPy</a>.</p>
+<p>Ahora ya puedes hacer sorteos de lotería, bonitas simulaciones de Monte Carlo o explorar juegos de azar con Python. Y tú, <strong>¿para qué utilizarías números aleatorios?</strong></p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/aleatorio.html" class="tag">aleatorio</a>
+                    <a href="http://pybonacci.github.io/tag/numeros-aleatorios.html" class="tag">números aleatorios</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/random.html" class="tag">random</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

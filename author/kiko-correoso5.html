@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Artículos por Kiko Correoso | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h1>Artículos por Kiko Correoso</h1>
+
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/06/06/pandas-iv/">Pandas (IV)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-06-06T06:00:33+00:00" pubdate>vie 06 junio 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta cuarta parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Concatenando datos</strong></p>
+<p>Para concatenar ficheros se usa la función <code>pd.concat</code> 
+(<a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.tools.merge.concat.html#pandas.tools.merge.concat">documentación oficial</a>]. 
+Un ejemplo rápido sería el siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">datos1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">datos2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">piezas</span> <span class="o">=</span> <span class="p">[</span><span class="n">datos1</span><span class="p">,</span> <span class="n">datos2</span><span class="p">]</span>
+<span class="n">datos_concatenados_a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">piezas</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos1n {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos2n {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;datos_concatenadosn {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datos_concatenados_a</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Cuyo resultado sería:</p>
+<div class="highlight"><pre><span></span><span class="n">datos1</span>
+          <span class="mi">0</span>         <span class="mi">1</span>         <span class="mi">2</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">1.691985</span> <span class="o">-</span><span class="mf">1.181241</span> <span class="o">-</span><span class="mf">0.714437</span>
+<span class="mi">1</span>  <span class="mf">0.955094</span> <span class="o">-</span><span class="mf">0.238498</span>  <span class="mf">1.137918</span>
+<span class="mi">2</span> <span class="o">-</span><span class="mf">0 …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/06/06/pandas-iv/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/06/04/pandas-iii/">Pandas (III)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-06-04T06:00:49+00:00" pubdate>mié 04 junio 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta tercera parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Trabajando con datos, indexación, selección,...</strong></p>
+<p>¿Cómo podemos seleccionar, añadir, eliminar, mover,..., columnas, filas,...?</p>
+<p>Para seleccionar una columna solo hemos de usar el nombre de la columna 
+y pasarlo como si fuera un diccionario (o un atributo).</p>
+<p>Para añadir una columna simplemente hemos de usar un nombre de columna 
+no existente y pasarle los valores para esa columna.</p>
+<p>Para eliminar una columna podemos usar <code>del</code> o el método <code>pop</code> del 
+DataFrame.</p>
+<p>Para mover una columna podemos usar una …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/06/04/pandas-iii/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/06/02/pandas-ii-2/">Pandas (II)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-06-02T06:00:05+00:00" pubdate>lun 02 junio 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta segunda parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Leyendo y escribiendo datos (IO)</strong></p>
+<p>Una de las cosas que más me gusta de Pandas es la potencia que aporta a 
+lo hora de leer y/o escribir ficheros de datos. Pandas es capaz de leer 
+datos de ficheros csv, excel, HDF5, sql, json, html,...</p>
+<p>Si trabajáis con datos de terceros, que pueden provenir de muy diversas 
+fuentes, una de las partes más tediosas del trabajo será tener los 
+datos listos para empezar a trabajar. Limpiar huecos …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/06/02/pandas-ii-2/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/05/30/pandas-i/">Pandas (I)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-05-30T18:41:35+00:00" pubdate>vie 30 mayo 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos...</p>
+<p><strong>¿Qué es Pandas?</strong></p>
+<p>Pandas es una librería que proporciona estructuras de datos flexibles y 
+permite trabajar con la información de forma eficiente (gran parte de 
+Pandas está implementado usando C/Cython para obtener un buen rendimiento).</p>
+<p>Funciona muy bien cuando nos toca trabajar con:</p>
+<ul>
+<li>Datos heterogéneos que pueden distribuirse de forma tabular.</li>
+<li>Series temporales</li>
+<li>Matrices</li>
+<li>...</li>
+</ul>
+<p>La página oficial se encuentra en el siguiente <a href="http://pandas.pydata.org">enlace</a>.</p>
+<p><strong>Estructuras de datos</strong></p>
+<p>Pandas ofrece varias estructuras de datos que nos resultarán de mucha 
+utilidad y que vamos a ir viendo …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/05/30/pandas-i/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/03/03/presentando-brythonmagic/">Presentando brythonmagic</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-03-03T06:00:50+00:00" pubdate>lun 03 marzo 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/brython.html" class="tag">brython</a>
+                <a href="http://pybonacci.github.io/tag/cliente.html" class="tag">cliente</a>
+                <a href="http://pybonacci.github.io/tag/d3.html" class="tag">d3</a>
+                <a href="http://pybonacci.github.io/tag/frontend.html" class="tag">frontend</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/javascript.html" class="tag">javascript</a>
+                <a href="http://pybonacci.github.io/tag/openlayers.html" class="tag">openlayers</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En esta entrada os voy a enseñar una extensión que he creado que 
+funciona sobre el IPython notebook, es decir, está pensada para 
+funcionar en un navegador. Si no sabéis muy bien que son las 
+'cell magics' (no sé muy bien como traducir esto, podría ser algo así 
+como magia que aplica sobre celdas) le podéis echar un ojo a 
+<a href="https://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/">esta entrada</a> 
+donde ya creamos alguna función mágica ('line magics') de ayuda. De 
+todas formas, entre mis planes está el hacer una parte de la serie 
+'157 cosas de IPython...' que hable sobre las 'cell magics'. No han 
+salido nuevos capítulos ya que estoy viendo como evoluciona IPython 
+2.0.0 y adaptar las entradas a la nueva versión de IPython para que no 
+se queden desfasadas ya de salida...</p>
+<p>Bueno, a lo que vamos,... ¿Qué es eso de <code>brythonmagic …</code></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/03/03/presentando-brythonmagic/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/31/microentradas-numpy-vectorize/">MicroEntradas: numpy.vectorize</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-31T06:30:47+00:00" pubdate>vie 31 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/microentradas.html" class="tag">MicroEntradas</a>
+                <a href="http://pybonacci.github.io/tag/npvectorize.html" class="tag">np.vectorize</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/numpyvectorize.html" class="tag">numpy.vectorize</a>
+                <a href="http://pybonacci.github.io/tag/vectorizacion.html" class="tag">vectorización</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy vamos a ver <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.vectorize.html"><code>numpy.vectorize</code></a> 
+que, como la documentación oficial indica, sirve para 'vectorizar' 
+funciones que solo aceptan escalares como entrada. La entrada que 
+podemos meter es una lista de objetos o un 'numpyarray' y nos devolverá 
+como resultado un 'numpyarray'.</p>
+<p>No os engañéis, normalmente, cuando hablamos de vectorizar pensamos en 
+varios órdenes de magnitud de mejora en el rendimiento pero eso no es 
+lo que hace esta función :-). Podéis pensar en esta función como algo 
+parecido a usar <a href="http://docs.python.org/3.3/library/functions.html#map"><code>map</code></a>.</p>
+<p>Por ejemplo, la función <a href="http://docs.python.org/3.3/library/functions.html#abs"><code>abs</code></a> 
+solo acepta un entero o un <em>float</em>. Por ejemplo, lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Nos devolvería el valor <code>3</code>. Hasta ahí bien. Pero si queremos hacer lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="nb">abs</span><span class="p">([</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]))</span>
+</pre></div>
+
+
+<p>Nos devolverá un <code>TypeError: bad operand type for abs(): 'list'.</code></p>
+<p>Podríamos usar <code>map</code> para ello pero no obtendríamos un 'numpyarray' como 
+salida …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/31/microentradas-numpy-vectorize/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/29/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-ii/">157 cosas de IPython que no sabías y nunca preguntaste (II)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-29T06:30:53+00:00" pubdate>mié 29 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ipynb.html" class="tag">ipynb</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En la <a href="https://pybonacci.org/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/">primera entrega</a> vimos como usar la ayuda de IPython y como personalizar nuestras propias funciones mágicas de ayuda.</p>
+<p>En esta segunda entrega vamos a hablar del uso de la historia dentro de IPython.</p>
+<p>[Inciso: Os recomiendo que veáis lo que viene a continuación en el <a href="https://github.com/Pybonacci/notebooks">notebook</a> o en 
+<a href="http://nbviewer.ipython.org/">nbviewer</a>.]</p>
+<p>IPython guarda la historia de los comandos que se usan en cada línea/celda 
+de cada sesión bajo un determinado perfil. Esta información se guarda en 
+una base de datos sqlite. Por defecto, se guardan el inicio y fin de 
+sesión, los comandos usados en cada sesión y algunos metadatos más. 
+IPython también se puede configurar para que almacene los outputs.</p>
+<h1>Historia</h1>
+<p>La base de datos con la historia se guarda en la carpeta que obtenéis haciendo lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.utils</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="n">path</span><span class="o">.</span><span class="n">locate_profile</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="s1">&#39;/home/kiko/.config …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/29/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-ii/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/">157 cosas de IPython que no sabías y nunca preguntaste (I)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-01-24T06:30:55+00:00" pubdate>vie 24 enero 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ipynb.html" class="tag">ipynb</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Voy a inaugurar una nueva serie de entradas dedicadas a IPython hablando 
+de cosas que no son tan evidentes o que la gente no suele usar pero que 
+están ahí y son tremendamente útiles una vez que las conoces y las 
+incluyes en tu flujo de trabajo.</p>
+<p>Inicialmente se iba a llamar <em>'305928 cosas sobre IPython que no sabías 
+(o sí) y que nunca tuviste tiempo de preguntar o de leer en la 
+documentación o de leer en el código o nunca te hicieron falta o te 
+estabas tomando unas cañas o estabas haciendo otras cosas más seductoras 
+e inconfesables o {0}'</em> pero me pareció un título un poco largo. 
+Finalmente, lo he reducido a 157 y pico, más o menos, para vuestra salud 
+mental y la mia. El nombre está inspirado de forma muy libre en el 
+nombre de …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/01/24/157-cosas-de-ipython-que-no-sabias-y-nunca-preguntaste-i/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/09/04/pfs-multiplicacion-de-karatsuba/">PFS: Multiplicación de Karatsuba</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-09-04T23:46:40+00:00" pubdate>mié 04 septiembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html" class="tag">exponenciación binaria</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/pfs.html" class="tag">PFS</a>
+                <a href="http://pybonacci.github.io/tag/potencias.html" class="tag">potencias</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html" class="tag">Python fuente de sabiduria</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Vamos a seguir con nuestra serie sobre <a href="https://pybonacci.org/tag/python-fuente-de-sabiduria/">'<strong>p</strong>ython, <strong>f</strong>uente de <strong>s</strong>abiduria'</a> hablando sobre la multiplicación.</p>
+<p>¿Te has preguntado alguna vez cómo se multiplican dos números en un ordenador o calculadora? Normalmente, los <a href="http://en.wikipedia.org/wiki/Arithmetic_logic_unit" target="_blank">circuitos</a> de los procesadores incluyen operaciones básicas como la <a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Shift_and_add" target="_blank">multiplicación de enteros de tamaño pequeño</a>. Sobre estas operaciones básicas se construye todo lo demás.</p>
+<p>El caso que nos ocupa hoy, multiplicar números enteros muy grandes, se consigue mediante el uso de algoritmos vía software. Una forma sencilla de calcular enteros es usando la misma metodología que usábamos en la escuela, con la tabla de multiplicar del uno al diez y con sumas:</p>
+<div class="highlight"><pre><span></span>    23958233
+        5830 ×
+------------
+    00000000 ( =      23,958,233 ×     0)
+   71874699  ( =      23,958,233 ×    30)
+ 191665864   ( =      23,958,233 ×   800)
+119791165    ( =      23,958,233 × 5,000)
+------------
+139676498390 ( = 139,676,498,390        )
+</pre></div>
+
+
+<p>(ejemplo extraído de <a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Example" target="_blank">wikipedia</a>)</p>
+<p>El …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/09/04/pfs-multiplicacion-de-karatsuba/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/08/28/pfs-exponenciacion-binaria/">PFS: Exponenciación binaria</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-08-28T16:42:13+00:00" pubdate>mié 28 agosto 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html" class="tag">exponenciación binaria</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/pfs.html" class="tag">PFS</a>
+                <a href="http://pybonacci.github.io/tag/potencias.html" class="tag">potencias</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html" class="tag">Python fuente de sabiduria</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy voy a iniciar una serie nueva de entradas que se llamará '<strong>p</strong>ython, <strong>f</strong>uente de <strong>s</strong>abiduría' (PFS para abreviar). ¿Qué pretende esta serie? La idea básica es mostrar la influencia y realimentación entre las matemáticas y la programación. La idea e inspiración para estas entradas salió después de leer esta <a href="http://ch3m4.org/blog/2013/08/14/estudio-funcion-factorial-numpy/" target="_blank">entrada</a>.</p>
+<p>Inauguraremos esta entrada con una forma de calcular la potencia entera de un número entero. Si tuviera que crear una función que calculase esto, la primera idea que se me ocurre es usar la fuerza bruta (soy así de primario)...</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pow_fuerzabruta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>Con la anterior función, la cual no he pensado mucho, lo que estamos haciendo son <code>n-1</code> multiplicaciones. A medida que aumente el exponente aumentará el tiempo de cálculo. Veámoslo …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/08/28/pfs-exponenciacion-binaria/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/author/kiko-correoso6.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/author/kiko-correoso4.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

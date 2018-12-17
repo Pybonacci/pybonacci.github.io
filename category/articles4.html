@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h2>Articles in the articles category</h2>
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/11/24/como-hacer-analisis-de-sentimiento-en-espanol-2/">Como hacer Análisis de Sentimiento en español</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-11-24T11:47:34+00:00" pubdate>mar 24 noviembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><strong>Este post es una continuación de un <a href="https://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/">articulo previo</a> donde explico como obtener y dibujar en un mapa un mapa de calor de miles de tweets enviados desde mi ciudad</strong></p>
+<p>Puedes encontrar el código que he usado en <a href="https://github.com/manugarri/tweets_map">github</a>.</p>
+<p>Tambien he subido el archivo de tweets obtenido en el articulo anterior para que puedas seguir este tutorial sin tener que descargarte los tweets.</p>
+<p>En este post, me enfocaré en como hacer análisis de sentimiento (Sentiment Analysis) en español.</p>
+<p>Hacer Sentiment Analysis en inglés es muy fácil. Hay múltiples paquetes que vienen con modelos preparados para calcular el sentimiento o polaridad de un nuevo texto (ejemplos incluyen <a href="https://textblob.readthedocs.org">TextBlob</a> o <a href="https://code.google.com/p/word2vec/">word2vec</a>).</p>
+<p>Sin embargo, no tengo constancia de un modelo preparado en español, así que en este post vamos a hacer nuestro propio modelo predictivo :).</p>
+<p>Para eso, lo primero que necesitamos es un …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/11/24/como-hacer-analisis-de-sentimiento-en-espanol-2/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/">Dibujando 100k tweets de mi ciudad</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-11-16T20:27:46+00:00" pubdate>lun 16 noviembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/api.html" class="tag">API</a>
+                <a href="http://pybonacci.github.io/tag/heatmap.html" class="tag">heatmap</a>
+                <a href="http://pybonacci.github.io/tag/murcia-que-bella-eres.html" class="tag">Murcia que bella eres</a>
+                <a href="http://pybonacci.github.io/tag/twitter.html" class="tag">twitter</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><strong>Esta entrada <a href="http://blog.manugarri.com/plotting-100k-tweets-from-my-home-town/">apareció originalmente en inglés en mi blog</a></strong></p>
+<p>Hace tiempo que he querido jugar con la API de Twitter. El pasado verano se me ocurrió que podría ser interesante dibujar un mapa de mi ciudad (Murcia, España, bella ciudad con comida increible) mostrando un heatmap de tweets.</p>
+<p>La idea es que dibujando esos tweets podría encontrar patrones interesantes de mi ciudad. Por ejemplo:</p>
+<ul>
+<li>
+<p>¿Desde qué áreas la gente <em>tuitea</em> más?</p>
+</li>
+<li>
+<p>¿Qué horas del día son las más activas?</p>
+</li>
+<li>
+<p>¿Cuales son los lugares más felices/tristes?</p>
+</li>
+<li>
+<p>¿Hay alguna comunidad <em>tuitera</em> local extranjera?</p>
+</li>
+</ul>
+<p>Con esas ideas en la cabeza empecé la investigación. Primero, necesitaba una librería para interactuar con la API de Twitter. Después de probar la extensa cantidad de <em>wrappers</em> disponibles me decidí por <a href="http://www.tweepy.org/" target="_blank">Tweepy</a>. Posee una interfaz simple y agradable de usar y está bien mantenida.</p>
+<p><em>(INCISO, todo el …</em></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/11/12/como-funciona-el-metodo-append-de-una-lista-en-cpython/">¿Cómo funciona el método append de una lista en CPython?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-11-12T23:01:56+00:00" pubdate>jue 12 noviembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/append.html" class="tag">append</a>
+                <a href="http://pybonacci.github.io/tag/cpython.html" class="tag">CPython</a>
+                <a href="http://pybonacci.github.io/tag/implementacion.html" class="tag">implementación</a>
+                <a href="http://pybonacci.github.io/tag/lista.html" class="tag">lista</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Vamos a empezar con más preguntas que respuestas.</p>
+<p>Como sabéis, las listas de Python son <em>arrays</em> dinámicos. Por otro lado, las tuplas son <em>arrays</em> estáticos.</p>
+<p><strong>¿Qué implica que las listas sean <em>arrays</em> dinámicos?</strong></p>
+<p>Al ser un array dinámico podemos modificar sus elementos así como extender el array (lista).</p>
+<p><strong>¿Cómo funciona lo de extender el <em>array</em> (lista)?</strong></p>
+<p>Cada vez que usamos el método <code>append</code> de las listas se crea una copia de la lista original y se añade un elemento a esa copia para luego borrar el array original.</p>
+<p><strong>¿Es esto último cierto?</strong></p>
+<p>Más o menos.</p>
+<p>Todos estaréis conmigo que si cada vez que añadimos un nuevo elemento tenemos que crear una copia y luego eliminar el <em>array</em> original podríamos crear cierto coste/gasto de recursos (en memoria, principalmente, creando copias).</p>
+<p>Veamos un poco de código:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">lista</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/11/12/como-funciona-el-metodo-append-de-una-lista-en-cpython/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/11/08/vamos-a-comernos-el-mundo-y-argentina-en-python/">Vamos a comernos el mundo y [Argentina] en Python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-11-08T23:13:14+00:00" pubdate>dom 08 noviembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/argentina-en-python.html" class="tag">Argentina en Python</a>
+                <a href="http://pybonacci.github.io/tag/comunidad.html" class="tag">comunidad</a>
+                <a href="http://pybonacci.github.io/tag/humitos.html" class="tag">humitos</a>
+                <a href="http://pybonacci.github.io/tag/johanna.html" class="tag">Johanna</a>
+                <a href="http://pybonacci.github.io/tag/kauffman.html" class="tag">Kauffman</a>
+                <a href="http://pybonacci.github.io/tag/pycones.html" class="tag">pycones</a>
+                <a href="http://pybonacci.github.io/tag/quimica-nomada.html" class="tag">Quimica & Nomada</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <hr>
+<p>&nbsp;</p>
+<p><strong><em>Edit (2015/11/14):</em></strong> </p>
+<p><strong><em>Quiero agradecer a todos los que se han prestado al juego de la subasta. Al final hemos conseguido donar más de 120 € al proyecto Argentina en Python.</em></strong> </p>
+<p><strong><em>¡¡¡Sois grandes!!!!</em></strong></p>
+<p><strong><em>Quiero agradecer, especialmente, a Yami y a Ariel su generosidad</em></strong></p>
+<hr>
+<p>&nbsp;</p>
+<p>Hoy nos alejamos un poco de la temática general del blog pero nos metemos de lleno en el tema de cómo crear comunidad, con amor, con dedicación y con mucho esfuerzo, en una apuesta personal de unas personas admirables.</p>
+<p>Además del apasionante relato que tenemos hoy, si sigues leyendo, puedes llegar a conseguir una entrada para la <a href="http://2015.es.pycon.org/es/">PyConES 2015 en Valencia</a>.</p>
+<p>En la presente entrada vamos a charlar con <a href="http://argentinaenpython.com.ar/el-equipo/">Johanna, Manuel y Errante, equipo fullstack de Argentina en Python</a>.</p>
+<h2>Pero, -¿quiénes son estos?-, os preguntáreis.</h2>
+<p>Todo esto empezó como la apuesta vital de una persona que ve …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/11/08/vamos-a-comernos-el-mundo-y-argentina-en-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/">Curso de Python en la ETSIAE: 4ª edición</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-10-15T12:05:25+00:00" pubdate>jue 15 octubre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython</a>
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso</a>
+                <a href="http://pybonacci.github.io/tag/etsiae.html" class="tag">etsiae</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¡Ya vamos a por la <strong>cuarta edición de nuestro curso de Python para aeronáuticos</strong>! Esta vez durará <del datetime="2015-10-25T22:10:48+00:00">15</del><ins datetime="2015-10-25T22:10:48+00:00">12</ins> horas y este es el temario:</p>
+<ol>
+<li>Introducción a la sintaxis de <strong>Python</strong></li>
+<li>Uso del Notebook de <strong>IPython</strong></li>
+<li>Arrays de <strong>NumPy</strong></li>
+<li>Representación gráfica con <strong>matplotlib</strong></li>
+<li>Análisis numérico con <strong>SciPy</strong></li>
+<li>Cálculo simbólico con <strong>SymPy</strong></li>
+</ol>
+<p><img alt="cartel" src="https://pybonacci.org/images/2015/10/cartel-213x300.png"></p>
+<p>El curso se desarrollará en la <strong>sala II del centro de cálculo de la ETSI Aeronáutica y del Espacio</strong> de <del datetime="2015-10-25T22:05:45+00:00">17:30</del><ins datetime="2015-10-25T22:05:45+00:00">18:00</ins> a 20:00 a lo largo de <strong>dos semanas</strong>, los días 3, 4, 5, 10, 11 y 12.</p>
+<!--more-->
+
+<p><ins datetime="2015-10-29T17:07:38+00:00">La inscripción se ha cerrado.</ins> ¡Estad atentos vuestro email institucional estos días!</p>
+<p>Lo impartiremos conjuntamente el equipo AeroPython y estará pensado para que sea un curso eminentemente práctico, con ejemplos extraídos de asignaturas de la carrera. Con los conocimientos básicos de programación que se imparten en la …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/10/13/comunidades-relevo-generacional-y-la-muerte-de-python-hispano/">Comunidades, relevo generacional y la muerte de Python Hispano</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-10-13T21:30:18+00:00" pubdate>mar 13 octubre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hace muchos meses que no escribo un artículo técnico, y me temo que este tampoco va a serlo. Lo que es peor: hace aún más meses que no escribo un artículo triste, y lamentablemente ha llegado el momento de poner algunas ideas negro sobre blanco. Este texto, como su propio título indica, trata de comunidades, de relevo generacional y de la muerte de Python Hispano.</p>
+<p>Primero, un poco de contexto. <a href="https://groups.google.com/d/msg/clases-2009-2010/2ZBNzZKfypk/6ai711EZE94J">Descubrí Python en 2010</a> buscando en Google "free alternative to Mathematica" y accediendo al proyecto Sage, en diciembre de 2011 creé un blog llamado <a href="http://web.archive.org/web/20120505160240/http://juanlu001.github.com/">"Dead Epsilon"</a>, en enero de 2012 fui a <a href="http://python-madrid.es/meetings/reunion-enero-2012-python-madrid/">mi primera reunión de Python Madrid</a> y en marzo de 2012 maté Dead Epsilon y <a href="https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/">creamos Pybonacci</a>. Eso significa que pronto va a hacer 4 años que formo parte de esta comunidad: <strong>la comunidad Python</strong>.<figure id="attachment_3485" style="width: 253px" class="wp-caption aligncenter"></p>
+<p><img alt="cami_white" src="https://pybonacci.org/images/2015/10/cami_white-253x300.jpg"></p>
+<p>La intersección entre …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/10/13/comunidades-relevo-generacional-y-la-muerte-de-python-hispano/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/09/28/analisis-cluster-iii-clasificacion-no-supervisada-mediante-k-medias/">Análisis Cluster (III): Clasificación no supervisada mediante K-medias</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-09-28T19:20:35+00:00" pubdate>lun 28 septiembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/agrupamiento-clusters.html" class="tag">agrupamiento clusters</a>
+                <a href="http://pybonacci.github.io/tag/ai.html" class="tag">ai</a>
+                <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                <a href="http://pybonacci.github.io/tag/aprendizaje-no-supervisado.html" class="tag">aprendizaje no supervisado</a>
+                <a href="http://pybonacci.github.io/tag/clasificacion-clustering.html" class="tag">clasificación clustering</a>
+                <a href="http://pybonacci.github.io/tag/ia.html" class="tag">ia</a>
+                <a href="http://pybonacci.github.io/tag/inteligencia-artificial.html" class="tag">inteligencia artificial</a>
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipycluster.html" class="tag">scipy.cluster</a>
+                <a href="http://pybonacci.github.io/tag/scipyspatial.html" class="tag">scipy.spatial</a>
+                <a href="http://pybonacci.github.io/tag/unsupervised-learning.html" class="tag">unsupervised learning</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><em>(Este es el tercer capítulo de la mini-serie de artículos sobre análisis cluster que estamos haciendo en pybonacci, si todavía no has leído <a href="https://pybonacci.org/tag/agrupamiento-clusters/">los anteriores artículos les puedes echar un ojo ahora</a>. Escribir esta tercera parte solo ha tardado ¡¡¡tres años en salir!!!).</em></p>
+<p>El algoritmo de k-medias es uno de los algoritmos más sencillos de agrupamiento dentro del campo del aprendizaje automático (<em>machine learning</em> para los <em>hipsters</em>). Sirve para agrupar $N$-elementos en $K$-grupos distintos.</p>
+<h1>Agrupamiento</h1>
+<p><em>(Breve resumen de lo visto en anteriores artículos).</em></p>
+<p>Las técnicas de <a href="https://en.wikipedia.org/wiki/Cluster_analysis">agrupamiento o análisis <em>Cluster</em></a> son un tipo de aprendizaje no supervisado ya que no requieren un aprendizaje previo a partir de los datos.<br>
+Son métodos para agrupar datos sin etiqueta en subgrupos. Estos subgrupos pretenden reflejar algún tipo de estructura interna.</p>
+<h1>K-medias</h1>
+<p>El algoritmo de <a href="https://en.wikipedia.org/wiki/K-means_clustering">K-medias</a> es un algoritmo de agrupamiento particional …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/09/28/analisis-cluster-iii-clasificacion-no-supervisada-mediante-k-medias/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/09/17/curso-aeropython-en-la-uc3m/">¡Curso AeroPython en la UC3M!</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-09-17T17:39:32+00:00" pubdate>jue 17 septiembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¡Tenemos el placer de anunciar un nuevo <strong>curso de Python aplicado a la ingeniería aeroespacial</strong>, esta vez organizado por el Departamento de Ingeniería Aeroespacial de la Universidad Carlos III de Madrid!</p>
+<p>El curso durará 10 horas, <ins datetime="2015-09-19T06:36:06+00:00">será gratuito para los alumnos</ins> y el temario será el siguiente:</p>
+<ol>
+<li>Introducción a la <strong>sintaxis de Python</strong></li>
+<li>Uso del notebook de <strong>Jupyter</strong></li>
+<li>Arrays de <strong>NumPy</strong></li>
+<li>Representación gráfica con <strong>matplotlib</strong></li>
+<li>Análisis numérico con <strong>SciPy</strong></li>
+<li>Cálculo simbólico con <strong>SymPy</strong></li>
+</ol>
+<p><strong>El horario será de 13:00 a 15:00 los días 5 a 9 de octubre y las clases tendrán lugar en el aula 7.0.J03</strong>.</p>
+<p><img alt="cartel" src="https://pybonacci.org/images/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png"></p>
+<!--more-->
+
+<p><del datetime="2015-09-27T21:49:21+00:00">Desde este momento <a href="http://bit.ly/aeropython-inscripcion">la inscripción está abierta en este formulario</a> y cerrará el 25 de septiembre a las 13:00 GMT+2.</del><ins datetime="2015-09-27T21:49:21+00:00">La inscripción está cerrada ¡y hay casi 100 personas! En unos días publicaremos la lista definitiva de admitidos …</ins></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/09/17/curso-aeropython-en-la-uc3m/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/08/13/regresion-lineal-simple-explicada/">Regresión lineal simple explicada</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-08-13T17:38:13+00:00" pubdate>jue 13 agosto 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                <a href="http://pybonacci.github.io/tag/correlacion.html" class="tag">correlación</a>
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                <a href="http://pybonacci.github.io/tag/intervalos-de-confianza.html" class="tag">intervalos de confianza</a>
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                <a href="http://pybonacci.github.io/tag/regresion-lineal.html" class="tag">regresión lineal</a>
+                <a href="http://pybonacci.github.io/tag/statsmodels.html" class="tag">statsmodels</a>
+                <a href="http://pybonacci.github.io/tag/test-de-hipotesis.html" class="tag">test de hipótesis</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <hr>
+<div style="background-color: #ADD8E6;">
+  Puedes ver este notebook en su propio formato y lo puedes descargar <a href="http://nbviewer.ipython.org/github/Pybonacci/notebooks/blob/master/Regresi%C3%B3n%20Lineal.ipynb">aquí</a>.
+</div>
+
+<hr>
+<IFrame src="http://nbviewer.ipython.org/github/Pybonacci/notebooks/blob/master/Regresi%C3%B3n%20Lineal.ipynb" width=100% height=700px></Iframe>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/08/13/regresion-lineal-simple-explicada/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/06/18/trabajando-con-python-y-r/">Trabajando con Python y R</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-06-18T19:26:25+00:00" pubdate>jue 18 junio 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cran.html" class="tag">cran</a>
+                <a href="http://pybonacci.github.io/tag/eva.html" class="tag">EVA</a>
+                <a href="http://pybonacci.github.io/tag/evt.html" class="tag">EVT</a>
+                <a href="http://pybonacci.github.io/tag/extremes.html" class="tag">extremes</a>
+                <a href="http://pybonacci.github.io/tag/extremos.html" class="tag">extremos</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/r.html" class="tag">R</a>
+                <a href="http://pybonacci.github.io/tag/rpy2.html" class="tag">rpy2</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h1>Trabajando de forma conjunta con Python y con R.</h1>
+<p>Hoy vamos a ver como podemos juntar lo bueno de <a href="https://cran.r-project.org/">R</a>, algunas de sus librerías, con Python usando <strong>rpy2</strong>.</p>
+<p>Pero, lo primero de todo, ¿<a href="https://rpy.sourceforge.net/">qué es rpy2</a>? rpy2 es una interfaz que permite que podamos comunicar información entre R y Python y que podamos acceder a funcionalidad de R desde Python. Por tanto, podemos estar usando Python para todo nuestro análisis y en el caso de que necesitemos alguna librería estadística especializada de R podremos acceder a la misma usando rpy2.</p>
+<p>Para poder usar rpy2 necesitarás tener <a href="https://rpy.sourceforge.net/rpy2/doc-2.5/html/overview.html#requirements">instalado tanto Python (CPython versión &gt;= 2.7.x) como R (versión &gt;=3)</a>, además de las librerías R a las que quieras acceder. <a href="https://continuum.io/conda-for-R">Conda permite realizar todo el proceso de instalación de los intérpretes de Python y R, además de librerías</a>, pero no he trabajado …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/06/18/trabajando-con-python-y-r/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/category/articles5.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/category/articles3.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

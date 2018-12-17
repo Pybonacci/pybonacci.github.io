@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>157 cosas de IPython que no sabías y nunca preguntaste (I) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>157 cosas de IPython que no sabías y nunca preguntaste (I)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 24 enero 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Voy a inaugurar una nueva serie de entradas dedicadas a IPython hablando 
+de cosas que no son tan evidentes o que la gente no suele usar pero que 
+están ahí y son tremendamente útiles una vez que las conoces y las 
+incluyes en tu flujo de trabajo.</p>
+<p>Inicialmente se iba a llamar <em>'305928 cosas sobre IPython que no sabías 
+(o sí) y que nunca tuviste tiempo de preguntar o de leer en la 
+documentación o de leer en el código o nunca te hicieron falta o te 
+estabas tomando unas cañas o estabas haciendo otras cosas más seductoras 
+e inconfesables o {0}'</em> pero me pareció un título un poco largo. 
+Finalmente, lo he reducido a 157 y pico, más o menos, para vuestra salud 
+mental y la mia. El nombre está inspirado de forma muy libre en el 
+nombre de la charla dada por Victor Terrón en la PyConES 2013 (¿que no 
+la has visto? venga, a hacer los deberes, rápido. Y después vuelve por aquí).</p>
+<p>Primero de todo, <strong>[mode taliban ON]</strong> se escribe IPython, las dos 
+primeras en mayúscula y no iPython o ipython o aipaizon o IPhyton (sic) 
+<strong>[mode taliban OFF]</strong>. Por tanto, recordadlo si no queréis que la vena 
+de la frente de <a href="http://twitter.com/MBussonn" target="_blank">Mathias Bussonier</a> se hinche.</p>
+<p>Todos sabéis lo que es IPhyton (:-)), si no es así le puedes echar un 
+vistazo a la documentación que está en la <a href="http://www.ipython.org" target="_blank">página oficial</a> o 
+visitar este <a href="http://www.youtube.com/watch?v=H6dLGQw9yFQ" target="_blank">vídeo</a> que 
+preparó JuanLu sobre el notebook. Si, aun así, sois tan vagos como yo y 
+no queréis ver nada de lo anterior os cuento, como brevísimo resumen, 
+que IPython es una consola interactiva con super poderes y magia negra incluida.</p>
+<h1>Ayuda</h1>
+<h2>Ayuda estándar de IPython</h2>
+<p>Vamos a empezar con cosas muy sencillas como el uso de la ayuda que ofrece 
+IPython. Normalmente, para obtener ayuda de un objeto se usa el comando 
+<code>help()</code>, en IPython se puede usar la ayuda usando símbolos de 
+interrogación. Si se usa un solo símbolo de interrogación se obtiene 
+información general del objeto mientras que si se usan dos símbolos de 
+interrogación se puede acceder a la implementación misma del objeto 
+(solo en el caso de que haya sido programado en Python). Por ejemplo, 
+veamos la ayuda del objeto <code>calendar</code> dentro de la biblioteca <code>calendar</code> 
+disponible en la librería estándar y programada en Python.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">calendar</span>
+<span class="err">?</span><span class="n">calendar</span>
+</pre></div>
+
+
+<p>Nos daría la siguiente información (os saltará una ventana en la parte 
+inferior del navegador):</p>
+<div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span>       <span class="n">method</span>
+<span class="n">String</span> <span class="n">Form</span><span class="p">:</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">TextCalendar</span><span class="o">.</span><span class="n">formatyear</span> <span class="n">of</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">calendar</span><span class="o">.</span><span class="n">TextCalendar</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xb6b6082c</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+<span class="n">File</span><span class="p">:</span>       <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">calendar</span><span class="o">.</span><span class="n">py</span>
+<span class="n">Definition</span><span class="p">:</span> <span class="n">calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Docstring</span><span class="p">:</span>  <span class="n">Returns</span> <span class="n">a</span> <span class="n">year</span><span class="s1">&#39;s calendar as a multi-line string.</span>
+<span class="n">Class</span> <span class="n">Docstring</span><span class="p">:</span>
+<span class="n">method</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
+<span class="n">Create</span> <span class="n">a</span> <span class="n">bound</span> <span class="n">instance</span> <span class="n">method</span> <span class="nb">object</span><span class="o">.</span>
+</pre></div>
+
+
+<p><strong>[Nota] El comando anterior es equivalente a hacer <code>calendar?</code> y 
+también es equivalente a usar <code>%pinfo calendar</code>.</strong></p>
+<p>Si ahora usamos el doble signo de interrogación obtendremos información 
+mucho más detallada como el fichero en el que se encuentra la función y 
+el código usado para implementarla, entre otras cosas:</p>
+<div class="highlight"><pre><span></span><span class="err">??</span><span class="n">calendar</span>
+</pre></div>
+
+
+<p>La siguiente información saldrá en una ventana en la parte inferior del navegador</p>
+<div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span>       <span class="n">method</span>
+<span class="n">String</span> <span class="n">Form</span><span class="p">:</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">TextCalendar</span><span class="o">.</span><span class="n">formatyear</span> <span class="n">of</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">calendar</span><span class="o">.</span><span class="n">TextCalendar</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0xb6b6082c</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+<span class="n">File</span><span class="p">:</span>       <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">calendar</span><span class="o">.</span><span class="n">py</span>
+<span class="n">Definition</span><span class="p">:</span> <span class="n">calendar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Source</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a year&#39;s calendar as a multi-line string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">colwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">theyear</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">colwidth</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yeardays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+            <span class="c1"># months in this row</span>
+            <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">(</span><span class="n">header</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="c1"># max number of weeks for this row</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span> <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+                <span class="n">weeks</span> <span class="o">=</span> <span class="p">[]</span>
+                 <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">):</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">cal</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">w</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">weeks</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">Class</span> <span class="n">Docstring</span><span class="p">:</span>
+<span class="n">method</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
+<span class="n">Create</span> <span class="n">a</span> <span class="n">bound</span> <span class="n">instance</span> <span class="n">method</span> <span class="nb">object</span><span class="o">.</span>
+</pre></div>
+
+
+<p><strong>[Nota] El comando anterior es equivalente a hacer <code>calendar??</code> y 
+también es equivalente a usar <code>%pinfo2 calendar</code>.</strong></p>
+<p>Si ahora usamos la ayuda usual disponible, función <code>help()</code> de la 
+siguiente forma <code>help(calendar)</code>, veremos que la información es bastante 
+más escueta que la obtenida mediante IPython.</p>
+<div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">calendar</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El resultado será:</p>
+<div class="highlight"><pre><span></span><span class="n">Help</span> <span class="n">on</span> <span class="n">method</span> <span class="n">formatyear</span> <span class="ow">in</span> <span class="n">module</span> <span class="n">calendar</span><span class="p">:</span>
+<span class="n">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="n">method</span> <span class="n">of</span> <span class="n">calendar</span><span class="o">.</span><span class="n">TextCalendar</span> <span class="n">instance</span>
+<span class="n">Returns</span> <span class="n">a</span> <span class="n">year</span><span class="s1">&#39;s calendar as a multi-line string.</span>
+</pre></div>
+
+
+<h2>Uso de <em>wildcards</em> o comodines</h2>
+<p>Con el signo de interrogación también podemos usar <em>wildcards</em> para 
+obtener todos los objetos que cumplen el criterio. Por ejemplo, nos 
+acordamos que el otro día usamos una función que empezaba por <em>ca</em> pero 
+no nos acordamos del nombre completo. Podemos buscar todos los objetos 
+que se encuentran en el <em>namespace</em> de la siguiente forma:</p>
+<div class="highlight"><pre><span></span><span class="n">ca</span><span class="o">*</span><span class="err">?</span>
+</pre></div>
+
+
+<p>Y IPython nos dará lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">calendar</span>
+<span class="nb">callable</span>
+</pre></div>
+
+
+<p>Esto no es excesivamente útil ya que IPython ofrece autocompletado con 
+la tecla de tabulación y llegaríamos al mismo resultado de forma sencilla. 
+Pero, ¿y si nos acordamos que el objeto usado terminaba por <em>ar</em> en 
+lugar de empezar por <em>ca</em>? En este caso, el autocompletado no nos 
+resultaría de mucha ayuda. Pero podríamos usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="o">*</span><span class="n">ar</span><span class="err">?</span>
+</pre></div>
+
+
+<p>Lo anterior nos daría lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">calendar</span>
+</pre></div>
+
+
+<p>Pero no, no era lo que buscaba. En realidad estaba buscando un objeto 
+que contenía <code>ar</code>. Lo podemos buscar de la siguiente forma.</p>
+<div class="highlight"><pre><span></span><span class="o">*</span><span class="n">ar</span><span class="o">*</span><span class="err">?</span>
+</pre></div>
+
+
+<p>Lo anterior nos daría lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">BytesWarning</span>
+<span class="ne">DeprecationWarning</span>
+<span class="ne">FutureWarning</span>
+<span class="ne">ImportWarning</span>
+<span class="ne">KeyboardInterrupt</span>
+<span class="ne">PendingDeprecationWarning</span>
+<span class="n">ResourceWarning</span>
+<span class="ne">RuntimeWarning</span>
+<span class="ne">SyntaxWarning</span>
+<span class="ne">UnicodeWarning</span>
+<span class="ne">UserWarning</span>
+<span class="ne">Warning</span>
+<span class="nb">bytearray</span>
+<span class="n">calendar</span>
+<span class="nb">vars</span>
+</pre></div>
+
+
+<h2>Algunas funciones mágicas de ayuda</h2>
+<p>También le podéis echar un ojo a <code>%pdef</code>, <code>%pdoc</code>, <code>%psource</code> o 
+<code>%pfile</code> para obtener información de diverso tipo sobre el <code>objeto</code> de turno.</p>
+<h2>Creación de nuestras propias funciones mágicas de ayuda</h2>
+<p>La ayuda del notebook sale en una zona inferior de la ventana del 
+navegador. En general me resulta más incómoda que si se imprimiese como 
+un ouput estándar dentro del navegador mismo. Con la siguiente receta, 
+un poco modificada por mí, podemos hacer que determinada información salga <em>inline</em>:</p>
+<p><a href="https://gist.github.com/jiffyclub/5385501" target="_blank">Receta hecha por jiffyclub</a></p>
+<div class="highlight"><pre><span></span><span class="c1"># Importamos distintas funciones del módulo oinspect de IPython.</span>
+<span class="c1"># Muchas de estas funciones son un wrapper sobre las funciones del</span>
+<span class="c1">#   módulo inspect de la stdlib.</span>
+<span class="kn">from</span> <span class="nn">IPython.core.oinspect</span> <span class="kn">import</span> <span class="p">(</span><span class="n">getsource</span><span class="p">,</span> <span class="n">getdoc</span><span class="p">,</span>
+                                   <span class="n">find_file</span><span class="p">,</span> <span class="n">find_source_lines</span><span class="p">)</span>
+<span class="c1"># Importamos lo siguiente para mostrar la información en pantalla</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="c1"># Importamos lo siguiente para convertir nuestra ayuda a magig functions</span>
+<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span>
+<span class="c1"># Los siguientes imports serán usados para resaltar la sintáxis del código</span>
+<span class="c1">#   fuente.</span>
+<span class="c1"># Es necesario tener instalada la librería pygments.</span>
+<span class="kn">from</span> <span class="nn">pygments</span> <span class="kn">import</span> <span class="n">highlight</span>
+<span class="kn">from</span> <span class="nn">pygments.lexers</span> <span class="kn">import</span> <span class="n">PythonLexer</span>
+<span class="kn">from</span> <span class="nn">pygments.formatters</span> <span class="kn">import</span> <span class="n">HtmlFormatter</span>
+<span class="c1"># Llamamos a la InteractiveShell y obtenemos el namespace</span>
+<span class="c1">#   del usuario (user_ns) que es un diccionario con los</span>
+<span class="c1">#   objetos disponibles</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="n">my_ns</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">user_ns</span>
+<span class="nd">@magics_class</span>
+<span class="k">class</span> <span class="nc">KikoMagic</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shell</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">KikoMagic</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">kdoc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the info of an object and display this info in an output.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">my_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Doc info for {}:n&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">getdoc</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There is no info for {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">kfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the file where the object is implemented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">my_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;{} implemented in file:n&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">find_file</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;We can&#39;t not find the file for {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">ksourceline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the first line in the source file where</span>
+<span class="sd">        the object is implemented.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">my_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;The implementation of {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;starts at line {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">find_source_lines</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">])))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;in file {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">find_file</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">])))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;We can&#39;t not find the file for {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+    <span class="nd">@line_magic</span>
+    <span class="k">def</span> <span class="nf">ksource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the info and the source of an object and</span>
+<span class="sd">        display the info in an output.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">HtmlFormatter</span><span class="p">(</span><span class="n">linenos</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">cssclass</span><span class="o">=</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="n">nobackground</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&amp;lt;/pre&amp;gt;</span>
+<span class="s2">&amp;lt;style&amp;gt;&amp;lt;!--</span>
+<span class="s2">{}</span>
+<span class="s2">--&amp;gt;&amp;lt;/style&amp;gt;</span>
+<span class="s2">&amp;lt;pre&amp;gt;{}&quot;&quot;&quot;</span>
+ <span class="n">src</span> <span class="o">=</span> <span class="n">getsource</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">])</span>
+ <span class="n">html</span> <span class="o">=</span> <span class="n">highlight</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">PythonLexer</span><span class="p">(),</span> <span class="n">formatter</span><span class="p">)</span>
+ <span class="n">css</span> <span class="o">=</span> <span class="n">formatter</span><span class="o">.</span><span class="n">get_style_defs</span><span class="p">()</span>
+ <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">css</span><span class="p">,</span><span class="n">html</span><span class="p">)))</span>
+ <span class="nd">@line_magic</span>
+ <span class="k">def</span> <span class="nf">khelp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">kdoc</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+ <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">ksourceline</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+ <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+ <span class="bp">self</span><span class="o">.</span><span class="n">ksource</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+<span class="c1"># Registramos las nuevas funciones mágicas para que estén</span>
+<span class="c1"># disponibles en el nb.</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">KikoMagic</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Dos de las funciones mágicas solo funcionarán en el notebook y no en 
+la consola de IPython ya que estamos haciendo uso de <code>display(HTML(...))</code> y 
+la <em>qtconsole</em>, por ejemplo, no es capaz de mostrar el código html de 
+forma correcta. Ahora usamos las nuevas funciones mágicas que acabamos de crear:</p>
+<ul>
+<li><strong>kdoc</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">kdoc</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>Que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="n">Doc</span> <span class="n">info</span> <span class="k">for</span> <span class="n">calendar</span><span class="p">:</span>
+<span class="n">Returns</span> <span class="n">a</span> <span class="n">year</span><span class="s1">&#39;s calendar as a multi-line string.</span>
+</pre></div>
+
+
+<ul>
+<li><strong>kfile</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">kfile</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>Que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="n">calendar</span> <span class="n">implemented</span> <span class="ow">in</span> <span class="nb">file</span><span class="p">:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">calendar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+
+<ul>
+<li><strong>ksourceline</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">ksourceline</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">calendar</span> <span class="n">starts</span> <span class="n">at</span> <span class="n">line</span> <span class="mi">334</span> <span class="ow">in</span> <span class="nb">file</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">calendar</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+
+
+<ul>
+<li><strong>k</strong><strong>source</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">ksource</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a year&#39;s calendar as a multi-line string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">colwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">theyear</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">colwidth</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yeardays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+            <span class="c1"># months in this row</span>
+            <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">(</span><span class="n">header</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="c1"># max number of weeks for this row</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span> <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+                <span class="n">weeks</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">):</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">cal</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">w</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">weeks</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<ul>
+<li><strong>khelp</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">khelp</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>Que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="n">Doc</span> <span class="n">info</span> <span class="k">for</span> <span class="n">calendar</span><span class="p">:</span>
+<span class="n">Returns</span> <span class="n">a</span> <span class="n">year</span><span class="s1">&#39;s calendar as a multi-line string.</span>
+<span class="n">The</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">calendar</span>
+<span class="n">starts</span> <span class="n">at</span> <span class="n">line</span> <span class="mi">334</span>
+<span class="ow">in</span> <span class="nb">file</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">3</span><span class="o">/</span><span class="n">calendar</span><span class="o">.</span><span class="n">py</span>
+    <span class="k">def</span> <span class="nf">formatyear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theyear</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a year&#39;s calendar as a multi-line string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">colwidth</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">append</span>
+        <span class="n">a</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">theyear</span><span class="p">)</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">colwidth</span><span class="o">*</span><span class="n">m</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+        <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatweekheader</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yeardays2calendar</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">m</span><span class="p">)):</span>
+            <span class="c1"># months in this row</span>
+            <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatmonthname</span><span class="p">(</span><span class="n">theyear</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+                     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">(</span><span class="n">header</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">months</span><span class="p">)</span>
+            <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+            <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="o">*</span><span class="n">l</span><span class="p">)</span>
+            <span class="c1"># max number of weeks for this row</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span> <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>
+                <span class="n">weeks</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">cal</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">j</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cal</span><span class="p">):</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">weeks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatweek</span><span class="p">(</span><span class="n">cal</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">w</span><span class="p">))</span>
+                <span class="n">a</span><span class="p">(</span><span class="n">formatstring</span><span class="p">(</span><span class="n">weeks</span><span class="p">,</span> <span class="n">colwidth</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">())</span>
+                <span class="n">a</span><span class="p">(</span><span class="s1">&#39;n&#39;</span> <span class="o">*</span> <span class="n">l</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+
+
+<p>¡¡Eyyy, qué chulo!! Acabamos de personalizar un poco el notebook de IPython de forma muy sencilla.</p>
+<p>Si solo queremos hacer una función mágica lo podemos hacer de forma un 
+poco más sencilla que la vista anteriormente. En el siguiente código se 
+muestra cómo (<a href="https://github.com/ipython/ipython/wiki/Cookbook:-Sending-built-in-help-to-the-pager" target="_blank">receta hecha por Brian Granger</a> y 
+que he actualizado a las últimas versiones de IPython para hacerla funcionar):</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.oinspect</span> <span class="kn">import</span> <span class="n">getdoc</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="n">my_ns</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">user_ns</span>
+<span class="c1"># Definimos la función que hace lo que queremos. La siguiente</span>
+<span class="c1">#   función hace lo mismo que la función mágica kdoc que hemos</span>
+<span class="c1">#   implementado anteriormente</span>
+<span class="k">def</span> <span class="nf">new_magic</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">my_ns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">getdoc</span><span class="p">(</span><span class="n">my_ns</span><span class="p">[</span><span class="n">obj</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No info found for {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+<span class="c1">## En la siguiente línea definimos la anterior función como</span>
+<span class="c1">##   una &#39;line magic&#39; que se llamará &#39;my_new_magic&#39;</span>
+<span class="n">ip</span><span class="o">.</span><span class="n">register_magic_function</span><span class="p">(</span><span class="n">new_magic</span><span class="p">,</span> <span class="s1">&#39;line&#39;</span><span class="p">,</span> <span class="s2">&quot;my_new_magic&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Ahora la vamos a hacer funcionar:</p>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">my_new_magic</span> <span class="n">calendar</span>
+</pre></div>
+
+
+<p>que nos devolverá:</p>
+<div class="highlight"><pre><span></span><span class="n">Returns</span> <span class="n">a</span> <span class="n">year</span><span class="s1">&#39;s calendar as a multi-line string.</span>
+</pre></div>
+
+
+<h2>Resumen</h2>
+<p>Hemos visto como:</p>
+<ul>
+<li>usar la ayuda de IPython, más avanzada que el uso de la función built-in <code>help()</code>,</li>
+<li>uso de comodines (<em>wildcards</em>),</li>
+<li>las funciones mágicas útiles para obtener ayuda de Python,</li>
+<li>como crear nuestras propias funciones mágicas de ayuda (o de lo que queráis).</li>
+</ul>
+<p>Si se os ocurre algo para completar esta información podéis hacer un 
+pull request a <a href="https://github.com/Pybonacci/notebooks" target="_blank">nuestro repo 
+de notebooks</a> y actualizaremos la información.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/ipynb.html" class="tag">ipynb</a>
+                    <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                    <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

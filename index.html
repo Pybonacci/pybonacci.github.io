@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/11/27/creacion-de-videos-en-el-notebook/">Creación de vídeos al vuelo en el notebook</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-11-27T11:19:00+00:00" pubdate>mar 27 noviembre 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/visualizacion.html" class="tag">visualización</a>
+                <a href="http://pybonacci.github.io/tag/wms.html" class="tag">wms</a>
+                <a href="http://pybonacci.github.io/tag/meteosat.html" class="tag">meteosat</a>
+                <a href="http://pybonacci.github.io/tag/satelite.html" class="tag">satélite</a>
+                <a href="http://pybonacci.github.io/tag/thredds.html" class="tag">thredds</a>
+                <a href="http://pybonacci.github.io/tag/gfs.html" class="tag">gfs</a>
+                <a href="http://pybonacci.github.io/tag/nwp.html" class="tag">nwp</a>
+                <a href="http://pybonacci.github.io/tag/prediccion.html" class="tag">predicción</a>
+                <a href="http://pybonacci.github.io/tag/forecasting.html" class="tag">forecasting</a>
+                <a href="http://pybonacci.github.io/tag/video.html" class="tag">vídeo</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/cartopy.html" class="tag">cartopy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following …</style>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/11/27/creacion-de-videos-en-el-notebook/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/11/17/tolonteria-de-navidad/">TOLoNtería de Navidad</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-11-17T21:19:00+00:00" pubdate>sáb 17 noviembre 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">estadística</a>
+                <a href="http://pybonacci.github.io/tag/probabilidad.html" class="tag">probabilidad</a>
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">estadistica</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following …</style>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/11/17/tolonteria-de-navidad/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/10/14/explicando-la-explicabilidad/">Explicando la explicabilidad</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-10-14T11:19:00+00:00" pubdate>dom 14 octubre 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/visualizacion.html" class="tag">visualizacion</a>
+                <a href="http://pybonacci.github.io/tag/explicabilidad.html" class="tag">explicabilidad</a>
+                <a href="http://pybonacci.github.io/tag/pdp.html" class="tag">pdp</a>
+                <a href="http://pybonacci.github.io/tag/lime.html" class="tag">lime</a>
+                <a href="http://pybonacci.github.io/tag/gdpr.html" class="tag">gdpr</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following …</style>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/10/14/explicando-la-explicabilidad/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/10/06/bienvenidos-a-pybonacci-3.0/">Bienvenidos a Pybonacci 3.0</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-10-06T11:19:00+00:00" pubdate>sáb 06 octubre 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/pybonacci.html" class="tag">pybonacci</a>
+                <a href="http://pybonacci.github.io/tag/drama.html" class="tag">drama</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Inauguramos hoy la nueva versión de Pybonacci, la tercera ya, después de años de camino de amor y odio con wordpress. No vamos a hablar mal de wordpress. Nos ha permitido llegar hasta vosotros durante todos estos años pero ya no encajaba con nuestra forma de trabajar en el 2018. Es por ello que en esta nueva etapa vamos a usar herramientas que nos permitan poder crear contenido de forma más fácil y que el paso desde un Jupyter notebook de nuestro PC a la pybonaccisfera sea lo más rápida y automática posible y que sea más fácil para cualquiera de vosotros poder colaborar en compartir el conocimiento de forma libre y accesible.</p>
+<p>En esta entrada vamos a hacer un repaso a lo que hemos hecho durante estos años, lo que hemos conseguido, cómo lo hemos conseguido, cómo lo queremos …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/10/06/bienvenidos-a-pybonacci-3.0/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/05/09/manejar-dependencias-python/">Manejar dependencias y entornos de desarrollo en Python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-05-09T18:00:00+00:00" pubdate>mié 09 mayo 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/daniel-rodriguez.html">Daniel Rodriguez</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>a.k.a. pip, conda, pipenv, pyenv, y mas! ¿Qué uso?</p>
+<p>Paquetes de Python, los hay para todos los gustos, muchas industrias (web, ciencia, datos y más), con buen soporte tanto de la comunidad como por empresas grandes en cada sector y en general te permiten resolver muchos problemas rápidamente y moverte al siguiente.</p>
+<p>Manejar estos paquetes y dependencias es parte natural de un proyecto de software y como es de esperarse en una comunidad tan grande y variada como lo es la de Python no existe solo una solución sino al contrario muchas (¡lo cual es bueno!) que se adaptan a diferentes necesidades de diferentes usuarios.</p>
+<p>Tantas opciones también pueden generar confusión al momento de elegir qué herramientas usar y aprender. Para la muestra un gran comic de XKCD que muestra lo que puede pasar.</p>
+<p><img alt="¡Ayuda!" src="https://imgs.xkcd.com/comics/python_environment.png" title="https://xkcd.com/1987/"></p>
+<p>Veamos cuales son las …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/05/09/manejar-dependencias-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/04/13/curso-de-datos-de-manu-garrido/">Curso de datos de Manu Garrido: Así se hizo</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-04-13T08:02:00+02:00" pubdate>vie 13 abril 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiario.html">kiario</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso</a>
+                <a href="http://pybonacci.github.io/tag/data-science.html" class="tag">data science</a>
+                <a href="http://pybonacci.github.io/tag/udemy.html" class="tag">udemy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy hablamos entre pybonaccis para saber como, nuestro sospechoso
+habitual, <a href="http://manugarri.com/">Manu Garrido</a>, ha ideado su <a href="https://www.udemy.com/aprende-data-science-y-machine-learning-con-python/">curso
+sobre ciencia de datos, disponible para todos en
+Udemy</a>.</p>
+<p><a href="https://www.udemy.com/aprende-data-science-y-machine-learning-con-python/?couponCode=PYBONACCI">Manu ha creado un cupón de descuento del 90% para todos los lectores
+de
+pybonacci</a>.</p>
+<p>La idea de la entrada de hoy no es hablar del curso, el curso habla por
+si mismo, sino saber un poco más sobre lo que hay detrás de un curso tan
+elaborado como este.</p>
+<p><strong><em>KC: Manu, ¿cuéntanos tus motivaciones para meterte en semejante
+embrollo, hacer un curso</em></strong> <strong><em>en vídeo, con 23 horas de vídeos, y en
+español, limitando considerablemente la cantidad</em></strong> <strong><em>de público?</em></strong></p>
+<p><em>MG: Bueno, estuve unos años viviendo en Nueva York, y allí fue donde
+aprendí sobre este mundo tan apasionante. Al volver a España, me di
+cuenta de que el nivel de conocimiento sobre Data Science estaba …</em></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/04/13/curso-de-datos-de-manu-garrido/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2018/03/27/performance-pandas-numpy-bottleneck/">Performance: Pandas vs NumPy (vs Bottleneck)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2018-03-27T18:02:36+00:00" pubdate>mar 27 marzo 2018</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/maximiliano-greco.html">Maximiliano Greco</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      
+
+<p>Hace varias semanas salió un <a href="https://github.com/mm-mansour/Fast-Pandas">proyecto muy interesante</a> en el que se compara la performance  de <code>Pandas</code> con <code>NumPy</code>. Bien, dado que uso <code>Pandas</code> y <code>NumPy</code> a diario no me costó demasiado encontrar algunas cosas (quizá algo difusas) que estarían bien comentar o matizar. Sobre todo cuando vemos comparaciones de este estilo, ya que nos podemos quedar con alguna que otra idea errónea.</p>
+<p>A continuación voy a tratar de explicar cómo funciona <code>Pandas</code> y <code>NumPy</code> cuando hacemos llamadas del estilo:</p>
+
+<pre><code>In [0]: d = pd.DataFrame(...)
+In [1]: d.sum()
+In [2]: np.sum(d)
+
+</code></pre>
+<p>De hecho, aunque nos pueda parecer trivial, cuando buscamos la máxima performance hacerlo de una u otra forma toma especial relevancia. Como podéis intuir, no es lo mismo hacer <code>d.sum()</code> que <code>np.sum(d)</code>. Otro apunte intersante, para los que no lo sabéis, los cálculos en <code>Pandas</code> se apoyan en <code>NumPy</code>, pero también en <a href="https://github.com/kwgoodman/bottleneck"><code>bottleneck</code></a> (y en el futuro quizá otras librerías), por ese motivo lo incluyo en esta comparativa, lo veremos con más detalle.</p>
+
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2018/03/27/performance-pandas-numpy-bottleneck/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2017/09/07/como-crear-un-mapa-interactivo-con-folium/">¿Cómo crear un mapa interactivo con Folium?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2017-09-07T12:58:00+02:00" pubdate>jue 07 septiembre 2017</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiario.html">kiario</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aemet.html" class="tag">aemet</a>
+                <a href="http://pybonacci.github.io/tag/folium.html" class="tag">folium</a>
+                <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                <a href="http://pybonacci.github.io/tag/leaflet.html" class="tag">leaflet</a>
+                <a href="http://pybonacci.github.io/tag/mapa.html" class="tag">mapa</a>
+                <a href="http://pybonacci.github.io/tag/mapping.html" class="tag">mapping</a>
+                <a href="http://pybonacci.github.io/tag/opendata.html" class="tag">opendata</a>
+                <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En esta entrada voy a describir el proceso usado para crear
+<a href="https://kikocorreoso.github.io/datos_aemet/">https://kikocorreoso.github.io/datos_aemet/</a> con la ayuda de la
+librería Folium.</p>
+<h2>¿Qué es Folium?</h2>
+<p><a href="http://folium.readthedocs.io/en/latest/">Folium</a> es una librería Python
+que permite crear mapas interactivos usando
+<a href="http://leafletjs.com/">Leaflet.js</a>. Lo que hace, de forma elegante, es
+crear código javascript que usa la maravillosa librería de mapas
+interactivos leaflet.</p>
+<h2>¿Crear el mapa?</h2>
+<p>En la rama <em>gh-pages</em> del repositorio git <em>datos_aemet</em> en github
+(<a href="https://github.com/kikocorreoso/datos_aemet/tree/gh-pages">https://github.com/kikocorreoso/datos_aemet/tree/gh-pages</a>) hay una
+serie de ficheros. Los ficheros <em>index.html</em>, <em>map.html</em> y <em>readme.html</em>
+los generaremos a partir de los ficheros:</p>
+<ul>
+<li><em>custom.css</em>: Algo de css para que la página cuadre. Por debajo usa,
+    además, bootstrap.</li>
+<li><em>src/create_base_map.py</em>: Esta es la madre del cordero y lo que
+    vamos a comentar.</li>
+<li><em>src/template.html</em>: Aquí tenemos la estructura principal del HTML
+    usado …</li></ul>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2017/09/07/como-crear-un-mapa-interactivo-con-folium/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2017/08/02/microentradas-unicodelatex-en-la-consola-ipythonnotebook-jupyter/">Microentradas: Unicode/látex en la consola IPython/notebook Jupyter</a></h2>
+      <div class="meta">
+        <time datetime="" title="2017-08-02T19:17:00+02:00" pubdate>mié 02 agosto 2017</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiario.html">kiario</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/jupyter.html" class="tag">jupyter</a>
+                <a href="http://pybonacci.github.io/tag/latex.html" class="tag">látex</a>
+                <a href="http://pybonacci.github.io/tag/microentradas.html" class="tag">MicroEntradas</a>
+                <a href="http://pybonacci.github.io/tag/til.html" class="tag">til</a>
+                <a href="http://pybonacci.github.io/tag/unicode.html" class="tag">unicode</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><em>Este es un <a href="https://www.reddit.com/r/todayilearned/">TIL</a> que vi el
+otro día. Lo dejo aquí por si otros no lo sabían y les resulta útil.</em></p>
+<p>En la consola de IPython o en el notebook Jupyter podéis usar unicode
+escribiendo símbolos látex.</p>
+<p>Por ejemplo, si escribes lo siguiente (en la consola o en una celda del
+notebook):</p>
+<div class="highlight"><pre><span></span>In [1]: \alpha
+</pre></div>
+
+
+<p>y pulsáis después la tecla <code>tab</code> veréis que se transforma a su símbolo
+látex y lo podéis usar fácilmente en vuestro código.</p>
+<p>El resultado sería algo como lo siguiente (antes y después de pulsar la
+tecla <code>tab</code>):</p>
+<ul>
+<li>Antes:</li>
+</ul>
+<p><img alt="console1" src="https://pybonacci.org/images/2017/08/console1.png?style=centerme"></p>
+<ul>
+<li>Después:</li>
+</ul>
+<p><img alt="console2" src="https://pybonacci.org/images/2017/08/console2.png?style=centerme"></p>
+<p>Esto puede ser útil para scripts propios, demos, formación,..., pero os
+lo desaconsejo en código en producción o a compartir ;-)</p>
+<p>Saludos.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2017/08/02/microentradas-unicodelatex-en-la-consola-ipythonnotebook-jupyter/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2017/07/25/instalando-postgresql-en-local-en-windows-o-linux-usando-conda/">Instalando PostgreSQL en local en windows o linux usando conda</a></h2>
+      <div class="meta">
+        <time datetime="" title="2017-07-25T18:49:00+02:00" pubdate>mar 25 julio 2017</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiario.html">kiario</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/base-de-datos.html" class="tag">base de datos</a>
+                <a href="http://pybonacci.github.io/tag/bases-de-datos.html" class="tag">bases de datos</a>
+                <a href="http://pybonacci.github.io/tag/bbdd.html" class="tag">bbdd</a>
+                <a href="http://pybonacci.github.io/tag/conda.html" class="tag">conda</a>
+                <a href="http://pybonacci.github.io/tag/conda-forge.html" class="tag">conda-forge</a>
+                <a href="http://pybonacci.github.io/tag/pgcli.html" class="tag">pgcli</a>
+                <a href="http://pybonacci.github.io/tag/postgresql.html" class="tag">postgresql</a>
+                <a href="http://pybonacci.github.io/tag/psycopg2.html" class="tag">psycopg2</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Para el que no lo sepa, podéis instalar PostgreSQL usando <code>conda</code> \o/</p>
+<p>Vamos a hacer un tutorial paso a paso para poder instalarlo todo y
+dejarlo listo para trabajar desde Python de forma sencilla.</p>
+<p><strong>[<em>A lo largo de todo el tutorial se indica si el código a usar es
+para windows o para linux. Si no se indica nada el código debería ser
+válido en ambos sistemas operativos.</em>]</strong></p>
+<h1>1. Creamos un entorno virtual usando <code>conda</code> e instalamos PostgreSQL.</h1>
+<p>Este paso es sencillo. Solo necesitáis tener instalado <code>conda</code> en
+vuestro equipo y una conexión a internet. Si no tenéis <code>conda</code> instalado
+podéis ir a la sección de enlaces, más abajo, para visitar la
+documentación de <code>conda</code> donde os indica como instalarlo. Con <code>conda</code>
+instalado, podemos añadir el canal de <code>conda-forge</code> (básico para poder
+extender la cantidad de paquetes disponibles además de …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2017/07/25/instalando-postgresql-en-local-en-windows-o-linux-usando-conda/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/index2.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

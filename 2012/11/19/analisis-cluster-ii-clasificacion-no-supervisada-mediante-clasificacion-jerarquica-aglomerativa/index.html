@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Análisis Cluster (II): Clasificación no supervisada mediante clasificación jerárquica aglomerativa | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Análisis Cluster (II): Clasificación no supervisada mediante clasificación jerárquica aglomerativa</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 19 noviembre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>(Este es el segundo capítulo de la mini-serie de artículos sobre análisis cluster que estamos haciendo en pybonacci, si todavía <a href="https://pybonacci.org/2012/11/18/analisis-cluster-i-introduccion/">no has leído el artículo inicial échale un ojo ahora</a>).</p>
+<p>Como vimos anteriormente, existen diferentes formas de hacer clustering y, como también comentamos anteriormente, una de las más habituales es el clustering jerárquico.</p>
+<p>El clustering jerárquico asociativo pretende, partiendo de m observaciones, ir encontrado agrupaciones de forma jerarquizada. Para ello, primero busca similitudes entre las observaciones y después procura asociar en grupos o 'clusters' las observaciones que se encuentran 'más cercanas' o presentan mayor similitud.</p>
+<p>Si os acordáis, en el <a href="https://pybonacci.org/2012/11/18/analisis-cluster-i-introduccion/">primer capítulo de esta mini-serie</a>, entrecomillamos la palabra ‘similitud’. Vamos a ver qué significa esto de similitud en general y en nuestro ejemplo concreto (ver <a href="https://pybonacci.org/2012/11/18/analisis-cluster-i-introduccion/">capítulo anterior</a> de la serie para conocer el ejemplo). Dependiendo del problema concreto necesitaremos asociar las variables para poder medir como son de similares o a qué distancia se encuentran entre sí. Estas medidas de asociación (similitud o distancia) dependerán del problema concreto con el que nos encontremos y no se usaría lo mismo para variables booleanas, binarias, reales,... Gracias al módulo <a href="http://docs.scipy.org/doc/scipy/reference/spatial.distance.html#module-scipy.spatial.distance">scipy.spatial.distance</a> podemos ver muchas de estas medidas de asociación en las que no voy a entrar en detalle. Un resumen de la mayoría de ellas lo podéis ver en <a href="http://www.ugr.es/~gallardo/pdf/cluster-2.pdf">el siguiente enlace del profesor José Ángel Gallardo San Salvador, nuevamente</a>. En el ejemplo propuesto usaremos la correlación como medida de asociación ya que es una medida invariante aunque las variables se escalen y/o se les sumen/resten parámetros (algo muy útil para el caso que nos ocupa).</p>
+<!--more-->
+
+<p>Una vez que hemos calculado todas las medidas de asociación entre las <em>m</em> observaciones hemos de establecer un método para las uniones de las observaciones para así ir creando los clusters. Nuevamente, scipy acude al rescate para poder establecer esto mediante el módulo <a href="http://docs.scipy.org/doc/scipy/reference/cluster.html">scipy.cluster</a> y la función <a href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.cluster.hierarchy.linkage.html#scipy.cluster.hierarchy.linkage">scipy.cluster.hierarchy.linkage</a>. El 'linkage', enlazado o amalgamiento se puede realizar mediante diferentes métodos. En la función anterior podemos elegir entre algunos de ellos como el método simple, completo, promedio, pesado, de Ward,... ¿Dónde los podéis ver <a href="http://www.ugr.es/~gallardo/pdf/cluster-3.pdf">explicados de forma detallada y excelente</a>? Pues sí, en <a href="http://www.ugr.es/~gallardo/pdf/cluster-3.pdf">los apuntes del profesor José Ángel Gallardo San Salvador, de la escuela de estadística de la Universidad de Granada</a> (perded 10 minutos en leer el enlace anterior y lo que sigue a continuación tendrá más sentido). El enlazado se realiza en el momento inicial, cuando se dispone de las <em>m</em> observaciones, y después de hacer un nuevo grupo o cluster usando el método de enlazado (o linkage o amalgamiento) que se haya seleccionado. En las <a href="https://www.slideshare.net/pybonacci/linkage-15253227">siguientes transparencias</a> se intenta detallar un ejemplo, paso a paso, de un enlazado simple para una distancia mínima.</p>
+<p>Bueno, bueno,..., mucha palabrería, mucho enlace a apuntes,... Falta una cosa, ¡¡!SHOW ME THE CODE!! A eso vamos. Para ello vamos a hacer uso de unos datos de temperatura que descargaremos de la <a href="http://www.esrl.noaa.gov/psd/cgi-bin/GrADS.pl?dataset=NCEP+Reanalysis+Surface+Level&DB_did=3&file=%2FDatasets%2Fncep.reanalysis%2Fsurface%2Fair.sig995.1948.nc+air.sig995.%25y4.nc+94788&variable=air&DB_vid=20&DB_tid=35711&units=degK&longstat=Individual+Obs&DB_statistic=Individual+Obs&stat=&lat-begin=60S&lat-end=15N&lon-begin=84W&lon-end=30W&dim0=time&year_begin=2009&mon_begin=Jan&day_begin=1&hour_begin=00+Z&year_end=2012&mon_end=Jan&day_end=1&hour_end=00+Z&X=lon&Y=lat&output=file&bckgrnd=black&use_color=on&fill=lines&cint=&range1=&range2=&scale=100&submit=Create+Plot+or+Subset+of+Data">siguiente url (pinchad sobre 'FTP a copy of the file')</a>. Una vez que tengáis el fichero descargado vamos a importar todo lo que vamos a necesitar:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">cluster</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="kn">as</span> <span class="nn">nc</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits</span> <span class="kn">import</span> <span class="n">basemap</span> <span class="k">as</span> <span class="n">bm</span>
+</pre></div>
+
+
+<p>Ahora vamos a preparar los datos:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;leyendo datos nc&#39;</span><span class="p">)</span>
+<span class="n">tsfc</span> <span class="o">=</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="s1">&#39;X83.42.0.38.323.14.41.15.nc&#39;</span><span class="p">)</span> <span class="c1">#tsfc &#39;por temperature at surface&#39;</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">][:]</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][:]</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">tsfc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;air&#39;</span><span class="p">][:]</span>
+</pre></div>
+
+
+<p>Tenemos las series de temperatura (tmp) y su posición (lon, lat). Vamos a ver los nodos (series) que tenemos sobre un mapa.</p>
+<div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span><span class="n">llcrnrlon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">llcrnrlat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="n">urcrnrlon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">urcrnrlat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;mill&#39;</span><span class="p">)</span>
+<span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawcountries</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawlsmask</span><span class="p">(</span><span class="n">land_color</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">ocean_color</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><a href="https://pybonacci.org/images/2012/11/nodos.png"><img class="aligncenter size-full wp-image-1267" title="nodos" alt="" src="https://pybonacci.org/images/2012/11/nodos.png" height="500" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/nodos.png 800w, https://pybonacci.org/wp-content/uploads/2012/11/nodos-300x214.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></a></p>
+<p>Bueno, quizá son demasiadas series para ver el ejemplo pero luego podéis toquetear el código para usar menos series o vuestras propias series. Ahora es cuando hacemos los cálculos propios del análisis cluster:</p>
+<div class="highlight"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;calculando grupos&#39;</span><span class="p">)</span>
+<span class="n">enlaces</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">linkage</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;single&#39;</span><span class="p">,</span> <span class="n">metric</span> <span class="o">=</span> <span class="s1">&#39;correlation&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;dibujando dendrograma&#39;</span><span class="p">)</span>
+<span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">dendrogram</span><span class="p">(</span><span class="n">enlaces</span><span class="p">,</span> <span class="n">color_threshold</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y veremos algo como lo siguiente, que se conoce como dendrograma:</p>
+<p><a href="https://pybonacci.org/images/2012/11/dendrograma.png"><img class="aligncenter size-full wp-image-1268" title="dendrograma" alt="" src="https://pybonacci.org/images/2012/11/dendrograma.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/dendrograma.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/dendrograma-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a></p>
+<p>Desgraciadamente no se ve muy bien puesto que son muchas observaciones (682), lo dicho, toquetead para hacerlo con menos series y, si queréis, cambiando el método de 'linkage' y de distancias (en el ejemplo se usa el método simple y la correlación, respectivamente). Vemos que en el eje <em>y</em> hay unos valores, Pues bien, si cortamos el dendrograma horizontalmente por un valor nos quedaremos con tantos grupos como 'barritas verticales' o ramas cortemos. Vamos a hacer una prueba usando el valor 0.15 como valor de corte y vamos a representar a qué grupo pertenece cada una de las observaciones:</p>
+<div class="highlight"><pre><span></span><span class="n">clusters</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">hierarchy</span><span class="o">.</span><span class="n">fcluster</span><span class="p">(</span><span class="n">enlaces</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">criterion</span> <span class="o">=</span> <span class="s1">&#39;distance&#39;</span><span class="p">)</span>
+<span class="n">clusters</span> <span class="o">=</span> <span class="n">clusters</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">lat</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="n">Basemap</span><span class="p">(</span><span class="n">llcrnrlon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">llcrnrlat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="n">urcrnrlon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">urcrnrlat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;mill&#39;</span><span class="p">)</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clusters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clusters</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">clusters</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]),</span>
+                 <span class="n">color</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">colores</span><span class="p">[</span><span class="n">clusters</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                 <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                 <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Número de grupos: </span><span class="si">%03d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">clusters</span><span class="p">))</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawcountries</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">drawlsmask</span><span class="p">(</span><span class="n">land_color</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">ocean_color</span> <span class="o">=</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Y veremos un número sobre cada nodo que es el grupo al que pertenece cada observación si cortamos en 0.15 (los colores no indican nada, solo sirve para poder visualizar e identificar un poco más fácilmente los grupos).<a href="https://pybonacci.org/images/2012/11/resultado.png"><img class="aligncenter size-full wp-image-1270" title="resultado" alt="" src="https://pybonacci.org/images/2012/11/resultado.png" height="356" width="700" srcset="https://pybonacci.org/wp-content/uploads/2012/11/resultado.png 1600w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-300x152.png 300w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1024x521.png 1024w, https://pybonacci.org/wp-content/uploads/2012/11/resultado-1200x611.png 1200w" sizes="(max-width: 700px) 100vw, 700px" /></a></p>
+<p>Y ahora es donde vendría el trabajo del experto para interpretar el resultado, para conocer si con 19 grupos es suficiente, es demasiado,... Haciendo una interpretación (no os creáis nada de lo que viene a continuación) de estos resultados podríamos decir que hay una clara separación entre temperaturas en el ecuador y el Caribe (grupo 11) y temperaturas por debajo del subtrópico (grupo 8), parece que hay varios grupos (17, 18, 6, 5, 12) que podrían estar diciendo que parece que estamos identificando un fenómeno de ¿<a href="http://es.wikipedia.org/wiki/El_Ni%C3%B1o">El Niño</a>?,...</p>
+<p>He intentado sintetizar excesivamente y no sé si habréis entendido algo, pero bueno, si queréis profundizar en el tema, tenéis enlaces para leer información más en profundidad, hemos localizado bibliotecas python que nos ayudan a hacer este tipo de análisis y tenéis los comentarios para corregir, discutir, criticar, preguntar..., lo que consideréis oportuno.</p>
+<p>Hasta la próxima!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/agrupamiento-clusters.html" class="tag">agrupamiento clusters</a>
+                    <a href="http://pybonacci.github.io/tag/ai.html" class="tag">ai</a>
+                    <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                    <a href="http://pybonacci.github.io/tag/aprendizaje-no-supervisado.html" class="tag">aprendizaje no supervisado</a>
+                    <a href="http://pybonacci.github.io/tag/clasificacion-clustering.html" class="tag">clasificación clustering</a>
+                    <a href="http://pybonacci.github.io/tag/ia.html" class="tag">ia</a>
+                    <a href="http://pybonacci.github.io/tag/inteligencia-artificial.html" class="tag">inteligencia artificial</a>
+                    <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                    <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                    <a href="http://pybonacci.github.io/tag/scipycluster.html" class="tag">scipy.cluster</a>
+                    <a href="http://pybonacci.github.io/tag/scipyspatial.html" class="tag">scipy.spatial</a>
+                    <a href="http://pybonacci.github.io/tag/unsupervised-learning.html" class="tag">unsupervised learning</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

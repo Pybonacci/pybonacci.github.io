@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pandas (III) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Pandas (III)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 04 junio 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta tercera parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Trabajando con datos, indexación, selección,...</strong></p>
+<p>¿Cómo podemos seleccionar, añadir, eliminar, mover,..., columnas, filas,...?</p>
+<p>Para seleccionar una columna solo hemos de usar el nombre de la columna 
+y pasarlo como si fuera un diccionario (o un atributo).</p>
+<p>Para añadir una columna simplemente hemos de usar un nombre de columna 
+no existente y pasarle los valores para esa columna.</p>
+<p>Para eliminar una columna podemos usar <code>del</code> o el método <code>pop</code> del 
+DataFrame.</p>
+<p>Para mover una columna podemos usar una combinación de las metodologías 
+anteriores.</p>
+<p>Por ejemplo, vemos a seleccionar los valores de una columna:</p>
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                       <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;primero&#39;</span><span class="p">,</span><span class="s1">&#39;segundo&#39;</span><span class="p">,</span><span class="s1">&#39;tercero&#39;</span><span class="p">,</span><span class="s1">&#39;cuarto&#39;</span><span class="p">,</span><span class="s1">&#39;quinto&#39;</span><span class="p">],</span>
+                       <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span> <span class="s1">&#39;temperatura&#39;</span><span class="p">,</span><span class="s1">&#39;presion&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">velocidad</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Hemos creado un DataFrame y para acceder a la columna velocidad lo 
+podemos hacer de dos formas. O bien usando el nombre de la columna como 
+si fuera una clave de un diccionario o bien usando el nombre de la 
+columna como si fuera un atributo. En el caso de que los nombres de las 
+columnas sean números, la segunda opción no podríais usarla...</p>
+<p>Vamos a añadir una columna nueva al DataFrame. Es algo tan sencillo como 
+usar un nombre de columna no existente y pasarle los datos:</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y el resultado sería:</p>
+<div class="highlight"><pre><span></span><span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>  <span class="n">velocidad_maxima</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>         <span class="o">-</span><span class="mf">0.474630</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>         <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>          <span class="mf">1.545612</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>          <span class="mf">0.634203</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>          <span class="mf">2.389485</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Pero qué pasa si quiero añadir la columna en un lugar específico. Para 
+ello podemos usar el método <code>insert</code> (y de paso vemos como podemos 
+borrar una columna):</p>
+<div class="highlight"><pre><span></span><span class="c1"># forma 1 (borramos la columna &#39;velocidad_maxima&#39; que está al final del df usando del)</span>
+<span class="c1">#         (Colocamos la columna eliminada en la posición que especifiquemos)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">columna</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">columna</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">,</span> <span class="n">columna</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<p>El resultado del DataFrame paso a paso sería:</p>
+<div class="highlight"><pre><span></span><span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>  <span class="n">velocidad_maxima</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>         <span class="o">-</span><span class="mf">0.474630</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>         <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>          <span class="mf">1.545612</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>          <span class="mf">0.634203</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>          <span class="mf">2.389485</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+         <span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+<span class="n">primero</span>   <span class="o">-</span><span class="mf">0.474630</span>
+<span class="n">segundo</span>   <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>    <span class="mf">1.545612</span>
+<span class="n">cuarto</span>     <span class="mf">0.634203</span>
+<span class="n">quinto</span>     <span class="mf">2.389485</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad_maxima</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+         <span class="n">velocidad</span>  <span class="n">velocidad_maxima</span>  <span class="n">temperatura</span>   <span class="n">presion</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>         <span class="o">-</span><span class="mf">0.474630</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>         <span class="o">-</span><span class="mf">0.746577</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>          <span class="mf">1.545612</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>          <span class="mf">0.634203</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>          <span class="mf">2.389485</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Una forma alternativa sería usando el método <code>pop</code>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># forma 2 (borramos usando el método pop y añadimos la columna borrada en la última posición de nuevo)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">columna</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">columna</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">,</span> <span class="n">columna</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Cuyo resultado, paso a paso sería:</p>
+<div class="highlight"><pre><span></span><span class="n">velocidad</span>  <span class="n">velocidad_maxima</span>  <span class="n">temperatura</span>   <span class="n">presion</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>         <span class="o">-</span><span class="mf">0.474630</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>         <span class="o">-</span><span class="mf">0.746577</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>          <span class="mf">1.545612</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>          <span class="mf">0.634203</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>          <span class="mf">2.389485</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+         <span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+<span class="n">primero</span>   <span class="o">-</span><span class="mf">0.474630</span>
+<span class="n">segundo</span>   <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>    <span class="mf">1.545612</span>
+<span class="n">cuarto</span>     <span class="mf">0.634203</span>
+<span class="n">quinto</span>     <span class="mf">2.389485</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad_maxima</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+         <span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>  <span class="n">velocidad_maxima</span>
+<span class="n">primero</span>   <span class="mf">0.175374</span>     <span class="mf">0.384571</span> <span class="o">-</span><span class="mf">0.575126</span>         <span class="o">-</span><span class="mf">0.474630</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>         <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>          <span class="mf">1.545612</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>          <span class="mf">0.634203</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>          <span class="mf">2.389485</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Para seleccionar datos concretos de un DataFrame podemos usar el índice, 
+una rebanada, valores booleanos, la columna,...</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Seleccionamos la columna de velocidades&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">la</span> <span class="n">columna</span> <span class="n">de</span> <span class="n">velocidades</span>
+<span class="n">primero</span>    <span class="mf">0.175374</span>
+<span class="n">segundo</span>   <span class="o">-</span><span class="mf">0.133466</span>
+<span class="n">tercero</span>   <span class="o">-</span><span class="mf">0.418224</span>
+<span class="n">cuarto</span>    <span class="o">-</span><span class="mf">0.320517</span>
+<span class="n">quinto</span>     <span class="mf">0.955521</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Seleccionamos todas las columnas cuyo índice es igual a tercero&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;tercero&#39;</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">todas</span> <span class="n">las</span> <span class="n">columnas</span> <span class="n">cuyo</span> <span class="err">í</span><span class="n">ndice</span> <span class="n">es</span> <span class="n">igual</span> <span class="n">a</span> <span class="n">tercero</span>
+<span class="n">velocidad</span>        <span class="o">-</span><span class="mf">0.418224</span>
+<span class="n">temperatura</span>       <span class="mf">0.603431</span>
+<span class="n">presion</span>           <span class="mf">0.128822</span>
+<span class="n">velocidad_maxima</span>  <span class="mf">1.545612</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">tercero</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Seleccionamos todas las columnas cuyo índice está entre tercero y quinto&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Daos cuenta que en este caso los índices son inclusivos&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="s1">&#39;tercero&#39;</span><span class="p">:</span><span class="s1">&#39;quinto&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">todas</span> <span class="n">las</span> <span class="n">columnas</span> <span class="n">cuyo</span> <span class="err">í</span><span class="n">ndice</span> <span class="n">está</span> <span class="n">entre</span> <span class="n">tercero</span> <span class="n">y</span> <span class="n">quinto</span>
+<span class="n">Daos</span> <span class="n">cuenta</span> <span class="n">que</span> <span class="n">en</span> <span class="n">este</span> <span class="n">caso</span> <span class="n">los</span> <span class="err">í</span><span class="n">ndices</span> <span class="n">son</span> <span class="n">inclusivos</span>
+         <span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>  <span class="n">velocidad_maxima</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>          <span class="mf">1.545612</span>
+<span class="n">cuarto</span>   <span class="o">-</span><span class="mf">0.320517</span>    <span class="o">-</span><span class="mf">0.643183</span>  <span class="mf">0.319838</span>          <span class="mf">0.634203</span>
+<span class="n">quinto</span>    <span class="mf">0.955521</span>    <span class="o">-</span><span class="mf">0.295541</span> <span class="o">-</span><span class="mf">1.277743</span>          <span class="mf">2.389485</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Seleccionamos todos los valores de velocidad donde la temperatura &gt; 0&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;temperatura&#39;</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">][</span><span class="s1">&#39;velocidad&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">todos</span> <span class="n">los</span> <span class="n">valores</span> <span class="n">de</span> <span class="n">velocidad</span> <span class="n">donde</span> <span class="n">la</span> <span class="n">temperatura</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">primero</span>    <span class="mf">0.175374</span>
+<span class="n">segundo</span>   <span class="o">-</span><span class="mf">0.133466</span>
+<span class="n">tercero</span>   <span class="o">-</span><span class="mf">0.418224</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Seleccionamos todos los valores de una columna por índice usando una&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;rebanada (slice) de enteros&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Daos cuenta que en este caso el límite superior de la rebanada no se&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;incluye (Python tradicional)&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">todos</span> <span class="n">los</span> <span class="n">valores</span> <span class="n">de</span> <span class="n">una</span> <span class="n">columna</span> <span class="n">por</span> <span class="err">í</span><span class="n">ndice</span> <span class="n">usando</span> <span class="n">una</span>
+<span class="n">rebanada</span> <span class="p">(</span><span class="nb">slice</span><span class="p">)</span> <span class="n">de</span> <span class="n">enteros</span>
+<span class="n">Daos</span> <span class="n">cuenta</span> <span class="n">que</span> <span class="n">en</span> <span class="n">este</span> <span class="n">caso</span> <span class="n">el</span> <span class="n">límite</span> <span class="n">superior</span> <span class="n">de</span> <span class="n">la</span> <span class="n">rebanada</span> <span class="n">no</span> <span class="n">se</span>
+<span class="n">incluye</span> <span class="p">(</span><span class="n">Python</span> <span class="n">tradicional</span><span class="p">)</span>
+         <span class="n">velocidad</span>  <span class="n">temperatura</span>   <span class="n">presion</span>  <span class="n">velocidad_maxima</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>     <span class="mf">0.987833</span>  <span class="mf">0.305844</span>         <span class="o">-</span><span class="mf">0.746577</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>     <span class="mf">0.603431</span>  <span class="mf">0.128822</span>          <span class="mf">1.545612</span>
+
+<span class="p">[</span><span class="mi">2</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Seleccionamos filas y columnas&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span> <span class="s1">&#39;presion&#39;</span><span class="p">]])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Seleccionamos</span> <span class="n">filas</span> <span class="n">y</span> <span class="n">columnas</span>
+         <span class="n">velocidad</span>   <span class="n">presion</span>
+<span class="n">segundo</span>  <span class="o">-</span><span class="mf">0.133466</span>  <span class="mf">0.305844</span>
+<span class="n">tercero</span>  <span class="o">-</span><span class="mf">0.418224</span>  <span class="mf">0.128822</span>
+
+<span class="p">[</span><span class="mi">2</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Algunas de las cosas anteriores se pueden realizar sin usar los métodos .ix() o .xs()&amp;lt;/span&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">segundo</span>   <span class="o">-</span><span class="mf">0.133466</span>
+<span class="n">tercero</span>   <span class="o">-</span><span class="mf">0.418224</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Da igual si colocamos el slice primero y después las columnas:</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">][</span><span class="s1">&#39;velocidad&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">segundo</span>    <span class="bp">True</span>
+<span class="n">tercero</span>    <span class="bp">True</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">velocidad</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">bool</span>
+</pre></div>
+
+
+<p>[Actualización: el método <code>ix</code> está discontinuado y se recomienda usar
+los métodos <code>loc</code> e <code>iloc</code>.]</p>
+<p>En lo anterior he estado usando los métodos <code>.ix()</code>, <code>.xs()</code> para 
+obtener <a href="http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-advanced">partes del DataFrame</a>. 
+Son <a href="http://pandas.pydata.org/pandas-docs/stable/indexing.html#different-choices-for-indexing-loc-iloc-and-ix">herramientas muy flexibles que nos permiten acceder a los datos de forma muy personalizada</a>. 
+Otras opciones sería usar los métodos <code>.loc()</code>, <code>.iloc()</code>, <code>.select()</code>. 
+Es importante tener en cuenta que las series devueltas cuando se indexa 
+un DataFrame son solo vistas y no una copia de los propios datos. Por 
+tanto, debes ser precavido cuando manipulas los datos (al igual que 
+sucede con los numpy arrays y otros tipos de datos). Lo siguiente 
+(hecho con numpy arrays) es equivalente para las estructuras de datos 
+de Pandas.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Vista, ¡Cuidado!</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="c1"># Copias</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">copyto</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="c1"># En este caso, data tiene que existir</span>
+<span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">data</span><span class="p">[:]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="p">[</span> <span class="o">-</span><span class="mf">9.99000000e+02</span>  <span class="o">-</span><span class="mf">9.99000000e+02</span>   <span class="mf">7.18723608e-01</span>   <span class="mf">5.30962716e-01</span>
+   <span class="mf">3.43706883e-01</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.20812195</span>  <span class="mf">0.36386055</span>  <span class="mf">0.17570252</span>  <span class="mf">0.31071035</span>  <span class="mf">0.38838464</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.37175682</span>  <span class="mf">0.36962863</span>  <span class="mf">0.14481144</span>  <span class="mf">0.80786818</span>  <span class="mf">0.82803089</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.89958739</span>  <span class="mf">0.00190588</span>  <span class="mf">0.14769624</span>  <span class="mf">0.3378831</span>   <span class="mf">0.74536315</span><span class="p">]</span>
+<span class="p">[</span> <span class="mf">0.19285654</span>  <span class="mf">0.51489647</span>  <span class="mf">0.19612007</span>  <span class="mf">0.52342758</span>  <span class="mf">0.2006809</span> <span class="p">]</span>
+</pre></div>
+
+
+<p>Para acceder a los valores de los índices podemos usar <code>.index</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Index</span><span class="p">([</span><span class="s1">&#39;primero&#39;</span><span class="p">,</span> <span class="s1">&#39;segundo&#39;</span><span class="p">,</span> <span class="s1">&#39;tercero&#39;</span><span class="p">,</span> <span class="s1">&#39;cuarto&#39;</span><span class="p">,</span> <span class="s1">&#39;quinto&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Para acceder a los valores de las columnas podemos usar <code>.columns</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Index</span><span class="p">([</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span> <span class="s1">&#39;temperatura&#39;</span><span class="p">,</span> <span class="s1">&#39;presion&#39;</span><span class="p">,</span> <span class="s1">&#39;velocidad_maxima&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Otra vez hemos llegado al final. ¡¡Estad atentos a la próxima entrega!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                    <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                    <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                    <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                    <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                    <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

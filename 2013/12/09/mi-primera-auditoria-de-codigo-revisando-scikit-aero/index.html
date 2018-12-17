@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Mi primera auditoría de código: revisando scikit-aero | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Mi primera auditoría de código: revisando scikit-aero</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 09 diciembre 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Como ya sabéis Javier Gutiérrez, profesor de la Universidad de Sevilla, está escribiendo una serie de entradas en Pybonacci sobre <a href="https://pybonacci.org/author/javierjus/">desarrollo dirigido por pruebas en Python</a>, que os animo a leer si no lo habéis hecho todavía. Pues bien, después de conocernos en la PyConES rescatamos la idea de aplicar estos conceptos a problemas no tan genéricos y más cercanos al software científico que escribimos nosotros. Fruto de esta idea Javier se ha tomado la molestia de revisar nuestra biblioteca scikit-aero, y ha escrito <a href="http://iwt2-javierj.tumblr.com/post/69258809610/analizando-scikit-aero-en-python-2-x">una entrada en su blog sobre el proceso</a>:</p>
+<blockquote>
+<p>Como comenté en la entrada <a href="http://iwt2-javierj.tumblr.com/post/64940568924/auditorias-de-codigo-o-aprendamos-juntos-a-ser-mejores" title="Auditorias de código o aprendamos juntos a ser mejores">Auditorias de código o aprendamos juntos a ser mejores</a>, una de las cosas que más me gusta hacer es analizar código de otras personas para aprender y también para aplicar la <a href="http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule" title="regla del buen boy scout">regla del buen boy scout</a> e intentar contribuir a que ese código sea un poquito mejor.</p>
+<p>El último proyecto que he analizado por el momento ha sido ha sido <a href="https://github.com/Pybonacci/scikit-aero" title="Scikit-Aero en Github">Scikit-Aero en Github</a> del fenomenal Juan Luis Pibonacci que lleva el proyecto del <a href="https://pybonacci.org/" title="blog Pybonacci">blog Pybonacci</a> (enlace) y en el que colaboro son una serie de entradas sobre TDD / Desarollo Dirigido por Pruebas.</p>
+</blockquote>
+<p>En este artículo voy a contar brevemente cómo las cosas que he aprendido 🙂</p>
+<h2>Sobre scikit-aero</h2>
+<p><a href="https://github.com/Pybonacci/scikit-aero">scikit-aero</a> es una pequeña biblioteca Python que escribí mientras estudiaba flujos isentrópicos, ondas de choque, expansiones de Prandtl-Meyer y similares en una materia llamada «Aerothermodynamics». Es, por tanto, algo bastante específico. De ella me serví por ejemplo para producir este diagrama:<figure id="attachment_2028" style="width: 367px" class="wp-caption aligncenter"></p>
+<p><img alt="oblique" src="https://pybonacci.org/images/2013/12/oblique_shocks.png"></p>
+<p>Podéis consultar el código en <a href="http://nbviewer.ipython.org/github/Pybonacci/scikit-aero/blob/master/examples/Oblique%20shocks%20chart.ipynb">este notebook de ejemplo</a>. Mi idea era además tratar de crear un código bien documentado, bien estructurado y bien probado.</p>
+<!--more-->
+
+<p>Para los tests utilicé <a href="http://pytest.org/">pytest</a>, y para la cobertura el plugin <a href="https://pypi.python.org/pypi/pytest-cov">pytest-cov</a>.</p>
+<p>Según el artículo de Javier no hice un mal trabajo, aunque quedaban unas cuantas cosas por mejorar en los tests del módulo <code>isentropic.py</code>.</p>
+<h2>Pruebas para una biblioteca científica: mi enfoque</h2>
+<p>scikit-aero consiste fundamentalmente en funciones que hacen cálculos matemáticos. No hay, por tanto, interacción con el sistema o con elementos del exterior, jerarquías de objetos complejas, tratamiento sofisticado de entradas del usuario... Mi enfoque para probar estas funciones fue <strong>acudir a referencias reconocidas</strong> y asegurar que producen el resultado numérico esperado. En este caso me basé en:</p>
+<ul>
+<li>Tablas de informes técnicos de la NASA o la NACA, como por ejemplo NACA-TR-1135-1953 "Equations, tables, and charts for compressible flow" http://hdl.handle.net/2060/19930091059</li>
+<li>Problemas resueltos de textos universitarios, como por ejemplo "Modern compressible flow" de J. D. Anderson.</li>
+</ul>
+<p>Además, incluí en cada archivo y a veces en cada función de dónde están obtenidos los datos para que cualquier persona los pudiera comprobar. La ventaja de usar informes de la NACA es que <a href="http://www.usa.gov/copyright.shtml">los documentos que proceden del gobierno de Estados Unidos están bajo el dominio público</a> y por tanto no tienen restricciones de copyright. Intenté usar este tipo de fuentes cuando fuese posible.</p>
+<p>(Inciso: ¿Qué tal si los gobiernos de otros países toman nota?)</p>
+<p>Puesto que estamos lidiando en la mayoría de los casos con resultados que tienen imprecisiones, para cada prueba decidí de manera más o menos arbitraria la precisión que iba a manejar para las comparaciones, usando las funciones <code>assert_almost_equal</code> y <code>assert_array_almost_equal</code> de <code>numpy.testing</code>. Si no conseguía un resultado correcto hasta 2 decimales, solía adimensionalizar las variables o directamente comprobar si algo estaba fallando.</p>
+<p>Para scikit-aero he conseguido una precisión de al menos 2 decimales en la mayoría de las funciones, salvo en la parte de propiedades de la atmósfera estándar que está menos trabajada (se aceptan pull requests).</p>
+<h2>Lecciones aprendidas</h2>
+<p>Voy a comentar algunas cosas que aprendí revisando la pull request. Podéis <a href="https://github.com/Pybonacci/scikit-aero/pull/13/files">leer los comentarios</a> vosotros mismos en GitHub.</p>
+<h3>Dialogar con tus colaboradores</h3>
+<p>Cuando recibí las mejoras tardé varios días en reaccionar y solo cuando Javier me lo pidió: ¡mal! Como creador de una biblioteca, si quieres que sea atractivo para otros mejorar tu código es fundamental comentar qué te parece el suyo y <strong>entablar un diálogo con potenciales colaboradores</strong>. A veces habrá cosas que no te gusten y las tendrás que discutir, pero con eso no harás sino aprender más.</p>
+<h3>Probar todo el código</h3>
+<p>En primer lugar, vimos que había un test que se había quedado a medio escribir y faltaban algunas funciones por probar. Este es el fallo más evidente y más trivial: <strong>es importante que todo el código esté probado</strong>. La <em>cobertura</em> es el porcentaje de código probado frente al código total, y cuanta más alta sea más seguros podremos estar que que no hay casos especiales que pueden producir fallos inesperados. Lo ideal es que esté en el 100 % 😉 (aunque por encima del 90 % está bien en general) y esto suele llevar a una proporción de líneas de test / líneas de programa mayor que 1.</p>
+<h3>Consistencia en las pruebas</h3>
+<p>Esto lo explica mucho mejor Javier:</p>
+<blockquote>
+<p>Veo falta de consistencia en las pruebas. En algunas pruebas se usa un bucle <em>for</em> para verificar varios resultados esperados uno a uno, pero en otras se utiliza un <em>assert_array</em> (definida en <em>NumPy</em>)  que verifica todos los resultados son una sola llamada. El bucle for ambién aumenta la complejidad ciclomática y hace necesario escribir más código, con lo que hay más probabilidades de equivocarse, así que cambio todos los bucles <em>for</em> por llamadas a <em>assert_array.</em></p>
+</blockquote>
+<p>Me falló que las pruebas fuesen <strong>más homogéneas</strong>. Esto se ha corregido ya 🙂</p>
+<h3>Incluir lo justo y necesario</h3>
+<p>Es desable <strong>eliminar todo código superfluo de las pruebas</strong>, para que estas sean lo más simples posible. De esta forma será más fácil descubrir posibles fallos.</p>
+<h3>¡Complejidad ciclomática!</h3>
+<p>Estos palabros me espantaron un poco al principio, pero he aprendido que la <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity">complejidad ciclomática</a> es una métrica muy utilizada y para valorar la complejidad de un programa. La de scikit-aero era bastante baja (eso es bueno) pero la de los tests debería haber sido un poco menor. En Python se puede medir con la biblioteca <a href="https://radon.readthedocs.org/en/latest/intro.html">radon</a>. La tendré muy en cuenta de ahora en adelante cuando escriba código nuevo.</p>
+<h2>Conclusiones</h2>
+<p>Los científicos e ingenieros que escribimos programas de ordenador mientras trabajamos (¿todos?) tenemos <strong>mucho, mucho</strong> que aprender de los informáticos. Ellos sabrán menos ecuaciones diferenciales y menos resistencia de materiales, pero en lo que respecta a software estamos en la Edad de Piedra en comparación. Seguimos cayendo en problemas superados desde hace años: aún nos enviamos correo en adjuntos de correo electrónico, aún no probamos ni documentamos el software y un largo etcétera. Creo que tenemos que establecer una relación más estrecha con los programadores profesionales para mejorar nuestros programas y hacer nuestra vida más fácil (¿a quién le gusta sufrir porque no se acuerda de qué versión de todas las que hay en la cadena de emails es la buena?).</p>
+<p><strong>Y vosotros, ¿escribís ya pruebas en vuestros programas? ¿Conocíais ya las herramientas que hemos mencionado para ello? En caso contrario, ¿crees que empezarás a tomártelo más en serio? ¡Cuéntanos en los comentarios!</strong></p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/tdd.html" class="tag">TDD</a>
+                    <a href="http://pybonacci.github.io/tag/testing.html" class="tag">testing</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

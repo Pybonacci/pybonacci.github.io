@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Álgebra Lineal en Python con NumPy (I): Operaciones básicas | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Álgebra Lineal en Python con NumPy (I): Operaciones básicas</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 07 junio 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En esta entrada vamos a ver una introducción al Álgebra Lineal en Python con NumPy. En la mayoría de los artículos que hemos escrito hasta ahora en Pybonacci hemos tocado sin mencionarlos conceptos relativos al Álgebra Lineal: sin ir más lejos, el propio manejo de matrices o la norma de vectores. El lenguaje matricial es el punto de partida para una enorme variedad de desarrollos físicos y matemáticos, y por eso le vamos a dedicar un apartado especial para repasar las posibilidades que ofrece el paquete NumPy.</p>
+<ol>
+<li>Operaciones básicas</li>
+<li>Sistemas, autovalores y descomposiciones</li>
+</ol>
+<p><em><strong>En esta entrada se ha usado python 2.7.3 y numpy 1.6.1 </strong></em><strong>y es compatible con </strong><strong>python 3.2.3</strong></p>
+<h2>Arrays y matrices</h2>
+<p>Como ya comentamos hace tiempo en nuestra <a href="https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/" title="Introducción a Python para científicos e ingenieros">introducción a Python</a>, el paquete NumPy introdujo los arrays N-dimensionales, que no son más que colecciones homogéneas de elementos indexados usando N elementos. Los hemos utilizado constantemente usando las <a href="http://docs.scipy.org/doc/numpy/reference/routines.array-creation.html">funciones de creación de arrays</a>:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># Array de una lista</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kp">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># Array de 5 enteros contando el 0</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="kp">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="kp">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># Array de ceros de 2x3</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+<span class="kp">array</span><span class="p">([[</span> <span class="mf">0.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">,</span>  <span class="mf">0.</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Discretización de [0, 1] con 5 puntos</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="kp">array</span><span class="p">([</span> <span class="mf">0.</span>  <span class="p">,</span>  <span class="mf">0.25</span><span class="p">,</span>  <span class="mf">0.5</span> <span class="p">,</span>  <span class="mf">0.75</span><span class="p">,</span>  <span class="mf">1.</span>  <span class="p">])</span>
+</pre></div>
+
+
+<p>Además de los arrays, con NumPy también podemos manejar matrices. Aunque parecen lo mismo, se utilizan de manera distinta; si alguien quiere investigar las diferencias, puede consultar la página <a href="http://www.scipy.org/NumPy_for_Matlab_Users">NumPy para usuarios de MATLAB</a> (en inglés).</p>
+<!--more-->
+
+<p><strong>Nota</strong>: Aunque la traducción al castellano de array sería precisamente vector, para evitar confusión voy a seguir utilizando la palabra inglesa, como he venido haciendo desde que se creó el blog.</p>
+<p>Si queremos matrices, entonces hemos de usar la función <code>matrix</code>:</p>
+<div class="highlight"><pre><span></span>In [17]: v2 = np.matrix([0, 1, 2, 3])
+In [18]: v2
+Out[18]: matrix([[0, 1, 2, 3]])
+In [19]: np.transpose(v2)
+Out[19]:
+matrix([[0],
+        [1],
+        [2],
+        [3]])
+In [20]: v2.T
+Out[20]:
+matrix([[0],
+        [1],
+        [2],
+        [3]])
+In [27]: np.matrix(&quot;&quot;&quot;  # Para los nostálgicos
+   ....: 1, 2;
+   ....: 3, 4
+   ....: &quot;&quot;&quot;)
+Out[27]:
+matrix([[1, 2],
+        [3, 4]])
+</pre></div>
+
+
+<p>Las ventajas de usar matrices en el fondo son muy pocas y además la mayoría de funciones de NumPy maneja arrays, así que tendrías que convertir entre ambos tipos constantemente. Hoy mostraremos brevemente el uso de las matrices también, pero mejor utilizar arrays y olvidarse 😉</p>
+<h2>Operaciones básicas, expansión</h2>
+<h3>Suma</h3>
+<p>La suma de arrays y de matrices es igual: se realiza elemento a elemento. El producto por un escalar tampoco tiene misterio:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">a</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="kp">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span> <span class="o">+</span> <span class="n">m</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+<span class="kp">matrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">m</span>  <span class="c1"># Podemos sumar arrays y matrices</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+<span class="kp">matrix</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span>  <span class="c1"># Producto por un escalar</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span>
+<span class="kp">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="o">-</span><span class="n">m</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span>
+<span class="kp">matrix</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+        <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]])</span>
+</pre></div>
+
+
+<h3>Expansión o «broadcasting»</h3>
+<p>Si los objetos que estamos operando no tienen las mismas dimensiones, NumPy puede adaptar algunas de ellas para completar la operación. Esto se denomina <strong>broadcasting</strong> en inglés, y a falta de una traducción mejor y a menos que alguien tenga algo que objetar lo voy a denominar «<strong>expansión</strong>». Porque yo lo valgo.</p>
+<p>NumPy alinea los arrays a la derecha y empieza a comprobar las dimensiones por el final. Si son todas compatibles realiza la operación, y si no lanza un error. Dos dimensiones son compatibles si</p>
+<ol>
+<li>Son iguales, o</li>
+<li>Una de ellas es 1.</li>
+</ol>
+<p>Si los objetos no tienen el mismo número de dimensiones, se asume que las restantes son 1. Si dos dimensiones son distintas pero compatibles, la menor se <em>expande</em> hasta tener el tamaño de la mayor. Vamos a ver un par de ejemplos:</p>
+<div class="highlight"><pre><span></span>In [29]: c = np.zeros((3, 3))
+In [30]: c
+Out[30]:
+array([[ 0.,  0.,  0.],
+       [ 0.,  0.,  0.],
+       [ 0.,  0.,  0.]])
+In [31]: c.shape
+Out[31]: (3, 3)
+In [32]: n = np.array([1, 2, 3])
+In [33]: n
+Out[33]: array([1, 2, 3])
+In [34]: n.shape
+Out[34]: (3,)
+In [35]: n + c  # Se expande la primera dimensión de n
+Out[35]:
+array([[ 1.,  2.,  3.],
+       [ 1.,  2.,  3.],
+       [ 1.,  2.,  3.]])
+</pre></div>
+
+
+<p>&nbsp;</p>
+<div class="highlight"><pre><span></span>In [61]: xx = np.arange(4)
+In [62]: yy = np.arange(4).reshape((4, 1))
+In [63]: xx
+Out[63]: array([0, 1, 2, 3])
+In [64]: xx.shape
+Out[64]: (4,)
+In [65]: yy
+Out[65]:
+array([[0],
+       [1],
+       [2],
+       [3]])
+In [66]: yy.shape
+Out[66]: (4, 1)
+In [67]: xx + yy * 1j  # Se expanden la segunda dimensión de y y la primera de x
+Out[67]:
+array([[ 0.+0.j,  1.+0.j,  2.+0.j,  3.+0.j],
+       [ 0.+1.j,  1.+1.j,  2.+1.j,  3.+1.j],
+       [ 0.+2.j,  1.+2.j,  2.+2.j,  3.+2.j],
+       [ 0.+3.j,  1.+3.j,  2.+3.j,  3.+3.j]])
+</pre></div>
+
+
+<p>Como podéis ver, esto abre un mundo de posibilidades. Si queréis ampliarlas, podéis consultar el material de donde he sacado esto en la página <a href="http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html">Broadcasting</a> de la guía del usuario de NumPy.</p>
+<h3>Producto</h3>
+<p>En el producto es donde surgen las diferencias fundamentales entre arrays y matrices. Mientras que con los arrays el producto se hace elemento a elemento (y si las dimensiones no coinciden se expanden como hemos visto antes), el producto de matrices tiene, como ya sabemos, una definición totalmente distinta.</p>
+<p>Para el <strong>producto matricial</strong>:</p>
+<div class="highlight"><pre><span></span>In [69]: a = np.array([[1, 0], [2, -1]])
+In [70]: a
+Out[70]:
+array([[ 1,  0],
+       [ 2, -1]])
+In [71]: np.dot(a, a)
+Out[71]:
+array([[1, 0],
+       [0, 1]])
+In [72]: m = np.matrix(&#39;1 0; 2 -1&#39;)
+In [73]: m
+Out[73]:
+matrix([[ 1,  0],
+        [ 2, -1]])
+In [74]: m * m
+Out[74]:
+matrix([[1, 0],
+        [0, 1]])
+</pre></div>
+
+
+<p>Y para el <strong>producto elemento a elemento</strong></p>
+<div class="highlight"><pre><span></span>In [80]: a
+Out[80]:
+array([[ 1,  0],
+       [ 2, -1]])
+In [81]: a * a
+Out[81]:
+array([[1, 0],
+       [4, 1]])
+In [82]: m
+Out[82]:
+matrix([[ 1,  0],
+        [ 2, -1]])
+In [83]: np.multiply(m, m)
+Out[83]:
+matrix([[1, 0],
+        [4, 1]])
+</pre></div>
+
+
+<p>Nótese que con las matrices el producto «por defecto» es el producto tal y como lo conocemos en Álgebra Lineal.</p>
+<p>Ya hemos utilizado <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html">la función <code>dot</code></a>, que realiza un producto escalar entre sus dos argumentos, en este caso generalizado para matrices. NumPy también ofrece <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.inner.html">la función <code>inner</code></a>, que no es más que producto interior. Matemáticamente, el producto escalar es un caso particular del interior; en NumPy, ambos son idénticos para objetos de dimensión menor o igual que 2. Para arrays de dimensiones mayores que 2, se diferencian en las dimensiones sobre las que se suma.</p>
+<p>Con NumPy podemos calcular también el producto vectorial y el producto exterior de dos vectores, utilizando las funciones <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.cross.html"><code>cross</code></a> y <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.outer.html"><code>outer</code></a> respectivamente:</p>
+<div class="highlight"><pre><span></span>In [102]: u = np.arange(3)
+In [103]: v = 1 + np.arange(3)  # ¡Expansión sobre el 1!
+In [104]: u
+Out[104]: array([0, 1, 2])
+In [105]: v
+Out[105]: array([1, 2, 3])
+In [106]: np.cross(u, v)  # Producto vectorial
+Out[106]: array([-1,  2, -1])
+In [107]: np.outer(u, v)  # Producto exterior
+Out[107]:
+array([[0, 0, 0],
+       [1, 2, 3],
+       [2, 4, 6]])
+</pre></div>
+
+
+<h2>Norma y determinante</h2>
+<p>NumPy ofrece también diversas funciones para calcular la norma y el determinante de un array. Para calcular el determinante de un array de dimensión 2 utilizamos la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.det.html"><code>linalg.det</code></a>. También podemos conocer la traza con la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.trace.html"><code>trace</code></a>:</p>
+<div class="highlight"><pre><span></span>In [111]: a
+Out[111]:
+array([[ 1,  0],
+       [ 2, -1]])
+In [112]: np.linalg.det(a)
+Out[112]: -1.0
+In [113]: np.trace(a)
+Out[113]: 0
+</pre></div>
+
+
+<p>Con NumPy podemos obtener también la norma de un array de cualquier dimensión y el número de condición de un array bidimensional. Para ello utilizamos las funciones <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.norm.html"><code>linalg.norm</code></a> y <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.cond.html"><code>linalg.cond</code></a> respectivamente, que aceptan un segundo argumento: el tipo de norma utilizado. Así, podemos conocer la norma-2 de un vector $||v||_2$ o la norma infinito o del supremo de una matriz $||A||_{infty}$. Para una lista completa, puedes consultar la documentación.</p>
+<div class="highlight"><pre><span></span>In [121]: a
+Out[121]:
+array([[ 1,  0],
+       [ 2, -1]])
+In [122]: np.linalg.norm(a)
+Out[122]: 2.4494897427831779
+In [123]: np.linalg.norm(a, np.inf)
+Out[123]: 3
+In [124]: np.linalg.norm(a, 1)
+Out[124]: 3
+In [125]: v
+Out[125]: array([1, 2, 3])
+In [126]: np.linalg.norm(v)
+Out[126]: 3.7416573867739413
+In [127]: np.linalg.norm(v, np.inf)
+Out[127]: 3
+In [128]: np.linalg.norm(v, 1)
+Out[128]: 6
+In [129]: np.linalg.norm(v, -np.inf)
+Out[129]: 1
+In [130]: np.linalg.cond(a)
+Out[130]: 5.828427124746189
+In [131]: np.linalg.cond(a, np.inf)
+Out[131]: 9.0
+</pre></div>
+
+
+<h2>Convenio de Einstein</h2>
+<p>Finalmente, y como regalo a los que hayan llegado hasta aquí abajo, os enseñamos que con NumPy podemos utilizar el <a href="http://es.wikipedia.org/wiki/Convenio_de_sumaci%C3%B3n_de_Einstein" title="Convenio de sumación de Einstein">convenio de sumación de Einstein</a>, utilizando la función <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.einsum.html"><code>einsum</code></a>. Para los que conozcan un poco de álgebra tensorial, esta función les va a encantar: con ella podemos hacer todo lo que hemos visto anteriormente y mucho más. En la documentación viene explicado detenidamente cómo utilizarla y hay unos cuantos ejemplos; vamos a ver algunos:</p>
+<div class="highlight"><pre><span></span>In [135]: a
+Out[135]:
+array([[ 1,  0],
+       [ 2, -1]])
+In [136]: np.trace(a)
+Out[136]: 0
+In [137]: np.einsum(&#39;ii&#39;, a)  # Traza
+Out[137]: 0
+In [138]: np.diag(a)
+Out[138]: array([ 1, -1])
+In [139]: np.einsum(&#39;ii -&gt; i&#39;, a)  # Diagonal
+Out[139]: array([ 1, -1])
+In [140]: np.dot(a, a)
+Out[140]:
+array([[1, 0],
+       [0, 1]])
+In [142]: np.einsum(&#39;ij, jk&#39;, a, a)  # Producto matricial
+Out[142]:
+array([[1, 0],
+       [0, 1]])
+In [143]: u = np.array([1, -2])
+In [144]: u
+Out[144]: array([ 1, -2])
+In [145]: np.dot(a, u)
+Out[145]: array([1, 4])
+In [146]: np.einsum(&#39;ij, j&#39;, a, u)  # Matriz por vector
+Out[146]: array([1, 4])
+In [147]: np.dot(u, u)
+Out[147]: 5
+In [151]: np.einsum(&#39;i, i&#39;, u, u)  # Producto escalar por sí mismo
+Out[151]: 5
+In [153]: np.outer(u, u)
+Out[153]:
+array([[ 1, -2],
+       [-2,  4]])
+In [154]: np.einsum(&#39;i, j&#39;, u, u)  # Producto exterior
+Out[154]:
+array([[ 1, -2],
+       [-2,  4]])
+</pre></div>
+
+
+<p>Las posibilidades que esto ofrece son enormes. Puedes probar a jugar con tensores de mayor orden, como por ejemplo el símbolo de Levi-Civita.</p>
+<p>https://gist.github.com/2689795</p>
+<p>¡Y esto ha sido todo por hoy! Ha salido un artículo un poco largo porque he intentado mostrar el abanico de posibilidades que ofrece NumPy. Espero que te haya resultado interesante y que no olvides que puedes difundir el artículo, así como hacernos llegar tus <a href="#respond">comentarios</a>.</p>
+<p>¡Un saludo!</p>
+<h2>Referencias</h2>
+<ul>
+<li>BORRELL I NOGUERAS, Guillem. <em>Matemáticas en Ingeniería con Matlab y Octave</em>. Recuperado el 5 de junio de 2012 de &lt;<a href="http://iimyo.forja.rediris.es/">http://iimyo.forja.rediris.es/</a>&gt;.</li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/algebra-lineal.html" class="tag">álgebra lineal</a>
+                    <a href="http://pybonacci.github.io/tag/arrays.html" class="tag">arrays</a>
+                    <a href="http://pybonacci.github.io/tag/matrices.html" class="tag">matrices</a>
+                    <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/vectores.html" class="tag">vectores</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

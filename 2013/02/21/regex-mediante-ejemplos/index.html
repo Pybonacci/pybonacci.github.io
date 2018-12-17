@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Regex mediante ejemplos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Regex mediante ejemplos</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 21 febrero 2013</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Las expresiones regulares, regex o regexp siempre me han parecido algo especialmente críptico. La realidad es que nunca les dediqué un mínimo de tiempo ya que en el trabajo todo es para ayer y siempre acabo acudiendo a soluciones 'stackoverfloweras' donde los super expertos siempre están ahí (<a href="http://python.majibu.org/preguntas/2122/reemplazar-patron-usando-expresiones-regulares">gracias chicos</a>). Pero se acabó, aprovechando que estoy en un avión y tengo unas horas y que me he planificado y descargado varios recursos previamente para poder trabajar 'offline' voy a aprovechar para intentar que lo aprendamos o, al menos, nos introduzcamos en ello mediante ejemplos y, así, nos acerquemos más a ser unos expertos mineros de datos y podamos extraer la correcta información a analizar.</p>
+<p>Aunque en python se puedan buscar patrones de otras formas diferentes vamos a usar el módulo <a href="http://docs.python.org/3.3/library/re.html"><em>re</em></a> de la librería estándar.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+
+<p>Vamos al lío. Imaginad que tenéis una cadena de e-mails en texto plano formateados de la forma que figura a continuación.</p>
+<div class="highlight"><pre><span></span><span class="n">texto</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">De: monete_que_no_ve@lostresmonetes.net</span>
+<span class="s2">Enviado el: Jueves, 18 de noviembre de 2012 a las 13:22</span>
+<span class="s2">Para: torpedo@submarino.com</span>
+<span class="s2">Asunto: Re: Conquistar el mundo</span>
+<span class="s2">Hola.</span>
+<span class="s2">Aapfojewagf ajwa wjepofoisa jvgoisajigf jewapoijewagomsod moisjaoigjpoewijsn dsanigeaoi.</span>
+<span class="s2">Ajfpoijwafe sodvm osznfinewahaw eoansjgndsakjnglkjds.</span>
+<span class="s2">Alkjndszkng aigpiewannalkjndkjnlkjdznvns ln sa nfpoiewa npoinpewnpofn.</span>
+<span class="s2">N&amp;lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.</span>
+<span class="s2">De: torpedo@submarino.com</span>
+<span class="s2">Enviado el: Jueves, 18 de noviembre de 2012 a las 12:42</span>
+<span class="s2">Para: monete_que_no_ve@lostresmonetes.net</span>
+<span class="s2">Asunto: Re: Conquistar el mundo</span>
+<span class="s2">Hola.</span>
+<span class="s2">Aapfojewagf ajwa wjepofoisa jvgoisajigf jewapoijewagomsod moisjaoigjpoewijsn dsanigeaoi.</span>
+<span class="s2">Ajfpoijwafe sodvm osznfinewahaw eoansjgndsakjnglkjds.</span>
+<span class="s2">Alkjndszkng aigpiewannalkjndkjnlkjdznvns ln sa nfpoiewa npoinpewnpofn.</span>
+<span class="s2">N&amp;lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.</span>
+<span class="s2">De: monete_que_no_ve@lostresmonetes.net</span>
+<span class="s2">Enviado el: Jueves, 18 de noviembre de 2012 a las 11:57</span>
+<span class="s2">Para: torpedo@submarino.com</span>
+<span class="s2">Asunto: Re: Conquistar el mundo</span>
+<span class="s2">Hola.</span>
+<span class="s2">Aapfojewagf ajwa wjepofoisa jvgoisajigf jewapoijewagomsod moisjaoigjpoewijsn dsanigeaoi.</span>
+<span class="s2">Ajfpoijwafe sodvm osznfinewahaw eoansjgndsakjnglkjds.</span>
+<span class="s2">Alkjndszkng aigpiewannalkjndkjnlkjdznvns ln sa nfpoiewa npoinpewnpofn.</span>
+<span class="s2">N&amp;lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.</span>
+<span class="s2">De: torpedo@submarino.com</span>
+<span class="s2">Enviado el: Jueves, 18 de noviembre de 2012 a las 11:54</span>
+<span class="s2">Para: monete_que_no_ve@lostresmonetes.net</span>
+<span class="s2">Asunto: Re: Conquistar el mundo</span>
+<span class="s2">Hola.</span>
+<span class="s2">Aapfojewagf ajwa wjepofoisa jvgoisajigf jewapoijewagomsod moisjaoigjpoewijsn dsanigeaoi.</span>
+<span class="s2">Ajfpoijwafe sodvm osznfinewahaw eoansjgndsakjnglkjds.</span>
+<span class="s2">Alkjndszkng aigpiewannalkjndkjnlkjdznvns ln sa nfpoiewa npoinpewnpofn.</span>
+<span class="s2">N&amp;lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.</span>
+<span class="s2">De: monete_que_no_ve@lostresmonetes.net</span>
+<span class="s2">Enviado el: Jueves, 18 de noviembre de 2012 a las 09:15</span>
+<span class="s2">Para: torpedo@submarino.com</span>
+<span class="s2">Asunto: Conquistar el mundo</span>
+<span class="s2">Hola.</span>
+<span class="s2">Aapfojew mi primo el monete que no habla (Monete.que.no.habla@lostresmonetes.net) agf ajwa wjepofoisa jvgoisajigf.</span>
+<span class="s2">Para la ninia + w@pa del tuenti, hoygan (Monete_que_no_escucha@lostresmonetes.co.uk).</span>
+<span class="s2">Ajfpoijwafe sodvm osznfinewahaw eoansjgndsakjnglkjds.</span>
+<span class="s2">Alkjndszkng aigpiewannalkjndkjnlkjdznvns ln sa nfpoiewa npoinpewnpofn.</span>
+<span class="s2">N&amp;lt;sznvcknvknkxzvnoisajpoijewaoi jmsam lkvznapiunea engnal nfsl.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</pre></div>
+
+
+<p>Imaginad que nuestro problema es que queremos saber cuantas direcciones de correo diferentes aparecen en toda la cadena de correos anterior (almacenada en la variable 'texto'. Para la cadena anterior sería sencillo hacerlo a mano, pero imaginad que hay miles de correos.</p>
+<p>Una forma sería usar el siguiente patrón: <code>'S+@S+'</code> donde:</p>
+<ul>
+<li>
+<p><code>'S'</code> encuentra cualquier caracter que no sea un espacio en blanco (en las direcciones de correo no está permitido usar espacios en blanco). Sería equivalente a usar <code>r'[^ tnrfv]'</code> (mirad <a href="http://docs.python.org/3.3/library/re.html#regular-expression-syntax">aquí</a> para ver qué es esto último entre corchetes)</p>
+</li>
+<li>
+<p><code>'+'</code> indica que hay que encontrar al menos un caracter que no sea un espacio en blanco</p>
+</li>
+<li>
+<p><code>'@'</code> indica la arroba 🙂</p>
+</li>
+</ul>
+<p>No voy a hablar de ninguna de las funciones del módulo <a href="http://docs.python.org/3.3/library/re.html"><em>re</em></a> ya que para eso tenéis la documentación oficial de python. Empezaré usando la función <a href="http://docs.python.org/3.3/library/re.html#re.findall"><em>findall</em></a> para los primeros ejemplos.</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;S+@S+&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">))</span>
+</pre></div>
+
+
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;(Monete.que.no.habla@lostresmonetes.net)&#39;</span><span class="p">,</span> <span class="s1">&#39;w@pa&#39;</span><span class="p">,</span> <span class="s1">&#39;(Monete_que_no_escucha@lostresmonetes.co.uk).&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Vaya, entre los resultados se nos han colado cosas que no serían direcciones de correo (los tres últimos elementos de la lista). Vamos a intentar solucionarlo usando un patrón un poco más complejo.</p>
+<p>El patrón propuesto ahora sería algo como lo siguiente: <code>'w+@w+'</code> donde:</p>
+<ul>
+<li>
+<p><code>'w'</code> encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo <code>'_'</code>). Esto sería equivalente a usar <code>r'[a-zA-Z0-9_]'</code></p>
+</li>
+<li>
+<p><code>'+'</code> indica que hay que encontrar al menos un caracter que no sea un espacio en blanco</p>
+</li>
+<li>
+<p><code>'@'</code> indica la arroba</p>
+<p>:::python
+print(re.findall('w+@w+',texto))</p>
+</li>
+</ul>
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;monete_que_no_ve@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino&#39;</span><span class="p">,</span> <span class="s1">&#39;habla@lostresmonetes&#39;</span><span class="p">,</span> <span class="s1">&#39;w@pa&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete_que_no_escucha@lostresmonetes&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Ups, vaya, como hemos usado 'w' se han perdido las terminaciones de las direcciones de correo a continuación del símbolo '.' ('.net', '.com', '.co.uk') ya que no está incluido en la búsqueda. También vemos que hemos extraído incorrectamente una de las direcciones de correo que usa '.' antes de la '@' ('Monete.que.no.habla@lostresmonetes.net')</p>
+<p>Vamos a volver a probar con un patrón diferente: <code>r'w+[.]*@w+[.]*w+'</code> donde:</p>
+<ul>
+<li>
+<p><code>'w'</code> encuentra cualquier caracter que sea alfanumérico (todas las letras mayúsculas y minúsculas, los números y el símbolo <code>'_'</code>). Esto sería equivalente a usar <code>[a-zA-Z0-9]</code></p>
+</li>
+<li>
+<p><code>'[.]'</code> incluye el símbolo <code>'.'</code> dentro del patrón a buscar. Sería equivalente a usar <code>r'[a-zA-Z0-9_.]'</code></p>
+</li>
+<li>
+<p><code>'+'</code> indica que hay que encontrar al menos un caracter que no sea un espacio en blanco</p>
+</li>
+<li>
+<p><code>'@'</code> indica la arroba</p>
+<p>:::python
+print(re.findall(r'w+[.]<em>@w+[.]</em>w+', texto))</p>
+</li>
+</ul>
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;habla@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;w@pa&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete_que_no_escucha@lostresmonetes.co&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Vaya. Hemos recuperado las terminaciones del <em>host</em> ('.net', '.com') pero no hemos recuperado correctamente la dirección de correo errónea ni la dirección del correo con terminación '.co.uk'... ¿Qué podemos hacer? Pues probar con otro patrón que haga lo que necesitamos.</p>
+<p>El patrón propuesto ahora sería: <code>r'[w.]*@[w.]*'</code> donde:</p>
+<ul>
+<li>
+<p>'[w.]*' busca cualquier cosa que contenga una letra (desde la <em>a</em> la <em>z</em> en mayúsculas o minúsculas), un número, el símbolo <code>'_'</code> y/o el símbolo <code>'.'</code></p>
+</li>
+<li>
+<p><code>'@'</code> indica la arroba</p>
+<p>:::python
+print(re.findall(r'[w.]<em>@[w.]</em>', texto))</p>
+</li>
+</ul>
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete.que.no.habla@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;w@pa&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete_que_no_escucha@lostresmonetes.co.uk&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Maldición, se nos ha seguido colando una cosa que no es una dirección de correo. Podría eliminarla pidiéndo que después de la arroba deba figurar al menos un símbolo <code>'.'</code>.</p>
+<p>Nuevo patrón: <code>r'[w.]*@w*.[w.]*'</code> donde:</p>
+<ul>
+<li>
+<p><code>'[w.]*'</code> busca cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo <code>'_'</code> y/o el símbolo <code>'.'</code></p>
+</li>
+<li>
+<p><code>'@'</code> indica la arroba</p>
+</li>
+<li>
+<p><code>'w+.[w.]*'</code> primero busca cualquier cosa que contenga al menos una letra (desde la a la z en mayúsculas o minúsculas), un número y/o el símbolo <code>'_'</code>, segundo, exige que haya un punto y, por último, vuelve a buscar cualquier cosa que contenga una letra (desde la a la z en mayúsculas o minúsculas), un número, el símbolo <code>'_'</code> y/o el símbolo <code>'.'</code>. Es decir, este último subpatrón encontraría cosas como por ejemplo 'hola.com', 'hola.co.uk', 'hola_.com', 'hola.co_m',..., que no tienen que ser correctas como dominio o 'host' pero que permiten filtrar a 'w@pa'</p>
+<p>:::python
+print(re.findall(r'[w.]<em>@w+.[w.]</em>', texto))</p>
+</li>
+</ul>
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;monete_que_no_ve@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;torpedo@submarino.com&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete.que.no.habla@lostresmonetes.net&#39;</span><span class="p">,</span> <span class="s1">&#39;Monete_que_no_escucha@lostresmonetes.co.uk&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>¿Qué pasa si, por la razón que sea, queremos obtener el usuario del correo y el dominio por separado para ¡lo que sea que se te ocurra!? Ha llegado el momento de introducir los grupos. Los grupos son patrones o subpatrones encerrados entre paréntesis.</p>
+<p>Podemos proponer el siguiente patrón y ver qué pasa: <code>r'([w.]*)@(w+.[w.]*)'</code></p>
+<p>Este patrón es el mismo que el de antes pero encerrando lo que queremos que sea un grupo entre paréntesis.</p>
+<p>Para el siguiente ejemplo vamos a usar la función <a href="http://docs.python.org/3.3/library/re.html#re.finditer"><em>finditer</em></a> en lugar de la función <a href="http://docs.python.org/3.3/library/re.html#re.findall"><em>findall</em></a>, ambas del módulo <a href="http://docs.python.org/3.3/library/re.html"><em>re</em></a>.</p>
+<div class="highlight"><pre><span></span><span class="n">iterador</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;([w.]*)@(w+.[w.]*)&#39;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">hosts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">tupla</span> <span class="ow">in</span> <span class="n">iterador</span><span class="p">:</span>
+    <span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Nos han escrito:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">users</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="n">user</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;desde los siguientes dominios&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">hosts</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="n">host</span><span class="p">)</span>
+</pre></div>
+
+
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="n">Nos</span> <span class="n">han</span> <span class="n">escrito</span><span class="p">:</span>
+  <span class="n">torpedo</span>
+  <span class="n">Monete</span><span class="o">.</span><span class="n">que</span><span class="o">.</span><span class="n">no</span><span class="o">.</span><span class="n">habla</span>
+  <span class="n">Monete_que_no_escucha</span>
+  <span class="n">monete_que_no_ve</span>
+<span class="n">desde</span> <span class="n">los</span> <span class="n">siguientes</span> <span class="n">dominios</span>
+  <span class="n">submarino</span><span class="o">.</span><span class="n">com</span>
+  <span class="n">lostresmonetes</span><span class="o">.</span><span class="n">net</span>
+  <span class="n">lostresmonetes</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+
+
+<p>El iterador devuelve un <a href="http://docs.python.org/3.3/library/re.html#match-objects">objeto Match</a>, que es una clase con sus métodos y sus cosicas. El método <em>group</em> nos devolverá el elemento del grupo que le pidamos. En este caso se usaría el índice <em>1</em> para el primer grupo, <em>2</em> para el segundo y __ o nada para que nos devuelva todo lo encontrado con el patrón usado, es decir, lo mismo que si no hubiéramos usado grupos.</p>
+<p>En este caso solo se usan dos grupos en el patrón pero podría darse el caso de que el patrón se volviese más complejo y nos interesase incluir más grupos. Para evitar liarnos podríamos usar nombres para los grupos de la siguiente manera:</p>
+<p>Patrón: <code>r'(?P&lt;users&gt;[w.]*)@(?P&lt;hosts&gt;w+.[w.]*)'</code> donde:</p>
+<ul>
+<li><code>'?P&lt;nombre_del_grupo&gt;'</code> es la forma de identificar el grupo con <code>nombre_del_grupo</code> siendo el valor que quieras usar para nombrar a ese determinado grupo.</li>
+</ul>
+<p>En la pieza de código siguiente deberéis reemplazar en la primera línea <code>patron</code> por <code>r'(?P&lt;users&gt;[w.]*)@(?P&lt;hosts&gt;w+.[w.]*)'</code>. Disculpad las molestias pero wordpress.com 'escapa' algunas cosas del código.</p>
+<div class="highlight"><pre><span></span><span class="n">iterador</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>
+<span class="n">hosts</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">tupla</span> <span class="ow">in</span> <span class="n">iterador</span><span class="p">:</span>
+    <span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">))</span>
+    <span class="n">hosts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tupla</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;hosts&#39;</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Nos han escrito:&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">users</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="n">user</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;desde los siguientes dominios&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">hosts</span><span class="p">):</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="n">host</span><span class="p">)</span>
+</pre></div>
+
+
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="n">Nos</span> <span class="n">han</span> <span class="n">escrito</span><span class="p">:</span>
+  <span class="n">torpedo</span>
+  <span class="n">Monete</span><span class="o">.</span><span class="n">que</span><span class="o">.</span><span class="n">no</span><span class="o">.</span><span class="n">habla</span>
+  <span class="n">Monete_que_no_escucha</span>
+  <span class="n">monete_que_no_ve</span>
+<span class="n">desde</span> <span class="n">los</span> <span class="n">siguientes</span> <span class="n">dominios</span>
+  <span class="n">submarino</span><span class="o">.</span><span class="n">com</span>
+  <span class="n">lostresmonetes</span><span class="o">.</span><span class="n">net</span>
+  <span class="n">lostresmonetes</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">uk</span>
+</pre></div>
+
+
+<p>Ahora queremos sustituir la dirección del usuario por otro patrón para así ocultar sus direcciones. Eso lo podemos hacer mediante las funciones <a href="http://docs.python.org/3.3/library/re.html#re.sub"><em>sub</em></a> o <a href="http://docs.python.org/3.3/library/re.html#re.subn"><em>subn</em></a> de la siguiente forma.</p>
+<p>En la pieza de código siguiente deberéis reemplazar en la primera línea <code>patron</code> por <code>r'(?P&lt;users&gt;[w.]*)@(?P&lt;hosts&gt;w+.[w.]*)'</code> y <code>patron2</code> por <code>r'----------@g&lt;hosts&gt;'</code>. Disculpad las molestias pero wordpress.com 'escapa' algunas cosas del código.</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">patron</span><span class="p">,</span> <span class="n">patron2</span><span class="p">,</span> <span class="n">texto</span><span class="p">))</span>
+</pre></div>
+
+
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="n">De</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@lostresmonetes.net</span>
+<span class="n">Enviado</span> <span class="n">el</span><span class="p">:</span> <span class="n">Jueves</span><span class="p">,</span> <span class="mi">18</span> <span class="n">de</span> <span class="n">noviembre</span> <span class="n">de</span> <span class="mi">2012</span> <span class="n">a</span> <span class="n">las</span> <span class="mi">13</span><span class="p">:</span><span class="mi">22</span>
+<span class="n">Para</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@submarino.com</span>
+<span class="n">Asunto</span><span class="p">:</span> <span class="n">Re</span><span class="p">:</span> <span class="n">Conquistar</span> <span class="n">el</span> <span class="n">mundo</span>
+<span class="n">Hola</span><span class="o">.</span>
+<span class="n">Aapfojewagf</span> <span class="n">ajwa</span> <span class="n">wjepofoisa</span> <span class="n">jvgoisajigf</span> <span class="n">jewapoijewagomsod</span> <span class="n">moisjaoigjpoewijsn</span> <span class="n">dsanigeaoi</span><span class="o">.</span>
+<span class="n">Ajfpoijwafe</span> <span class="n">sodvm</span> <span class="n">osznfinewahaw</span> <span class="n">eoansjgndsakjnglkjds</span><span class="o">.</span>
+<span class="n">Alkjndszkng</span> <span class="n">aigpiewannalkjndkjnlkjdznvns</span> <span class="n">ln</span> <span class="n">sa</span> <span class="n">nfpoiewa</span> <span class="n">npoinpewnpofn</span><span class="o">.</span>
+<span class="n">N</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">sznvcknvknkxzvnoisajpoijewaoi</span> <span class="n">jmsam</span> <span class="n">lkvznapiunea</span> <span class="n">engnal</span> <span class="n">nfsl</span><span class="o">.</span>
+<span class="n">De</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@submarino.com</span>
+<span class="n">Enviado</span> <span class="n">el</span><span class="p">:</span> <span class="n">Jueves</span><span class="p">,</span> <span class="mi">18</span> <span class="n">de</span> <span class="n">noviembre</span> <span class="n">de</span> <span class="mi">2012</span> <span class="n">a</span> <span class="n">las</span> <span class="mi">12</span><span class="p">:</span><span class="mi">42</span>
+<span class="n">Para</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@lostresmonetes.net</span>
+<span class="n">Asunto</span><span class="p">:</span> <span class="n">Re</span><span class="p">:</span> <span class="n">Conquistar</span> <span class="n">el</span> <span class="n">mundo</span>
+<span class="n">Hola</span><span class="o">.</span>
+<span class="n">Aapfojewagf</span> <span class="n">ajwa</span> <span class="n">wjepofoisa</span> <span class="n">jvgoisajigf</span> <span class="n">jewapoijewagomsod</span> <span class="n">moisjaoigjpoewijsn</span> <span class="n">dsanigeaoi</span><span class="o">.</span>
+<span class="n">Ajfpoijwafe</span> <span class="n">sodvm</span> <span class="n">osznfinewahaw</span> <span class="n">eoansjgndsakjnglkjds</span><span class="o">.</span>
+<span class="n">Alkjndszkng</span> <span class="n">aigpiewannalkjndkjnlkjdznvns</span> <span class="n">ln</span> <span class="n">sa</span> <span class="n">nfpoiewa</span> <span class="n">npoinpewnpofn</span><span class="o">.</span>
+<span class="n">N</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">sznvcknvknkxzvnoisajpoijewaoi</span> <span class="n">jmsam</span> <span class="n">lkvznapiunea</span> <span class="n">engnal</span> <span class="n">nfsl</span><span class="o">.</span>
+<span class="n">De</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@lostresmonetes.net</span>
+<span class="n">Enviado</span> <span class="n">el</span><span class="p">:</span> <span class="n">Jueves</span><span class="p">,</span> <span class="mi">18</span> <span class="n">de</span> <span class="n">noviembre</span> <span class="n">de</span> <span class="mi">2012</span> <span class="n">a</span> <span class="n">las</span> <span class="mi">11</span><span class="p">:</span><span class="mi">57</span>
+<span class="n">Para</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@submarino.com</span>
+<span class="n">Asunto</span><span class="p">:</span> <span class="n">Re</span><span class="p">:</span> <span class="n">Conquistar</span> <span class="n">el</span> <span class="n">mundo</span>
+<span class="n">Hola</span><span class="o">.</span>
+<span class="n">Aapfojewagf</span> <span class="n">ajwa</span> <span class="n">wjepofoisa</span> <span class="n">jvgoisajigf</span> <span class="n">jewapoijewagomsod</span> <span class="n">moisjaoigjpoewijsn</span> <span class="n">dsanigeaoi</span><span class="o">.</span>
+<span class="n">Ajfpoijwafe</span> <span class="n">sodvm</span> <span class="n">osznfinewahaw</span> <span class="n">eoansjgndsakjnglkjds</span><span class="o">.</span>
+<span class="n">Alkjndszkng</span> <span class="n">aigpiewannalkjndkjnlkjdznvns</span> <span class="n">ln</span> <span class="n">sa</span> <span class="n">nfpoiewa</span> <span class="n">npoinpewnpofn</span><span class="o">.</span>
+<span class="n">N</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">sznvcknvknkxzvnoisajpoijewaoi</span> <span class="n">jmsam</span> <span class="n">lkvznapiunea</span> <span class="n">engnal</span> <span class="n">nfsl</span><span class="o">.</span>
+<span class="n">De</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@submarino.com</span>
+<span class="n">Enviado</span> <span class="n">el</span><span class="p">:</span> <span class="n">Jueves</span><span class="p">,</span> <span class="mi">18</span> <span class="n">de</span> <span class="n">noviembre</span> <span class="n">de</span> <span class="mi">2012</span> <span class="n">a</span> <span class="n">las</span> <span class="mi">11</span><span class="p">:</span><span class="mi">54</span>
+<span class="n">Para</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@lostresmonetes.net</span>
+<span class="n">Asunto</span><span class="p">:</span> <span class="n">Re</span><span class="p">:</span> <span class="n">Conquistar</span> <span class="n">el</span> <span class="n">mundo</span>
+<span class="n">Hola</span><span class="o">.</span>
+<span class="n">Aapfojewagf</span> <span class="n">ajwa</span> <span class="n">wjepofoisa</span> <span class="n">jvgoisajigf</span> <span class="n">jewapoijewagomsod</span> <span class="n">moisjaoigjpoewijsn</span> <span class="n">dsanigeaoi</span><span class="o">.</span>
+<span class="n">Ajfpoijwafe</span> <span class="n">sodvm</span> <span class="n">osznfinewahaw</span> <span class="n">eoansjgndsakjnglkjds</span><span class="o">.</span>
+<span class="n">Alkjndszkng</span> <span class="n">aigpiewannalkjndkjnlkjdznvns</span> <span class="n">ln</span> <span class="n">sa</span> <span class="n">nfpoiewa</span> <span class="n">npoinpewnpofn</span><span class="o">.</span>
+<span class="n">N</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">sznvcknvknkxzvnoisajpoijewaoi</span> <span class="n">jmsam</span> <span class="n">lkvznapiunea</span> <span class="n">engnal</span> <span class="n">nfsl</span><span class="o">.</span>
+<span class="n">De</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@lostresmonetes.net</span>
+<span class="n">Enviado</span> <span class="n">el</span><span class="p">:</span> <span class="n">Jueves</span><span class="p">,</span> <span class="mi">18</span> <span class="n">de</span> <span class="n">noviembre</span> <span class="n">de</span> <span class="mi">2012</span> <span class="n">a</span> <span class="n">las</span> <span class="mi">09</span><span class="p">:</span><span class="mi">15</span>
+<span class="n">Para</span><span class="p">:</span> <span class="o">----------</span><span class="nd">@submarino.com</span>
+<span class="n">Asunto</span><span class="p">:</span> <span class="n">Conquistar</span> <span class="n">el</span> <span class="n">mundo</span>
+<span class="n">Hola</span><span class="o">.</span>
+<span class="n">Aapfojew</span> <span class="n">mi</span> <span class="n">primo</span> <span class="n">el</span> <span class="n">monete</span> <span class="n">que</span> <span class="n">no</span> <span class="n">habla</span> <span class="p">(</span><span class="o">----------</span><span class="nd">@lostresmonetes.net</span><span class="p">)</span> <span class="n">agf</span> <span class="n">ajwa</span> <span class="n">wjepofoisa</span> <span class="n">jvgoisajigf</span><span class="o">.</span>
+<span class="n">Para</span> <span class="n">la</span> <span class="n">ninia</span> <span class="o">+</span> <span class="n">w</span><span class="nd">@pa</span> <span class="k">del</span> <span class="n">tuenti</span><span class="p">,</span> <span class="n">hoygan</span> <span class="p">(</span><span class="o">----------</span><span class="nd">@lostresmonetes.co.uk</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Ajfpoijwafe</span> <span class="n">sodvm</span> <span class="n">osznfinewahaw</span> <span class="n">eoansjgndsakjnglkjds</span><span class="o">.</span>
+<span class="n">Alkjndszkng</span> <span class="n">aigpiewannalkjndkjnlkjdznvns</span> <span class="n">ln</span> <span class="n">sa</span> <span class="n">nfpoiewa</span> <span class="n">npoinpewnpofn</span><span class="o">.</span>
+<span class="n">N</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">sznvcknvknkxzvnoisajpoijewaoi</span> <span class="n">jmsam</span> <span class="n">lkvznapiunea</span> <span class="n">engnal</span> <span class="n">nfsl</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Y, de momento, ya vale. Solo hemos rascado un poco pero espero que os haya valido de algo. Si encuentro tiempo habrá un capítulo II con más ejemplos para que este tutorial o lo que sea que haya salido se amplíe con cosas más complejas (a medida que tenga más soltura con ello).</p>
+<p>Si queréis seguir por vuestra cuenta podéis usar:</p>
+<p><a href="http://docs.python.org/3.3/library/re.html">La documentación oficial del módulo re</a></p>
+<p><a href="http://docs.python.org/2/howto/regex.html">El HOW-TO de la documentación oficial</a></p>
+<p><a href="https://developers.google.com/edu/python/regular-expressions">Expresiones regulares en Google-developers</a></p>
+<p><a href="http://kodos.sourceforge.net/">La aplicación de escritorio KODOS</a> o una <a href="http://www.pythonregex.com/">versión online</a> de la misma herramienta.</p>
+<p><a href="http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Dstripbooks&amp;field-keywords=regular%20expressions&amp;sprefix=regular%2B%2Cstripbooks&amp;rh=n:283155%2Ck%3Aregular%20expressions">Algún completo libro sobre expresiones regulares</a></p>
+<p>Saludos.</p>
+<p>P.D.: Como siempre, se aceptan todo tipo de críticas constructivas y se agradecen todo tipo de correcciones a cosas incorrectas que haya dicho.</p>
+<h5><em>This post has been published on wordpress.com from an ipython notebook using <a href="https://github.com/kikocorreoso/ipynb2wp">ipynb2wp</a></em></h5>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/expresiones-regulares.html" class="tag">expresiones regulares</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/re.html" class="tag">re</a>
+                    <a href="http://pybonacci.github.io/tag/regex.html" class="tag">regex</a>
+                    <a href="http://pybonacci.github.io/tag/regexp.html" class="tag">regexp</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

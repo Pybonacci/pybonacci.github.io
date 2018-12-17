@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Ecuaciones no lineales: método de bisección y método de Newton en Python | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Ecuaciones no lineales: método de bisección y método de Newton en Python</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 18 abril 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En este artículo vamos a ver cómo implementar en Python el <strong>método de bisección</strong> y el <strong>método de Newton</strong>, dos métodos iterativos clásicos para hallar raíces de ecuaciones no lineales de la forma $f(x) = 0$, con $f: [a, b] \longrightarrow \mathbb{R}$ y $f \in C^1([a, b])$. Estos métodos y muchos otros más refinados están ya implementados en multitud de bibliotecas muy utilizadas, sin ir más lejos en el módulo <a href="http://docs.scipy.org/doc/scipy/reference/tutorial/optimize.html#root-finding"><code>optimize</code></a> del paquete Scipy (<a href="http://docs.scipy.org/doc/scipy/reference/optimize.html#root-finding">referencia</a>).</p>
+<p>Crearemos un módulo <code>ceros.py</code> en el que incluiremos los dos métodos que vamos a desarrollar aquí, y así veremos un ejemplo de código limpio y fácilmente reutilizable.</p>
+<h2>Módulo <code>ceros.py</code></h2>
+<p>Vamos a ver la anatomía de un módulo en Python. Este es el código del archivo:</p>
+<!--more-->
+
+<div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;Búsqueda de raíces</span>
+<span class="sd">Este módulo contiene métodos para la búsqueda de raíces de ecuaciones de la</span>
+<span class="sd">forma f(x) = 0, con f función real de variable real, continua y de derivada</span>
+<span class="sd">continua.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">biseccion</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Método de bisección&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+<span class="k">def</span> <span class="nf">newton</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Método de Newton&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+
+
+<p>Analicemos el código:</p>
+<ul>
+<li>La primera línea es fundamental en Python 2 si vamos a usar caracteres que se salen de ASCII. En ella especificamos que la codificación sea UTF-8, como viene recogido en la <a href="http://www.python.org/dev/peps/pep-0263/" title="PEP 263 -- Defining Python Source Code Encodings">PEP 263</a>.</li>
+<li>La línea entre triples comillas dobles es lo que se llama <em>docstring</em> o cadena de documentación del módulo, y siempre es una cadena que se pone al principio del archivo, como viene especificado en la <a href="http://www.python.org/dev/peps/pep-0257/" title="PEP 257 -- Docstring Conventions - Python">PEP 257</a>. Lo de usar triples comillas nos aseguramos de que podemos incluir saltos de línea.</li>
+<li>Definimos dos funciones, también con su <em>docstring</em>. La palabra clave <code>pass</code> se utiliza para que cuadre el sangrado del código: no hace nada.</li>
+<li>Las convenciones en cuanto a espacios, longitud de las líneas, etc. están definidas en la <a href="http://www.python.org/dev/peps/pep-0008/" title="PEP 8 -- Style Guide for Python Code">PEP 8</a>, que viene a ser como el manual de estilo oficial para programas en Python. Puedes comprobar si tu código se adhiere a esta convención con la herramienta <a href="http://pypi.python.org/pypi/pep8/0.6.1" title="pep8 en el PyPI">pep8</a> disponible en el Índice de Paquetes de Python (PyPI).</li>
+</ul>
+<p>Para utilizar este módulo, simplemente lenzaríamos un intérprete Python en la carpeta donde esté el archivo <code>ceros.py</code> y escribiríamos:</p>
+<div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">ceros</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">ceros</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;biseccion&#39;</span><span class="p">,</span> <span class="s1">&#39;newton&#39;</span><span class="p">]</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="k">print</span> <span class="n">ceros</span><span class="o">.</span><span class="vm">__doc__</span>
+<span class="n">Búsqueda</span> <span class="n">de</span> <span class="n">raíces</span>
+<span class="n">Este</span> <span class="n">módulo</span> <span class="n">contiene</span> <span class="n">métodos</span> <span class="n">para</span> <span class="n">la</span> <span class="n">búsqueda</span> <span class="n">de</span> <span class="n">raíces</span> <span class="n">de</span> <span class="n">ecuaciones</span> <span class="n">de</span> <span class="n">la</span>
+<span class="n">forma</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">con</span> <span class="n">f</span> <span class="n">función</span> <span class="n">real</span> <span class="n">de</span> <span class="n">variable</span> <span class="n">real</span><span class="p">,</span> <span class="n">continua</span> <span class="n">y</span> <span class="n">de</span> <span class="n">derivada</span>
+<span class="n">continua</span><span class="o">.</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="k">print</span> <span class="n">ceros</span><span class="o">.</span><span class="n">biseccion</span>
+<span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="n">function</span> <span class="n">biseccion</span> <span class="n">at</span> <span class="mh">0x7fc17efb5668</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span>
+</pre></div>
+
+
+<p>Ahora no hay más que <em>implementar</em> estos métodos.</p>
+<h2>Método de la bisección</h2>
+<h3>Descripción y algoritmo</h3>
+<p>El <a href="http://es.wikipedia.org/wiki/M%C3%A9todo_de_bisecci%C3%B3n" title="Método de bisección">método de bisección</a> es un método geométricamente muy intuitivo: partiendo de un intervalo $[a, b]$ tal que $f(a) f(b) &lt; 0$ (es decir: la función cambia de signo en el intervalo), se va dividiendo en dos generando una <a href="http://es.wikipedia.org/wiki/Principio_de_los_intervalos_encajados">sucesión de intervalos encajados</a> hasta que se converge con la precisión deseada a la raíz de la ecuación que, como asegura el <a href="http://es.wikipedia.org/wiki/Teorema_del_valor_intermedio#Teorema_de_Bolzano" title="Teorema de Bolzano">teorema de Bolzano</a>, tiene que existir; es decir, el $\alpha in ]a, b[$ tal que $f(\alpha) = 0$.</p>
+<p>El algoritmo del método de bisección sería el siguiente:</p>
+<blockquote>
+<p><ol start="0">
+  <li>
+    Sean $f$, $a$ y $b$. <ol>
+      <li>
+        Sea $c \leftarrow \frac{a + b}{2}$.
+      </li>
+      <li>
+        Si $f(c) = 0$, terminar.
+      </li>
+      <li>
+        Si $f(c) f(a) &lt; 0$, entonces $b \leftarrow c$ y volver al paso 1.
+      </li>
+      <li>
+        Si no, entonces $a \leftarrow c$ y volver al paso 1.
+      </li>
+    </ol>
+  </li>
+</ol></p>
+</blockquote>
+<p>Este método, aunque es lento, <strong>tiene convergencia garantizada</strong>.</p>
+<h3>Método de bisección en Python</h3>
+<p>A la vista del algoritmo anterior, ya podemos implementar el método de bisección en Python. Nos vamos a saltar la parte de escribir el pseudocódigo.</p>
+<p><strong><em>Nota</em></strong>: Cambiado por sugerencia de David para evitar errores de precisión.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1.0e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Método de bisección</span>
+<span class="sd">    Halla una raíz de la función f en el intervalo [a, b] mediante el método</span>
+<span class="sd">    de bisección.</span>
+<span class="sd">    Argumentos</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f - Función, debe ser tal que f(a) f(b) &amp;lt; 0</span>
+<span class="sd">    a - Extremo inferior del intervalo</span>
+<span class="sd">    b - Extremo superior del intervalo</span>
+<span class="sd">    tol (opcional) - Cota para el error absoluto de la x</span>
+<span class="sd">    Devuelve</span>
+<span class="sd">    --------</span>
+<span class="sd">    x - Raíz de f en [a, b]</span>
+<span class="sd">    Excepciones</span>
+<span class="sd">    -----------</span>
+<span class="sd">    ValueError - Intervalo mal definido, la función no cambia de signo en el</span>
+<span class="sd">                 intervalo o cota no positiva</span>
+<span class="sd">    Ejemplos</span>
+<span class="sd">    --------</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; def f(x): return x ** 2 - 1</span>
+<span class="sd">    ...</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; biseccion(f, 0, 2)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; biseccion(f, 0, 5)</span>
+<span class="sd">    1.000000238418579</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; biseccion(f, -2, 2)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">        File &quot;&amp;lt;stdin&amp;gt;&quot;, line 1, in &amp;lt;module&amp;gt;</span>
+<span class="sd">        File &quot;ceros.py&quot;, line 35, in biseccion</span>
+<span class="sd">        raise ValueError(&quot;La función debe cambiar de signo en el intervalo&quot;)</span>
+<span class="sd">    ValueError: La función debe cambiar de signo en el intervalo</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; biseccion(f, -3, 0, tol=1.0e-12)</span>
+<span class="sd">    -1.0000000000004547</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="n">b</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Intervalo mal definido&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La función debe cambiar de signo en el intervalo&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tol</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="o">=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La cota de error debe ser un número positivo&quot;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+        <span class="c1"># Utilizamos la función signo para evitar errores de precisión</span>
+        <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+</pre></div>
+
+
+<p>Vamos a señalar algunas cosas:</p>
+<ul>
+<li>Como se puede observar, el código se parece bastante al algoritmo.</li>
+<li>Podemos pasar una función como argumento sin ningún esfuerzo.</li>
+<li>Hemos incluido en la documentación información sobre los argumentos que recibe la función, de manera que si escribimos en el intérprete<code>help(ceros.biseccion)</code> podremos consultarla.</li>
+<li>No he incluido un número máximo de iteraciones: fijada una precisión, el método convergerá siempre.</li>
+</ul>
+<p>Por último, nótese que el programa produce un error si el límite inferior de intervalo es mayor que el límite superior, si la función no cambia de signo o si la cota de error es un número negativo. Python hace muy sencillas este tipo de construcciones: se denomina <a href="http://docs.python.org/tutorial/errors.html#handling-exceptions" title="Manejo de excepciones">manejo de excepciones</a>.</p>
+<p>Podíamos haber tomado la decisión de no incluir este manejo de errores, y dejar que el programa falle inesperadamente si el usuario hace «cosas raras». Esto que lo decida cada uno.</p>
+<p>Para gestionar los errores que se pueden producir, utilizamos el bloque <code>try...except</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">biseccion</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+    <span class="k">pass</span>  <span class="c1"># Este bloque se ejecuta si se produce un error</span>
+</pre></div>
+
+
+<p>Gracias a esta característica de Python podemos evitar cosas como que una división por cero mate al programa, por ejemplo.</p>
+<h2>Método de Newton</h2>
+<h3>Descripción y algoritmo</h3>
+<p>El <a href="http://es.wikipedia.org/wiki/M%C3%A9todo_de_Newton" title="Método de Newton">método de Newton</a> o método de Newton-Raphson linealiza la función a cada paso utilizando su derivada, que se debe proporcionar como argumento, para hallar la raíz de la ecuación en las proximidades de un punto inicial $x_0$. Este método puede no converger, pero si el punto inicial está lo suficientemente próximo a la raíz, la convergencia será muy rápida.</p>
+<p>El algoritmo del método de Newton es este:</p>
+<blockquote>
+<p><ol start="0">
+  <li>
+    Sean $f$, $f'$ y $x_0$.
+  </li>
+  <li>
+    Sea $x \leftarrow x_0$. <ol start="2">
+      <li>
+        Sea $x \leftarrow x - \frac{f(x)}{f'(x)}$.
+      </li>
+      <li>
+        Si $f(x) = 0$, terminar.
+      </li>
+      <li>
+        Si no, volver al paso 2.
+      </li>
+    </ol>
+  </li>
+</ol></p>
+</blockquote>
+<h3>Método de Newton en Python</h3>
+<p>Aquí, debido a que el método no tiene garantizada la convergencia, habrá que considerar un número máximo de iteraciones y cotas de error tanto para la raíz como para el valor de la función.</p>
+<p>El código sería este:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">x_0</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1.0e-6</span><span class="p">,</span> <span class="n">ftol</span><span class="o">=</span><span class="mf">1.0e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Método de Newton</span>
+<span class="sd">    Halla la raíz de la función f en el entorno de x_0 mediante el método de</span>
+<span class="sd">    Newton.</span>
+<span class="sd">    Argumentos</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f - Función</span>
+<span class="sd">    df - Función, debe ser la función derivada de f</span>
+<span class="sd">    x_0 - Punto de partida del método</span>
+<span class="sd">    maxiter (opcional) - Número máximo de iteraciones</span>
+<span class="sd">    xtol (opcional) - Cota para el error relativo para la raíz</span>
+<span class="sd">    ftol (opcional) - Cota para el valor de la función</span>
+<span class="sd">    Devuelve</span>
+<span class="sd">    --------</span>
+<span class="sd">    x - Raíz de la ecuación en el entorno de x_0</span>
+<span class="sd">    Excepciones</span>
+<span class="sd">    -----------</span>
+<span class="sd">    RuntimeError - No hubo convergencia superado el número máximo de</span>
+<span class="sd">                   iteraciones</span>
+<span class="sd">    ZeroDivisionError - La derivada se anuló en algún punto</span>
+<span class="sd">    Exception - El valor de x se sale del dominio de definición de f</span>
+<span class="sd">    Ejemplos</span>
+<span class="sd">    --------</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; def f(x): return x ** 2 - 1</span>
+<span class="sd">    ...</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; def df(x): return 2 * x</span>
+<span class="sd">    ...</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; newton(f, df, 2)</span>
+<span class="sd">    1.000000000000001</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; newton(f, df, 5)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &amp;gt;&amp;gt;&amp;gt; newton(f, df, 0)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      File &quot;&amp;lt;stdin&amp;gt;&quot;, line 1, in &amp;lt;module&amp;gt;</span>
+<span class="sd">      File &quot;ceros.py&quot;, line 102, in newton</span>
+<span class="sd">        dx = -f(x) / df(x)  # ¡Aquí se puede producir una división por cero!</span>
+<span class="sd">    ZeroDivisionError: float division by zero</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x_0</span><span class="p">)</span>  <span class="c1"># Se convierte a número de coma flotante</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">maxiter</span><span class="p">):</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="o">-</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">df</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># ¡Aquí se puede producir una división por cero!</span>
+                            <span class="c1"># También x puede haber quedado fuera del dominio</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dx</span> <span class="o">/</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">xtol</span> <span class="ow">and</span> <span class="nb">abs</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">ftol</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No hubo convergencia después de {}</span>
+                        <span class="n">iteraciones</span><span class="s2">&quot;.format(maxiter))</span>
+</pre></div>
+
+
+<p>Se deja como ejercicio (qué placentero es decir esto) programar el <a href="http://es.wikipedia.org/wiki/M%C3%A9todo_de_la_secante" title="Método de la secante">método de la secante</a> que se utilice como alternativa si no se dispone de la derivada de la función.</p>
+<p>¡Y con eso terminamos el artículo de hoy! Espero que te haya resultado provechoso, no olvides comentar, retwittear y demás zarandajas 🙂</p>
+<h2>Referencias</h2>
+<ul>
+<li>RIVAS, Damián y VÁZQUEZ, Carlos. <em>Elementos de Cálculo Numérico</em>. ADI, 2010.</li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/biseccion.html" class="tag">biseccion</a>
+                    <a href="http://pybonacci.github.io/tag/ecuaciones-no-lineales.html" class="tag">ecuaciones no lineales</a>
+                    <a href="http://pybonacci.github.io/tag/newton.html" class="tag">newton</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

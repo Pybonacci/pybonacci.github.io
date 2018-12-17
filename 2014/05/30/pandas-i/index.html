@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pandas (I) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Pandas (I)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 30 mayo 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos...</p>
+<p><strong>¿Qué es Pandas?</strong></p>
+<p>Pandas es una librería que proporciona estructuras de datos flexibles y 
+permite trabajar con la información de forma eficiente (gran parte de 
+Pandas está implementado usando C/Cython para obtener un buen rendimiento).</p>
+<p>Funciona muy bien cuando nos toca trabajar con:</p>
+<ul>
+<li>Datos heterogéneos que pueden distribuirse de forma tabular.</li>
+<li>Series temporales</li>
+<li>Matrices</li>
+<li>...</li>
+</ul>
+<p>La página oficial se encuentra en el siguiente <a href="http://pandas.pydata.org">enlace</a>.</p>
+<p><strong>Estructuras de datos</strong></p>
+<p>Pandas ofrece varias estructuras de datos que nos resultarán de mucha 
+utilidad y que vamos a ir viendo poco a poco. Todas las posibles 
+estructuras de datos que ofrece a día de hoy son:</p>
+<ul>
+<li>Series (y TimeSeries)</li>
+<li>DataFrame</li>
+<li>Panel</li>
+<li>Panel4D</li>
+<li>PanelND</li>
+</ul>
+<p><strong>Series</strong></p>
+<p>En una instancia de la clase <code>Series</code> podremos almacenar arrays o 
+vectores con índice o etiqueta. Si no usamos índice o etiqueta nos lo 
+numerará con un índice de forma interna. La forma básica de crear una 
+Series sería:</p>
+<p><code>&gt;&gt;&gt; s = Series(data, index=index)</code></p>
+<p>donde <code>data</code> es el vector de datos e <code>index</code> (opcional) es el vector de 
+índices que usará la serie. Si los índices son datos de fechas 
+directamente se creará una instancia de una TimeSeries en lugar de una 
+instacia de Series.</p>
+<p>Veamos un ejemplo de como crear este tipo de contenedor de datos. 
+Primero vamos a crear una serie y pandas nos creará índices 
+automáticamente, segundo vamos a crear una serie donde nosotros le 
+vamos a decir los índices que queremos usar y, tercero, vamos a crear 
+una serie temporal usando índices que son fechas.</p>
+<div class="highlight"><pre><span></span><span class="c1"># serie con índices automáticos</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Serie con índices automáticos n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Cuyo resultado sería:</p>
+<div class="highlight"><pre><span></span><span class="n">Serie</span> <span class="n">con</span> <span class="err">í</span><span class="n">ndices</span> <span class="n">automáticos</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mf">1.731792</span>
+<span class="mi">1</span> <span class="mf">0.492089</span>
+<span class="mi">2</span> <span class="mf">0.190005</span>
+<span class="mi">3</span> <span class="mf">0.498570</span>
+<span class="mi">4</span> <span class="o">-</span><span class="mf">0.129411</span>
+<span class="mi">5</span> <span class="mf">0.496611</span>
+<span class="mi">6</span> <span class="o">-</span><span class="mf">0.561550</span>
+<span class="mi">7</span> <span class="o">-</span><span class="mf">0.981822</span>
+<span class="mi">8</span> <span class="o">-</span><span class="mf">0.471803</span>
+<span class="mi">9</span> <span class="o">-</span><span class="mf">0.255938</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span><span class="s1">&#39;&gt;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># serie con índices definidos por mi</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;itzi&#39;</span><span class="p">,</span><span class="s1">&#39;kikolas&#39;</span><span class="p">,</span><span class="s1">&#39;dieguete&#39;</span><span class="p">,</span><span class="s1">&#39;nicolasete&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Serie con índices definidos n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Cuyo resultado sería el siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Serie</span> <span class="n">con</span> <span class="err">í</span><span class="n">ndices</span> <span class="n">definidos</span>
+<span class="n">itzi</span>       <span class="mf">0.130432</span>
+<span class="n">kikolas</span>   <span class="o">-</span><span class="mf">2.378303</span>
+<span class="n">dieguete</span>   <span class="mf">0.951302</span>
+<span class="n">nicolasete</span> <span class="mf">1.846942</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span><span class="s1">&#39;&gt;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># serie(serie temporal) con índices que son fechas</span>
+<span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">31</span><span class="p">),</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2013/01/01&#39;</span><span class="p">,</span> <span class="n">periods</span> <span class="o">=</span> <span class="mi">31</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Serie temporal con índices de fechas n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Cuyo resultado sería:</p>
+<div class="highlight"><pre><span></span><span class="n">Serie</span> <span class="n">temporal</span> <span class="n">con</span> <span class="err">í</span><span class="n">ndices</span> <span class="n">de</span> <span class="n">fechas</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">01</span>  <span class="mf">0.086782</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">02</span> <span class="o">-</span><span class="mf">0.274399</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">03</span> <span class="o">-</span><span class="mf">0.919958</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">04</span>  <span class="mf">0.749879</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">05</span> <span class="o">-</span><span class="mf">1.739752</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">06</span>  <span class="mf">0.861299</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mo">07</span> <span class="o">-</span><span class="mf">0.797413</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">08</span> <span class="o">-</span><span class="mf">0.650584</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">09</span>  <span class="mf">0.880755</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="mf">0.235406</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">11</span>  <span class="mf">0.134650</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">12</span> <span class="o">-</span><span class="mf">0.255786</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">13</span> <span class="o">-</span><span class="mf">0.068295</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">0.010727</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">0.259768</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">16</span>  <span class="mf">2.449214</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">17</span> <span class="o">-</span><span class="mf">1.452189</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">18</span> <span class="o">-</span><span class="mf">0.846709</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">19</span> <span class="o">-</span><span class="mf">0.835064</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">20</span> <span class="o">-</span><span class="mf">0.073190</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">21</span>  <span class="mf">0.853177</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">22</span> <span class="o">-</span><span class="mf">0.239683</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span>  <span class="mf">0.149482</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">24</span> <span class="o">-</span><span class="mf">0.233044</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">25</span>  <span class="mf">0.073302</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">26</span> <span class="o">-</span><span class="mf">1.769805</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">27</span> <span class="o">-</span><span class="mf">1.016134</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">28</span>  <span class="mf">0.378350</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">29</span>  <span class="mf">0.190374</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">30</span> <span class="o">-</span><span class="mf">1.566578</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">31</span>  <span class="mf">1.601782</span>
+<span class="n">Freq</span><span class="p">:</span> <span class="n">D</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span> 
+
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span><span class="s1">&#39;&gt;</span>
+</pre></div>
+
+
+<p>En los ejemplos anteriores hemos creado las series a partir de un 
+numpy array pero las podemos crear a partir de muchas otras cosas: 
+listas, diccionarios, numpy arrays,... Veamos ejemplos:</p>
+<div class="highlight"><pre><span></span><span class="n">serie_lista</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Serie a partir de una lista n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie_lista</span><span class="p">))</span>
+<span class="n">dicc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cuadrado de {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">:</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)}</span>
+<span class="n">serie_dicc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dicc</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Serie a partir de un diccionario n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie_dicc</span><span class="p">))</span>
+<span class="n">serie_serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">serie_dicc</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Serie a partir de los valores de otra (pandas)serie n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie_serie</span><span class="p">))</span>
+<span class="n">serie_cte</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="o">-</span><span class="mi">999</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Serie a partir de un valor constante n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie_cte</span><span class="p">))</span>
+<span class="c1">#...</span>
+</pre></div>
+
+
+<p>Y el resultado del código anterior sería:</p>
+<div class="highlight"><pre><span></span><span class="n">Serie</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">una</span> <span class="n">lista</span>
+<span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">2</span> <span class="mi">4</span>
+<span class="mi">3</span> <span class="mi">9</span>
+<span class="mi">4</span> <span class="mi">16</span>
+<span class="mi">5</span> <span class="mi">25</span>
+<span class="mi">6</span> <span class="mi">36</span>
+<span class="mi">7</span> <span class="mi">49</span>
+<span class="mi">8</span> <span class="mi">64</span>
+<span class="mi">9</span> <span class="mi">81</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">Serie</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">un</span> <span class="n">diccionario</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">0</span> <span class="mi">0</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">1</span> <span class="mi">1</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">2</span> <span class="mi">4</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">3</span> <span class="mi">9</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">4</span> <span class="mi">16</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">5</span> <span class="mi">25</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">6</span> <span class="mi">36</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">7</span> <span class="mi">49</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">8</span> <span class="mi">64</span>
+
+<span class="n">cuadrado</span> <span class="n">de</span> <span class="mi">9</span> <span class="mi">81</span>
+
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">Serie</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">los</span> <span class="n">valores</span> <span class="n">de</span> <span class="n">otra</span> <span class="p">(</span><span class="n">pandas</span><span class="p">)</span><span class="n">serie</span>
+
+<span class="mi">0</span> <span class="mi">0</span>
+
+<span class="mi">1</span> <span class="mi">1</span>
+
+<span class="mi">2</span> <span class="mi">4</span>
+
+<span class="mi">3</span> <span class="mi">9</span>
+
+<span class="mi">4</span> <span class="mi">16</span>
+
+<span class="mi">5</span> <span class="mi">25</span>
+
+<span class="mi">6</span> <span class="mi">36</span>
+
+<span class="mi">7</span> <span class="mi">49</span>
+
+<span class="mi">8</span> <span class="mi">64</span>
+
+<span class="mi">9</span> <span class="mi">81</span>
+
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">Serie</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">un</span> <span class="n">valor</span> <span class="n">constante</span>
+
+<span class="mi">0</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">1</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">2</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">3</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">4</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">5</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">6</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">7</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">8</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="mi">9</span> <span class="o">-</span><span class="mi">999</span>
+
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</pre></div>
+
+
+<p>Una serie (Series o TimeSeries) se puede manejar igual que si tuviéramos 
+un numpy array de una dimensión o igual que si tuviéramos un 
+diccionario. Vemos ejemplos de esto:</p>
+<div class="highlight"><pre><span></span><span class="n">serie</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;h&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Serie que vamos a usar en este ejemplo: n{}nn&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">))</span>
+<span class="c1"># Ejemplos de comportamiento como numpy array</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Se comporta como un numpy array:&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;================================&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;&gt; serie.max()n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;&gt; serie.sum()n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;&gt; serie.abs()n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="o">.</span><span class="n">abs</span><span class="p">()))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;&gt;&gt;&gt; serie[serie &gt; 0]n{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">[</span><span class="n">serie</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]))</span>
+<span class="c1">#...</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+<span class="c1"># Ejemplos de comportamiento como diccionario</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Se comporta como un diccionario:&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;================================&quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt;&gt; serie[&#39;a&#39;]n{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">serie</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt;&gt; &#39;a&#39; in serien{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;a&#39;</span> <span class="ow">in</span> <span class="n">serie</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt;&gt; &#39;z&#39; in serien{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="n">serie</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Y el resultado será:</p>
+<div class="highlight"><pre><span></span><span class="n">Serie</span> <span class="n">que</span> <span class="n">vamos</span> <span class="n">a</span> <span class="n">usar</span> <span class="n">en</span> <span class="n">este</span> <span class="n">ejemplo</span><span class="p">:</span>
+<span class="n">a</span> <span class="o">-</span><span class="mf">0.663462</span>
+<span class="n">b</span> <span class="mf">0.893211</span>
+<span class="n">c</span> <span class="o">-</span><span class="mf">0.312062</span>
+<span class="n">d</span> <span class="o">-</span><span class="mf">1.196054</span>
+<span class="n">e</span> <span class="mf">1.608529</span>
+<span class="n">f</span> <span class="o">-</span><span class="mf">0.045494</span>
+<span class="n">g</span> <span class="o">-</span><span class="mf">0.192866</span>
+<span class="n">h</span> <span class="mf">1.681370</span>
+<span class="n">i</span> <span class="o">-</span><span class="mf">0.503151</span>
+<span class="n">j</span> <span class="o">-</span><span class="mf">0.078362</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+
+<span class="n">Se</span> <span class="n">comporta</span> <span class="n">como</span> <span class="n">un</span> <span class="n">numpy</span> <span class="n">array</span><span class="p">:</span>
+
+<span class="o">================================</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serie</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+<span class="mf">1.6813703206498873</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serie</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="mf">1.1916586064903802</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serie</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+
+<span class="n">a</span> <span class="mf">0.663462</span>
+
+<span class="n">b</span> <span class="mf">0.893211</span>
+
+<span class="n">c</span> <span class="mf">0.312062</span>
+
+<span class="n">d</span> <span class="mf">1.196054</span>
+
+<span class="n">e</span> <span class="mf">1.608529</span>
+
+<span class="n">f</span> <span class="mf">0.045494</span>
+
+<span class="n">g</span> <span class="mf">0.192866</span>
+
+<span class="n">h</span> <span class="mf">1.681370</span>
+
+<span class="n">i</span> <span class="mf">0.503151</span>
+
+<span class="n">j</span> <span class="mf">0.078362</span>
+
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serie</span><span class="p">[</span><span class="n">serie</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">b</span> <span class="mf">0.893211</span>
+
+<span class="n">e</span> <span class="mf">1.608529</span>
+
+<span class="n">h</span> <span class="mf">1.681370</span>
+
+<span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+
+<span class="n">Se</span> <span class="n">comporta</span> <span class="n">como</span> <span class="n">un</span> <span class="n">diccionario</span><span class="p">:</span>
+
+<span class="o">================================</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">serie</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+
+<span class="o">-</span><span class="mf">0.663462354872233</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;a&#39;</span> <span class="ow">in</span> <span class="n">serie</span>
+
+<span class="bp">True</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;z&#39;</span> <span class="ow">in</span> <span class="n">serie</span>
+
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>Las operaciones están 'vectorizadas' y se hacen elemento a elemento con 
+los elementos alineados en función del índice. Si se hace, por ejemplo, 
+una suma de dos series, si en una de las dos series no existe un 
+elemento, i.e. el índice no existe en la serie, el resultado para ese 
+índice será nan. En resumen, estamos haciendo una unión de los índices y 
+funciona diferente a los numpy arrays. Se puede ver el esquema en el 
+siguiente ejemplo:</p>
+<div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">serie</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">serie</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">suma</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39; s1 s2 s1 + s2&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;------------------ ------------------ ------------------&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">clave</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">keys</span><span class="p">()))):</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{0:1} {1:20} + {0:1} {2:20} = {0:1} {3:20}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clave</span><span class="p">,</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">clave</span><span class="p">),</span>
+<span class="n">s2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">clave</span><span class="p">),</span>
+<span class="n">suma</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">clave</span><span class="p">)))</span>
+<span class="c1"># En la anterior línea de código uso el método get para no obtener un KeyError</span>
+<span class="c1"># como sí obtendría si uso, p.e., s1[&#39;a&#39;]</span>
+</pre></div>
+
+
+<p>Cuyo resultado será:</p>
+<div class="highlight"><pre><span></span><span class="n">s1</span> <span class="n">s2</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s2</span>
+<span class="o">------------------</span> <span class="o">------------------</span> <span class="o">------------------</span>
+<span class="n">a</span>  <span class="bp">None</span>                <span class="o">+</span> <span class="n">a</span> <span class="o">-</span><span class="mf">0.663462354872233</span>   <span class="o">=</span> <span class="n">a</span>  <span class="n">nan</span>
+<span class="n">b</span>  <span class="mf">0.8932105297090326</span>  <span class="o">+</span> <span class="n">b</span>  <span class="mf">0.8932105297090326</span>  <span class="o">=</span> <span class="n">b</span>  <span class="mf">1.7864210594180652</span>
+<span class="n">c</span> <span class="o">-</span><span class="mf">0.31206215624310224</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span><span class="mf">0.31206215624310224</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span><span class="mf">0.6241243124862045</span>
+<span class="n">d</span> <span class="o">-</span><span class="mf">1.1960537478238258</span>  <span class="o">+</span> <span class="n">d</span> <span class="o">-</span><span class="mf">1.1960537478238258</span>  <span class="o">=</span> <span class="n">d</span> <span class="o">-</span><span class="mf">2.3921074956476516</span>
+<span class="n">e</span>  <span class="mf">1.6085289802454341</span>  <span class="o">+</span> <span class="n">e</span>  <span class="mf">1.6085289802454341</span>  <span class="o">=</span> <span class="n">e</span>  <span class="mf">3.2170579604908682</span>
+<span class="n">f</span> <span class="o">-</span><span class="mf">0.0454943963901047</span>  <span class="o">+</span> <span class="n">f</span> <span class="o">-</span><span class="mf">0.0454943963901047</span>  <span class="o">=</span> <span class="n">f</span> <span class="o">-</span><span class="mf">0.0909887927802094</span>
+<span class="n">g</span> <span class="o">-</span><span class="mf">0.19286571253906507</span> <span class="o">+</span> <span class="n">g</span> <span class="o">-</span><span class="mf">0.19286571253906507</span> <span class="o">=</span> <span class="n">g</span> <span class="o">-</span><span class="mf">0.38573142507813013</span>
+<span class="n">h</span>  <span class="mf">1.6813703206498873</span>  <span class="o">+</span> <span class="n">h</span>  <span class="mf">1.6813703206498873</span>  <span class="o">=</span> <span class="n">h</span>  <span class="mf">3.3627406412997747</span>
+<span class="n">i</span> <span class="o">-</span><span class="mf">0.503150771440017</span>   <span class="o">+</span> <span class="n">i</span> <span class="o">-</span><span class="mf">0.503150771440017</span>   <span class="o">=</span> <span class="n">i</span> <span class="o">-</span><span class="mf">1.006301542880034</span>
+<span class="n">j</span> <span class="o">-</span><span class="mf">0.07836208480562608</span> <span class="o">+</span> <span class="n">j</span>  <span class="bp">None</span>                <span class="o">=</span> <span class="n">j</span>  <span class="n">nan</span>
+</pre></div>
+
+
+<p><strong>DataFrame</strong></p>
+<p>Un DataFrame se puede ver como si fuera una tabla con índices para las 
+filas y las columnas. Es algo similar a lo que tenemos en una hoja de 
+cálculo, una tabla de una BBDD SQL o un diccionario de series Pandas. 
+Esta será la estructura de datos más habitual a usar. El DataFrame se 
+puede crear a partir de muchas otras estructuras de datos:</p>
+<ul>
+<li>A partir de un diccionario de numpy arrays de 1D, diccionarios de listas, diccionarios de diccionarios o diccionarios de Series</li>
+<li>A partir de un numpy array de 2D</li>
+<li>A partir de un numpy array estructurado (structured ndarray o record ndarray)</li>
+<li>A partir de una Series de Pandas</li>
+<li>A partir de otro DataFramede Pandas</li>
+</ul>
+<p>Además de los datos, podemos definir los índices (las etiquetas para 
+las filas) o las columnas (etiquetas para las mismas). Si no se define 
+nada al crear el DataFrame se usarán normas del sentido común para 
+nombrar los índices de filas y columnas.</p>
+<p>Veamos un poco de código para ver esto:</p>
+<div class="highlight"><pre><span></span><span class="n">df_lista</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">23</span><span class="p">]})</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;DataFrame a partir de un diccionario de listas n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df_lista</span><span class="p">))</span>
+<span class="n">df_np1D</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">)})</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;DataFrame a partir de un diccionario de 1D ndarrays n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df_np1D</span><span class="p">))</span>
+<span class="n">df_np2D</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">)),</span>
+<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;primero&#39;</span><span class="p">,</span><span class="s1">&#39;segundo&#39;</span><span class="p">,</span><span class="s1">&#39;tercero&#39;</span><span class="p">,</span><span class="s1">&#39;cuarto&#39;</span><span class="p">,</span><span class="s1">&#39;quinto&#39;</span><span class="p">],</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;velocidad&#39;</span><span class="p">,</span> <span class="s1">&#39;temperatura&#39;</span><span class="p">,</span><span class="s1">&#39;presion&#39;</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;DataFrame a partir de un 2D ndarray n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df_np2D</span><span class="p">))</span>
+<span class="n">df_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_np2D</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;primero&#39;</span><span class="p">,</span><span class="s1">&#39;segundo&#39;</span><span class="p">,</span><span class="s1">&#39;tercero&#39;</span><span class="p">])</span>
+<span class="n">df_df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first&#39;</span><span class="p">,</span><span class="s1">&#39;second&#39;</span><span class="p">,</span><span class="s1">&#39;third&#39;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;DataFrame a partir de los valores de otro (pandas)DataFrame n{} n&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df_df</span><span class="p">))</span>
+<span class="c1">#...</span>
+</pre></div>
+
+
+<p>Y el resultado de todo lo anterior sería:</p>
+<div class="highlight"><pre><span></span><span class="n">DataFrame</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">un</span> <span class="n">diccionario</span> <span class="n">de</span> <span class="n">listas</span>
+<span class="n">a</span> <span class="n">b</span>
+<span class="mi">0</span> <span class="mi">11</span> <span class="mi">21</span>
+<span class="mi">1</span> <span class="mi">12</span> <span class="mi">22</span>
+<span class="mi">2</span> <span class="mi">13</span> <span class="mi">23</span>
+
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">DataFrame</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">un</span> <span class="n">diccionario</span> <span class="n">de</span> <span class="mi">1</span><span class="n">D</span> <span class="n">ndarrays</span>
+
+<span class="n">a</span>    <span class="n">b</span>
+
+<span class="mi">0</span>  <span class="mi">0</span>  <span class="o">-</span><span class="mf">0.818739</span>
+
+<span class="mi">1</span>  <span class="mi">1</span>  <span class="o">-</span><span class="mf">1.473575</span>
+
+<span class="mi">2</span>  <span class="mi">4</span>  <span class="o">-</span><span class="mf">0.014659</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">2</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">DataFrame</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">un</span> <span class="mi">2</span><span class="n">D</span> <span class="n">ndarray</span>
+
+<span class="n">velocidad</span>          <span class="n">temperatura</span>      <span class="n">presion</span>
+
+<span class="n">primero</span>     <span class="mf">1.397157e-306</span>   <span class="mf">4.311076e-314</span>   <span class="mf">0.000000e+00</span>
+
+<span class="n">segundo</span>  <span class="mf">1.670358e-179</span>  <span class="o">-</span><span class="mf">1.238962e-65</span>   <span class="o">-</span><span class="mf">2.110672e-44</span>
+
+<span class="n">tercero</span>    <span class="o">-</span><span class="mf">3.645480e-42</span>     <span class="mf">0.000000e+00</span>  <span class="o">-</span><span class="mf">1.561315e-65</span>
+
+<span class="n">cuarto</span>     <span class="o">-</span><span class="mf">2.623582e-42</span>     <span class="mf">0.000000e+00</span>   <span class="mf">1.519743e-314</span>
+
+<span class="n">quinto</span>    <span class="o">-</span><span class="mf">2.578083e-42</span>     <span class="mf">0.000000e+00</span>    <span class="mf">2.413050e-312</span>
+
+<span class="p">[</span><span class="mi">5</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+
+<span class="n">DataFrame</span> <span class="n">a</span> <span class="n">partir</span> <span class="n">de</span> <span class="n">los</span> <span class="n">valores</span> <span class="n">de</span> <span class="n">otro</span> <span class="p">(</span><span class="n">pandas</span><span class="p">)</span><span class="n">DataFrame</span>
+
+<span class="n">velocidad</span>        <span class="n">temperatura</span>      <span class="n">presion</span>
+
+<span class="n">first</span>         <span class="mf">1.397157e-306</span>  <span class="mf">4.311076e-314</span>    <span class="mf">0.000000e+00</span>
+
+<span class="n">second</span>  <span class="mf">1.670358e-179</span> <span class="o">-</span><span class="mf">1.238962e-65</span>    <span class="o">-</span><span class="mf">2.110672e-44</span>
+
+<span class="n">third</span>      <span class="o">-</span><span class="mf">3.645480e-42</span>    <span class="mf">0.000000e+00</span>   <span class="o">-</span><span class="mf">1.561315e-65</span>
+
+<span class="p">[</span><span class="mi">3</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Podemos construir un DataFrame a partir de 
+<a href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html#alternate-constructors">constructores alternativos</a> 
+como pd.DataFrame.from_dict, pd.DataFrame.from_records o pd.DataFrame.from_items.</p>
+<p><strong>Panel, Panel4D, PanelND</strong></p>
+<p>En general, los paneles son para tipos de datos de más de dos 
+dimensiones. No los vamos a cubrir ya que se consideran un pelín más 
+complejos, de uso menos habitual y/o se encuentran en estado 
+experimental con lo que pueden cambiar bastante en el corto/medio plazo. 
+Se puede consultar la documentación oficial pulsando sobre:</p>
+<ul>
+<li>Panel</li>
+<li>Panel4D</li>
+<li>PanelND</li>
+</ul>
+<p>Y de momento es suficiente por hoy.  En breve dejaremos una segunda 
+parte... ¡¡Estad atentos!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                    <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                    <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                    <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                    <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                    <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

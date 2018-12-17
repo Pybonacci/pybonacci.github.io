@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pybonacci - Artículos</title><link href="http://pybonacci.github.io/" rel="alternate"></link><link href="http://pybonacci.github.io/feeds/articulos.atom.xml" rel="self"></link><id>http://pybonacci.github.io/</id><updated>2017-08-02T19:17:00+02:00</updated><entry><title>Microentradas: Unicode/látex en la consola IPython/notebook Jupyter</title><link href="http://pybonacci.github.io/2017/08/02/microentradas-unicodelatex-en-la-consola-ipythonnotebook-jupyter/" rel="alternate"></link><published>2017-08-02T19:17:00+02:00</published><updated>2017-08-02T19:17:00+02:00</updated><author><name>kiario</name></author><id>tag:pybonacci.github.io,2017-08-02:2017/08/02/microentradas-unicodelatex-en-la-consola-ipythonnotebook-jupyter/</id><summary type="html">&lt;p&gt;&lt;em&gt;Este es un &lt;a href="https://www.reddit.com/r/todayilearned/"&gt;TIL&lt;/a&gt; que vi el
+otro día. Lo dejo aquí por si otros no lo sabían y les resulta útil.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;En la consola de IPython o en el notebook Jupyter podéis usar unicode
+escribiendo símbolos látex.&lt;/p&gt;
+&lt;p&gt;Por ejemplo, si escribes lo siguiente (en la consola o en una celda del
+notebook):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;In [1]: \alpha
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;y pulsáis después la tecla &lt;code&gt;tab&lt;/code&gt; veréis que se transforma a su símbolo
+látex y lo podéis usar fácilmente en vuestro código.&lt;/p&gt;
+&lt;p&gt;El resultado sería algo como lo siguiente (antes y después de pulsar la
+tecla &lt;code&gt;tab&lt;/code&gt;):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Antes:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="console1" src="https://pybonacci.org/images/2017/08/console1.png?style=centerme"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Después:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="console2" src="https://pybonacci.org/images/2017/08/console2.png?style=centerme"&gt;&lt;/p&gt;
+&lt;p&gt;Esto puede ser útil para scripts propios, demos, formación,..., pero os
+lo desaconsejo en código en producción o a compartir ;-)&lt;/p&gt;
+&lt;p&gt;Saludos.&lt;/p&gt;</summary><category term="ipython"></category><category term="jupyter"></category><category term="látex"></category><category term="MicroEntradas"></category><category term="til"></category><category term="unicode"></category></entry></feed>

@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>¿Realmente es feo matplotlib? | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>¿Realmente es feo matplotlib?</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 25 enero 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      En los últimos tiempos he estado leyendo en múltiples sitios que mmatplotlib es feo, que se ve viejuno, que la librería <em>[ponga usted aquí la librería chachiguay que desee]</em> es 'más mejor', que es una biblioteca muy pesada,..., pero nunca he leído una argumentación para refutar esas quejas.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Hoy me voy a centrar en la primera queja que he indicado más arriba.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+  </div>
+
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h1 id="&#191;Es-matplotlib-feo?">
+        &#191;Es matplotlib feo?<a class="anchor-link" href="#&#191;Es-matplotlib-feo?">&#182;</a>
+      </h1>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Cuando se inició el desarrollo de matplotlib el entorno de trabajo era muy diferente al actual. Se hacían gráficas estáticas 2D para ser publicadas en revistas o en la web de hace 10 o más años (ha cambiado un poco el panorama desde entonces). Se inició para ser una alternativa libre a Matlab y es por ello que su API y apariencia es muy parecida a la que ofrece Matlab. De esta forma matplotlib hace gráficos que, de base, son simples y pensados para ser publicados en cualquier sitio sin necesidad de mucha modificación.<br /> A pesar de ofrecer gráficos aceptables de partida (en mi modesta opinión, por supuesto), desde tiempos inmemoriales se puede acceder a la configuración de base y modificarla para el gusto de cada cual. En la versión más antigua que figura en github (0.91.3) podéis encontrar que <a href="https://github.com/matplotlib/matplotlib/blob/v0.91.2/lib/matplotlib/__init__.py#L42"><code>rcParams</code> ya está por ahí</a> (fichero modificado por última vez en 2007). El que hubiera querido <a href="http://matplotlib.org/users/customizing.html">modificar algo de la configuración básica que trae matplotlib lo podría haber hecho sin mucho esfuerzo</a> y hubiera tardado menos que el perdido en escribir una queja por alguna lista de correo, entrada en algún blog, comentario en reddit,...(*)<br /> (*) <em>Ahora con twitter puede que sea más rápido lanzar la queja que modificar eso que tanto te molesta pero seguirá sin haber argumentación, gracias twitter!!</em></p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h2 id="&#191;Modificar-matplotlib-a--mi-gusto?">
+        &#191;Modificar matplotlib a mi gusto?<a class="anchor-link" href="#&#191;Modificar-matplotlib-a--mi-gusto?">&#182;</a>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Siempre ha sido relativamente sencillo, de hecho, en su momento desde Pybonacci creamos un repositorio con algo de código que te <a href="http://nbviewer.ipython.org/github/Pybonacci/mpl_styles/blob/master/mpl_styles-examples_of_use.ipynb">ofrecía una serie de decoradores para conseguir nuevos estilos de forma sencilla</a>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Pero desde la versión 1.4 tenemos disponible el <a href="http://matplotlib.org/users/whats_new.html#style-package-added">paquete <code>styles</code></a> que permite cambiar de estilos fácilmente y que trae algunos estilos por defecto. Veamos un poco como funciona todo esto:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Primero de todo hacemos todo el previo de imports y mostrar versiones y demás para que el que quiera pueda reproducir los ejemplos sin problemas.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="c">#%install_ext http://raw.github.com/jrjohansson/version_information/master/version_information.py</span>
+<span class="o">%</span><span class="k">load_ext</span> <span class="n">version_information</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="o">%</span><span class="k">version_information</span> <span class="n">matplotlib</span><span class="p">,</span> <span class="n">numpy</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+      </div>
+
+      <div class="output_area">
+        <div class="output_html rendered_html output_subarea output_pyout">
+          <table>
+            <tr>
+              <th>
+                Software
+              </th>
+
+              <th>
+                Version
+              </th>
+            </tr>
+
+            <tr>
+              <td>
+                Python
+              </td>
+
+              <td>
+                3.4.0 64bit [GCC 4.8.2]
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                IPython
+              </td>
+
+              <td>
+                3.0.0-dev
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                OS
+              </td>
+
+              <td>
+                Linux 3.13.0 24 generic x86_64 with LinuxMint 17 qiana
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                matplotlib
+              </td>
+
+              <td>
+                1.4.2
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                numpy
+              </td>
+
+              <td>
+                1.9.1
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan='2'>
+                Sun Jan 25 19:51:49 2015 CET
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="o">%</span><span class="k">matplotlib</span> <span class="n">inline</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Un gráfico normal por defecto en matplotlib (de esos que son tan feos) en el notebook de IPython será de la siguiente forma:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&#039;random&#039;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+      </div>
+
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_png output_subarea ">
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib1.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Usando el paquete <code>styles</code> modificar la apariencia a uno de los estilos que trae por defecto el paquete sería algo como lo siguiente:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="k">print</span><span class="p">(</span><span class="s">&#039;Estilos disponibles: &#039;</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
+<span class="n">estilo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&#039;Vamos a usar el estilo &#039;</span><span class="p">,</span> <span class="n">estilo</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">estilo</span><span class="p">)</span>
+
+<span class="c"># la misma gráfica que antes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">label</span> <span class="o">=</span> <span class="s">&#039;random&#039;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_subarea output_stream output_stdout output_text">
+          <pre>Estilos disponibles:  [';fivethirtyeight';, ';ggplot';, ';grayscale';, ';dark_background';, ';bmh';]
+Vamos a usar el estilo  ggplot
+</pre>
+        </div>
+      </div>
+
+      <div class="output_area">
+      </div>
+
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_png output_subarea ">
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib2.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Como habéis visto en la salida anterior disponéis de varios estilos por defecto, <code>['ggplot', 'bmh', 'grayscale', 'dark_background', 'fivethirtyeight']</code>. Probadlos todos si queréis verlos en vivo o <a href="http://nbviewer.ipython.org/github/jakevdp/PyData2014/blob/master/notebooks/06_mpl_Stylesheets.ipynb">ved este notebook</a>.<br /> Si os gustan los valores por defecto podéis volver a ellos usando <code>plt.rcdefaults()</code>.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h2 id="No-me-gusta-ninguno-de-los-estilos-que-vienen-por-defecto">
+        No me gusta ninguno de los estilos que vienen por defecto<a class="anchor-link" href="#No-me-gusta-ninguno-de-los-estilos-que-vienen-por-defecto">&#182;</a>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      "Siemprrre negatifffos, nunca positifffos", pero que no cunda el desánimo. Crear tu propio estilo es sencillo. Vamos a ver como podemos crear una hoja de estilos que se adecúe a nuestros gustos.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Si queremos que nuestro nuevo estilo esté siempre disponible cada vez que usemos matplotlib deberemos incluir la hoja de estilos en la carpeta <strike><code>~/.matplotlib/stylelib/</code></strike> <code>~/.config/matplotlib/stylelib/</code> (la documentación oficial está mal y deberéis usar la que os indico yo, quizá esa carpeta no exista de inicio y la deberéis de crear). Voy a crearla con IPython (lo hago en Linux, no lo he probado en otros sistemas operativos):</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="o">%</span><span class="k">mkdir</span> <span class="o">~/.</span><span class="n">config</span> <span class="c"># Seguramente esta ya exista</span>
+<span class="o">%</span><span class="k">mkdir</span> <span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">matplotlib</span>
+<span class="o">%</span><span class="k">mkdir</span> <span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">stylelib</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Y ahora vamos a definir un nuevo estilo <strong>pybonacci</strong> como el que <a href="https://github.com/Pybonacci/mpl_styles/blob/master/mpl_styles.py#L117">definimos en el repositorio de <em>mpl_styles</em></a>. Para ello vamos a usar IPython para crear la hoja de estilo que se llamará <code>pybonacci.mplstyle</code> (debe tener la extensión <code>\*.mplstyle</code>):</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="o">%%</span><span class="k">writefile</span> <span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">stylelib</span><span class="o">/</span><span class="n">pybonacci</span><span class="o">.</span><span class="n">mplstyle</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">linewidth</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">color</span><span class="p">:</span> <span class="mi">5390</span><span class="n">C1</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">antialiased</span><span class="p">:</span> <span class="bp">True</span>
+<span class="n">patch</span><span class="o">.</span><span class="n">linewidth</span><span class="p">:</span> <span class="mf">0.5</span>
+<span class="n">patch</span><span class="o">.</span><span class="n">facecolor</span><span class="p">:</span> <span class="n">FFD333</span>
+<span class="n">patch</span><span class="o">.</span><span class="n">edgecolor</span><span class="p">:</span> <span class="n">FFE771</span>
+<span class="n">patch</span><span class="o">.</span><span class="n">antialiased</span><span class="p">:</span> <span class="bp">True</span>
+<span class="n">font</span><span class="o">.</span><span class="n">family</span><span class="p">:</span> <span class="n">Arial</span>
+<span class="n">font</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mf">10.0</span>
+<span class="n">font</span><span class="o">.</span><span class="n">monospace</span><span class="p">:</span> <span class="n">DejaVu</span> <span class="n">Sans</span> <span class="n">Mono</span><span class="p">,</span> <span class="n">Andale</span> <span class="n">Mono</span><span class="p">,</span> <span class="n">Nimbus</span> <span class="n">Mono</span> <span class="n">L</span><span class="p">,</span> <span class="n">Courier</span> <span class="n">New</span><span class="p">,</span> <span class="n">Courier</span><span class="p">,</span> <span class="n">Fixed</span><span class="p">,</span> <span class="n">Terminal</span><span class="p">,</span> <span class="n">monospace</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">facecolor</span><span class="p">:</span> <span class="n">eeeeee</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">edgecolor</span><span class="p">:</span> <span class="n">bcbcbc</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">linewidth</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span> <span class="bp">True</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">titlesize</span><span class="p">:</span> <span class="n">x</span><span class="o">-</span><span class="n">large</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">labelsize</span><span class="p">:</span> <span class="n">large</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">labelcolor</span><span class="p">:</span> <span class="mi">555555</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">axisbelow</span><span class="p">:</span> <span class="bp">True</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">color_cycle</span><span class="p">:</span> <span class="mi">5390</span><span class="n">C1</span><span class="p">,</span> <span class="n">FFD333</span><span class="p">,</span> <span class="n">FFE771</span><span class="p">,</span> <span class="mi">70</span><span class="n">A4CB</span><span class="p">,</span> <span class="mi">4385</span><span class="n">BB</span><span class="p">,</span> <span class="mi">3</span><span class="n">D79AA</span><span class="p">,</span> <span class="mi">39719</span><span class="n">E</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">minor</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">pad</span><span class="p">:</span> <span class="mf">6.0</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">minor</span><span class="o">.</span><span class="n">pad</span><span class="p">:</span> <span class="mf">6.0</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">color</span><span class="p">:</span> <span class="mi">555555</span>
+<span class="n">xtick</span><span class="o">.</span><span class="n">direction</span><span class="p">:</span> <span class="ow">in</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">minor</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="mf">0.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">major</span><span class="o">.</span><span class="n">pad</span><span class="p">:</span> <span class="mf">6.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">minor</span><span class="o">.</span><span class="n">pad</span><span class="p">:</span> <span class="mf">6.0</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">color</span><span class="p">:</span> <span class="mi">555555</span>
+<span class="n">ytick</span><span class="o">.</span><span class="n">direction</span><span class="p">:</span> <span class="ow">in</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">fancybox</span><span class="p">:</span> <span class="bp">True</span>
+<span class="n">legend</span><span class="o">.</span><span class="n">numpoints</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">figsize</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">8</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">facecolor</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">edgecolor</span><span class="p">:</span> <span class="mf">0.5</span>
+<span class="n">figure</span><span class="o">.</span><span class="n">subplot</span><span class="o">.</span><span class="n">hspace</span><span class="p">:</span> <span class="mf">0.5</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_subarea output_stream output_stdout output_text">
+          <pre>Writing /home/kiko/.config/matplotlib/stylelib/pybonacci.mplstyle
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Y ahora, supuestamente, deberíamos poder acceder al nuevo estilo creado:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="k">print</span><span class="p">(</span><span class="s">&#039;Estilos disponibles: &#039;</span><span class="p">,</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_subarea output_stream output_stdout output_text">
+          <pre>Estilos disponibles:  [';fivethirtyeight';, ';ggplot';, ';grayscale';, ';dark_background';, ';bmh';]
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Si veis que no está disponible podéis hacer lo siguiente:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">reload_library</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">available</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="output_text output_subarea output_pyout">
+          <pre>[';ggplot';,
+ ';grayscale';,
+ ';dark_background';,
+ ';bmh';,
+ ';fivethirtyeight';,
+ ';pybonacci';]</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Ahora vamos a recrear el gráfico que <a href="https://github.com/Pybonacci/mpl_styles/blob/master/mpl_styles.py#L117">definimos en el repositorio de <em>mpl_styles</em></a> para el estilo <strong>pybo</strong> que definimos allí:</p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class=" highlight hl-ipython">
+          <pre><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">&#039;pybonacci&#039;</span><span class="p">)</span>
+
+<span class="n">x1</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+      </div>
+
+      <div class="output_area">
+        <div class="prompt">
+        </div>
+
+        <div class="output_png output_subarea ">
+          <img src="https://pybonacci.org/images/2015/01/wpid-¿Realmente_es_feo_matplotlib3.png" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+  </div>
+
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      <h2 id="Que-he-dicho-que-no-me-gusta-matplotlib">
+        Que he dicho que no me gusta matplotlib<a class="anchor-link" href="#Que-he-dicho-que-no-me-gusta-matplotlib">&#182;</a>
+      </h2>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+  </div>
+
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Si a pesar de todo lo expuesto aquí sigue sin gustarte matplotlib (estás en tu derecho y si lo argumentas en los comentarios lo podré entender mejor) tienes varias posibilidades disponibles:</p> 
+
+      <ul>
+        <li>
+          <a href="http://bokeh.pydata.org/en/latest/">Bokeh</a>
+        </li>
+        <li>
+          <a href="http://ggplot.yhathq.com/">GGplot</a>
+        </li>
+        <li>
+          Usad alguna librería javascript como Highcharts (<a href="https://pybonacci.org/2014/07/31/tutorial-de-highcharts-usando-ipython-brython-y-brythonmagic/">ved un tutorial aquí</a>), d3js,...
+        </li>
+        <li>
+          <a href="http://code.enthought.com/chaco/">Chaco</a>
+        </li>
+        <li>
+          <a href="http://home.gna.org/veusz/">Veusz</a>
+        </li>
+        <li>
+          <a href="http://pyqwt.sourceforge.net/">PyQwt</a>
+        </li>
+      </ul>
+
+      <p>
+        No pongo <a href="http://stanford.edu/~mwaskom/software/seaborn/index.html">Seaborn</a> puesto que se basa en matplotlib.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+  <div class="prompt input_prompt">
+  </div>
+
+  <div class="inner_cell">
+    <div class="text_cell_render border-box-sizing rendered_html">
+      Saludos a todos.<br /> P.D.: Este notebook y la hoja de estilos que acabamos de crear está disponible en el <a href="https://github.com/Pybonacci/notebooks/tree/master/Realmente_es_feo_matplotlib">repo de notebooks de Pybonacci</a>.</p>
+    </div>
+  </div>
+</div>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/estilos.html" class="tag">estilos</a>
+                    <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                    <a href="http://pybonacci.github.io/tag/styles.html" class="tag">styles</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

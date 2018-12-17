@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Cómo acelerar tu código Python con numba | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Cómo acelerar tu código Python con numba</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 13 marzo 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Introducción</p>
+<p>En este artículo vamos a hacer un repaso exhaustivo de <strong>cómo acelerar sustancialmente tu código Python usando numba</strong>. Ya hablamos sobre <a href="https://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/">la primera versión de numba</a> en el blog, allá por 2012, pero ha habido importantes cambios desde entonces y la herramienta ha cambiado muchísimo. Recientemente Continuum publicó numba 0.17 con una <a href="http://numba.pydata.org/numba-doc/0.17.0/index.html">nueva documentación</a> mucho más fácil de seguir, pero aun así no siempre queda claro cuál es el camino para hacer que funcione, como quedó patente con el <a href="https://pybonacci.org/2015/03/09/c-elemental-querido-cython/">artículo sobre Cython</a> de Kiko. Por ello, en este artículo voy a aclarar qué puede y qué no puede hacer numba, cómo sacarle partido y voy a detallar un par de ejemplos exitosos que he producido en los últimos meses.</p>
+<p>Hablando de las nuevas versiones de numba, en su web podéis ver una <a href="http://numba.pydata.org/numba-benchmark/">evolución temporal del rendimiento</a> de algunas tareas que utiliza <a href="http://spacetelescope.github.io/asv/">asv</a> para la visualización.</p>
+<h1>Entendiendo numba: el modo <em>nopython</em></h1>
+<p>Como podemos leer en la documentación, <a href="http://numba.pydata.org/numba-doc/0.17.0/user/jit.html#nopython">numba tiene dos modos de funcionamiento básicos</a>: el modo <em>object</em> y el modo <em>nopython</em>.</p>
+<ul>
+<li>El modo <em>object</em> genera código que gestiona todas las variables como objetos de Python y utiliza la API C de Python para operar con ellas. En general en este modo <strong>no habrá ganancias de rendimiento</strong> (e incluso puede ir más lento), con lo cual mi recomendación personal es directamente no utilizarlo. Hay casos en los que numba puede detectar los bucles y optimizarlos individualmente (<em>loop-jitting</em>), pero no le voy a prestar mucha atención a esto.</li>
+<li>El modo <em>nopython</em> <strong>genera código independiente de la API C de Python</strong>. Esto tiene la desventaja de que no podemos usar todas las características del lenguaje, <strong>pero tiene un efecto significativo en el rendimiento</strong>. Otra de las restricciones es que <strong>no se puede reservar memoria para objetos nuevos</strong>.</li>
+</ul>
+<p>Por defecto numba usa el modo <em>nopython</em> siempre que puede, y si no pasa a modo <em>object</em>. Nosotros vamos a <strong>forzar el modo nopython</strong> (o «modo estricto» como me gusta llamarlo) porque es la única forma de aprovechar el potencial de numba.</p>
+<h1>Ámbito de aplicación</h1>
+<p>El problema del modo <em>nopython</em> es que los mensajes de error son totalmente inservibles en la mayoría de los casos, así que antes de lanzarnos a compilar funciones con numba conviene hacer un repaso de qué no podemos hacer para anticipar la mejor forma de programar nuestro código. Podéis consultar en la documentación <a href="http://numba.pydata.org/numba-doc/0.17.0/reference/pysupported.html">el subconjunto de Python soportado por numba</a> en modo <em>nopython</em>, y ya os aviso que, al menos de momento, no tenemos <a href="https://github.com/numba/numba/issues/504"><em>list comprehensions</em></a>, <a href="https://github.com/numba/numba/issues/984">generadores</a> ni algunas cosas más. Permitidme que resalte una frase sacada de la página principal de numba:</p>
+<blockquote>
+<p>"<em>With a few annotations, <strong>array-oriented and math-heavy Python code</strong> can be just-in-time compiled to native machine instructions, similar in performance to C, C++ and Fortran</em>". [Énfasis mío]</p>
+</blockquote>
+<p>Siento decepcionar a la audiencia pero <em>numba no acelerará todo el código Python</em> que le echemos: está enfocado a operaciones matemáticas con arrays. Aclarado este punto, vamos a ponernos manos a la obra con un ejemplo aplicado 🙂</p>
+<h1>Antes de empezar: instalación</h1>
+<p>Puedes instalar numba en Windows, OS X y Linux con <a href="http://conda.io/">conda</a> usando este comando:<br>
+<code>conda install numba</code><br>
+conda se ocupará de instalar una versión correcta de LLVM, así que no tendrás que compilarla tú mismo. <em>Y ya está</em>.<br>
+Ahora viene una opinión personal pero que considero importante: si eres usuario de paquetes científicos y aún no estás utilizando conda (o Anaconda) para gestionarlos, <strong>estás en la edad de piedra</strong>. Me declaro fanboy absoluto de Continuum Analytics por crear una herramienta de código abierto (<a href="http://github.com/conda/conda">conda está en GitHub</a>) que soluciona <em>por fin y de una vez por todas</em> los problemas y frustración que hemos tenido como comunidad <a href="https://twitter.com/fperez_org/status/569896953875722240">desde hace 15 años</a> y que Guido y otros se negaron a atajar. Yo llevo en esto solo desde 2011 pero aún recuerdo lo que es intentar compilar SciPy en Windows. Hazte un favor e <a href="http://conda.pydata.org/miniconda.html">instala Miniconda</a>.</p>
+<h1>Acelerando una función con numba</h1>
+<p>Voy a tomar directamente el ejemplo que usó Kiko para su artículo sobre Cython y vamos a ver cómo podemos utilizar numba (y un poco de astucia) para acelerar esta función:</p>
+<blockquote>
+<p>"Por ejemplo, imaginemos que tenemos que detectar valores mínimos locales dentro de una malla. Los valores mínimos deberán ser simplemente valores más bajos que los que haya en los 8 nodos de su entorno inmediato. En el siguiente gráfico, el nodo en verde será un nodo con un mínimo y en su entorno son todo valores superiores:</p>
+</blockquote>
+<div align="center">
+  <table>
+    <tr>
+      <td style="background:red">
+        (2, 0)
+      </td>
+
+      <td style="background:red">
+        (2, 1)
+      </td>
+
+      <td style="background:red">
+        (2, 2)
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:red">
+        (1, 0)
+      </td>
+
+      <td style="background:green">
+        (1. 1)
+      </td>
+
+      <td style="background:red">
+        (1, 2)
+      </td>
+    </tr>
+
+    <tr>
+      <td style="background:red">
+        (0, 0)
+      </td>
+
+      <td style="background:red">
+        (0, 1)
+      </td>
+
+      <td style="background:red">
+        (0, 2)
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>¡Vamos allá!</p>
+<p><code>%install_ext http://raw.github.com/jrjohansson/version_information/master/version_information.py</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span><span class="n">Installed</span> <span class="n">version_information</span><span class="p">.</span><span class="n">py</span><span class="p">.</span> <span class="n">To</span> <span class="n">use</span> <span class="n">it</span><span class="p">,</span> <span class="nl">type</span><span class="p">:</span>
+
+<span class="nf">%load_ext</span> <span class="n">version_information</span>
+<span class="nf">%load_ext</span> <span class="n">version_information</span>
+</pre></div>
+
+
+<p><br></p>
+<p><code>%version_information numpy, numba, cython</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div>
+  <table>
+    <tr>
+      <th>
+        Software
+      </th>
+
+      <th>
+        Version
+      </th>
+    </tr>
+
+    <tr>
+      <td>
+        Python
+      </td>
+
+      <td>
+        3.4.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        IPython
+      </td>
+
+      <td>
+        3.0.0
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        OS
+      </td>
+
+      <td>
+        Linux 3.18.6 1 ARCH x86_64 with arch
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        numpy
+      </td>
+
+      <td>
+        1.9.2
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        numba
+      </td>
+
+      <td>
+        0.17.0
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        cython
+      </td>
+
+      <td>
+        0.22
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan='2'>
+        Fri Mar 13 13:44:39 2015 CET
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p>Vamos a empezar por importar los paquetes necesarios e inicializar la semilla del generador de números aleatorios:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numba</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="kp">seed</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Creamos nuestro array de datos:</p>
+<p><code>data = np.random.randn(2000, 2000)</code></p>
+<p>Y voy a copiar descaradamente la función de Kiko:</p>
+<div class="highlight"><pre><span></span>def busca_min(malla):
+    minimosx = []
+    minimosy = []
+    for i in range(1, malla.shape[1]-1):
+        for j in range(1, malla.shape[]-1):
+            if (malla[j, i] &lt; malla[j-1, i-1] and
+                malla[j, i] &lt; malla[j-1, i] and
+                malla[j, i] &lt; malla[j-1, i+1] and
+                malla[j, i] &lt; malla[j, i-1] and
+                malla[j, i] &lt; malla[j, i+1] and
+                malla[j, i] &lt; malla[j+1, i-1] and
+                malla[j, i] &lt; malla[j+1, i] and
+                malla[j, i] &lt; malla[j+1, i+1]):
+                minimosx.append(i)
+                minimosy.append(j)
+
+    return np.array(minimosx), np.array(minimosy)
+
+busca_min(data)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>(array([   1,    1,    1, ..., 1998, 1998, 1998]),
+ array([   1,    3,   11, ..., 1968, 1977, 1985]))
+</pre></div>
+
+
+<h1>Paso 1: analizar el código</h1>
+<p>Lo primero que pensé cuando vi esta función es que no me gustaba nada hacer <code>append</code> a esas dos listas tantas veces. Pero a continuación me pregunté si realmente tendrían tantos elementos... averigüémoslo:</p>
+<div class="highlight"><pre><span></span>mx, my = busca_min(data)
+mx.size / data.size
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>0.11091025
+</pre></div>
+
+
+<p>Tenemos que más de un 10 % de los elementos de la matriz cumplen la condición de ser «mínimos locales», así que no es nada despreciable. Esto en nuestro ejemplo hace <em>un total de más de 400 000 elementos</em>:</p>
+<div class="highlight"><pre><span></span>mx.size
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>443641
+</pre></div>
+
+
+<p>Ahora la idea de crear dos listas y añadir los elementos uno a uno me gusta todavía menos, así que voy a cambiar de enfoque. Lo que voy a hacer va a ser crear otro array, de la misma forma que nuestros datos, y almacenar un valor <code>True</code> en aquellos elementos que cumplan la condición de mínimo local. De esta forma cumplo también una de las reglas de oro de Software Carpentry: "<em>Always initialize from data</em>".</p>
+<div class="highlight"><pre><span></span>def busca_min_np(malla):
+    minimos = np.zeros_like(malla, dtype=bool)
+    for i in range(1, malla.shape[1]-1):
+        for j in range(1, malla.shape[]-1):
+            if (malla[j, i] &lt; malla[j-1, i-1] and
+                malla[j, i] &lt; malla[j-1, i] and
+                malla[j, i] &lt; malla[j-1, i+1] and
+                malla[j, i] &lt; malla[j, i-1] and
+                malla[j, i] &lt; malla[j, i+1] and
+                malla[j, i] &lt; malla[j+1, i-1] and
+                malla[j, i] &lt; malla[j+1, i] and
+                malla[j, i] &lt; malla[j+1, i+1]):
+                minimos[i, j] = True
+
+    return np.nonzero(minimos)
+</pre></div>
+
+
+<p>Encima puedo aprovechar la estupenda función <code>nonzero</code> de NumPy. Compruebo que las salidas son iguales:</p>
+<div class="highlight"><pre><span></span>np.testing.assert_array_equal(busca_min(data)[], busca_min_np(data)[])
+np.testing.assert_array_equal(busca_min(data)[1], busca_min_np(data)[1])
+</pre></div>
+
+
+<p>Y evalúo los rendimientos:</p>
+<div class="highlight"><pre><span></span><span class="nf">%timeit</span> <span class="n">busca_min</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>1 loops, best of 3: 4.75 s per loop
+</pre></div>
+
+
+<p><br></p>
+<div class="highlight"><pre><span></span><span class="nf">%timeit</span> <span class="n">busca_min_np</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>1 loops, best of 3: 4.62 s per loop
+</pre></div>
+
+
+<p>Parece que los tiempos son más o menos parecidos, pero al menos ya no tengo dos objetos en memoria que van a crecer de manera aleatoria. Vamos a ver ahora cómo nos puede ayudar numba a acelerar este código.</p>
+<h1>Paso 2: aplicando <code>numba.jit(nopython=True)</code></h1>
+<p>Como hemos dicho antes, vamos a forzar que numba funcione en modo <em>nopython</em> para garantizar que obtenemos una mejora en el rendimiento. Si intentamos compilar la función definida en primer lugar va a fallar, porque ya hemos dicho más arriba que una de las condiciones es que <em>no se puede asignar memoria a objetos nuevos</em>:</p>
+<div class="highlight"><pre><span></span>busca_min_jit = numba.jit(nopython=True)(busca_min)
+busca_min_jit(data)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>NotImplementedError                       Traceback (most recent call last)
+&lt;ipython-input-14-3ca127791a45&gt; in &lt;module&gt;()
+ 1 busca_min_jit = numba.jit(nopython=True)(busca_min)
+----&gt; 2  busca_min_jit(data)
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/dispatcher.py in _compile_for_args(self, *args, **kws)
+ 155         assert not kws
+ 156         sig = tuple([self.typeof_pyval(a) for a in args])
+--&gt; 157  return self.compile(sig)
+ 158 
+ 159     def inspect_types(self, file=None):
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/dispatcher.py in compile(self, sig)
+ 275                                           self.py_func,
+ 276                                           args=args, return_type=return_type,
+--&gt; 277 flags=flags, locals=self.locals) 278 
+ 279             # Check typing error if object mode is used
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_extra(typingctx, targetctx, func, args, return_type, flags, locals, library)
+ 545     pipeline = Pipeline(typingctx, targetctx, library,
+ 546                         args, return_type, flags, locals)
+--&gt; 547  return pipeline.compile_extra(func)
+ 548 
+ 549
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_extra(self, func)
+ 291                 raise e
+ 292 
+--&gt; 293  return self.compile_bytecode(bc, func_attr=self.func_attr)
+ 294 
+ 295     def compile_bytecode(self, bc, lifted=(),
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_bytecode(self, bc, lifted, func_attr)
+ 299         self.lifted = lifted
+ 300         self.func_attr = func_attr
+--&gt; 301  return self._compile_bytecode()
+ 302 
+ 303     def compile_internal(self, bc, func_attr=DEFAULT_FUNCTION_ATTRIBUTES):
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in _compile_bytecode(self)
+ 532 
+ 533         pm.finalize()
+--&gt; 534  return pm.run(self.status)
+ 535 
+ 536
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in run(self, status)
+ 189                     # No more fallback pipelines?
+ 190                     if is_final_pipeline:
+--&gt; 191  raise patched_exception
+ 192                     # Go to next fallback pipeline
+ 193                     else:
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in run(self, status)
+ 181             for stage, stage_name in self.pipeline_stages[pipeline_name]:
+ 182                 try:
+--&gt; 183  res = stage()
+ 184                 except _EarlyPipelineCompletion as e:
+ 185                     return e.result
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in stage_nopython_frontend(self)
+ 387                 self.args,
+ 388                 self.return_type,
+--&gt; 389 self.locals) 390 
+ 391         with self.fallback_context(&#39;;Function &quot;%s&quot; has invalid return type&#39;;
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in type_inference_stage(typingctx, interp, args, return_type, locals)
+ 662         infer.seed_type(k, v)
+ 663 
+--&gt; 664  infer.build_constrain()
+ 665     infer.propagate()
+ 666     typemap, restype, calltypes = infer.unify()
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in build_constrain(self)
+ 375         for blk in utils.itervalues(self.blocks):
+ 376             for inst in blk.body:
+--&gt; 377  self.constrain_statement(inst)
+ 378 
+ 379     def propagate(self):
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in constrain_statement(self, inst)
+ 480     def constrain_statement(self, inst):
+ 481         if isinstance(inst, ir.Assign):
+--&gt; 482  self.typeof_assign(inst)
+ 483         elif isinstance(inst, ir.SetItem):
+ 484             self.typeof_setitem(inst)
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in typeof_assign(self, inst)
+ 514             self.typeof_global(inst, inst.target, value)
+ 515         elif isinstance(value, ir.Expr):
+--&gt; 516  self.typeof_expr(inst, inst.target, value)
+ 517         else:
+ 518             raise NotImplementedError(type(value), value)
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in typeof_expr(self, inst, target, expr)
+ 618                                              loc=inst.loc))
+ 619         else:
+--&gt; 620  raise NotImplementedError(type(expr), expr)
+ 621 
+ 622     def typeof_call(self, inst, target, call):
+
+NotImplementedError: Failed at nopython (nopython frontend)
+(&lt;class &#39;;numba.ir.Expr&#39;;&gt;, build_list(items=[]))
+</pre></div>
+
+
+<p>En este caso la traza es inservible y especificar los tipos de entrada no va a ayudar. Solo para verificar, vamos a ver qué pasa con el rendimiento si no forzamos el modo estricto:</p>
+<div class="highlight"><pre><span></span><span class="n">busca_min_jit_object</span> <span class="o">=</span> <span class="n">numba</span><span class="p">.</span><span class="n">jit</span><span class="p">()(</span><span class="n">busca_min</span><span class="p">)</span>
+
+<span class="nf">%timeit</span> <span class="n">busca_min_jit_object</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>1 loops, best of 3: 4.32 s per loop
+</pre></div>
+
+
+<p>Pocas ganancias respecto a la función sin compilar. ¿Qué pasa si intentamos lo mismo con la segunda función?</p>
+<div class="highlight"><pre><span></span>busca_min_np_jit = numba.jit(nopython=True)(busca_min_np)
+busca_min_np_jit(data)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+UntypedAttributeError                     Traceback (most recent call last)
+&lt;ipython-input-17-bb9282bb2bfc&gt; in &lt;module&gt;()
+ 1 busca_min_np_jit = numba.jit(nopython=True)(busca_min_np)
+----&gt; 2  busca_min_np_jit(data)
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/dispatcher.py in _compile_for_args(self, *args, **kws)
+ 155         assert not kws
+ 156         sig = tuple([self.typeof_pyval(a) for a in args])
+--&gt; 157  return self.compile(sig)
+ 158 
+ 159     def inspect_types(self, file=None):
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/dispatcher.py in compile(self, sig)
+ 275                                           self.py_func,
+ 276                                           args=args, return_type=return_type,
+--&gt; 277 flags=flags, locals=self.locals) 278 
+ 279             # Check typing error if object mode is used
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_extra(typingctx, targetctx, func, args, return_type, flags, locals, library)
+ 545     pipeline = Pipeline(typingctx, targetctx, library,
+ 546                         args, return_type, flags, locals)
+--&gt; 547  return pipeline.compile_extra(func)
+ 548 
+ 549
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_extra(self, func)
+ 291                 raise e
+ 292 
+--&gt; 293  return self.compile_bytecode(bc, func_attr=self.func_attr)
+ 294 
+ 295     def compile_bytecode(self, bc, lifted=(),
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in compile_bytecode(self, bc, lifted, func_attr)
+ 299         self.lifted = lifted
+ 300         self.func_attr = func_attr
+--&gt; 301  return self._compile_bytecode()
+ 302 
+ 303     def compile_internal(self, bc, func_attr=DEFAULT_FUNCTION_ATTRIBUTES):
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in _compile_bytecode(self)
+ 532 
+ 533         pm.finalize()
+--&gt; 534  return pm.run(self.status)
+ 535 
+ 536
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in run(self, status)
+ 189                     # No more fallback pipelines?
+ 190                     if is_final_pipeline:
+--&gt; 191  raise patched_exception
+ 192                     # Go to next fallback pipeline
+ 193                     else:
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in run(self, status)
+ 181             for stage, stage_name in self.pipeline_stages[pipeline_name]:
+ 182                 try:
+--&gt; 183  res = stage()
+ 184                 except _EarlyPipelineCompletion as e:
+ 185                     return e.result
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in stage_nopython_frontend(self)
+ 387                 self.args,
+ 388                 self.return_type,
+--&gt; 389 self.locals) 390 
+ 391         with self.fallback_context(&#39;;Function &quot;%s&quot; has invalid return type&#39;;
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/compiler.py in type_inference_stage(typingctx, interp, args, return_type, locals)
+ 663 
+ 664     infer.build_constrain()
+--&gt; 665  infer.propagate()
+ 666     typemap, restype, calltypes = infer.unify()
+ 667
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in propagate(self)
+ 388                 print(&quot;propagate&quot;.center(80, &#39;;-&#39;;))
+ 389             oldtoken = newtoken
+--&gt; 390  self.constrains.propagate(self.context, self.typevars)
+ 391             newtoken = self.get_state_token()
+ 392             if config.DEBUG:
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in propagate(self, context, typevars)
+ 110         for constrain in self.constrains:
+ 111             try:
+--&gt; 112  constrain(context, typevars)
+ 113             except TypingError:
+ 114                 raise
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typeinfer.py in __call__(self, context, typevars)
+ 267         for ty in valtys:
+ 268             try:
+--&gt; 269  attrty = context.resolve_getattr(value=ty, attr=self.attr)
+ 270             except KeyError:
+ 271                 args = (self.attr, ty, self.value.name, self.inst)
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typing/context.py in resolve_getattr(self, value, attr)
+ 82                 raise
+ 83 
+---&gt; 84  ret = attrinfo.resolve(value, attr)
+ 85         assert ret
+ 86         return ret
+
+/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numba/typing/templates.py in resolve(self, value, attr)
+ 241         ret = self._resolve(value, attr)
+ 242         if ret is None:
+--&gt; 243  raise UntypedAttributeError(value=value, attr=attr)
+ 244         return ret
+ 245
+
+UntypedAttributeError: Failed at nopython (nopython frontend)
+Unknown attribute &quot;zeros_like&quot; of type Module(&lt;module &#39;;numpy&#39;; from &#39;;/home/juanlu/.miniconda3/envs/py34/lib/python3.4/site-packages/numpy/__init__.py&#39;;&gt;)
+</pre></div>
+
+
+<p>Me dice que no conoce la función <code>zeros_like</code>. Si acudimos a la documentación, podemos ver las <a href="http://numba.pydata.org/numba-doc/0.17.0/reference/numpysupported.html">características de NumPy soportadas por numba</a> y las funciones de creación de arrays <em>no</em> figuran entre ellas. Esto es consistente con lo que hemos dicho más arriba: no vamos a poder asignar memoria a objetos nuevos.</p>
+<h1>Paso 3: Reestructurar el código</h1>
+<p>¿Estamos en un callejón sin salida entonces? ¡En absoluto! Lo que vamos a hacer va a ser separar la parte intensiva de la función para aplicar <code>numba.jit</code> sobre ella, e inicializar todos los valores desde fuera. Para los que hayan usado subrutinas en Fortran este enfoque les resultará familiar 🙂</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">busca_min_np_jit</span><span class="p">(</span><span class="n">malla</span><span class="p">):</span>
+    <span class="n">minimos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">malla</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+    <span class="n">_busca_min</span><span class="p">(</span><span class="n">malla</span><span class="p">,</span> <span class="n">minimos</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">minimos</span><span class="p">)</span>
+
+<span class="nd">@numba.jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_busca_min</span><span class="p">(</span><span class="n">malla</span><span class="p">,</span> <span class="n">minimos</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">malla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">malla</span><span class="o">.</span><span class="n">shape</span><span class="p">[]</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">minimos</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+
+
+<p>Veamos qué ocurre ahora:</p>
+<div class="highlight"><pre><span></span>busca_min_np_jit(data)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>(array([   1,    1,    1, ..., 1998, 1998, 1998]),
+ array([   1,    3,   11, ..., 1968, 1977, 1985]))
+</pre></div>
+
+
+<p><br></p>
+<div class="highlight"><pre><span></span><span class="n">np</span><span class="p">.</span><span class="n">testing</span><span class="p">.</span><span class="n">assert_array_equal</span><span class="p">(</span><span class="n">busca_min</span><span class="p">(</span><span class="n">data</span><span class="p">)[],</span> <span class="n">busca_min_np_jit</span><span class="p">(</span><span class="n">data</span><span class="p">)[])</span>
+<span class="n">np</span><span class="p">.</span><span class="n">testing</span><span class="p">.</span><span class="n">assert_array_equal</span><span class="p">(</span><span class="n">busca_min</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">busca_min_np_jit</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nf">%timeit</span> <span class="n">busca_min_np_jit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>10 loops, best of 3: 62.9 ms per loop
+</pre></div>
+
+
+<p>Habéis leído bien: <strong>70x más rápido</strong> 🙂<br>
+¡Lo hemos conseguido! Ahora nuestro código funciona en numba sin problemas y encima es endemoniadamente rápido. Para completar la comparación en mi ordenador, voy a reproducir también la función hecha en Cython:</p>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load_ext</span> <span class="n">cython</span>
+
+<span class="o">%%</span><span class="n">cython</span> <span class="o">--</span><span class="n">name</span> <span class="n">probandocython9</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">cimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">cpython</span> <span class="nn">cimport</span> <span class="nn">array</span> <span class="nn">as</span> <span class="nn">c_array</span>
+<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="n">cimport</span> <span class="n">cython</span>
+
+<span class="nd">@cython.boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> 
+<span class="nd">@cython.wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">cpdef</span> <span class="nb">tuple</span> <span class="n">busca_min_cython9</span><span class="p">(</span><span class="n">double</span> <span class="p">[:,:]</span> <span class="n">malla</span><span class="p">):</span>
+    <span class="n">cdef</span> <span class="n">c_array</span><span class="o">.</span><span class="n">array</span> <span class="n">minimosx</span><span class="p">,</span> <span class="n">minimosy</span>
+    <span class="n">cdef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span>
+    <span class="n">cdef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="n">malla</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">cdef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">jj</span> <span class="o">=</span> <span class="n">malla</span><span class="o">.</span><span class="n">shape</span><span class="p">[]</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">cdef</span> <span class="n">unsigned</span> <span class="nb">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1">#cdef float [:, :] malla_view = malla</span>
+    <span class="n">minimosx</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">minimosy</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">,</span> <span class="p">[])</span> 
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">ii</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">jj</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="ow">and</span>
+                <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">malla</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">minimosx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">minimosy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">minimosx</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">minimosy</span><span class="p">)</span>
+
+<span class="o">%</span><span class="n">timeit</span> <span class="n">busca_min_cython9</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>10 loops, best of 3: 151 ms per loop
+</pre></div>
+
+
+<p>Por tanto, vemos que <strong>la versión con numba es el doble de rápida que la versión con Cython</strong>. Sobre gustos no hay nada escrito: yo por ejemplo valoro no «salirme» de Python usando numba mientras que a otro puede no importarle incluir especificaciones de tipos como en Cython. Los números, eso sí, son los números 🙂</p>
+<h1>Más casos de éxito</h1>
+<h1>La atmósfera estándar</h1>
+<p>El <strong>cálculo de propiedades termodinámicas de la atmósfera estándar</strong> es un problema clásico que todo aeronáutico ha afrontado alguna vez muy al principio de su carrera formativa. La teoría es simple: imponemos una ley de variación de la temperatura con la altura $T = T(h)$, la presión se obtiene por consideraciones hidrostáticas $p = p(T)$ y la densidad por la ecuación de los gases ideales $rho = rho(p, T)$. La particularidad de la atmósfera estándar es que imponemos que la variación de la temperatura con la altura es una función simplificada <em>y definida a trozos</em>, así que calcular temperatura, presión y densidad dada una altura se parece mucho a hacer esto:</p>
+<div class="highlight"><pre><span></span>if 0.0 &lt;= h &lt; 11000.0:
+    T = T0 + alpha * h
+    p = ...  # Algo que depende de T
+    rho = p / (R_a * T)
+elif 11000.0 &lt;= h &lt; 20000.0:
+    T = T1
+    p = ...
+    rho = p / (R_a * T)
+elif 20000.0 &lt;= h &lt;= 32000.0:
+    ...
+</pre></div>
+
+
+<p>El problema viene cuando se quiere <strong>vectorizar</strong> esta función y permitir que <code>h</code> pueda ser un array de alturas. Esto es muy conveniente cuando queremos pintar alguna propiedad con matplotlib, por ejemplo.<br>
+Se intuye que hay dos formas de hacer esto: utilizando funciones de NumPy o iterando por cada elemento del array. La primera solución se hace farragosa, y la segunda, gracias a la proverbial lentitud de Python, es extremadamente lenta. Mi amigo <a href="http://twitter.com/Alex__S12">Álex</a> y yo llevamos pensando sobre este problema <em>años</em>, y nunca hemos llegado a una solución satisfactoria (incluso <a href="https://github.com/numpy/numpy/pull/331">encontramos algunos bugs en <code>numpy.piecewise</code></a> por el camino). Este año decidimos cerrar este asunto definitivamente así que con <a href="https://github.com/AeroPython">el equipo AeroPython</a> exploramos varias implementaciones distintas. Hasta que por fin lo conseguimos: <strong>usamos numba para acelerar los bucles</strong>.<br>
+<img alt="numba gana a C++" src="https://cloud.githubusercontent.com/assets/316517/6236738/63dabc48-b6ed-11e4-822f-2c36c0d96f76.png"><br>
+Como podéis leer <a href="https://github.com/AeroPython/aeropy/issues/4#issuecomment-74748524">en la discusión original</a>, la función de la primera columna está escrita en C++. ¿Impresionado? 😉</p>
+<h1>Solución de Navier de una placa plana</h1>
+<p>Para mi proyecto fin de carrera me encontré con la necesidad de calcular la deflexión de una placa rectangular, simplemente apoyada en sus cuatro bordes (es decir, los bordes pueden girar: no están empotrados) sometida a una carga transversal. Este problema tiene solución analítica conocida desde hace tiempo, hallada por Navier:<br>
+$displaystyle w(x,y) = sum_{m=1}^infty sum_{n=1}^infty frac{a_{mn}}{pi^4 D},left(frac{m^2}{a^2}+frac{n^2}{b^2}right)^{-2},sinfrac{m pi x}{a}sinfrac{n pi y}{b}$</p>
+<p>siendo $a_{mn}$ los coeficientes de Fourier de la carga aplicada. Como veis, para cada punto $(x, y)$ hay que hacer una doble suma en serie; si encima queremos evaluar esto en un <code>meshgrid</code>, necesitamos <strong>un cuádruple bucle</strong>. Ya se anticipa que por muy hábiles que estemos, a Python le va a costar.<br>
+La clave estuvo, una vez más, en usar numba para optimizar los bucles. En GitHub tenéis <a href="https://gist.github.com/Juanlu001/cf19b1c16caf618860fb">el código completo</a>, pero la parte importante es esta:</p>
+<div class="highlight"><pre><span></span>@numba.jit(nopython=True)
+def a_mn_point(P, a, b, xi, eta, mm, nn):
+    &quot;&quot;&quot;Navier series coefficient for concentrated load.
+
+ &quot;&quot;&quot;
+    return 4 * P * sin(mm * pi * xi / a) * sin(nn * pi * eta / b) / (a * b)
+
+
+@numba.jit(nopython=True)
+def plate_displacement(xx, yy, ww, a, b, P, xi, eta, D, max_m, max_n):
+    max_i, max_j = ww.shape
+    for mm in range(1, max_m):
+        for nn in range(1, max_n):
+            for ii in range(max_i):
+                for jj in range(max_j):
+                    a_mn = a_mn_point(P, a, b, xi, eta, mm, nn)
+                    ww[ii, jj] += (a_mn / (mm**2 / a**2 + nn**2 / b**2)**2
+                                   * sin(mm * pi * xx[ii, jj] / a)
+                                   * sin(nn * pi * yy[ii, jj] / b)
+                                   / (pi**4 * D))
+</pre></div>
+
+
+<p><img alt="solucion" src="https://www.pybonacci.org/images/2015/03/solucion_placa_plana.png?style=centerme"></p>
+<p>Podéis comprobar vosotros mismos que las diferencias de rendimiento en este caso son brutales. <em>Y solo hemos añadido una línea a cada función</em>.</p>
+<h1>Conclusiones</h1>
+<p>numba aún no es una herramienta estable, pero está rápidamente alcanzando un grado de madurez suficiente para optimizar código orientado a operar con arrays. Gracias a conda es trivial de instalar y los resultados respecto a soluciones más maduras como Cython son aplastantes, tanto en velocidad de ejecución como en la complejidad del código resultante.<br>
+De momento yo me quedo con numba, ¿y tú? 😉</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/conda.html" class="tag">conda</a>
+                    <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/rendimiento.html" class="tag">rendimiento</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

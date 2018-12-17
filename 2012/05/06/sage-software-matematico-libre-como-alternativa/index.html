@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Sage: software matemático libre como alternativa | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Sage: software matemático libre como alternativa</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 06 mayo 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Seguro que muchos de vosotros ya conocéis <a href="http://sagemath.org/">Sage</a>: un proyecto cuyo nada ambicioso objetivo es</p>
+<blockquote>
+<p>Crear una alternativa de código abierto, libre y viable a Magma, Maple, Mathematica y MATLAB.</p>
+</blockquote>
+<p>Desde luego hay que admitir que como declaración de intenciones no está mal. Hechas las presentaciones, ¿qué más podemos decir sobre Sage?</p>
+<p><img alt="Logo de Sage" src="https://pybonacci.org/images/2012/05/sage-logo-new-l.png"></p>
+<p>Sage comenzó en 2004 como un proyecto personal de <a href="http://www.wstein.org/">William Stein</a>, profesor de matemáticas en la Universidad de Washington, quien, <a href="http://sagemath.blogspot.com.es/2009/12/mathematical-software-and-me-very.html">como explica en su blog</a>, estaba frustrado por no poder solucionar las limitaciones de Magma al no ser un programa libre. Stein se dio cuenta de que, aunque crear un sistema como Magma o Maple llevaría años con un equipo de desarrolladores voluntarios partiendo de cero, <em>ya había numerosos paquetes de código abierto</em> escritos en diferentes lenguajes enfocados a diversas áreas matemáticas. Así que decidió unir todos estos paquetes <strong>utilizando Python</strong> (en este momento son <a href="http://sagemath.org/links-components.html">cerca de 100</a>) para crear un enorme software matemático para crear Sage. En esto se diferencia de otros proyectos como SymPy, del que ya <a href="https://pybonacci.org/2012/04/04/introduccion-al-calculo-simbolico-en-python-con-sympy/">hemos</a> <a href="https://pybonacci.org/2012/04/30/como-calcular-limites-derivadas-series-e-integrales-en-python-con-sympy/">hablado</a> en este blog.</p>
+<!--more-->
+
+<p>En este momento Sage ha visto más de 300 versiones y cuenta con <a href="http://sagemath.org/development-map.html">más de 200 colaboradores por todo el mundo</a>. Además, desde febrero de 2006 se han celebrado numerosos eventos, conocidos como <a href="http://wiki.sagemath.org/Workshops">«Sage Days»</a>, en los que los desarrolladores se han reunido para solucionar errores, implementar nuevas características, escribir documentación o hablar sobre el uso de Sage en educación.</p>
+<p>Hablando de eventos, en España desde hace dos años se celebran cada verano las <strong>Jornadas Sage/Python</strong>, en las que se muestran las experiencias docentes que ya se están llevando a cabo con este programa en algunas universidades españolas y se explican ejemplos de aplicación. Este año se celebrarán las <a href="http://webs.uvigo.es/sage2012/">III Jornadas Sage/Python en la Universidad de Vigo</a> los días 21 y 22 de junio de 2012 y estáis todos invitados 🙂</p>
+<p>Sage dispone de una <a href="http://sagemath.org/doc/">documentación</a> <em>enorme</em> compuesta de tutoriales, guías y el <a href="http://sagemath.org/doc/reference/index.html">manual de referencia</a>. Solo por el tamaño de este último nos damos cuenta de la sorprendente amplitud de posibilidades que tiene este programa. Actualmente Sage le lleva la delantera a todos sus competidores no libres en cuanto a temas de matemática teórica, como pueden ser <a href="http://sagemath.org/doc/reference/plane_curves.html">curvas elípticas</a> o <a href="http://sagemath.org/doc/reference/matrices.html">espacios de matrices</a>, y por supuesto es capaz de dibujar gráficos en 2D y en 3D y de crear componentes interactivos al estilo de Mathematica, con la diferencia que para compartirlos no necesitas el Mathematica Player: <a href="http://aleph.sagemath.org/?z=eJyNkc9OhDAQxu88xZd4YAa7CKwe1qSJJ1_CmKYusFtDylqKvr5TQA970R6m8_c3X9NPGyhvo4IdLmer4HPOgqmpjQyNGndoUIBq7LAXp41L5hbTR4h0lWYUxVJslhQnUvMHafdP0kxJpN90JiItnozJEpYhEtk_UYEUCMMLYytsg9eNtKt57Sxg3yZa0xJnRrRoVGWdmXVVCg7Zk_OxC_YYs7brYUjaNEmXgthKrqasmBXWoVQ6qLSlfFAQw8yPGeRM5_GLBjdFcxnGSC_kRIFJr5zLaRYlwjW_P6NXHJPXjhn9GODgPIL1p47uK35VSJz30fmu1c92mDqF4ziMQec3VbXf933O_A33GX0V">solamente un navegador</a>. En la Wikipedia podemos leer una extensa lista de características:</p>
+<blockquote>
+<p>Algunos de las muchas características de Sage incluyen:</p>
+<ul>
+<li>
+<p>Una interfaz gráfica (notebook) para la revisión y reutilización de entradas y salidas anteriores, incluyendo gráficas y notas de texto disponibles en la mayoría de los navegadores web incluyendo <a href="http://es.wikipedia.org/wiki/Firefox" title="Firefox">Firefox</a>, <a href="http://es.wikipedia.org/wiki/Opera_(navegador)" title="Opera (navegador)">Opera</a>, <a href="http://es.wikipedia.org/wiki/Konqueror" title="Konqueror">Konqueror</a>, y <a href="http://es.wikipedia.org/wiki/Safari" title="Safari">Safari</a>.</p>
+</li>
+<li>
+<p>Una línea de comandos basada en texto usando <a href="http://es.wikipedia.org/wiki/IPython" title="IPython">iPython</a></p>
+</li>
+<li>
+<p>El <a href="http://es.wikipedia.org/wiki/Lenguaje_de_programaci%C3%B3n_Python" title="Lenguaje de programación Python">lenguaje de programación Python</a>, que soporta expresiones en programación <a href="http://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos" title="Programación orientada a objetos">orientada a objetos</a> y <a href="http://es.wikipedia.org/wiki/Programaci%C3%B3n_funcional" title="Programación funcional">funcional</a>.</p>
+</li>
+<li>
+<p><a href="http://es.wikipedia.org/wiki/Computaci%C3%B3n_paralela" title="Computación paralela">Procesamiento paralelo</a> usando tanto <a href="http://es.wikipedia.org/w/index.php?title=Procesadores_de_n%C3%BAcleo_m%C3%BAltiple&amp;action=edit&amp;redlink=1" title="Procesadores de núcleo múltiple (aún no redactado)">procesadores de núcleo múltiple</a> como <a href="http://es.wikipedia.org/w/index.php?title=Multiprocesadores_sim%C3%A9tricos&amp;action=edit&amp;redlink=1" title="Multiprocesadores simétricos (aún no redactado)">multiprocesadores simétricos</a>.</p>
+</li>
+<li>
+<p>Cálculo usando <a href="http://es.wikipedia.org/wiki/Maxima" title="Maxima">Maxima</a> y <a href="http://es.wikipedia.org/wiki/SymPy" title="SymPy">SymPy</a></p>
+</li>
+<li>
+<p>Álgebra lineal numérica usando <a href="http://es.wikipedia.org/wiki/GNU_Scientific_Library" title="GNU Scientific Library">GSL</a>, <a href="http://es.wikipedia.org/wiki/SciPy" title="SciPy">SciPy</a> y <a href="http://es.wikipedia.org/wiki/NumPy" title="NumPy">NumPy</a></p>
+</li>
+<li>
+<p>Control interactivo de los cálculos</p>
+</li>
+<li>
+<p>Librerías de funciones <a href="http://es.wikipedia.org/wiki/Funci%C3%B3n_elemental" title="Función elemental">elementales</a> y <a href="http://es.wikipedia.org/wiki/Funci%C3%B3n_especial" title="Función especial">especiales</a></p>
+</li>
+<li>
+<p>Gráficas en 2D y 3D tanto de funciones como de datos.</p>
+</li>
+<li>
+<p>Herramientas de manipulación de datos y matrices.</p>
+</li>
+<li>
+<p>Librerías de <a href="http://es.wikipedia.org/wiki/Estad%C3%ADstica" title="Estadística">estadística</a> multivariable</p>
+</li>
+<li>
+<p>Una caja de herramientas para añadir <a href="http://es.wikipedia.org/wiki/Interfaz_de_usuario" title="Interfaz de usuario">interfaces de usuario</a> a cálculos y aplicaciones</p>
+</li>
+<li>
+<p>Herramientas para <a href="http://es.wikipedia.org/wiki/Procesamiento_de_im%C3%A1genes" title="Procesamiento de imágenes">procesamiento de imágenes</a> usando pylab así como Python</p>
+</li>
+<li>
+<p>Herramientas para visualizar y analizar <a href="http://es.wikipedia.org/wiki/Gr%C3%A1fica" title="Gráfica">gráficas</a></p>
+</li>
+<li>
+<p>Librerías para funciones de teoría de números</p>
+</li>
+<li>
+<p>Filtros para importar y exportar datos, imágenes, vídeo, sonido, <a href="http://es.wikipedia.org/wiki/CAD" title="CAD">CAD</a>, y <a href="http://es.wikipedia.org/wiki/GIS" title="GIS">GIS</a></p>
+</li>
+<li>
+<p>Soporte para <a href="http://es.wikipedia.org/wiki/N%C3%BAmeros_complejos" title="Números complejos">números complejos</a>, <a href="http://es.wikipedia.org/w/index.php?title=Aritm%C3%A9tica_de_precisi%C3%B3n_arbitraria&amp;action=edit&amp;redlink=1" title="Aritmética de precisión arbitraria (aún no redactado)">aritmética de precisión arbitraria</a>, y computación simbólica de funciones donde esto sea apropiado.</p>
+</li>
+<li>
+<p>Embeber Sage en documentos <a href="http://es.wikipedia.org/wiki/LaTeX" title="LaTeX">LaTeX</a><span style="font-size:11px;">.</span></p>
+</li>
+<li>
+<p>Interfaces a otro software como <a href="http://es.wikipedia.org/wiki/Mathematica" title="Mathematica">Mathematica</a>, <a href="http://es.wikipedia.org/wiki/Magma" title="Magma">Magma</a> y <a href="http://es.wikipedia.org/wiki/Maple" title="Maple">Maple</a>, que le permite a los usuarios combinar software y comparar resultados y desempeño.</p>
+</li>
+</ul>
+</blockquote>
+<p>¿Alguien habló de interfaz gráfica? ¡Sí! Sage tiene una interfaz a imitación de los «notebooks» de Mathematica que funciona a través del navegador, y que además permite la edición colaborativa de documentos. Puedes utilizarla con el programa, montar tu propio servidor o crear una cuenta en el <a href="http://www.sagenb.org/">servidor público de Sage</a> para empezar a experimentar.<figure id="attachment_378" style="width: 420px" class="wp-caption aligncenter"></p>
+<p><img alt="Interfaz gráfica de Sage" src="https://pybonacci.org/images/2012/05/2012-05-06-195446_1366x768_scrot.png"></p>
+<p>Es complicado hacer una introducción a este programa porque es bastante inabarcable, pero espero que te haya resultado interesante. Si te apetece saber más cosas sobre Sage, puedes consultar <a href="http://www.sagenb.org/home/pub/873/">este «notebook» público</a> que explica algunas de sus posibilidades (e incluso editarlo tú mismo). O puedes estar atento a futuras publicaciones en Pybonacci 😉</p>
+<p>¡Un saludo!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/calculo-simbolico.html" class="tag">cálculo simbólico</a>
+                    <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/sage.html" class="tag">sage</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

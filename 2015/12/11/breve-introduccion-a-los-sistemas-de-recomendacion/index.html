@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Breve introducción a los Sistemas de Recomendación | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Breve introducción a los Sistemas de Recomendación</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 11 diciembre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En este pequeño tutorial, vamos a hablar sobre <a href="https://es.wikipedia.org/wiki/Sistema_de_recomendaci%C3%B3n">Sistemas de Recomendación</a>.</p>
+<p>Es posible que no sepas que son, sin embargo interactúas constantemente con ellos en Internet.</p>
+<p><img alt="amazon" src="http://www.getvero.com/wp-content/uploads/2013/02/amazon-recommendations.jpeg"></p>
+<p>Cada vez que Amazon te sugiere productos relacionados...</p>
+<p><img alt="netflix" src="/images/2015/12/netflixpregodmode-100574324-orig.png"></p>
+<p>O cuando Netflix o Youtube te recomiendan contenido que te puede interesar...</p>
+<p>La finalidad de un sistema de recommendación es predecir la valoración que un usuario va a hacer de un ítem que todavía no ha evaluado.</p>
+<p>Esta valoración se genera al analizar una de dos cosas, o las características de cada item, o las valoraciones de cada usuario a cada item, y se usa para recomendar contenido personalizado a los usuarios.</p>
+<p>Hay dos tipos principales de sistemas de recomendación:</p>
+<ul>
+<li>Filtrado de Contenido. Las recomendaciones están basadas en las características de cada item.</li>
+<li>Filtrado Colaborativo. Las recomendaciones están basadas en las valoraciones existentes de los usuarios.</li>
+</ul>
+<p>En este tutorial vamos a trabajar con el dataset de <a href="http://grouplens.org/datasets/movielens/">MovieLens</a>. Este dataset contiene valoraciones de películas sacadas de la página web MovieLens (https://movielens.org/).</p>
+<p>El dataset consiste en múltiples archivos, pero los que vamos a usar en este artículo son <em>movies.dat</em> y <em>ratings.dat</em>.</p>
+<p>Primero nos descargamos el dataset:</p>
+<div class="highlight"><pre><span></span>wget http://files.grouplens.org/datasets/movielens/ml-1m.zip
+unzip ml-1m.zip
+<span class="nb">cd</span> ml-1m/
+</pre></div>
+
+
+<h1>Filtrado de Contenido</h1>
+<p>Aquí están las primeras líneas del archivo <code>movies.dat</code>. El archivo tiene el formato <code>movie_id::movie_title::movie_genre(s)</code></p>
+<div class="highlight"><pre><span></span>head movies.dat
+</pre></div>
+
+
+<p><code>Output:</code>
+    :::
+    1::Toy Story (1995)::Animation|Children's|Comedy
+    2::Jumanji (1995)::Adventure|Children's|Fantasy
+    3::Grumpier Old Men (1995)::Comedy|Romance
+    4::Waiting to Exhale (1995)::Comedy|Drama
+    5::Father of the Bride Part II (1995)::Comedy
+    6::Heat (1995)::Action|Crime|Thriller
+    7::Sabrina (1995)::Comedy|Romance
+    8::Tom and Huck (1995)::Adventure|Children's
+    9::Sudden Death (1995)::Action
+    10::GoldenEye (1995)::Action|Adventure|Thriller</p>
+<p>Los géneros de cada película están separados por un <em>pipe</em> <code>|</code></p>
+<p>Cargamos el archivo <code>movies.dat</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;movies.dat&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;::&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">,</span> <span class="s1">&#39;movie_title&#39;</span><span class="p">,</span> <span class="s1">&#39;movie_genre&#39;</span><span class="p">])</span>
+
+<span class="n">movies_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<!--<table border="1" style="text-align: center;width:100%">-->
+
+<table>
+  <tr>
+    <th>
+    </th>
+
+    <th>
+      movie_id
+    </th>
+
+    <th>
+      movie_title
+    </th>
+
+    <th>
+      movie_genre
+    </th>
+  </tr>
+
+  <tr>
+    <th>
+    </th>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      Toy Story (1995)
+    </td>
+
+    <td>
+      Animation|Children's|Comedy
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      1
+    </th>
+
+    <td>
+      2
+    </td>
+
+    <td>
+      Jumanji (1995)
+    </td>
+
+    <td>
+      Adventure|Children's|Fantasy
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      2
+    </th>
+
+    <td>
+      3
+    </td>
+
+    <td>
+      Grumpier Old Men (1995)
+    </td>
+
+    <td>
+      Comedy|Romance
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      3
+    </th>
+
+    <td>
+      4
+    </td>
+
+    <td>
+      Waiting to Exhale (1995)
+    </td>
+
+    <td>
+      Comedy|Drama<br/> 
+  </tr>
+</table>
+
+<p>Para poder usar la columna <code>movie_genre</code>, tenemos que convertirla en un grupo de campos llamados <code>dummy_variables</code>.</p>
+<p>Esta función convierte una variable categórica (por ejemplo, el genéro de la película puede ser <em>Animation, Comedy, Romance</em>...), en múltiples columnas (una columna para <em>Animation</em>, una columna para <em>Comedy</em>, etc).</p>
+<p>Para cada película, éstas columnas <code>dummy</code> tendrán un valor de 0 excepto para aquellos géneros que tenga la película.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Convertimos los generos de peliculas a variables dummy </span>
+<span class="n">movies_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">movies_df</span><span class="p">,</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">movie_genre</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">sep</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">movies_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<table border="1" style="text-align: center;width:100%">
+<tr>
+  <th>
+  </th>
+
+  <th>
+    movie_id
+  </th>
+
+  <th>
+    movie_title
+  </th>
+
+  <th>
+    movie_genre
+  </th>
+
+  <th>
+    Action
+  </th>
+
+  <th>
+    Adventure
+  </th>
+
+  <th>
+    Animation
+  </th>
+
+  <th>
+    Children's
+  </th>
+
+  <th>
+    Comedy
+  </th>
+
+  <th>
+    Crime
+  </th>
+
+  <th>
+    Documentary
+  </th>
+
+  <th>
+    ...
+  </th>
+</tr>
+
+<tr>
+  <th>
+  </th>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    Toy Story (1995)
+  </td>
+
+  <td>
+    Animation|Children's|Comedy
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    1
+  </th>
+
+  <td>
+    2
+  </td>
+
+  <td>
+    Jumanji (1995)
+  </td>
+
+  <td>
+    Adventure|Children's|Fantasy
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    2
+  </th>
+
+  <td>
+    3
+  </td>
+
+  <td>
+    Grumpier Old Men (1995)
+  </td>
+
+  <td>
+    Comedy|Romance
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    3
+  </th>
+
+  <td>
+    4
+  </td>
+
+  <td>
+    Waiting to Exhale (1995)
+  </td>
+
+  <td>
+    Comedy|Drama
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    4
+  </th>
+
+  <td>
+    5
+  </td>
+
+  <td>
+    Father of the Bride Part II (1995)
+  </td>
+
+  <td>
+    Comedy
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+</table>
+
+<p>Por ejemplo, la película con una <code>id</code> de 1, <strong>Toy Story</strong>, pertenece a los géneros <em>Animation, Children's y Comedy</em>, y por lo tanto las columnas <em>Animation, Children's y Comedy</em> tienen un valor de 1 para Toy Story.</p>
+<div class="highlight"><pre><span></span><span class="n">movie_categories</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+<span class="n">movies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>movie_id                                 1
+movie_title               Toy Story (1995)
+movie_genre    Animation|Children&#39;s|Comedy
+Action                                   0
+Adventure                                0
+Animation                                1
+Children&#39;s                               1
+Comedy                                   1
+Crime                                    0
+Documentary                              0
+Drama                                    0
+Fantasy                                  0
+Film-Noir                                0
+Horror                                   0
+Musical                                  0
+Mystery                                  0
+Romance                                  0
+Sci-Fi                                   0
+Thriller                                 0
+War                                      0
+Western                                  0
+Name: 0, dtype: object
+</pre></div>
+
+
+<p>El filtrado de contenidos es una manera bastante simple de construir un sistema de recomendación. En este método, los items (en éste ejemplo las películas), se asocian a un grupo de características (en este caso los géneros cinematográficos).</p>
+<p>Para recomendar items a un usuario, primero dicho usuario tiene que especificar sus preferencias en cuanto a las características.</p>
+<p>En el ejemplo de Movielens, el usuario tiene que especificar qué generos le gustan y cuánto le gustan.</p>
+<p>Por el momento tenemos todas las columnas categorizadas por géneros.</p>
+<p>Vamos a crear un usuario de ejemplo, con unos gustos cinematográficos enfocados a películas de acción, aventura y ficción:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="n">user_preferences</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">movie_categories</span><span class="p">,</span> <span class="p">[]))</span>
+
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Adventure&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Animation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s2">&quot;Children&#39;s&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s2">&quot;Comedy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Crime&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Documentary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Drama&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Fantasy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Film-Noir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Horror&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Musical&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Mystery&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Romance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Sci-Fi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;War&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Thriller&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">user_preferences</span><span class="p">[</span><span class="s1">&#39;Western&#39;</span><span class="p">]</span> <span class="o">=</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Ahora que tenemos las preferencias del usuario, para calcular la puntuación que dicho usuario daría a cada película sólo tenemos que hacer el producto vectorial de las preferencias del usuario con las características de cada película.</p>
+<div class="highlight"><pre><span></span><span class="c1">#En producción usaríamos np.dot, en vez de escribir esta función, la pongo como ejemplo.</span>
+<span class="k">def</span> <span class="nf">dot_product</span><span class="p">(</span><span class="n">vector_1</span><span class="p">,</span> <span class="n">vector_2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span> <span class="n">i</span><span class="o">*</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">vector_1</span><span class="p">,</span> <span class="n">vector_2</span><span class="p">)])</span>
+
+<span class="k">def</span> <span class="nf">get_movie_score</span><span class="p">(</span><span class="n">movie_features</span><span class="p">,</span> <span class="n">user_preferences</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dot_product</span><span class="p">(</span><span class="n">movie_features</span><span class="p">,</span> <span class="n">user_preferences</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Ahora podemos computar la puntuación de la película <em>Toy Story</em>, una película de animación infantil, para el usuario del ejemplo.</p>
+<div class="highlight"><pre><span></span><span class="n">toy_story_features</span> <span class="o">=</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">movie_categories</span><span class="p">]</span>
+<span class="n">toy_story_features</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">Action</span>         <span class="mi">0</span>
+<span class="n">Adventure</span>      <span class="mi">0</span>
+<span class="n">Animation</span>      <span class="mi">1</span>
+<span class="n">Children</span><span class="s1">&#39;s     1</span>
+<span class="n">Comedy</span>         <span class="mi">1</span>
+<span class="n">Crime</span>          <span class="mi">0</span>
+<span class="n">Documentary</span>    <span class="mi">0</span>
+<span class="n">Drama</span>          <span class="mi">0</span>
+<span class="n">Fantasy</span>        <span class="mi">0</span>
+<span class="n">Film</span><span class="o">-</span><span class="n">Noir</span>      <span class="mi">0</span>
+<span class="n">Horror</span>         <span class="mi">0</span>
+<span class="n">Musical</span>        <span class="mi">0</span>
+<span class="n">Mystery</span>        <span class="mi">0</span>
+<span class="n">Romance</span>        <span class="mi">0</span>
+<span class="n">Sci</span><span class="o">-</span><span class="n">Fi</span>         <span class="mi">0</span>
+<span class="n">Thriller</span>       <span class="mi">0</span>
+<span class="n">War</span>            <span class="mi">0</span>
+<span class="n">Western</span>        <span class="mi">0</span>
+<span class="n">Name</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+
+<span class="p">:::</span><span class="n">python</span>
+<span class="n">toy_story_user_predicted_score</span> <span class="o">=</span> <span class="n">dot_product</span><span class="p">(</span><span class="n">toy_story_features</span><span class="p">,</span> <span class="n">user_preferences</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">toy_story_user_predicted_score</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>5
+</pre></div>
+
+
+<p>Para este usuario, Toy Story tiene una puntuación de 5. Lo cual no significa mucho por sí mismo, sólo si comparamos dicha puntuación con la puntuación de las otras películas.</p>
+<p>Por ejemplo, calculamos la puntuación de <strong>Die Hard (La Jungla de Cristal)</strong>, una película de acción.</p>
+<div class="highlight"><pre><span></span><span class="n">movies_df</span><span class="p">[</span><span class="n">movies_df</span><span class="o">.</span><span class="n">movie_title</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Die Hard&#39;</span><span class="p">)]</span>
+</pre></div>
+
+
+<table border="1" style="text-align: center;width:100%">
+<tr>
+  <th>
+  </th>
+
+  <th>
+    movie_id
+  </th>
+
+  <th>
+    movie_title
+  </th>
+
+  <th>
+    movie_genre
+  </th>
+
+  <th>
+    Action
+  </th>
+
+  <th>
+    Adventure
+  </th>
+
+  <th>
+    Animation
+  </th>
+
+  <th>
+    Children's
+  </th>
+
+  <th>
+    Comedy
+  </th>
+
+  <th>
+    Crime
+  </th>
+
+  <th>
+    Documentary
+  </th>
+
+  <th>
+    ...
+  </th>
+</tr>
+
+<tr>
+  <th>
+    163
+  </th>
+
+  <td>
+    165
+  </td>
+
+  <td>
+    Die Hard: With a Vengeance (1995)
+  </td>
+
+  <td>
+    Action|Thriller
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    1023
+  </th>
+
+  <td>
+    1036
+  </td>
+
+  <td>
+    Die Hard (1988)
+  </td>
+
+  <td>
+    Action|Thriller
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    1349
+  </th>
+
+  <td>
+    1370
+  </td>
+
+  <td>
+    Die Hard 2 (1990)
+  </td>
+
+  <td>
+    Action|Thriller
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+</table>
+
+<div class="highlight"><pre><span></span><span class="n">die_hard_id</span> <span class="o">=</span> <span class="mi">1036</span>
+<span class="n">die_hard_features</span> <span class="o">=</span> <span class="n">movies_df</span><span class="p">[</span><span class="n">movies_df</span><span class="o">.</span><span class="n">movie_id</span><span class="o">==</span><span class="n">die_hard_id</span><span class="p">][</span><span class="n">movie_categories</span><span class="p">]</span>
+<span class="n">die_hard_features</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<table border="1" style="text-align: center">
+<tr>
+  <th>
+  </th>
+
+  <th>
+    1023
+  </th>
+</tr>
+
+<tr>
+  <th>
+    Action
+  </th>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Adventure
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Animation
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Children's
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Comedy
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Crime
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Documentary
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Drama
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Fantasy
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Film-Noir
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Horror
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Musical
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Mystery
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Romance
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Sci-Fi
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Thriller
+  </th>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    War
+  </th>
+
+  <td>
+  </td>
+</tr>
+
+<tr>
+  <th>
+    Western
+  </th>
+
+  <td>
+  </td>
+</tr>
+</table>
+
+<p><em>Nota, 1023 es el índice interno del dataframe, no el índice de la película Die Hard en Movielens</em></p>
+<div class="highlight"><pre><span></span><span class="n">die_hard_user_predicted_score</span> <span class="o">=</span> <span class="n">dot_product</span><span class="p">(</span><span class="n">die_hard_features</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">user_preferences</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">die_hard_user_predicted_score</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>8
+</pre></div>
+
+
+<p>Vemos que Die Hard tiene una puntuación de 8 y Toy Story de 5, asi que Die Hard sería recomendada al usuario antes que Toy Story. Lo cual tiene sentido teniendo en cuenta que a nuestro usuario de ejemplo le encantan las películas de acción.</p>
+<p>Una vez sabemos como calcular la puntuación para una película, recomendar nuevas películas es tan fácil como calcular las puntuaciones de cada película, y luego escoger aquellas con una puntuación más alta.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_movie_recommendations</span><span class="p">(</span><span class="n">user_preferences</span><span class="p">,</span> <span class="n">n_recommendations</span><span class="p">):</span>
+    <span class="c1">#metemos una columna al dataset movies_df con la puntuacion calculada para el usuario</span>
+    <span class="n">movies_df</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movies_df</span><span class="p">[</span><span class="n">movie_categories</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_movie_score</span><span class="p">,</span> 
+                                                           <span class="n">args</span><span class="o">=</span><span class="p">([</span><span class="n">user_preferences</span><span class="o">.</span><span class="n">values</span><span class="p">()]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">movies_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)[</span><span class="s1">&#39;movie_title&#39;</span><span class="p">][:</span><span class="n">n_recommendations</span><span class="p">]</span>
+
+<span class="n">get_movie_recommendations</span><span class="p">(</span><span class="n">user_preferences</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span><span class="nt">2253</span>                                       <span class="nt">Soldier</span> <span class="o">(</span><span class="nt">1998</span><span class="o">)</span>
+<span class="nt">257</span>             <span class="nt">Star</span> <span class="nt">Wars</span><span class="o">:</span> <span class="nt">Episode</span> <span class="nt">IV</span> <span class="nt">-</span> <span class="nt">A</span> <span class="nt">New</span> <span class="nt">Hope</span> <span class="o">(</span><span class="nt">1977</span><span class="o">)</span>
+<span class="nt">2036</span>                                          <span class="nt">Tron</span> <span class="o">(</span><span class="nt">1982</span><span class="o">)</span>
+<span class="nt">1197</span>                              <span class="nt">Army</span> <span class="nt">of</span> <span class="nt">Darkness</span> <span class="o">(</span><span class="nt">1993</span><span class="o">)</span>
+<span class="nt">2559</span>     <span class="nt">Star</span> <span class="nt">Wars</span><span class="o">:</span> <span class="nt">Episode</span> <span class="nt">I</span> <span class="nt">-</span> <span class="nt">The</span> <span class="nt">Phantom</span> <span class="nt">Menace</span> <span class="o">(</span><span class="nt">1999</span><span class="o">)</span>
+<span class="nt">1985</span>                      <span class="nt">Honey</span><span class="o">,</span> <span class="nt">I</span> <span class="nt">Shrunk</span> <span class="nt">the</span> <span class="nt">Kids</span> <span class="o">(</span><span class="nt">1989</span><span class="o">)</span>
+<span class="nt">1192</span>    <span class="nt">Star</span> <span class="nt">Wars</span><span class="o">:</span> <span class="nt">Episode</span> <span class="nt">VI</span> <span class="nt">-</span> <span class="nt">Return</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">Jedi</span> <span class="o">(</span><span class="nt">1983</span><span class="o">)</span>
+<span class="nt">1111</span>                                    <span class="nt">Abyss</span><span class="o">,</span> <span class="nt">The</span> <span class="o">(</span><span class="nt">1989</span><span class="o">)</span>
+<span class="nt">1848</span>                                    <span class="nt">Armageddon</span> <span class="o">(</span><span class="nt">1998</span><span class="o">)</span>
+<span class="nt">2847</span>                                  <span class="nt">Total</span> <span class="nt">Recall</span> <span class="o">(</span><span class="nt">1990</span><span class="o">)</span>
+<span class="nt">Name</span><span class="o">:</span> <span class="nt">movie_title</span><span class="o">,</span> <span class="nt">dtype</span><span class="o">:</span> <span class="nt">object</span><span class="o">&amp;</span><span class="nt">lt</span><span class="o">;/</span><span class="nt">pre</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span>
+</pre></div>
+
+
+<p>Asi que vemos que el sistema de recomendación recomienda películas de acción y de ciencia ficción.</p>
+<p>El filtrado de contenidos hace que recomendar nuevas películas a un usuario sea muy fácil, ya que los usuarios simplemente tienen que indicar sus preferencias una vez. Sin embargo, este sistema tiene algunos problemas:</p>
+<ul>
+<li>Hay que categorizar cada item nuevo manualmente en funcion a las características existentes.</li>
+<li>Las recomendaciones son limitadas, ya que por ejemplo, los items existentes no se pueden clasificar en función de una nueva categoría.</li>
+</ul>
+<p>Hemos visto que el filtrado de contenidos es quizás una manera demasiado simple de hacer recomendaciones, lo que nos lleva a...</p>
+<h1>Filtrado Colaborativo</h1>
+<p>El filtrado colaborativo es otro método distinto de predecir puntuaciones de usuarios a items. Sin embrago, en este método usamos las puntuaciones existentes de usuarios a items para predecir los items que no han sido valorados por el usuario al que queremos recomendar.</p>
+<p>Para ello asumimos que las recomendaciones que le hagamos a un usuario serán mejores si las basamos en usuarios con gustos similares.</p>
+<p>Para este ejemplo usaremos el archivo <em>ratings.dat</em>, que tiene el formato <code>user_id::movie_id::rating::timestamp</code></p>
+<div class="highlight"><pre><span></span>head ratings.dat
+<span class="m">1</span>::1193::5::978300760
+<span class="m">1</span>::661::3::978302109
+<span class="m">1</span>::914::3::978301968
+<span class="m">1</span>::3408::4::978300275
+<span class="m">1</span>::2355::5::978824291
+<span class="m">1</span>::1197::3::978302268
+<span class="m">1</span>::1287::5::978302039
+<span class="m">1</span>::2804::5::978300719
+<span class="m">1</span>::594::4::978302268
+<span class="m">1</span>::919::4::978301368
+</pre></div>
+
+
+<p>El dataset de Movielens contiene un archivo con más de un millón de valoraciones de películas hechas por usuarios.</p>
+<div class="highlight"><pre><span></span><span class="n">ratings_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">&#39;ratings.dat&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;::&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="s1">&#39;movie_id&#39;</span><span class="p">,</span> <span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<h1>Borramos al fecha en la que el rating fue creado.</h1>
+<div class="highlight"><pre><span></span>del ratings_df[&#39;timestamp&#39;]
+</pre></div>
+
+
+<h1>reemplazamos la id de la película por su titulo para tener una mayor claridad</h1>
+<div class="highlight"><pre><span></span>ratings_df = pd.merge(ratings_df, movies_df, on=&#39;movie_id&#39;)[[&#39;user_id&#39;, &#39;movie_title&#39;, &#39;movie_id&#39;,&#39;rating&#39;]]
+
+ratings_df.head()
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<table border="1" style="text-align: center;width:100%">
+<tr>
+  <th>
+  </th>
+
+  <th>
+    user_id
+  </th>
+
+  <th>
+    movie_title
+  </th>
+
+  <th>
+    movie_id
+  </th>
+
+  <th>
+    rating
+  </th>
+</tr>
+
+<tr>
+  <th>
+  </th>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    One Flew Over the Cuckoo's Nest (1975)
+  </td>
+
+  <td>
+    1193
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    1
+  </th>
+
+  <td>
+    2
+  </td>
+
+  <td>
+    One Flew Over the Cuckoo's Nest (1975)
+  </td>
+
+  <td>
+    1193
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    2
+  </th>
+
+  <td>
+    12
+  </td>
+
+  <td>
+    One Flew Over the Cuckoo's Nest (1975)
+  </td>
+
+  <td>
+    1193
+  </td>
+
+  <td>
+    4
+  </td>
+</tr>
+
+<tr>
+  <th>
+    3
+  </th>
+
+  <td>
+    15
+  </td>
+
+  <td>
+    One Flew Over the Cuckoo's Nest (1975)
+  </td>
+
+  <td>
+    1193
+  </td>
+
+  <td>
+    4
+  </td>
+</tr>
+
+<tr>
+  <th>
+    4
+  </th>
+
+  <td>
+    17
+  </td>
+
+  <td>
+    One Flew Over the Cuckoo's Nest (1975)
+  </td>
+
+  <td>
+    1193
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+</table>
+
+<p>De momento tenemos una matriz de usuarios y películas, vamos a convertir <code>ratings_df</code> a una matriz con un usuario por fila y una película por columna.</p>
+<div class="highlight"><pre><span></span><span class="n">ratings_mtx_df</span> <span class="o">=</span> <span class="n">ratings_df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;rating&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;user_id&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;movie_title&#39;</span><span class="p">)</span>
+<span class="n">ratings_mtx_df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">movie_index</span> <span class="o">=</span> <span class="n">ratings_mtx_df</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">ratings_mtx_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<table border="1" class="dataframe">
+<tr style="text-align: right">
+  <th>
+    movie_title
+  </th>
+
+  <th>
+    $1,000,000 Duck (1971)
+  </th>
+
+  <th>
+    'Night Mother (1986)
+  </th>
+
+  <th>
+    'Til There Was You (1997)
+  </th>
+
+  <th>
+    ...
+  </th>
+</tr>
+
+<tr>
+  <th>
+    user_id
+  </th>
+
+  <th>
+  </th>
+
+  <th>
+  </th>
+
+  <th>
+  </th>
+
+  <th>
+  </th>
+</tr>
+
+<tr>
+  <th>
+    1
+  </th>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    2
+  </th>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    3
+  </th>
+
+  <td>
+  </td>
+
+  <td>
+    5
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    4
+  </th>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+
+<tr>
+  <th>
+    5
+  </th>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+  </td>
+
+  <td>
+    ...
+  </td>
+</tr>
+</table>
+
+<p>Nos queda una matriz de 6064 usuarios y 3706 películas.</p>
+<p>Para computar la similaridad entre películas, una manera de hacerlo es calcular la correlación entre ellas en función de la puntuación que dan los usuarios.</p>
+<p>Una manera fácil de calcular la similaridad en python es usando la función <code>numpy.corrcoef</code>, que calcula el <a href="https://es.wikipedia.org/wiki/Coeficiente_de_correlaci%C3%B3n_de_Pearson">coeficiente de correlación de Pearson(PMCC)</a> entre cada pareja de items.</p>
+<p>El PMCC tiene un valor entre -1 y 1 que mide cuán relacionadas están un par de variables cuantitativas.</p>
+<p>La matriz de correlación es una matriz de tamaño <em>m x m</em>, donde el elemento <em>Mij</em> representa la correlación entre el item i y el item j.</p>
+<div class="highlight"><pre><span></span><span class="n">corr_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">ratings_mtx_df</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">corr_matrix</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>(3706, 3706)
+</pre></div>
+
+
+<p><em>Nota: Usamos la matriz traspuesta de <code>ratings_mtx_df</code> para que la función <code>np.corrcoef</code> nos devuelva la correlación entre películas. En caso de no hacerlo nos devolvería la correlación entre usuarios.</em></p>
+<p>Una vez tenemos la matriz, si queremos encontrar películas similares a una concreta, solo tenemos que encontrar las películas con una correlación alta con ésta.</p>
+<div class="highlight"><pre><span></span><span class="n">favoured_movie_title</span> <span class="o">=</span> <span class="s1">&#39;Toy Story (1995)&#39;</span>
+<span class="n">favoured_movie_index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">movie_index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">favoured_movie_title</span><span class="p">)</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">corr_matrix</span><span class="p">[</span><span class="n">favoured_movie_index</span><span class="p">]</span>
+
+<span class="c1">#solo devolvemos las películas con la mayor correlación con Toy Story</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">movie_index</span><span class="p">[(</span><span class="n">P</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="mf">0.4</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">P</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span><span class="mf">1.0</span><span class="p">)])</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>[&#39;Aladdin (1992)&#39;,
+ &quot;Bug&#39;s Life, A (1998)&quot;,
+ &#39;Groundhog Day (1993)&#39;,
+ &#39;Lion King, The (1994)&#39;,
+ &#39;Toy Story 2 (1999)&#39;]
+</pre></div>
+
+
+<p>Vemos que los resultados son bastante buenos.</p>
+<p>Ahora, si queremos recomendar películas a un usuario, solo tenemos que conseguir la lista de películas que dicho usuario ha visto. Ahora, con dicha lista, podemos sumar las correlaciones de dichas películas con todas las demás y devolver las películas con una mayor correlación total.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_movie_similarity</span><span class="p">(</span><span class="n">movie_title</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Devuelve el vector de correlación para una película&#39;&#39;&#39;</span>
+    <span class="n">movie_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">movie_index</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">movie_title</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">corr_matrix</span><span class="p">[</span><span class="n">movie_idx</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_movie_recommendations</span><span class="p">(</span><span class="n">user_movies</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Dado un grupo de películas, devolver las mas similares&#39;&#39;&#39;</span>
+    <span class="n">movie_similarities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">corr_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">movie_id</span> <span class="ow">in</span> <span class="n">user_movies</span><span class="p">:</span>
+        <span class="n">movie_similarities</span> <span class="o">=</span> <span class="n">movie_similarities</span> <span class="o">+</span> <span class="n">get_movie_similarity</span><span class="p">(</span><span class="n">movie_id</span><span class="p">)</span>
+    <span class="n">similarities_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;movie_title&#39;</span><span class="p">:</span> <span class="n">movie_index</span><span class="p">,</span>
+        <span class="s1">&#39;sum_similarity&#39;</span><span class="p">:</span> <span class="n">movie_similarities</span>
+        <span class="p">})</span>
+    <span class="n">similarities_df</span> <span class="o">=</span> <span class="n">similarities_df</span><span class="p">[</span><span class="o">~</span><span class="p">(</span><span class="n">similarities_df</span><span class="o">.</span><span class="n">movie_title</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">user_movies</span><span class="p">))]</span>
+    <span class="n">similarities_df</span> <span class="o">=</span> <span class="n">similarities_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sum_similarity&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">similarities_df</span>
+</pre></div>
+
+
+<p>Por ejemplo, vamos a seleccionar un usuario con preferencia por las películas infantiles y algunas películas de acción.</p>
+<div class="highlight"><pre><span></span><span class="n">sample_user</span> <span class="o">=</span> <span class="mi">21</span>
+<span class="n">ratings_df</span><span class="p">[</span><span class="n">ratings_df</span><span class="o">.</span><span class="n">user_id</span><span class="o">==</span><span class="n">sample_user</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rating&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<table border="1" style="text-align: center;width:100%">
+<tr>
+  <th>
+  </th>
+
+  <th>
+    user_id
+  </th>
+
+  <th>
+    movie_title
+  </th>
+
+  <th>
+    movie_id
+  </th>
+
+  <th>
+    rating
+  </th>
+</tr>
+
+<tr>
+  <th>
+    583304
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Titan A.E. (2000)
+  </td>
+
+  <td>
+    3745
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    707307
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Princess Mononoke, The (Mononoke Hime) (1997)
+  </td>
+
+  <td>
+    3000
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    70742
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Star Wars: Episode VI - Return of the Jedi (1983)
+  </td>
+
+  <td>
+    1210
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    239644
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    South Park: Bigger, Longer and Uncut (1999)
+  </td>
+
+  <td>
+    2700
+  </td>
+
+  <td>
+    5
+  </td>
+</tr>
+
+<tr>
+  <th>
+    487530
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Mad Max Beyond Thunderdome (1985)
+  </td>
+
+  <td>
+    3704
+  </td>
+
+  <td>
+    4
+  </td>
+</tr>
+
+<tr>
+  <th>
+    707652
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Little Nemo: Adventures in Slumberland (1992)
+  </td>
+
+  <td>
+    2800
+  </td>
+
+  <td>
+    4
+  </td>
+</tr>
+
+<tr>
+  <th>
+    708015
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Stop! Or My Mom Will Shoot (1992)
+  </td>
+
+  <td>
+    3268
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    706889
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Brady Bunch Movie, The (1995)
+  </td>
+
+  <td>
+    585
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    623947
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Iron Giant, The (1999)
+  </td>
+
+  <td>
+    2761
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    619784
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Wild Wild West (1999)
+  </td>
+
+  <td>
+    2701
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    4211
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Bug's Life, A (1998)
+  </td>
+
+  <td>
+    2355
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    368056
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Akira (1988)
+  </td>
+
+  <td>
+    1274
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    226126
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Who Framed Roger Rabbit? (1988)
+  </td>
+
+  <td>
+    2987
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    41633
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Toy Story (1995)
+  </td>
+
+  <td>
+    1
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    34978
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Aladdin (1992)
+  </td>
+
+  <td>
+    588
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    33432
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Antz (1998)
+  </td>
+
+  <td>
+    2294
+  </td>
+
+  <td>
+    3
+  </td>
+</tr>
+
+<tr>
+  <th>
+    18917
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Bambi (1942)
+  </td>
+
+  <td>
+    2018
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    612215
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Devil's Advocate, The (1997)
+  </td>
+
+  <td>
+    1645
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    617656
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Prince of Egypt, The (1998)
+  </td>
+
+  <td>
+    2394
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    440983
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Pinocchio (1940)
+  </td>
+
+  <td>
+    596
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    707674
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    Messenger: The Story of Joan of Arc, The (1999)
+  </td>
+
+  <td>
+    3053
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+
+<tr>
+  <th>
+    708194
+  </th>
+
+  <td>
+    21
+  </td>
+
+  <td>
+    House Party 2 (1991)
+  </td>
+
+  <td>
+    3774
+  </td>
+
+  <td>
+    1
+  </td>
+</tr>
+</table>
+
+<p>Ahora podemos proporcionar nuevas recomendaciones para dicho usuario teniendo en cuenta las películas que ha visto como input.</p>
+<div class="highlight"><pre><span></span><span class="n">sample_user_movies</span> <span class="o">=</span> <span class="n">ratings_df</span><span class="p">[</span><span class="n">ratings_df</span><span class="o">.</span><span class="n">user_id</span><span class="o">==</span><span class="n">sample_user</span><span class="p">]</span><span class="o">.</span><span class="n">movie_title</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">recommendations</span> <span class="o">=</span> <span class="n">get_movie_recommendations</span><span class="p">(</span><span class="n">sample_user_movies</span><span class="p">)</span>
+<span class="c1">#Obtenemos las 20 películas con mejor puntuación</span>
+<span class="n">recommendations</span><span class="o">.</span><span class="n">movie_title</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>Output:</code></p>
+<div class="highlight"><pre><span></span>1939                     Lion King, The (1994)
+324                Beauty and the Beast (1991)
+1948                Little Mermaid, The (1989)
+3055    Snow White and the Seven Dwarfs (1937)
+647                     Charlotte&amp;apos;s Web (1973)
+679                          Cinderella (1950)
+1002                              Dumbo (1941)
+301                              Batman (1989)
+3250            Sword in the Stone, The (1963)
+303                      Batman Returns (1992)
+2252                              Mulan (1998)
+2924                Secret of NIMH, The (1982)
+2808                         Robin Hood (1973)
+3026                    Sleeping Beauty (1959)
+1781                   Jungle Book, The (1967)
+260         Back to the Future Part III (1990)
+259          Back to the Future Part II (1989)
+2558                          Peter Pan (1953)
+2347             NeverEnding Story, The (1984)
+97                  Alice in Wonderland (1951)
+Name: movie_title, dtype: object
+</pre></div>
+
+
+<p>Vemos que el sistema recomienda mayoritariamente películas infantiles y algunas películas de acción.</p>
+<p>El ejemplo que he puesto sobre filtrado colaborativo es un ejemplo muy simple, y no tiene en cuenta las valoraciones que cada usuario ha hecho a cada película (solo si las ha visto).</p>
+<p>Una manera más eficaz de hacer filtrado colaborativo es vía <a href="http://es.wikipedia.org/wiki/Descomposici%C3%B3n_en_valores_singulares&quot;&gt;Descomposición en valores singulares">Descomposición en Valores Singulares (SVD)</a>. Es un tópico que da para otro artículo pero <a href="http://www.mate.unlp.edu.ar/practicas/70_18_0911201012951">este artículo</a> lo explica con bastante claridad.</p>
+<p>El filtrado colaborativo se usa con frecuencia en la actualidad. Es capaz de recomendar nuevos items sin tener que clasificarlos manualmente en función de sus características. Además, es capaz de proporcionar recomendaciones basadas en características ocultas que no serían obvias a primera vista (por ejemplo, combinaciones de géneros o de actores).<br /> Sin embargo, el filtrado colaborativo tiene un problema importante, y es que no puede recomendar items a un usuario a menos que dicho usuario haya valorado items, este problema se llama <a href="https://es.wikipedia.org/wiki/Arranque_en_fr%C3%ADo">Problema de Arranque en Frío</a>.</p>
+<p>Una manera de solucionar ésto es usar un sistema híbrido de filtrado de contenido + filtrado colaborativo, usando el filtrado de contenidos para nuevos usuarios y filtrado colaborativo para usuarios de los que se tiene suficiente información.</p>
+<h1>Lista de lecturas</h1>
+<p>Aquí hay una lista de lecturas sobre sisetmas de recomendación (en inglés)</p>
+<ul>
+  <li>
+    <a href="http://guidetodatamining.com/chapter2/">A Programmer's guide to Data Mining Ch:2</a>
+  </li>
+  <li>
+    <a href="http://www.mmds.org/">Mining of Massive Datasets Ch:9. Recommendation Systems</a>
+  </li>
+  <li>
+    <a href="http://www.cs.cmu.edu/~wcohen/collab-filtering-tutorial.ppt">Collaborative Filtering: A tutorial</a>
+  </li>
+</ul>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/manuel-garrido.png alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Manuel ha estado 4 años en Nueva York, primero trabajando como Senior Analyst para la NBC y luego como Data Scientist. Tras trabajar en varias empresas, ahora trabaja como Data Scientist Consultant, tanto para clientes españoles como extranjeros. Si necesitas ayuda, no dudes en contactarle!
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

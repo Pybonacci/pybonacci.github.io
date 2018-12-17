@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Cómo crear extensiones en C para Python usando CFFI y numba | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Cómo crear extensiones en C para Python usando CFFI y numba</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>dom 07 febrero 2016</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>En este artículo vamos a ver <strong>cómo crear extensiones en C para Python usando CFFI y aceleradas con numba</strong>. El proyecto <a href="https://cffi.readthedocs.org/">CFFI</a> ("C Foreign Function Interface") pretende ofrecer una manera de llamar a bibliotecas escritas en C desde Python de una manera simple, mientras que <a href="https://pybonacci.org/tag/numba/">numba</a>, como podéis leer en nuestro blog, es un compilador JIT para código Python numérico. Mientras que hay algo de literatura sobre cómo usar CFFI, muy poco se ha escrito sobre cómo usar funciones CFFI desde numba, una característica que estaba desde las primeras versiones pero que no se completó <a href="https://github.com/numba/numba/pull/1454">hasta hace cuatro meses</a>. Puede parecer contradictorio mezclar estos dos proyectos pero en seguida veremos la justificación y por qué hacerlo puede abrir nuevos caminos para escribir código Python extremadamente eficiente.</p>
+<p>Este trabajo ha surgido a raíz de mis intentos de utilizar funciones hipergeométricas escritas en C desde funciones aceleradas con numba para el artículo que estoy escribiendo sobre <a href="https://pybonacci.org/tag/poliastro/">poliastro</a>. El resultado, si bien no es 100 % satisfactorio aún, es bastante bueno y ha sido relativamente fácil de conseguir, teniendo en cuenta que partía sin saber nada de C ni CFFI hace tres días.</p>
+<blockquote class="twitter-tweet" data-width="550">
+  <p lang="es" dir="ltr">
+    Pasatiempo de esta tarde: tratar de crear una interfaz Python para una función de C usando CFFI. ¡Deseadme suerte!
+  </p>
+
+  <p>
+    &mdash; Juan Luis Cano (@astrojuanlu) <a href="https://twitter.com/astrojuanlu/status/695295966887428099">February 4, 2016</a>
+  </p>
+</blockquote>
+
+<h2>¿Por qué CFFI + numba?</h2>
+<p>Como decíamos CFFI y numba, aunque tienen que ver con hacer nuestros programas más rápidos, tienen objetivos bastante diferentes:</p>
+<ul>
+<li>CFFI nos permite usar C desde Python. De este modo, si encontramos algún algoritmo que merece la pena ser optimizado, lo podríamos escribir en C y llamarlo gracias a CFFI.</li>
+<li><a href="https://pybonacci.org/2015/03/13/como-acelerar-tu-codigo-python-con-numba/">numba nos permite acelerar código Python numérico</a>. Si encontramos algún algoritmo que merece la pena ser optimizado, adecentamos un poco la función correspondiente y un decorador la compilará a LLVM al vuelo.</li>
+</ul>
+<!--more-->
+
+<p>¿En qué situaciones nos puede interesar combinar las dos? En mi caso, quería implementar un algoritmo para poliastro en Python y en un momento dado me di cuenta de que tenía que utilizar <a href="https://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/">la función hipergeométrica de Gauss ${}_2{F}_1$</a>. En este punto tenía varias opciones:</p>
+<ul>
+<li>Escribir todo el código en C, y llamarlo desde CFFI. Sonaba como una trampa mortal puesto que no sé C, y además volvería al problema de los dos lenguajes que de alguna forma estoy tratando de evitar o minimizar.</li>
+<li>Reimplementar la función hipergeométrica en Python y acelerarla con numba. Esta sería una opción bastante buena de no ser porque la función en cuestión <a href="https://functions.wolfram.com/HypergeometricFunctions/Hypergeometric2F1/02/02/">tiene una definición endemoniada</a> si la quería implementar para todos los casos. Lo que me lleva a las siguientes dos opciones.</li>
+<li>Implementar una versión simplificada de la función. En mi caso solo estoy interesado en los valores ${}_2{F}_1(3, 1, \frac{5}{2}, x)$. Habría sido lo más fácil y no me habrían salido tantas canas, pero entonces se me ocurrió una mejor:</li>
+<li>Aprovechar la implementación de la biblioteca CEPHES, que es la que usa <code>scipy.special</code>, hacer un wrapper usando CFFI y acelerarlo con numba.</li>
+</ul>
+<p>Aquí la pregunta clave es: ¿qué es esto de acelerar con numba algo escrito en C? La cuestión es que si quiero usar numba <em>en modo estricto</em> (es decir: aprovechando el modo <code>nopython</code>) todas las funciones que se utilicen tienen que estar compiladas en modo <code>nopython</code> también. Un meme vale más que mil palabras.</p>
+<p><img alt="nopython" src="https://pybonacci.org/images/2016/02/nopython-300x300.jpg"></p>
+<p>En definitiva: una de las ventajas sustanciales que tendríamos con esto es que <strong>podríamos reutilizar código legado con código nuevo acelerado con numba</strong>. ¿Lo intentamos? ¡Vamos allá!</p>
+<h2>0. CFFI: ¡Hola mundo!</h2>
+<p><a href="https://cffi.readthedocs.org/">La documentación de CFFI</a> es bastante buena, aunque desde mi punto de vista le faltan una referencia y una explicación para novatos que no saben nada. Hay cuatro formas de utilizar CFFI, que surgen de combinar dos parámetros:</p>
+<ul>
+<li><strong>ABI/API</strong>: En el modo ABI utilizamos la función <code>ffi.dlopen</code> para cargar el código «a nivel binario», de donde se leen en crudo las estructuras y las funciones. En el modo API, en cambio, creamos una biblioteca compartida utilizando el compilador de C: esta forma de trabajar es mucho más portable.</li>
+<li><strong>"in-line"/"out-of-line"</strong>: En el modo "in-line" importamos las definiciones al vuelo cada vez, mientras que en el modo "out-of-core" hay dos pasos: uno de creación y otro de importación. El segundo es más apropiado cuando vamos a distribuir código.</li>
+</ul>
+<p>Dicho esto nosotros vamos a trabajar a nivel de API creando módulos "out-of-line", tal y como se explica en <a href="http://cffi.readthedocs.org/en/latest/overview.html#real-example-api-level-out-of-line">los ejemplos de CFFI</a>.</p>
+<p>Para la estructura de los archivos me voy a basar en el excelente proyecto <a href="https://github.com/pyca/cryptography">pyca/cryptography</a>, que utiliza CFFI para ser compatible con PyPy. Dicho proyecto sigue la <a href="https://caremad.io/2015/06/distributing-a-cffi-project-redux/">guía de Donald Stufft de cómo distribuir un proyecto CFFI</a>.</p>
+<p>Empezando por una función extremadamente sencilla (pero que tenga las mismas cabeceras que lo que ando persiguiendo) vamos a necesitar dos funciones:</p>
+<ul>
+<li><code>ffi.cdef</code>, en la que incluiremos las cabeceras de las funciones.</li>
+<li><code>ffi.set_source</code>, en la que incluiremos bien el código de las funciones (si las estamos definiendo directamente) o bien de nuevo solo las cabeceras (si pertenecen a una biblioteca externa).</li>
+</ul>
+<p>El orden de llamada de estas funciones es irrelevante. Este sería nuestro código:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cffi</span> <span class="kn">import</span> <span class="n">FFI</span>
+<span class="n">ffi</span> <span class="o">=</span> <span class="n">FFI</span><span class="p">()</span>
+
+<span class="n">ffi</span><span class="o">.</span><span class="n">cdef</span><span class="p">(</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">double hyp2f1x ( double a, double b, double c, double x );</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="p">)</span>
+<span class="n">ffi</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span>
+    <span class="s2">&quot;_hyper&quot;</span><span class="p">,</span>  <span class="c1"># Nombre del módulo</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">double hyp2f1x ( a, b, c, x )</span>
+<span class="sd">double a, b, c, x;</span>
+<span class="sd">{</span>
+<span class="sd">    return 1.0;  // De hipergeométrico, poco</span>
+<span class="sd">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">ffi</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Peeeeero para usarlo desde Python nos falta un paso importante... ¡escribir un <code>setup.py</code> y ejecutarlo! Sí, sé que lo odiáis. Yo también, pero en esta ocasión (olvidándonos de algunos casos muy particulares, que de todas formas explica Donald Stufft) es bastante sencillo:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;hyper&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.1.dev0&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">),</span>
+    <span class="n">package_dir</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="s2">&quot;src&quot;</span><span class="p">},</span>
+    <span class="n">setup_requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cffi&amp;gt;=1.0.0&quot;</span><span class="p">],</span>
+    <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cffi&amp;gt;=1.0.0&quot;</span><span class="p">],</span>
+    <span class="n">cffi_modules</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;src/_cffi_src/build_hyper.py:ffi&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Una vez hecho esto, podemos instalar nuestro recién creado paquete y usarlo. Primero creamos el "wrapper":</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">_hyper.lib</span> <span class="kn">import</span> <span class="n">hyp2f1x</span> <span class="k">as</span> <span class="n">_hyp2f1</span>
+
+<span class="k">def</span> <span class="nf">hyp2f1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_hyp2f1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y ahora lo instalamos y lo usamos:</p>
+<div class="highlight"><pre><span></span>$ pip install -e .  <span class="c1"># Sí. No preguntéis. https://twitter.com/Pybonacci/status/681189810057383936</span>
+<span class="o">[</span>...<span class="o">]</span>
+$ python
+<span class="p">&amp;</span>gt<span class="p">;&amp;</span>gt<span class="p">;&amp;</span>gt<span class="p">;</span> from hyper import hyper          
+<span class="p">&amp;</span>gt<span class="p">;&amp;</span>gt<span class="p">;&amp;</span>gt<span class="p">;</span> hyper._hyp2f1<span class="o">(</span><span class="m">3</span>, <span class="m">1</span>, <span class="m">5</span>/2, <span class="m">0</span>.1<span class="o">)</span>
+<span class="m">1</span>.0
+</pre></div>
+
+
+<p>¡Perfecto! Ya hemos conseguido un ejemplo trivial. Para tener algo que funcione necesito hacer un "wrapper" <em>de verdad</em> para CEPHES, para seguir me gustaría que diese el mismo resultado que <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.hyp2f1.html">scipy.special.hyp2f1</a> y para terminar me gustaría poder acelerar el resultado con numba. ¡Seguimos!</p>
+<h2>1. Haciendo un wrapper para una biblioteca C</h2>
+<p>Seguro que hay bibliotecas de funciones especiales escritas en C, FORTRAN y COBOL por todas partes, pero para poder verificar con SciPy yo me he empeñado en que tengo que usar CEPHES. Una vez que conseguí <a href="https://github.com/jeremybarnes/cephes">encontrar el código de CEPHES</a>, tenía que decidir entre dos opciones:</p>
+<ul>
+<li>Podría incluir directamente en mi proyecto todos los archivos C y compilarlos con un poco de magia distutils + CFFI + ?. El problema es que el Makefile tenía cosas relacionadas con lenguaje ensamblador (!) y solo de pensar en que eso podría interferir con distutils me asusté bastante.</li>
+<li>Distribuir de alguna forma CEPHES como un proyecto aparte de forma que pudiese instalarlo en mi sistema y hacer referencia a la biblioteca compartida correspondiente.</li>
+</ul>
+<p>La segunda opción tenía mucha menos incertidumbre para mí, porque a pesar de que no encontré paquetes para ninguna distribución de Linux que proporcionasen esta biblioteca, tenía un arma secreta: <a href="https://conda.pydata.org/docs/building/build.html">conda</a>.</p>
+<p>Los que me conocéis ya sabéis que soy un <del datetime="2016-02-07T20:02:58+00:00">fanático</del> <ins datetime="2016-02-07T20:02:58+00:00">gran admirador</ins> del trabajo de Continuum en general, y de numba y conda en particular. En este caso, conda me venía perfecto porque podría crear un paquete a mi medida (conda sirve para cualquier lenguaje) y luego instalarlo en un entorno conda apropiado para que CFFI encontrase la biblioteca a la primera sin tener que hacer manipulaciones con el <code>PATH</code>. La <a href="https://github.com/Pybonacci/cffi_test/tree/548196c/buildscripts/condarecipes/cephes">receta para el paquete conda de CEPHES</a> también está en GitHub, y las explicaciones me las reservo para otro artículo 😉</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">source</span> activate hyper35
+<span class="o">(</span>hyper35<span class="o">)</span> $ conda build cephes
+<span class="o">(</span>hyper35<span class="o">)</span> $ conda install cephes --use-local
+</pre></div>
+
+
+<p>Una vez que tengo CEPHES instalado y accesible, no tengo más que hacer referencia a ello a la hora de crear el módulo CFFI:</p>
+<div class="highlight"><pre><span></span><span class="n">ffi</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span>
+    <span class="s2">&quot;_hyper&quot;</span><span class="p">,</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">double hyp2f1 ( double a, double b, double c, double x );</span>
+<span class="sd">&quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;md&quot;</span><span class="p">],</span>  <span class="c1"># libmd.a</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Y reconstruir el "wrapper" haciendo <code>pip install -e .</code> de nuevo.</p>
+<p>¡Ya está! Hasta aquí todo sorprendentemente fácil. Ahora es cuando viene lo divertido, porque mi intención es usar estas funciones desde numba, así que tendremos que seguir puliendo el código un poco más.</p>
+<h2>2. Añadiendo numba en modo <code>nopython</code></h2>
+<p>numba trae soporte para módulos CFFI "out-of-line" desde la versión 0.22. Esto quiere decir que podremos utilizar funciones de módulos CFFI desde funciones aceleradas con numba, sin más que "registrar" el módulo en primer lugar usando la función <code>cffi_support.register_module</code>. Nuestro "wrapper" Python quedaría así ahora:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">njit</span><span class="p">,</span> <span class="n">cffi_support</span>
+
+<span class="kn">import</span> <span class="nn">_hyper</span>
+<span class="n">cffi_support</span><span class="o">.</span><span class="n">register_module</span><span class="p">(</span><span class="n">_hyper</span><span class="p">)</span>  <span class="c1"># Registramos el módulo</span>
+
+<span class="n">_hyp2f1</span> <span class="o">=</span> <span class="n">_hyper</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">hyp2f1x</span>  <span class="c1"># Ver más abajo</span>
+
+
+<span class="nd">@njit</span>
+<span class="k">def</span> <span class="nf">hyp2f1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_hyp2f1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Aquí ya hay que empezar a tener cuidado, porque noté que <a href="https://github.com/numba/numba/issues/1688">no se puede escribir <code>_hyper.lib.hyp2f1x</code> directamente dentro de la función de numba</a>. Con esta precaución, ¡el código funciona sin problemas!</p>
+<h2><em>Intermezzo</em>: Los <em>benchmarks</em></h2>
+<p>En el fondo los ingenieros no dejamos de ser gente primaria y visceral, y aunque en principio se nos enseña pensamiento racional en la Universidad se nos olvida en cuanto ponemos un pie fuera del mundo académico (si es que alguna vez lo llegamos a interiorizar). Por eso nos encanta hablar de rendimiento, con más motivo si no hay cifras de por medio. Si en una cena de Navidad juntaran a un montón de ingenieros y programadores, entre langostino y langostino hablarían de rendimiento.</p>
+<p></sarcasm></p>
+<p>Llegados a este punto sin embargo merece la pena hacer un microbenchmark y un pequeño comentario entre la función que acabamos de incorporar con CFFI y numba y su equivalente en SciPy. Para ello utilizaremos <a href="https://github.com/ionelmc/pytest-benchmark">pytest-benchmark</a>, que acabo de usar por primera vez hace cinco minutos y que me ha dejado boquiabierto (tanto por la buena presentación de los resultados como por los números en sí).</p>
+<p><img alt="benchmark" src="https://pybonacci.org/images/2016/02/benchmark-300x76.png"></p>
+<p>Habéis leído bien: <strong>nuestra función con CFFI + numba es, en media, 5 veces más rápida que la versión de SciPy</strong>. Hay que puntualizar una cosa importante, y es que la función de SciPy tiene interfaz de ufunc: esto puede suponer una sobrecarga considerable (si bien <a href="https://github.com/scipy/scipy/blob/maintenance/0.17.x/scipy/special/README">"de utilidad cuestionable"</a>). Aun así, me parece que los resultados son excelentes y que podría plantearse incluso aprovechar esta estrategia de forma más generalizada en el futuro.</p>
+<h2>3. Pasar arrays como argumentos</h2>
+<p>Aún nos falta una cosa más y es saber cómo se pueden pasar arrays a estas funciones CFFI. Aquí numba y CFFI nos ayudan porque proveen una función, <code>ffi.from_buffer</code>, precisamente para esta tarea. Supongamos que creamos una función a nivel de C que en vez de tomar un escalar toma un array de valores sobre los que evaluarse:</p>
+<div class="highlight"><pre><span></span><span class="n">ffi</span><span class="o">.</span><span class="n">set_source</span><span class="p">(</span>
+    <span class="s2">&quot;_hyper&quot;</span><span class="p">,</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">double hyp2f1 ( double a, double b, double c, double x );</span>
+
+<span class="sd">// Función nueva, vectorizada para arrays de doble precisión</span>
+<span class="sd">double vd_hyp2f1 ( int n, double a, double b, double c, double* x, double* res) {</span>
+<span class="sd">    int i;</span>
+<span class="sd">    for (i=0; i&amp;lt;n; i++)</span>
+<span class="sd">        res[i] = hyp2f1(a, b, c, x[i]);</span>
+<span class="sd">}</span>
+<span class="sd">&quot;&quot;&quot;</span><span class="p">,</span>
+    <span class="n">libraries</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;md&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Tendríamos que llamarla desde Python de esta manera:</p>
+<div class="highlight"><pre><span></span><span class="nd">@njit</span>
+<span class="k">def</span> <span class="nf">vd_hyp2f1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">_vd_hyp2f1</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span>
+            <span class="n">ffi</span><span class="o">.</span><span class="n">from_buffer</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">ffi</span><span class="o">.</span><span class="n">from_buffer</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>  <span class="c1"># ¡Nótese!</span>
+    <span class="p">)</span>
+
+    <span class="n">res</span><span class="p">[</span><span class="n">x</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+
+
+<p>¡Y de nuevo vuelve a funcionar! ¿Se nota mi entusiasmo?</p>
+<h2>y 4. Sobrecargando la función</h2>
+<p>Como colofón final y visto que nuestra función y la de SciPy aún no son exactamente equivalentes ¿sabéis qué sería genial? ¡Poder sobrecargar la función y que se comporte de manera vectorizada si la llamamos con arrays! numba ya permite este mecanismo (conocido como <a href="https://numba.pydata.org/numba-doc/0.23.1/developer/dispatching.html">"multiple dispatch"</a>), pero el problema es que <del datetime="2016-02-08T20:20:51+00:00">en el momento de escribir estas líneas <a href="https://github.com/numba/numba/issues/1691">no funciona para funciones CFFI</a></del> <ins datetime="2016-02-08T20:20:51+00:00">no estaba interpretando bien la semántica de Python y <a href="https://groups.google.com/a/continuum.io/d/msg/numba-users/Q3LfRbpWP6w/aHuXoL_JDwAJ">no tengo claro que esto sea posible</a></ins>. Esto es lo único que me falta para llegar a un 100 % de satisfacción 🙂</p>
+<h2>Conclusiones</h2>
+<p>Personalmente era la primera vez en mi vida que probaba CFFI y me ha parecido extremadamente sencillo. He pasado de un ejemplo trivial a algo serio y que funciona en cuestión de pocas tardes. Faltaría tener alguna forma automática de generar los wrappers y compatibilidad total con numba.</p>
+<p>Algunas cosas que no he tratado son:</p>
+<ul>
+<li>Llamada de código Fortran desde CFFI. ¡Habéis leído bien! Una vez que la interoperabilidad Python C está resuelta, solo hay que resolver C Fortran. En este artículo de Dorota Jarecka tenéis un ejemplo de <a href="https://scientific-software-diary.com/?p=29">cómo usar CFFI para llamar Fortran desde Python</a>. ¿Quién se anima a construir un f2py de segunda generación capaz de generar "wrappers" a código Fortran que use ISO_C_BINDING?</li>
+<li><a href="http://cffi.readthedocs.org/en/latest/embedding.html">Uso de CFFI para "embedding" de código Python en C</a>. Esta característica se introdujo hace menos de un mes (!) y para algunos es <a href="https://groups.google.com/d/msg/python-cffi/D6I9spmLwug/SgVm36HTAwAJ">"lo más guay que se ha añadido a CFFI hasta la fecha"</a>. ¿Quién se anima a invertir totalmente esta relación de dependencia?</li>
+</ul>
+<p>Vuelvo a señalar que <a href="https://github.com/Pybonacci/cffi_test">todo el código está en GitHub</a>, que se aceptan forks y pull requests y que estoy deseando oír vuestros comentarios sobre esto 🙂 ¿Qué opináis los que usáis Cython para crear wrappers por ejemplo? ¿Cómo puede afectar esto a la expansión de PyPy? ¿Qué echáis en falta?</p>
+<p>¡Un saludo y hasta el próximo artículo!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/c.html" class="tag">c</a>
+                    <a href="http://pybonacci.github.io/tag/cffi.html" class="tag">cffi</a>
+                    <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba</a>
+                    <a href="http://pybonacci.github.io/tag/performance.html" class="tag">performance</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

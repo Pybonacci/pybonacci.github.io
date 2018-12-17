@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Joyas Python del 2015 | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Joyas Python del 2015</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 28 diciembre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Este es un resumen de algunas joyas que he descubierto este 2015 dentro del mundo Python. Que las haya descubierto en el 2015 no significa que necesariamente sean cosas novedosas pero la mayoría siguen de actualidad. Tampoco es un resumen ordenado. de hecho, es un pequeño cajón de sastre. Tampoco es temático sobre ciencia, aunque la mayoría están relacionadas con ciencia ya que es a lo que me dedico. En las siguientes líneas nombro muchas cosas pero solo incluyo enlaces sobre las joyas de las que quiero hablar.</p>
+<p>WEB:</p>
+<ul>
+<li>En el pasado he trasteado algo con Django para hacer cosas que se puedan compartir con mucha otra gente. Django es un framework web muy completo o, como se suele decir, con baterías incluidas y el de más amplio uso dentro del mundo Python. El hecho de incluir tantas cosas de uso habitual en un desarrollo web es su fuerte para la mayoría de desarrolladores pero también su talón de Aquiles para gente que solo lo usa de vez en cuando para hacer cosas simples. Demasiado sobrecargado para acordarte de todo ello cuando lo usas muy eventualmente y demasiado condicionante para hacer cosas simples sin un guión claro. Es por ello que este año he empezado a trastear con <a href="https://flask.pocoo.org/">Flask</a>. Lo recomiendo para gente que quiere convertir una <a href="https://pybonacci.org/2015/12/01/aprende-historia-gracias-a-geocodificacion-inversa-mapping-y-wikipedia/">idea simple</a> en <a href="https://map2wiki.runbear.webfactional.com/">algo usable</a> en poco tiempo. He prestado algo de atención a <a href="https://wagtail.io/">wagtail</a> y me gustaría encontrar un tutorial para gente especialmente lerda en desarrollo web (que no se lo vendan a un desarrollador Django, vamos) y que no tiene tiempo.</li>
+<li>Relacionado con el trasteo anterior, he empezado a trastear también con <a href="https://www.sqlalchemy.org/">SQLAlchemy</a>. Como Flask no te aporta de serie su propia idea de ORM, como sí hace Django, puedes acoplar el ORM que elijas, usar SQL a capón, Mongo,... Facilita mucho el trabajo con BBDD. Y aquí puedes encontrar una serie de <a href="https://github.com/dahlia/awesome-sqlalchemy">recursos relacionados con SQLAlchemy</a>.</li>
+<li>También relacionado con el uso de Flask, he estado trasteando con <a href="https://babel.pocoo.org/">Babel</a> para internacionalizar 'cosas' (poder hacer uso de distintos idiomas). Es increible la facilidad de uso pero he encontrado ciertos problemas que no he sabido resolver (aun no sé muy bien porqué, seguramente mi poca experiencia con la biblioteca).</li>
+</ul>
+<p>GRÁFICAS:</p>
+<ul>
+<li>¿Quieres hacer un mapa interactivo con Python? Hasta ahora había usado <a href="https://nbviewer.jupyter.org/github/kikocorreoso/brythonmagic/blob/master/notebooks/OpenLayers%20%28python%29%20tutorial.ipynb">mis propias soluciones</a>. Mis soluciones son fáciles de usar y fácilmente portables a la web de forma independiente pero requieren aprender, por ejemplo, OpenLayers o Leaflet y para hacer algo simple puede resultar excesivo. Pero para otros casos de uso hay otras soluciones que pueden resultar más convenientes. Es por ello que en los últimos tiempos he estado usando <a href="https://github.com/python-visualization/folium">Folium</a>. Es muy simple de usar y para según que necesidad es muy apropiado. Por otra parte, quizá su diseño limite un poco las posibilidades reales. Es por ello que, después de investigar un poco, descubrí <a href="https://github.com/jwass/mplleaflet">mplleaflet</a>. Esta última librería sigue la misma filosofía que mpld3, usa matplotlib y exporta el código en algo que es capaz de interpretar la librería javascript de turno (d3js para el caso de mpld3 o leaflet para el caso de mplleaflet). Las posibilidades de uso que se me ocurren para mplleaflet son muchas.</li>
+<li>Otra joyita para hacer análisis estadístico y visualización es <a href="https://stanford.edu/~mwaskom/software/seaborn/">Seaborn</a>. Es una delicia ver como con tan poco se puede hacer tanto. Una capa sobre otra capa sobre otra capa,..., dan un gran poder con un mínimo esfuerzo. Se pierde poder de personalización pero se gana inmediatez y, en el mundo del 'loquieroparahoy', es una gran ventaja eso de la inmediatez.</li>
+<li>Una pequeña tontería pero que te puede resultar útil en algún sistema donde es difícil usar un interfaz gráfico o quieres tener algo ligero para hacer gráficas de ¿baja calidad? sería <a href="https://github.com/glamp/bashplotlib">bashplotlib</a> (hasta el nombre mola).</li>
+<li>He empezado a trastear algo con <a href="https://plot.ly/python/">Plotly</a> pero los resultados no han sido especialmente buenos (le tendré que dar una nueva oportunidad en 2016):</li>
+</ul>
+<blockquote class="twitter-tweet" width="550">
+  <p lang="es" dir="ltr">
+    arghh!! plotly me ha reventado un i7 con 16 gb de ram o_O Reiniciando...
+  </p>
+
+  <p>
+    &mdash; Pybonacci (@Pybonacci) <a href="https://twitter.com/Pybonacci/status/667067498454458368">November 18, 2015</a>
+  </p>
+</blockquote>
+
+<p>UTILIDADES:</p>
+<ul>
+<li>Una pequeña tontada para el día a día sería <a href="https://github.com/tqdm/tqdm">tqdm</a>, que te añade una barra de progreso a los bucles de tu código.</li>
+</ul>
+<p>RENDIMIENTO:</p>
+<ul>
+<li>La depuración y optimización de código siempre es algo árido y gris. La optimización prematura es la raiz de todo mal. Juntamos las churras con las merinas y nos sale que tienes que probar <a href="https://github.com/rkern/line_profiler">line_profiler</a> sin ningún género de dudas. Date un paseo por tú código paso a paso y descubre qué es lo que está haciendo que tooooodo sea tan lento.</li>
+<li>Para correr código más rápido en Python mis opciones de hoy en día serían, por orden de qué es lo que intentaría antes, <a href="https://numba.pydata.org/">numba</a> (si es código científico) o <a href="https://pypy.org/">pypy</a> (si solo uso numpy mezclado con cosas más estándar que no dependan de bibliotecas que usan la C-API de CPython). Si Numba no funciona y pypy no resuleve la papeleta valoro si el código lo voy a necesitar ejecutar muchas veces y el tiempo que tarda es inasumible en la mayoría de ocasiones y, si es así, tiro de <a href="http://cython.org/">Cython</a> que, con un poco de esfuerzo y afeando un poco el código Python original, permite obtener velocidades cercanas a o del mismo orden que C/C++/Fortran.</li>
+</ul>
+<p>LIBRERÍA ESTÁNDAR Y ALGUNAS ALTERNATIVAS:</p>
+<ul>
+<li>De la librería estándar he estado usando bastante <a href="https://docs.python.org/dev/library/argparse.html">argparse</a>, <a href="https://docs.python.org/dev/library/collections.html">collections</a> e <a href="https://docs.python.org/dev/library/itertools.html">itertools</a>. Los tres no tienen nada que ver, los tres son muy potentes y, sabiendo usarlos, los tres se hacen imprescindibles. Quizá para el año que viene me ponga como deberes mirar más a fondo <a href="http://click.pocoo.org/dev/">click</a> como mejora a argparse y <a href="https://docs.python.org/3.6/library/functools.html">functools</a>, <a href="https://github.com/pytoolz/toolz">toolz</a> y/o <a href="https://github.com/pytoolz/cytoolz/">CyToolz</a> en combinación con collections e itertools.</li>
+</ul>
+<p>AÑO 2016 (DEBERES QUE ME PONGO):</p>
+<ul>
+<li><a href="https://github.com/blaze/dask">dask</a></li>
+<li>Más <a href="https://github.com/PyTables/PyTables">PyTables</a>.</li>
+<li>Creo que le voy a dar bastante más a <a href="http://d3js.org/">d3js</a> (por dictadura del navegador).</li>
+<li><a href="https://github.com/kikocorreoso/scikit-extremes">scikit-extremes</a>, mi propia solución al análisis de extremos univariantes en Python (se aceptan ayudas).</li>
+<li><a href="https://github.com/pymc-devs/pymc">PyMC</a> y/o <a href="https://github.com/pymc-devs/pymc3">PyMC3.</a></li>
+</ul>
+<p>¿Y vuestras joyitas? Animáos a compartirlas en los comentarios, independientemente que estén relacionadas con ciencia o no.</p>
+<p>Saludos y feliz año!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

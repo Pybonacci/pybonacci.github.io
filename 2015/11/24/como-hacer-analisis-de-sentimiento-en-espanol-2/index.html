@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Como hacer Análisis de Sentimiento en español | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Como hacer Análisis de Sentimiento en español</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 24 noviembre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/manuel-garrido.html">Manuel Garrido</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p><strong>Este post es una continuación de un <a href="https://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/">articulo previo</a> donde explico como obtener y dibujar en un mapa un mapa de calor de miles de tweets enviados desde mi ciudad</strong></p>
+<p>Puedes encontrar el código que he usado en <a href="https://github.com/manugarri/tweets_map">github</a>.</p>
+<p>Tambien he subido el archivo de tweets obtenido en el articulo anterior para que puedas seguir este tutorial sin tener que descargarte los tweets.</p>
+<p>En este post, me enfocaré en como hacer análisis de sentimiento (Sentiment Analysis) en español.</p>
+<p>Hacer Sentiment Analysis en inglés es muy fácil. Hay múltiples paquetes que vienen con modelos preparados para calcular el sentimiento o polaridad de un nuevo texto (ejemplos incluyen <a href="https://textblob.readthedocs.org">TextBlob</a> o <a href="https://code.google.com/p/word2vec/">word2vec</a>).</p>
+<p>Sin embargo, no tengo constancia de un modelo preparado en español, así que en este post vamos a hacer nuestro propio modelo predictivo :).</p>
+<p>Para eso, lo primero que necesitamos es un dataset previamente categorizado. En mi caso utilicé el corpus de <a href="https://www.sngularmeaning.team/TASS2015/tass2015.php#corpus">TASS</a>.</p>
+<p>TASS es un Taller de Análisis de Sentimiento en español organizado cada año por la <a href="https://www.sepln.org/">Sociedad Española del Procesado del Lenguaje Natural(SEPLN)</a>.</p>
+<p>Hay que pedir permiso para usar el corpus, por tanto no puedo compartirlo aquí. Para conseguirlo, solo hay que ponerse en contacto con los organizadores del TASS (hay un email de contacto en su pagina).</p>
+<p>Los archivos del corpus están en formato XML y contienen miles de tweets en español con su sentimiento (polaridad). Algunos de estos archivos están enfocados en un tópico, por ejemplo política o TV.</p>
+<p>La estructura de los archivos es similar a esta:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>  
+<span class="nt">&lt;tweets&gt;</span>  
+ <span class="nt">&lt;tweet&gt;</span>
+  <span class="nt">&lt;tweetid&gt;</span>142378325086715906<span class="nt">&lt;/tweetid&gt;</span>
+  <span class="nt">&lt;user&gt;</span>jesusmarana<span class="nt">&lt;/user&gt;</span>
+  <span class="nt">&lt;content&gt;</span><span class="cp">&lt;![CDATA[Portada &#39;Público&#39;, viernes. Fabra al banquillo por &#39;orden&#39; del Supremo; Wikileaks &#39;retrata&#39; a 160 empresas espías. http://t.co/YtpRU0fd]]&gt;</span><span class="nt">&lt;/content&gt;</span>
+  <span class="nt">&lt;date&gt;</span>2011-12-02T00:03:32<span class="nt">&lt;/date&gt;</span>
+  <span class="nt">&lt;lang&gt;</span>es<span class="nt">&lt;/lang&gt;</span>
+  <span class="nt">&lt;sentiments&gt;</span>
+   <span class="nt">&lt;polarity&gt;&lt;value&gt;</span>N<span class="nt">&lt;/value&gt;&lt;/polarity&gt;</span>
+  <span class="nt">&lt;/sentiments&gt;</span>
+  <span class="nt">&lt;topics&gt;</span>
+   <span class="nt">&lt;topic&gt;</span>política<span class="nt">&lt;/topic&gt;</span>
+  <span class="nt">&lt;/topics&gt;</span>
+ <span class="nt">&lt;/tweet&gt;</span>
+ <span class="nt">&lt;tweet&gt;</span>
+</pre></div>
+
+
+<p>los campos que nos interesan para cada tweet son el campo <code>content</code> , que tiene el contenido del tweet, y el campo <code>sentiment.polarity.value</code>, que incluye la polaridad del tweet.</p>
+<p>Hay que fijarse en que diversos archivos tienen diferentes esquemas dependiendo de que edición del TASS sean.</p>
+<p>Después de procesar y unir todos los archivos, tenemos un archivo con unos 48,000 tweets con una polaridad asociada. Dicha polaridad esta codificada como una variable ordinal que contiene uno de los siguientes valores: <code>N+</code> (muy negativo), <code>N</code> (negativo), <code>NEU</code> (Neutral), <code>P</code> (Positivo), <code>P+</code> (muy positivo).</p>
+<p>El objetivo de este problema de Machine Learning es predecir el sentimiento de los tweets incluidos en el <a href="http://blog.manugarri.com/plotting-100k-tweets-from-my-home-town/">archivo que creamos en el post anterior</a> usando el corpus de TASS como training data (datos para entrenar al modelo predictivo).</p>
+<p>Sin embargo, antes de hacer eso, tenemos que hacer un paso más.</p>
+<p>Si analizamos el dataset, nos damos cuenta de que hay tweets en múltiples idiomas, y por lo tanto <strong>no podemos predecir la polaridad de tweets que no estén escritos en español mediante el corpus de TASS</strong></p>
+<p>Lo que significa que tenemos que asignar el lenguaje a cada tweet, y entonces filtrar sólo aquellos que son en español.</p>
+<h1>Detección de Lenguaje</h1>
+<p>Para asignar el lenguaje de cada tweet, he usado 3 paquetes diferentes, <a href="https://pypi.python.org/pypi/langdetect/1.0.1">langdetect</a>, <a href="http://github.com/saffsd/langid.py">langid</a> y <a href="https://textblob.readthedocs.org">Textblob</a>, y solo mantuve los tweets en los que al menos un paquete decidiera que el tweet era en español.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">langid</span>
+<span class="kn">from</span> <span class="nn">langdetect</span> <span class="kn">import</span> <span class="n">detect</span>
+<span class="kn">import</span> <span class="nn">textblob</span>
+
+<span class="k">def</span> <span class="nf">langid_safe</span><span class="p">(</span><span class="n">tweet</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">langid</span><span class="o">.</span><span class="n">classify</span><span class="p">(</span><span class="n">tweet</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">langdetect_safe</span><span class="p">(</span><span class="n">tweet</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">detect</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">textblob_safe</span><span class="p">(</span><span class="n">tweet</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">textblob</span><span class="o">.</span><span class="n">TextBlob</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span><span class="o">.</span><span class="n">detect_language</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="c1">#Este paso tarda mucho tiempo</span>
+<span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;lang_langid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">tweet</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">langid_safe</span><span class="p">)</span>
+<span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;lang_langdetect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">tweet</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">langdetect_safe</span><span class="p">)</span>
+<span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;lang_textblob&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">tweet</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">textblob_safe</span><span class="p">)</span>
+
+<span class="n">tweets</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;tweets_parsed2.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+
+<span class="n">tweets</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;lang_langdetect == &#39;es&#39; or lang_langid == &#39;es&#39; or lang_langtextblob==&#39;es&#39; &quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Tras filtar los archivos por lenguaje nos queda un archivo de 77,550 tweets en español.</p>
+<p>Como he mencionado más arriba, el corpus contiene múltiples niveles de polaridad. No obstante, hay diferencias entre diferentes archivos, por ejemplo algunos archivos sólo tienen los niveles <em>Positivo, Negativo y Neutral</em></p>
+<p>Por lo tanto para poder trabajar con todos los archivos conjuntamente, vamos a convertir la polaridad en una variable dicotómica (binaria) con los valores <em>(Positivo=1, Negativo=0)</em>.</p>
+<h1>Procesamiento de texto</h1>
+<p>Para poder analizar los tweets, tenemos que extraer y estructurar la información contenida en el texto. Para ello, usaremos la clase <a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">sklearn.feature_extraction.CountVectorizer</a>.</p>
+<p><code>CountVectorizer</code> convierte la columna de texto en una matriz en la que cada palabra es una columna cuyo valor es el número de veces que dicha palabra aparece en cada tweet.</p>
+<p>Por ejemplo, si tenemos el tweet:</p>
+<p><code>Machine Learning is very cool</code></p>
+<p><code>CountVectorizer</code> lo convierte en:</p>
+<table border="1" style="text-align: center;width:100%">
+  <tr>
+    <th>
+    </th>
+
+    <th>
+      tweet
+    </th>
+
+    <th>
+      machine
+    </th>
+
+    <th>
+      learning
+    </th>
+
+    <th>
+      is
+    </th>
+
+    <th>
+      very
+    </th>
+
+    <th>
+      cool
+    </th>
+  </tr>
+
+  <tr>
+    <th>
+    </th>
+
+    <td>
+      Machine Learning is very cool
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+  </tr>
+
+  <tr>
+    <th>
+      1
+    </th>
+
+    <td>
+      Machine Learning is cool
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+      1
+    </td>
+
+    <td>
+    </td>
+
+    <td>
+      1
+    </td>
+  </tr>
+</table>
+
+<p>De esta forma podemos trabajar con estos vectores en vez de con texto plano.</p>
+<p>Modificaremos nuestro <code>CountVectorizer</code> para que aplique los siguientes pasos a cada tweet:</p>
+<ol>
+<li>Tokenizar, este paso convierte una cadena de texto en una lista de palabras <em>(tokens)</em>. Usaremos un tokenizador modificado que no solo tokeniza (mediante el uso de <code>nltk.word_tokenize</code>), sino que también remueve signos de puntuación. Como estamos tratando con tweets en español, es importante incluir <code>¿</code> y <code>¡</code> en la lista de signos a eliminar.</li>
+<li>Convertir todas las palabras en minúsculas.</li>
+<li>Remover stopwords. Se llama stopwords a las palabras que son muy frecuentes pero que no aportan gran valor sintáctico. Ejemplos de stopwords serían <em>de, por, con ...</em> </li>
+<li>Stemming. Stemming es el proceso por el cual transformamos cada palabra en su raiz. Por ejemplo las palabras <em>maravilloso, maravilla o maravillarse</em> comparten la misma raíz y se consideran la misma palabra tras el stemming.</li>
+</ol>
+<p>Este es el código para procesar el texto:</p>
+<div class="highlight"><pre><span></span><span class="c1">#Tienes que descargarte las stopwords primero via nltk.download()</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.data</span> <span class="kn">import</span> <span class="n">load</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">SnowballStemmer</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">punctuation</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+
+
+<span class="n">spanish_stopwords</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">)</span>
+
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">)</span>
+
+<span class="n">non_words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">punctuation</span><span class="p">)</span>
+<span class="n">non_words</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;¿&#39;</span><span class="p">,</span> <span class="s1">&#39;¡&#39;</span><span class="p">])</span>
+<span class="n">non_words</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)))</span>
+
+<span class="n">stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s1">&#39;spanish&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">stem_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">stemmer</span><span class="p">):</span>
+    <span class="n">stemmed</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="n">stemmed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">stemmed</span>
+
+<span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">non_words</span><span class="p">])</span>
+    <span class="n">tokens</span> <span class="o">=</span>  <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="c1"># stem</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">stems</span> <span class="o">=</span> <span class="n">stem_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">stemmer</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">stems</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">stems</span>
+
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+                <span class="n">analyzer</span> <span class="o">=</span> <span class="s1">&#39;word&#39;</span><span class="p">,</span>
+                <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">,</span>
+                <span class="n">lowercase</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                <span class="n">stop_words</span> <span class="o">=</span> <span class="n">spanish_stopwords</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>Evaluación del modelo</h1>
+<p>En este apartado es donde probamos múltiples algoritmos y medimos su eficacia. Herramientas como <a href="https://github.com/EducationalTestingService/skll">SciKit-Learn Laboratory (SKLL)</a> ayudan mucho en este proceso.</p>
+<p>Un aspecto importante a considerar es elegir una métrica apropiada para evaluar cada modelo. Como este problema es un problema de clasificación binaria <em>(predecir si un tweet es positivo =1 o negativo=0)</em>, una buena métrica es el <strong><a href="http://www.hrc.es/bioest/roc_1.html">Area bajo la Curva ROC</a></strong>, que tiene en cuenta tanto los Falsos positivos (es decir, tweets negativos que fueron clasificados como positivos) como los Falsos Negativos (es decir, los tweets postivos que fueron clasificados como negativos)</p>
+<p>Tras evaluar varios modelos, el algoritmo SVM (en particular su implementación para casos de clasificación <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html"><code>LinearSVC</code></a> fué el que produjo valores mejores de AUC (<em>area under the curve</em>).</p>
+<p>Una vez hemos seleccionado nuestro Vectorizer y nuestro clasificador, hacemos una búsqueda en rejilla <a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html"><code>GridSearchCV</code></a>. para encontrar los mejores parámetros para nuestros modelos.</p>
+<p><code>GridSearchCV</code> itera sobre los modelos especificados con el rango de parámetros indicado y nos devuelve aquel modelo cuyos parámetros proporcionan los mejores resultados.</p>
+<p>Este es el código que hace la búsqueda:</p>
+<div class="highlight"><pre><span></span><span class="c1">#Definimos el vectorizer de nuevo y creamos un pipeline de vectorizer -&amp;gt; classificador</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+                <span class="n">analyzer</span> <span class="o">=</span> <span class="s1">&#39;word&#39;</span><span class="p">,</span>
+                <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">,</span>
+                <span class="n">lowercase</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+                <span class="n">stop_words</span> <span class="o">=</span> <span class="n">spanish_stopwords</span><span class="p">)</span>
+
+<span class="c1">#LinearSVC() es el clasificador</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">vectorizer</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;cls&#39;</span><span class="p">,</span> <span class="n">LinearSVC</span><span class="p">()),</span>
+<span class="p">])</span>
+
+
+<span class="c1">#Aqui definimos el espacio de parámetros a explorar</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;vect__max_df&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">),</span>
+    <span class="s1">&#39;vect__min_df&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
+    <span class="s1">&#39;vect__max_features&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">),</span>
+    <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>  <span class="c1"># unigramas or bigramas</span>
+    <span class="s1">&#39;cls__C&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span>
+    <span class="s1">&#39;cls__loss&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;hinge&#39;</span><span class="p">,</span> <span class="s1">&#39;squared_hinge&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;cls__max_iter&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+
+
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span> <span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;roc_auc&#39;</span><span class="p">)</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tweets_corpus</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">tweets_corpus</span><span class="o">.</span><span class="n">polarity_bin</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Este paso tarda bastante tiempo, pero al terminar nos devolverá el conjunto de parámetros (o como se les llama también, hiperparámetros) que producen el mejor AUC. En este caso, el mejor AUC fue de 0.92, que es un resultado aceptable (con más tiempo, intentaríamos subir ese AUC hasta los 0.97 o aproximado, pero al fin y al cabo, este es un experimento).</p>
+<p>Ahora ya tenemos nuestros modelos con los mejores parámetros, asi que solo falta entrenar el modelo en el corpus de TASS y predecir la polaridad del archivo de tweets que descargamos.</p>
+<p>Finalmente, guardaremos en un archivo la latitud, longitud y polaridad de cada tweet.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+
+<span class="c1">#Creamos un Pipeline con los parámetros mejores</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span>
+            <span class="n">analyzer</span> <span class="o">=</span> <span class="s1">&#39;word&#39;</span><span class="p">,</span>
+            <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">tokenize</span><span class="p">,</span>
+            <span class="n">lowercase</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="n">stop_words</span> <span class="o">=</span> <span class="n">spanish_stopwords</span><span class="p">,</span>
+            <span class="n">min_df</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+            <span class="n">max_df</span> <span class="o">=</span> <span class="mf">1.9</span><span class="p">,</span>
+            <span class="n">ngram_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">max_features</span><span class="o">=</span><span class="mi">1000</span>
+            <span class="p">)),</span>
+    <span class="p">(</span><span class="s1">&#39;cls&#39;</span><span class="p">,</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">C</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;squared_hinge&#39;</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">multi_class</span><span class="o">=</span><span class="s1">&#39;ovr&#39;</span><span class="p">,</span>
+             <span class="n">random_state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span>
+             <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span>
+             <span class="p">)),</span>
+<span class="p">])</span>
+
+<span class="c1">#ajustamos el modelo at corpus de TASS</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">tweets_corpus</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">tweets_corpus</span><span class="o">.</span><span class="n">polarity_bin</span><span class="p">)</span>
+<span class="c1">#now we predict on the new tweets dataset</span>
+<span class="n">tweets</span><span class="p">[</span><span class="s1">&#39;polarity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">tweets</span><span class="o">.</span><span class="n">tweet</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Cuando tenemos el archivo de latitudes y longitudes con su polaridad, seguimos los mismos pasos que seguimos en el <a href="https://pybonacci.org/2015/11/16/dibujando-100k-tweets-de-mi-ciudad/">tutorial previo</a> y obtenemos el siguiente mapa de calor donde se pueden observar los sitios con polaridad más negativa y más positiva:</p>
+<p><img alt="murcia sentiment heatmap" src="https://cdn.rawgit.com/manugarri/tweets_map/master/murcia_tweets_polarity.png"></p>
+<p><strong>¿Que os parece?</strong></p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/manuel-garrido.png alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Manuel ha estado 4 años en Nueva York, primero trabajando como Senior Analyst para la NBC y luego como Data Scientist. Tras trabajar en varias empresas, ahora trabaja como Data Scientist Consultant, tanto para clientes españoles como extranjeros. Si necesitas ayuda, no dudes en contactarle!
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

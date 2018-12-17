@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>¿Cómo funciona el método append de una lista en CPython? | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>¿Cómo funciona el método append de una lista en CPython?</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 12 noviembre 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Vamos a empezar con más preguntas que respuestas.</p>
+<p>Como sabéis, las listas de Python son <em>arrays</em> dinámicos. Por otro lado, las tuplas son <em>arrays</em> estáticos.</p>
+<p><strong>¿Qué implica que las listas sean <em>arrays</em> dinámicos?</strong></p>
+<p>Al ser un array dinámico podemos modificar sus elementos así como extender el array (lista).</p>
+<p><strong>¿Cómo funciona lo de extender el <em>array</em> (lista)?</strong></p>
+<p>Cada vez que usamos el método <code>append</code> de las listas se crea una copia de la lista original y se añade un elemento a esa copia para luego borrar el array original.</p>
+<p><strong>¿Es esto último cierto?</strong></p>
+<p>Más o menos.</p>
+<p>Todos estaréis conmigo que si cada vez que añadimos un nuevo elemento tenemos que crear una copia y luego eliminar el <em>array</em> original podríamos crear cierto coste/gasto de recursos (en memoria, principalmente, creando copias).</p>
+<p>Veamos un poco de código:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">lista</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">lista</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="s1">&#39;número de elementos = {0:&gt;3} , tamaño de la lista = {1:&gt;4}&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">txt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">getsizeof</span><span class="p">(</span><span class="n">lista</span><span class="p">)))</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>número de elementos =   1 , tamaño de la lista =   96
+número de elementos =   2 , tamaño de la lista =   96
+número de elementos =   3 , tamaño de la lista =   96
+número de elementos =   4 , tamaño de la lista =   96
+número de elementos =   5 , tamaño de la lista =  128
+número de elementos =   6 , tamaño de la lista =  128
+número de elementos =   7 , tamaño de la lista =  128
+número de elementos =   8 , tamaño de la lista =  128
+número de elementos =   9 , tamaño de la lista =  192
+número de elementos =  10 , tamaño de la lista =  192
+número de elementos =  11 , tamaño de la lista =  192
+número de elementos =  12 , tamaño de la lista =  192
+número de elementos =  13 , tamaño de la lista =  192
+número de elementos =  14 , tamaño de la lista =  192
+número de elementos =  15 , tamaño de la lista =  192
+número de elementos =  16 , tamaño de la lista =  192
+número de elementos =  17 , tamaño de la lista =  264
+número de elementos =  18 , tamaño de la lista =  264
+número de elementos =  19 , tamaño de la lista =  264
+número de elementos =  20 , tamaño de la lista =  264
+número de elementos =  21 , tamaño de la lista =  264
+número de elementos =  22 , tamaño de la lista =  264
+número de elementos =  23 , tamaño de la lista =  264
+número de elementos =  24 , tamaño de la lista =  264
+número de elementos =  25 , tamaño de la lista =  264
+número de elementos =  26 , tamaño de la lista =  344
+número de elementos =  27 , tamaño de la lista =  344
+número de elementos =  28 , tamaño de la lista =  344
+número de elementos =  29 , tamaño de la lista =  344
+número de elementos =  30 , tamaño de la lista =  344
+número de elementos =  31 , tamaño de la lista =  344
+número de elementos =  32 , tamaño de la lista =  344
+número de elementos =  33 , tamaño de la lista =  344
+número de elementos =  34 , tamaño de la lista =  344
+número de elementos =  35 , tamaño de la lista =  344
+número de elementos =  36 , tamaño de la lista =  432
+número de elementos =  37 , tamaño de la lista =  432
+número de elementos =  38 , tamaño de la lista =  432
+número de elementos =  39 , tamaño de la lista =  432
+número de elementos =  40 , tamaño de la lista =  432
+número de elementos =  41 , tamaño de la lista =  432
+número de elementos =  42 , tamaño de la lista =  432
+número de elementos =  43 , tamaño de la lista =  432
+número de elementos =  44 , tamaño de la lista =  432
+número de elementos =  45 , tamaño de la lista =  432
+número de elementos =  46 , tamaño de la lista =  432
+número de elementos =  47 , tamaño de la lista =  528
+número de elementos =  48 , tamaño de la lista =  528
+número de elementos =  49 , tamaño de la lista =  528
+número de elementos =  50 , tamaño de la lista =  528
+número de elementos =  51 , tamaño de la lista =  528
+número de elementos =  52 , tamaño de la lista =  528
+número de elementos =  53 , tamaño de la lista =  528
+número de elementos =  54 , tamaño de la lista =  528
+número de elementos =  55 , tamaño de la lista =  528
+número de elementos =  56 , tamaño de la lista =  528
+número de elementos =  57 , tamaño de la lista =  528
+número de elementos =  58 , tamaño de la lista =  528
+número de elementos =  59 , tamaño de la lista =  640
+número de elementos =  60 , tamaño de la lista =  640
+número de elementos =  61 , tamaño de la lista =  640
+número de elementos =  62 , tamaño de la lista =  640
+número de elementos =  63 , tamaño de la lista =  640
+número de elementos =  64 , tamaño de la lista =  640
+número de elementos =  65 , tamaño de la lista =  640
+número de elementos =  66 , tamaño de la lista =  640
+número de elementos =  67 , tamaño de la lista =  640
+número de elementos =  68 , tamaño de la lista =  640
+número de elementos =  69 , tamaño de la lista =  640
+número de elementos =  70 , tamaño de la lista =  640
+número de elementos =  71 , tamaño de la lista =  640
+número de elementos =  72 , tamaño de la lista =  640
+número de elementos =  73 , tamaño de la lista =  768
+número de elementos =  74 , tamaño de la lista =  768
+número de elementos =  75 , tamaño de la lista =  768
+número de elementos =  76 , tamaño de la lista =  768
+número de elementos =  77 , tamaño de la lista =  768
+número de elementos =  78 , tamaño de la lista =  768
+número de elementos =  79 , tamaño de la lista =  768
+número de elementos =  80 , tamaño de la lista =  768
+número de elementos =  81 , tamaño de la lista =  768
+número de elementos =  82 , tamaño de la lista =  768
+número de elementos =  83 , tamaño de la lista =  768
+número de elementos =  84 , tamaño de la lista =  768
+número de elementos =  85 , tamaño de la lista =  768
+número de elementos =  86 , tamaño de la lista =  768
+número de elementos =  87 , tamaño de la lista =  768
+número de elementos =  88 , tamaño de la lista =  768
+número de elementos =  89 , tamaño de la lista =  912
+número de elementos =  90 , tamaño de la lista =  912
+número de elementos =  91 , tamaño de la lista =  912
+número de elementos =  92 , tamaño de la lista =  912
+número de elementos =  93 , tamaño de la lista =  912
+número de elementos =  94 , tamaño de la lista =  912
+número de elementos =  95 , tamaño de la lista =  912
+número de elementos =  96 , tamaño de la lista =  912
+número de elementos =  97 , tamaño de la lista =  912
+número de elementos =  98 , tamaño de la lista =  912
+número de elementos =  99 , tamaño de la lista =  912
+número de elementos = 100 , tamaño de la lista =  912
+</pre></div>
+
+
+<p>En el anterior código hemos creado una lista vacía y le hemos ido añadiendo elementos y hemos obtenido el tamaño de la lista usando la función <code>getsizeof</code> que nos <a href="https://docs.python.org/3/library/sys.html?highlight=sys%20getsizeof#sys.getsizeof">indica el tamaño del objeto en <em>bytes</em></a>. Luego hemos mostrado en pantalla el número de elementos que tiene la lista y el tamaño que ocupa.</p>
+<p><strong>Pero, ¿qué ocurre?, ¿por qué aumentando el número de elementos, a veces, no aumenta el tamaño del objeto?, ¿por qué luego cambia?, ¿por qué a medida que hay más elementos en la lista tarda más en cambiar el tamaño de la misma?</strong></p>
+<p>Veamos qué dice el código original de las listas en el repo de Python localizado en <a href="https://hg.python.org/releasing/3.5/file/tip/Objects/listobject.c#l42">Objects/listobject.c</a>.</p>
+<p>A partir de la línea 42 del código C podemos leer:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* This over-allocates proportional to the list size, making room</span>
+<span class="cm"> * for additional growth.  The over-allocation is mild, but is</span>
+<span class="cm"> * enough to give linear-time amortized behavior over a long</span>
+<span class="cm"> * sequence of appends() in the presence of a poorly-performing</span>
+<span class="cm"> * system realloc().</span>
+<span class="cm"> * The growth pattern is:  0, 4, 8, 16, 25, 35, 46, 58, 72, 88, ...</span>
+<span class="cm"> */</span><span class="w"></span>
+new_allocated<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>newsize<span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="m">3</span><span class="o">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">(</span>newsize<span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="err">?</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="m">6</span><span class="o">)</span><span class="err">;</span><span class="w"></span>
+</pre></div>
+
+
+<p>La última línea traducida a Python sería algo así:</p>
+<p><code>new_allocated = (newsize &gt;&gt; 3) + (3 if newsize &lt; 9 else 6)</code></p>
+<p>En el primer paréntesis tenemos el <a href="https://wiki.python.org/moin/BitwiseOperators">operador <em>bitwise right shift</em></a>, similar a la versión en C (no hay que olvidar que CPython está escrito en C) mientras que en el segundo paréntesis tenemos el operador ternario (sin duda, un poco más legible que la versión en C).</p>
+<p><strong>¿Qué está pasando aquí?</strong></p>
+<p>Los buenos de los <em>core developers</em> de CPython han pensado que si usas un <em>array</em> dinámico será porque quieres hacer 'perrerías' con él, como ampliarlo. Y si lo amplías una vez es probable que lo amplíes varias veces. Es por ello que, normalmente, se usa un un tamaño un poco mayor, basado en el tamaño y siquiendo la regla mostrada más arriba, para el <em>array</em> (lista) y, de esta forma, podemos ampliarlo sin necesidad de crear tantas copias.</p>
+<p>Veamos esto gráficamente:</p>
+<p>Importamos matplotlib para poder crear los gráficos.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<p>Creamos nuestra <code>lista</code> y otra lista que almacenará los tamaños en bytes, <code>sizes</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">lista</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">sys</span><span class="o">.</span><span class="n">getsizeof</span><span class="p">(</span><span class="n">lista</span><span class="p">)]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">100000</span><span class="p">):</span>
+    <span class="n">lista</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">sizes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">getsizeof</span><span class="p">(</span><span class="n">lista</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Y ahora dibujamos los tamaños en función del número de elementos dentro de la lista:</p>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span> <span class="n">sizes</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Número de elementos en la lista&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Tamaño en bytes para la lista de tamaño $N$&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT</strong></p>
+<p><code>&lt;matplotlib.text.Text at 0x7f0655169c88&gt;</code></p>
+<p><img alt="wpid" src="https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython1.png?style=centerme"></p>
+<p>Vemos como los "escalones" en el tamaño de la lista con <em>N</em> elementos va aumentando y el escalón cada vez es más largo a medida que aumenta el tamaño de la <code>lista</code>.</p>
+<p>Veamos como es el valor del tamaño dividido por el número de elementos de la lista a medida que va aumentando el mismo (los ejes de la gráfica tienen escala logarítmica):</p>
+<div class="highlight"><pre><span></span><span class="n">increment</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">/</span><span class="n">l</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sizes</span><span class="p">,</span> <span class="n">lista</span><span class="p">)]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">increment</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lista</span><span class="p">,</span> <span class="n">increment</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Número de elementos en la lista&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Bytes por número de elementos&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<p><code>&lt;matplotlib.text.Text at 0x7f06552ada20&gt;</code></p>
+<p><img alt="wpid2" src="https://pybonacci.org/images/2015/11/wpid-¿Cómo_funciona_el_método_append_de_una_lista_en_CPython2.png?style=centerme"></p>
+<p>Curioso, ¿no?</p>
+<p>Espero que hayáis aprendido tanto como he aprendido yo elaborando esta entrada.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/append.html" class="tag">append</a>
+                    <a href="http://pybonacci.github.io/tag/cpython.html" class="tag">CPython</a>
+                    <a href="http://pybonacci.github.io/tag/implementacion.html" class="tag">implementación</a>
+                    <a href="http://pybonacci.github.io/tag/lista.html" class="tag">lista</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

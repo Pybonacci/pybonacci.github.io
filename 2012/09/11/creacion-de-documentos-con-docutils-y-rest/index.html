@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Creación de documentos con Docutils y reST | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Creación de documentos con Docutils y reST</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mar 11 septiembre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Hoy vamos a ver una introducción a cómo <strong>crear documentos</strong> utilizando <strong>Docutils</strong> y el lenguaje de marcado <strong>reStructuredText</strong>, o simplemente <strong>reST</strong>. <a href="http://docutils.sourceforge.net/">El proyecto Docutils</a> nació en la década de los años 2000 como parte del esfuerzo para <a href="http://docutils.sourceforge.net/docs/ref/rst/introduction.html#history">mejorar la documentación del lenguaje Python</a>, y en los últimos años tanto el lenguaje reST como las herramientas para procesarlo se han convertido en una manera excelente no sólo de documentar proyectos en Python, sino también en otros lenguajes o para escribir documentos que nada tienen que ver con la programación.</p>
+<p>Docutils es compatible con Python 2.4 en adelante y funciona en Windows, Mac OS X y Linux. Para instalarlo en cualquiera de estos sistemas operativos, no tienes más que seguir el procedimiento habitual para instalar paquetes Python:</p>
+<ol>
+<li>Descargar el código fuente desde <a href="http://sourceforge.net/projects/docutils/files/docutils/">la web de Docutils</a> y extraerlo.</li>
+<li>Escribir desde un terminal <code>python setup.py install</code>. Este paso puede requerir privilegios de administrador.</li>
+</ol>
+<h2>El lenguaje reST</h2>
+<p>El lenguaje <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> o reST es un lenguaje de marcado de texto plano flexible y potente. reST tiene las ventajas de otros lenguajes de marcado de texto plano similares como Markdown, como puede ser la <strong>portabilidad</strong>: en cualquier sistema operativo y con cualquier editor de texto básico puedes abrir y modificar archivos de texto plano. Pero además, reST tiene otra serie de características que otros no tienen:</p>
+<ul>
+<li>Es <strong>extensible</strong>: en reST puedes definir tus propios roles y directivas, de tal forma que puedes automatizar estructuras que utilices con frecuencia.</li>
+<li>Está <strong>integrado con</strong> $LaTeX$: utilizando la directiva y el rol <code>math</code>, puedes incluir fácilmente ecuaciones matemáticas en tus documentos. Esto nos viene muy bien a los científicos e ingenieros 😉</li>
+<li>Se puede exportar a <strong>múltiples formatos</strong>: HTML, $LaTeX$, man, ODT, XML, S5... y si lo necesitas se puede adaptar para exportarlo al formato que desees (como por ejemplo <a href="https://github.com/marianoguerra/rst2html5">HTML5</a>).</li>
+</ul>
+<p>Uno de los objetivos de reST es que sea <strong>legible</strong>. La manera de marcar los encabezados y las secciones del documento hace que alguien que no conozca el lenguaje pueda leer perfectamente el contenido. Vamos a ver algunos ejemplos.</p>
+<!--more-->
+
+<h2>Nuestro primer documento reST</h2>
+<p>Vamos a crear un archivo llamado <code>intro_rest.rst</code> (normalmente esta será la extensión que utilicemos) y vamos a escribir este código:</p>
+<div class="highlight"><pre><span></span><span class="gh">Docutils</span>
+<span class="gh">========</span>
+El programa Docutils (http://docutils.sourceforge.net/) es un sistema de
+procesamiento de texto escrito en Python, que puede pasar ficheros escritos en
+el lenguaje reStructuredText (reST, http://docutils.sourceforge.net/rst.html)
+a HTML, LaTeX y más formatos.
+<span class="gh">¿Por qué reST?</span>
+<span class="gh">--------------</span>
+La gracia de escribir reST en lugar de LaTeX o incluso de utilizar un editor
+tipo LyX es que
+<span class="m">*</span> Es muy <span class="ge">*visual*</span>
+<span class="m">*</span> Es <span class="gs">**texto plano**</span> (igual que LaTeX o un programa Fortran) así que no hay
+  problemas de formatos binarios, incompatibilidades... es igual en todas partes.
+Lo anterior es una lista en reST. Fíjate también en la cursiva y en la negrita.
+En LaTeX habría que escribir::
+  begin{itemize}
+  item Es muy emph{visual}
+  item Es textbf{texto plano} [...]
+  end{itemize}
+<span class="gh">Conclusión</span>
+<span class="gh">----------</span>
+Si es verdad que se cumple
+<span class="p">..</span> <span class="ow">math</span><span class="p">::</span>
+  E = m c^2
+entonces no hay más que hablar: es hora de aprender reST. Para generar un
+documento a partir de este texto, solamente hay que ejecutar en un
+terminal::
+  $ rst2html intro_rest.rst intro_rest.html
+Y fin de la cuestión.
+</pre></div>
+
+
+<p>En este pequeño documento están recogidas las estructuras básicas que usaremos con más frecuencia. Aún no lo hemos convertido en HTML, LaTeX u otro formato, pero aun así nos damos cuenta de que lo podemos leer perfectamente. Si ahora en un terminal ejecutamos, tal y como se recoge en el mismo texto</p>
+<div class="highlight"><pre><span></span>$ rst2html intro_rest.rst intro_rest.html
+</pre></div>
+
+
+<p>Se genera algo muy similar a esto:<figure id="attachment_808" style="width: 560px" class="wp-caption aligncenter"></p>
+<p><img alt="Archivo HTML generado por Docutils" src="https://pybonacci.org/images/2012/09/intro_rest.png"></p>
+<p>Y si queremos generar un PDF y tenemos instalado LaTeX, no hay más que ejecutar</p>
+<div class="highlight"><pre><span></span>$ rst2latex intro_rest.rst intro_rest.tex
+$ pdflatex intro_rest.tex
+</pre></div>
+
+
+<p>Y se obtiene <a href="https://pybonacci.org/images/2012/09/intro_rest.pdf">este archivo PDF</a>.</p>
+<p>¿No es una maravilla? 🙂 Vamos a analizar con un poco más de detalle las estructuras que hemos usado. No pretendo dar una referencia completa del lenguaje reST, si quieres puedes consultar la <a href="http://docutils.sourceforge.net/docs/user/rst/quickref.html">referencia oficial</a>.</p>
+<h3>Encabezados</h3>
+<p>Como se puede ver, los encabezados se delimitan con una línea de caracteres simbolizando una especie de subrayado. En este caso hemos utilizado <code>===</code> para el título del documento y <code>---</code> para las secciones de primer nivel, pero hay muchas combinaciones posibles. Los caracteres disponibles para delimitar las secciones son muchos, pero los recomendados son, <a href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#sections">como indica la documentación del lenguaje</a>,</p>
+<pre>= - ` : . ' " ~ ^ _ * + #</pre>
+
+<p>El caracter que escojamos para el primer encabezado del documento se asignará al <strong>título</strong>, el segundo a las secciones de primer nivel, el tercero a las de segundo nivel y así sucesivamente.</p>
+<h3>Enlaces</h3>
+<p>En el documento que hemos creado simplemente hemos escrito una URL y esta se ha convertido en un hipervínculo en el caso del fichero HTML y en un enlace en el caso del PDF. Pero también podemos hacer que el texto del enlace sea distinto a una URL, utilizando la siguiente sintaxis:</p>
+<div class="highlight"><pre><span></span>Ve a la web de Python_ para más información.
+`Escríbenos con tus comentarios`_ en el formulario.
+.. _Python: http://www.python.org
+.. _`Escríbenos con tus comentarios`: jdoe@example.com
+</pre></div>
+
+
+<h3>Formato y listas</h3>
+<p>Esto es sencillo: el texto en cursiva <em>*se marca entre asteriscos*</em>, y en negrita <strong>**se marca con doble asterisco**</strong>. Las listas, por otro lado, se crean con una serie de puntos que se pueden marcar con los caracteres</p>
+<pre>* + - • ‣ ⁃</pre>
+
+<p>aunque lo más normal suele ser usar el asterisco <code>*</code> o el símbolo de suma <code>+</code>.</p>
+<h3>Bloques literales y código fuente</h3>
+<p>Para incluir bloques literales o código fuente, el bloque debe estar sangrado dos espacios y la línea que lo precede debe estar terminada con un doble signo de dos puntos <code>::</code>.</p>
+<h3>Matemáticas y bloques especiales</h3>
+<p>En el ejemplo que hemos puesto hemos visto cómo utilizar la directiva math. Las directivas en reST son bloques especiales marcados con una sintaxis particular. El contenido del bloque también va sangrado dos espacios. Hay varios tipos que se usan frecuentemente:</p>
+<div class="highlight"><pre><span></span>Bloque para fórmulas matemáticas:
+.. math::
+  E = m c^2
+Bloques para notas y avisos:
+.. note::
+  Esto es una nota.
+.. warning::
+  Más vale que tengas cuidado.
+</pre></div>
+
+
+<p><ins datetime="2012-09-12T07:51:23+00:00"><strong>Edición</strong>: Por último</ins>, para aquellos que han llegado hasta el final, Kiko nos enlaza en los comentarios una <a href="https://github.com/ralsina/rst-cheatsheet/blob/master/rst-cheatsheet.pdf?raw=true">chuleta de reST</a> hecha por el gran Roberto Alsina (<a href="http://twitter.com/ralsina">@ralsina</a>).</p>
+<p>Espero que te haya resultado útil el artículo y que nos cuentes en los comentarios si has tenido algún problema o si, por el contrario, te hemos descubierto un mundo nuevo. Yo empecé a tomar mis apuntes de clase a ordenador utilizando Docutils (incluyendo fórmulas) y, si tienes una buena velocidad de escritura, los resultados son más que satisfactorios.</p>
+<p>¡Un saludo!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/documentacion.html" class="tag">documentación</a>
+                    <a href="http://pybonacci.github.io/tag/docutils.html" class="tag">docutils</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/rest.html" class="tag">rest</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

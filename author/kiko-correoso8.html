@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Artículos por Kiko Correoso | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h1>Artículos por Kiko Correoso</h1>
+
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/11/14/videos-interesantes-de-la-pyconca-2012/">Videos interesantes de la PyConCa 2012</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-11-14T22:51:02+00:00" pubdate>mié 14 noviembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/videos-pycon-pyconca.html" class="tag">videos pycon pyconca</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>A pure python genetic algorithms framework</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/YYDdBv430sU'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Dancing with big data: Disco + inferno</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/D3VFq97NhEk'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Integrating geocode data with python</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/MhsbivEDTds'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Science and python: retrospective of a (mostly) successful decade</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/F4rFuIb1Ie4'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Server log analysis with pandas</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/ZOpR3P-jAno'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Writing self-documenting scientific code using physical quantities</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/QcN_Hmh88mA'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>Statistical Data Exchange and Publishing - an introduction to SDMX and DSPL</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/WSB_xv0t384'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>MongoDB and Gene databases</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/L4ITLOWQhjY'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>El <a href="http://pyvideo.org/category/25/pycon-ca-2012">resto de videos aquí</a>.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/11/14/videos-interesantes-de-la-pyconca-2012/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/11/04/hoy-celebramos-nuestro-articulo-numero/">Hoy celebramos nuestro artículo número&#8230;</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-11-04T22:32:34+00:00" pubdate>dom 04 noviembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fibo</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span> <span class="sa">u</span><span class="s2">&quot;Ya hemos llegado al artículo número &quot;</span><span class="p">,</span> <span class="n">fibo</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/11/04/hoy-celebramos-nuestro-articulo-numero/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/31/recopilacion-del-pydata-nyc-2012/">Recopilación del PyData NYC 2012</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-31T17:24:32+00:00" pubdate>mié 31 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/pydata.html" class="tag">pydata</a>
+                <a href="http://pybonacci.github.io/tag/pydata2012nyc.html" class="tag">pydata2012nyc</a>
+                <a href="http://pybonacci.github.io/tag/pydatanyc.html" class="tag">pydatanyc</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Francesc Alted: <a href="http://pytables.org/docs/PyData2012-NYC.pdf">PyTables: An on-disk binary data container, query engine and computational kernel.</a></p>
+<p>Stefan van der Walt: <a href="http://nbviewer.ipython.org/url/mentat.za.net/numpy/pydata/pydata2012_nyc_numpy.ipynb">An introduction to numpy: the notebook version.</a></p>
+<p>Jake Vanderplas: <a href="http://jakevdp.github.com/mpl_tutorial/">Matplotlib tutorial.</a></p>
+<p>Jake Vanderplas: <a href="http://astroml.github.com/sklearn_tutorial/">Tutorial: Machine learning for astrophysics with scikit-learn.</a></p>
+<p>Thomas Wiecki: <a href="http://www.slideshare.net/twiecki/pydata12-upload-14912969">Simulated Algorithmic Trading with Zipline: Backtesting, Statistics, and Optimization.</a></p>
+<p>Thomas Wiecki: <a href="http://nbviewer.ipython.org/3962843/">Simulated Algorithmic Trading with Zipline: Backtesting, Statistics, and Optimization (notebook).</a></p>
+<p>David Cournapeau: <a href="https://github.com/pydata/pydata2012/blob/master/database_python/slides.pdf">Database and python: Database for the scientist.</a></p>
+<p>Stefan Urbánek: <a href="https://speakerdeck.com/stiivi/business-intelligence-in-python">Bussiness intelligence in python.</a></p>
+<p>Skipper Seabold: <a href="http://jseabold.net/presentations/seabold_pydata2012.html#slide1">Statsmodels &amp; Patsy.</a></p>
+<p>Andrew Montalenti: <a href="https://speakerdeck.com/amontalenti/web-crawling-and-metadata-extraction-in-python">Web crawling &amp; metadata with python.</a></p>
+<p>Andrew Montalenti: <a href="https://speakerdeck.com/amontalenti/just-enough-nlp-with-python">Just enough NLP with python.</a></p>
+<p>Stephen Diehl: <a href="https://speakerdeck.com/sdiehl/blaze-next-generation-numpy">Blaze: Next generation Numpy.</a></p>
+<p>Andy Terrel: <a href="http://t.co/KsM7kdGk">MPI (notebooks).</a></p>
+<p>Chang She: <a href="https://github.com/changhiskhan/talks/tree/master/pydata2012">Timeseries with pandas (notebooks).</a></p>
+<p>Travis Oliphant: <a href="http://www.slideshare.net/teoliphant/pydata-introduction">PyData introduction.</a></p>
+<p>Travis Oliphant: <a href="http://www.slideshare.net/teoliphant/numba-lightning">Numba: NumPy-aware dynamic Python compiler (Lightning Talk).</a></p>
+<p>Didier Deshommes: <a href="https://github.com/dfdeshom/pydata-slides/blob/master/index.rst">Wikipedia indexing and analysis.</a></p>
+<p>Gilad Lotan: <a href="http://www.slideshare.net/giladlotan/pydata-gilad-networkxupload">Networkx and Gephi tutorial.</a></p>
+<p>[actualización]</p>
+<p>Los <a href="http://vimeo.com/channels/pydata/videos/sort:plays/format:thumbnail">vídeos están disponibles en …</a></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/31/recopilacion-del-pydata-nyc-2012/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/31/nuestro-primer-algoritmo-heuristico/">Nuestro primer algoritmo heurístico</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-31T06:00:42+00:00" pubdate>mié 31 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/algoritmos.html" class="tag">algoritmos</a>
+                <a href="http://pybonacci.github.io/tag/busqueda-en-escalada.html" class="tag">búsqueda en escalada</a>
+                <a href="http://pybonacci.github.io/tag/heuristica.html" class="tag">heurística</a>
+                <a href="http://pybonacci.github.io/tag/hill-climbing.html" class="tag">hill-climbing</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Normalmente, cuando se trata de optimizar 'algo' se pueden usar diferentes aproximaciones.</p>
+<ul>
+<li>La primera sería el uso de algoritmos de búsqueda exhaustivos como la fuerza bruta. Estos algoritmos nos dan la solución exacta pero si el <a href="http://en.wikipedia.org/wiki/Combinatorial_explosion">espacio de búsqueda es muy amplio el tiempo de cálculo necesario puede ser inabordable</a> (explosión combinatoria).</li>
+<li>Otra aproximación, que es la que veremos hoy, sería el uso de algoritmos <a href="http://es.wikipedia.org/wiki/Heur%C3%ADstica_%28inform%C3%A1tica%29">heurísticos</a>. La palabra heurística viene del griego y vendría a significar algo así como 'relativo a la búsqueda'  (recordad, <a href="http://es.wikipedia.org/wiki/%C2%A1Eureka!">eureka significa 'lo he encontrado' y tiene el mismo origen etimológico</a>). Estos algoritmos sacrifican la exactitud de la solución en favor del tiempo de respuesta, es decir, intentamos obtener soluciones lo suficientemente buenas con un tiempo de respuesta corto o aceptable.</li>
+</ul>
+<p>Vamos a proponer un problema sencillo y lo vamos a resolver de forma aproximada usando …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/31/nuestro-primer-algoritmo-heuristico/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/27/usando-el-gps-sin-perdernos-usando-pyproj/">Usando el GPS sin perdernos (usando pyproj)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-27T03:31:55+00:00" pubdate>sáb 27 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cartografia.html" class="tag">cartografía</a>
+                <a href="http://pybonacci.github.io/tag/geografia.html" class="tag">geografía</a>
+                <a href="http://pybonacci.github.io/tag/gps.html" class="tag">gps</a>
+                <a href="http://pybonacci.github.io/tag/mapeo.html" class="tag">mapeo</a>
+                <a href="http://pybonacci.github.io/tag/mapping.html" class="tag">mapping</a>
+                <a href="http://pybonacci.github.io/tag/proj.html" class="tag">proj</a>
+                <a href="http://pybonacci.github.io/tag/proj4.html" class="tag">proj.4</a>
+                <a href="http://pybonacci.github.io/tag/pyproj.html" class="tag">pyproj</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Como todos sabéis, la tierra no es una esfera perfecta ya que su forma es irregular y sus polos están achatados. Esto complica la vida en muchos ámbitos de la vida como, por ejemplo, conocer una posición sobre la superficie terrestre con el menor error posible.</p>
+<p>Está bien, Houston, tenemos un problema. Vamos a ver una serie de conceptos básicos, vamos a plantear un problema y lo vamos a resolver con la ayuda de nuestro lenguaje de programación preferido.</p>
+<p><strong>[Para este artículo se ha usado python 2.7.2 y pyproj 1.9.2]</strong></p>
+<p><strong>Conceptos básicos</strong></p>
+<p>La tierra no es esférica (ni plana, como algunos creen aun), ya lo sabemos (algunos). Tampoco tiene una forma regular por lo que no existe una única definición de la forma de la tierra. Dependiendo de la zona del mundo en que nos encontremos …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/27/usando-el-gps-sin-perdernos-usando-pyproj/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/">Calculando cosas mientras jugamos a la ruleta</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-18T20:50:20+00:00" pubdate>jue 18 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/monte-carlo.html" class="tag">monte carlo</a>
+                <a href="http://pybonacci.github.io/tag/montecarlo.html" class="tag">montecarlo</a>
+                <a href="http://pybonacci.github.io/tag/numeros-aleatorios.html" class="tag">números aleatorios</a>
+                <a href="http://pybonacci.github.io/tag/pi.html" class="tag">pi</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/shapely.html" class="tag">shapely</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy vamos a tratar una serie de simulaciones que deben su nombre al lujoso casino de Monte Carlo y a la capacidad de la ruleta de comportarse como un generador de números aleatorios. Vamos a ver varios ejemplos que ilustran el cálculo aproximado de áreas y del número $pi$ mediante una simulación Monte Carlo.</p>
+<p>En primer lugar vamos a calcular un área considerando el siguiente problema: Tenemos un recuadro que mide 10 km de lado y dentro de este recuadro tenemos un polígono de lados irregulares que, por la razón que sea, no sabemos cuanto ocupa, es decir, cuál es su área.</p>
+<p>Para resolver este problema de forma aproximada vamos a usar <a href="https://pybonacci.org/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/">shapely</a>, además de los omnipresentes numpy y matplotlib. Empezamos importando todo lo que necesitamos:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">Point</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/18/calculando-cosas-mientras-jugamos-a-la-ruleta/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/08/analisis-de-componentes-principales-con-python/">Análisis de componentes principales con python</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-08T18:41:45+00:00" pubdate>lun 08 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/acp.html" class="tag">acp</a>
+                <a href="http://pybonacci.github.io/tag/analisis-de-componentes-principales.html" class="tag">analisis de componentes principales</a>
+                <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                <a href="http://pybonacci.github.io/tag/dimensionality-reduction.html" class="tag">dimensionality reduction</a>
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                <a href="http://pybonacci.github.io/tag/pca.html" class="tag">pca</a>
+                <a href="http://pybonacci.github.io/tag/principal-component-analysis.html" class="tag">principal component analysis</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/reduccion-de-dimensiones.html" class="tag">reducción de dimensiones</a>
+                <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+                <a href="http://pybonacci.github.io/tag/singular-value-decomposition.html" class="tag">singular value decomposition</a>
+                <a href="http://pybonacci.github.io/tag/sklearn.html" class="tag">sklearn</a>
+                <a href="http://pybonacci.github.io/tag/svd.html" class="tag">svd</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esta entrada también se podría haber llamado:</p>
+<p>'Reducción de la dimensión'</p>
+<p>'Comprimiendo imágenes usando análisis de componentes principales y python'</p>
+<p><strong>Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, matplotlib 1.1.0 y sklearn 0.10</strong> </p>
+<p>El análisis de componentes principales (PCA, por sus siglas en inglés, Principal Component Analysis) es una técnica que trata de reducir el número de dimensiones (número de variables) de un conjunto de datos intentando, a su vez, conservar la mayor cantidad de información. Es una técnica extremadamente útil como análisis exploratorio de datos (exploratory data analysis, pongo algunos términos en inglés porque a veces pueden resultar extraños en castellano), cuando se tiene demasiada información (muchas dimensiones, variables) y no se puede analizar correctamente la información. <a href="http://www.amazon.com/Principal-Component-Analysis-Statistics-ebook/dp/B003YFJ6U8">Se ha usado de forma exitosa para encontrar patrones, determinar 'outliers', compresión …</a></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/08/analisis-de-componentes-principales-con-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/05/la-importancia-de-inspeccionar-los-datos/">La importancia de inspeccionar los datos</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-05T19:43:39+00:00" pubdate>vie 05 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/charlas-ted.html" class="tag">Charlas Ted</a>
+                <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                <a href="http://pybonacci.github.io/tag/francis-anscombe.html" class="tag">Francis Anscombe</a>
+                <a href="http://pybonacci.github.io/tag/hans-rosling.html" class="tag">Hans Rosling</a>
+                <a href="http://pybonacci.github.io/tag/representacion.html" class="tag">representación</a>
+                <a href="http://pybonacci.github.io/tag/ted.html" class="tag">Ted</a>
+                <a href="http://pybonacci.github.io/tag/ted-talks.html" class="tag">Ted talks</a>
+                <a href="http://pybonacci.github.io/tag/video.html" class="tag">video</a>
+                <a href="http://pybonacci.github.io/tag/visualizacion.html" class="tag">visualización</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Muchas veces, cuando analizo datos, se me cuelan datos erróneos que me llevan a dolores de cabeza posteriores. Para evitar o minimizar esto, una buena práctica consiste en realizar una representación previa de esos datos para ver si los resultados posteriores son coherentes. Un buen ejercicio para entender la importancia de esto es echarle un ojo al <a href="http://es.wikipedia.org/wiki/Cuarteto_de_Anscombe">cuarteto de Anscombe</a>. En el siguiente script se representa el cuarteto de Anscombe y sus principales estadísticos:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ans_x_I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span>
+                    <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="n">ans_y_I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.04</span><span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.58</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.33</span><span class="p">,</span>
+                    <span class="mf">9.96</span><span class="p">,</span> <span class="mf">7.24</span><span class="p">,</span> <span class="mf">4.26</span><span class="p">,</span> <span class="mf">10.84</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">5.68</span><span class="p">])</span>
+<span class="n">ans_x_II</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0 …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/05/la-importancia-de-inspeccionar-los-datos/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/10/02/lanzando-proyectiles-con-ayuda-de-vpython/">Lanzando proyectiles (con ayuda de vpython)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-10-02T22:31:24+00:00" pubdate>mar 02 octubre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cinematica.html" class="tag">cinemática</a>
+                <a href="http://pybonacci.github.io/tag/fisica.html" class="tag">física</a>
+                <a href="http://pybonacci.github.io/tag/movimiento-parabolico.html" class="tag">movimiento parabólico</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/vpython.html" class="tag">vpython</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>La mayoría de vosotros habréis resuelto el típico problema del lanzamiento de un proyectil que describe una trayectoria parabólica. Las <a href="http://es.wikipedia.org/wiki/Movimiento_parab%C3%B3lico">ecuaciones que describen el movimiento</a> son:</p>
+<ul>
+<li>Vector posición</li>
+</ul>
+<p>$x = v_{0x} t + x_0$</p>
+<p>$y = -frac{1}{2} g t^{2} + v_{0y} t + y_0$</p>
+<ul>
+<li>Vector velocidad</li>
+</ul>
+<p>$v_x = v_{0x}$ con $v_{0x} = v_0 cos alpha$</p>
+<p>$v_y = -g t + v_{0y}$ con $v_{0y} = v_0 sin alpha$</p>
+<p>Hoy vamos a intentar resolverlo de forma gráfica con la ayuda de python y <a href="http://www.vpython.org/index.html">vpython</a>. La biblioteca vpython une python con una librería gráfica 3D de forma que, como vamos a ver, hacer <a href="http://www.vpython.org/contents/docs/visual/index.html">animaciones 3D sencillas</a> se convierte en un juego.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">visual</span> <span class="kn">as</span> <span class="nn">vs</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c1">## valores iniciales (modifícalos bajo tu responsabilidad)</span>
+<span class="n">v0</span> <span class="o">=</span> <span class="mi">20</span> <span class="c1">## v en m/s</span>
+<span class="n">alfa</span> <span class="o">=</span> <span class="mi">60</span> <span class="c1">## ángulo en grados</span>
+<span class="n">vel_fotogramas</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1">## la velocidad del video</span>
+<span class="c1">## Constantes</span>
+<span class="n">g …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/10/02/lanzando-proyectiles-con-ayuda-de-vpython/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/">Buscando esa playa en la isla a mediodía (usando Shapely)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2012-09-20T20:38:59+00:00" pubdate>jue 20 septiembre 2012</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                <a href="http://pybonacci.github.io/tag/poligono.html" class="tag">polígono</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/shapely.html" class="tag">shapely</a>
+                <a href="http://pybonacci.github.io/tag/shp.html" class="tag">shp</a>
+                <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hay un cuento de Julio Cortazar titulado 'la isla a mediodía' en el cual el protagonista, asistente de vuelo, se queda maravillado con una isla en el mar Egeo que sobrevuela a menudo gracias a su trabajo.</p>
+<p>Bien, imaginemos por un rato que somos el protagonista del cuento, Marini se llama, que en lugar de sobrevolar el Egeo estamos sobre el Mediterráneo, que la isla es Mallorca en lugar de ser una de las perlas griegas y que sobrevolamos la isla de noroeste a sudeste. Cada vez que pasamos nos quedamos fascinados con esa isla y en especial con una playa que vemos cuando llegamos a la isla.</p>
+<p>¿Cómo podemos adivinar cual es esa cala?, ¿cómo podemos conocer el tamaño de la isla?, ¿cómo podemos saber el perímetro de la costa la cual nos gustaría recorrer en bicicleta en nuestras …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2012/09/20/buscando-esa-playa-en-la-isla-a-mediodia-usando-shapely/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/author/kiko-correoso9.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/author/kiko-correoso7.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

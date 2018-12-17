@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h2>Articles in the articles category</h2>
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/06/14/como-depurar-un-programa-python-con-pdb/">Cómo depurar un programa Python con pdb</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-06-14T14:51:42+00:00" pubdate>vie 14 junio 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/bugs.html" class="tag">bugs</a>
+                <a href="http://pybonacci.github.io/tag/depuracion.html" class="tag">depuración</a>
+                <a href="http://pybonacci.github.io/tag/pdb.html" class="tag">pdb</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a explicar cómo <strong>depurar un programa Python</strong> usando el módulo <strong>pdb</strong> de la biblioteca estándar. Si no sabes qué es exactamente depurar un programa o para qué te puede servir, sigue leyendo.</p>
+<p>Depurar consiste en seguir el flujo de un programa a medida que se ejecuta, de forma que podemos monitorizar qué es lo que está sucediendo en cada momento. Es un método muy efectivo para encontrar fallos, porque:</p>
+<ul>
+<li>Permite detener momentáneamente la ejecución del programa usando <strong>puntos de ruptura</strong> (<em>breakpoints</em>).</li>
+<li>Permite examinar en cada momento las variables que se están utilizando (no necesitas llenar tu código de <code>print</code>).</li>
+<li>Permite cambiar el valor de una variable mientras está detenida la ejecución.</li>
+</ul>
+<p>Si es la primera vez que oyes hablar de esto, en seguida descubrirás el mundo de posibilidades que ofrece la depuración.</p>
+<p>Puedes leer online …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/06/14/como-depurar-un-programa-python-con-pdb/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/05/16/entrevista-a-fernando-perez-creador-de-ipython/">Entrevista a Fernando Pérez, creador de IPython</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-05-16T22:06:51+00:00" pubdate>jue 16 mayo 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/entrevistas.html" class="tag">entrevistas</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+                <a href="http://pybonacci.github.io/tag/open-science.html" class="tag">open science</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy os traemos una novedad desde Pybonacci: inauguramos la sección de entrevistas con <a href="http://fperez.org/">Fernando Pérez</a>, que ha accedido a charlar un rato con nosotros sobre el pasado, presente y futuro de IPython, la ciencia abierta y alguna que otra cosa más.</p>
+<h2>Enlaces</h2>
+<ul>
+<li>Web de IPython http://ipython.org/</li>
+<li>Beca de la Fundación Sloan http://ipython.org/sloan-grant.html</li>
+<li>Etiqueta ipython en Stack Overflow http://stackoverflow.com/tags/ipython</li>
+<li>Lista de correo ipython-dev http://mail.scipy.org/mailman/listinfo/ipython-dev</li>
+<li>Información para desarrolladores https://github.com/ipython/ipython/wiki/Dev:-Index</li>
+<li>Chat de desarrolladores http://www.hipchat.com/ghtNzvmfC</li>
+</ul>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/05/16/entrevista-a-fernando-perez-creador-de-ipython/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/04/05/repaso-a-pydata-2013/">Repaso a PyData 2013</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-04-05T20:10:09+00:00" pubdate>vie 05 abril 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/blaze.html" class="tag">blaze</a>
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/nodebox.html" class="tag">nodebox</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                <a href="http://pybonacci.github.io/tag/pydata.html" class="tag">pydata</a>
+                <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+                <a href="http://pybonacci.github.io/tag/video.html" class="tag">video</a>
+                <a href="http://pybonacci.github.io/tag/videos.html" class="tag">vídeos</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Unos días después de la PyConUS 2013 se celebró la primera PyData del año (creo que serán semestrales de forma regular aunque el tiempo dirá). Entre las charlas había algunas introductorias, otras más avanzadas y otras enseñando aplicaciones prácticas.</p>
+<p>Entre las charlas introductorias destacaremos:</p>
+<p><a href="http://vimeo.com/63253083">Introducción a Numpy</a> por <em>Bryan Van De Ven</em>: si no conoces absolutamente nada de Numpy esta es tu charla. Da un repaso por las cosas más frecuentes del uso de Numpy sin meterse en cosas muy esotéricas. Puedes sacar la libreta e ir apuntando las cosas que creas que te puedan resultar útiles para tus análisis.</p>
+<p><a href="http://vimeo.com/63255854">Pandas</a> por <em>Wes McKinney</em>: Es una charla introductoria. El problema que veo es que Pandas no es algo tan centrado como Numpy con su ndarray, las posibilidades de uso son múltiples y, quizá, hacer algo introductorio en vídeo sobre Pandas …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/04/05/repaso-a-pydata-2013/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/03/27/repaso-a-la-pyconus-2013/">Repaso a la PyConUS 2013</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-03-27T19:21:00+00:00" pubdate>mié 27 marzo 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/pycon.html" class="tag">pycon</a>
+                <a href="http://pybonacci.github.io/tag/pyconus.html" class="tag">pyconus</a>
+                <a href="http://pybonacci.github.io/tag/videos.html" class="tag">vídeos</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En nuestro repaso habitual a la parte científica de conferencias pythonistas importantes hoy le toca el turno a la última PyConUS celebrada en California la semana pasada:</p>
+<p><a href="http://www.pyvideo.org/video/1745/server-log-analysis-with-pandas-0">Server log analysis with pandas</a> (Taavi Burns): Ejemplos de uso de Pandas y las bondades de esta librería (a la que en breve le daremos un repaso importante). Si no conocéis Pandas es una buena forma de ver un poco tiempo muchas de sus ventajas. También se usa IPython y Matplotlib de forma general en la charla.</p>
+<p><a href="http://www.pyvideo.org/video/1751/building-full-stack-scientific-applications-in-py">Building full-stack applications in Python (Luke Lee)</a>: En esta charla se echa un vistazo a todas las librerías 'científicas' masivas (Numpy and friends) que tenemos en Python. No aporta mucho si ya conoces un poco el ecosistema Numpy-científico. Como punto exótico, el uso de PyQwt en lugar de Matplotlib. Una librería gráfica más ligera que Matplotlib …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/03/27/repaso-a-la-pyconus-2013/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/03/21/revision-del-tutorial-de-matplotlib-pyplot/">Revisión del tutorial de matplotlib.pyplot</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-03-21T18:55:19+00:00" pubdate>jue 21 marzo 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/matplotlibpyplot.html" class="tag">matplotlib.pyplot</a>
+                <a href="http://pybonacci.github.io/tag/pyplot.html" class="tag">pyplot</a>
+                <a href="http://pybonacci.github.io/tag/tutorial-matplotlibpyplot.html" class="tag">tutorial matplotlib.pyplot</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>El <a href="https://pybonacci.org/tag/tutorial-matplotlib-pyplot/">tutorial de matplotlib.pyplot</a> publicado en este blog durante el 2012 ha sido revisado, corregido 🙁 y publicado con formato notebook de ipython.</p>
+<p>Se ha subido el material al repositorio de <a href="https://github.com/Pybonacci/Tutorial-de-matplotlib.pyplot-en-pybonacci">pybonacci en github</a> por lo que lo podéis descargar, usar, modificar, mejorar,...</p>
+<p>Si lo queréis ver online podéis usar el <a href="http://nbviewer.ipython.org/urls/raw.github.com/Pybonacci/Tutorial-de-matplotlib.pyplot-en-pybonacci/master/tutorial_de_matplotlib.pyplot.ipynb">nbviewer de la web de ipython</a>.</p>
+<p>P.D.: Nos estamos poniendo al día con lo último en boga de la comunidad científica. Y estad atentos puesto que el <a href="https://github.com/ipython/ipython/wiki/Roadmap:-IPython">notebook de IPython</a> va a seguir pegando fuerte.</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/03/21/revision-del-tutorial-de-matplotlib-pyplot/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/03/03/formateando-numeros/">Formateando números</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-03-03T09:38:36+00:00" pubdate>dom 03 marzo 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/format.html" class="tag">format</a>
+                <a href="http://pybonacci.github.io/tag/formateando-texto.html" class="tag">formateando texto</a>
+                <a href="http://pybonacci.github.io/tag/formato.html" class="tag">formato</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Muy a menudo tengo que andar leyendo datos de sensores de medida conectados a 'loggers' con formatos muy variopintos y transformarlos a algo legible por un ser humano (echadle un ojo a <a href="https://pybonacci.org/2013/02/21/regex-mediante-ejemplos/">regex mediante ejemplos</a> para conocer el maravilloso mundo de las expresiones regulares y no ser tan bruto como yo a la hora de tratar esos variopintos formatos).</p>
+<p>Hoy vamos a estar muy centrados en una sola cosa, vamos a ver como usar el método <a href="http://docs.python.org/3.3/library/stdtypes.html#str.format"><code>format</code></a> de la clase <a href="http://docs.python.org/3.3/library/stdtypes.html#text-sequence-type-str"><code>string</code></a>.</p>
+<p>Vamos a empezar por muy algo sencillo, vamos a mostrar números en pantalla (o los podéis grabar en un fichero) de forma secuencial:</p>
+<div class="highlight"><pre><span></span><span class="n">datos</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">dato</span> <span class="ow">in</span> <span class="n">datos</span><span class="p">:</span> <span class="k">print</span><span class="p">(</span><span class="n">dato</span><span class="p">)</span>
+</pre></div>
+
+
+<p>La salida del anterior código mostrará:</p>
+<div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">21</span>
+<span class="mi">41</span>
+<span class="mi">61</span>
+<span class="mi">81</span>
+<span class="mi">101</span>
+<span class="mi">121</span>
+<span class="mi">141</span>
+<span class="mi">161</span>
+<span class="mi">181</span>
+</pre></div>
+
+
+<p>Lo anterior está bien, pero no tenemos mucha libertad …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/03/03/formateando-numeros/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/02/22/integrar-fortran-con-python-usando-f2py/">Integrar Fortran con Python usando F2PY</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-02-22T17:29:37+00:00" pubdate>vie 22 febrero 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/f2py.html" class="tag">f2py</a>
+                <a href="http://pybonacci.github.io/tag/fortran.html" class="tag">fortran</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a explicar cómo podemos utilizar bibliotecas escritas en Fortran (o FORTRAN) desde Python utilizando <strong>F2PY</strong>, cómo preparar el código Fortran para que este proceso sea lo más sencillo posible y cómo solventar los problemas que nos pueden surgir por el camino.</p>
+<p>Hay dos casos en los que nos puede venir bien usar F2PY:</p>
+<ul>
+<li>Queremos escribir una <strong>parte de cálculo intensivo en Fortran</strong> para que sea eficiente, pero queremos <strong>controlar la lógica del programa desde Python</strong>.</li>
+<li>Tenemos <strong>código legado</strong> y el esfuerzo de portarlo a otro lenguaje es demasiado grande (código ilegible, ausencia de comentarios, fragilidad). Aún podemos aprovecharlo: con F2PY podemos llamarlo desde Python.</li>
+</ul>
+<p>He utilizado numerosas referencias para escribir este artículo, y una fundamental es [ČERTÍK]. En esta web Ondrej Čertík, también un colaborador clave en proyectos como SymPy y NumPy, recoge una serie …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/02/22/integrar-fortran-con-python-usando-f2py/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/02/21/regex-mediante-ejemplos/">Regex mediante ejemplos</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-02-21T19:55:56+00:00" pubdate>jue 21 febrero 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/expresiones-regulares.html" class="tag">expresiones regulares</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/re.html" class="tag">re</a>
+                <a href="http://pybonacci.github.io/tag/regex.html" class="tag">regex</a>
+                <a href="http://pybonacci.github.io/tag/regexp.html" class="tag">regexp</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Las expresiones regulares, regex o regexp siempre me han parecido algo especialmente críptico. La realidad es que nunca les dediqué un mínimo de tiempo ya que en el trabajo todo es para ayer y siempre acabo acudiendo a soluciones 'stackoverfloweras' donde los super expertos siempre están ahí (<a href="http://python.majibu.org/preguntas/2122/reemplazar-patron-usando-expresiones-regulares">gracias chicos</a>). Pero se acabó, aprovechando que estoy en un avión y tengo unas horas y que me he planificado y descargado varios recursos previamente para poder trabajar 'offline' voy a aprovechar para intentar que lo aprendamos o, al menos, nos introduzcamos en ello mediante ejemplos y, así, nos acerquemos más a ser unos expertos mineros de datos y podamos extraer la correcta información a analizar.</p>
+<p>Aunque en python se puedan buscar patrones de otras formas diferentes vamos a usar el módulo <a href="http://docs.python.org/3.3/library/re.html"><em>re</em></a> de la librería estándar.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+
+<p>Vamos al lío. Imaginad …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/02/21/regex-mediante-ejemplos/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/02/17/graficas-interactivas-en-el-navegador/">Gráficas interactivas en el navegador</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-02-17T17:51:16+00:00" pubdate>dom 17 febrero 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/browser.html" class="tag">browser</a>
+                <a href="http://pybonacci.github.io/tag/brython.html" class="tag">brython</a>
+                <a href="http://pybonacci.github.io/tag/grafica.html" class="tag">gráfica</a>
+                <a href="http://pybonacci.github.io/tag/javascript.html" class="tag">javascript</a>
+                <a href="http://pybonacci.github.io/tag/js.html" class="tag">js</a>
+                <a href="http://pybonacci.github.io/tag/navegador.html" class="tag">navegador</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Últimamente sigo con mucha atención varios desarrollos relacionados con la posibilidad de usar 'python' en el navegador, siempre persiguiendo quimeras 😛 Entre ellos se encuentra <a href="http://www.brython.info/index_en.html">brython</a>, cuyo nombre proviene de '<strong>br</strong>owser p<strong>ython</strong>'.</p>
+<p>He estado estudiando un poco de brython y un poco sobre el uso del elemento <a href="http://en.wikipedia.org/wiki/Canvas_element">'canvas'</a> en HTML5, el cual permite dibujar en el navegador y, a pesar de lo cutre del código rápido y sucio que he hecho y a pesar de no tener mucha idea de HTML5, del DOM, de brython, de javascript, he obtenido un resultado que me ha parecido ilusionante. Mi propósito era poder hacer un gráfico como lo que se obtiene con pyplot.plot de matplotlib pero en el navegador y con un poco de interactividad.</p>
+<p>El resultado lo podéis visualizar <a href="http://brython.info/gallery/canvas_plot.html">en este enlace</a>. El código lo podéis ver viendo el código …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/02/17/graficas-interactivas-en-el-navegador/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/02/04/usando-google-earth-con-ayuda-de-python-y-pykml-ii/">Usando google earth con ayuda de python y pykml (II)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-02-04T20:02:13+00:00" pubdate>lun 04 febrero 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/gis.html" class="tag">gis</a>
+                <a href="http://pybonacci.github.io/tag/google-earth.html" class="tag">google earth</a>
+                <a href="http://pybonacci.github.io/tag/googleearth.html" class="tag">googleearth</a>
+                <a href="http://pybonacci.github.io/tag/kml.html" class="tag">kml</a>
+                <a href="http://pybonacci.github.io/tag/kmz.html" class="tag">kmz</a>
+                <a href="http://pybonacci.github.io/tag/pykml.html" class="tag">pykml</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/sig.html" class="tag">sig</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esta es la segunda parte de la entrada 'Usando google earth con ayuda de python y pykml (I)'. En el ejemplo de hoy vamos a ver algo más relacionado con la ciencia que lo visto anteriormente, que no era más que un aburrido ejemplo para introduciros en google earth, kml/kmz y pykml.</p>
+<p><strong>[Para esta entrada se ha usado numpy 1.6.1, matplotlib 1.1.1rc, netCDF4 1.0.2, pykml 0.1.0, lxml 2.3.2 (es un prerrequisito de pykml) en el notebook de IPython 0.13 corriendo todo sobre python 2.7.3]</strong></p>
+<p>Primero importamos una serie de cosas que usaremos.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">netCDF4</span> <span class="kn">as</span> <span class="nn">nc</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+</pre></div>
+
+
+<p>En este caso vamos a representar …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/02/04/usando-google-earth-con-ayuda-de-python-y-pykml-ii/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/category/articles13.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/category/articles11.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

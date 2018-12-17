@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pandas (II) | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Pandas (II)</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 02 junio 2014</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Antes de nada, el contexto, para esta serie de entradas se va a usar lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">Versión</span> <span class="n">de</span> <span class="n">Python</span><span class="p">:</span>      <span class="mf">3.3</span><span class="o">.</span><span class="mi">1</span> <span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">2013</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span><span class="mo">05</span><span class="p">:</span><span class="mi">32</span><span class="p">)</span> 
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.6</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Pandas</span><span class="p">:</span>      <span class="mf">0.13</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Numpy</span><span class="p">:</span>       <span class="mf">1.8</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Versión</span> <span class="n">de</span> <span class="n">Matplotlib</span><span class="p">:</span>  <span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span>
+</pre></div>
+
+
+<p>Y sin más preámbulos seguimos con esta segunda parte de 
+<a href="https://pybonacci.org/tag/tutorial-de-pandas/">la serie</a>.</p>
+<p><strong>Leyendo y escribiendo datos (IO)</strong></p>
+<p>Una de las cosas que más me gusta de Pandas es la potencia que aporta a 
+lo hora de leer y/o escribir ficheros de datos. Pandas es capaz de leer 
+datos de ficheros csv, excel, HDF5, sql, json, html,...</p>
+<p>Si trabajáis con datos de terceros, que pueden provenir de muy diversas 
+fuentes, una de las partes más tediosas del trabajo será tener los 
+datos listos para empezar a trabajar. Limpiar huecos, poner fechas en 
+formato usable, saltarse cabeceros,...</p>
+<p>Sin duda, una de las 
+<a href="http://pandas.pydata.org/pandas-docs/stable/io.html#csv-text-files">funciones que usaréis más</a> 
+será <code>read_csv()</code> que permite una gran flexibilidad a la hora de leer 
+un fichero de texto plano.</p>
+<p>Veamos la documentación:</p>
+<div class="highlight"><pre><span></span><span class="n">Docstring</span><span class="o">:</span>
+<span class="n">Read</span> <span class="n">CSV</span> <span class="o">(</span><span class="n">comma</span><span class="o">-</span><span class="n">separated</span><span class="o">)</span> <span class="n">file</span> <span class="n">into</span> <span class="n">DataFrame</span>
+
+<span class="n">Also</span> <span class="n">supports</span> <span class="n">optionally</span> <span class="n">iterating</span> <span class="n">or</span> <span class="n">breaking</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span>
+<span class="n">into</span> <span class="n">chunks</span><span class="o">.</span>
+
+<span class="n">Parameters</span>
+<span class="o">----------</span>
+<span class="n">filepath_or_buffer</span> <span class="o">:</span> <span class="n">string</span> <span class="n">or</span> <span class="n">file</span> <span class="n">handle</span> <span class="o">/</span> <span class="n">StringIO</span><span class="o">.</span> <span class="n">The</span> <span class="n">string</span> <span class="n">could</span> <span class="n">be</span>
+    <span class="n">a</span> <span class="n">URL</span><span class="o">.</span> <span class="n">Valid</span> <span class="n">URL</span> <span class="n">schemes</span> <span class="k">include</span> <span class="n">http</span><span class="o">,</span> <span class="n">ftp</span><span class="o">,</span> <span class="n">s3</span><span class="o">,</span> <span class="n">and</span> <span class="n">file</span><span class="o">.</span> <span class="n">For</span> <span class="n">file</span> <span class="n">URLs</span><span class="o">,</span> <span class="n">a</span>
+    <span class="n">host</span> <span class="k">is</span> <span class="n">expected</span><span class="o">.</span> <span class="n">For</span> <span class="n">instance</span><span class="o">,</span> <span class="n">a</span> <span class="n">local</span> <span class="n">file</span> <span class="n">could</span> <span class="n">be</span>
+    <span class="n">file</span> <span class="o">://</span><span class="n">localhost</span><span class="sr">/path/to/</span><span class="n">table</span><span class="o">.</span><span class="na">csv</span>
+<span class="n">sep</span> <span class="o">:</span> <span class="n">string</span><span class="o">,</span> <span class="k">default</span> <span class="s1">&#39;,&#39;</span>
+    <span class="n">Delimiter</span> <span class="n">to</span> <span class="n">use</span><span class="o">.</span> <span class="n">If</span> <span class="n">sep</span> <span class="k">is</span> <span class="n">None</span><span class="o">,</span> <span class="n">will</span> <span class="k">try</span> <span class="n">to</span> <span class="n">automatically</span> <span class="n">determine</span>
+    <span class="k">this</span><span class="o">.</span> <span class="n">Regular</span> <span class="n">expressions</span> <span class="n">are</span> <span class="n">accepted</span><span class="o">.</span>
+
+<span class="n">lineterminator</span> <span class="o">:</span> <span class="n">string</span> <span class="o">(</span><span class="n">length</span> <span class="mi">1</span><span class="o">),</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">Character</span> <span class="n">to</span> <span class="k">break</span> <span class="n">file</span> <span class="n">into</span> <span class="n">lines</span><span class="o">.</span> <span class="n">Only</span> <span class="n">valid</span> <span class="k">with</span> <span class="n">C</span> <span class="n">parser</span>
+<span class="n">quotechar</span> <span class="o">:</span> <span class="n">string</span> <span class="o">(</span><span class="n">length</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="n">The</span> <span class="n">character</span> <span class="n">used</span> <span class="n">to</span> <span class="n">denote</span> <span class="n">the</span> <span class="n">start</span> <span class="n">and</span> <span class="n">end</span> <span class="n">of</span> <span class="n">a</span> <span class="n">quoted</span> <span class="n">item</span><span class="o">.</span> <span class="n">Quoted</span>
+    <span class="n">items</span> <span class="n">can</span> <span class="k">include</span> <span class="n">the</span> <span class="n">delimiter</span> <span class="n">and</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">ignored</span><span class="o">.</span>
+<span class="n">quoting</span> <span class="o">:</span> <span class="n">int</span> <span class="n">or</span> <span class="n">csv</span><span class="o">.</span><span class="na">QUOTE_</span><span class="o">*</span> <span class="n">instance</span><span class="o">,</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">Control</span> <span class="n">field</span> <span class="n">quoting</span> <span class="n">behavior</span> <span class="n">per</span> <span class="err">``</span><span class="n">csv</span><span class="o">.</span><span class="na">QUOTE_</span><span class="o">*</span><span class="err">``</span> <span class="n">constants</span><span class="o">.</span> <span class="n">Use</span> <span class="n">one</span> <span class="n">of</span>
+    <span class="n">QUOTE_MINIMAL</span> <span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">QUOTE_ALL</span> <span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">QUOTE_NONNUMERIC</span> <span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="n">or</span> <span class="n">QUOTE_NONE</span> <span class="o">(</span><span class="mi">3</span><span class="o">).</span>
+    <span class="n">Default</span> <span class="o">(</span><span class="n">None</span><span class="o">)</span> <span class="n">results</span> <span class="k">in</span> <span class="n">QUOTE_MINIMAL</span> <span class="n">behavior</span><span class="o">.</span>
+<span class="n">skipinitialspace</span> <span class="o">:</span> <span class="n">boolean</span><span class="o">,</span> <span class="k">default</span> <span class="n">False</span>
+    <span class="n">Skip</span> <span class="n">spaces</span> <span class="n">after</span> <span class="n">delimiter</span>
+<span class="n">escapechar</span> <span class="o">:</span> <span class="n">string</span>
+<span class="n">dtype</span> <span class="o">:</span> <span class="n">Type</span> <span class="n">name</span> <span class="n">or</span> <span class="n">dict</span> <span class="n">of</span> <span class="n">column</span> <span class="o">-&gt;</span> <span class="n">type</span>
+    <span class="n">Data</span> <span class="n">type</span> <span class="k">for</span> <span class="n">data</span> <span class="n">or</span> <span class="n">columns</span><span class="o">.</span> <span class="n">E</span><span class="o">.</span><span class="na">g</span><span class="o">.</span> <span class="o">{</span><span class="s1">&#39;a&#39;</span><span class="o">:</span> <span class="n">np</span><span class="o">.</span><span class="na">float64</span><span class="o">,</span> <span class="s1">&#39;b&#39;</span><span class="o">:</span> <span class="n">np</span><span class="o">.</span><span class="na">int32</span><span class="o">}</span>
+<span class="n">compression</span> <span class="o">:</span> <span class="o">{</span><span class="s1">&#39;gzip&#39;</span><span class="o">,</span> <span class="s1">&#39;bz2&#39;</span><span class="o">,</span> <span class="n">None</span><span class="o">},</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">For</span> <span class="n">on</span><span class="o">-</span><span class="n">the</span><span class="o">-</span><span class="n">fly</span> <span class="n">decompression</span> <span class="n">of</span> <span class="n">on</span><span class="o">-</span><span class="n">disk</span> <span class="n">data</span>
+<span class="n">dialect</span> <span class="o">:</span> <span class="n">string</span> <span class="n">or</span> <span class="n">csv</span><span class="o">.</span><span class="na">Dialect</span> <span class="n">instance</span><span class="o">,</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">If</span> <span class="n">None</span> <span class="n">defaults</span> <span class="n">to</span> <span class="n">Excel</span> <span class="n">dialect</span><span class="o">.</span> <span class="n">Ignored</span> <span class="k">if</span> <span class="n">sep</span> <span class="n">longer</span> <span class="n">than</span> <span class="mi">1</span> <span class="n">char</span>
+    <span class="n">See</span> <span class="n">csv</span><span class="o">.</span><span class="na">Dialect</span> <span class="n">documentation</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span>
+<span class="n">header</span> <span class="o">:</span> <span class="n">int</span> <span class="n">row</span> <span class="n">number</span><span class="o">(</span><span class="n">s</span><span class="o">)</span> <span class="n">to</span> <span class="n">use</span> <span class="k">as</span> <span class="n">the</span> <span class="n">column</span> <span class="n">names</span><span class="o">,</span> <span class="n">and</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">the</span>
+    <span class="n">data</span><span class="o">.</span>  <span class="n">Defaults</span> <span class="n">to</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">no</span> <span class="err">``</span><span class="n">names</span><span class="err">``</span> <span class="n">passed</span><span class="o">,</span> <span class="n">otherwise</span> <span class="err">``</span><span class="n">None</span><span class="err">``</span><span class="o">.</span> <span class="n">Explicitly</span>
+    <span class="n">pass</span> <span class="err">``</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="err">``</span> <span class="n">to</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span> <span class="n">replace</span> <span class="n">existing</span> <span class="n">names</span><span class="o">.</span> <span class="n">The</span> <span class="n">header</span> <span class="n">can</span> <span class="n">be</span>
+    <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">integers</span> <span class="n">that</span> <span class="n">specify</span> <span class="n">row</span> <span class="n">locations</span> <span class="k">for</span> <span class="n">a</span> <span class="n">multi</span><span class="o">-</span><span class="n">index</span> <span class="n">on</span> <span class="n">the</span>
+    <span class="n">columns</span> <span class="n">E</span><span class="o">.</span><span class="na">g</span><span class="o">.</span> <span class="o">[</span><span class="mi">0</span><span class="o">,</span><span class="mi">1</span><span class="o">,</span><span class="mi">3</span><span class="o">].</span> <span class="n">Intervening</span> <span class="n">rows</span> <span class="n">that</span> <span class="n">are</span> <span class="n">not</span> <span class="n">specified</span> <span class="n">will</span> <span class="n">be</span>
+    <span class="n">skipped</span><span class="o">.</span> <span class="o">(</span><span class="n">E</span><span class="o">.</span><span class="na">g</span><span class="o">.</span> <span class="mi">2</span> <span class="k">in</span> <span class="k">this</span> <span class="n">example</span> <span class="n">are</span> <span class="n">skipped</span><span class="o">)</span>
+<span class="n">skiprows</span> <span class="o">:</span> <span class="n">list</span><span class="o">-</span><span class="n">like</span> <span class="n">or</span> <span class="n">integer</span>
+    <span class="n">Row</span> <span class="n">numbers</span> <span class="n">to</span> <span class="n">skip</span> <span class="o">(</span><span class="mi">0</span><span class="o">-</span><span class="n">indexed</span><span class="o">)</span> <span class="n">or</span> <span class="n">number</span> <span class="n">of</span> <span class="n">rows</span> <span class="n">to</span> <span class="n">skip</span> <span class="o">(</span><span class="n">int</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">the</span> <span class="n">start</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span>
+<span class="n">index_col</span> <span class="o">:</span> <span class="n">int</span> <span class="n">or</span> <span class="n">sequence</span> <span class="n">or</span> <span class="n">False</span><span class="o">,</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">Column</span> <span class="n">to</span> <span class="n">use</span> <span class="k">as</span> <span class="n">the</span> <span class="n">row</span> <span class="n">labels</span> <span class="n">of</span> <span class="n">the</span> <span class="n">DataFrame</span><span class="o">.</span> <span class="n">If</span> <span class="n">a</span> <span class="n">sequence</span> <span class="k">is</span> <span class="n">given</span><span class="o">,</span> <span class="n">a</span>
+    <span class="n">MultiIndex</span> <span class="k">is</span> <span class="n">used</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">malformed</span> <span class="n">file</span> <span class="k">with</span> <span class="n">delimiters</span> <span class="n">at</span> <span class="n">the</span> <span class="n">end</span>
+    <span class="n">of</span> <span class="k">each</span> <span class="n">line</span><span class="o">,</span> <span class="n">you</span> <span class="n">might</span> <span class="n">consider</span> <span class="n">index_col</span><span class="o">=</span><span class="n">False</span> <span class="n">to</span> <span class="n">force</span> <span class="n">pandas</span> <span class="n">to</span> <span class="n">_not_</span>
+    <span class="n">use</span> <span class="n">the</span> <span class="n">first</span> <span class="n">column</span> <span class="k">as</span> <span class="n">the</span> <span class="n">index</span> <span class="o">(</span><span class="n">row</span> <span class="n">names</span><span class="o">)</span>
+<span class="n">names</span> <span class="o">:</span> <span class="n">array</span><span class="o">-</span><span class="n">like</span>
+    <span class="n">List</span> <span class="n">of</span> <span class="n">column</span> <span class="n">names</span> <span class="n">to</span> <span class="n">use</span><span class="o">.</span> <span class="n">If</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">no</span> <span class="n">header</span> <span class="n">row</span><span class="o">,</span> <span class="n">then</span> <span class="n">you</span>
+    <span class="n">should</span> <span class="n">explicitly</span> <span class="n">pass</span> <span class="n">header</span><span class="o">=</span><span class="n">None</span>
+<span class="n">prefix</span> <span class="o">:</span> <span class="n">string</span> <span class="n">or</span> <span class="n">None</span> <span class="o">(</span><span class="k">default</span><span class="o">)</span>
+    <span class="n">Prefix</span> <span class="n">to</span> <span class="n">add</span> <span class="n">to</span> <span class="n">column</span> <span class="n">numbers</span> <span class="n">when</span> <span class="n">no</span> <span class="n">header</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">g</span> <span class="s1">&#39;X&#39;</span> <span class="k">for</span> <span class="n">X0</span><span class="o">,</span> <span class="n">X1</span><span class="o">,</span> <span class="o">...</span>
+<span class="n">na_values</span> <span class="o">:</span> <span class="n">list</span><span class="o">-</span><span class="n">like</span> <span class="n">or</span> <span class="n">dict</span><span class="o">,</span> <span class="k">default</span> <span class="n">None</span>
+    <span class="n">Additional</span> <span class="n">strings</span> <span class="n">to</span> <span class="n">recognize</span> <span class="k">as</span> <span class="n">NA</span><span class="o">/</span><span class="kc">NaN</span><span class="o">.</span> <span class="n">If</span> <span class="n">dict</span> <span class="n">passed</span><span class="o">,</span> <span class="n">specific</span>
+    <span class="n">per</span><span class="o">-</span><span class="n">column</span> <span class="n">NA</span> <span class="n">values</span>
+<span class="n">true_values</span> <span class="o">:</span> <span class="n">list</span>
+    <span class="n">Values</span> <span class="n">to</span> <span class="n">consider</span> <span class="k">as</span> <span class="n">True</span>
+<span class="n">false_values</span> <span class="o">:</span> <span class="n">list</span>
+    <span class="n">Values</span> <span class="n">to</span> <span class="n">consider</span> <span class="k">as</span> <span class="n">False</span>
+<span class="n">keep_default_na</span> <span class="o">:</span> <span class="n">bool</span><span class="o">,</span> <span class="k">default</span> <span class="n">True</span>
+    <span class="n">If</span> <span class="n">na_values</span> <span class="n">are</span> <span class="n">specified</span> <span class="n">and</span> <span class="n">keep_default_na</span> <span class="k">is</span> <span class="n">False</span> <span class="n">the</span> <span class="k">default</span> <span class="kc">NaN</span>
+    <span class="n">values</span> <span class="n">are</span> <span class="n">overridden</span><span class="o">,</span> <span class="n">otherwise</span> <span class="n">they</span><span class="s1">&#39;re appended to</span>
+<span class="s1">parse_dates : boolean, list of ints or names, list of lists, or dict</span>
+<span class="s1">    If True -&gt; try parsing the index.</span>
+<span class="s1">    If [1, 2, 3] -&gt; try parsing columns 1, 2, 3 each as a separate date column.</span>
+<span class="s1">    If [[1, 3]] -&gt; combine columns 1 and 3 and parse as a single date column.</span>
+<span class="s1">    {&#39;</span><span class="n">foo</span><span class="s1">&#39; : [1, 3]} -&gt; parse columns 1, 3 as date and call result &#39;</span><span class="n">foo</span><span class="s1">&#39;</span>
+<span class="s1">    A fast-path exists for iso8601-formatted dates.</span>
+<span class="s1">keep_date_col : boolean, default False</span>
+<span class="s1">    If True and parse_dates specifies combining multiple columns then</span>
+<span class="s1">    keep the original columns.</span>
+<span class="s1">date_parser : function</span>
+<span class="s1">    Function to use for converting a sequence of string columns to an</span>
+<span class="s1">    array of datetime instances. The default uses dateutil.parser.parser</span>
+<span class="s1">    to do the conversion.</span>
+<span class="s1">dayfirst : boolean, default False</span>
+<span class="s1">    DD/MM format dates, international and European format</span>
+<span class="s1">thousands : str, default None</span>
+<span class="s1">    Thousands separator</span>
+<span class="s1">comment : str, default None</span>
+<span class="s1">    Indicates remainder of line should not be parsed</span>
+<span class="s1">    Does not support line commenting (will return empty line)</span>
+<span class="s1">decimal : str, default &#39;</span><span class="o">.</span><span class="s1">&#39;</span>
+<span class="s1">    Character to recognize as decimal point. E.g. use &#39;</span><span class="o">,</span><span class="s1">&#39; for European data</span>
+<span class="s1">nrows : int, default None</span>
+<span class="s1">    Number of rows of file to read. Useful for reading pieces of large files</span>
+<span class="s1">iterator : boolean, default False</span>
+<span class="s1">    Return TextFileReader object</span>
+<span class="s1">chunksize : int, default None</span>
+<span class="s1">    Return TextFileReader object for iteration</span>
+<span class="s1">skipfooter : int, default 0</span>
+<span class="s1">    Number of line at bottom of file to skip</span>
+<span class="s1">converters : dict. optional</span>
+<span class="s1">    Dict of functions for converting values in certain columns. Keys can either</span>
+<span class="s1">    be integers or column labels</span>
+<span class="s1">verbose : boolean, default False</span>
+<span class="s1">    Indicate number of NA values placed in non-numeric columns</span>
+<span class="s1">delimiter : string, default None</span>
+<span class="s1">    Alternative argument name for sep. Regular expressions are accepted.</span>
+<span class="s1">encoding : string, default None</span>
+<span class="s1">    Encoding to use for UTF when reading/writing (ex. &#39;</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="s1">&#39;)</span>
+<span class="s1">squeeze : boolean, default False</span>
+<span class="s1">    If the parsed data only contains one column then return a Series</span>
+<span class="s1">na_filter: boolean, default True</span>
+<span class="s1">    Detect missing value markers (empty strings and the value of na_values). In</span>
+<span class="s1">    data without any NAs, passing na_filter=False can improve the performance</span>
+<span class="s1">    of reading a large file</span>
+<span class="s1">usecols : array-like</span>
+<span class="s1">    Return a subset of the columns.</span>
+<span class="s1">    Results in much faster parsing time and lower memory usage.</span>
+<span class="s1">mangle_dupe_cols: boolean, default True</span>
+<span class="s1">    Duplicate columns will be specified as &#39;</span><span class="n">X</span><span class="o">.</span><span class="mi">0</span><span class="s1">&#39;...&#39;</span><span class="n">X</span><span class="o">.</span><span class="na">N</span><span class="s1">&#39;, rather than &#39;</span><span class="n">X</span><span class="s1">&#39;...&#39;</span><span class="n">X</span><span class="err">&#39;</span>
+<span class="n">tupleize_cols</span><span class="o">:</span> <span class="n">boolean</span><span class="o">,</span> <span class="k">default</span> <span class="n">False</span>
+    <span class="n">Leave</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">tuples</span> <span class="n">on</span> <span class="n">columns</span> <span class="k">as</span> <span class="k">is</span> <span class="o">(</span><span class="k">default</span> <span class="k">is</span> <span class="n">to</span> <span class="n">convert</span> <span class="n">to</span>
+    <span class="n">a</span> <span class="n">Multi</span> <span class="n">Index</span> <span class="n">on</span> <span class="n">the</span> <span class="n">columns</span><span class="o">)</span>
+<span class="n">error_bad_lines</span><span class="o">:</span> <span class="n">boolean</span><span class="o">,</span> <span class="k">default</span> <span class="n">True</span>
+    <span class="n">Lines</span> <span class="k">with</span> <span class="n">too</span> <span class="n">many</span> <span class="n">fields</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">g</span><span class="o">.</span> <span class="n">a</span> <span class="n">csv</span> <span class="n">line</span> <span class="k">with</span> <span class="n">too</span> <span class="n">many</span> <span class="n">commas</span><span class="o">)</span> <span class="n">will</span> <span class="n">by</span>
+    <span class="k">default</span> <span class="n">cause</span> <span class="n">an</span> <span class="n">exception</span> <span class="n">to</span> <span class="n">be</span> <span class="n">raised</span><span class="o">,</span> <span class="n">and</span> <span class="n">no</span> <span class="n">DataFrame</span> <span class="n">will</span> <span class="n">be</span> <span class="n">returned</span><span class="o">.</span>
+    <span class="n">If</span> <span class="n">False</span><span class="o">,</span> <span class="n">then</span> <span class="n">these</span> <span class="s2">&quot;bad lines&quot;</span> <span class="n">will</span> <span class="n">dropped</span> <span class="n">from</span> <span class="n">the</span> <span class="n">DataFrame</span> <span class="n">that</span> <span class="k">is</span>
+    <span class="n">returned</span><span class="o">.</span> <span class="o">(</span><span class="n">Only</span> <span class="n">valid</span> <span class="k">with</span> <span class="n">C</span> <span class="n">parser</span><span class="o">).</span>
+<span class="n">warn_bad_lines</span><span class="o">:</span> <span class="n">boolean</span><span class="o">,</span> <span class="k">default</span> <span class="n">True</span>
+    <span class="n">If</span> <span class="n">error_bad_lines</span> <span class="k">is</span> <span class="n">False</span><span class="o">,</span> <span class="n">and</span> <span class="n">warn_bad_lines</span> <span class="k">is</span> <span class="n">True</span><span class="o">,</span> <span class="n">a</span> <span class="n">warning</span> <span class="k">for</span> <span class="k">each</span>
+    <span class="s2">&quot;bad line&quot;</span> <span class="n">will</span> <span class="n">be</span> <span class="n">output</span><span class="o">.</span> <span class="o">(</span><span class="n">Only</span> <span class="n">valid</span> <span class="k">with</span> <span class="n">C</span> <span class="n">parser</span><span class="o">).</span>
+<span class="n">infer_datetime_format</span> <span class="o">:</span> <span class="n">boolean</span><span class="o">,</span> <span class="k">default</span> <span class="n">False</span>
+    <span class="n">If</span> <span class="n">True</span> <span class="n">and</span> <span class="n">parse_dates</span> <span class="k">is</span> <span class="n">enabled</span> <span class="k">for</span> <span class="n">a</span> <span class="n">column</span><span class="o">,</span> <span class="n">attempt</span> <span class="n">to</span> <span class="n">infer</span>
+    <span class="n">the</span> <span class="n">datetime</span> <span class="n">format</span> <span class="n">to</span> <span class="n">speed</span> <span class="n">up</span> <span class="n">the</span> <span class="n">processing</span>
+
+<span class="n">Returns</span>
+<span class="o">-------</span>
+<span class="n">result</span> <span class="o">:</span> <span class="n">DataFrame</span> <span class="n">or</span> <span class="n">TextParser</span>
+</pre></div>
+
+
+<p>Vamos a inventarnos un fichero de datos... (la siguiente pieza de 
+código es específica de IPython y, por tanto, funciona solo en IPython)</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">writefile</span> <span class="n">dummy</span><span class="o">.</span><span class="n">data</span>
+<span class="n">cabecero</span> <span class="n">estúpido</span>
+<span class="mi">901001</span> <span class="mo">0000</span>  <span class="mf">7.54</span> <span class="o">-</span><span class="mf">11.67</span>  <span class="mf">1.07</span>  <span class="mf">4.27</span>
+<span class="mi">901001</span> <span class="mo">0600</span> <span class="mf">19.61</span> <span class="o">-</span><span class="mf">2.74</span> <span class="mf">27.87</span> <span class="o">-</span><span class="mf">8.96</span>
+<span class="mi">901001</span> <span class="mi">1200</span> <span class="o">-</span><span class="mf">4.34</span>  <span class="mf">0.73</span> <span class="o">-</span><span class="mf">6.58</span>  <span class="mf">0.17</span>
+<span class="mi">901001</span> <span class="mi">1800</span> <span class="o">-</span><span class="mf">4.99</span>  <span class="mf">3.24</span> <span class="mf">10.62</span> <span class="o">-</span><span class="mf">6.13</span>
+<span class="mi">901002</span> <span class="mo">0000</span> <span class="o">-</span><span class="mf">3.54</span> <span class="mf">10.39</span> <span class="o">-</span><span class="mf">12.05</span> <span class="o">-</span><span class="mf">13.35</span>
+<span class="mi">901002</span> <span class="mo">0600</span> <span class="mf">12.55</span>  <span class="mf">3.80</span>  <span class="mf">4.92</span> <span class="o">-</span><span class="mf">8.18</span>
+<span class="mi">901002</span> <span class="mi">1200</span> <span class="mf">1.06</span> <span class="mf">23.75</span> <span class="o">-</span><span class="mf">8.03</span> <span class="o">-</span><span class="mf">8.67</span>
+<span class="mi">901002</span> <span class="mi">1800</span> <span class="o">-</span><span class="mf">1.12</span>  <span class="mf">1.82</span>  <span class="mf">7.09</span> <span class="o">-</span><span class="mf">6.06</span>
+<span class="mi">901003</span> <span class="mo">0600</span> <span class="o">-</span><span class="mf">5.90</span>  <span class="mf">2.38</span> <span class="mf">19.33</span>  <span class="mf">6.84</span>
+<span class="mi">901003</span> <span class="mi">1200</span> <span class="o">-</span><span class="mf">9.51</span> <span class="o">-</span><span class="mf">2.72</span> <span class="o">-</span><span class="mf">7.13</span> <span class="o">-</span><span class="mf">0.35</span>
+<span class="mi">901003</span> <span class="mi">1800</span>  <span class="mf">6.49</span> <span class="o">-</span><span class="mf">12.01</span> <span class="o">-</span><span class="mf">13.62</span> <span class="o">-</span><span class="mf">0.93</span>
+</pre></div>
+
+
+<p>Vamos a leer con Pandas el fichero que acabamos de crear:</p>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;dummy.data&#39;</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s1">&#39;s*&#39;</span><span class="p">,</span>
+                   <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;fecha&#39;</span><span class="p">,</span> <span class="s1">&#39;hora&#39;</span><span class="p">,</span> <span class="s1">&#39;rec1&#39;</span><span class="p">,</span> <span class="s1">&#39;rec2&#39;</span><span class="p">,</span> <span class="s1">&#39;rec3&#39;</span><span class="p">,</span> <span class="s1">&#39;rec4&#39;</span><span class="p">],</span>
+                   <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">parse_dates</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">index_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Veamos lo que acabamos de leer:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Y lo que nos mostrará será:</p>
+<div class="highlight"><pre><span></span><span class="n">rec1</span>   <span class="n">rec2</span>   <span class="n">rec3</span>   <span class="n">rec4</span>
+<span class="n">fecha_hora</span>                                     
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>   <span class="mf">7.54</span> <span class="o">-</span><span class="mf">11.67</span>   <span class="mf">1.07</span>   <span class="mf">4.27</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="mf">19.61</span>  <span class="o">-</span><span class="mf">2.74</span>  <span class="mf">27.87</span>  <span class="o">-</span><span class="mf">8.96</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">4.34</span>   <span class="mf">0.73</span>  <span class="o">-</span><span class="mf">6.58</span>   <span class="mf">0.17</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">4.99</span>   <span class="mf">3.24</span>  <span class="mf">10.62</span>  <span class="o">-</span><span class="mf">6.13</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">3.54</span>  <span class="mf">10.39</span> <span class="o">-</span><span class="mf">12.05</span> <span class="o">-</span><span class="mf">13.35</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="mf">12.55</span>   <span class="mf">3.80</span>   <span class="mf">4.92</span>  <span class="o">-</span><span class="mf">8.18</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>   <span class="mf">1.06</span>  <span class="mf">23.75</span>  <span class="o">-</span><span class="mf">8.03</span>  <span class="o">-</span><span class="mf">8.67</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">1.12</span>   <span class="mf">1.82</span>   <span class="mf">7.09</span>  <span class="o">-</span><span class="mf">6.06</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">5.90</span>   <span class="mf">2.38</span>  <span class="mf">19.33</span>   <span class="mf">6.84</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>  <span class="o">-</span><span class="mf">9.51</span>  <span class="o">-</span><span class="mf">2.72</span>  <span class="o">-</span><span class="mf">7.13</span>  <span class="o">-</span><span class="mf">0.35</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span>   <span class="mf">6.49</span> <span class="o">-</span><span class="mf">12.01</span> <span class="o">-</span><span class="mf">13.62</span>  <span class="o">-</span><span class="mf">0.93</span>
+
+<span class="p">[</span><span class="mi">11</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">4</span> <span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Como veis, hemos usado:</p>
+<ul>
+<li>una expresión regular en <code>sep</code> permitiéndonos mucha libertad a la hora de definir como están separados los datos. Si los delimitadores de los datos en cada fila son espacios o tabulaciones podríamos usar <a href="http://pandas.pydata.org/pandas-docs/stable/io.html#io-read-csv-table">delim_whitespace</a>, que es muchísimo más eficiente que usar expresiones regulares (AVISO: esto no aparece en la ayuda de la función <code>read_csv</code>).</li>
+<li><code>names</code> sirve para indicar qué nombres hay que poner a cada una de las columnas. Si no ponemos ningún nombre las nombrará con números empezando con el <code>0</code>.</li>
+<li><code>parse_dates</code> es otra de las cosas realmente útiles cuando trabajamos con registros temporales. Ahí le indicamos qué columnas tiene que considerar como fechas y las 'parsea' para convertirlo en un tipo interno de fechas. Si os fijáis, he puesto las columnas <code>0</code> y <code>1</code> dentro de una lista, de esa forma las unirá en una sola columna de fechas con la que será más cómodo trabajar. Si automágicamente no es capaz de leer los formatos de las fechas le podemos indicar como las debe parsear (ver <code>date_parser</code>).</li>
+<li>El último parámetro que le hemos pasado es <code>index_col</code>, le indicamos que la columna de índices será la <code>0</code>, que será la unión de las columnas <code>0</code> y <code>1</code> de fechas.</li>
+</ul>
+<p>Muy poderoso, ¿eh?</p>
+<p>Escribir el resultado final en un fichero csv, por ejemplo, es algo tan sencillo como:</p>
+<div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;dummy.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Si queréis ver el resultado del fichero final creado y estáis en 
+IPython podéis escribir lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="o">%</span><span class="n">load</span> <span class="n">dummy</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+
+
+<p>Y en pantalla veréis el siguiente texto:</p>
+<div class="highlight"><pre><span></span><span class="n">fecha_hora</span><span class="p">,</span><span class="n">rec1</span><span class="p">,</span><span class="n">rec2</span><span class="p">,</span><span class="n">rec3</span><span class="p">,</span><span class="n">rec4</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="mf">7.54</span><span class="p">,</span><span class="o">-</span><span class="mf">11.67</span><span class="p">,</span><span class="mf">1.07</span><span class="p">,</span><span class="mf">4.27</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="mf">19.61</span><span class="p">,</span><span class="o">-</span><span class="mf">2.74</span><span class="p">,</span><span class="mf">27.87</span><span class="p">,</span><span class="o">-</span><span class="mf">8.96</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">4.34</span><span class="p">,</span><span class="mf">0.73</span><span class="p">,</span><span class="o">-</span><span class="mf">6.58</span><span class="p">,</span><span class="mf">0.17</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">01</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">4.99</span><span class="p">,</span><span class="mf">3.24</span><span class="p">,</span><span class="mf">10.62</span><span class="p">,</span><span class="o">-</span><span class="mf">6.13</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">3.54</span><span class="p">,</span><span class="mf">10.39</span><span class="p">,</span><span class="o">-</span><span class="mf">12.05</span><span class="p">,</span><span class="o">-</span><span class="mf">13.35</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="mf">12.55</span><span class="p">,</span><span class="mf">3.8</span><span class="p">,</span><span class="mf">4.92</span><span class="p">,</span><span class="o">-</span><span class="mf">8.18</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="mf">1.06</span><span class="p">,</span><span class="mf">23.75</span><span class="p">,</span><span class="o">-</span><span class="mf">8.03</span><span class="p">,</span><span class="o">-</span><span class="mf">8.67</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">02</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">1.12</span><span class="p">,</span><span class="mf">1.82</span><span class="p">,</span><span class="mf">7.09</span><span class="p">,</span><span class="o">-</span><span class="mf">6.06</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mo">06</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">5.9</span><span class="p">,</span><span class="mf">2.38</span><span class="p">,</span><span class="mf">19.33</span><span class="p">,</span><span class="mf">6.84</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mi">12</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="o">-</span><span class="mf">9.51</span><span class="p">,</span><span class="o">-</span><span class="mf">2.72</span><span class="p">,</span><span class="o">-</span><span class="mf">7.13</span><span class="p">,</span><span class="o">-</span><span class="mf">0.35</span>
+<span class="mi">1990</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mo">03</span> <span class="mi">18</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span><span class="mf">6.49</span><span class="p">,</span><span class="o">-</span><span class="mf">12.01</span><span class="p">,</span><span class="o">-</span><span class="mf">13.62</span><span class="p">,</span><span class="o">-</span><span class="mf">0.93</span>
+</pre></div>
+
+
+<p>Otra tarea que se realiza habitualmente sería la de trabajar con 
+información de una base de datos SQL. No lo vamos a ver aquí pero 
+<a href="http://nbviewer.ipython.org/github/jvns/pandas-cookbook/blob/master/cookbook/Chapter%209%20-%20Loading%20data%20from%20SQL%20databases.ipynb">podéis ver este notebook donde se explica como leer y/o escribir datos 
+de una BBDD SQL</a> (SQLite, PostgreSQL o MySQL). 
+Una vez que se han leído, el tratamiento es el mismo que si los 
+hubiésemos leído de otro origen.</p>
+<p>Es suficiente por hoy. Esta entrada ha sido cortita pero en breve 
+dejaremos una tercera parte con más enjundia... ¡¡Estad atentos!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/big-data.html" class="tag">big data</a>
+                    <a href="http://pybonacci.github.io/tag/bigdata.html" class="tag">bigdata</a>
+                    <a href="http://pybonacci.github.io/tag/datos.html" class="tag">datos</a>
+                    <a href="http://pybonacci.github.io/tag/excel.html" class="tag">excel</a>
+                    <a href="http://pybonacci.github.io/tag/hdf5.html" class="tag">hdf5</a>
+                    <a href="http://pybonacci.github.io/tag/pandas.html" class="tag">pandas</a>
+                    <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                    <a href="http://pybonacci.github.io/tag/sql.html" class="tag">sql</a>
+                    <a href="http://pybonacci.github.io/tag/tutorial-de-pandas.html" class="tag">Tutorial de pandas</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

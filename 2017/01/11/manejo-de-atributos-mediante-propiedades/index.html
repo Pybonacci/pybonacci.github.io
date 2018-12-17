@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Manejo de atributos mediante propiedades. | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Manejo de atributos mediante propiedades.</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 11 enero 2017</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/alberto-cuevas.html">Alberto Cuevas</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>En <em>Python</em>, cuando creamos una clase, definimos una serie de <em>atributos</em> (que indicarán su estado) y de <em>métodos</em> (que marcarán su comportamiento). El acceso a ambos se realiza de manera sencilla mediante el <em>operador punto</em>. Un ejemplo de ello (como nota decir que todo el código mostrado en esta entrada está escrito en <em>Python 3</em> sobre el <em>IDE PyScripter</em>)  es el siguiente:</p>
+<pre>class MiClase:
+    def __init__(self, midato):
+        self.dato = midato
+    def cuadrado(self):
+        return self.dato ** 2
+a = MiClase(12.72)
+print("El cuadrado es:", a.cuadrado())
+a.dato = 7.72
+print("El cuadrado es:", a.cuadrado())</pre>
+
+<p>La salida sería:</p>
+<pre>&gt;&gt;&gt; 
+El cuadrado es: 161.79840000000002
+El cuadrado es: 59.5984
+&gt;&gt;&gt;</pre>
+
+<p>Para ejemplos sencillos podría ser suficiente actuar de esta manera, pero en otros momentos necesitaremos más versatilidad. Imaginemos que queremos validar los atributos con una determinada condición. En nuestro caso podría ser que los valores de <em>dato</em> estuviesen entre 0 y 10. A los valores menores que 0 se les asignaría el 0 y a los mayores de 10, el 10. Todo ello se lograría fácilmente creando un método que manejase esa condición y ejecutándolo también en <em>__init__()</em>:</p>
+<pre>class MiClase:
+   def __init__(self, midato):
+       self.set_dato(midato)
+   def set_dato(self, midato):
+       if isinstance(midato, (int, float)):
+           if midato &lt; 0:
+               self.dato = 0
+           elif midato &gt; 10:
+               self.dato = 10
+           else:
+               self.dato = midato
+       else:
+           raise ValueError("Dato no válido")
+   def cuadrado(self):
+       return self.dato ** 2
+a = MiClase(12.72)
+print("El cuadrado es:", a.cuadrado())
+a.set_dato(7.72)
+print("El cuadrado es:", a.cuadrado())
+
+</pre>
+
+<p>Con salida:</p>
+<pre>&gt;&gt;&gt; 
+El cuadrado es: 100
+El cuadrado es: 59.5984
+&gt;&gt;&gt;</pre>
+
+<p>En el método <em>set_dato()</em> hacemos la comprobación que el dato es entero o real. De lo contrario lanzamos una excepción. Con ello nos aseguraríamos que el dato cumple las condiciones que queremos.</p>
+<p>De la misma forma que hemos creado un método para manejar la escritura del atributo <em>dato</em> podríamos hacerlo para su lectura. Son los denominados, de forma genérica, métodos <em>getter</em> y <em>setter</em>, que nos permiten, respectivamente, obtener o modificar los atributos. El concepto de <strong>encapsulación de datos</strong> incluye, además del uso de estos métodos, el que los atributos sean privados (no accesibles desde fuera de la propia clase), algo que en <em>Python</em> se logra añadiendo un doble guión bajo al nombre del atributo. Tendríamos lo siguiente:</p>
+<pre>class MiClase:
+    def __init__(self, midato):
+        self.set_dato(midato)
+    def get_dato(self):
+        return self.__dato
+    def set_dato(self, midato):
+        if isinstance(midato, (int, float)):
+            if midato &lt; 0:
+                self.__dato = 0
+            elif midato &gt; 10:
+                self.__dato = 10
+            else:
+                self.__dato = midato
+        else:
+            raise ValueError("Dato no válido")
+        return None
+    def cuadrado(self):
+        return self.__dato ** 2
+a = MiClase(12.72)
+print("El cuadrado es:", a.cuadrado())
+a.set_dato(7.72)
+print("El cuadrado de", a.get_dato(), "es", a.cuadrado())</pre>
+
+<p>La salida es:</p>
+<pre>&gt;&gt;&gt; 
+El cuadrado es: 100
+El cuadrado de 7.72 es 59.5984
+&gt;&gt;&gt;</pre>
+
+<p>En <em>Python</em> es habitual que los atributos que en un principio son simples datos estáticos con el tiempo se conviertan en expresiones a calcular dinámicamente o, como ya hemos visto, haya que validarlos de alguna manera. Si actuamos con métodos <em>getter</em> y <em>setter</em> desde el principio podremos hacer esa nueva implementación sin cambiar la forma en la que accedemos a los datos, pero si lo hemos hecho simplemente mediante el operador punto, estaríamos en una situación delicada. Es para superar este escollo, o conseguir una forma mas <em>pythónica</em> que los métodos <em>getter</em> y <em>setter</em>, para lo que se usan las propiedades.</p>
+<p>¿Qué son exactamente las propiedades?</p>
+<p>Las propiedades son atributos que manejamos mediante métodos <em>getter</em>, <em>setter</em> y <em>deleter</em>, por lo que podríamos llamarlos "atributos manejados". Podemos considerarlos unos atributos "especiales". En realidad en <em>Python</em> los datos, métodos y propiedades de una clase son todos atributos. Los métodos serían atributos "llamables" y las propiedades atributos "personalizables". La única diferencia entre una propiedad y un atributo estándar es que las primeras pueden invocar código personalizado al ser obtenidas, modificadas o eliminadas. Las propiedades se asocian a los atributos de la clase y, como cualquiera de ellos, son heredados en subclases e instancias. Una propiedad maneja un solo y específico atributo, y siempre harán referencia a los métodos de la clase en la que estén definidas.</p>
+<p>Por lo tanto, las propiedades parecen atributos estándar, pero al acceder a ellos se lanzan los métodos <em>getter</em>, <em>setter</em> o <em>deleter</em> correspondientes. Como éstos métodos reciben el argumento <em>self</em>, podremos acceder a todos los elementos de la clase o la instancia (sus atributos y métodos) y hacer uso de ellos.</p>
+<p>¿Cuándo usar entonces las propiedades?</p>
+<p>Respecto al uso desde el principio de simples métodos <em>getter</em> , <em>setter</em> y <em>deleter</em>, las propiedades nos aportan un código mas <em>pythónico</em>, siendo mas fácil la lectura y escritura de los atributos. La interfaz es mas homogénea ya que a todo se accede mediante el operador punto.</p>
+<p>Respecto al uso de atributos estándar, las propiedades nos dan la posibilidad de incorporar código que se ejecute de forma dinámica cuando intentamos acceder a ellos (para obtenerlos, modificarlos o borrarlos). Imaginemos el caso comentado con anterioridad: tenemos hecho un programa donde accedemos a atributos estándar públicos. Posteriormente necesitamos que esos atributos estándar sean validados con unas determinadas condiciones. Mediante las propiedades lograremos nuestro objetivo sin modificar el formato del código ya escrito, algo que no lograríamos con los métodos.</p>
+<p>¿Cómo crear las propiedades?</p>
+<p>La función <em>property()</em>, integrada en el intérprete, nos permite canalizar la lectura o escritura de los atributos (además de interceptar el momento en el que son borrados o proporcionar documentación sobre ellos) mediante funciones o métodos. Su formato es el siguiente:</p>
+<p style="text-align: center">
+  <span style="color: #666699">atributo_de_clase </span>= <span style="color: #3366ff">property</span>(<span style="color: #339966">fget</span>=None, <span style="color: #800080">fset</span>=None,<span style="color: #ff6600">fdel</span>=None, <span style="color: #ff00ff">doc</span>)
+</p>
+
+<p>Ninguno de los parámetros es obligatorio. Si no los pasamos su valor por defecto es <em>None</em>. La función <em>fget()</em> se encargará de interceptar la lectura del atributo, la <em>fset()</em> de hacerlo cuando se escriba, la <em>fdel()</em> a la hora de borrarlo y el argumento <em>doc</em> recibirá una cadena para documentar el atributo (si no lo recibe, se copia el docstring de fget(),que por defecto tiene valor <em>None</em>). Si alguna operación no está permitida(por ejemplo si intentamos borrar un atributo, algo no demasiado habitual, y no tenemos indicada <em>fdel()</em>) se lanzará una excepción. La función <em>fget()</em> devolverá el valor procesado del atributo y tanto <em>fset()</em> como <em>fdel()</em> devolverán <em>None</em>. La función <em>property()</em> devuelve un objeto de tipo propiedad que se asigna al nombre del atributo. Un primer ejemplo del uso de las propiedades podría ser el siguiente:</p>
+<pre>class Persona:
+    def __init__(self, nombre):
+        self.set_nombre(nombre)
+    def get_nombre(self):
+        try:
+            print("Pedimos atributo:")
+            return self.__nombre
+        except AttributeError:
+            print("Error. No existe el atributo indicado")
+        except:
+            print("Error al acceder al atributo")
+    def set_nombre(self, nuevo_nombre):
+        print("Asignamos el valor", nuevo_nombre,"al atributo 'nombre'")
+        self.__nombre = nuevo_nombre
+        return None
+    def del_nombre(self):
+        try:
+            print("Borramos atributo", self.__nombre)
+            del self.__nombre
+        except AttributeError:
+            print("Error. No existe el atributo que desea borrar")
+        except:
+            print("Error al intentar borrar el atributo")
+        return None
+    nombre = property(get_nombre, set_nombre, del_nombre, "Mi información")
+def main():
+    a = Persona("Pepe")
+    a.nombre = "Juan"
+    print(a.nombre)
+    del a.nombre
+    del a.nombre
+    print(a.nombre)
+    a.nombre = "Elena"
+    print(a.nombre)
+    print(help(Persona.nombre))
+main()</pre>
+
+<p>Obtenemos la siguiente salida:</p>
+<pre>&gt;&gt;&gt; 
+Asignamos el valor Pepe al atributo 'nombre'
+Asignamos el valor Juan al atributo 'nombre'
+Pedimos atributo:
+Juan
+Borramos atributo Juan
+Error. No existe el atributo que desea borrar
+Pedimos atributo:
+Error. No existe el atributo indicado
+None
+Asignamos el valor Elena al atributo 'nombre'
+Pedimos atributo:
+Elena
+Help on property:
+    Mi información
+None
+&gt;&gt;&gt;</pre>
+
+<p>En él se ha creado una clase <em>Persona</em> con un atributo privado <em>nombre</em> y tres métodos de tipo <em>getter</em>, <em>setter</em> y <em>deleter</em>. Posteriormente se crea, mediante la función <em>property()</em>, la propiedad <em>nombre</em> vinculada a ellos, que reemplaza al atributo del mismo nombre. Se añade además una información de ayuda. Más adelante creamos una instancia de <em>Persona</em> a la que posteriormente cambiamos el atributo <em>nombre,</em> tras lo cual lo borramos. Al intentar  borrarlo de nuevo, generamos un error que manejamos. También se lanza un error manejado al intentar leer el atributo borrado. Es interesante ejecutar el código paso a paso para ver su funcionamiento exacto. En este ejemplo, por simplicidad, no hemos manejado posibles excepciones en el método <em>setter</em>, pero sería conveniente hacerlo en un código completo.</p>
+<p>Si no quisiésemos contravenir uno de los principios del <em>Zen</em> de <em>Python</em> ("Debería haber una, y preferiblemente solo una, forma obvia de hacer las cosas") los métodos <em>get_nombre()</em>, <em>set_nombre()</em> y <em>del_nombre()</em> deberían ser privados (algo que nuevamente logramos colocando un doble guión bajo antes de su nombre).</p>
+<p>Pero tampoco es ésta la forma mas <em>pythónica</em> para tratar con las propiedades, algo que se consigue mediante el uso de <em>decoradores</em>. Recordemos que un decorador es básicamente una función que "envuelve" a otra dotándola (al añadir código) de alguna funcionalidad extra. El formato es el siguiente:</p>
+<pre>def mifunción(argumentos):
+    ...
+mifunción = decorador(mifunción)</pre>
+
+<p>También podríamos ponerlo así:</p>
+<pre>@decorador
+def mifunción(argumentos)
+    ...</pre>
+
+<p>Podemos ahora usar la función <em>property()</em> como decorador para que se ejecute cuando queramos acceder a uno de los atributos.</p>
+<pre>class Miclase:
+    def mi_atributo(self):
+        ...
+    mi_atributo = property(mi_atributo)</pre>
+
+<p>O también colocarlo de la siguiente manera:</p>
+<pre>class Miclase:
+     @property
+     def mi_atributo(self):
+         ...</pre>
+
+<p>De esta manera lograríamos pasar <em>mi_atributo</em> como el primer argumento de la función <em>property()</em>, que es el que se usa cuando intentamos leer. El objeto propiedad tiene métodos <em>getter</em>, <em>setter</em> y <em>deleter</em> que asignan los métodos de acceso de la propiedad y que devuelven una copia de la propia propiedad. Los podemos, a su vez, usar para decorar métodos con el mismo nombre <em>mi_atributo</em> que usaremos en el momento en que intentamos modificar o borrar el atributo. Es un poco lioso, por lo que el código nos puede aclarar un poco las cosas:</p>
+<pre>class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+    @property
+    def nombre(self):
+        "Documentación del atributo 'nombre' "
+        try:
+            print("Pedimos atributo:")
+            return self.__nombre
+        except AttributeError:
+            print("Error. No existe el atributo indicado")
+        except:
+            print("Error al leer el atributo")
+    @nombre.setter
+    def nombre(self, nuevo_nombre):
+        print("Asignamos el valor",nuevo_nombre," al atributo 'nombre'")
+        self.__nombre = nuevo_nombre
+        return None
+    @nombre.deleter
+    def nombre(self):
+        try:
+            print("Borramos atributo", self.__nombre)
+            del self.__nombre
+        except AttributeError:
+             print("Error. No existe el atributo que desea borrar")
+        except:
+             print("Error al borrar atributo")
+        return None
+def main():
+    a = Persona("Pepe")
+    a.nombre = "Juan"
+    print(a.nombre)
+    del a.nombre
+    del a.nombre
+    print(a.nombre)
+    a.nombre = "Jaime"
+    print(a.nombre)
+    print(help(Persona.nombre))
+main()</pre>
+
+<p>Salida:</p>
+<pre>&gt;&gt;&gt; 
+Asignamos el valor Pepe al atributo 'nombre'
+Valor del atributo 'nombre':
+Pepe
+Asignamos el valor Juan al atributo 'nombre'
+Valor del atributo 'nombre':
+Juan
+Borramos atributo Juan
+Error. No existe el atributo que desea borrar
+Valor del atributo 'nombre':
+Error. No existe el atributo indicado
+None
+Asignamos el valor Jaime al atributo 'nombre'
+Valor del atributo 'nombre':
+Jaime
+Help on property:
+    Documentación del atributo 'nombre'
+None
+&gt;&gt;&gt;</pre>
+
+<p>En el código definimos en  <em>__init__() _el atributo _nombre</em> como público. Eso nos permitirá que se ejecute, al crear la instancia de <em>Persona</em>, el método <em>setter</em> asociado a su propiedad y por tanto añadir el código que creamos conveniente. Nuevamente, por simplicidad, no se ha añadido manejo de excepciones ni condiciones de validación en él. Mediante la función <em>property()</em> decoramos el método <em>getter</em> que tiene el mismo nombre que nuestro atributo, es decir, <em>nombre</em>. Una vez hecho ésto, podemos usar los métodos <em>setter</em> y <em>deleter</em> del objeto propiedad para decorar los métodos correspondientes, de nombre <em>nombre</em>. Esta si es la forma mas <em>pythónica</em> de tratar las propiedades.</p>
+<p>Los métodos <em>getter</em> de las propiedades pueden ser muy útiles si necesitamos calcular atributos sobre la marcha teniendo como base otros atributos. O también si queremos almacenar el resultado de un cálculo complejo para que sucesivas peticiones de ese cálculo no lo realicen de nuevo, sino que recuperen el resultado previo. Un ejemplo heterodoxo del uso de todo ello  es el siguiente: imaginemos que queremos crear una clase que almacene uno o una serie de valores. Podemos tener  o un número(entero o real) o una lista de números (reales y/o enteros). Como condición de validación tendremos que el número o números esté/n entre 0 y 10 (inclusive). De no ser así asignaremos al número el valor 0. Hay en la clase una propiedad llamada que simula (mediante el uso del módulo <em>time</em>) una operación pesada computacionalmente aplicada a los datos. Simulamos que nos cuesta tres segundos calcularla y el resultado es 123.79382.  Lo almacenamos en <em>transformada</em>  por si hay una posterior petición de su cálculo. Otra propiedad llamada <em>media</em> calcula el promedio de los datos ya filtrados mediante la validación. Se comprueba que los datos de entrada son correctos y si no se lanza una excepción de tipo <em>ValueError</em>.</p>
+<p>El código y su correspondiente salida serían algo así, aconsejando una ejecución paso a paso para observar su funcionamiento detalladamente:</p>
+<pre>import time
+class MiClase:
+   def __init__(self, valor=None):
+       self.valor = valor
+       self.__transformada = None
+   @property
+   def valor(self):
+       return self.__valor
+   @valor.setter
+   def valor(self, mivalor):
+       if isinstance(mivalor, (int, float)):
+           if 0 &lt;= mivalor &lt;=10:
+               self.__valor = mivalor
+           else:
+               self.__valor = 0
+       elif isinstance(mivalor, list):
+           res = []
+           for midato in mivalor:
+               if isinstance(midato, (int, float)):
+                   if 0 &lt;= midato &lt;=10:
+                       res.append(midato)
+                   else:
+                       res.append(0)
+               else:
+                   raise ValueError ("El dato introducido no es válido")
+           self.__valor = res
+       else:
+           raise ValueError("El dato introducido no es válido")
+       return None
+    @property
+    def transformada(self):
+        if not self.__transformada:
+            print("Calculando transformada...")
+            time.sleep(3)
+            self.__transformada = 123.79382
+        else:
+            print("Transformada en caché. Valor:")
+        return self.__transformada
+    @property
+    def media(self):
+        if isinstance(self.valor, list):
+            return sum(self.__valor) / len(self.__valor)
+        else:
+            return "\nNo se puede calcular la media al no ser una lista"
+def main():
+    datos = [12.21, 8.68, -2, 7.77]
+    print("Los datos introducidos son: ", datos)
+    a = MiClase(datos)
+    print("Los datos filtrados son: ", a.valor)
+    print("La media de los datos filtrados es:", a.media)
+    print(a.transformada)
+    print(a.transformada)
+main()
+</pre>
+
+<pre>&gt;&gt;&gt; 
+Los datos introducidos son: [12.21, 8.68, -2, 7.77]
+Los datos filtrados son: [0, 8.68, 0, 7.77]
+La media de los datos filtrados es: 4.1125
+Calculando transformada...
+123.79382
+Transformada en caché. Valor:
+123.79382
+&gt;&gt;&gt; 
+</pre>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/atributos.html" class="tag">atributos</a>
+                    <a href="http://pybonacci.github.io/tag/deletter.html" class="tag">deletter</a>
+                    <a href="http://pybonacci.github.io/tag/getter.html" class="tag">getter</a>
+                    <a href="http://pybonacci.github.io/tag/property.html" class="tag">property</a>
+                    <a href="http://pybonacci.github.io/tag/propiedades.html" class="tag">propiedades</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/setter.html" class="tag">setter</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

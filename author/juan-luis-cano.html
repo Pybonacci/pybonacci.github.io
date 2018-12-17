@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Artículos por Juan Luis Cano | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h1>Artículos por Juan Luis Cano</h1>
+
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2016/02/13/por-que-dar-una-charla-ahora-y-no-luego/">Por qué dar una charla *ahora* y no luego</a></h2>
+      <div class="meta">
+        <time datetime="" title="2016-02-13T17:57:33+00:00" pubdate>sáb 13 febrero 2016</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p><strong>Nota:</strong> Esto iba a ser un email para la lista de PyLadies España, pero me ha parecido más divertido compartirlo en público 🙂</p>
+<p><em><strong>Contexto:</strong> Como sabéis, <a href="http://pydata.org/madrid2016/cfp/">dentro de una semana se cierra el plazo para presentar charlas a la PyData Madrid 2016</a>, que se celebrará en abril. Es un momento importante porque, si bien no es la primera vez que tenemos presencia de «trazas de PyData» en nuestro país (la primera fue en la EuroPython 2015) es la primera vez que se organiza como evento independiente. Yo tuve el privilegio de asistir a la primera que se hizo en Europa en un tiempo en el que me podía permitir el lujo de hacer estas cosas. Mucha gente se piensa que soy una especie de experto nacional de Python así que, inspirado por un intercambio que hemos tenido con una chica en …</em></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2016/02/13/por-que-dar-una-charla-ahora-y-no-luego/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/">Cómo crear extensiones en C para Python usando CFFI y numba</a></h2>
+      <div class="meta">
+        <time datetime="" title="2016-02-07T23:23:18+00:00" pubdate>dom 07 febrero 2016</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/c.html" class="tag">c</a>
+                <a href="http://pybonacci.github.io/tag/cffi.html" class="tag">cffi</a>
+                <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba</a>
+                <a href="http://pybonacci.github.io/tag/performance.html" class="tag">performance</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a ver <strong>cómo crear extensiones en C para Python usando CFFI y aceleradas con numba</strong>. El proyecto <a href="https://cffi.readthedocs.org/">CFFI</a> ("C Foreign Function Interface") pretende ofrecer una manera de llamar a bibliotecas escritas en C desde Python de una manera simple, mientras que <a href="https://pybonacci.org/tag/numba/">numba</a>, como podéis leer en nuestro blog, es un compilador JIT para código Python numérico. Mientras que hay algo de literatura sobre cómo usar CFFI, muy poco se ha escrito sobre cómo usar funciones CFFI desde numba, una característica que estaba desde las primeras versiones pero que no se completó <a href="https://github.com/numba/numba/pull/1454">hasta hace cuatro meses</a>. Puede parecer contradictorio mezclar estos dos proyectos pero en seguida veremos la justificación y por qué hacerlo puede abrir nuevos caminos para escribir código Python extremadamente eficiente.</p>
+<p>Este trabajo ha surgido a raíz de mis intentos de utilizar funciones hipergeométricas …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2016/01/26/explorando-el-planeta-nueve-con-python-usando-poliastro/">Explorando el Planeta Nueve con Python usando poliastro</a></h2>
+      <div class="meta">
+        <time datetime="" title="2016-01-26T23:37:19+00:00" pubdate>mar 26 enero 2016</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/astronomia.html" class="tag">astronomía</a>
+                <a href="http://pybonacci.github.io/tag/astropy.html" class="tag">astropy</a>
+                <a href="http://pybonacci.github.io/tag/poliastro.html" class="tag">poliastro</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      
+
+<blockquote><p>"Sometimes I think, how lucky we are to live in this time, the first moment in human history when we are, in fact visiting other worlds and engaging in a deep reconnaissance of the cosmos" — Carl Sagan</p>
+</blockquote>
+<p>Cuando aún resonaban los ecos de la «expulsión» de Plutón de nuestro sistema planetario (o más bien, de su descenso a la división de los planetas enanos), de repente dos científicos del Instituto de Tecnología de California (Caltech para los amigos) publican un artículo en el que <strong>hipotetizan la existencia de un planeta más masivo que la Tierra mucho más allá de la órbita de Neptuno</strong>. Batygin y Brown, los responsables de la investigación, han bautizado a su <em>aún no observado</em> descubrimiento como <strong>Planeta Nueve</strong>. No he podido evitar acordarme de la cita de Carl Sagan mientras escribía este artículo :)</p>
+<p>Para los detalles de este fantástico avance y un análisis de sus implicaciones os remito a <a href="http://danielmarin.naukas.com/2016/01/20/estrechando-el-cerco-alrededor-del-planeta-x/">los excelentes artículos de Daniel Marín en Eurekablog acerca del "Planeta Nueve"</a>. En Pybonacci vamos a aportar nuestro granito de arena, y como apasionados de la astronomía y del software libre que somos, vamos a darle una pasada al <a href="http://iopscience.iop.org/article/10.3847/0004-6256/151/2/22/pdf">artículo original de Batygin y Brown</a> (disponible libremente en PDF) y jugar con los datos que ofrece como más nos gusta: usando Python ;)</p>
+<p><strong>Nota</strong>: El análisis que se plantea a continuación no tiene el debido rigor científico y en ningún caso debe tomarse como un punto de partida para una búsqueda seria del Planeta Nueve. Dicho lo cual, si alguien lo encuentra gracias a este artículo por lo menos que me invite a un café :D
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2016/01/26/explorando-el-planeta-nueve-con-python-usando-poliastro/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/11/26/pycones-2015-cronica-de-un-evento-inolvidable/">PyConES 2015: Crónica de un evento inolvidable</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-11-26T21:12:32+00:00" pubdate>jue 26 noviembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/pycones.html" class="tag">pycones</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Esta es la primera crónica que escribo de una conferencia a la que asisto desde que existe este blog. Y no puedo dejar de pensar que «ya iba siendo hora», porque en todo este tiempo he ido a 3 PyConES, 2 PyData London, 1 PyConSE y 1 SciPy LA. Todas ellas fueron especiales a su modo y me enseñaron mucho, pero <a href="http://2015.es.pycon.org/">la tercera PyCon España que se ha celebrado en Valencia</a> ha significado el fin de semana más emocionante (y estresante) de mi vida. Va a ser una crónica un poco rara porque solo fui a una charla, pero aun así la quiero compartir con vosotros para dejar de sentirme culpable, empezar a relatar todos los eventos a los que vaya a partir de ahora y contaros nuestra experiencia «desde la retaguardia».</p>
+<p>El 4 de enero de este año le …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/11/26/pycones-2015-cronica-de-un-evento-inolvidable/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/">Curso de Python en la ETSIAE: 4ª edición</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-10-15T12:05:25+00:00" pubdate>jue 15 octubre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython</a>
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso</a>
+                <a href="http://pybonacci.github.io/tag/etsiae.html" class="tag">etsiae</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¡Ya vamos a por la <strong>cuarta edición de nuestro curso de Python para aeronáuticos</strong>! Esta vez durará <del datetime="2015-10-25T22:10:48+00:00">15</del><ins datetime="2015-10-25T22:10:48+00:00">12</ins> horas y este es el temario:</p>
+<ol>
+<li>Introducción a la sintaxis de <strong>Python</strong></li>
+<li>Uso del Notebook de <strong>IPython</strong></li>
+<li>Arrays de <strong>NumPy</strong></li>
+<li>Representación gráfica con <strong>matplotlib</strong></li>
+<li>Análisis numérico con <strong>SciPy</strong></li>
+<li>Cálculo simbólico con <strong>SymPy</strong></li>
+</ol>
+<p><img alt="cartel" src="https://pybonacci.org/images/2015/10/cartel-213x300.png"></p>
+<p>El curso se desarrollará en la <strong>sala II del centro de cálculo de la ETSI Aeronáutica y del Espacio</strong> de <del datetime="2015-10-25T22:05:45+00:00">17:30</del><ins datetime="2015-10-25T22:05:45+00:00">18:00</ins> a 20:00 a lo largo de <strong>dos semanas</strong>, los días 3, 4, 5, 10, 11 y 12.</p>
+<!--more-->
+
+<p><ins datetime="2015-10-29T17:07:38+00:00">La inscripción se ha cerrado.</ins> ¡Estad atentos vuestro email institucional estos días!</p>
+<p>Lo impartiremos conjuntamente el equipo AeroPython y estará pensado para que sea un curso eminentemente práctico, con ejemplos extraídos de asignaturas de la carrera. Con los conocimientos básicos de programación que se imparten en la …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/10/15/curso-de-python-en-la-etsiae-4a-edicion/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/10/13/comunidades-relevo-generacional-y-la-muerte-de-python-hispano/">Comunidades, relevo generacional y la muerte de Python Hispano</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-10-13T21:30:18+00:00" pubdate>mar 13 octubre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hace muchos meses que no escribo un artículo técnico, y me temo que este tampoco va a serlo. Lo que es peor: hace aún más meses que no escribo un artículo triste, y lamentablemente ha llegado el momento de poner algunas ideas negro sobre blanco. Este texto, como su propio título indica, trata de comunidades, de relevo generacional y de la muerte de Python Hispano.</p>
+<p>Primero, un poco de contexto. <a href="https://groups.google.com/d/msg/clases-2009-2010/2ZBNzZKfypk/6ai711EZE94J">Descubrí Python en 2010</a> buscando en Google "free alternative to Mathematica" y accediendo al proyecto Sage, en diciembre de 2011 creé un blog llamado <a href="http://web.archive.org/web/20120505160240/http://juanlu001.github.com/">"Dead Epsilon"</a>, en enero de 2012 fui a <a href="http://python-madrid.es/meetings/reunion-enero-2012-python-madrid/">mi primera reunión de Python Madrid</a> y en marzo de 2012 maté Dead Epsilon y <a href="https://pybonacci.org/2012/03/16/introduccion-a-python-para-cientificos-e-ingenieros/">creamos Pybonacci</a>. Eso significa que pronto va a hacer 4 años que formo parte de esta comunidad: <strong>la comunidad Python</strong>.<figure id="attachment_3485" style="width: 253px" class="wp-caption aligncenter"></p>
+<p><img alt="cami_white" src="https://pybonacci.org/images/2015/10/cami_white-253x300.jpg"></p>
+<p>La intersección entre …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/10/13/comunidades-relevo-generacional-y-la-muerte-de-python-hispano/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/09/17/curso-aeropython-en-la-uc3m/">¡Curso AeroPython en la UC3M!</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-09-17T17:39:32+00:00" pubdate>jue 17 septiembre 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/aeropython.html" class="tag">#aeropython</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¡Tenemos el placer de anunciar un nuevo <strong>curso de Python aplicado a la ingeniería aeroespacial</strong>, esta vez organizado por el Departamento de Ingeniería Aeroespacial de la Universidad Carlos III de Madrid!</p>
+<p>El curso durará 10 horas, <ins datetime="2015-09-19T06:36:06+00:00">será gratuito para los alumnos</ins> y el temario será el siguiente:</p>
+<ol>
+<li>Introducción a la <strong>sintaxis de Python</strong></li>
+<li>Uso del notebook de <strong>Jupyter</strong></li>
+<li>Arrays de <strong>NumPy</strong></li>
+<li>Representación gráfica con <strong>matplotlib</strong></li>
+<li>Análisis numérico con <strong>SciPy</strong></li>
+<li>Cálculo simbólico con <strong>SymPy</strong></li>
+</ol>
+<p><strong>El horario será de 13:00 a 15:00 los días 5 a 9 de octubre y las clases tendrán lugar en el aula 7.0.J03</strong>.</p>
+<p><img alt="cartel" src="https://pybonacci.org/images/2015/09/cartel_curso_Python_uc3m_oct-2015-207x300.png"></p>
+<!--more-->
+
+<p><del datetime="2015-09-27T21:49:21+00:00">Desde este momento <a href="http://bit.ly/aeropython-inscripcion">la inscripción está abierta en este formulario</a> y cerrará el 25 de septiembre a las 13:00 GMT+2.</del><ins datetime="2015-09-27T21:49:21+00:00">La inscripción está cerrada ¡y hay casi 100 personas! En unos días publicaremos la lista definitiva de admitidos …</ins></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/09/17/curso-aeropython-en-la-uc3m/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/03/31/scipy-latin-america-2015-en-argentina-manda-tu-charla/">SciPy Latin America 2015 en Argentina: ¡manda tu charla!</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-03-31T10:37:15+00:00" pubdate>mar 31 marzo 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/argentina.html" class="tag">argentina</a>
+                <a href="http://pybonacci.github.io/tag/conferencias.html" class="tag">conferencias</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipyla.html" class="tag">scipyla</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Ya lo hemos comentado por Twitter algunas veces, pero para quienes aún no lo sepáis: <strong>del 20 al 22 de mayo se celebrará la <a href="http://www.scipyla.org/conf/2015/">SciPy Latin America 2015</a> en Posadas, Misiones (Argentina)</strong>, y gracias a la generosa invitación de los organizadores <strong>tanto Kiko como el que os escribe iremos en calidad de <em>speakers</em> invitados</strong>. ¡Muchísimas gracias! 😀</p>
+<p><img src="https://pybonacci.org/images/2015/03/624x233-fondo-blanco.png" alt="SciPy Latin America 2015" width="499" height="186" class="size-full wp-image-3307" srcset="https://pybonacci.org/wp-content/uploads/2015/03/624x233-fondo-blanco.png 499w, https://pybonacci.org/wp-content/uploads/2015/03/624x233-fondo-blanco-300x111.png 300w" sizes="(max-width: 499px) 100vw, 499px" /></p>
+<p>Este evento surge después de dos años de celebrar conferencias sobre Python científico en Argentina, la primera en 2013 en Puerto Madryn, Chubut y la segunda en 2014 en Bahía Blanca, Buenos Aires. Este año los organizadores han sumado fuerzas con gente de Brasil para llevar adelante un evento mucho más ambicioso a nivel de todo Latinoamérica. Desde aquí no puedo más que quitarme el sombrero por semejante esfuerzo (que incluye personas entendiéndose en portugués y español 🙂 ) y estoy seguro de que la SciPyLA …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/03/31/scipy-latin-america-2015-en-argentina-manda-tu-charla/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/03/13/como-acelerar-tu-codigo-python-con-numba/">Cómo acelerar tu código Python con numba</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-03-13T16:45:25+00:00" pubdate>vie 13 marzo 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/conda.html" class="tag">conda</a>
+                <a href="http://pybonacci.github.io/tag/numba.html" class="tag">numba</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/rendimiento.html" class="tag">rendimiento</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Introducción</p>
+<p>En este artículo vamos a hacer un repaso exhaustivo de <strong>cómo acelerar sustancialmente tu código Python usando numba</strong>. Ya hablamos sobre <a href="https://pybonacci.org/2012/08/21/probando-numba-compilador-para-python-basado-en-llvm/">la primera versión de numba</a> en el blog, allá por 2012, pero ha habido importantes cambios desde entonces y la herramienta ha cambiado muchísimo. Recientemente Continuum publicó numba 0.17 con una <a href="http://numba.pydata.org/numba-doc/0.17.0/index.html">nueva documentación</a> mucho más fácil de seguir, pero aun así no siempre queda claro cuál es el camino para hacer que funcione, como quedó patente con el <a href="https://pybonacci.org/2015/03/09/c-elemental-querido-cython/">artículo sobre Cython</a> de Kiko. Por ello, en este artículo voy a aclarar qué puede y qué no puede hacer numba, cómo sacarle partido y voy a detallar un par de ejemplos exitosos que he producido en los últimos meses.</p>
+<p>Hablando de las nuevas versiones de numba, en su web podéis ver una <a href="http://numba.pydata.org/numba-benchmark/">evolución temporal del rendimiento</a> de algunas …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/03/13/como-acelerar-tu-codigo-python-con-numba/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/03/09/introduccion-a-python-para-cientificos-e-ingenieros-2a-edicion-ya-disponible/">&#8220;Introducción a Python para científicos e ingenieros&#8221;, 2ª edición, ¡ya disponible!</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-03-09T20:48:01+00:00" pubdate>lun 09 marzo 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/cacheme.html" class="tag">cacheme</a>
+                <a href="http://pybonacci.github.io/tag/curso.html" class="tag">curso</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <blockquote>
+<p>Curso Python online y gratuito de <a href="http://cacheme.org/curso-online-python-cientifico-ingenieros/">introducción al lenguaje de programación Python para científicos e ingenieros</a>. Los vídeos de este curso online se dividen en dos ediciones: la primera recoge los fundamentos de Python científico y la segunda los últimos avances introducidos en el 2015 con IPython 3 (Jupyter).</p>
+<p>Ambas ediciones son impartidas por Juan Luis Cano (<a href="https://pybonacci.org">https://pybonacci.org</a>) y han sido posibles gracias a la financiación del Instituto Universitario de Ingeniería de Procesos Químicos y la Escuela Politécnica Superior (y su delegación de alumnos) dentro de la Universidad de Alicante. Los videotutoriales de este curso se han diseñado para que sea práctico, con ejemplos extraídos de asignaturas comunes en carreras científicas y de ingeniería.</p>
+</blockquote>
+<p>Un año más, gracias a la impagabla colaboración de CAChemE y la Universidad de Alicante, tenemos una segunda tanda de vídeos disponibles, grabados durante …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/03/09/introduccion-a-python-para-cientificos-e-ingenieros-2a-edicion-ya-disponible/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/author/juan-luis-cano2.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Trabajando con Python y R | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Trabajando con Python y R</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>jue 18 junio 2015</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h1>Trabajando de forma conjunta con Python y con R.</h1>
+<p>Hoy vamos a ver como podemos juntar lo bueno de <a href="https://cran.r-project.org/">R</a>, algunas de sus librerías, con Python usando <strong>rpy2</strong>.</p>
+<p>Pero, lo primero de todo, ¿<a href="https://rpy.sourceforge.net/">qué es rpy2</a>? rpy2 es una interfaz que permite que podamos comunicar información entre R y Python y que podamos acceder a funcionalidad de R desde Python. Por tanto, podemos estar usando Python para todo nuestro análisis y en el caso de que necesitemos alguna librería estadística especializada de R podremos acceder a la misma usando rpy2.</p>
+<p>Para poder usar rpy2 necesitarás tener <a href="https://rpy.sourceforge.net/rpy2/doc-2.5/html/overview.html#requirements">instalado tanto Python (CPython versión &gt;= 2.7.x) como R (versión &gt;=3)</a>, además de las librerías R a las que quieras acceder. <a href="https://continuum.io/conda-for-R">Conda permite realizar todo el proceso de instalación de los intérpretes de Python y R, además de librerías</a>, pero no he trabajado con Conda y R por lo que no puedo aportar mucho más en este aspecto. Supongo que será parecido a lo que hacemos con Conda y Python.</p>
+<p>Para este microtutorial voy a hacer uso de la librería <strong><a href="https://cran.r-project.org/web/packages/extRemes/index.html">extRemes</a></strong> de R que permite hacer análisis de valores extremos usando varias de las metodologías más comúnmente aceptadas.</p>
+<p>Como siempre, primero de todo, importaremos la funcionalidad que necesitamos para la ocasión.</p>
+<div class="highlight"><pre><span></span><span class="c1"># Importamos pandas y numpy para manejar los datos que pasaremos a R</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c1"># Usamos rpy2 para interactuar con R</span>
+<span class="kn">import</span> <span class="nn">rpy2.robjects</span> <span class="kn">as</span> <span class="nn">ro</span>
+
+<span class="c1"># Activamos la conversión automática de tipos de rpy2</span>
+<span class="kn">import</span> <span class="nn">rpy2.robjects.numpy2ri</span>
+<span class="n">rpy2</span><span class="o">.</span><span class="n">robjects</span><span class="o">.</span><span class="n">numpy2ri</span><span class="o">.</span><span class="n">activate</span><span class="p">()</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<p>En el anterior código podemos ver una serie de cosas nuevas que voy a explicar brevemente:</p>
+<ul>
+<li><code>import rpy2.robjects as ro</code>, esto lo explicaremos un poquito más abajo.</li>
+<li><code>import rpy2.robjects.numpy2ri</code>, importamos el módulo numpy2ri. Este módulo permite que hagamos conversión automática de objetos numpy a objetos rpy2.</li>
+<li><code>rpy2.robjects.numpy2ri.activate()</code>, hacemos uso de la función <code>activate</code> que activa la conversión automática de objetos que hemos comentado en la línea anterior.</li>
+</ul>
+<h1>Brevísima introducción a algunas de las cosas más importantes de rpy2.</h1>
+<p>Para evaluar directamente código R podemos hacerlo usando <code>rpy2.robjects.r</code> con el código R expresado como una cadena (<code>rpy2.robjects</code> lo he importado como <code>ro</code> en este caso, como podéis ver más arriba):</p>
+<div class="highlight"><pre><span></span><span class="n">codigo_r</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">saluda &lt;- function(cadena) {</span>
+<span class="s"> return(paste(&quot;</span><span class="n">Hola</span><span class="p">,</span> <span class="s">&quot;, cadena))</span>
+<span class="s">}</span>
+<span class="s">&quot;&quot;&quot;</span>
+<span class="nf">ro.r</span><span class="p">(</span><span class="n">codigo_r</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<p><code>&lt;SignatureTranslatedFunction - Python:0x03096490 / R:0x03723E98&gt;</code></p>
+<p>En la anterior celda hemos creado una función R llamada <code>saluda</code> y que ahora está disponible en el espacio de nombres global de R. Podemos acceder a la misma desde Python de la siguiente forma:</p>
+<p><code>saluda_py = ro.globalenv['saluda']</code></p>
+<p>Y podemos usarla de la siguiente forma:</p>
+<div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">saluda_py</span><span class="p">(</span><span class="s1">&#39;pepe&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="p">[])</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<p><code>Hola,  pepe</code></p>
+<p>En la anterior celda véis que para acceder al resultado he tenido que usar <code>res[0]</code>. En realidad, lo que nos devuleve rpy2 es:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">res</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>&lt;class &#39;;numpy.ndarray&#39;;&gt;
+(1,)
+</pre></div>
+
+
+<p>En este caso un numpy array con diversa información del objeto rpy2. Como el objeto solo devuelve un string pues el numpy array solo tiene un elemento.</p>
+<p>Podemos acceder al código R de la función de la siguiente forma:</p>
+<p><code>print(saluda_py.r_repr())</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="p">(</span><span class="nx">cadena</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="k">return</span><span class="p">(</span><span class="nx">paste</span><span class="p">(</span><span class="s2">&quot;Hola, &quot;</span><span class="p">,</span> <span class="nx">cadena</span><span class="p">))</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Hemos visto como acceder desde Python a nombres disponibles en el entorno global de R. ¿Cómo podemos hacer para que algo que creemos en Python este accesible en R?</p>
+<p><code>variable_r_creada_desde_python = ro.FloatVector(np.arange(1,5,0.1))</code></p>
+<p>Veamos como es esta <code>variable_r_creada_desde_python</code> dentro de Python</p>
+<p><code>variable_r_creada_desde_python</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>&lt;FloatVector - Python:0x09D5A7B0 / R:0x07FE8900&gt;
+[1.000000, 1.100000, 1.200000, ..., 4.700000, 4.800000, 4.900000]
+</pre></div>
+
+
+<p>¿Y lo que se tendría que ver en R?</p>
+<p><code>print(variable_r_creada_desde_python.r_repr())</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>c(1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 
+2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 
+3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 
+4.9)
+</pre></div>
+
+
+<p>Pero ahora mismo esa variable no está disponible desde R y no la podríamos usar dentro de código R que permanece en el espacio R (vaya lío, ¿no?)</p>
+<p><code>ro.r('variable_r_creada_desde_python')</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+RRuntimeError                             Traceback (most recent call last)
+&lt;ipython-input-10-524753a78365&gt; in &lt;module&gt;()
+----&gt; 1  ro.r(&#39;;variable_r_creada_desde_python&#39;;)
+d:\users\X003621\AppData\Local\Continuum\Miniconda3\lib\site-packages\rpy2\robjects\_\_init__.py in __call__(self, string)
+ 251     def __call__(self, string):
+ 252         p = rinterface.parse(string)
+--&gt; 253  res = self.eval(p)
+ 254         return res
+ 255
+
+d:\users\X003621\AppData\Local\Continuum\Miniconda3\lib\site-packages\rpy2\robjects\functions.py in __call__(self, *args, **kwargs)
+ 168                 v = kwargs.pop(k)
+ 169                 kwargs[r_k] = v
+--&gt; 170  return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+ 171 
+ 172 pattern_link = re.compile(r&#39;;\\link\{(.+?)\}&#39;;)
+
+d:\users\X003621\AppData\Local\Continuum\Miniconda3\lib\site-packages\rpy2\robjects\functions.py in __call__(self, *args, **kwargs)
+ 98         for k, v in kwargs.items():
+ 99             new_kwargs[k] = conversion.py2ri(v)
+--&gt; 100  res = super(Function, self).__call__(*new_args, **new_kwargs)
+ 101         res = conversion.ri2ro(res)
+ 102         return res
+
+RRuntimeError: Error in eval(expr, envir, enclos) : 
+  object &#39;;variable_r_creada_desde_python&#39;; not found
+</pre></div>
+
+
+<p>Vale, tendremos que hacer que sea accesible desde R de la siguiente forma:</p>
+<div class="highlight"><pre><span></span>ro.globalenv[&quot;variable_ahora_en_r&quot;] = variable_r_creada_desde_python
+print(ro.r(&quot;variable_ahora_en_r&quot;))
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>[ 1.   1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.   2.1  2.2  2.3  2.4
+  2.5  2.6  2.7  2.8  2.9  3.   3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9
+  4.   4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9]
+</pre></div>
+
+
+<p>Ahora que ya la tenemos accesible la podemos usar desde R. Por ejemplo, vamos a usar la función <code>sum</code> en R que suma los elementos pero directamente desde R:</p>
+<div class="highlight"><pre><span></span>print(ro.r(&#39;sum(variable_ahora_en_r)&#39;))
+print(np.sum(variable_r_creada_desde_python))
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span><span class="k">[ 118.]</span>
+<span class="na">118.0</span>
+</pre></div>
+
+
+<p>Perfecto, ya sabemos, de forma muy sencilla y básica, como podemos usar R desde Python, como podemos pasar información desde R hacia Python y desde Python hacia R. ¡¡¡Esto es muy poderoso!!!, estamos juntando lo mejor de dos mundos, la solidez de las herramientas científicas de Python con la funcionalidad especializada que nos pueden aportar algunas librerías de R no disponibles en otros ámbitos.</p>
+<p>Trabajando de forma híbrida entre Python y R</p>
+<p>Vamos a empezar importando la librería <em>extRemes</em> de R:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Importamos la librería extRemes de R</span>
+<span class="kn">from</span> <span class="nn">rpy2.robjects.packages</span> <span class="kn">import</span> <span class="n">importr</span>
+<span class="n">extremes</span> <span class="o">=</span> <span class="n">importr</span><span class="p">(</span><span class="s1">&#39;extRemes&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>En la anterior celda hemos hecho lo siguiente:</p>
+<ul>
+<li><code>from rpy2.robjects.packages import importr</code>, La función <code>importr</code> nos servirá para importar las librerías R</li>
+<li><code>extremes = importr('extRemes')</code>, de esta forma importamos la librería <code>extRemes</code> de R, sería equivalente a hacer en R <code>library(extRemes)</code>.</li>
+</ul>
+<p>Leemos datos con pandas. En el mismo repo donde está este notebook está también un fichero de texto con datos que creé a priori. Supuestamente son datos horarios de velocidad del viento por lo que vamos a hacer análisis de valores extremos de velocidad del viento horaria.</p>
+<div class="highlight"><pre><span></span>data = pd.read_csv(&#39;datasets/Synthetic_data.txt&#39;,
+                   sep = &#39;\s*&#39;, skiprows = 1, parse_dates = [[, 1]],
+                   names = [&#39;date&#39;,&#39;time&#39;,&#39;wspd&#39;], index_col = )
+
+data.head(3)
+</pre></div>
+
+
+<div>
+  <div style="max-height:1000px;max-width:1500px;overflow:auto;">
+    <table border="1" class="dataframe">
+      <tr style="text-align: right;">
+        <th>
+        </th>
+
+        <th>
+          wspd
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          date_time
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <tr>
+        <th>
+          1983-01-01 00:00:00
+        </th>
+
+        <td>
+          7.9
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          1983-01-01 01:00:00
+        </th>
+
+        <td>
+          8.2
+        </td>
+      </tr>
+
+      <tr>
+        <th>
+          1983-01-01 02:00:00
+        </th>
+
+        <td>
+          8.5
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<p>Extraemos los máximos anuales los cuales usaremos posteriormente dentro de R para hacer cálculo de valores extremos usando la <a href="httpss://en.wikipedia.org/wiki/Generalized_extreme_value_distribution">distribución generalizada de valores extremos (GEV)</a>:</p>
+<p><code>max_y = data.wspd.groupby(pd.TimeGrouper(freq = 'A')).max()</code></p>
+<p>Dibujamos los valores máximos anuales usando Pandas:</p>
+<p><code>max_y.plot(kind = 'bar', figsize = (12, 4))</code></p>
+<p><strong>OUTPUT:</strong></p>
+<p><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x10a923d0&gt;</code></p>
+<p><img alt="wpid1" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R1.png?style=centerme"></p>
+<p>Referenciamos la funcionalidad <a href="https://cran.r-project.org/web/packages/extRemes/extRemes.pdf"><code>fevd</code> (<em>fit extreme value distribution</em>) dentro del paquete <code>extremes</code></a> de R para poder usarla directamente con los valores máximos que hemos obtenido usando Pandas y desde Python.</p>
+<p><code>fevd = extremes.fevd</code>   </p>
+<p>Como hemos comentado anteriormente, vamos a calcular los parámetros de la GEV usando el método de ajuste <code>GMLE</code> (<em>Generalised Maximum Lihelihood Estimation</em>) y los vamos a guardar directamente en una variable Python.</p>
+<p>Veamos la ayuda antes:</p>
+<p>p<code>rint(fevd.__doc__)</code></p>
+<div class="highlight"><pre><span></span><span class="nt">Python</span> <span class="nt">representation</span> <span class="nt">of</span> <span class="nt">an</span> <span class="nt">R</span> <span class="nt">function</span><span class="o">.</span>
+<span class="nt">description</span>
+<span class="nt">-----------</span>
+
+
+ <span class="nt">Fit</span> <span class="nt">a</span> <span class="nt">univariate</span> <span class="nt">extreme</span> <span class="nt">value</span> <span class="nt">distribution</span> <span class="nt">functions</span> <span class="o">(</span><span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">.,</span> <span class="nt">GEV</span><span class="o">,</span> <span class="nt">GP</span><span class="o">,</span> <span class="nt">PP</span><span class="o">,</span> <span class="nt">Gumbel</span><span class="o">,</span> <span class="nt">or</span> <span class="nt">Exponential</span><span class="o">)</span> <span class="nt">to</span> <span class="nt">data</span><span class="o">;</span> <span class="nt">possibly</span> <span class="nt">with</span> <span class="nt">covariates</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">parameters</span><span class="o">.</span>
+
+
+
+<span class="nt">fevd</span><span class="o">(</span>
+    <span class="nt">x</span><span class="o">,</span>
+    <span class="nt">data</span><span class="o">,</span>
+    <span class="nt">threshold</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">threshold_fun</span> <span class="o">=</span> <span class="o">~,</span>
+    <span class="nt">location_fun</span> <span class="o">=</span> <span class="o">~,</span>
+    <span class="nt">scale_fun</span> <span class="o">=</span> <span class="o">~,</span>
+    <span class="nt">shape_fun</span> <span class="o">=</span> <span class="o">~,</span>
+    <span class="nt">use_phi</span> <span class="o">=</span> <span class="nt">False</span><span class="o">,</span>
+    <span class="nt">type</span> <span class="o">=</span> <span class="nt">c</span><span class="o">,</span>
+    <span class="nt">method</span> <span class="o">=</span> <span class="nt">c</span><span class="o">,</span>
+    <span class="nt">initial</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">span</span><span class="o">,</span>
+    <span class="nt">units</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">time_units</span> <span class="o">=</span> <span class="nt">days</span><span class="o">,</span>
+    <span class="nt">period_basis</span> <span class="o">=</span> <span class="nt">year</span><span class="o">,</span>
+    <span class="nt">na_action</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nt">rpy2</span><span class="p">.</span><span class="nc">rinterface</span><span class="p">.</span><span class="nc">SexpVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x116D6C50</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0C4BB100</span><span class="o">&gt;,</span>
+    <span class="nt">optim_args</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">priorFun</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">priorParams</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">proposalFun</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">proposalParams</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">iter</span> <span class="o">=</span> <span class="nt">9999</span><span class="p">.</span><span class="nc">0</span><span class="o">,</span>
+    <span class="nt">weights</span> <span class="o">=</span> <span class="nt">1</span><span class="p">.</span><span class="nc">0</span><span class="o">,</span>
+    <span class="nt">blocks</span> <span class="o">=</span> <span class="nt">rinterface</span><span class="p">.</span><span class="nc">NULL</span><span class="o">,</span>
+    <span class="nt">verbose</span> <span class="o">=</span> <span class="nt">False</span><span class="o">,</span>
+<span class="o">)</span>
+
+<span class="nt">x</span> <span class="o">:</span>  <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span><span class="o">:</span> <span class="err">`</span><span class="nt">x</span><span class="err">`</span> <span class="nt">can</span> <span class="nt">be</span> <span class="nt">a</span> <span class="nt">numeric</span> <span class="nt">vector</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">name</span> <span class="nt">of</span> <span class="nt">a</span> <span class="nt">column</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">or</span> <span class="nt">a</span> <span class="nt">formula</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">to</span> <span class="nt">which</span> <span class="nt">the</span> <span class="nt">EVD</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">fit</span><span class="o">.</span>  <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">latter</span> <span class="nt">two</span><span class="o">,</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">argument</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">specified</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">must</span> <span class="nt">have</span> <span class="nt">appropriately</span> <span class="nt">named</span> <span class="nt">columns</span><span class="o">.</span><span class="err">`</span><span class="nt">plot</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">print</span><span class="err">`</span> <span class="nt">method</span> <span class="nt">functions</span><span class="o">:</span> <span class="nt">any</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">returned</span> <span class="nt">by</span> <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">object</span> <span class="o">:</span>  <span class="nt">A</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">of</span> <span class="nt">class</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">fevd</span><span class="p">}</span> <span class="nt">as</span> <span class="nt">returned</span> <span class="nt">by</span> <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">data</span> <span class="o">:</span>  <span class="nt">A</span> <span class="nt">data</span> <span class="nt">frame</span> <span class="nt">object</span> <span class="nt">with</span> <span class="nt">named</span> <span class="nt">columns</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">fit</span><span class="o">,</span> <span class="nt">as</span> <span class="nt">well</span> <span class="nt">as</span> <span class="nt">any</span> <span class="nt">data</span> <span class="nt">necessary</span> <span class="nt">for</span> <span class="nt">modeling</span> <span class="nt">non-stationarity</span> <span class="nt">through</span> <span class="nt">the</span> <span class="nt">threshold</span> <span class="nt">and</span><span class="o">/</span><span class="nt">or</span> <span class="nt">any</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">parameters</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">threshold</span> <span class="o">:</span>  <span class="nt">numeric</span> <span class="o">(</span><span class="nt">single</span> <span class="nt">or</span> <span class="nt">vector</span><span class="o">).</span>  <span class="nt">If</span> <span class="nt">fitting</span> <span class="nt">a</span> <span class="nt">peak</span> <span class="nt">over</span> <span class="nt">threshold</span> <span class="o">(</span><span class="nt">POT</span><span class="o">)</span> <span class="nt">model</span> <span class="o">(</span><span class="nt">i</span><span class="p">.</span><span class="nc">e</span><span class="o">.,</span> <span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="o">=</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">PP</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">GP</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">Exponential</span><span class="p">}</span><span class="o">)</span> <span class="nt">this</span> <span class="nt">is</span> <span class="nt">the</span> <span class="nt">threshold</span> <span class="nt">over</span> <span class="nt">which</span> <span class="o">(</span><span class="nt">non-inclusive</span><span class="o">)</span> <span class="nt">data</span> <span class="o">(</span><span class="nt">or</span> <span class="nt">excesses</span><span class="o">)</span> <span class="nt">are</span> <span class="nt">used</span> <span class="nt">to</span> <span class="nt">estimate</span> <span class="nt">the</span> <span class="nt">parameters</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">distribution</span> <span class="nt">function</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">the</span> <span class="nt">length</span> <span class="nt">is</span> <span class="nt">greater</span> <span class="nt">than</span> <span class="nt">1</span><span class="o">,</span> <span class="nt">then</span> <span class="nt">the</span> <span class="nt">length</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">equal</span> <span class="nt">to</span> <span class="nt">either</span> <span class="nt">the</span> <span class="nt">length</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">x</span><span class="err">`</span> <span class="o">(</span><span class="nt">or</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">rows</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span><span class="o">)</span> <span class="nt">or</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">unique</span> <span class="nt">arguments</span> <span class="nt">in</span> <span class="err">`</span><span class="nt">threshold</span><span class="p">.</span><span class="nc">fun</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">threshold</span><span class="p">.</span><span class="nc">fun</span> <span class="o">:</span>  <span class="nt">formula</span> <span class="nt">describing</span> <span class="nt">a</span> <span class="nt">model</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">thresholds</span> <span class="nt">using</span> <span class="nt">columns</span> <span class="nt">from</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span><span class="o">.</span>  <span class="nt">Any</span> <span class="nt">valid</span> <span class="nt">formula</span> <span class="nt">will</span> <span class="nt">work</span><span class="o">.</span>  <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">supplied</span> <span class="nt">if</span> <span class="nt">this</span> <span class="nt">argument</span> <span class="nt">is</span> <span class="nt">anything</span> <span class="nt">other</span> <span class="nt">than</span> <span class="o">~</span> <span class="nt">1</span><span class="o">.</span>  <span class="nt">Not</span> <span class="nt">for</span> <span class="nt">use</span> <span class="nt">with</span> <span class="err">`</span><span class="nt">method</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">Lmoments</span><span class="p">}</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">location</span><span class="p">.</span><span class="nc">fun</span> <span class="o">:</span>  <span class="nt">formula</span> <span class="nt">describing</span> <span class="nt">a</span> <span class="nt">model</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">parameter</span> <span class="nt">using</span> <span class="nt">columns</span> <span class="nt">from</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span><span class="o">.</span>  <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">supplied</span> <span class="nt">if</span> <span class="nt">any</span> <span class="nt">of</span> <span class="nt">these</span> <span class="nt">arguments</span> <span class="nt">are</span> <span class="nt">anything</span> <span class="nt">other</span> <span class="nt">than</span> <span class="o">~</span> <span class="nt">1</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">scale</span><span class="p">.</span><span class="nc">fun</span> <span class="o">:</span>  <span class="nt">formula</span> <span class="nt">describing</span> <span class="nt">a</span> <span class="nt">model</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">parameter</span> <span class="nt">using</span> <span class="nt">columns</span> <span class="nt">from</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span><span class="o">.</span>  <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">supplied</span> <span class="nt">if</span> <span class="nt">any</span> <span class="nt">of</span> <span class="nt">these</span> <span class="nt">arguments</span> <span class="nt">are</span> <span class="nt">anything</span> <span class="nt">other</span> <span class="nt">than</span> <span class="o">~</span> <span class="nt">1</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">shape</span><span class="p">.</span><span class="nc">fun</span> <span class="o">:</span>  <span class="nt">formula</span> <span class="nt">describing</span> <span class="nt">a</span> <span class="nt">model</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">parameter</span> <span class="nt">using</span> <span class="nt">columns</span> <span class="nt">from</span> <span class="err">`</span><span class="nt">data</span><span class="err">`</span><span class="o">.</span>  <span class="err">`</span><span class="nt">data</span><span class="err">`</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">supplied</span> <span class="nt">if</span> <span class="nt">any</span> <span class="nt">of</span> <span class="nt">these</span> <span class="nt">arguments</span> <span class="nt">are</span> <span class="nt">anything</span> <span class="nt">other</span> <span class="nt">than</span> <span class="o">~</span> <span class="nt">1</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">use</span><span class="p">.</span><span class="nc">phi</span> <span class="o">:</span>  <span class="nt">logical</span><span class="o">;</span> <span class="nt">should</span> <span class="nt">the</span> <span class="nt">log</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">scale</span> <span class="nt">parameter</span> <span class="nt">be</span> <span class="nt">used</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">numerical</span> <span class="nt">optimization</span> <span class="o">(</span><span class="nt">for</span> <span class="err">`</span><span class="nt">method</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">MLE</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">GMLE</span><span class="p">}</span> <span class="nt">and</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">Bayesian</span><span class="p">}</span> <span class="nt">only</span><span class="o">)?</span>  <span class="nt">For</span> <span class="nt">the</span> <span class="nt">ML</span> <span class="nt">and</span> <span class="nt">GML</span> <span class="nt">estimation</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">may</span> <span class="nt">make</span> <span class="nt">things</span> <span class="nt">more</span> <span class="nt">stable</span> <span class="nt">for</span> <span class="nt">some</span> <span class="nt">data</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">type</span> <span class="o">:</span>  <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span><span class="o">:</span> <span class="nt">character</span> <span class="nt">stating</span> <span class="nt">which</span> <span class="nt">EVD</span> <span class="nt">to</span> <span class="nt">fit</span><span class="o">.</span>  <span class="nt">Default</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">fit</span> <span class="nt">the</span> <span class="nt">generalized</span> <span class="nt">extreme</span> <span class="nt">value</span> <span class="o">(</span><span class="nt">GEV</span><span class="o">)</span> <span class="nt">distribution</span> <span class="nt">function</span> <span class="o">(</span><span class="nt">df</span><span class="o">).</span><span class="err">`</span><span class="nt">plot</span><span class="err">`</span> <span class="nt">method</span> <span class="nt">function</span><span class="o">:</span> <span class="nt">character</span> <span class="nt">describing</span> <span class="nt">which</span> <span class="nt">plot</span><span class="o">(</span><span class="nt">s</span><span class="o">)</span> <span class="nt">is</span> <span class="o">(</span><span class="nt">are</span><span class="o">)</span> <span class="nt">desired</span><span class="o">.</span>  <span class="nt">Default</span> <span class="nt">is</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">primary</span><span class="p">}</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">makes</span> <span class="nt">a</span> <span class="nt">2</span> <span class="nt">by</span> <span class="nt">2</span> <span class="nt">panel</span> <span class="nt">of</span> <span class="nt">plots</span> <span class="nt">including</span> <span class="nt">the</span> <span class="nt">QQ</span> <span class="nt">plot</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">quantiles</span> <span class="nt">against</span> <span class="nt">the</span> <span class="nt">fitted</span> <span class="nt">model</span> <span class="nt">quantiles</span> <span class="o">(</span><span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">qq</span><span class="p">}</span><span class="o">),</span> <span class="nt">a</span> <span class="nt">QQ</span> <span class="nt">plot</span> <span class="o">(</span><span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">qq2</span><span class="p">}</span><span class="o">)</span> <span class="nt">of</span> <span class="nt">quantiles</span> <span class="nt">from</span> <span class="nt">model-simulated</span> <span class="nt">data</span> <span class="nt">against</span> <span class="nt">the</span> <span class="nt">data</span><span class="o">,</span> <span class="nt">a</span> <span class="nt">density</span> <span class="nt">plot</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">along</span> <span class="nt">with</span> <span class="nt">the</span> <span class="nt">model</span> <span class="nt">fitted</span> <span class="nt">density</span> <span class="o">(</span><span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">density</span><span class="p">}</span><span class="o">)</span> <span class="nt">and</span> <span class="nt">a</span> <span class="nt">return</span> <span class="nt">level</span> <span class="nt">plot</span> <span class="o">(</span><span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">rl</span><span class="p">}</span><span class="o">).</span> <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">a</span> <span class="nt">stationary</span> <span class="o">(</span><span class="nt">fixed</span><span class="o">)</span> <span class="nt">model</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">return</span> <span class="nt">level</span> <span class="nt">plot</span> <span class="nt">will</span> <span class="nt">show</span> <span class="nt">return</span> <span class="nt">levels</span> <span class="nt">calculated</span> <span class="nt">for</span> <span class="nt">return</span> <span class="nt">periods</span> <span class="nt">given</span> <span class="nt">by</span> <span class="err">`</span><span class="nt">return</span><span class="p">.</span><span class="nc">period</span><span class="err">`</span><span class="o">,</span> <span class="nt">along</span> <span class="nt">with</span> <span class="nt">associated</span> <span class="nt">CIs</span> <span class="o">(</span><span class="nt">calculated</span> <span class="nt">using</span> <span class="nt">default</span> <span class="err">`</span><span class="nt">method</span><span class="err">`</span> <span class="nt">arguments</span> <span class="nt">depending</span> <span class="nt">on</span> <span class="nt">the</span> <span class="nt">estimation</span> <span class="nt">method</span> <span class="nt">used</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">fit</span><span class="o">.</span>  <span class="nt">For</span> <span class="nt">non-stationary</span> <span class="nt">models</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">are</span> <span class="nt">plotted</span> <span class="nt">as</span> <span class="nt">a</span> <span class="nt">line</span> <span class="nt">along</span> <span class="nt">with</span> <span class="nt">associated</span> <span class="nt">effective</span> <span class="nt">return</span> <span class="nt">levels</span> <span class="nt">for</span> <span class="nt">return</span> <span class="nt">periods</span> <span class="nt">of</span> <span class="nt">2</span><span class="o">,</span> <span class="nt">20</span> <span class="nt">and</span> <span class="nt">100</span> <span class="nt">years</span> <span class="o">(</span><span class="nt">unless</span> <span class="err">`</span><span class="nt">return</span><span class="p">.</span><span class="nc">period</span><span class="err">`</span> <span class="nt">is</span> <span class="nt">specified</span> <span class="nt">by</span> <span class="nt">the</span> <span class="nt">user</span> <span class="nt">to</span> <span class="nt">other</span> <span class="nt">values</span><span class="o">.</span>  <span class="nt">Other</span> <span class="nt">possible</span> <span class="nt">values</span> <span class="nt">for</span> <span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="nt">include</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">hist</span><span class="p">}</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">is</span> <span class="nt">similar</span> <span class="nt">to</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">density</span><span class="p">}</span><span class="o">,</span> <span class="nt">but</span> <span class="nt">shows</span> <span class="nt">the</span> <span class="nt">histogram</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">and</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">trace</span><span class="p">}</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">is</span> <span class="nt">not</span> <span class="nt">used</span> <span class="nt">for</span> <span class="nt">L-moment</span> <span class="nt">fits</span><span class="o">.</span>  <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">MLE</span><span class="o">/</span><span class="nt">GMLE</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">trace</span> <span class="nt">yields</span> <span class="nt">a</span> <span class="nt">panel</span> <span class="nt">of</span> <span class="nt">plots</span> <span class="nt">that</span> <span class="nt">show</span> <span class="nt">the</span> <span class="nt">negative</span> <span class="nt">log-likelihood</span> <span class="nt">and</span> <span class="nt">gradient</span> <span class="nt">negative</span> <span class="nt">log-likelihood</span> <span class="o">(</span><span class="nt">note</span> <span class="nt">that</span> <span class="nt">the</span> <span class="nt">MLE</span> <span class="nt">gradient</span> <span class="nt">is</span> <span class="nt">currently</span> <span class="nt">used</span> <span class="nt">even</span> <span class="nt">for</span> <span class="nt">GMLE</span><span class="o">)</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">estimated</span> <span class="nt">parameter</span><span class="o">(</span><span class="nt">s</span><span class="o">);</span> <span class="nt">allowing</span> <span class="nt">one</span> <span class="nt">parameter</span> <span class="nt">to</span> <span class="nt">vary</span> <span class="nt">according</span> <span class="nt">to</span> <span class="err">`</span><span class="nt">prange</span><span class="err">`</span><span class="o">,</span> <span class="nt">while</span> <span class="nt">the</span> <span class="nt">others</span> <span class="nt">remain</span> <span class="nt">fixed</span> <span class="nt">at</span> <span class="nt">their</span> <span class="nt">estimated</span> <span class="nt">values</span><span class="o">.</span>  <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span><span class="o">,</span> <span class="nt">the</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">trace</span><span class="p">}</span> <span class="nt">option</span> <span class="nt">creates</span> <span class="nt">a</span> <span class="nt">panel</span> <span class="nt">of</span> <span class="nt">plots</span> <span class="nt">showing</span> <span class="nt">the</span> <span class="nt">posterior</span> <span class="nt">df</span> <span class="nt">and</span> <span class="nt">MCMC</span> <span class="nt">trace</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">parameter</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">method</span> <span class="o">:</span>  <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span><span class="o">:</span> <span class="nt">character</span> <span class="nt">naming</span> <span class="nt">which</span> <span class="nt">type</span> <span class="nt">of</span> <span class="nt">estimation</span> <span class="nt">method</span> <span class="nt">to</span> <span class="nt">use</span><span class="o">.</span>  <span class="nt">Default</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">maximum</span> <span class="nt">likelihood</span> <span class="nt">estimation</span> <span class="o">(</span><span class="nt">MLE</span><span class="o">).</span> <span class="o">,</span>
+
+<span class="nt">initial</span> <span class="o">:</span>  <span class="nt">A</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">with</span> <span class="nt">any</span> <span class="nt">named</span> <span class="nt">parameter</span> <span class="nt">component</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">initial</span> <span class="nt">value</span> <span class="nt">estimates</span> <span class="nt">for</span> <span class="nt">starting</span> <span class="nt">the</span> <span class="nt">numerical</span> <span class="nt">optimization</span> <span class="o">(</span><span class="nt">MLE</span><span class="o">/</span><span class="nt">GMLE</span><span class="o">)</span> <span class="nt">or</span> <span class="nt">the</span> <span class="nt">MCMC</span> <span class="nt">iterations</span> <span class="o">(</span><span class="nt">Bayesian</span><span class="o">).</span>  <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">MLE</span><span class="o">/</span><span class="nt">GMLE</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">is</span> <span class="nt">best</span> <span class="nt">to</span> <span class="nt">obtain</span> <span class="nt">a</span> <span class="nt">good</span> <span class="nt">intial</span> <span class="nt">guess</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">Bayesian</span> <span class="nt">case</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">is</span> <span class="nt">perhaps</span> <span class="nt">better</span> <span class="nt">to</span> <span class="nt">choose</span> <span class="nt">poor</span> <span class="nt">initial</span> <span class="nt">estimates</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">NULL</span> <span class="o">(</span><span class="nt">default</span><span class="o">),</span> <span class="nt">then</span> <span class="nt">L-moments</span> <span class="nt">estimates</span> <span class="nt">and</span> <span class="nt">estimates</span> <span class="nt">based</span> <span class="nt">on</span> <span class="nt">Gumbel</span> <span class="nt">moments</span> <span class="nt">will</span> <span class="nt">be</span> <span class="nt">calculated</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">whichever</span> <span class="nt">yields</span> <span class="nt">the</span> <span class="nt">lowest</span> <span class="nt">negative</span> <span class="nt">log-likelihood</span> <span class="nt">is</span> <span class="nt">used</span><span class="o">.</span>  <span class="nt">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">type</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">PP</span><span class="p">}</span><span class="o">,</span> <span class="nt">an</span> <span class="nt">additional</span> <span class="nt">MLE</span><span class="o">/</span><span class="nt">GMLE</span> <span class="nt">estimate</span> <span class="nt">is</span> <span class="nt">made</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">generalized</span> <span class="nt">Pareto</span> <span class="o">(</span><span class="nt">GP</span><span class="o">)</span> <span class="nt">df</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">parameters</span> <span class="nt">are</span> <span class="nt">converted</span> <span class="nt">to</span> <span class="nt">those</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">Poisson</span> <span class="nt">Process</span> <span class="o">(</span><span class="nt">PP</span><span class="o">)</span> <span class="nt">model</span><span class="o">.</span>  <span class="nt">Again</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">initial</span> <span class="nt">estimates</span> <span class="nt">yielding</span> <span class="nt">the</span> <span class="nt">lowest</span> <span class="nt">negative</span> <span class="nt">log-likelihoo</span> <span class="nt">value</span> <span class="nt">are</span> <span class="nt">used</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">initial</span> <span class="nt">guess</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">span</span> <span class="o">:</span>  <span class="nt">single</span> <span class="nt">numeric</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">years</span> <span class="o">(</span><span class="nt">or</span> <span class="nt">other</span> <span class="nt">desired</span> <span class="nt">temporal</span> <span class="nt">unit</span><span class="o">)</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">data</span> <span class="nt">set</span><span class="o">.</span>  <span class="nt">Only</span> <span class="nt">used</span> <span class="nt">for</span> <span class="nt">POT</span> <span class="nt">models</span><span class="o">,</span> <span class="nt">and</span> <span class="nt">only</span> <span class="nt">important</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">estimation</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">PP</span> <span class="nt">model</span><span class="o">,</span> <span class="nt">but</span> <span class="nt">important</span> <span class="nt">for</span> <span class="nt">subsequent</span> <span class="nt">estimates</span> <span class="nt">of</span> <span class="nt">return</span> <span class="nt">levels</span> <span class="nt">for</span> <span class="nt">any</span> <span class="nt">POT</span> <span class="nt">model</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">missing</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">will</span> <span class="nt">be</span> <span class="nt">calculated</span> <span class="nt">using</span> <span class="nt">information</span> <span class="nt">from</span> <span class="err">`</span><span class="nt">time</span><span class="p">.</span><span class="nc">units</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">units</span> <span class="o">:</span>  <span class="o">(</span><span class="nt">optional</span><span class="o">)</span> <span class="nt">character</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">units</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">data</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">if</span> <span class="nt">given</span> <span class="nt">may</span> <span class="nt">be</span> <span class="nt">used</span> <span class="nt">subsequently</span> <span class="o">(</span><span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">.,</span> <span class="nt">on</span> <span class="nt">plot</span> <span class="nt">axis</span> <span class="nt">labels</span><span class="o">,</span> <span class="nt">etc</span><span class="o">.).</span> <span class="o">,</span>
+
+<span class="nt">time</span><span class="p">.</span><span class="nc">units</span> <span class="o">:</span>  <span class="nt">character</span> <span class="nt">string</span> <span class="nt">that</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">one</span> <span class="nt">of</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">hours</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">minutes</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">seconds</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">days</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">months</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">years</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/hour</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/minute</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/second</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/day</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/month</span><span class="p">}</span><span class="o">,</span> <span class="nt">or</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">m/year</span><span class="p">}</span><span class="o">;</span> <span class="nt">where</span> <span class="nt">m</span> <span class="nt">is</span> <span class="nt">a</span> <span class="nt">number</span><span class="o">.</span>  <span class="nt">If</span> <span class="err">`</span><span class="nt">span</span><span class="err">`</span> <span class="nt">is</span> <span class="nt">missing</span><span class="o">,</span> <span class="nt">then</span> <span class="nt">this</span> <span class="nt">argument</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">in</span> <span class="nt">determining</span> <span class="nt">the</span> <span class="nt">value</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">span</span><span class="err">`</span><span class="o">.</span>  <span class="nt">It</span> <span class="nt">is</span> <span class="nt">also</span> <span class="nt">returned</span> <span class="nt">with</span> <span class="nt">the</span> <span class="nt">output</span> <span class="nt">and</span> <span class="nt">used</span> <span class="nt">subsequently</span> <span class="nt">for</span> <span class="nt">plot</span> <span class="nt">labelling</span><span class="o">,</span> <span class="nt">etc</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">period</span><span class="p">.</span><span class="nc">basis</span> <span class="o">:</span>  <span class="nt">character</span> <span class="nt">string</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">units</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">period</span><span class="o">.</span>  <span class="nt">Used</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">plot</span> <span class="nt">labelling</span> <span class="nt">and</span> <span class="nt">naming</span> <span class="nt">output</span> <span class="nt">vectors</span> <span class="nt">from</span> <span class="nt">some</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">method</span> <span class="nt">functions</span> <span class="o">(</span><span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">.,</span> <span class="nt">for</span> <span class="nt">establishing</span> <span class="nt">what</span> <span class="nt">the</span> <span class="nt">period</span> <span class="nt">represents</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">return</span> <span class="nt">period</span><span class="o">).</span> <span class="o">,</span>
+
+<span class="nt">rperiods</span> <span class="o">:</span>  <span class="nt">numeric</span> <span class="nt">vector</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">return</span> <span class="nt">period</span><span class="o">(</span><span class="nt">s</span><span class="o">)</span> <span class="nt">for</span> <span class="nt">which</span> <span class="nt">it</span> <span class="nt">is</span> <span class="nt">desired</span> <span class="nt">to</span> <span class="nt">calculate</span> <span class="nt">the</span> <span class="nt">corresponding</span> <span class="nt">return</span> <span class="nt">levels</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">period</span> <span class="o">:</span>  <span class="nt">character</span> <span class="nt">string</span> <span class="nt">naming</span> <span class="nt">the</span> <span class="nt">units</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">return</span> <span class="nt">period</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">burn</span><span class="p">.</span><span class="nc">in</span> <span class="o">:</span>  <span class="nt">The</span> <span class="nt">first</span> <span class="err">`</span><span class="nt">burn</span><span class="p">.</span><span class="nc">in</span><span class="err">`</span> <span class="nt">values</span> <span class="nt">are</span> <span class="nt">thrown</span> <span class="nt">out</span> <span class="nt">before</span> <span class="nt">calculating</span> <span class="nt">anything</span> <span class="nt">from</span> <span class="nt">the</span> <span class="nt">MCMC</span> <span class="nt">sample</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">a</span> <span class="o">:</span>  <span class="nt">when</span> <span class="nt">plotting</span> <span class="nt">empirical</span> <span class="nt">probabilies</span> <span class="nt">and</span> <span class="nt">such</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">function</span> <span class="err">`</span><span class="nt">ppoints</span><span class="err">`</span> <span class="nt">is</span> <span class="nt">called</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">has</span> <span class="nt">this</span> <span class="nt">argument</span> <span class="err">`</span><span class="nt">a</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">d</span> <span class="o">:</span>  <span class="nt">numeric</span> <span class="nt">determining</span> <span class="nt">how</span> <span class="nt">to</span> <span class="nt">scale</span> <span class="nt">the</span> <span class="nt">rate</span> <span class="nt">parameter</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">point</span> <span class="nt">process</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">NULL</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">function</span> <span class="nt">will</span> <span class="nt">attempt</span> <span class="nt">to</span> <span class="nt">scale</span> <span class="nt">based</span> <span class="nt">on</span> <span class="nt">the</span> <span class="nt">values</span> <span class="nt">of</span> <span class="err">`</span><span class="nt">period</span><span class="p">.</span><span class="nc">basis</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">time</span><span class="p">.</span><span class="nc">units</span><span class="err">`</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">first</span> <span class="nt">of</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">year</span><span class="p">}</span> <span class="nt">and</span> <span class="nt">the</span> <span class="nt">second</span> <span class="nt">of</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">one</span> <span class="nt">of</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">days</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">months</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">years</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">hours</span><span class="p">}</span><span class="o">,</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">minutes</span><span class="p">}</span> <span class="nt">or</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">seconds</span><span class="p">}</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">none</span> <span class="nt">of</span> <span class="nt">these</span> <span class="nt">are</span> <span class="nt">the</span> <span class="nt">case</span><span class="o">,</span> <span class="nt">then</span> <span class="err">`</span><span class="nt">d</span><span class="err">`</span> <span class="nt">should</span> <span class="nt">be</span> <span class="nt">specified</span><span class="o">,</span> <span class="nt">otherwise</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">is</span> <span class="nt">not</span> <span class="nt">necessary</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">density</span><span class="p">.</span><span class="nc">args</span> <span class="o">:</span>  <span class="nt">named</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">containing</span> <span class="nt">arguments</span> <span class="nt">to</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">density</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">hist</span><span class="err">`</span> <span class="nt">functions</span><span class="o">,</span> <span class="nt">respectively</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">hist</span><span class="p">.</span><span class="nc">args</span> <span class="o">:</span>  <span class="nt">named</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">containing</span> <span class="nt">arguments</span> <span class="nt">to</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">density</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">hist</span><span class="err">`</span> <span class="nt">functions</span><span class="o">,</span> <span class="nt">respectively</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">na</span><span class="p">.</span><span class="nc">action</span> <span class="o">:</span>  <span class="nt">function</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">called</span> <span class="nt">to</span> <span class="nt">handle</span> <span class="nt">missing</span> <span class="nt">values</span><span class="o">.</span>  <span class="nt">Generally</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">should</span> <span class="nt">remain</span> <span class="nt">at</span> <span class="nt">the</span> <span class="nt">default</span> <span class="o">(</span><span class="nt">na</span><span class="p">.</span><span class="nc">fail</span><span class="o">),</span> <span class="nt">and</span> <span class="nt">the</span> <span class="nt">user</span> <span class="nt">should</span> <span class="nt">take</span> <span class="nt">care</span> <span class="nt">to</span> <span class="nt">impute</span> <span class="nt">missing</span> <span class="nt">values</span> <span class="nt">in</span> <span class="nt">an</span> <span class="nt">appropriate</span> <span class="nt">manner</span> <span class="nt">as</span> <span class="nt">it</span> <span class="nt">may</span> <span class="nt">have</span> <span class="nt">serious</span> <span class="nt">consequences</span> <span class="nt">on</span> <span class="nt">the</span> <span class="nt">results</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">optim</span><span class="p">.</span><span class="nc">args</span> <span class="o">:</span>  <span class="nt">A</span> <span class="nt">list</span> <span class="nt">with</span> <span class="nt">named</span> <span class="nt">components</span> <span class="nt">matching</span> <span class="nt">exactly</span> <span class="nt">any</span> <span class="nt">arguments</span> <span class="nt">that</span> <span class="nt">the</span> <span class="nt">user</span> <span class="nt">wishes</span> <span class="nt">to</span> <span class="nt">specify</span> <span class="nt">to</span> <span class="err">`</span><span class="nt">optim</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">MLE</span> <span class="nt">and</span> <span class="nt">GMLE</span> <span class="nt">methods</span><span class="o">.</span>  <span class="nt">By</span> <span class="nt">default</span><span class="o">,</span> <span class="nt">the</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">BFGS</span><span class="p">}</span> <span class="nt">method</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">along</span> <span class="nt">with</span> <span class="err">`</span><span class="nt">grlevd</span><span class="err">`</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">gradient</span> <span class="nt">argument</span><span class="o">.</span>  <span class="nt">Generally</span><span class="o">,</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">grlevd</span><span class="err">`</span> <span class="nt">function</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">for</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">gr</span><span class="err">`</span> <span class="nt">option</span> <span class="nt">unless</span> <span class="nt">the</span> <span class="nt">user</span> <span class="nt">specifies</span> <span class="nt">otherwise</span><span class="o">,</span> <span class="nt">or</span> <span class="nt">the</span> <span class="nt">optimization</span> <span class="nt">method</span> <span class="nt">does</span> <span class="nt">not</span> <span class="nt">take</span> <span class="nt">gradient</span> <span class="nt">information</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">priorFun</span> <span class="o">:</span>  <span class="nt">character</span> <span class="nt">naming</span> <span class="nt">a</span> <span class="nt">prior</span> <span class="nt">df</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">for</span> <span class="nt">methods</span> <span class="nt">GMLE</span> <span class="nt">and</span> <span class="nt">Bayesian</span><span class="o">.</span>  <span class="nt">The</span> <span class="nt">default</span> <span class="nt">for</span> <span class="nt">GMLE</span> <span class="o">(</span><span class="nt">not</span> <span class="nt">including</span> <span class="nt">Gumbel</span> <span class="nt">or</span> <span class="nt">Exponential</span> <span class="nt">types</span><span class="o">)</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">the</span> <span class="nt">one</span> <span class="nt">suggested</span> <span class="nt">by</span> <span class="nt">Martins</span> <span class="nt">and</span> <span class="nt">Stedinger</span> <span class="o">(</span><span class="nt">2000</span><span class="o">,</span> <span class="nt">2001</span><span class="o">)</span> <span class="nt">on</span> <span class="nt">the</span> <span class="nt">shape</span> <span class="nt">parameter</span><span class="o">;</span> <span class="nt">a</span> <span class="nt">beta</span> <span class="nt">df</span> <span class="nt">on</span> <span class="nt">-0</span><span class="p">.</span><span class="nc">5</span> <span class="nt">to</span> <span class="nt">0</span><span class="p">.</span><span class="nc">5</span> <span class="nt">with</span> <span class="nt">parameters</span> <span class="err">`</span><span class="nt">p</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">q</span><span class="err">`</span><span class="o">.</span>  <span class="nt">Must</span> <span class="nt">take</span> <span class="err">`</span><span class="nt">x</span><span class="err">`</span> <span class="nt">as</span> <span class="nt">its</span> <span class="nt">first</span> <span class="nt">argument</span> <span class="nt">for</span> <span class="err">`</span><span class="nt">method</span><span class="err">`</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">GMLE</span><span class="p">}</span><span class="o">.</span>  <span class="nt">Optional</span> <span class="nt">arguments</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">default</span> <span class="nt">function</span> <span class="nt">are</span> <span class="err">`</span><span class="nt">p</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">q</span><span class="err">`</span> <span class="o">(</span><span class="nt">see</span> <span class="nt">details</span> <span class="nt">section</span><span class="o">)</span><span class="p">.</span><span class="nc">The</span> <span class="nt">default</span> <span class="nt">for</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">normal</span> <span class="nt">distribution</span> <span class="nt">functions</span><span class="o">.</span>  <span class="nt">For</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">function</span> <span class="nt">must</span> <span class="nt">take</span> <span class="err">`</span><span class="nt">theta</span><span class="err">`</span> <span class="nt">as</span> <span class="nt">its</span> <span class="nt">first</span> <span class="nt">argument</span><span class="p">.</span><span class="nc">Note</span><span class="o">:</span> <span class="nt">if</span> <span class="nt">this</span> <span class="nt">argument</span> <span class="nt">is</span> <span class="nt">not</span> <span class="nt">NULL</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">method</span><span class="err">`</span> <span class="nt">is</span> <span class="nt">set</span> <span class="nt">to</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">MLE</span><span class="p">}</span><span class="o">,</span> <span class="nt">it</span> <span class="nt">will</span> <span class="nt">be</span> <span class="nt">changed</span> <span class="nt">to</span> <span class="err">\</span><span class="nt">dQuote</span><span class="p">{</span><span class="err">GMLE</span><span class="p">}</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">priorParams</span> <span class="o">:</span>  <span class="nt">named</span> <span class="nt">list</span> <span class="nt">containing</span> <span class="nt">any</span> <span class="nt">prior</span> <span class="nt">df</span> <span class="nt">parameters</span> <span class="o">(</span><span class="nt">where</span> <span class="nt">the</span> <span class="nt">list</span> <span class="nt">names</span> <span class="nt">are</span> <span class="nt">the</span> <span class="nt">same</span> <span class="nt">as</span> <span class="nt">the</span> <span class="nt">function</span> <span class="nt">argument</span> <span class="nt">names</span><span class="o">).</span>  <span class="nt">Default</span> <span class="nt">for</span> <span class="nt">GMLE</span> <span class="o">(</span><span class="nt">assuming</span> <span class="nt">the</span> <span class="nt">default</span> <span class="nt">function</span> <span class="nt">is</span> <span class="nt">used</span><span class="o">)</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="err">`</span><span class="nt">q</span><span class="err">`</span> <span class="o">=</span> <span class="nt">6</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">p</span><span class="err">`</span> <span class="o">=</span> <span class="nt">9</span><span class="o">.</span>  <span class="nt">Note</span> <span class="nt">that</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">Martins</span> <span class="nt">and</span> <span class="nt">Stedinger</span> <span class="o">(</span><span class="nt">2000</span><span class="o">,</span> <span class="nt">2001</span><span class="o">)</span> <span class="nt">papers</span><span class="o">,</span> <span class="nt">they</span> <span class="nt">use</span> <span class="nt">a</span> <span class="nt">different</span> <span class="nt">EVD</span> <span class="nt">parametrization</span> <span class="nt">than</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">here</span> <span class="nt">such</span> <span class="nt">that</span> <span class="nt">a</span> <span class="nt">positive</span> <span class="nt">shape</span> <span class="nt">parameter</span> <span class="nt">gives</span> <span class="nt">the</span> <span class="nt">upper</span> <span class="nt">bounded</span> <span class="nt">distribution</span> <span class="nt">instead</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">heavy-tail</span> <span class="nt">one</span> <span class="o">(</span><span class="nt">as</span> <span class="nt">emloyed</span> <span class="nt">here</span><span class="o">).</span>  <span class="nt">To</span> <span class="nt">be</span> <span class="nt">consistent</span> <span class="nt">with</span> <span class="nt">these</span> <span class="nt">papers</span><span class="o">,</span> <span class="err">`</span><span class="nt">p</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">q</span><span class="err">`</span> <span class="nt">are</span> <span class="nt">reversed</span> <span class="nt">inside</span> <span class="nt">the</span> <span class="nt">code</span> <span class="nt">so</span> <span class="nt">that</span> <span class="nt">they</span> <span class="nt">have</span> <span class="nt">the</span> <span class="nt">same</span> <span class="nt">interpretation</span> <span class="nt">as</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">papers</span><span class="p">.</span><span class="nc">Default</span> <span class="nt">for</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">ML</span> <span class="nt">estimates</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">means</span> <span class="nt">of</span> <span class="nt">each</span> <span class="nt">parameter</span> <span class="o">(</span><span class="nt">may</span> <span class="nt">be</span> <span class="nt">changed</span> <span class="nt">using</span> <span class="err">`</span><span class="nt">m</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">a</span> <span class="nt">vector</span> <span class="nt">of</span> <span class="nt">same</span> <span class="nt">length</span> <span class="nt">as</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">parameters</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">estimated</span> <span class="o">(</span><span class="nt">i</span><span class="p">.</span><span class="nc">e</span><span class="o">.,</span> <span class="nt">if</span> <span class="nt">using</span> <span class="nt">the</span> <span class="nt">default</span> <span class="nt">prior</span> <span class="nt">df</span><span class="o">))</span> <span class="nt">and</span> <span class="nt">a</span> <span class="nt">standard</span> <span class="nt">deviation</span> <span class="nt">of</span> <span class="nt">10</span> <span class="nt">for</span> <span class="nt">all</span> <span class="nt">other</span> <span class="nt">parameters</span> <span class="o">(</span><span class="nt">again</span><span class="o">,</span> <span class="nt">if</span> <span class="nt">using</span> <span class="nt">the</span> <span class="nt">default</span> <span class="nt">prior</span> <span class="nt">df</span><span class="o">,</span> <span class="nt">may</span> <span class="nt">be</span> <span class="nt">changed</span> <span class="nt">using</span> <span class="err">`</span><span class="nt">v</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">a</span> <span class="nt">vector</span> <span class="nt">of</span> <span class="nt">length</span> <span class="nt">equal</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">parameters</span><span class="o">).</span> <span class="o">,</span>
+
+<span class="nt">proposalFun</span> <span class="o">:</span>  <span class="nt">For</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span> <span class="nt">only</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">is</span> <span class="nt">a</span> <span class="nt">character</span> <span class="nt">naming</span> <span class="nt">a</span> <span class="nt">function</span> <span class="nt">used</span> <span class="nt">to</span> <span class="nt">generate</span> <span class="nt">proposal</span> <span class="nt">parameters</span> <span class="nt">at</span> <span class="nt">each</span> <span class="nt">iteration</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">MCMC</span><span class="o">.</span>  <span class="nt">If</span> <span class="nt">NULL</span> <span class="o">(</span><span class="nt">default</span><span class="o">),</span> <span class="nt">a</span> <span class="nt">random</span> <span class="nt">walk</span> <span class="nt">chain</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">whereby</span> <span class="nt">if</span> <span class="nt">theta</span><span class="p">.</span><span class="nc">i</span> <span class="nt">is</span> <span class="nt">the</span> <span class="nt">current</span> <span class="nt">value</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">parameter</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">proposed</span> <span class="nt">new</span> <span class="nt">parameter</span> <span class="nt">theta</span><span class="p">.</span><span class="nc">star</span> <span class="nt">is</span> <span class="nt">given</span> <span class="nt">by</span> <span class="nt">theta</span><span class="p">.</span><span class="nc">i</span> <span class="o">+</span> <span class="nt">z</span><span class="o">,</span> <span class="nt">where</span> <span class="nt">z</span> <span class="nt">is</span> <span class="nt">drawn</span> <span class="nt">at</span> <span class="nt">random</span> <span class="nt">from</span> <span class="nt">a</span> <span class="nt">normal</span> <span class="nt">df</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">proposalParams</span> <span class="o">:</span>  <span class="nt">A</span> <span class="nt">named</span> <span class="nt">list</span> <span class="nt">object</span> <span class="nt">describing</span> <span class="nt">any</span> <span class="nt">optional</span> <span class="nt">arguments</span> <span class="nt">to</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">proposalFun</span><span class="err">`</span> <span class="nt">function</span><span class="o">.</span>  <span class="nt">All</span> <span class="nt">functions</span> <span class="nt">must</span> <span class="nt">take</span> <span class="nt">argument</span> <span class="err">`</span><span class="nt">p</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">a</span> <span class="nt">vector</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">parameters</span><span class="o">,</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">ind</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">is</span> <span class="nt">used</span> <span class="nt">to</span> <span class="nt">identify</span> <span class="nt">which</span> <span class="nt">parameter</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">proposed</span><span class="o">.</span>  <span class="nt">The</span> <span class="nt">default</span> <span class="err">`</span><span class="nt">proposalFun</span><span class="err">`</span> <span class="nt">function</span> <span class="nt">takes</span> <span class="nt">additional</span> <span class="nt">arguments</span> <span class="err">`</span><span class="nt">mean</span><span class="err">`</span> <span class="nt">and</span> <span class="err">`</span><span class="nt">sd</span><span class="err">`</span><span class="o">,</span> <span class="nt">which</span> <span class="nt">must</span> <span class="nt">be</span> <span class="nt">vectors</span> <span class="nt">of</span> <span class="nt">length</span> <span class="nt">equal</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">parameters</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">model</span> <span class="o">(</span><span class="nt">default</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">zero</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">mean</span> <span class="nt">of</span> <span class="nt">z</span> <span class="nt">for</span> <span class="nt">every</span> <span class="nt">parameter</span> <span class="nt">and</span> <span class="nt">0</span><span class="p">.</span><span class="nc">1</span> <span class="nt">for</span> <span class="nt">its</span> <span class="nt">standard</span> <span class="nt">deviation</span><span class="o">).</span> <span class="o">,</span>
+
+<span class="nt">iter</span> <span class="o">:</span>  <span class="nt">Used</span> <span class="nt">only</span> <span class="nt">for</span> <span class="nt">Bayesian</span> <span class="nt">estimation</span><span class="o">,</span> <span class="nt">this</span> <span class="nt">is</span> <span class="nt">the</span> <span class="nt">number</span> <span class="nt">of</span> <span class="nt">MCMC</span> <span class="nt">iterations</span> <span class="nt">to</span> <span class="nt">do</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">weights</span> <span class="o">:</span>  <span class="nt">numeric</span> <span class="nt">of</span> <span class="nt">length</span> <span class="nt">1</span> <span class="nt">or</span> <span class="nt">n</span> <span class="nt">giving</span> <span class="nt">weights</span> <span class="nt">to</span> <span class="nt">be</span> <span class="nt">applied</span>     <span class="nt">in</span> <span class="nt">the</span> <span class="nt">likelihood</span> <span class="nt">calculations</span> <span class="o">(</span><span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">.,</span> <span class="nt">if</span> <span class="nt">there</span> <span class="nt">are</span> <span class="nt">data</span> <span class="nt">points</span> <span class="nt">to</span>     <span class="nt">be</span> <span class="nt">weighted</span> <span class="nt">more</span><span class="o">/</span><span class="nt">less</span> <span class="nt">heavily</span> <span class="nt">than</span> <span class="nt">others</span><span class="o">).</span> <span class="o">,</span>
+
+<span class="nt">blocks</span> <span class="o">:</span>  <span class="nt">An</span> <span class="nt">optional</span> <span class="nt">list</span> <span class="nt">containing</span> <span class="nt">information</span> <span class="nt">required</span> <span class="nt">to</span> <span class="nt">fit</span> <span class="nt">point</span> <span class="nt">process</span> <span class="nt">models</span> <span class="nt">in</span> <span class="nt">a</span> <span class="nt">computationally-efficient</span> <span class="nt">manner</span> <span class="nt">by</span> <span class="nt">using</span> <span class="nt">only</span> <span class="nt">the</span> <span class="nt">exceedances</span> <span class="nt">and</span> <span class="nt">not</span> <span class="nt">the</span> <span class="nt">observations</span> <span class="nt">below</span> <span class="nt">the</span> <span class="nt">threshold</span><span class="o">(</span><span class="nt">s</span><span class="o">).</span> <span class="nt">See</span> <span class="nt">details</span> <span class="nt">for</span> <span class="nt">further</span> <span class="nt">information</span><span class="o">.</span>       <span class="o">,</span>
+
+<span class="nt">FUN</span> <span class="o">:</span>  <span class="nt">character</span> <span class="nt">string</span> <span class="nt">naming</span> <span class="nt">a</span> <span class="nt">function</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">to</span> <span class="nt">estimate</span> <span class="nt">the</span> <span class="nt">parameters</span> <span class="nt">from</span> <span class="nt">the</span> <span class="nt">MCMC</span> <span class="nt">sample</span><span class="o">.</span>  <span class="nt">The</span> <span class="nt">function</span> <span class="nt">is</span> <span class="nt">applied</span> <span class="nt">to</span> <span class="nt">each</span> <span class="nt">column</span> <span class="nt">of</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">results</span><span class="err">`</span> <span class="nt">component</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">returned</span> <span class="err">`</span><span class="nt">fevd</span><span class="err">`</span> <span class="nt">object</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">verbose</span> <span class="o">:</span>  <span class="nt">logical</span><span class="o">;</span> <span class="nt">should</span> <span class="nt">progress</span> <span class="nt">information</span> <span class="nt">be</span> <span class="nt">printed</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">screen</span><span class="o">?</span>  <span class="nt">If</span> <span class="nt">TRUE</span><span class="o">,</span> <span class="nt">for</span> <span class="nt">MLE</span><span class="o">/</span><span class="nt">GMLE</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">argument</span> <span class="err">`</span><span class="nt">trace</span><span class="err">`</span> <span class="nt">will</span> <span class="nt">be</span> <span class="nt">set</span> <span class="nt">to</span> <span class="nt">6</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">call</span> <span class="nt">to</span> <span class="err">`</span><span class="nt">optim</span><span class="err">`</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="nt">prange</span> <span class="o">:</span>  <span class="nt">matrix</span> <span class="nt">whose</span> <span class="nt">columns</span> <span class="nt">are</span> <span class="nt">numeric</span> <span class="nt">vectors</span> <span class="nt">of</span> <span class="nt">length</span> <span class="nt">two</span> <span class="nt">for</span> <span class="nt">each</span> <span class="nt">parameter</span> <span class="nt">in</span> <span class="nt">the</span> <span class="nt">model</span> <span class="nt">giving</span> <span class="nt">the</span> <span class="nt">parameter</span> <span class="nt">range</span> <span class="nt">over</span> <span class="nt">which</span> <span class="nt">trace</span> <span class="nt">plots</span> <span class="nt">should</span> <span class="nt">be</span> <span class="nt">made</span><span class="o">.</span>  <span class="nt">Default</span> <span class="nt">is</span> <span class="nt">to</span> <span class="nt">use</span> <span class="nt">either</span> <span class="o">+/</span><span class="nt">-</span> <span class="nt">2</span> <span class="o">*</span> <span class="nt">std</span><span class="o">.</span> <span class="nt">err</span><span class="o">.</span> <span class="nt">of</span> <span class="nt">the</span> <span class="nt">parameter</span> <span class="o">(</span><span class="nt">first</span> <span class="nt">choice</span><span class="o">)</span> <span class="nt">or</span><span class="o">,</span> <span class="nt">if</span> <span class="nt">the</span> <span class="nt">standard</span> <span class="nt">error</span> <span class="nt">cannot</span> <span class="nt">be</span> <span class="nt">calculated</span><span class="o">,</span> <span class="nt">then</span> <span class="o">+/</span><span class="nt">-</span> <span class="nt">2</span> <span class="o">*</span> <span class="nt">log2</span><span class="o">(</span><span class="nt">abs</span><span class="o">(</span><span class="nt">parameter</span><span class="o">)).</span>  <span class="nt">Typically</span><span class="o">,</span> <span class="nt">these</span> <span class="nt">values</span> <span class="nt">seem</span> <span class="nt">to</span> <span class="nt">work</span> <span class="nt">very</span> <span class="nt">well</span> <span class="nt">for</span> <span class="nt">these</span> <span class="nt">plots</span><span class="o">.</span> <span class="o">,</span>
+
+<span class="o">...</span> <span class="o">:</span>  <span class="nt">Not</span> <span class="nt">used</span> <span class="nt">by</span> <span class="nt">most</span> <span class="nt">functions</span> <span class="nt">here</span><span class="o">.</span>  <span class="nt">Optional</span> <span class="nt">arguments</span> <span class="nt">to</span> <span class="err">`</span><span class="nt">plot</span><span class="err">`</span> <span class="nt">for</span> <span class="nt">the</span> <span class="nt">various</span> <span class="err">`</span><span class="nt">plot</span><span class="err">`</span> <span class="nt">method</span> <span class="nt">functions</span><span class="p">.</span><span class="nc">In</span> <span class="nt">the</span> <span class="nt">case</span> <span class="nt">of</span> <span class="nt">the</span> <span class="err">`</span><span class="nt">summary</span><span class="err">`</span> <span class="nt">method</span> <span class="nt">functions</span><span class="o">,</span> <span class="nt">the</span> <span class="nt">logical</span> <span class="nt">argument</span> <span class="err">`</span><span class="nt">silent</span><span class="err">`</span> <span class="nt">may</span> <span class="nt">be</span> <span class="nt">passed</span> <span class="nt">to</span> <span class="nt">suppress</span> <span class="o">(</span><span class="nt">if</span> <span class="nt">TRUE</span><span class="o">)</span> <span class="nt">printing</span> <span class="nt">any</span> <span class="nt">information</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">screen</span><span class="o">.</span> <span class="o">,</span>
+</pre></div>
+
+
+<p>Y ahora vamos a hacer un cálculo sin meternos mucho en todas las opciones posibles.</p>
+<p><code>res = fevd(max_y.values, type = "GEV", method = "GMLE")</code></p>
+<p>¿Qué estructura tiene la variable <code>res</code> que acabamos de crear y que tiene los resultados del ajuste?</p>
+<p><code>print(type(res))</code></p>
+<p><strong>OUTPUT:</strong></p>
+<p><code>&lt;class ';rpy2.robjects.vectors.ListVector';&gt;</code></p>
+<p><code>print(res.r_repr)</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nt">bound</span> <span class="nt">method</span> <span class="nt">ListVector</span><span class="p">.</span><span class="nc">r_repr</span> <span class="nt">of</span> <span class="o">&lt;</span><span class="nt">ListVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10AB8878</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0CA9B458</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">Vector</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">...</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ListV...</span><span class="p">,</span> <span class="nx">ListV...</span><span class="cp">]</span>
+  <span class="nt">call</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;rpy2.robjects.vectors.Vector&#39;</span><span class="o">;&gt;</span>
+  <span class="o">&lt;</span><span class="nt">Vector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10AB8418</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0CB2FFB4</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">RNULLType</span><span class="p">,</span> <span class="nx">Vector</span><span class="p">,</span> <span class="nx">Vector</span><span class="p">,</span> <span class="nx">Vector</span><span class="cp">]</span>
+  <span class="nt">data</span><span class="p">.</span><span class="nc">name</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span><span class="s1">&#39;;structure(c(22.2, 25.5, 21.5, 22.5, 23.7, 22.5, 21.7, 29.7, 24.2, &#39;</span><span class="p">;,</span>
+       <span class="s1">&#39;;23.8, 28.1, 23.4, 23.7, 25.6, 23.2, 24.9, 22.8, 24.6, 22.3, 25.5, &#39;</span><span class="p">;,</span>
+       <span class="s1">&#39;;22.6, 24, 20.8, 23.5, 24.4, 24.1, 25.1, 19.4, 22.8, 24.2, 25, &#39;</span><span class="p">;,</span>
+       <span class="s1">&#39;;25.3), .Dim = 32L)&#39;</span><span class="p">;,</span> <span class="s1">&#39;;&#39;</span><span class="p">;</span><span class="cp">]</span><span class="o">,</span> 
+      <span class="nt">dtype</span><span class="o">=</span><span class="s1">&#39;;&lt;U66&#39;</span><span class="o">;)</span>
+  <span class="nt">weights</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span> <span class="mi">1</span><span class="nx">.</span><span class="cp">]</span><span class="o">)</span>
+  <span class="o">...</span>
+  <span class="nt">call</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span><span class="s1">&#39;;location&#39;</span><span class="p">;,</span> <span class="s1">&#39;;scale&#39;</span><span class="p">;,</span> <span class="s1">&#39;;shape&#39;</span><span class="p">;</span><span class="cp">]</span><span class="o">,</span> 
+      <span class="nt">dtype</span><span class="o">=</span><span class="s1">&#39;;&lt;U8&#39;</span><span class="o">;)</span>
+<span class="o">&lt;</span><span class="nt">ListVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10AB8878</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0CA9B458</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">Vector</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">...</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ListV...</span><span class="p">,</span> <span class="nx">ListV...</span><span class="cp">]</span>
+<span class="o">&lt;</span><span class="nt">ListVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10AB8878</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0CA9B458</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">Vector</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">...</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ListV...</span><span class="p">,</span> <span class="nx">ListV...</span><span class="cp">]</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>Según nos indica lo anterior, ahora <code>res</code> es un vector que está compuesto de diferentes elementos. Los vectores pueden tener un nombre para todos o algunos de los elementos. Para acceder a estor nombres podemos hacer:</p>
+<p><code>res.names</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>array([&#39;;call&#39;;, &#39;;data.name&#39;;, &#39;;weights&#39;;, &#39;;in.data&#39;;, &#39;;x&#39;;, &#39;;priorFun&#39;;,
+       &#39;;priorParams&#39;;, &#39;;method&#39;;, &#39;;type&#39;;, &#39;;period.basis&#39;;, &#39;;par.models&#39;;,
+       &#39;;const.loc&#39;;, &#39;;const.scale&#39;;, &#39;;const.shape&#39;;, &#39;;n&#39;;, &#39;;na.action&#39;;,
+       &#39;;parnames&#39;;, &#39;;results&#39;;, &#39;;initial.results&#39;;], 
+      dtype=&#39;;&lt;U15&#39;;)
+</pre></div>
+
+
+<p>Según el output anterior, parece que hay un nombre <code>results</code>, ahí es donde se guardan los valores del ajuste, los estimadores. Para acceder al mismo podemos hacerlo de diferentes formas. Con Python tendriamos que saber el índice y acceder de forma normal (<code>__getitem__()</code>). Existe una forma alternativa usando el método <code>rx</code> que nos permite acceder directamente con el nombre:</p>
+<div class="highlight"><pre><span></span>results = res.rx(&#39;results&#39;)
+print(results.r_repr)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>&lt;bound method ListVector.r_repr of &lt;ListVector - Python:0x10ABBCB0 / R:0x0CBFBC40&gt;
+[ListVector]
+&lt;ListVector - Python:0x10ABBCB0 / R:0x0CBFBC40&gt;
+[ListVector]&gt;
+</pre></div>
+
+
+<p>Parece que tenemos un único elemento:</p>
+<div class="highlight"><pre><span></span>results = results[]
+results.r_repr
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="nt">bound</span> <span class="nt">method</span> <span class="nt">ListVector</span><span class="p">.</span><span class="nc">r_repr</span> <span class="nt">of</span> <span class="o">&lt;</span><span class="nt">ListVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10ABF490</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0C851BA0</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">...</span><span class="p">,</span> <span class="nx">RNULL...</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ListV...</span><span class="cp">]</span>
+  <span class="nt">par</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span> <span class="mf">23.06394152</span><span class="p">,</span>   <span class="mf">1.75769129</span><span class="p">,</span>  <span class="o">-</span><span class="mf">0.16288164</span><span class="cp">]</span><span class="o">)</span>
+  <span class="nt">value</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span>  <span class="mf">1.00000000e+16</span><span class="cp">]</span><span class="o">)</span>
+  <span class="nt">counts</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="cp">]</span><span class="o">,</span> <span class="nt">dtype</span><span class="o">=</span><span class="nt">int32</span><span class="o">)</span>
+  <span class="o">...</span>
+  <span class="nt">par</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;rpy2.rinterface.RNULLType&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">rpy2</span><span class="p">.</span><span class="nc">rinterface</span><span class="p">.</span><span class="nc">NULL</span>
+  <span class="nt">value</span><span class="o">:</span> <span class="o">&lt;</span><span class="nt">class</span> <span class="s1">&#39;;numpy.ndarray&#39;</span><span class="o">;&gt;</span>
+  <span class="nt">array</span><span class="o">(</span><span class="cp">[</span><span class="err">[</span> <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="cp">]</span><span class="o">,</span>
+       <span class="cp">[</span> <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="cp">]</span><span class="o">,</span>
+       <span class="cp">[</span> <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="p">,</span>  <span class="mi">0</span><span class="nx">.</span><span class="cp">]</span><span class="o">])</span>
+<span class="o">&lt;</span><span class="nt">ListVector</span> <span class="nt">-</span> <span class="nt">Python</span><span class="p">:</span><span class="nd">0x10ABF490</span> <span class="o">/</span> <span class="nt">R</span><span class="p">:</span><span class="nd">0x0C851BA0</span><span class="o">&gt;</span>
+<span class="cp">[</span><span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">...</span><span class="p">,</span> <span class="nx">RNULL...</span><span class="p">,</span> <span class="nx">ndarray</span><span class="p">,</span> <span class="nx">ListV...</span><span class="cp">]</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>Vemos ahora que <code>results</code> tiene un elemento con nombre <code>par</code> donde se guardan los valores de los estimadores del ajuste a la GEV que hemos obtenido usando GMLE. Vamos a obtener finalmente los valores de los estimadores:</p>
+<div class="highlight"><pre><span></span>location, scale, shape = results.rx(&#39;par&#39;)[][:]
+print(location, scale, shape)
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<p><code>23.0639415199 1.75769128743 -0.162881636772</code></p>
+<h1>Funcion mágica para R (antigua <code>rmagic</code>)</h1>
+<p>Usamos la antigua función mágica <code>rmagic</code> que ahora se activará en el notebook de la siguiente forma:</p>
+<p><code>%load_ext rpy2.ipython</code></p>
+<p>Veamos como funciona la functión mágica de R:</p>
+<p><code>help(rpy2.ipython.rmagic.RMagics.R)</code></p>
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>Help on function R in module rpy2.ipython.rmagic:
+
+R(self, line, cell=None, local_ns=None)
+    ::
+
+      %R [-i INPUT] [-o OUTPUT] [-n] [-w WIDTH] [-h HEIGHT] [-p POINTSIZE]
+             [-b BG] [--noisolation] [-u {px,in,cm,mm}] [-r RES]
+
+    Execute code in R, optionally returning results to the Python runtime.
+
+    In line mode, this will evaluate an expression and convert the returned
+    value to a Python object.  The return value is determined by rpy2&#39;;s
+    behaviour of returning the result of evaluating the final expression.
+
+    Multiple R expressions can be executed by joining them with semicolons::
+
+        In [9]: %R X=c(1,4,5,7); sd(X); mean(X)
+        Out[9]: array([ 4.25])
+
+    In cell mode, this will run a block of R code. The resulting value
+    is printed if it would printed be when evaluating the same code
+    within a standard R REPL.
+
+    Nothing is returned to python by default in cell mode::
+
+        In [10]: %%R
+           ....: Y = c(2,4,3,9)
+           ....: summary(lm(Y~X))
+
+        Call:
+        lm(formula = Y ~ X)
+
+        Residuals:
+            1     2     3     4
+         0.88 -0.24 -2.28  1.64
+
+        Coefficients:
+                    Estimate Std. Error t value Pr(&gt;|t|)
+        (Intercept)   0.0800     2.3000   0.035    0.975
+        X             1.0400     0.4822   2.157    0.164
+
+        Residual standard error: 2.088 on 2 degrees of freedom
+        Multiple R-squared: 0.6993,Adjusted R-squared: 0.549
+        F-statistic: 4.651 on 1 and 2 DF,  p-value: 0.1638
+
+    In the notebook, plots are published as the output of the cell::
+
+        %R plot(X, Y)
+
+    will create a scatter plot of X bs Y.
+
+    If cell is not None and line has some R code, it is prepended to
+    the R code in cell.
+
+    Objects can be passed back and forth between rpy2 and python via the -i -o flags in line::
+
+        In [14]: Z = np.array([1,4,5,10])
+
+        In [15]: %R -i Z mean(Z)
+        Out[15]: array([ 5.])
+
+        In [16]: %R -o W W=Z*mean(Z)
+        Out[16]: array([  5.,  20.,  25.,  50.])
+
+        In [17]: W
+        Out[17]: array([  5.,  20.,  25.,  50.])
+
+    The return value is determined by these rules:
+
+    * If the cell is not None (i.e., has contents), the magic returns None.
+
+    * If the final line results in a NULL value when evaluated
+      by rpy2, then None is returned.
+
+    * No attempt is made to convert the final value to a structured array.
+      Use %Rget to push a structured array.
+
+    * If the -n flag is present, there is no return value.
+
+    * A trailing &#39;;;&#39;; will also result in no return value as the last
+      value in the line is an empty string.
+
+    optional arguments:
+      -i INPUT, --input INPUT
+                            Names of input variable from shell.user_ns to be
+                            assigned to R variables of the same names after
+                            calling self.pyconverter. Multiple names can be passed
+                            separated only by commas with no whitespace.
+      -o OUTPUT, --output OUTPUT
+                            Names of variables to be pushed from rpy2 to
+                            shell.user_ns after executing cell body (rpy2&#39;;s
+                            internal facilities will apply ri2ro as appropriate).
+                            Multiple names can be passed separated only by commas
+                            with no whitespace.
+      -n, --noreturn        Force the magic to not return anything.
+
+    Plot:
+      Arguments to plotting device
+
+      -w WIDTH, --width WIDTH
+                            Width of plotting device in R.
+      -h HEIGHT, --height HEIGHT
+                            Height of plotting device in R.
+      -p POINTSIZE, --pointsize POINTSIZE
+                            Pointsize of plotting device in R.
+      -b BG, --bg BG        Background of plotting device in R.
+
+    SVG:
+      SVG specific arguments
+
+      --noisolation         Disable SVG isolation in the Notebook. By default,
+                            SVGs are isolated to avoid namespace collisions
+                            between figures.Disabling SVG isolation allows to
+                            reference previous figures or share CSS rules across a
+                            set of SVGs.
+
+    PNG:
+      PNG specific arguments
+
+      -u &lt;{px,in,cm,mm}&gt;, --units &lt;{px,in,cm,mm}&gt;
+                            Units of png plotting device sent as an argument to
+                            *png* in R. One of [&quot;px&quot;, &quot;in&quot;, &quot;cm&quot;, &quot;mm&quot;].
+      -r RES, --res RES     Resolution of png plotting device sent as an argument
+                            to *png* in R. Defaults to 72 if *units* is one of
+                            [&quot;in&quot;, &quot;cm&quot;, &quot;mm&quot;].
+      code
+</pre></div>
+
+
+<p>A veces, será más simple usar la función mágica para interactuar con R. Veamos un ejemplo donde le pasamos a R el valor obtenido de la función <code>fevd</code> del paquete <code>extRemes</code> de R que he usado anteriormente y corremos cierto código directamente desde R sin tener que usar <code>ro.r</code>.</p>
+<p><code>%R -i res plot.fevd(res)</code></p>
+<p><img alt="wpid2" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R2.png?style=centerme"></p>
+<p>En la anterior celda de código le he pasado como parámetro de entrada (<code>- i res</code>) la variable <code>res</code> que había obtenido anteriormente para que esté disponible desde R. y he ejecutado código R puro (<code>plot.fevd(res)</code>).</p>
+<p>Si lo anterior lo quiero hacer con rpy2 puedo hacer lo siquiente:</p>
+<p>CUIDADO, la siguiente celda de código puede provocar que se reinicialice el notebook y se rompa la sesión. Si has hecho cambios en el notebook guárdalos antes de ejecutar la celda, por lo que pueda pasar...</p>
+<div class="highlight"><pre><span></span>ro.globalenv[&#39;res&#39;] = res
+ro.r(&quot;plot.fevd(res)&quot;)
+
+rpy2.rinterface.NULL
+</pre></div>
+
+
+<p>Lo anterior me bloquea el notebook y me 'rompe' la sesión (<a href="httpss://bitbucket.org/rpy2/rpy2/issues?q=windows">en windows, al menos</a>) ya que la ventana de gráficos se abre de forma externa... Por tanto, una buena opción para trabajar de forma interactiva con Python y R de forma conjunta y que no se 'rompa' nada es usar tanto rpy2 como su extensión para el notebook de Jupyter (dejaremos de llamarlo IPython poco a poco).</p>
+<h1>Usando Python y R combinando rpy2 y la función mágica</h1>
+<p>Vamos a combinar las dos formas de trabajar con rpy2 en el siguiente ejemplo:</p>
+<div class="highlight"><pre><span></span>metodos = [&quot;MLE&quot;, &quot;GMLE&quot;]
+tipos = [&quot;GEV&quot;, &quot;Gumbel&quot;]
+</pre></div>
+
+
+<p>Lo que vamos a hacer es calcular los parámetros del ajuste usando la distribución GEV y Gumbel, que es un caso especial de la GEV. El ajuste lo calculamos usando tanto MLE como GMLE. Además de mostrar los valores resultantes del ajuste para los estimadores vamos a mostrar el dibujo de cada uno de los ajustes y algunos test de bondad. Usamos Python para toda la maquinaria de los bucles, usamos rpy2 para obtener los estimadores y usamos la función mágica de rpy2 para mostrar los gráficos del resultado.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tipos</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metodos</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;tipo de ajuste: &#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;método de ajuste: &#39;</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">fevd</span><span class="p">(</span><span class="n">max_y</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">m</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="n">t</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">==</span> <span class="s2">&quot;Bayesian&quot;</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[][</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">m</span> <span class="o">==</span> <span class="s2">&quot;Lmoments&quot;</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="s1">&#39;results&#39;</span><span class="p">)[]</span><span class="o">.</span><span class="n">rx</span><span class="p">(</span><span class="s1">&#39;par&#39;</span><span class="p">)[][:])</span>
+        <span class="o">%</span><span class="n">R</span> <span class="o">-</span><span class="n">i</span> <span class="n">res</span> <span class="n">plot</span><span class="o">.</span><span class="n">fevd</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</pre></div>
+
+
+<p><strong>OUTPUT:</strong></p>
+<div class="highlight"><pre><span></span>tipo de ajuste:  GEV
+método de ajuste:  MLE
+[ 23.05170779   1.80858528  -0.14979836]
+</pre></div>
+
+
+<p><img alt="wpid3" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R3.png?style=centerme"></p>
+<div class="highlight"><pre><span></span>tipo de ajuste:  GEV
+método de ajuste:  GMLE
+[ 23.06394152   1.75769129  -0.16288164]
+</pre></div>
+
+
+<p><img alt="wpid4" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R4.png?style=centerme"></p>
+<div class="highlight"><pre><span></span>tipo de ajuste:  Gumbel
+método de ajuste:  MLE
+[ 22.90587606   1.81445179]
+</pre></div>
+
+
+<p><img alt="wpid5" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R5.png?style=centerme"></p>
+<div class="highlight"><pre><span></span>tipo de ajuste:  Gumbel
+método de ajuste:  GMLE
+[ 22.90587606   1.81445179]
+</pre></div>
+
+
+<p><img alt="wpid6" src="https://pybonacci.org/images/2015/06/wpid-Trabajando_con_Python_y_R6.png?style=centerme"></p>
+<h1>Comentarios finales</h1>
+<p>Espero que este microtutorial os valga, al menos, para conocer rpy2 y la potencia que os puede llegar a aportar a vuestros análisis 'pythónicos'. Como resumen:</p>
+<ul>
+<li>Tenemos en nuestras manos una herramienta muy poderosa.</li>
+<li>Rpy2 puede estar poco madura en algún aspecto aunque ha mejorado bastante con respecto a alguna versión de rpy2 que usé anteriormente.</li>
+<li>También podéis usar directamente <a href="httpss://github.com/IRkernel/IRkernel">R como kernel</a>, aunque perdéis la interacción con Python. También puede ocurrir que la instalación os haga perder mucho el tiempo <a href="httpss://github.com/IRkernel/IRkernel/issues/54">para poder hacerlo funcionar</a> si os veis obligados a usarlo desde windows.</li>
+<li>En la elaboración de este microtutorial la consola de R donde iba haciendo algunas pruebas simples se me ha 'roto' muchísimas más veces de las que consideraría aceptables. No se puede quedar colgada, cerrar,..., seis o siete veces en media hora una consola haciendo cosas simples. Eso hace que si quieres usar R de forma interactiva debas usar alternativas como Jupyter, RStudio u otros que desconozco ya que la consola oficial no está 'ni pa pipas' (por lo menos en Windows, el sistema operativo con más usuarios potenciales, mal que me pese).</li>
+<li>Sigo manteniendo muchas reservas respecto a R como Lenguaje de Programación (en mayúsculas) por lo que si puedo limitar su uso a alguna librería especializada que necesito y a la que pueda acceder con rpy2 es lo que seguiré haciendo (<em><a href="https://www.burns-stat.com/pages/Tutor/R_inferno.pdf">If you are using R and you think you're in hell, this is a map for you</a>.</em>)</li>
+</ul>
+<h1>Y el notebook...</h1>
+<p>En el caso de que queráis trastear con el notebook lo podéis descargar desde <a href="https://nbviewer.ipython.org/github/Pybonacci/notebooks/tree/master/Trabajando_con_R_Python/">aquí</a>. También podéis <a href="httpss://github.com/Pybonacci/notebooks">descargar todos los notebooks desde nuestro repo oficial de notebooks</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/cran.html" class="tag">cran</a>
+                    <a href="http://pybonacci.github.io/tag/eva.html" class="tag">EVA</a>
+                    <a href="http://pybonacci.github.io/tag/evt.html" class="tag">EVT</a>
+                    <a href="http://pybonacci.github.io/tag/extremes.html" class="tag">extremes</a>
+                    <a href="http://pybonacci.github.io/tag/extremos.html" class="tag">extremos</a>
+                    <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                    <a href="http://pybonacci.github.io/tag/r.html" class="tag">R</a>
+                    <a href="http://pybonacci.github.io/tag/rpy2.html" class="tag">rpy2</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

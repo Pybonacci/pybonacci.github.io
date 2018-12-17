@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Análisis de componentes principales con python | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Análisis de componentes principales con python</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 08 octubre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Esta entrada también se podría haber llamado:</p>
+<p>'Reducción de la dimensión'</p>
+<p>'Comprimiendo imágenes usando análisis de componentes principales y python'</p>
+<p><strong>Para la siguiente entrada se ha usado python 2.7.2, numpy 1.6.1, matplotlib 1.1.0 y sklearn 0.10</strong> </p>
+<p>El análisis de componentes principales (PCA, por sus siglas en inglés, Principal Component Analysis) es una técnica que trata de reducir el número de dimensiones (número de variables) de un conjunto de datos intentando, a su vez, conservar la mayor cantidad de información. Es una técnica extremadamente útil como análisis exploratorio de datos (exploratory data analysis, pongo algunos términos en inglés porque a veces pueden resultar extraños en castellano), cuando se tiene demasiada información (muchas dimensiones, variables) y no se puede analizar correctamente la información. <a href="http://www.amazon.com/Principal-Component-Analysis-Statistics-ebook/dp/B003YFJ6U8">Se ha usado de forma exitosa para encontrar patrones, determinar 'outliers', compresión de imágenes,...</a> Más adelante se explicará brevemente el proceso matemático que hay detrás.</p>
+<p>Para el presente artículo vamos a usar el PCA para obtener imágenes comprimidas. Vamos a trabajar con una imagen monocromática extraída de la galería de <a href="http://www.flickr.com/photos/aderussell/">AdeRussell en flickr</a>. (con <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/deed.es">licencia cc 2.0</a>) La imagen en cuestión es la siguiente:<figure style="width: 640px" class="wp-caption aligncenter"></p>
+<p><img alt="King" src="https://pybonacci.org/images/2012/10/MartinLutherKing.jpg"></p>
+<p>Primero la guardaremos en nuestro equipo usando la biblioteca urllib2 disponible en la biblioteca estándar de vuestra instalación de python:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="c1">## Leemos la imagen desde la url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg&#39;</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1">## Guardamos la imagen en el directorio donde nos encontremos</span>
+<span class="c1">## con el nombre &#39;king.jpg&#39;</span>
+<span class="n">imagen</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;king.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">imagen</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">kk</span><span class="p">)</span>
+<span class="n">imagen</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<p>La imagen está en formato jpg, la vamos a leer usando matplotlib y vamos a guardar la información en una matriz 2D (tenemos tres canales (r,g,b) que son iguales (imagen en escala de grises) por lo que solo vamos a usar uno de ellos).</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="c1">## Leemos la imagen como un numpy array</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;king.jpg&#39;</span><span class="p">)</span>
+<span class="c1">## Si hacemos kk.shape vemos que existen</span>
+<span class="c1">## tres canales en la imagen (r, g, b)</span>
+<span class="c1">## Pero como es una imagen en escala de grises</span>
+<span class="c1">## Los tres canales tienen la misma información</span>
+<span class="c1">## por lo que nos podemos quedar con un solo canal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 3&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">])</span>
+<span class="c1">## Vemos que la imagen está rotada, hacemos uso de np.flipud</span>
+<span class="c1">## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 1 rotado en BN&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">## Finalmente, nos quedamos con una única dimensión</span>
+<span class="c1">## Los tres canales rgb son iguales (escala de grises)</span>
+<span class="n">matriz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Bueno, ahora ya tenemos nuestra imagen como la queremos para poder empezar a trabajar con ella.</p>
+<p>¿Cómo se obtienen las componentes principales?</p>
+<!--more-->
+
+<p>Pues lo mejor que podemos hacer es echarle un vistazo previo a una <a href="http://es.wikipedia.org/wiki/An%C3%A1lisis_de_componentes_principales">explicación mejor y más completa</a> que la que pueda dar yo y después leer mi explicación.</p>
+<p>¿Ya habéis leído la wikipedia? En pocas palabras, se trata de transformar nuestro conjunto de datos en un nuevo sistema de coordenadas de forma que la primera componente principal, que será la que explica la mayor varianza de los datos, corresponda al primer eje. Esto, en dos dimensiones, es sencillo de ver (cuando el número de dimensiones pasa de 3 se empieza a complicar la cosa). En la siguiente figura se muestra un scatterplot de dos variables sobre el se ha dibujado la proyección de sus dos componentes principales.</p>
+<p style="text-align:center;">
+  <a href="http://es.wikipedia.org/wiki/An%C3%A1lisis_de_componentes_principales"><img class="aligncenter" src="http://upload.wikimedia.org/wikipedia/commons/thumb/1/15/GaussianScatterPCA.png/512px-GaussianScatterPCA.png" alt="" width="512" height="480" /></a>
+</p>
+
+<p>Imaginad que en un eje tenemos datos del peso de tus vecinos y en el otro eje tenemos la altura de los mismos. En el scatterplot veríamos que existe una relación entre ambas variables. Si hacemos el análisis de las componentes principales veríamos que la primera componente explica la mayor parte de la varianza. Si nos quedásemos solo con la primera componente la podríamos interpretar como una variable 'talla' (o como la queráis llamar) que nos indica de forma aproximada lo que podría medir y pesar uno de nuestros vecinos, reduciendo las dimensiones de 2 a 1. Esto visto así es muy evidente y no haría falta usar PCA para analizar estos datos pero cuando en lugar de solo peso y altura tenemos muchas variables el análisis se complica y la interpretación de las componentes principales también. Espero que hayáis entendido algo.</p>
+<p>Para ver una implementación del PCA usando matriz de covarianzas en python podéis echarle un ojo al siguiente artículo de <a href="http://glowingpython.blogspot.com.es/2011/07/pca-and-image-compression-with-numpy.html">glowingpython</a> en el que está basado este. Nosotros no vamos a reinventar la rueda y vamos a usar la PCA que viene en el módulo <a href="http://scikit-learn.org/dev/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA">decomposition de scikits-learn.</a>  Vamos a crear un bucle para ir reconstruyendo la imagen usando diferentes números de componentes principales, de 50 en 50, para que vayáis viendo que a partir de un número de unas 100 componentes principales ya tenéis una imagen aceptable en lugar de tener que usar todas las dimensiones del conjunto de datos inicial:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="c1">## Leemos la imagen desde la url</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">425</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">matriz</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">kk</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;nº de PCs = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>La siguiente imagen muestra el resultado con 100 componentes principales:</p>
+<p><img alt="king-100pcs" src="https://pybonacci.org/images/2012/10/king-100pcs.png"></p>
+<p>Tampoco está tan mal comparado con la imagen original de más arriba.</p>
+<p>Por último, para que veáis la varianza explicada de cada una de las componentes principales y la varianza acumulada podéis hacer lo siguiente:</p>
+<div class="highlight"><pre><span></span><span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">matriz</span><span class="p">)</span>
+<span class="n">varianza</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="n">var_acum</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">varianza</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">varianza</span><span class="p">)),</span> <span class="n">varianza</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">varianza</span><span class="p">)),</span> <span class="n">var_acum</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Para obtener el siguiente gráfico:<figure id="attachment_980" style="width: 652px" class="wp-caption aligncenter"></p>
+<p><img alt="varianza explicada y acumulada por las componentes principales" src="https://pybonacci.org/images/2012/10/varianza.png"></p>
+<p>Con unas 30, 35 componentes principales se tendría una varianza acumulada en torno al 90% mientras que el 99% se superaría con menos de 180 componentes principales.</p>
+<p>El código completo sería:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="c1">## Leemos la imagen desde la url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://farm2.staticflickr.com/1573/26146921423_29f9a86f2b_z_d.jpg&#39;</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1">## Guardamos la imagen en el directorio donde nos encontremos</span>
+<span class="c1">## con el nombre &#39;king.jpg&#39;</span>
+<span class="n">imagen</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;king.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">imagen</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">kk</span><span class="p">)</span>
+<span class="n">imagen</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">## Leemos la imagen como un numpy array</span>
+<span class="n">kk</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;king.jpg&#39;</span><span class="p">)</span>
+<span class="c1">## Si hacemos kk.shape vemos que existen</span>
+<span class="c1">## tres canales en la imagen (r, g, b)</span>
+<span class="c1">## Pero como es una imagen en escala de grises</span>
+<span class="c1">## Los tres canales tienen la misma información</span>
+<span class="c1">## por lo que nos podemos quedar con un solo canal</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 3&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">])</span>
+<span class="c1">## Vemos que la imagen está rotada, hacemos uso de np.flipud</span>
+<span class="c1">## http://docs.scipy.org/doc/numpy/reference/generated/numpy.flipud.html</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;canal 1 rotado en BN&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">## Finalmente, nos quedamos con una única dimensión</span>
+<span class="c1">## Los tres canales rgb son iguales (escala de grises)</span>
+<span class="n">matriz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">kk</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">## Leemos la imagen desde la url</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">425</span><span class="p">,</span><span class="mi">50</span><span class="p">):</span>
+    <span class="c1">## Nos quedamos con i componentes principales</span>
+    <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span> <span class="o">=</span> <span class="n">i</span><span class="p">)</span>
+    <span class="c1">## Ajustamos para reducir las dimensiones</span>
+    <span class="n">kk</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">matriz</span><span class="p">)</span>
+    <span class="c1">## &#39;Deshacemos&#39; y dibujamos</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">kk</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;nº de PCs = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="n">pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">matriz</span><span class="p">)</span>
+<span class="n">varianza</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="n">var_acum</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">varianza</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">varianza</span><span class="p">)),</span> <span class="n">varianza</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">varianza</span><span class="p">)),</span> <span class="n">var_acum</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Espero que os sea útil y si le dais algún uso diferente al del ejemplo lo podéis comentar para que otros lo puedan ver aplicado en otros campos.</p>
+<p>P.D.: Yo uso esto para otras cosas pero hablar o poner ejemplos siempre de mi campo profesional me parece aburrido para vosotros. Por tanto, como nunca he usado PCA para cosas como la de este ejemplo todo esto puede estar sujeto a alguna imprecisión y/o error. Si algún experto se acerca por aquí y quiere corregir algo será bienvenido el comentario.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/acp.html" class="tag">acp</a>
+                    <a href="http://pybonacci.github.io/tag/analisis-de-componentes-principales.html" class="tag">analisis de componentes principales</a>
+                    <a href="http://pybonacci.github.io/tag/aprendizaje-automatico.html" class="tag">aprendizaje automático</a>
+                    <a href="http://pybonacci.github.io/tag/dimensionality-reduction.html" class="tag">dimensionality reduction</a>
+                    <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                    <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                    <a href="http://pybonacci.github.io/tag/pca.html" class="tag">pca</a>
+                    <a href="http://pybonacci.github.io/tag/principal-component-analysis.html" class="tag">principal component analysis</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/reduccion-de-dimensiones.html" class="tag">reducción de dimensiones</a>
+                    <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+                    <a href="http://pybonacci.github.io/tag/singular-value-decomposition.html" class="tag">singular value decomposition</a>
+                    <a href="http://pybonacci.github.io/tag/sklearn.html" class="tag">sklearn</a>
+                    <a href="http://pybonacci.github.io/tag/svd.html" class="tag">svd</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

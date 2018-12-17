@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Pybonacci - Artículos, Tutoriales</title><link href="http://pybonacci.github.io/" rel="alternate"></link><link href="http://pybonacci.github.io/feeds/articulos-tutoriales.atom.xml" rel="self"></link><id>http://pybonacci.github.io/</id><updated>2017-09-07T12:58:00+02:00</updated><entry><title>¿Cómo crear un mapa interactivo con Folium?</title><link href="http://pybonacci.github.io/2017/09/07/como-crear-un-mapa-interactivo-con-folium/" rel="alternate"></link><published>2017-09-07T12:58:00+02:00</published><updated>2017-09-07T12:58:00+02:00</updated><author><name>kiario</name></author><id>tag:pybonacci.github.io,2017-09-07:2017/09/07/como-crear-un-mapa-interactivo-con-folium/</id><summary type="html">&lt;p&gt;En esta entrada voy a describir el proceso usado para crear
+&lt;a href="https://kikocorreoso.github.io/datos_aemet/"&gt;https://kikocorreoso.github.io/datos_aemet/&lt;/a&gt; con la ayuda de la
+librería Folium.&lt;/p&gt;
+&lt;h2&gt;¿Qué es Folium?&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://folium.readthedocs.io/en/latest/"&gt;Folium&lt;/a&gt; es una librería Python
+que permite crear mapas interactivos usando
+&lt;a href="http://leafletjs.com/"&gt;Leaflet.js&lt;/a&gt;. Lo que hace, de forma elegante, es
+crear código javascript que usa la maravillosa librería de mapas
+interactivos leaflet.&lt;/p&gt;
+&lt;h2&gt;¿Crear el mapa?&lt;/h2&gt;
+&lt;p&gt;En la rama &lt;em&gt;gh-pages&lt;/em&gt; del repositorio git &lt;em&gt;datos_aemet&lt;/em&gt; en github
+(&lt;a href="https://github.com/kikocorreoso/datos_aemet/tree/gh-pages"&gt;https://github.com/kikocorreoso/datos_aemet/tree/gh-pages&lt;/a&gt;) hay una
+serie de ficheros. Los ficheros &lt;em&gt;index.html&lt;/em&gt;, &lt;em&gt;map.html&lt;/em&gt; y &lt;em&gt;readme.html&lt;/em&gt;
+los generaremos a partir de los ficheros:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;custom.css&lt;/em&gt;: Algo de css para que la página cuadre. Por debajo usa,
+    además, bootstrap.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;src/create_base_map.py&lt;/em&gt;: Esta es la madre del cordero y lo que
+    vamos a comentar.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;src/template.html&lt;/em&gt;: Aquí tenemos la estructura principal del HTML
+    usado …&lt;/li&gt;&lt;/ul&gt;</summary><category term="aemet"></category><category term="folium"></category><category term="gis"></category><category term="leaflet"></category><category term="mapa"></category><category term="mapping"></category><category term="opendata"></category><category term="sig"></category></entry><entry><title>Instalando PostgreSQL en local en windows o linux usando conda</title><link href="http://pybonacci.github.io/2017/07/25/instalando-postgresql-en-local-en-windows-o-linux-usando-conda/" rel="alternate"></link><published>2017-07-25T18:49:00+02:00</published><updated>2017-07-25T18:49:00+02:00</updated><author><name>kiario</name></author><id>tag:pybonacci.github.io,2017-07-25:2017/07/25/instalando-postgresql-en-local-en-windows-o-linux-usando-conda/</id><summary type="html">&lt;p&gt;Para el que no lo sepa, podéis instalar PostgreSQL usando &lt;code&gt;conda&lt;/code&gt; \o/&lt;/p&gt;
+&lt;p&gt;Vamos a hacer un tutorial paso a paso para poder instalarlo todo y
+dejarlo listo para trabajar desde Python de forma sencilla.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[&lt;em&gt;A lo largo de todo el tutorial se indica si el código a usar es
+para windows o para linux. Si no se indica nada el código debería ser
+válido en ambos sistemas operativos.&lt;/em&gt;]&lt;/strong&gt;&lt;/p&gt;
+&lt;h1&gt;1. Creamos un entorno virtual usando &lt;code&gt;conda&lt;/code&gt; e instalamos PostgreSQL.&lt;/h1&gt;
+&lt;p&gt;Este paso es sencillo. Solo necesitáis tener instalado &lt;code&gt;conda&lt;/code&gt; en
+vuestro equipo y una conexión a internet. Si no tenéis &lt;code&gt;conda&lt;/code&gt; instalado
+podéis ir a la sección de enlaces, más abajo, para visitar la
+documentación de &lt;code&gt;conda&lt;/code&gt; donde os indica como instalarlo. Con &lt;code&gt;conda&lt;/code&gt;
+instalado, podemos añadir el canal de &lt;code&gt;conda-forge&lt;/code&gt; (básico para poder
+extender la cantidad de paquetes disponibles además de …&lt;/p&gt;</summary><category term="base de datos"></category><category term="bases de datos"></category><category term="bbdd"></category><category term="conda"></category><category term="conda-forge"></category><category term="pgcli"></category><category term="postgresql"></category><category term="psycopg2"></category></entry></feed>

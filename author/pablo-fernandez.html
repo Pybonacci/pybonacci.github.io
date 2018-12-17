@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Pybonacci - Artículos por Pablo Fernández | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+<h1>Artículos por Pablo Fernández</h1>
+
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/04/06/introduccion-a-machine-learning-con-python-parte-2/">Introducción a Machine Learning con Python (Parte 2)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-04-06T17:27:44+00:00" pubdate>lun 06 abril 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/regresion-lineal.html" class="tag">regresión lineal</a>
+                <a href="http://pybonacci.github.io/tag/regresion-logistica.html" class="tag">regresión logística</a>
+                <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En la entrada anterior, <a href="https://pybonacci.org/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/" title="Introducción a Machine Learning con Python (Parte 1)">Introducción a Machine Learning con Python (Parte 1)</a>, di unas pequeñas pinceladas sobre lo que es el Aprendizaje Automático con algunos ejemplos prácticos. Ahora vamos a adentrarnos en materia de un modo más estructurado viendo paso a paso algunas de las técnicas que podemos emplear en Python.</p>
+<p>Podemos dividir los problemas de aprendizaje automático en dos grandes categorías (Pedregosa et al., 2011):</p>
+<ul>
+<li><strong>Aprendizaje supervisado</strong>, cuando el conjunto de datos viene con los atributos adicionales que queremos predecir. El problema puede clasificarse en dos categorías: <ul>
+<li>Regresión: los valores de salida consisten en una o más variables continuas. Un ejemplo es la predicción del valor de una casa en función de su superficie útil, número de habitaciones, cuartos de baños, etc.</li>
+<li>Clasificación: las muestras pertenecen a dos o más clases y queremos aprender a partir de lo que …</li></ul></li></ul>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/04/06/introduccion-a-machine-learning-con-python-parte-2/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/">Introducción a Machine Learning con Python (Parte 1)</a></h2>
+      <div class="meta">
+        <time datetime="" title="2015-01-14T22:00:02+00:00" pubdate>mié 14 enero 2015</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/dataset.html" class="tag">dataset</a>
+                <a href="http://pybonacci.github.io/tag/iris.html" class="tag">iris</a>
+                <a href="http://pybonacci.github.io/tag/kaggle.html" class="tag">kaggle</a>
+                <a href="http://pybonacci.github.io/tag/machine-learning.html" class="tag">machine learning</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scikit-learn.html" class="tag">scikit-learn</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Desde que escuché hablar de Kaggle por primera vez, precisamente <a href="https://twitter.com/Pybonacci/status/414742882679934977" target="_blank">a través de Pybonacci</a>, me entró curiosidad por eso del <em>data science</em> y me propuse como un reto el participar en una de sus competiciones. Para aquel que no la conozca todavía, <a title="Kaggle" href="http://www.kaggle.com/" target="_blank">Kaggle</a> es una plataforma que aloja competiciones de análisis de datos y modelado predictivo donde compañías e investigadores aportan sus datos mientras que estadistas e ingenieros de datos de todo el mundo compiten por crear los mejores modelos de predicción o clasificación.</p>
+<p>Muchas y muy diferentes técnicas se pueden aplicar al procesado de datos para generar predicciones, estimaciones o clasificaciones. Desde técnicas de <a href="http://es.wikipedia.org/wiki/Regresión_logística" target="_blank">regresión logística</a> hasta <a href="http://es.wikipedia.org/wiki/Red_neuronal_artificial" target="_blank">redes neuronales artificiales</a> pasando por <a href="http://es.wikipedia.org/wiki/Red_bayesiana" target="_blank">redes bayesianas</a>, <a href="http://es.wikipedia.org/wiki/Máquinas_de_vectores_de_soporte" target="_blank">máquinas de vectores de soporte</a> o <a href="http://es.wikipedia.org/wiki/Árbol_de_decisión" target="_blank">árboles de decisión</a>, en Kaggle no descartan ningún método, e incluso se fomenta la cooperación entre personas con experiencia …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2015/01/14/introduccion-a-machine-learning-con-python-parte-1/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/10/07/basemap-y-google-geocode-para-representar-puntos-sobre-un-mapa/">Basemap y Google Geocode para representar puntos sobre un mapa</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-10-07T12:27:15+00:00" pubdate>mar 07 octubre 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/basemap.html" class="tag">basemap</a>
+                <a href="http://pybonacci.github.io/tag/circuitos.html" class="tag">circuitos</a>
+                <a href="http://pybonacci.github.io/tag/formula-1.html" class="tag">formula 1</a>
+                <a href="http://pybonacci.github.io/tag/google-geocode.html" class="tag">google geocode</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Como siempre, en GitHub podréis encontrar el <a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/basemap/Basemap.ipynb" target="_blank">notebook</a> y los <a href="https://github.com/pybonacci/notebooks/tree/master/basemap" target="_blank">ficheros adicionales</a> que forman parte de éste artículo.</p>
+<p>Las gráficas pueden proporcionar mucha información de un sólo vistazo, pero no siempre son el mejor método de representación. A veces es necesario dar un paso más; y ese es precisamente el caso que vamos a tratar en éste artículo.</p>
+<p>Representar valores sobre un mapa geográfico nos permite ubicar la información sobre el terreno. Lo datos a representar pueden ser desde contornos de temperatura hasta vectores de velocidad del viento pasando por la identificación de puntos geográficos. Para facilitarnos todo ese trabajo —en Python— disponemos de una serie de librerías. <a href="http://www.pyngl.ucar.edu/">PyNGL</a>, <a href="http://www-pcmdi.llnl.gov/software/cdat/support/vcs/vcs.html">CDAT</a> o <a href="http://matplotlib.org/basemap/index.html">Basemap</a> —del que Kiko ya ha hablado en <a href="https://pybonacci.org/2012/04/14/ejemplo-de-uso-de-basemap-y-netcdf4/" title="Ejemplo de uso de Basemap y NetCDF4 | Pybonacci" target="_blank">ésta entrada</a>— son librerías que nacieron para satisfacer las necesidades de ciertos colectivos de científicos, como meteorólogos u oceanógrafos.</p>
+<p>En éste …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/10/07/basemap-y-google-geocode-para-representar-puntos-sobre-un-mapa/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/08/30/graficas-de-tiempo-real-con-plotly/">Gráficas de tiempo real con Plotly</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-08-30T13:15:15+00:00" pubdate>sáb 30 agosto 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/geforce.html" class="tag">geforce</a>
+                <a href="http://pybonacci.github.io/tag/gpu.html" class="tag">gpu</a>
+                <a href="http://pybonacci.github.io/tag/monitor.html" class="tag">monitor</a>
+                <a href="http://pybonacci.github.io/tag/nvidia.html" class="tag">nvidia</a>
+                <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+                <a href="http://pybonacci.github.io/tag/streaming-api.html" class="tag">streaming api</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Y aquí llega otra nueva entrada dedicada a Plotly, ésta vez sin notebook, para hacer una aplicación de «tiempo-real» que monitorice nuestra tarjeta gráfica. Por ahora, el código, que tenéis <a href="https://github.com/pfsq/gpu-monitor" title="gpu-monitor" target="_blank">disponible en GitHub</a>, hace uso de los datos que proporciona la <a href="https://developer.nvidia.com/nvidia-system-management-interface" title="NVIDIA System Management Interface" target="_blank">NVIDIA System Management Interface</a>. Pero éste método tiene un pega, y es que el SMI está pensado para la familia de gráficas Tesla&#153; y Quadro&#153;, con el soporte a la gama GeForce&#153; está limitado a un par de parámetros. En éste caso aprovecharemos sólo temperatura y velocidad del ventilador.</p>
+<p>Si abrimos una ventana de comandos y ejecutamos <code>nvidia-smi</code> nos debería aparecer una tabla como ésta ---es posible que tengamos que <a href="http://furniman.blogspot.com.es/2012/02/anadir-un-directorio-al-path-del.html" title="Añadir un directorio al PATH del sistema" target="_blank">añadir la ruta al ejecutable a nuestro PATH</a>, en mi caso 'C:\Program Files\NVIDIA Corporation\NVSMI'.</p>
+<div class="highlight"><pre><span></span>+------------------------------------------------------+
+| NVIDIA-SMI 340.62     Driver Version: 340.62         |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name            TCC/WDDM | Bus-Id …</pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/08/30/graficas-de-tiempo-real-con-plotly/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/08/22/graficas-interactivas-con-plotly/">Gráficas interactivas con Plotly</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-08-22T17:50:16+00:00" pubdate>vie 22 agosto 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/graficas.html" class="tag">gráficas</a>
+                <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/tutorial.html" class="tag">tutorial</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Podéis conseguir el <a href="http://nbviewer.ipython.org/github/pybonacci/notebooks/blob/master/plotly/Heathrow.ipynb">notebook</a> y los archivos asociados en <a href="https://github.com/Pybonacci/notebooks/tree/master/plotly">GitHub</a>.</p>
+<p>En un <a href="https://pybonacci.org/2014/08/05/de-matplotlib-a-la-web-con-plotly/">artículo anterior</a> ya vimos como pasar las gráficas creadas con <code>matplotlib</code> a <code>plotly</code> para obtener cierto nivel de interacción con los datos en la web. Ahora, lo que vamos a ver es cómo crear gráficas directamente con <code>plotly</code>. Para ello vamos a utilizar:</p>
+<ul>
+<li><code>pandas 0.14.1</code>, para trabajar con tablas de datos.</li>
+<li><code>plotly 1.2.6</code>, para crear las gráficas.</li>
+</ul>
+<p>Importamos los paquetes de la manera habitual en cada caso.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+
+<p>En el caso de Plotly hemos importado además unos objetos <code>graph_objs</code> que nos serán de ayuda a la hora de crear las gráficas. Trabajar con la API de Plotly en Python se resume en trabajar con <em>listas y diccionarios</em> de Python. Los <code>graph_objs</code> de …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/08/22/graficas-interactivas-con-plotly/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2014/08/05/de-matplotlib-a-la-web-con-plotly/">De matplotlib a la web con plotly</a></h2>
+      <div class="meta">
+        <time datetime="" title="2014-08-05T09:07:03+00:00" pubdate>mar 05 agosto 2014</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/pablo-fernandez.html">Pablo Fernández</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/embed.html" class="tag">embed</a>
+                <a href="http://pybonacci.github.io/tag/matplotlib.html" class="tag">matplotlib</a>
+                <a href="http://pybonacci.github.io/tag/plotly.html" class="tag">plotly</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>(También podéis seguir las explicaciones de este post con <a href="http://nbviewer.ipython.org/github/Pybonacci/notebooks/blob/master/plotly/Brandshatch.ipynb" target="_blank">este Notebook</a>)</p>
+<p>En esta entrada trataremos de dar a conocer <code>plotly</code>, un servicio web gratuito para generar gráficos interactivos y que permite la creación de proyectos colaborativos.</p>
+<p>Los paquetes que vamos a emplear son,</p>
+<ul>
+<li><a href="http://pandas.pydata.org/" target="_blank"><code>pandas</code></a> 0.14.0, para importar y analizar estructuras de datos en Python.</li>
+<li><a href="http://matplotlib.org/" target="_blank"><code>matplotlib</code></a> 1.3.1, para generar diversisos tipos de gráficos con calidad de imprenta.</li>
+<li><a href="https://plot.ly/" target="_blank"><code>plotly</code></a> 1.1.2, para generar gráficos interactivos para la web.</li>
+</ul>
+<p>Empezaremos por importar los datos con <code>pandas</code>. Podeis encontrar una introducción a <code>pandas</code> en <a href="https://pybonacci.org/2014/05/30/pandas-i/" target="_blank">éste</a> post de Pybonacci.</p>
+<h3>Datos</h3>
+<p>La estructura de datos con la que vamos a trajar es un <code>CSV</code> con datos de telemetría correspondientes a un BMW Z4 GT3 compitiendo en el circuito <a href="http://www.brandshatch.co.uk/circuit-information.aspx" target="_blank">Brands Hatch Indy</a>. El paquete de datos nos lo ha proporcionado Steve Barker …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2014/08/05/de-matplotlib-a-la-web-con-plotly/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+    </div>
+    <div class="col-xs-6 right">
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

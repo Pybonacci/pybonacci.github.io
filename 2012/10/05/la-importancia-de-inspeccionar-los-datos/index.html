@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>La importancia de inspeccionar los datos | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>La importancia de inspeccionar los datos</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 05 octubre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Muchas veces, cuando analizo datos, se me cuelan datos erróneos que me llevan a dolores de cabeza posteriores. Para evitar o minimizar esto, una buena práctica consiste en realizar una representación previa de esos datos para ver si los resultados posteriores son coherentes. Un buen ejercicio para entender la importancia de esto es echarle un ojo al <a href="http://es.wikipedia.org/wiki/Cuarteto_de_Anscombe">cuarteto de Anscombe</a>. En el siguiente script se representa el cuarteto de Anscombe y sus principales estadísticos:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ans_x_I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span>
+                    <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="n">ans_y_I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.04</span><span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.58</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.33</span><span class="p">,</span>
+                    <span class="mf">9.96</span><span class="p">,</span> <span class="mf">7.24</span><span class="p">,</span> <span class="mf">4.26</span><span class="p">,</span> <span class="mf">10.84</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">5.68</span><span class="p">])</span>
+<span class="n">ans_x_II</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span>
+                     <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="n">ans_y_II</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">9.14</span><span class="p">,</span> <span class="mf">8.14</span><span class="p">,</span> <span class="mf">8.74</span><span class="p">,</span> <span class="mf">8.77</span><span class="p">,</span> <span class="mf">9.26</span><span class="p">,</span>
+                     <span class="mf">8.10</span><span class="p">,</span> <span class="mf">6.13</span><span class="p">,</span> <span class="mf">3.10</span><span class="p">,</span> <span class="mf">9.13</span><span class="p">,</span> <span class="mf">7.26</span><span class="p">,</span> <span class="mf">4.74</span><span class="p">])</span>
+<span class="n">ans_x_III</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span>
+                      <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="n">ans_y_III</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.46</span><span class="p">,</span> <span class="mf">6.77</span><span class="p">,</span> <span class="mf">12.74</span><span class="p">,</span> <span class="mf">7.11</span><span class="p">,</span> <span class="mf">7.81</span><span class="p">,</span>
+                      <span class="mf">8.84</span><span class="p">,</span> <span class="mf">6.08</span><span class="p">,</span> <span class="mf">5.39</span><span class="p">,</span> <span class="mf">8.15</span><span class="p">,</span> <span class="mf">6.42</span><span class="p">,</span> <span class="mf">5.73</span><span class="p">])</span>
+<span class="n">ans_x_IV</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span>
+                     <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">])</span>
+<span class="n">ans_y_IV</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.58</span><span class="p">,</span> <span class="mf">5.76</span><span class="p">,</span> <span class="mf">7.71</span><span class="p">,</span> <span class="mf">8.84</span><span class="p">,</span> <span class="mf">8.47</span><span class="p">,</span>
+                     <span class="mf">7.04</span><span class="p">,</span> <span class="mf">5.25</span><span class="p">,</span> <span class="mf">12.50</span><span class="p">,</span> <span class="mf">5.56</span><span class="p">,</span> <span class="mf">7.91</span><span class="p">,</span> <span class="mf">6.89</span><span class="p">])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">ans_x_I</span><span class="p">,</span> <span class="n">ans_x_II</span><span class="p">,</span> <span class="n">ans_x_III</span><span class="p">,</span> <span class="n">ans_x_IV</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">ans_y_I</span><span class="p">,</span> <span class="n">ans_y_II</span><span class="p">,</span> <span class="n">ans_y_III</span><span class="p">,</span> <span class="n">ans_y_IV</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">pinta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">grupo</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="n">minimo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+    <span class="n">maximo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">minimo</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">minimo</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="s1">&#39;yo&#39;</span><span class="p">)</span>
+    <span class="n">a1</span><span class="p">,</span> <span class="n">a0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="n">a0</span> <span class="o">+</span> <span class="n">a1</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;y=</span><span class="si">%5.3f</span><span class="s1">+</span><span class="si">%5.3f</span><span class="s1">x&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a0</span><span class="p">,</span> <span class="n">a1</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">,</span> <span class="s1">&#39;r=</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">grupo</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mf">3.5</span><span class="p">,</span> <span class="s1">&#39;x media=</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;y media=</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">grupo</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mf">6.5</span><span class="p">,</span> <span class="s1">&#39;x std=</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">grupo</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">minimo</span><span class="p">,</span> <span class="n">maximo</span> <span class="o">-</span> <span class="mf">8.0</span><span class="p">,</span> <span class="s1">&#39;y std=</span><span class="si">%5.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">grupo</span><span class="p">]))</span>
+<span class="n">pinta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">221</span><span class="p">)</span>
+<span class="n">pinta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">222</span><span class="p">)</span>
+<span class="n">pinta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">223</span><span class="p">)</span>
+<span class="n">pinta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Cuyo resultado sería el siguiente:</p>
+<p><img alt="Anscombe" src="https://pybonacci.org/images/2012/10/anscombe.png"></p>
+<p>Se observa que los estadísticos representados son similares. Mismo ajuste lineal, coeficiente de correlación, media de los valores de x, media de los valores de y, varianza de los valores de x y varianza de los valores de y. Sin embargo, viendo los datos representados vemos que en el segundo no deberíamos usar un ajuste lineal para relacionar los valores de x y de y, en el tercer y cuarto grupos vemos que tenemos un dato que podría representar un dato erróneo (una mala medida, por ejemplo) y que en el tercer caso, al no haberlo filtrado correctamente, obtenemos un ajuste que nos llevaría a errores apreciables en el ajuste de los datos y en el cuarto caso nos llevaría a errores muy grandes en el ajuste de los datos mostrando una relación lineal que no parece existir.</p>
+<p>Gracias a este plagio que acabo de hacer del artículo de la Wikipedia (traducido a python :-)) vemos la importancia de tratar nuestros datos con mimo, de realizar exploraciones iterativas y de refinar el conjunto final de datos 'limpios de impurezas' para hacer un análisis correcto de la 'realidad'. También vemos la importancia de compartir los datos base de los experimentos así como el código usado para el análisis de los mismos para que otros puedan reproducir los resultados y comprobar la veracidad de los mismos o poder corregir el análisis en caso necesario.</p>
+<p>Finalmente os dejo un delirante vídeo de una charla TED de Hans Rosling donde se muestra la necesidad de mostrar de forma creativa los datos para poder llegar a un mejor entendimiento del universo que nos rodea.</p>
+<p><span class="videobox">
+                <iframe width="640" height="390"
+                    src='https://www.youtube.com/embed/hVimVzgtD6w'
+                    frameborder='0' webkitAllowFullScreen mozallowfullscreen
+                    allowFullScreen>
+                </iframe>
+            </span></p>
+<p>P.D.: Sirva esta entrada para volver a homenajear a <a href="http://numfocus.org/johnhunter/">John Hunter</a> y darle las gracias por permitirnos, mediante matplotlib, separarnos de los árboles para poder ver el bosque.</p>
+<p>P.D.2: ¡¡¡¡¡No dejéis de ver el vídeo!!!!!</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/charlas-ted.html" class="tag">Charlas Ted</a>
+                    <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">Estadística</a>
+                    <a href="http://pybonacci.github.io/tag/francis-anscombe.html" class="tag">Francis Anscombe</a>
+                    <a href="http://pybonacci.github.io/tag/hans-rosling.html" class="tag">Hans Rosling</a>
+                    <a href="http://pybonacci.github.io/tag/representacion.html" class="tag">representación</a>
+                    <a href="http://pybonacci.github.io/tag/ted.html" class="tag">Ted</a>
+                    <a href="http://pybonacci.github.io/tag/ted-talks.html" class="tag">Ted talks</a>
+                    <a href="http://pybonacci.github.io/tag/video.html" class="tag">video</a>
+                    <a href="http://pybonacci.github.io/tag/visualizacion.html" class="tag">visualización</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

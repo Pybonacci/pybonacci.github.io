@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Cómo llamar código C/C++ desde CPython (y Pypy) usando Cython y CFFI | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>Cómo llamar código C/C++ desde CPython (y Pypy) usando Cython y CFFI</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>mié 25 mayo 2016</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <p>Hace unas semanas surgió esta pregunta en <a href="http://es.stackoverflow.com/">StackOverflow en español</a>: <a href="http://es.stackoverflow.com/questions/9069/c%C3%B3mo-llamar-a-c%C3%B3digo-c-desde-python">¿Cómo llamar a código C++ desde Python?</a></p>
+<p>Y <a href="http://es.stackoverflow.com/a/9119/2816">la respuesta aceptada explica como hacer un wrapper sencillo usando Cython y CFFI</a>. Como da la casualidad que la respuesta es mía voy a extenderla un poco para añadir más cosas y poder explicarla un poco mejor.</p>
+<h2>Prolegómenos</h2>
+<p>Antes de empezar a leer esta entrada deberías pasar a leer la entrada que hizo Juanlu hace un tiempo sobre CFFI titulada '<a href="https://pybonacci.org/2016/02/07/como-crear-extensiones-en-c-para-python-usando-cffi-y-numba/">como crear extensiones en C para Python usando CFFI y Numba</a>' donde se dan más detalles de todo el proceso a realizar con CFFI.</p>
+<p>Antes de probar el código de la presente entrada deberías instalar cffi y cython:</p>
+<div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="n">cffi</span> <span class="n">cython</span> <span class="c1"># Válido en CPython</span>
+</pre></div>
+
+
+<p>o</p>
+<div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">cffi</span> <span class="n">cython</span> <span class="c1"># Válido en CPython y Pypy</span>
+</pre></div>
+
+
+<p>Todo lo que viene a continuación lo he probado en Linux solo usando CPython 3.5 y Pypy 5.1.1, compatible con CPython 2.7 e instalado <a href="https://github.com/kikocorreoso/test_pypy_numpypy">usando esto</a>.</p>
+<h2>Preliminares</h2>
+<p>Antes de pasar a la parte Cython y CFFI vamos a empezar creando los programas C/C++ que vamos a llamar desde Python.</p>
+<p>Vamos a crear una librería que lo único que haga será sumar dos números enteros. Haremos una en C/C++ para Cython y una en C/C++ para CFFI.</p>
+<h3>C/C++ para Cython</h3>
+<p>C y C++ no son el mismo lenguaje pero para este caso el código se puede considerar el mismo. Para el caso C++ tendremos un fichero <em><a href="https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html">*.hpp</a></em> y un fichero <em><em>.cpp_ (en C sería igual cambiando las extensiones a _</em>.h</em> y <em>*.c</em>, respectivamente).</p>
+<p>El fichero <em>*.hpp</em> se llamará <em>milibrería.hpp</em> y contendrá el siguiente código:</p>
+<div class="highlight"><pre><span></span><span class="kt">long</span> <span class="nf">suma_enteros</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="n">m</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Mientras que el fichero <em>*.cpp</em> se llamará <em>milibrería.cpp</em> y contendrá el siguiente código:</p>
+<div class="highlight"><pre><span></span><span class="kt">long</span> <span class="nf">suma_enteros</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="n">m</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Lo que hace el código es bastante simple.</p>
+<h3>C/C++ para CFFI</h3>
+<p>En este caso solo vamos a usar un fichero <em>*.cpp</em> y se llamará <em>milibrería_cffi.cpp</em> y contendrá el siguiente código:</p>
+<div class="highlight"><pre><span></span><span class="kt">long</span> <span class="nf">suma_enteros</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="n">m</span><span class="p">){</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">extern</span> <span class="s">&quot;C&quot;</span>
+<span class="p">{</span>
+    <span class="k">extern</span> <span class="kt">long</span> <span class="n">cffi_suma_enteros</span><span class="p">(</span><span class="kt">long</span> <span class="n">n</span><span class="p">,</span> <span class="kt">long</span> <span class="n">m</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">suma_enteros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>El código es el mismo de antes más una segunda parte que nos permite hacer el código accesible desde Python.</p>
+<h2>Pegamento entre C/C++ y Python</h2>
+<p>En esta parte vamos a ver cómo unir el lenguaje compilado con el lenguaje interpretado.</p>
+<h3>Mediante Cython</h3>
+<p>Antes de nada necesitamos definir un fichero <em>milibreria.pxd</em>. Este fichero es parecido a lo que hacen los ficheros <em>header</em> en C/C++ o Fortran. Nos ayudará a 'encontrar' lo que hemos definido en c++ (más info sobre los ficheros pxd <a href="http://docs.cython.org/src/tutorial/pxd_files.html">aquí</a>):</p>
+<div class="highlight"><pre><span></span><span class="n">cdef</span> <span class="n">extern</span> <span class="kn">from</span> <span class="s2">&quot;milibreria.hpp&quot;</span><span class="p">:</span>
+    <span class="nb">long</span> <span class="n">suma_enteros</span><span class="p">(</span><span class="nb">long</span> <span class="n">n</span><span class="p">,</span> <span class="nb">long</span> <span class="n">m</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Un fichero <em><em>.pxd_ se puede importar en un fichero _</em>.pyx</em> usando la palabra clave <code>cimport</code></p>
+<p>Una vez 'enlazado' C/C++ con Cython mediante el fichero <em>*.pxd</em> necesitamos hacer que la parte C/C++ sea accesible desde Python. Para ello creamos el fichero <em>pylibfromcpp.pyx</em>, que es una especie de código Python un poco 'cythonizado' (cython es un superconjunto de Python):</p>
+<div class="highlight"><pre><span></span><span class="n">cimport</span> <span class="n">milibreria</span>
+
+<span class="k">def</span> <span class="nf">suma_enteros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">milibreria</span><span class="o">.</span><span class="n">suma_enteros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>Mediante CFFI</h3>
+<p>En este caso resulta un poco más sencillo, para este caso concreto. Hemos de crear el fichero Python que, mediante CFFI, enlazará C/C++ con Python. Este ficheros se llamará <em>pylibfromCFFI.py</em> y contendrá el siguiente código.:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cffi</span>
+
+
+<span class="n">ffi</span> <span class="o">=</span> <span class="n">cffi</span><span class="o">.</span><span class="n">FFI</span><span class="p">()</span>
+<span class="n">ffi</span><span class="o">.</span><span class="n">cdef</span><span class="p">(</span><span class="s2">&quot;long cffi_suma_enteros(long n, long m);&quot;</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">ffi</span><span class="o">.</span><span class="n">dlopen</span><span class="p">(</span><span class="s2">&quot;./milibreria.so&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">suma_enteros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">C</span><span class="o">.</span><span class="n">cffi_suma_enteros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Setup</h2>
+<h3>Compilando con Cython</h3>
+<p>Para poder acceder a la librería C/C++ hemos de crear un fichero <em>setup.py</em> que se encargará de la compilación que permitirá crear la extensión a la que accederemos desde Python. El fichero <em>setup.py</em> contendrá:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">Extension</span>
+<span class="kn">from</span> <span class="nn">Cython.Build</span> <span class="kn">import</span> <span class="n">cythonize</span>
+
+<span class="n">ext</span> <span class="o">=</span> <span class="n">Extension</span><span class="p">(</span><span class="s2">&quot;pylibfromcpp&quot;</span><span class="p">,</span>
+              <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pylibfromcpp.pyx&quot;</span><span class="p">,</span> <span class="s2">&quot;milibreria.cpp&quot;</span><span class="p">],</span>
+              <span class="n">language</span><span class="o">=</span><span class="s2">&quot;c++&quot;</span><span class="p">,)</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;cython_pylibfromcpp&quot;</span><span class="p">,</span>
+      <span class="n">ext_modules</span> <span class="o">=</span> <span class="n">cythonize</span><span class="p">(</span><span class="n">ext</span><span class="p">))</span>
+</pre></div>
+
+
+<p>Para crear la extensión en sí, en la misma carpeta donde hemos dejado todos los ficheros anteriores y desde la línea de comandos, hacemos (como siempre, recomiendo hacer esto desde un entorno virtual):</p>
+<div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">build_ext</span> <span class="o">-</span><span class="n">i</span>
+</pre></div>
+
+
+<p>Y debería aparecer un fichero <em>pylibfromcpp.cpp</em> y otro fichero <em>pylibfromcpp.pypy-41.so</em> en la misma carpeta donde habéis ejecutado el comando anterior.</p>
+<h3>Compilando con CFFI</h3>
+<p>Para poder hacer accesible la funcionalidad definida en C/C++ desde Python podemos compilar usando:</p>
+<div class="highlight"><pre><span></span><span class="n">g</span><span class="o">++</span> <span class="o">-</span><span class="n">o</span> <span class="p">.</span><span class="o">/</span><span class="n">milibreria</span><span class="p">.</span><span class="n">so</span> <span class="p">.</span><span class="o">/</span><span class="n">milibreria_cffi</span><span class="p">.</span><span class="n">cpp</span> <span class="o">-</span><span class="n">fPIC</span> <span class="o">-</span><span class="n">shared</span>
+</pre></div>
+
+
+<p>Y deberíamos obtener el fichero <em>milibreria.so</em>.</p>
+<h2>Llamando desde Python</h2>
+<h3>Usando nuestro 'wrapper' Cython</h3>
+<p>Ahora, si todo ha salido bien, dentro de un intérprete de python (como he comentado más arriba, lo he probado con CPython 3.5 y Pypy 5.1.1 y me ha funcionado en ambos) podemos hacer:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylibfromcpp</span>
+<span class="k">print</span><span class="p">(</span><span class="n">pylibfromcpp</span><span class="o">.</span><span class="n">suma_enteros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+
+
+<h3>Usando nuestro 'wrapper' CFFI</h3>
+<p>De igual forma, si todo ha salido bien, podemos hacer:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylibfromcpp</span>
+<span class="k">print</span><span class="p">(</span><span class="n">pylibfromcpp</span><span class="o">.</span><span class="n">suma_enteros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</pre></div>
+
+
+<h2>Output completo en la consola pypy</h2>
+<h3>Para el caso Cython</h3>
+<div class="highlight"><pre><span></span><span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">10</span> <span class="p">(</span><span class="n">b0a649e90b6642251fb4a765fe5b27a97b1319a9</span><span class="p">,</span> <span class="n">May</span> <span class="mo">05</span> <span class="mi">2016</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">19</span><span class="p">)</span>
+<span class="p">[</span><span class="n">PyPy</span> <span class="mf">5.1</span><span class="o">.</span><span class="mi">1</span> <span class="k">with</span> <span class="n">GCC</span> <span class="mf">4.9</span><span class="o">.</span><span class="mi">2</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux2</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pylibfromcpp</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="k">print</span><span class="p">(</span><span class="n">pylibfromcpp</span><span class="o">.</span><span class="n">suma_enteros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">5</span>
+</pre></div>
+
+
+<h3>Para el caso CFFI</h3>
+<div class="highlight"><pre><span></span><span class="n">Python</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">10</span> <span class="p">(</span><span class="n">b0a649e90b6642251fb4a765fe5b27a97b1319a9</span><span class="p">,</span> <span class="n">May</span> <span class="mo">05</span> <span class="mi">2016</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">19</span><span class="p">)</span>
+<span class="p">[</span><span class="n">PyPy</span> <span class="mf">5.1</span><span class="o">.</span><span class="mi">1</span> <span class="k">with</span> <span class="n">GCC</span> <span class="mf">4.9</span><span class="o">.</span><span class="mi">2</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux2</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="kn">import</span> <span class="nn">pylibfromCFFI</span>
+<span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span> <span class="k">print</span><span class="p">(</span><span class="n">pylibfromCFFI</span><span class="o">.</span><span class="n">suma_enteros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="mi">5</span>
+</pre></div>
+
+
+<h2>Comentarios finales</h2>
+<p>Un esquema, grosso modo, de lo que hemos hecho:<figure id="attachment_3836" style="width: 723px" class="wp-caption aligncenter"></p>
+<p><img alt="esquema" src="https://pybonacci.org/images/2016/05/Esquema.gif"></p>
+<p>Pros y contras de cada una de las aproximaciones:</p>
+<ul>
+<li>Cython permite usar Numpy sin problemas en CPython. Sin embargo, la última vez que intenté usar código Python con numpy arrays (Cython + Numpypy) reventaba todo en Pypy.</li>
+<li>Cython lo podemos usar con CPython 2.x y 3.x. Cython funciona sin problemas en Pypy 5.1.1 (compatible con CPython 2.7). Numpypy NO funciona en Pypy3k.</li>
+<li>El wrapper Cython que hemos hecho en este ejercicio es claramente más complejo que el que hemos hecho con CFFI (en este caso concreto).</li>
+<li>Con Cython podemos usar el código compilado sin tocarlo mientras que con CFFI hemos de crear algo de código (muy simple) en el lenguaje compilado para acceder a su funcionalidad.</li>
+<li>CFFI permite usar numpy arrays de forma sencilla, aunque, como con Cython, hay que 'ayudar con algo de código no Python' para que todo se pueda comunicar correctamente.</li>
+</ul>
+<h2>Documentación</h2>
+<p><a href="http://cython.org/#documentation">Cython</a>.</p>
+<p><a href="https://cffi.readthedocs.io/en/latest/">CFFI</a>.</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/c.html" class="tag">c</a>
+                    <a href="http://pybonacci.github.io/tag/cffi.html" class="tag">cffi</a>
+                    <a href="http://pybonacci.github.io/tag/cython.html" class="tag">cython</a>
+                    <a href="http://pybonacci.github.io/tag/fortran.html" class="tag">fortran</a>
+                    <a href="http://pybonacci.github.io/tag/pypy.html" class="tag">pypy</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>El salto de Felix Baumgartner en Python | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>El salto de Felix Baumgartner en Python</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>lun 15 octubre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Supongo que todos estáis al tanto de la hazaña de <a href="http://en.wikipedia.org/wiki/Felix_Baumgartner">Felix Baumgartner</a>, el hombre que ha saltado desde una altura de más de 120000 pies desde un globo, convirtiéndose en el hombre que más alto ha saltado y el que ha alcanzado la mayor velocidad sin ayuda mecánica como parte de la <a href="http://www.redbullstratos.com/">misión Red Bull Stratos</a>.</p>
+<p>En Pybonacci somos <em>tan</em> frikis, que vamos a visualizar el salto supersónico de Baumgartner como mejor se nos da: con Python 😉</p>
+<!--more-->
+
+<p><strong>Nota</strong>: Esto es un artículo recreativo que he escrito en un par de horas y he hecho unas cuantas suposiciones que no tienen porqué coincidir con la realidad. Tómese esto en cuenta a la hora de valorar los resultados.</p>
+<h2>Formulación del problema</h2>
+<p><strong>Nota</strong>: Esta es la parte aburrida. Las gráficas están más abajo 🙂</p>
+<p>La ecuación diferencial que gobierna el movimiento en caída libre de Baumgartner es</p>
+<p style="text-align:center">
+  $\displaystyle m \frac{d^2 y}{d t^2} = -m g + D$
+</p>
+
+<p>donde el término $-m g$ corresponde a la <strong>atracción gravitatoria</strong> y $D$ es el <strong>rozamiento aerodinámico</strong>. La presencia de esta componente es fundamental, porque es la que determina la velocidad de equilibrio o <strong>velocidad terminal</strong> que se alcanza durante el salto. En los típicos problemas de escuela secundaria se desprecia, pero en Pybonacci hacemos las cosas con rigor 😉</p>
+<p>El rozamiento aerodinámico tiene por expresión $D = \frac{1}{2} \rho v^2 C_D A$, donde $C_D$ y $A$ son respectivamente el coeficiente de rozamiento y un área de referencia y son parámetros que dependen del cuerpo que estemos estudiando. Vemos también que el rozamiento es proporcial al cuadrado de la velocidad, de tal forma que cuanto más rápido vaya el cuerpo, mayor será esta fuerza: por eso se alcanza una velocidad terminal.</p>
+<p>Hay una cosa más que hay que tener en cuenta, y es que al ser el salto desde una altura tan grande, <em>la densidad del aire no puede considerarse constante</em>. ¿Qué significa esto? Que, una vez alcanzada la velocidad terminal, el rozamiento irá aumentando conforme pase el tiempo, aquella irá disminuyendo… y el cuerpo <em>caerá cada vez más despacio</em>.</p>
+<p>«Ehm… ¿cada vez más despacio? Chicos de Pybonacci, dedicaos a Python porque la física se os da fatal». Eso pensáis, ¿eh? ¡ya veremos!</p>
+<p>Para completar la formulación del problema nos falta saber el valor del coeficiente de rozamiento $C_D$, el área de referencia $A$ y la ley de variación de la densidad $\rho$ con la altitud. Para los dos primeros, <a href="http://fisicadepelicula.blogspot.com.es/2012/10/la-fisica-del-salto-baumgartner.html">con el permiso de Arturo Quirantes Sierra</a>, vamos a suponer que $C_D = 0.4$ y $A = 1.0~m^2$.</p>
+<p>En cuanto a la densidad, vamos a acudir utilizar <a href="http://pypi.python.org/pypi/AeroCalc/">el paquete AeroCalc</a>, que nos permite, entre otras cosas, calcular propiedades de la atmósfera según el modelo de la Atmósfera Estándar Internacional de 1976 hasta 84.852 kilómetros.</p>
+<p>¡Ya podemos resolver el problema! Para ello, vamos a hacer algo que no habíamos explicado todavía en el blog que es cómo resolver <strong>ecuaciones diferenciales ordinarias</strong> o EDOs en Python con SciPy, en concreto problemas de Cauchy o de valor inicial, como es este caso. Para ello utilizaremos la función <code>odeint</code> del paquete <code>scipy.integrate</code>. Si tenemos un sistema de EDOs del tipo</p>
+<p>$\displaystyle \frac{d y}{d t} = f(y, t)$</p>
+<p>la función <code>odeint</code> acepta, como mínimo, estos argumentos:</p>
+<ul>
+<li>La función del sistema f(y, t0, ...), que a su vez recibe como argumentos el vector y y el instante de tiempot0.</li>
+<li>El array y0 de condiciones iniciales en el instante t[0].</li>
+<li>El array t de valores temporales para los que resolver el sistema de ecuaciones diferenciales. El primer valor debe ser el que corresponde al vector de condiciones iniciales y0.</li>
+</ul>
+<p>Como vemos la forma del sistema dada más arriba no corresponde con la forma en la que tenemos nosotros expresada la ecuación: al ser una ecuación de segundo orden, hay que transformarla en un sistema de dos ecuaciones de primer orden. Para eso, definimos la variable</p>
+<p>$v = \frac{d y}{d t}$</p>
+<p>y el sistema queda de la siguiente manera:</p>
+<p style="text-align:center">
+  $\displaystyle \frac{d}{d t} \begin{pmatrix} y \\ v \end{pmatrix} = \begin{pmatrix} v \\ -g - \frac{1}{2 m} \rho(y) v^2 C_D A \end{pmatrix}$
+</p>
+
+<p>¡Ya podemos empezar a calcular!</p>
+<h2>Caída libre</h2>
+<p>Este es el código del programa. Se explica por sí solo:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">from</span> <span class="nn">aerocalc</span> <span class="kn">import</span> <span class="n">std_atm</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">C_D</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Función del sistema.</span>
+<span class="sd">    Procede de reducir de orden la ecuación</span>
+<span class="sd">    $m frac{d^2 y}{d t^2} = -m g - frac{1}{2} rho v^2 C_D A$</span>
+<span class="sd">    suponiendo gravedad constante igual a $g = 9.81 m s^{-2}$ y densidad</span>
+<span class="sd">    función de la altitud $rho = rho(y)$.</span>
+<span class="sd">    Parámetros</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y : array_like</span>
+<span class="sd">        Vector de variables $(y, dot{y})$.</span>
+<span class="sd">    t0 : array_like</span>
+<span class="sd">        Vector de valores temporales.</span>
+<span class="sd">    rho : callable(y)</span>
+<span class="sd">        Densidad en función de la altitud.</span>
+<span class="sd">    m : float</span>
+<span class="sd">        Masa del cuerpo.</span>
+<span class="sd">    C_D : float</span>
+<span class="sd">        Coeficiente de rozamiento.</span>
+<span class="sd">    A : float</span>
+<span class="sd">        Área de referencia</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="mf">9.8</span>  <span class="c1"># m</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="o">-</span><span class="n">g</span> <span class="o">+</span> <span class="n">rho</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">C_D</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
+    <span class="p">])</span>
+<span class="c1"># Datos iniciales</span>
+<span class="n">h0</span> <span class="o">=</span> <span class="mf">39000.0</span>  <span class="c1"># m</span>
+<span class="n">C_D</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">A</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># m^2</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">80</span>  <span class="c1"># kg</span>
+<span class="k">def</span> <span class="nf">alt2dens</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Devuelve la densidad en función de la altitud con unidades de</span>
+<span class="sd">    Sistema Internacional.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">std_atm</span><span class="o">.</span><span class="n">alt2density</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">alt_units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">density_units</span><span class="o">=</span><span class="s1">&#39;kg/m**3&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>  <span class="c1"># Cuatro minutos de caída libre</span>
+<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">h0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">alt2dens</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">C_D</span><span class="p">,</span> <span class="n">A</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;Caída libre&quot;</span><span class="p">)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y (m)&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;t (s)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="n">v</span> <span class="o">*</span> <span class="mf">3.6</span><span class="p">)</span>  <span class="c1"># km/h</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;v (km / h)&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;t (s)&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="n">figure</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;attachment_1037&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width: 407px&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;wp-caption aligncenter&quot;</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><img alt="Caída libre" src="https://pybonacci.org/images/2012/10/caida_libre2.png"></p>
+<p>Ajá, ¿no os creíais que cada vez caía más despacio? 😛 Esto evidentemente tenía cierto truco, pero ¡ya se ven los resultados en las gráficas!</p>
+<h2>La barrera del sonido</h2>
+<p>Y ahora la gran pregunta, ¿superó Baumgartner la barrera del sonido? Para saberlo, necesitamos saber, aparte de su velocidad real, la distribución de la velocidad del sonido en el aire, que no es constante al no serlo la temperatura. Con esto podemos calcular el <strong>número de Mach</strong>:</p>
+<p>$\displaystyle M = \frac{u}{c}$</p>
+<p>siendo $u$ la velocidad, $c = \sqrt{\gamma R T}$ la velocidad del sonido en el aire, $\gamma$ y $R$ dos parámetros de valores conocidos (la razón de calores específicos y la constante específica del aire) y $T$ la temperatura, que conocemos gracias al modelo de la Atmósfera Estándar Internacional. Veamos:</p>
+<div class="highlight"><pre><span></span><span class="n">gamma</span> <span class="o">=</span> <span class="mf">1.4</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mf">287.0</span>  <span class="c1"># [SI]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)):</span>
+    <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">gamma</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">std_atm</span><span class="o">.</span><span class="n">alt2temp</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">alt_units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">temp_units</span><span class="o">=</span><span class="s1">&#39;K&#39;</span><span class="p">))</span>
+<span class="n">M</span> <span class="o">=</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span> <span class="n">c</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t (s)&#39;</span><span class="p">)</span><span class="o">&lt;</span><span class="n">figure</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;attachment_1038&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;width: 389px&quot;</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;wp-caption aligncenter&quot;</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p><img alt="Número de Mach" src="https://pybonacci.org/images/2012/10/mach_number.png"></p>
+<p>Así que sí, <em>¡Felix Baumgartner superó la barrera del sonido!</em> Según Pybonacci, por supuesto 😉</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/baumgartner.html" class="tag">Baumgartner</a>
+                    <a href="http://pybonacci.github.io/tag/edos.html" class="tag">EDOs</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/stratos.html" class="tag">stratos</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

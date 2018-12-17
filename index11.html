@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>Inicio | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container index">
+
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/12/03/desarrollo-dirigido-por-pruebas-en-python-iii-independencia-del-sistema/">Desarrollo Dirigido por Pruebas en Python (III). Independencia del Sistema</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-12-03T20:43:49+00:00" pubdate>mar 03 diciembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/javierjus.html">javierjus</a>
+        </address>
+        <div class="tags">
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>En esta entrega continuamos aplicando desarrollo dirigido por pruebas (o Test-Driven Development en inglés) para implementar una aplicación que busque tweets con un hashtag concreto y los guarde en un archivo. En concreto nos centraremos en el código que construye el nombre del fichero con la fecha actual y el hashtag buscado.</p>
+<p>Nos enfrentaremos con el problema de depender de la fecha del sistema por lo que el resultado esperado de la pruebas cambiará cada día. Para solucionarlo, veremos cómo podemos independizar nuestro código de detalles del sistema y hacerlo más fácil de probar. Esto nos dará pie a presentar los dobles de prueba.</p>
+<p>Las entregas anteriores de esta serie son:</p>
+<p><a href="https://pybonacci.org/2013/01/07/desarrollo-dirigido-por-pruebas-en-python-i-una-historia-que-pasa-todos-los-dias/#more-1352" title="Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días">Desarrollo dirigido por pruebas en Python (I): Una historia que pasa todos los días</a></p>
+<p><a href="https://pybonacci.org/2013/06/19/desarrollo-dirigido-por-pruebas-en-python-ii-un-caso-practico-i/" title="Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)">Desarrollo Dirigido por Pruebas en Python (II). Un Caso Práctico (I)</a></p>
+<p>Aunque la aplicación es …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/12/03/desarrollo-dirigido-por-pruebas-en-python-iii-independencia-del-sistema/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/11/15/operador-dos-puntos-de-matlab-en-python/">Operador dos puntos (:) de MATLAB ¿en Python?</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-11-15T13:00:25+00:00" pubdate>vie 15 noviembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/arange.html" class="tag">arange</a>
+                <a href="http://pybonacci.github.io/tag/linspace.html" class="tag">linspace</a>
+                <a href="http://pybonacci.github.io/tag/matlab.html" class="tag">matlab</a>
+                <a href="http://pybonacci.github.io/tag/octave.html" class="tag">octave</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>Hoy que es viernes os traemos un artículo un poco más relajado (y atípico): vamos a hablar sobre el operador dos puntos (:) de MATLAB, o más bien <strong>de su ausencia en Python</strong>. Tal vez algunos de quienes estáis ya considerando Python como una opción seria frente a MATLAB os estaréis preguntando: ¿qué hay de esta magnífica sintaxis para crear secuencias?</p>
+<div class="highlight"><pre><span></span>$ octave -q
+octave:1&gt; <span class="m">0</span>:0.1:1
+<span class="nv">ans</span> <span class="o">=</span>
+<span class="m">0</span>.000 <span class="m">0</span>.100 <span class="m">0</span>.200 <span class="m">0</span>.300 <span class="m">0</span>.400 <span class="m">0</span>.500 <span class="m">0</span>.600 <span class="m">0</span>.700 <span class="m">0</span>.800 <span class="m">0</span>.900 <span class="m">1</span>.000
+</pre></div>
+
+
+<p>Pues, como indican en el <a href="http://mathesaurus.sourceforge.net/matlab-numpy.html">mathesaurus</a> y en otros sitios, tendré que usar la función <code>np.arange</code>:</p>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="n">python</span> <span class="o">-</span><span class="n">q</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">np</span><span class="o">.</span><span class="kp">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="kp">array</span><span class="p">([</span> <span class="mf">0.</span> <span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0 …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/11/15/operador-dos-puntos-de-matlab-en-python/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/">Teoría de control en Python con SciPy (II): Control PID</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-11-06T20:37:07+00:00" pubdate>mié 06 noviembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/control.html" class="tag">control</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En esta serie de artículos vamos a estudiar <strong>cómo podemos aplicar Python al estudio de la teoría de control</strong>, en este caso utilizando SciPy. La teoría de control se centra en los <strong>sistemas dinámicos</strong> con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...</p>
+<ol>
+<li><a href="https://pybonacci.org/2013/10/10/teoria-de-control-en-python-con-scipy-i/" title="Teoría de control en Python con SciPy (I): Conceptos básicos">Conceptos básicos</a></li>
+<li><strong>Control PID</strong></li>
+</ol>
+<p>En esta segunda parte, una vez vistos algunos conceptos básicos en la primera, vamos a retomar el problema del control de crucero del coche exactamente donde lo dejamos:</p>
+<blockquote>
+<p>La conclusión que podemos extraer de este gráfico es que <strong>para pasar de 0 a 100 km/h, nuestro coche necesita casi un minuto …</strong></p></blockquote>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/10/10/teoria-de-control-en-python-con-scipy-i/">Teoría de control en Python con SciPy (I): Conceptos básicos</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-10-10T19:45:23+00:00" pubdate>jue 10 octubre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/control.html" class="tag">control</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipysignal.html" class="tag">scipy.signal</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En esta serie de artículos vamos a estudiar <strong>cómo podemos aplicar Python al estudio de la teoría de control</strong>, en este caso utilizando SciPy. La teoría de control se centra en los <strong>sistemas dinámicos</strong> con entradas: sistemas físicos cuyo estado evoluciona con el tiempo en función de la información que reciben del exterior. Como puedes ver, esta definición es enormemente amplia: el control toca aspectos de la ingeniería y de las matemáticas, y tiene aplicaciones también en las ciencias sociales: psicología, sociología, finanzas...</p>
+<ol>
+<li><strong>Conceptos básicos</strong></li>
+<li><a href="https://pybonacci.org/2013/11/06/teoria-de-control-en-python-con-scipy-ii-control-pid/" title="Teoría de control en Python con SciPy (II): Control PID">Control PID</a></li>
+</ol>
+<p>En esta primera parte vamos a hacer una breve introducción matemática para centrar el tema y vamos a ver el manejo básico de sistemas LTI.</p>
+<p>Cuando uno piensa en estudiar sistemas dinámicos con un ordenador, automáticamente se le viene a la cabeza <strong>MATLAB</strong>, y no sin motivo. Este programa tiene unas capacidades …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/10/10/teoria-de-control-en-python-con-scipy-i/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/09/22/hoja-de-ruta-para-scipy-1-0/">Hoja de ruta para SciPy 1.0</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-09-22T14:52:43+00:00" pubdate>dom 22 septiembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/euroscipy.html" class="tag">euroscipy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Los desarrolladores de SciPy han anunciado, a través de la lista de correo, que se ha preparado un borrador con <strong>la hoja de ruta hacia la consolidación de SciPy 1.0</strong>.</p>
+<p>Hoja de ruta:</p>
+<p>https://github.com/rgommers/scipy/blob/roadmap/doc/ROADMAP.rst.txt</p>
+<p>Anuncio en la lista de correo:</p>
+<p>http://mail.scipy.org/pipermail/scipy-dev/2013-September/019237.html</p>
+<p>Ralf Gommers, Pauli Virtanen y David Cournapeau se reunieron en la <a href="https://pybonacci.org/tag/euroscipy/">EuroSciPy</a> que se celebró en Bruselas en agosto y han redactado un documento donde se recogen los pasos necesarios en términos de nueva funcionalidad, solución de fallos, etc. para llegar a SciPy 1.0. Cuando esto se consiga, significará que SciPy contiene lo esencial y que tiene una API y un código de buena calidad.</p>
+<blockquote class="twitter-tweet" width="550">
+  <p>
+    <a href="https://twitter.com/hashtag/scipy?src=hash">#scipy</a> 1.0 roadmap on github: here's your chance to influence the future direction …</p></blockquote>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/09/22/hoja-de-ruta-para-scipy-1-0/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/09/04/pfs-multiplicacion-de-karatsuba/">PFS: Multiplicación de Karatsuba</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-09-04T23:46:40+00:00" pubdate>mié 04 septiembre 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html" class="tag">exponenciación binaria</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/pfs.html" class="tag">PFS</a>
+                <a href="http://pybonacci.github.io/tag/potencias.html" class="tag">potencias</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html" class="tag">Python fuente de sabiduria</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Vamos a seguir con nuestra serie sobre <a href="https://pybonacci.org/tag/python-fuente-de-sabiduria/">'<strong>p</strong>ython, <strong>f</strong>uente de <strong>s</strong>abiduria'</a> hablando sobre la multiplicación.</p>
+<p>¿Te has preguntado alguna vez cómo se multiplican dos números en un ordenador o calculadora? Normalmente, los <a href="http://en.wikipedia.org/wiki/Arithmetic_logic_unit" target="_blank">circuitos</a> de los procesadores incluyen operaciones básicas como la <a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Shift_and_add" target="_blank">multiplicación de enteros de tamaño pequeño</a>. Sobre estas operaciones básicas se construye todo lo demás.</p>
+<p>El caso que nos ocupa hoy, multiplicar números enteros muy grandes, se consigue mediante el uso de algoritmos vía software. Una forma sencilla de calcular enteros es usando la misma metodología que usábamos en la escuela, con la tabla de multiplicar del uno al diez y con sumas:</p>
+<div class="highlight"><pre><span></span>    23958233
+        5830 ×
+------------
+    00000000 ( =      23,958,233 ×     0)
+   71874699  ( =      23,958,233 ×    30)
+ 191665864   ( =      23,958,233 ×   800)
+119791165    ( =      23,958,233 × 5,000)
+------------
+139676498390 ( = 139,676,498,390        )
+</pre></div>
+
+
+<p>(ejemplo extraído de <a href="http://en.wikipedia.org/wiki/Multiplication_algorithm#Example" target="_blank">wikipedia</a>)</p>
+<p>El …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/09/04/pfs-multiplicacion-de-karatsuba/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/08/28/pfs-exponenciacion-binaria/">PFS: Exponenciación binaria</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-08-28T16:42:13+00:00" pubdate>mié 28 agosto 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/exponenciacion-binaria.html" class="tag">exponenciación binaria</a>
+                <a href="http://pybonacci.github.io/tag/optimizacion.html" class="tag">optimización</a>
+                <a href="http://pybonacci.github.io/tag/pfs.html" class="tag">PFS</a>
+                <a href="http://pybonacci.github.io/tag/potencias.html" class="tag">potencias</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-fuente-de-sabiduria.html" class="tag">Python fuente de sabiduria</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>Hoy voy a iniciar una serie nueva de entradas que se llamará '<strong>p</strong>ython, <strong>f</strong>uente de <strong>s</strong>abiduría' (PFS para abreviar). ¿Qué pretende esta serie? La idea básica es mostrar la influencia y realimentación entre las matemáticas y la programación. La idea e inspiración para estas entradas salió después de leer esta <a href="http://ch3m4.org/blog/2013/08/14/estudio-funcion-factorial-numpy/" target="_blank">entrada</a>.</p>
+<p>Inauguraremos esta entrada con una forma de calcular la potencia entera de un número entero. Si tuviera que crear una función que calculase esto, la primera idea que se me ocurre es usar la fuerza bruta (soy así de primario)...</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pow_fuerzabruta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>Con la anterior función, la cual no he pensado mucho, lo que estamos haciendo son <code>n-1</code> multiplicaciones. A medida que aumente el exponente aumentará el tiempo de cálculo. Veámoslo …</p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/08/28/pfs-exponenciacion-binaria/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/08/23/informando-de-bugs-en-numpy-y-scipy-en-castellano-a-traves-de-pybonacci/">Informando de bugs en NumPy y SciPy en castellano a través de Pybonacci</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-08-23T08:45:04+00:00" pubdate>vie 23 agosto 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/github.html" class="tag">github</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>No sé si se llegará a usar esto mucho, pero he pensado que tal vez haya gente encontrando comportamientos extraños en NumPy o SciPy que pueden ser bugs pero que no puedan enviar un informe de errores en inglés a los repositorios oficiales. Por eso <strong>he hecho un fork de ambos proyectos, y si pensáis que habéis encontrado un bug en NumPy o SciPy podéis decírnoslo en castellano aquí y nosotros nos encargamos de traducirlos</strong>.</p>
+<p><a href="https://github.com/Pybonacci/numpy/issues">https://github.com/Pybonacci/numpy/issues</a></p>
+<p><a href="https://github.com/Pybonacci/scipy/issues">https://github.com/Pybonacci/scipy/issues</a></p>
+<p><em><strong>NOTA IMPORTANTE</strong></em>: Estos repositorios <strong>no</strong> son para consultas sobre código o dudas personales. Como para informar de cualquier otro bug se exigirá seriedad y compromiso por parte de la persona que informa. En particular, aplican estas tres sencillas reglas:</p>
+<ol>
+<li>
+<p>El informe debe contener <strong>en qué sistema operativo se trabaja y qué versiones de …</strong></p></li></ol>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/08/23/informando-de-bugs-en-numpy-y-scipy-en-castellano-a-traves-de-pybonacci/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/">Ajuste e interpolación unidimensionales básicos en Python con SciPy</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-08-15T13:14:15+00:00" pubdate>jue 15 agosto 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/interpolacion.html" class="tag">interpolación</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                <a href="http://pybonacci.github.io/tag/python-3.html" class="tag">python 3</a>
+                <a href="http://pybonacci.github.io/tag/scipy.html" class="tag">scipy</a>
+                <a href="http://pybonacci.github.io/tag/scipyinterpolate.html" class="tag">scipy.interpolate</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <h2>Introducción</h2>
+<p>En este artículo vamos a ver una introducción a <strong>cómo hacer ajustes e interpolaciones en Python</strong> utilizando NumPy y los módulos <code>interpolate</code> y <code>optimize</code> de SciPy.</p>
+<p>Ajustes de curvas e interpolaciones son <strong>dos tareas básicas que realizaremos con mucha frecuencia</strong>. Por ejemplo, cuando recojamos los datos de un experimento: sabemos que se tienen que comportar como una parábola, pero obviamente por errores de medición u otro tipo no obtenemos una parábola exactamente. En este caso necesitaremos realizar un <strong>ajuste de los datos</strong>, conocido el modelo (una curva de segundo grado en este caso).</p>
+<p>En otras ocasiones dispondremos de una serie de puntos y <strong>querremos construir una curva que pase por todos ellos</strong>. En este caso lo que queremos es realizar una <strong>interpolación</strong>: si tenemos pocos puntos podremos usar un polinomio, y en caso contrario habrá que usar trazadores (<em>splines …</em></p>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/08/15/ajuste-e-interpolacion-unidimensionales-basicos-en-python-con-scipy/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+  <article>
+    <header>
+      <h2><a href="http://pybonacci.github.io/2013/07/27/microentradas-numpy-unravel_index/">MicroEntradas: numpy.unravel_index</a></h2>
+      <div class="meta">
+        <time datetime="" title="2013-07-27T11:09:02+00:00" pubdate>sáb 27 julio 2013</time>
+        <address class="vcard author">Por
+	    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+        </address>
+        <div class="tags">
+                <a href="http://pybonacci.github.io/tag/microentradas.html" class="tag">MicroEntradas</a>
+                <a href="http://pybonacci.github.io/tag/numpy.html" class="tag">numpy</a>
+                <a href="http://pybonacci.github.io/tag/unravel_index.html" class="tag">unravel_index</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="article_content">
+      <p>¿Cuántas veces te has encontrado que tienes que conocer un valor concreto de una matriz n-dimensional y conocer la posición en la que se encuentra ese valor en esa matriz? Yo me he visto en esa situación muchas veces y siempre he acabado creando mi función que me dijera la posición,..., hasta que he descubierto <a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.unravel_index.html">numpy.unravel_index</a>!!!</p>
+<p>[Para la siguiente entrada se ha usado python 2.7.3 y numpy 1.6.1 aunque debería ser compatible con python 3.x y versiones de numpy superiores a la 1.6.0, antes de la versión 1.6.0 de numpy la versión de <code>unravel_index</code> solo permitía que le pasáramos un único índice]</p>
+<p>Por ejemplo, imagina que quieres encontrar el valor máximo en una matriz 2D como la siguiente:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c1"># Matriz bidimensional de números aleatorios distribuidos</span>
+<span class="c1"># siguiendo una …</span></pre></div>
+    </div>
+
+    <div class="meta">
+      <div>
+        <a href="http://pybonacci.github.io/2013/07/27/microentradas-numpy-unravel_index/" class="read_more">Seguir leyendo &#8594;</a>
+      </div>
+
+    </div>
+
+  </article>
+  <div class="separator"></div>
+
+  <nav class="pagination row">
+    <div class="col-xs-6 left">
+        <a class="prev" href="http://pybonacci.github.io/index12.html">&#8592; Más antiguas</a>
+    </div>
+    <div class="col-xs-6 right">
+        <a class="next" href="http://pybonacci.github.io/index10.html">Más recientes &#8594;</a>
+    </div>
+  </nav>
+
+  </div>
+
+</div>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>El notebook de IPython | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>El notebook de IPython</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>vie 02 noviembre 2012</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/juan-luis-cano.html">Juan Luis Cano</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <h2>Introducción</h2>
+<p>Ya hablamos en su momento de <a href="https://pybonacci.org/2012/07/02/introduccion-a-ipython-mucho-mas-que-un-interprete-de-python/" title="Introducción a IPython: mucho más que un intérprete de Python">IPython, un intérprete de Python</a> con multitud de características avanzadas que lo hacían indispensable para ejecutar sesiones interactivas. Hoy vamos a continuar con lo que habíamos dejado a medias, y vamos a dedicar un artículo al <a href="http://ipython.org/ipython-doc/dev/interactive/htmlnotebook.html">notebook de IPython</a>, una herramienta que está verdaderamente revolucionando la manera en que se utiliza Python en ámbitos científicos y conferencias sobre el lenguaje, como se ha demostrado en la reciente <a href="http://nyc2012.pydata.org/">PyData NYC 2012</a> que se ha celebrado en Nueva York (recuerda que en Pybonacci hemos seleccionado un <a href="https://pybonacci.org/2012/10/31/recopilacion-del-pydata-nyc-2012/" title="Recopilación del PyData NYC 2012">resumen de charlas de la PyData NYC 2012</a>).</p>
+<blockquote class="twitter-tweet" width="550">
+  <p lang="en" dir="ltr">
+    Biggest PyData winner: IPython notebook by a landslide. Everyone seems to be using it. Can't wait to try to teach <a href="https://twitter.com/swcarpentry">@swcarpentry</a> with it.
+  </p>
+
+  <p>
+    &mdash; Richard T. Guy (@richardtguy84) <a href="https://twitter.com/richardtguy84/status/262289566009016320">October 27, 2012</a>
+  </p>
+</blockquote>
+
+<blockquote class="twitter-tweet" width="550">
+  <p lang="en" dir="ltr">
+    Getting ready for <a href="https://twitter.com/hashtag/pydata?src=hash">#pydata</a> = Online Python Tutor on the <a href="https://twitter.com/hashtag/ipython?src=hash">#ipython</a> notebook. <a href="http://t.co/ZClSle9Y">pic.twitter.com/ZClSle9Y</a>
+  </p>
+
+  <p>
+    &mdash; Brian Granger (@ellisonbg) <a href="https://twitter.com/ellisonbg/status/261568248993181696">October 25, 2012</a>
+  </p>
+</blockquote>
+
+<p>https://twitter.com/<strong>dfm</strong>/status/262245974334918656</p>
+<blockquote class="twitter-tweet" width="550">
+  <p lang="en" dir="ltr">
+    Awesome! IPython notebook slides (!) used in <a href="https://twitter.com/aterrel">@aterrel</a> 's talk on MPI.
+  </p>
+
+  <p>
+    &mdash; Thomas Wiecki (@twiecki) <a href="https://twitter.com/twiecki/status/262267127510216704">October 27, 2012</a>
+  </p>
+</blockquote>
+
+<p>Aquí incluimos un vídeo que hemos grabado para mostrar las características fundamentales de IPython, porque ya se sabe que un vídeo vale más que mil imágenes 😉 No olvides suscribirte a nuestro canal en YouTube para futuras creaciones.</p>
+<h2>El notebook de IPython</h2>
+<p>El <strong>notebook de IPython</strong> es una interfaz web para IPython, inspirada en los notebooks de Mathematica y <a href="https://pybonacci.org/2012/05/06/sage-software-matematico-libre-como-alternativa/" title="Sage: software matemático libre como alternativa">Sage</a>. Como puedes leer en esta <a href="http://blog.fperez.org/2012/01/ipython-notebook-historical.html">retrospectiva histórica</a> escrita por Fernando Pérez, la idea de crear una interfaz de este tipo ya existía desde los inicios del proyecto IPython, allá por 2001, y después de muchos años, varios intentos fallidos y habiendo aprendido de la experiencia del propio notebook de Sage, que surgió antes pero estaba mucho menos pulido, fue finalmente presentado en la conferencia <a href="http://www.euroscipy.org/talk/4022">EuroSciPy 2011</a>.</p>
+<!--more-->
+
+<p>En la última versión de IPython se corrigieron algunos errores y se mejoró la parte de la interfaz y actualmente, como hemos señalado arriba, está atrayendo la atención de multitud de usuarios y <a href="http://www.software.ac.uk/blog/2012-10-18-making-python-more-accessible-scientists-and-more-powerful">medios de comunicación</a>. También hay artículos sobre cómo utilizarlo para escribir entradas en <a href="http://blog.fperez.org/2012/09/blogging-with-ipython-notebook.html">Blogger</a> o <a href="http://jakevdp.github.com/blog/2012/10/04/blogging-with-ipython/">Octopress</a>.<figure id="attachment_1161" style="width: 614px" class="wp-caption aligncenter"></p>
+<p><img alt="Notebook de IPython" src="https://pybonacci.org/images/2012/11/2012-11-02-124946_1366x768_scrot.png?w=1024"></p>
+<p>El notebook de IPython utiliza el servidor web Tornado y utiliza <a href="http://zeromq.github.com/pyzmq/">ØMQ</a> para la comunicación entre procesos y websockets para la interacción con el navegador, con lo que se crea una conexión asíncrona y se consigue una buena velocidad de respuesta. En la parte de la interfaz utiliza <a href="http://www.mathjax.org/">MathJax</a> para las fórmulas matemáticas y el editor CodeMirror.</p>
+<h2>Características</h2>
+<p>Estas son algunas de las características del notebook de IPython:</p>
+<ul>
+<li>Lista de notebooks.</li>
+<li>Interfaz para el <a href="http://ipython.org/ipython-doc/stable/parallel/index.html">procesamiento en paralelo</a> <ins datetime="2012-11-06T21:38:22+00:00">(esta característica no necesita el notebook)</ins>.</li>
+<li>Edición y movimiento de celdas, inserción y eliminación arbitraria.</li>
+<li>Gráficos y figuras integrados con el modo <code>--pylab inline</code> <ins datetime="2012-11-06T21:38:22+00:00">(esta característica tampoco necesita el notebook, puede usarse también en la interfaz Qt)</ins>.</li>
+<li>Autocompletado de código.</li>
+<li>Celdas con encabezados, puro HTML o Markdown.</li>
+<li>Posibilidad de utilizar R, Octave, Cython...</li>
+<li>Enlaces a la documentación del notebook, IPython, Python, NumPy, Scipy, SymPy y matplotlib.</li>
+<li>Ayuda integrada.</li>
+<li>Exportación a archivo <code>.ipynb</code>, basado en JSON, para compartir notebooks.</li>
+<li>Atajos de teclado</li>
+</ul>
+<p style="text-align:left">
+  Para mí, los atajos de teclado son uno de los mayores aciertos de este notebook. Aquí incluimos algunos de los más utilizados, la tabla completa se puede ver con el comando <code>Ctrl-m h</code>:
+</p>
+
+<table>
+  <tr>
+    <th>
+      Comando
+    </th>
+
+    <th>
+      Acción
+    </th>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Shift-Enter</code>
+    </td>
+
+    <td>
+      Ejecutar celda
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-s</code>
+    </td>
+
+    <td>
+      Guardar notebook
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m x</code>
+    </td>
+
+    <td>
+      Cortar celda
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m c</code>
+    </td>
+
+    <td>
+      Copiar celda
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m v</code>
+    </td>
+
+    <td>
+      Pegar celda
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m d</code>
+    </td>
+
+    <td>
+      Eliminar celda
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m a</code>
+    </td>
+
+    <td>
+      Insertar celda encima
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m b</code>
+    </td>
+
+    <td>
+      Insertar celda debajo
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m m</code>
+    </td>
+
+    <td>
+      Celda Markdown
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m 1-6</code>
+    </td>
+
+    <td>
+      Celda con encabezados HTML niveles 1 a 6
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Ctrl-m h</code>
+    </td>
+
+    <td>
+      Mostrar atajos de teclado
+    </td>
+  </tr>
+</table>
+
+<h2>Compartir</h2>
+<p>Si bien el propio notebook de IPython es una herramienta extraordinaria, lo realmente valioso de ella es la posibilidad de compartir fácilmente notebooks con todo el mundo. La gente de IPython ha creado el <a href="http://nbviewer.ipython.org/">Visor de notebooks de IPython nbviewer</a>, con la que puedes visualizar cualquier notebook de IPython con tal de escribir la URL. Incluso si subes el archivo <code>.ipynb</code> al servicio Gist de GitHub, ¡no tienes más que incluir la ID del gist! El siguiente enlace lleva a la versión en notebook de nuestra entrada sobre transformadas discretas de Fourier:</p>
+<p><a href="http://nbviewer.ipython.org/3804365/">http://nbviewer.ipython.org/3804365/</a></p>
+<h2>Enlaces</h2>
+<ul>
+<li>Hay otros dos vídeos interesantes sobre el notebook de IPython en YouTube, <a href="http://youtu.be/HaS4NXxL5Qc">el primero por C. Titus Brown</a> y <a href="http://youtu.be/2G5YTlheCbw">el segundo de la charla de Fernando Pérez</a> en la PyCon 2012.</li>
+<li>En este blog puedes encontrar una galería de imágenes con ejemplos de <a href="http://bigsnarf.wordpress.com/2012/06/08/ipython-notebook-examples-of-youtube-html-and-networkx-visualizations/">representación de grafos con NetworkX dentro del notebook de IPython</a>. Una transcripción de la segunda está disponible en las <a href="http://pycon-2012-notes.readthedocs.org/en/latest/ipython.html">notas de Marc Abramowitz de la PyCon 2012</a>.</li>
+</ul>
+<p>Para terminar me gustaría agradecer a Joe di Castro, a quien admiro personalmente, todas las dudas que me contesta individualmente, y en concreto este tweet:</p>
+<p>https://twitter.com/python_majibu/status/258640137020403713</p>
+<p>Un saludo y gracias por leer 🙂</p>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/ipython.html" class="tag">ipython</a>
+                    <a href="http://pybonacci.github.io/tag/notebook.html" class="tag">notebook</a>
+                    <a href="http://pybonacci.github.io/tag/python.html" class="tag">python</a>
+                    <a href="http://pybonacci.github.io/tag/video.html" class="tag">video</a>
+                    <a href="http://pybonacci.github.io/tag/web.html" class="tag">web</a>
+            </div>
+        </div>
+
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>

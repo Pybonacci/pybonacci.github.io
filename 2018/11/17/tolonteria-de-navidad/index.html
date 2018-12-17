@@ -1,0 +1,3191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="author" content="Pybonacci">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <title>TOLoNtería de Navidad | Pybonacci</title>
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="alternate" type="application/atom+xml" title="Pybonacci blog atom feed" href="/feeds/all.atom.xml" />
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/theme/css/fontello.css"/>
+        <style>.highlight .hll { background-color: #ffffcc }
+.highlight .c { color: #60a0b0; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #007020; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #007020 } /* Comment.Preproc */
+.highlight .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #808080 } /* Generic.Output */
+.highlight .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0040D0 } /* Generic.Traceback */
+.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #007020 } /* Keyword.Pseudo */
+.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #902000 } /* Keyword.Type */
+.highlight .m { color: #40a070 } /* Literal.Number */
+.highlight .s { color: #4070a0 } /* Literal.String */
+.highlight .na { color: #4070a0 } /* Name.Attribute */
+.highlight .nb { color: #007020 } /* Name.Builtin */
+.highlight .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.highlight .no { color: #60add5 } /* Name.Constant */
+.highlight .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.highlight .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #007020 } /* Name.Exception */
+.highlight .nf { color: #06287e } /* Name.Function */
+.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
+.highlight .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #bb60d5 } /* Name.Variable */
+.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #40a070 } /* Literal.Number.Float */
+.highlight .mh { color: #40a070 } /* Literal.Number.Hex */
+.highlight .mi { color: #40a070 } /* Literal.Number.Integer */
+.highlight .mo { color: #40a070 } /* Literal.Number.Oct */
+.highlight .sb { color: #4070a0 } /* Literal.String.Backtick */
+.highlight .sc { color: #4070a0 } /* Literal.String.Char */
+.highlight .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #4070a0 } /* Literal.String.Double */
+.highlight .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #4070a0 } /* Literal.String.Heredoc */
+.highlight .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #c65d09 } /* Literal.String.Other */
+.highlight .sr { color: #235388 } /* Literal.String.Regex */
+.highlight .s1 { color: #4070a0 } /* Literal.String.Single */
+.highlight .ss { color: #517918 } /* Literal.String.Symbol */
+.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #bb60d5 } /* Name.Variable.Class */
+.highlight .vg { color: #bb60d5 } /* Name.Variable.Global */
+.highlight .vi { color: #bb60d5 } /* Name.Variable.Instance */
+.highlight .il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+        <style>.description-author {
+  font-size: 0.8em;
+  color: #333;
+}
+.img-author {
+  max-height: 10em;
+  max-width: 10em;
+}
+img[src$="centerme"] {
+  display: block;
+  margin: 0 auto;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font: 'Source Sans Pro', sans-serif;
+  color: #222222;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+@media all and (min-width: 960px) {
+  body {
+    font-size: 20px;
+  }
+}
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+}
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {
+    font-size: 14px;
+  }
+}
+div.input_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_area {
+  font-size: 1.1em;
+  margin: 0 10%;
+}
+div.output_subarea {
+  max-width: 100% !important;
+}
+pre {
+  font-size: 1.1em;
+}
+p {
+  margin-bottom: 20px;
+  line-height: 1.6em;
+  text-align: justify;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+article {
+  margin: 0;
+}
+article header.about {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+article header {
+  padding-bottom: 20px;
+}
+article header h1 {
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #000;
+}
+article header time {
+  color: #9E9E9E;
+  float: right;
+}
+article header time.left {
+  color: #9E9E9E;
+  float: left;
+}
+article div.social-links ul {
+  padding: 0px;
+}
+article div.social-links li {
+  display: inline;
+  font-size: 20px;
+}
+article div.social-links li a {
+  color: #000;
+  padding: 10px;
+}
+article div.social-links li a:hover {
+  color: #666;
+  text-decoration: none;
+}
+article p.note {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.533em 0.733em;
+}
+article p.update {
+  background-color: #FEEFB3;
+  border: 1px solid #e6e68a;
+  padding: 0.533em 0.733em;
+}
+article p.alert {
+  background-color: #ffe2e2;
+  border: 1px solid #ffb2b2;
+  padding: 0.533em 0.733em;
+}
+article a:hover {
+  text-decoration: underline;
+}
+article blockquote {
+  border-left: 2px solid #c7c7cc;
+  color: #666;
+  margin: 30px 0;
+  padding: 0 0 0 25px;
+}
+article .meta {
+  margin-top: 35px;
+}
+article .meta a:hover {
+  text-decoration: none;
+}
+article .meta address:before,
+article .meta time:before,
+article .meta a.tag:before {
+  font-family: 'fontello';
+  margin-right: 6px;
+}
+article .meta address.author {
+  float: left;
+}
+article .meta address:before {
+  content: '\e819';
+}
+article .meta time:before {
+  content: '\f133';
+}
+article .meta div.tags {
+  clear: both;
+}
+article .meta a.tag {
+  margin: 0 10px 10px 0;
+  padding: 1px 12px;
+  display: inline-block;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.05);
+}
+article .meta a.tag:before {
+  content: '\e821';
+}
+article .meta a.tag:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+article .meta a.read_more,
+article .meta a.comments_btn {
+  font-size: 1.5em;
+  font-weight: 800;
+  padding: 10px 20px;
+  color: #007aa3;
+  background: #FFF;
+  border: 1px solid #007aa3;
+}
+article .meta a.read_more:hover,
+article .meta a.comments_btn:hover {
+  color: #FFF;
+  background: #007aa3;
+}
+article .meta:after {
+  content: "";
+  display: table;
+  clear: both;
+}</style>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script data-isso="https://comments.pybonacci.org"
+                data-isso-lang="es"
+                src="https://comments.pybonacci.org/js/embed.min.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+                processEscapes: true,
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+            }
+        });
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+    </script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+
+        </script>
+
+    </head>
+
+    <body>
+        <header class="navbar navbar-default bs-docs-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+		  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#theNavbar">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span> 
+		  </button>
+                  <a class="navbar-brand" href="/" title="Home" class="title">Pybonacci</a><!-- — Python y Ciencia-->
+                </div>
+                <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="theNavbar">
+		    <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/pages/acerca-de-pybonacci.html" title="About">Acerca de</a></li>
+			    <li><a href="/pages/como-contribuir.html" title="Contributing">Contribuir</a></li>
+                            <li><a href="/archives.html" title="Archive">Archivos</a></li>
+                            <li><a class="nodec icon-rss" href="/feeds/all.atom.xml" title="pybonacci.github.io RSS feed" rel="me"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="wrap">
+<div class="container post">
+    <article>
+        <header>
+            <h1>TOLoNtería de Navidad</h1>
+            <div class="meta">
+                <time datetime="article.date.isoformat()" pubdate>sáb 17 noviembre 2018</time>
+                <address class="vcard author">Por
+                    <a class="url fn" href="http://pybonacci.github.io/author/kiko-correoso.html">Kiko Correoso</a>
+                </address>
+            </div>
+        </header>
+
+        <div class="article_content">
+            <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
+.ansibold {
+  font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
+  border-color: #ababab;
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
+}
+@media print {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
+  border: 0;
+  border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+div.output_area .mglyph > img {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 1px 0 1px 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+
+
+
+.rendered_html pre,
+
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css">.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */</style>
+<style type="text/css">
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Voy a empezar con un chiste:</p>
+<blockquote><p>Un vecino del pueblo pregunta: -<em>Oye, ¿a tí por qué te llaman 'el Campanas'?</em>-</p>
+<p>'El Campanas' responde: -<em>Tolón, tolón,..., tolonterías del pueblo...</em>-</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>De ahí, de <em>tolontería</em>, voy a derivar y relacionar <em>tontería</em> y <em>lotería</em> (qué bien hilado..., lo sé).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sí, lo habéis adivinado, vamos a calcular las estadísticas de la lotería de navidad para ver si es tontería o es una buena oportunidad de ganar un buen dinero.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="&#191;Qu&#233;-es-la-loter&#237;a-de-navidad-(espa&#241;ola)?">&#191;Qu&#233; es la loter&#237;a de navidad (espa&#241;ola)?<a class="anchor-link" href="#&#191;Qu&#233;-es-la-loter&#237;a-de-navidad-(espa&#241;ola)?">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Para los que no sean españoles o sean españoles que viven en una cueva y nunca se han comunicado con otro español que no viva en una cueva, la lotería de navidad es un <a href="https://es.wikipedia.org/wiki/Sorteo_Extraordinario_de_Navidad">sorteo de lotería que se realiza cada 22 de diciembre desde el año 1811</a>.</p>
+<p>En el sorteo de 2018 se van a usar 100.000 números y de cada número se van a sacar 170 series, es decir, que cada número se repetirá 170 veces. Cada número de cada serie es un billete y el billete se divide en 10 décimos. O sea, tenemos:</p>
+$$ \begin{align} 100.000 \quad \text{números} \quad \times \quad 170 \quad \text{series} \quad &amp; = \quad 17.000.000 \quad \text{billetes} \end{align} $$$$ \begin{align} 17.000.000 \quad \times \quad 10 \quad \text{décimos} \quad &amp; = \quad 170.000.000 \quad \text{décimos} 
+\end{align} $$<p></p>
+<p>Cada décimo cuesta 20 € por lo que si se vendiera todo se recaudarían 3.400.000.000 €.</p>
+<p>Según leo en varios sitios, en los últimos años se vende alrededor del 70% de décimos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Los-premios-de-la-loter&#237;a-de-Navidad-(visto-en-2018).">Los premios de la loter&#237;a de Navidad (visto en 2018).<a class="anchor-link" href="#Los-premios-de-la-loter&#237;a-de-Navidad-(visto-en-2018).">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hay muchas posibilidades (ahora lo veremos en detalle) de que te toque algo... <strike>pero hay más de que no ganes nada</strike>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table class="table table-hover text-centered">
+    <tbody>
+        <tr class="title">
+            <td><b>premios por serie</b></td>
+            <td><b>Total premios</b></td>
+            <td><b>Importe en euros</b></td>
+            <td><b>Cantidad ganada (por euro jugado)</b></td>
+        </tr>
+        <tr class="impar">
+            <td><span class="texto">El Gordo (primer premio)</span></td>
+            <td><span class="texto">1</span></td>
+            <td><span class="texto">4.000.000</span></td>
+            <td>20.000€</td>
+        </tr>
+        <tr class="par">
+            <td>Segundo premio</td>
+            <td>1</td>
+            <td>1.250.000</td>
+            <td>6.250€</td>
+        </tr>
+        <tr class="impar">
+            <td>Tercer premio</td>
+            <td>1</td>
+            <td>500.000</td>
+            <td>2.500€</td>
+        </tr>
+        <tr class="par">
+            <td>Cuartos premios</td>
+            <td>2</td>
+            <td>200.000</td>
+            <td>1.000€</td>
+        </tr>
+        <tr class="impar">
+            <td>Quintos premios</td>
+            <td>8</td>
+            <td>60.000</td>
+            <td>300€</td>
+        </tr>
+        <tr class="par">
+            <td>Pedreas de 5 cifras</td>
+            <td>1.794</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Aproximación primer premio</td>
+            <td>2</td>
+            <td>20.000</td>
+            <td>100€</td>
+        </tr>
+        <tr class="par">
+            <td>Aproximación segundo premio</td>
+            <td>2</td>
+            <td>12.500</td>
+            <td>62,5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Aproximación tercer premio</td>
+            <td>2</td>
+            <td>9.600</td>
+            <td>48€</td>
+        </tr>
+        <tr class="par">
+            <td>Centenas del primer premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Centenas del segundo premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Centenas del tercer premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Centenas de dos cuartos premio</td>
+            <td>198</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Dos últimas del primer premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>6€</td>
+        </tr>
+        <tr class="impar">
+            <td>Dos últimas del segundo premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Dos últimas del tercer premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Reintegros (última cifra Gordo)</td>
+            <td>9.999</td>
+            <td>200</td>
+            <td>1€</td>
+        </tr>
+        <tr class="total">
+            <th>TOTALES POR SERIE</th>
+            <th>15.304</th>
+            <th>&nbsp;</th>
+            <th>70% en premios</th>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Vamos-a-empezar-a-calcular-estad&#237;sticas">Vamos a empezar a calcular estad&#237;sticas<a class="anchor-link" href="#Vamos-a-empezar-a-calcular-estad&#237;sticas">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>[AVISO: En algunas partes verás código de programación. Este código servirá para hacer los cálculos pero espero que no sea relevante saber programar en Python para que puedas seguir el hilo]</strong>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En la tabla anterior los premios son por billete (que son 10 décimos). Lo normal es que la gente compre un décimo y no un billete completo (10 décimos, 200 €).</p>
+<p>Viendo la tabla anterior vemos que si compras un décimo tienes 1 entre 100.000 posibilidades de que te toquen 400.000 €, de los cuales <a href="https://es.wikipedia.org/wiki/Agencia_Estatal_de_Administraci%C3%B3n_Tributaria">la Agencia Tributaria</a> se llevará el 20% de todo lo que sobrepase los 10.000 € (*).</p>
+<p><em>(*) Todos los premios que sobrepasen los 10.000 € (en 2018) pagan el 20% del valor por encima de esos 10.000 € en impuestos. Aunque <a href="http://www.expansion.com/economia/declaracion-renta/2018/05/16/5afc2b26468aebf9238b46e3.html">esto irá cambiando en el futuro</a>.</em></p>
+<p>Por tanto, si te tocan 400.000€ en 2018 pagarás:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{(400_000 - 10_000) * 0.2} € a Hacienda&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>78000.0 € a Hacienda
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por tanto, si pagas 78.000 € a hacienda te quedarán:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{400_000 - 78_000} € para ti&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>322000 € para ti
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Como hemos comentado más arriba, tienes una posibilidad entre 100.000 de que salga tu número en el sorteo. Por tanto, tienes las siguientes probabilidades de que te toque un premio tan cuantioso, por encima de 300.000 €:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 * 1 / 100_000}</span><span class="si">% d</span><span class="s2">e que te toque&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.001% de que te toque
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Y las siguientes de que NO te toque.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 * 99_999 / 100_000}</span><span class="si">% d</span><span class="s2">e que NO te toque&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>99.999% de que NO te toque
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por otro lado, vemos que hay premios en hasta 15.304 combinaciones, que no números, diferentes de los 100.000 en juego. Por simplificar un poco en este punto vamos a considerar que son 15.304 números los que pueden resultar premiados (serán menos, luego lo veremos), por tanto, bajo este supuesto la probabilidad de que al menos recuperemos la inversión inicial (los 20 € del décimo) sería:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 * 15_304 / 100_000}</span><span class="si">% d</span><span class="s2">e que al menos recuperes lo invertido&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>15.304% de que al menos recuperes lo invertido
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por otro lado, la probabilidad de perder tus 20 € sería:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 - 100 * 15_304 / 100_000}</span><span class="si">% d</span><span class="s2">e perderlo todo&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>84.696% de perderlo todo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Vamos-a-seguir-calculando-estad&#237;sticas">Vamos a seguir calculando estad&#237;sticas<a class="anchor-link" href="#Vamos-a-seguir-calculando-estad&#237;sticas">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Cual sería la probabilidad de ganar algo? Si cobras el reintegro, simplificando nuevamente, no estás ganando nada, solo te quedas como estabas, con tus 20 € en el bolsillo, por lo que es lo mismo que no jugar.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Repito, simplificando un poco, vemos que de los 15.304 posibles premios, 9.999 son reintegros por lo que no ganas nada. Por tanto, nos quedan 15.304 - 9.999 posibilidades, es decir:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{15_304 - 9_999} números con premio real&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5305 números con premio real
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La probabilidad de que realmente ganemos algo, después de tener esto en cuenta, sería:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 * 5_305 / 100_000}</span><span class="si">% d</span><span class="s2">e que salgas ganando algo&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5.305% de que salgas ganando algo
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Y la probabilidad de que nos quedemos como estábamos o peor sería:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 - 100 * 5_305 / 100_000}</span><span class="si">% d</span><span class="s2">e que estemos igual o peor&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>94.695% de que estemos igual o peor
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por tanto, vemos que, más o menos, tenemos 1 posibilidad entre 20 de salir ganando algo. Para los que lo ven con el vaso medio vacío, tenemos, aproximadamente, 19 posibilidades de 20 de quedarnos igual o peor que estábamos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si comprásemos 20 décimos (400 €) con números diferentes se podría esperar que te tocase algo. Pero vemos que la inmensa mayoría de los premios son de 100 € al décimo (1.000 € al billete).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<table class="table table-hover text-centered">
+    <tbody>
+        <tr class="title">
+            <td><b>premios por serie</b></td>
+            <td><b>Total premios</b></td>
+            <td><b>Importe en euros</b></td>
+            <td><b>Cantidad ganada (por euro jugado)</b></td>
+        </tr>
+        <tr class="par">
+            <td>Pedreas de 5 cifras</td>
+            <td>1.794</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Centenas del primer premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Centenas del segundo premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Centenas del tercer premio</td>
+            <td>99</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="impar">
+            <td>Centenas de dos cuartos premio</td>
+            <td>198</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Dos últimas del primer premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>6€</td>
+        </tr>
+        <tr class="impar">
+            <td>Dos últimas del segundo premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="par">
+            <td>Dos últimas del tercer premio</td>
+            <td>999</td>
+            <td>1.000</td>
+            <td>5€</td>
+        </tr>
+        <tr class="total">
+            <th>TOTALES POR SERIE</th>
+            <th>5.286</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por tanto, la probabilidad de que, habiéndote tocado un premio, el premio sea de 100 € sería:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{100 * 5_286 / 5_305}</span><span class="si">% d</span><span class="s2">e que tu premio sea de 100 €&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>99.64184731385485% de que tu premio sea de 100 €
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Por tanto, en el caso de que te tocase un premio, comprando 20 décimos, la probabilidad de que este premio fuera menor (100 € al décimo) sería muy alta. Por tanto, es probable que el premio fuese de 100 € y, en esta hipotética situación, estaríamos perdiendo 300 €. O sea que, aunque ganemos, perdemos...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Los-premios-en-detalle">Los premios en detalle<a class="anchor-link" href="#Los-premios-en-detalle">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hasta ahora he comentado que estaba simplificando un poco el tema. En realidad, los premios son un poco más complejos puesto que hay combinaciones entre ellos ya que no todos los premios salen del bombo y el número de números premiados es menor debido a estas combinaciones.</p>
+<ul>
+<li>Por ejemplo, el primer premio (el Gordo) sale el 55.555. Vemos que el reintegro (cualquier número que acabe en 5) serían 9.999. Pero también hay premio para los números con las dos últimas cifras iguales al primer premio. Por tanto, si yo tengo el 65.355 tendría premio por el reintegro y por las dos últimas cifras. Siendo el mismo número tendría dos premios distintos.</li>
+<li>Otro ejemplo, el primer premio (el Gordo) sale el 15.000. El número anterior y posterior, 14.999 y 15.001, respectivamente, tendrían premio, pero se podría dar el caso que el segundo premio saliera el 15.001. Si yo poseo el 15.001 tendría el segundo premio y el premio del número posterior al primer premio.</li>
+</ul>
+<p>Por tanto, algunas de las estadísticas anteriores, basadas en el número total de números premiados serían incluso más desfavorables para vosotros.</p>
+<p>¿Cómo funciona cuando estamos en una situación como las anteriores? No lo sé muy bien puesto que no he encontrado el reglamento detallado en ningún sitio. Leyendo el último párrafo <a href="http://www.rtve.es/sorteos/loteria-navidad/premios/">aquí</a> parece que los premios se acumulan. <a href="http://www.selae.es/es/web%2Dcorporativa/normativa/normativa%2Dde%2Dlos%2Djuegos/loteria%2Dnacional">Aquí</a> no he sido capaz de encontrar nada.</p>
+<p>En el gráfico inferior podéis ver lo que sale del bombo y es totalmente aleatorio (cajas verdes) y lo que sale condicionado, números que no salen directamente del bombo (cajas negras).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://www.pybonacci.org/images/2018/11/Combinaciones.png?style=centerme" alt="Combinaciones para premios"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Simulaciones-aleatorias-para-ver-distintas-situaciones">Simulaciones aleatorias para ver distintas situaciones<a class="anchor-link" href="#Simulaciones-aleatorias-para-ver-distintas-situaciones">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Como la casuística es muy grande vamos a lanzar una serie de simulaciones aleatorias para hacernos idea de nuestras posibilidades en distintas situaciones:</p>
+<ul>
+<li>Comprando un único décimo</li>
+<li>comprando varios décimos del mismo número</li>
+<li>Comprando varios décimos de números distintos</li>
+<li>...</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Algunas condiciones que vamos a imponer:</p>
+<ul>
+<li>Suponemos que la venta total de décimos varia entre el 60% y el 75% para saber lo total recaudado por el estado (la lotería nacional depende del estado español).</li>
+<li>Para simplificar suponemos que compramos décimos enteros. En España es muy habitual comprar partes de décimos que repartes, por ejemplo, entre compañeros de trabajo, familia, amigos,..., de tal forma que una persona juega por una parte del décimo.</li>
+<li>Consideramos que 2/3 partes de las veces compramos décimos con números distintos y 1/3 parte de las veces compramos décimos del mismo número.</li>
+<li>Vamos a comprar desde 1 hasta 10 décimos para no hacerlo mucho más complicado (ni costoso para tu bolsillo).</li>
+<li>Como es un sorteo totalmente aleatorio consideramos que cualquier número tiene la misma probabilidad de salir premiado.</li>
+<li>Como puede haber muchas combinaciones en las que no tengo ni idea de lo que pasa voy a considerar siempre la situación más favorable para el jugador, el jugador se lleva el premio acumulado de todas las combinaciones posibles (ver sección anterior).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Un poco de código para hacer los cálculos y enseñar los resultados:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;ggplot&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Usamos una semilla para que los números sean reproducibles.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Un poco de funcionalidad para obtener los números de un sorteo de forma aleatoria.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">hundreds</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">bottom</span> <span class="o">=</span> <span class="n">top</span> <span class="o">-</span> <span class="mi">100</span>
+    <span class="n">hundred</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">bottom</span><span class="p">,</span> <span class="n">top</span><span class="p">))</span>
+    <span class="n">hundred</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">hundred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">hundred</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">hundred</span>
+
+<span class="k">def</span> <span class="nf">latest2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">last2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">100</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="n">last2</span><span class="p">)</span>
+    <span class="n">numbers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">numbers</span>
+
+<span class="k">def</span> <span class="nf">refund</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">last</span> <span class="o">=</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">10</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100_000</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="n">last</span><span class="p">)</span>
+    <span class="n">numbers</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">numbers</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">numbers</span>
+
+<span class="k">def</span> <span class="nf">get_lucky_numbers</span><span class="p">():</span>
+    <span class="n">numbers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_numbers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100_000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">),</span> 
+                                    <span class="n">size</span><span class="o">=</span><span class="mi">1807</span><span class="p">,</span> <span class="c1">#1st + 2nd + 3rd + 4th + 5th + pedrea </span>
+                                    <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="c1"># from first to fifth prizes</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">()])</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">()])</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">()])</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;fourth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)])</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;fifth&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">_numbers</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)])</span>
+    <span class="c1"># pedrea</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;pedrea&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">_numbers</span><span class="p">))</span>
+    <span class="c1"># Numbers close to the first prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;aprox1st&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Numbers close to the second prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;aprox2nd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Numbers close to the third prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;aprox3rd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Hundred close to the first prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;hundred1st&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hundreds</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Hundred close to the second prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;hundred2nd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hundreds</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Hundred close to the third prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;hundred3rd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hundreds</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Hundred close to the fourth prize</span>
+    <span class="n">h100</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">hundreds</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;fourth&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+        <span class="n">hundreds</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;fourth&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;hundred4th&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h100</span>
+    <span class="c1"># latest two digits of the first prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;two1st&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latest2</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># latest two digits of the second prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;two2nd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latest2</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;second&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># latest two digits of the third prize</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;two3rd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latest2</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;third&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Refund (reintegro)</span>
+    <span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;refund&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">refund</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="s2">&quot;first&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">numbers</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Diccionario con los premios a asignar a cada categoría.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prizes</span> <span class="o">=</span> <span class="p">{</span> <span class="c1"># after taxes</span>
+    <span class="s2">&quot;first&quot;</span><span class="p">:</span> <span class="mi">322_000</span><span class="p">,</span>
+    <span class="s2">&quot;second&quot;</span><span class="p">:</span> <span class="mi">115_000</span><span class="p">,</span>
+    <span class="s2">&quot;third&quot;</span><span class="p">:</span> <span class="mi">42_000</span><span class="p">,</span>
+    <span class="s2">&quot;fourth&quot;</span><span class="p">:</span> <span class="mi">18_000</span><span class="p">,</span> 
+    <span class="s2">&quot;fifth&quot;</span><span class="p">:</span> <span class="mi">6_000</span><span class="p">,</span>
+    <span class="s2">&quot;pedrea&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;aprox1st&quot;</span><span class="p">:</span> <span class="mi">2_000</span><span class="p">,</span>
+    <span class="s2">&quot;aprox2nd&quot;</span><span class="p">:</span> <span class="mi">1_250</span><span class="p">,</span>
+    <span class="s2">&quot;aprox3rd&quot;</span><span class="p">:</span> <span class="mi">960</span><span class="p">,</span>
+    <span class="s2">&quot;hundred1st&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;hundred2nd&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;hundred3rd&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;hundred4th&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;two1st&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;two2nd&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;two3rd&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s2">&quot;refund&quot;</span><span class="p">:</span> <span class="mi">20</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>La siguiente clase nos valdrá para un sorteo</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Raffle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raffle_numbers</span> <span class="o">=</span> <span class="n">get_lucky_numbers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raffle_prizes</span> <span class="o">=</span> <span class="n">prizes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_tickets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repeated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">((</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">repeated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100_000</span><span class="p">)),</span> 
+                                        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_tickets</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">my_numbers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100_000</span><span class="p">),</span> 
+                                               <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_tickets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_expenses</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">number_of_tickets</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">my_earnings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_earnings</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_get_earnings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">earnings</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">my_numbers</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">raffle_numbers</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">raffle_numbers</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
+                    <span class="n">earnings</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raffle_prizes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">earnings</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vamos a suponer que somos seres que vivimos muuuuuuchos años. En este ejemplo voy a considerar que asistimos a 10.000 sorteos (10.000 años jugando a la lotería de navidad sin fallar ningún año comprando entre uno y 10 décimos).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># No es muy eficiente pero espero que se entienda lo que hacemos:</span>
+<span class="c1"># Tarda un poco...</span>
+<span class="n">sorteos</span> <span class="o">=</span> <span class="mi">10_000</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">sorteos</span><span class="p">),</span>
+                       <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;#tickets&quot;</span><span class="p">,</span> <span class="s2">&quot;Repeated&quot;</span><span class="p">,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sorteos</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Raffle</span><span class="p">()</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">number_of_tickets</span><span class="p">,</span> 
+                       <span class="n">r</span><span class="o">.</span><span class="n">repeated</span><span class="p">,</span> 
+                       <span class="n">r</span><span class="o">.</span><span class="n">my_expenses</span><span class="p">,</span> 
+                       <span class="n">r</span><span class="o">.</span><span class="n">my_earnings</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hemos guardado los resultados en un <em>DataFrame</em>. Vamos a hacernos una serie de preguntas y vamos a ver las respuestas:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Después de 10.000 años jugando, en global, ¿he salido ganando?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s2">&quot;Expense&quot;</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[7]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f69079426d8&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pues parece que no, he perdido bastante más de lo que he ganado.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>¿He ganado el gordo alguna vez?</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">300_000</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[8]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Me sale un cero patatero :-(</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Cuánto es lo máximo que he ganado en un único sorteo?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[9]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>115100</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Cuántos años no he ganado nada o he acabado perdiendo dinero?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[10]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>9137</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>El 91.37% de las veces no gano nada o pierdo dinero.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Cuál es la distribución de mis premios en 10.000 años?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">120_000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Cómo están mis premios ordenados de mayor a menor?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">premios</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">900</span><span class="p">),</span>
+       <span class="n">premios</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">900</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">semilogy</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Vemos que las ganancias por debajo de 100€ son la mayoría.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Mis diez mejores ganancias han sido:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span> 
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[20]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2524    115040
+7604      5880
+1585      5860
+8826      5860
+3918      2000
+5783      1960
+3905      1620
+5609      1370
+8704      1000
+9194      1000
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En 10.000 años solo he conseguido 8 premios por encima de los 1.000 €.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>En promedio, ¿gano más si repito el mismo número, es decir, si compro varios décimos del mismo número, o si compro números diferentes?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[23]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-69.03603326147213</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[24]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-47.69583888642085</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pues parece que la estrategia de no repetir el número es mejor ya que, en promedio, pierdo menos dinero.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>¿Los mejores premios los consigo cuando repito números o cuando compro números diferentes?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>155</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Earning&quot;</span><span class="p">]</span> <span class="o">-</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">Repeated</span> <span class="o">==</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Expense&quot;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[26]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>76</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si repito números tiendo a obtener premios más altos, como es de esperar. Si compro 10 décimos del mismo número y me toca el gordo ganaré más de 3.000.000 € pero, claro, mis probabilidades de pillar el gordo se reducen si lo comparo a comprar 10 décimos con números diferentes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Os podéis seguir haciendo preguntas ya que podéis descargar el notebook de <a href="https://github.com/Pybonacci/pybonacci.github.io/raw/sources/content/downloads/notebooks/TOLoNteria_de_Navidad.ipynb">aquí</a> e introducir vuestros propios cálculos.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Notas">Notas<a class="anchor-link" href="#Notas">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Si juegas y no ganas en realidad estás ganando ya que parte del dinero se va a destinar a generar empleo, al Tesoro del Estado,... El que no se consuela es porque no quiere.</p>
+<p>Muchas buenas causas (o no tan buenas) se financian usando participaciones de la lotería por lo que, además de jugar, puedes aportar a la causa/proyecto/... que consideres. Para el que no lo sepa, una participación es que compras un boleto donde parte se destina al sorteo y parte se destina a lo que considere el que organiza esa participación (comedores sociales, pagar parte de viajes de estudios de estudiantes,...).</p>
+<p>Ya, pensando un poco más egoistamente, en general parece poco probable que te lleves un gran premio (excepto si te apellidas Fabra). Es algo más probable, aunque no mucho más, que te lleves un premio menor y es altamente probable que no ganes nada o pierdas dinero. Si quieres ganar algo es mejor que compres números diferentes, como sería de esperar.</p>
+<p>De las loterías a las que puedes jugar en España esta es la que más probabilidades ofrece de ganar algo. Si juegas a cualquier otra lotería pública (El Niño, lotería primitiva, BonoLoto, la Quiniela,...) mejor lo enfocas como que estás haciendo una labor social de pagar impuestos voluntariamente, que estás generando empleo, la propia ilusión que te puede generar el participar en el sorteo,..., pero no pienses que vas a dejar de trabajar porque estarías cometiendo un error. Tus probabilidades disminuyen drásticamente. Además, el dinero no da la felicidad.</p>
+<p>Si gastas una media de 50 € cada año durante 50 años te estarás dejando 2.500 €.</p>
+<p>Personalmente, hace años que dejé de comprar lotería de navidad y hace años que la gente me mira raro, me llaman el 'Grinch', me dicen que soy un cenizo,...</p>
+<p>Independientemente de todo lo que has leído hasta aquí, si vas a jugar, ¡te deseo toda la suerte del mundo y me alegraré enormemente si te toca!</p>
+<p>;-)</p>
+
+</div>
+</div>
+</div>
+ 
+
+
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+        </div>
+
+        <div class="meta">
+            <div class="tags">
+                    <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">estadística</a>
+                    <a href="http://pybonacci.github.io/tag/probabilidad.html" class="tag">probabilidad</a>
+                    <a href="http://pybonacci.github.io/tag/estadistica.html" class="tag">estadistica</a>
+            </div>
+        </div>
+
+  
+<hr>    
+<div class="row">
+  <div class="col-md-2">
+    <img src=https://pybonacci.org/images/author/kiko-correoso.jpg alt="photo" class="img-author img-rounded"/>
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-9 description-author">
+    <p>Kiko es doctor en ciencias físicas y esta especializado en física de la atmósfera, meteorología y climatología. Además de estar en las nubes es especialista en temas de energías renovables en Iberdrola. Ávido de seguir mejorando siempre está abierto a participar en nuevos proyectos y retos por lo que no dudes en contactarle si necesitas servicios especializados de Python o meteorología.
+</p>
+  </div>
+</div> 
+
+    </article>
+<section id="isso-thread">
+    <h3>Comentarios</h3>
+</section>
+</div>
+
+<style type="text/css">
+{
+    max-width: 700px;
+}
+
+.text_cell .prompt {
+    display: none;
+}
+
+div.cell {
+    padding: 0;
+}
+
+div.text_cell_render {
+    padding: 0;
+}
+
+div.prompt {
+    font-size: 13px;
+}
+
+div.input_prompt {
+    padding: .7em 0.2em;
+}
+
+div.output_prompt {
+    padding: .4em .2em;
+}
+
+div.input_area {
+}
+
+table.dataframe {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+table.dataframe th, td {
+    padding: 4px;
+    text-align: left;
+}
+
+pre code {
+    background-color: inherit;
+}</style>
+
+        </div>
+
+        <footer class="disclaimer">
+          <div class="container-fluid">
+            <p>
+              © 2012-2018 Pybonacci, licencia <a href="https://github.com/Pybonacci/pybonacci.github.io/blob/sources/LICENSE.md"> CC BY-SA 4.0 + MIT</a>
+              salvo otra indicación.
+              <p>Contenido generado con <a href= "http://docs.getpelican.com/">Pelican</a>.</p>
+            </p>
+          </div>
+        </footer>
+
+    </body>
+</html>
